@@ -3,6 +3,10 @@
 #include "ResourceCache.h"
 #include "MacPlatform.h"
 
+@interface GLView(Private)
+- (void)resetCursor;
+@end
+
 @implementation GLView
 
 - (id)initWithFrame:(NSRect)theFrame pixelFormat:(NSOpenGLPixelFormat*)thePixelFormat {	
@@ -25,6 +29,12 @@
   }
   
   mouseMovedCount = 0;
+  [self resetCursor];
+  
+  NSTrackingArea* trackingArea = [[NSTrackingArea alloc] initWithRect:theFrame
+                                              options: (NSTrackingMouseEnteredAndExited | NSTrackingMouseMoved | NSTrackingActiveInKeyWindow )
+                                                owner:self userInfo:nil];
+  [self addTrackingArea:trackingArea];
   
 	return self;
 }
@@ -42,9 +52,12 @@
 - (void)setPlatform:(Platform*)thePlatform {
   platform = thePlatform;
   platform->set_screen_size(self.bounds.size.width, self.bounds.size.height);
+  
+  NSPoint mouseLocation = [NSEvent mouseLocation];
+  platform->set_mouse_position(mouseLocation.x, mouseLocation.y);
 }
 
-- (void)mouseMoved:(NSEvent *)theEvent {
+- (void)resetCursor {
   CGPoint windowCenter;
   NSArray *theScreens = [NSScreen screens];
   for (NSScreen *theScreen in theScreens) {
@@ -54,18 +67,40 @@
   }
   
   CGDisplayMoveCursorToPoint (kCGDirectMainDisplay, windowCenter);
+}
+
+- (void)mouseMoved:(NSEvent *)theEvent {
+//  
+//  int32_t x = 0;
+//  int32_t y = 0;
+//  
+//  CGGetLastMouseDelta(&x, &y);
+//  
+//  // wait 2 input events otherwise the mouse jumps
+//  if (mouseMovedCount > 2) {
+//    platform->set_mouse_delta(x, y);
+//  } else {
+//    mouseMovedCount++; 
+//  }
+//  
+  NSPoint mouseLocation = [self.window convertScreenToBase:[NSEvent mouseLocation]];
+  platform->set_mouse_position(mouseLocation.x, mouseLocation.y);
+}
+
+- (void)mouseDragged:(NSEvent *)theEvent {
+  NSPoint mouseLocation = [self.window convertScreenToBase:[NSEvent mouseLocation]];
+  platform->set_mouse_position(mouseLocation.x, mouseLocation.y);  
+}
+
+- (void)mouseExited:(NSEvent *)theEvent {
+  CGDisplayShowCursor(kCGDirectMainDisplay);
+}
+
+- (void)mouseEntered:(NSEvent *)theEvent {
+  CGDisplayHideCursor(kCGDirectMainDisplay);
   
-  int32_t x = 0;
-  int32_t y = 0;
-  
-  CGGetLastMouseDelta(&x, &y);
-  
-  // wait 2 input events otherwise the mouse jumps
-  if (mouseMovedCount > 2) {
-    platform->set_mouse_delta(x, y);
-  } else {
-    mouseMovedCount++; 
-  }
+  NSPoint mouseLocation = [self.window convertScreenToBase:[NSEvent mouseLocation]];
+  platform->set_mouse_position(mouseLocation.x, mouseLocation.y);
 }
 
 - (void)keyDown:(NSEvent *)theEvent {

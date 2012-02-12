@@ -27,6 +27,10 @@ public:
   
   void load_image(const std::string& full_path, INT* width, INT* height, void** data) const;
   
+  void set_mouse_position(int x, int y);
+  
+  Vector2 mouse_position() const;
+  
   VEC2 mouse_delta();
   
   void set_mouse_delta(INT x, INT y);
@@ -39,6 +43,8 @@ private:
   
   VEC2 mouse_delta_;
   
+  Vector2 mouse_position_;
+  
   VEC2 screen_size_;
   
   float aspect_ratio_;
@@ -46,6 +52,17 @@ private:
   BOOLEAN key_states_[KEY_STATE_COUNT];
   
 };
+
+inline
+void MacPlatform::set_mouse_position(int x, int y) {
+  mouse_position_.x = x;
+  mouse_position_.y = y;
+}
+
+inline
+Vector2 MacPlatform::mouse_position() const {
+  return mouse_position_;
+}
 
 inline
 void MacPlatform::set_screen_size(float width, float height) {

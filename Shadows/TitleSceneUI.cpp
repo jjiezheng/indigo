@@ -2,6 +2,7 @@
 
 #include "TitleSpriteButton.h"
 #include "MacPlatform.h"
+#include "Sprite.h"
 
 #include <iostream>
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C35C45814E81DFF0006A274 /* MouseLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C35C45614E81DFF0006A274 /* MouseLayer.cpp */; };
 		4C372F7514E43A9E00FBAF6B /* Box.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C372F7314E43A9D00FBAF6B /* Box.cpp */; };
 		4C372F7914E43E1200FBAF6B /* ShaderCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C372F7714E43E1200FBAF6B /* ShaderCache.cpp */; };
 		4C372F7C14E4476A00FBAF6B /* Scheduler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C372F7A14E4476A00FBAF6B /* Scheduler.cpp */; };
@@ -101,6 +102,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C35C45614E81DFF0006A274 /* MouseLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MouseLayer.cpp; sourceTree = "<group>"; };
+		4C35C45714E81DFF0006A274 /* MouseLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MouseLayer.h; sourceTree = "<group>"; };
 		4C372F7314E43A9D00FBAF6B /* Box.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Box.cpp; sourceTree = "<group>"; };
 		4C372F7414E43A9E00FBAF6B /* Box.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Box.h; sourceTree = "<group>"; };
 		4C372F7714E43E1200FBAF6B /* ShaderCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShaderCache.cpp; sourceTree = "<group>"; };
@@ -317,6 +320,8 @@
 				4C3E1C5914E7D136009E35E0 /* FontCharacter.h */,
 				4C3E1C6B14E80FE1009E35E0 /* Sprite.cpp */,
 				4C3E1C6C14E80FE2009E35E0 /* Sprite.h */,
+				4C35C45614E81DFF0006A274 /* MouseLayer.cpp */,
+				4C35C45714E81DFF0006A274 /* MouseLayer.h */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -714,6 +719,7 @@
 				4C3E1C6314E7FB33009E35E0 /* TextureCache.cpp in Sources */,
 				4C3E1C6A14E80075009E35E0 /* String.cpp in Sources */,
 				4C3E1C6D14E80FE3009E35E0 /* Sprite.cpp in Sources */,
+				4C35C45814E81DFF0006A274 /* MouseLayer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

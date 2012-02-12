@@ -21,6 +21,10 @@ public:
   
   virtual VEC2 mouse_delta() = 0;
   
+  virtual void set_mouse_position(int x, int y) = 0;
+  
+  virtual Vector2 mouse_position() const = 0;
+  
   virtual void set_mouse_delta(INT x, INT y) = 0;
   
   virtual void set_key_state(INT key_code, BOOLEAN state) = 0;

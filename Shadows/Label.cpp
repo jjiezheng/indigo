@@ -34,7 +34,9 @@ void Label::render(Camera *camera, Shader *shader, const Matrix4x4& transform) c
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   texture_->render(shader);
   
+  glm::mat4 nodeTransform = glm::translate(transform, position_);
+  
   for (SceneNode* child : children_) {
-    child->render(camera, shader, transform);
+    child->render(camera, shader, nodeTransform);
   }
 }

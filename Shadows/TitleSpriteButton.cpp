@@ -19,4 +19,11 @@ void TitleSpriteButton::init(const char* title, const char* upImage, const char*
 
   Label* label = Label::label(title, "copperplate_18.fnt");
   addChild(label);
+  
+  Rectangle boundingBox = this->boundingBox();
+  Rectangle labelBoundingBox = label->boundingBox();
+  
+  float labelX = (boundingBox.width - labelBoundingBox.width) / 2.0f;
+  float labelY = (boundingBox.height - labelBoundingBox.height) / 2.0f;
+  label->setPosition(labelX, labelY);
 }
