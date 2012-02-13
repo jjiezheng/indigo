@@ -24,5 +24,6 @@ void MouseLayer::init() {
 
 void MouseLayer::update(float dt) {
   Vector2 position = MacPlatform::instance()->mouse_position();
-  getChildByTag(TAG_MOUSE)->setPosition(position.x, position.y);
+  SceneNode* mouseNode = getChildByTag(TAG_MOUSE);
+  mouseNode->setPosition(position.x, position.y - mouseNode->boundingBox().height);
 }

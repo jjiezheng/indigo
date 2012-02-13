@@ -62,7 +62,7 @@ void Model::load(const char *filepath) {
     aiMaterial* material = scene->mMaterials[aiMesh->mMaterialIndex];
 
     aiColor3D ambient;
-    material->Get(AI_MATKEY_COLOR_DIFFUSE, ambient);
+    material->Get(AI_MATKEY_COLOR_AMBIENT, ambient);
     mesh->setAmbient(ambient.r, ambient.g, ambient.b);
     
     aiColor3D diffuse;
@@ -70,14 +70,14 @@ void Model::load(const char *filepath) {
     mesh->setDiffuse(diffuse.r, diffuse.g, diffuse.b);
     
     aiColor3D specular;
-    material->Get(AI_MATKEY_COLOR_DIFFUSE, specular);
+    material->Get(AI_MATKEY_COLOR_SPECULAR, specular);
     mesh->setSpecular(specular.r, specular.g, specular.b);
     
     meshes_.push_back(mesh);
   }
 }
 
-void Model::render(Camera* camera, Shader* shader) const {
+void Model::render(Camera* camera, Shader* shader, const Matrix4x4& transform) const {
   glm::mat4 rotation(1.0f);
   rotation = glm::rotate(rotation, rotationZ_, glm::vec3(0.0f, 0.0f, 1.0f));
   rotation = glm::rotate(rotation, rotationY_, glm::vec3(0.0f, 1.0f, 0.0f));
@@ -94,7 +94,7 @@ void Model::render(Camera* camera, Shader* shader) const {
   
   float aspectRatio = MacPlatform::instance()->aspect_ratio();
   glm::mat4 perspective = glm::perspective(45.0f, aspectRatio, 1.0f, 200.0f);
-  shader->set_uniform(perspective, "perspective");
+  shader->set_uniform(perspective, "projection");
     
   for (Mesh* mesh : meshes_) {
     mesh->render(shader);

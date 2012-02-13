@@ -7,7 +7,7 @@ uniform mat3 normalMatrix;
 varying vec3 varyingNormal;
 
 uniform int numLights;
-uniform vec3 lightPositions;
+uniform vec3 lightPositions[6];
 varying vec3 varyingLightDirections[6];
 
 

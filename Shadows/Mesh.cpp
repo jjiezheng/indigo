@@ -20,13 +20,11 @@ Mesh* Mesh::mesh(float* vertices, float* normals, int numVertices) {
 void Mesh::init() {
   glGenBuffers(1, &vertexBuffer);
   glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-  glBufferData(GL_ARRAY_BUFFER, 3 * sizeof(float) * numVertices_, 
-               vertices_, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, 3 * sizeof(float) * numVertices_, vertices_, GL_STATIC_DRAW);
   
   glGenBuffers(1, &normalBuffer);
   glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
-  glBufferData(GL_ARRAY_BUFFER, 3 * sizeof(float) * numVertices_, 
-               normals_, GL_STATIC_DRAW);  
+  glBufferData(GL_ARRAY_BUFFER, 3 * sizeof(float) * numVertices_, normals_, GL_STATIC_DRAW);  
 }
 
 void Mesh::render(Shader* shader) const {

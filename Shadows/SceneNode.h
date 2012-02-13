@@ -4,6 +4,7 @@
 #include <vector>
 #include "IUpdate.h"
 #include "Vector3.h"
+#include "Rectangle.h"
 
 class Camera;
 class Shader;

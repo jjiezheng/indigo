@@ -22,7 +22,7 @@
   
   ResourceCache::instance()->set_platform(platform);
   
-  game = Game::game();
+  game = Game::instance();
   game->init_with_scene(TitleScene::scene());
 
   [NSTimer scheduledTimerWithTimeInterval:(1.0f/60)target:self 

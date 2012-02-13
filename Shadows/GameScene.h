@@ -9,10 +9,6 @@ public:
   
   static GameScene* scene();
   
-public:
-  
-  void update(float dt);
-    
 private:
   
   void init();

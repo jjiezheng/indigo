@@ -54,6 +54,7 @@ void Sprite::init(const char *filePath) {
 }
 
 void Sprite::render(Camera *camera, Shader *shader, const glm::mat4 &transform) const {
+  if (!isVisible_) return;
   texture_->render(shader);
   
   glm::mat4 finalTransform = glm::translate(transform, position_);

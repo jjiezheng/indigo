@@ -41,16 +41,10 @@ void SceneNode::addChild(SceneNode* child) {
 
 Rectangle SceneNode::boundingBox() const {
   Rectangle boundingBox;
+  boundingBox.x = position_.x;
+  boundingBox.y = position_.y;
   for (SceneNode* child : children_) {
     Rectangle childBoundingBox = child->boundingBox();
-    if (childBoundingBox.x < boundingBox.x) {
-      boundingBox.x = childBoundingBox.x;
-    }
-    
-    if (childBoundingBox.y < boundingBox.y) {
-      boundingBox.y = childBoundingBox.y;
-    }
-    
     float childWidthExtent = childBoundingBox.x + childBoundingBox.width;
     if (childWidthExtent > boundingBox.width) {
       boundingBox.width = childWidthExtent;

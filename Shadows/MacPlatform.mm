@@ -66,8 +66,8 @@ void MacPlatform::set_mouse_delta(INT x, INT y) {
   mouse_delta_.y = y;
 }
 
-VEC2 MacPlatform::mouse_delta() { 
-  VEC2 delta = mouse_delta_; 
+Vector2 MacPlatform::mouse_delta() { 
+  Vector2 delta = mouse_delta_; 
   set_mouse_delta(0, 0);
   return delta; 
 };

@@ -41,10 +41,9 @@ void Light::render(Camera* camera, Shader* shader) const {
   glm::mat4 model = translation * invViewRotation;
   shader->set_uniform(model, "model");
   
-  
   float aspectRatio = MacPlatform::instance()->aspect_ratio();
   glm::mat4 perspective = glm::perspective(45.0f, aspectRatio, 1.0f, 200.0f);
-  shader->set_uniform(perspective, "perspective");
+  shader->set_uniform(perspective, "projection");
   
   glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer_);
   glEnableVertexAttribArray(ATTRIB_VERTEX);

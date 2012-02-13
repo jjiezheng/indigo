@@ -2,6 +2,7 @@
 
 #include "ResourceCache.h"
 #include "MacPlatform.h"
+#include "MouseClickDispatcher.h"
 
 @interface GLView(Private)
 - (void)resetCursor;
@@ -29,12 +30,13 @@
   }
   
   mouseMovedCount = 0;
-  [self resetCursor];
   
   NSTrackingArea* trackingArea = [[NSTrackingArea alloc] initWithRect:theFrame
                                               options: (NSTrackingMouseEnteredAndExited | NSTrackingMouseMoved | NSTrackingActiveInKeyWindow )
                                                 owner:self userInfo:nil];
   [self addTrackingArea:trackingArea];
+  
+  [self resetCursor];
   
 	return self;
 }
@@ -61,8 +63,9 @@
   CGPoint windowCenter;
   NSArray *theScreens = [NSScreen screens];
   for (NSScreen *theScreen in theScreens) {
-    windowCenter = CGPointMake([self window].frame.origin.x+800/2, 
-                                 (-1)*([self window].frame.origin.y-theScreen.frame.size.height)-600/2);
+    float x = theScreen.frame.size.width/2.0f;
+    float y = theScreen.frame.size.height/2.0f;
+    windowCenter = CGPointMake(x, y);
     break;
   }
   
@@ -70,7 +73,7 @@
 }
 
 - (void)mouseMoved:(NSEvent *)theEvent {
-//  
+  
 //  int32_t x = 0;
 //  int32_t y = 0;
 //  
@@ -83,8 +86,22 @@
 //    mouseMovedCount++; 
 //  }
 //  
+//  
+  
   NSPoint mouseLocation = [self.window convertScreenToBase:[NSEvent mouseLocation]];
   platform->set_mouse_position(mouseLocation.x, mouseLocation.y);
+}
+
+- (void)mouseDown:(NSEvent *)theEvent {
+  NSPoint mouseLocation = [self.window convertScreenToBase:[NSEvent mouseLocation]];
+  Vector2 location(mouseLocation.x, mouseLocation.y);
+  MouseClickDispatcher::instance()->mouseDown(0, location);
+}
+
+- (void)mouseUp:(NSEvent *)theEvent {
+  NSPoint mouseLocation = [self.window convertScreenToBase:[NSEvent mouseLocation]];
+  Vector2 location(mouseLocation.x, mouseLocation.y);
+  MouseClickDispatcher::instance()->mouseUp(0, location);
 }
 
 - (void)mouseDragged:(NSEvent *)theEvent {
