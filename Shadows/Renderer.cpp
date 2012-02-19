@@ -49,7 +49,7 @@ void Renderer::render3d() {
     shader->use();
     
     float aspectRatio = MacPlatform::instance()->aspect_ratio();
-    glm::mat4 projection = glm::perspective(45.0f, aspectRatio, 1.0f, 200.0f);
+    glm::mat4 projection = glm::perspective(45.0f, aspectRatio, 1.0f, 400.0f);
     shader->set_uniform(projection, "projection");
     
     for (Light* light : shadowLights_) {

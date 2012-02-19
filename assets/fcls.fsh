@@ -14,7 +14,7 @@ out vec4 fragColor;
 
 void main() {   
   
-  // //calculate diffuse
+  // calculate diffuse
   float diffuseStrength = 0.0;
   for (int i = 0; i < numLights; i++) {
     vec3 lightDirection = lightPositions[i] - oPosition;
@@ -38,6 +38,9 @@ void main() {
    }
  }
  
- float shadowedness = textureProj(shadowMapTexture, shadowMapCoord);
- fragColor.rgb *= shadowedness;
+ // multiply by shadow 
+ if (shadowMapCoord.w > 0.0f) {
+   float shadowedness = textureProj(shadowMapTexture, shadowMapCoord);
+   fragColor.rgb *= shadowedness;
+ }
 }

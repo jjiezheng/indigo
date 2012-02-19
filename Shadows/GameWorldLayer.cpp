@@ -21,7 +21,7 @@ void GameWorldLayer::init() {
     light1->translateZ(10);
     light1->translateY(1);
     light1->translateX(2);
-    light1->rotateY(-5);
+    light1->rotateY(-20);
     addChild(light1);
   }
   
@@ -39,16 +39,21 @@ void GameWorldLayer::init() {
   mainCamera->translateZ(10);
   addChild(mainCamera);
     
-
   Model* floor = Model::model("floor.blend");
   floor->translateY(-1);
   addChild(floor);
   
-  for (int x = 0; x < 10; x++) {
-    Model* model = Model::model("cube.blend");
-    model->translateZ(-10);
-    model->translateX(-x*5);
-    addChild(model, TAG_CUBE);
-  }
-
+  Model* wall = Model::model("wall.blend");
+  wall->translateZ(-10);
+  addChild(wall);
+  
+//  for (int x = 0; x < 10; x++) {
+//    Model* model = Model::model("cube.blend");
+//    model->translateZ(-10);
+//    model->translateX(-x*5);
+//    addChild(model, TAG_CUBE);
+//  }
+  
+//  Model* monkey = Model::model("monkey.blend");
+//  addChild(monkey);
 }
