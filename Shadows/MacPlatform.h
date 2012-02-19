@@ -52,7 +52,11 @@ public:
   
 private:
   
-  Vector2 mouse_delta_;
+  bool mouse_input_ready_;
+  
+  bool mouse_position_changed_;
+  
+  Vector2 last_mouse_position_;
   
   Vector2 mouse_position_;
   
@@ -79,12 +83,6 @@ bool MacPlatform::mouse_state(int buttonId) const {
 }
 
 inline
-void MacPlatform::set_mouse_position(int x, int y) {
-  mouse_position_.x = x;
-  mouse_position_.y = y;
-}
-
-inline
 Vector2 MacPlatform::mouse_position() const {
   return mouse_position_;
 }
@@ -105,4 +103,6 @@ inline
 float MacPlatform::aspect_ratio() const {
   return aspect_ratio_;
 }
+
+
 #endif

@@ -70,8 +70,8 @@ void Camera::update(float dt) {
   }
   
   Vector2 mouseDelta = MacPlatform::instance()->mouse_delta();
-  rotateY(mouseDelta.x);
-  rotateX(mouseDelta.y);
+  rotateY(mouseDelta.x * 0.5f);
+  rotateX(mouseDelta.y * 0.5f);
 }
 
 void Camera::moveUp(float speed) {

@@ -44,8 +44,11 @@ void GameWorldLayer::init() {
   floor->translateY(-1);
   addChild(floor);
   
-  Model* model = Model::model("cube.blend");
-  model->translateZ(-10);
-  addChild(model, TAG_CUBE);
+  for (int x = 0; x < 10; x++) {
+    Model* model = Model::model("cube.blend");
+    model->translateZ(-10);
+    model->translateX(-x*5);
+    addChild(model, TAG_CUBE);
+  }
 
 }

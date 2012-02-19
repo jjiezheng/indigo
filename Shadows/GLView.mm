@@ -17,4 +17,14 @@
   MacPlatform::instance()->set_key_state(theEvent.keyCode, false);
 }
 
+- (void)mouseDragged:(NSEvent *)theEvent {
+  NSPoint mouseLocation = [self.window convertScreenToBase:[NSEvent mouseLocation]];
+  MacPlatform::instance()->set_mouse_position(mouseLocation.x, mouseLocation.y);  
+}
+
+- (void)mouseMoved:(NSEvent *)theEvent {
+  NSPoint mouseLocation = [self.window convertScreenToBase:[NSEvent mouseLocation]];
+  MacPlatform::instance()->set_mouse_position(mouseLocation.x, mouseLocation.y);  
+}
+
 @end

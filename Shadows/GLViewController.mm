@@ -22,6 +22,7 @@
     NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersion3_2Core,
     NSOpenGLPFAColorSize    , 24                           ,
     NSOpenGLPFAAlphaSize    , 8                            ,
+    NSOpenGLPFADepthSize    , 32                           ,
     NSOpenGLPFADoubleBuffer ,
     NSOpenGLPFAAccelerated  ,
     0

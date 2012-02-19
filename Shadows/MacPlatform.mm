@@ -61,21 +61,29 @@ void MacPlatform::load_image(const std::string& full_path, INT* width, INT* heig
   CGContextRelease(context);
 }
 
-void MacPlatform::set_mouse_delta(INT x, INT y) {
-  mouse_delta_.x = x;
-  mouse_delta_.y = y;
-}
-
-Vector2 MacPlatform::mouse_delta() { 
-  Vector2 delta = mouse_delta_; 
-  set_mouse_delta(0, 0);
-  return delta; 
-};
-
 void MacPlatform::set_key_state(INT key_code, BOOLEAN state) {
   key_states_[key_code] = state;
 }
 
 BOOLEAN MacPlatform::get_key_state(INT key_code) {
   return key_states_[key_code];
+}
+
+void MacPlatform::set_mouse_position(int x, int y) {
+  last_mouse_position_ = mouse_position_;
+  mouse_position_.x = x;
+  mouse_position_.y = y;
+  if (!mouse_input_ready_) {
+    mouse_input_ready_ = true;
+  } else {
+    mouse_position_changed_ = true;
+  }
+}
+
+Vector2 MacPlatform::mouse_delta() { 
+  if (mouse_position_changed_ && mouse_input_ready_) {
+    mouse_position_changed_ = false;
+    return mouse_position_ - last_mouse_position_;;
+  }
+  return Vector2::IDENTITY;
 }

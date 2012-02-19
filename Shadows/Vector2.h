@@ -11,7 +11,18 @@ public:
   
 public:
   
+  Vector2 operator - (const Vector2& other) const {
+    return Vector2(x - other.x, y - other.y);
+  }
+  
+public:
+  
   float x, y;
+  
+public:
+  
+  static
+  Vector2 IDENTITY;
   
 };
 

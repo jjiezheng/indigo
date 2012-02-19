@@ -30,8 +30,6 @@ public:
   
   virtual bool mouse_state(int buttonId) const = 0;
   
-  virtual void set_mouse_delta(INT x, INT y) = 0;
-  
   virtual void set_key_state(INT key_code, BOOLEAN state) = 0;
   
   virtual BOOLEAN get_key_state(INT key_code) = 0;
