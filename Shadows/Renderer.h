@@ -11,6 +11,7 @@ class Light;
 class Model;
 class Shader;
 class Camera;
+class ShadowMap;
 
 class Renderer {
   
@@ -20,7 +21,7 @@ public:
   
 private:
   
-  Renderer() = default;
+  Renderer();
 
 public:
   
@@ -57,15 +58,9 @@ private:
   
 private:
   
-  GLuint shadowFrameBuffer_;
-  GLuint shadowRenderDepthBuffer_;
-  GLuint shadowRenderColorBuffer_;
-  GLuint shadowTexture_;
 
-  GLuint depthDebugVertArray_;
-  GLuint depthDebugVertBuffer_;
-  GLuint depthDebugUVBuffer_;
-
+  ShadowMap* shadowMap_;
+  
 };
 
 inline

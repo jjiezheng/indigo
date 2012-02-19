@@ -16,22 +16,36 @@ GameWorldLayer* GameWorldLayer::layer() {
 }
 
 void GameWorldLayer::init() {
-  DirectionalLight* light1 = DirectionalLight::light(Vector3(1, 1, 1));
-  light1->translateZ(50);
-  light1->translateY(1);
-  light1->translateX(2);
-  light1->rotateY(-5);
-  addChild(light1);
+  {
+    DirectionalLight* light1 = DirectionalLight::light(Vector3(1, 1, 1));
+    light1->translateZ(10);
+    light1->translateY(1);
+    light1->translateX(2);
+    light1->rotateY(-5);
+    addChild(light1);
+  }
+  
+//  {
+//    DirectionalLight* light1 = DirectionalLight::light(Vector3(1, 1, 1));
+//    light1->translateZ(50);
+//    light1->translateY(1);
+//    light1->translateX(-2);
+//    light1->rotateY(-5);
+//    addChild(light1);
+//  }
+
   
   Camera* mainCamera = Camera::camera();
   mainCamera->translateZ(10);
   addChild(mainCamera);
     
-  Model* model = Model::model("cube.blend");
-  model->translateZ(-10);
-  addChild(model, TAG_CUBE);
 
   Model* floor = Model::model("floor.blend");
   floor->translateY(-1);
   addChild(floor);
+  
+  Model* model = Model::model("cube.blend");
+  model->translateZ(-10);
+  addChild(model, TAG_CUBE);
+
 }

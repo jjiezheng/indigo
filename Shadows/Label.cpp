@@ -35,12 +35,14 @@ void Label::init(const char *fontFile) {
 }
 
 void Label::render(Shader *shader) const {
+  glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   texture_->render(shader);
   
   for (SceneNode* child : children_) {
     child->render(shader);
   }
+  glDisable(GL_BLEND);
 }
 
 void Label::render(Renderer* renderer) {

@@ -4,6 +4,9 @@ uniform vec3 ambient, diffuse, specular;
 uniform int numLights;
 uniform vec3 lightPositions[6];
 
+uniform sampler2DShadow shadowMapTexture;
+in vec4 shadowMapCoord;
+
 in vec3 oNormal;
 in vec3 oPosition;
 
@@ -34,4 +37,7 @@ void main() {
      fragColor.rgb += vec3(spec, spec, spec); 
    }
  }
+ 
+ float shadowedness = textureProj(shadowMapTexture, shadowMapCoord);
+ fragColor.rgb *= shadowedness;
 }

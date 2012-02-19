@@ -96,6 +96,28 @@ void ShaderCache::init() {
   }
   
   {
+    Shader* shader = instance()->addShader("vmvpcs.vsh", "fcls.fsh");
+    shader->bind_attribute(ATTRIB_VERTEX, "vertex");
+    shader->bind_attribute(ATTRIB_NORMAL, "normal");
+    shader->link();
+    shader->add_uniform("model");
+    shader->add_uniform("view");
+    shader->add_uniform("projection");
+    
+    shader->add_uniform("lightPositions");
+    shader->add_uniform("numLights");
+    shader->add_uniform("normalMatrix");
+    
+    shader->add_uniform("ambient");
+    shader->add_uniform("diffuse");
+    shader->add_uniform("specular");
+    
+    shader->add_uniform("lightMatrix");
+    shader->add_uniform("shadowMapTexture");
+  }
+
+  
+  {
     Shader* shader = instance()->addShader("vmvpc.vsh", "fc.fsh");
     shader->bind_attribute(ATTRIB_VERTEX, "vertex");
     shader->bind_attribute(ATTRIB_NORMAL, "normal");

@@ -13,6 +13,12 @@
 #include "ShaderAttribs.h"
 
 #include "GLUtilities.h"
+#include "ShadowMap.h"
+
+Renderer::Renderer() 
+  : shadowMap_(new ShadowMap) {
+  
+}
 
 Renderer* Renderer::renderer() {
   Renderer* renderer = new Renderer();
@@ -21,82 +27,7 @@ Renderer* Renderer::renderer() {
 }
 
 void Renderer::init() {
-  {
-    Vector2 screenSize = MacPlatform::instance()->screen_size();
-        
-    glGenFramebuffers(1, &shadowFrameBuffer_);
-    glBindFramebuffer(GL_FRAMEBUFFER, shadowFrameBuffer_);
-    
-    {
-      glReadBuffer(GL_NONE);
-      glDrawBuffer(GL_NONE);
-    }
-    
-    {
-      glGenRenderbuffers(1, &shadowRenderDepthBuffer_);
-      glBindRenderbuffer(GL_RENDERBUFFER, shadowRenderDepthBuffer_);
-      glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, screenSize.x, screenSize.y);
-      glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, shadowRenderDepthBuffer_);
-    }
-    
-    GLUtilities::checkFramebufferStatus(GL_FRAMEBUFFER);
-
-    {
-      glGenTextures(1, &shadowTexture_);
-      glBindTexture(GL_TEXTURE_2D, shadowTexture_);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
-      float ones[] = {1, 1, 1, 1};
-      glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, ones);
-      glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, screenSize.x, screenSize.y, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, 0);
-
-      glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, shadowTexture_, 0);
-    }
-    
-    GLUtilities::checkFramebufferStatus(GL_FRAMEBUFFER);
-    
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    
-  }
-  {
-    GLfloat vertices[] = {
-      -1.0f, -1.0f, 0.0f,
-      -0.5f, -1.0f, 0.0f,
-      -1.0f, -0.5f, 0.0f,
-      
-      -1.0f, -0.5f, 0.0f,
-      -0.5f, -1.0f, 0.0f,
-      -0.5f, -0.5f, 0.0f,
-    };
-    
-    glGenVertexArrays(1, &depthDebugVertArray_);
-    glBindVertexArray(depthDebugVertArray_);
-    
-    glGenBuffers(1, &depthDebugVertBuffer_);
-    glBindBuffer(GL_ARRAY_BUFFER, depthDebugVertBuffer_);
-    glBufferData(GL_ARRAY_BUFFER, 18 * sizeof(float), &vertices, GL_STATIC_DRAW);
-    glVertexAttribPointer(ATTRIB_VERTEX, 3, GL_FLOAT, 0, 0, 0);
-    glEnableVertexAttribArray(ATTRIB_VERTEX);
-    
-    GLfloat uvs[] = {
-      0.0f, 0.0f,
-      1.0f, 0.0f,
-      0.0f, 1.0f,
-      0.0f, 1.0f,
-      1.0f, 0.0f,
-      1.0f, 1.0f
-    };
-    
-    glGenBuffers(1, &depthDebugUVBuffer_);
-    glBindBuffer(GL_ARRAY_BUFFER, depthDebugUVBuffer_);
-    glBufferData(GL_ARRAY_BUFFER, 12 * sizeof(float), &uvs, GL_STATIC_DRAW);
-    glVertexAttribPointer(ATTRIB_UV, 2, GL_FLOAT, 0, 0, 0);
-    glEnableVertexAttribArray(ATTRIB_UV);
-  }
+  shadowMap_->init();
 }
 
 void Renderer::render(SceneNode *sceneNode) {
@@ -112,51 +43,48 @@ void Renderer::render3d() {
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_CULL_FACE);
   
-  // render shadow map   
+  // render shadow map
   {
-    glBindFramebuffer(GL_FRAMEBUFFER, shadowFrameBuffer_);
-    glClear(GL_DEPTH_BUFFER_BIT);
-    
-    glCullFace(GL_FRONT);
-    
-    for (Light* light : shadowLights_) {
-      Shader* shader = ShaderCache::instance()->addShader("vmvp.vsh", "fc.fsh");
-      shader->use();
-      
-      float aspectRatio = MacPlatform::instance()->aspect_ratio();
-      glm::mat4 projection = glm::perspective(45.0f, aspectRatio, 1.0f, 200.0f);
-      shader->set_uniform(projection, "projection");
-      shader->set_uniform(light->transform(), "view");
-      
-      glPolygonOffset(2.5f, 10.0f);
-      glEnable(GL_POLYGON_OFFSET_FILL);
-      renderScene(shader);
-      glDisable(GL_POLYGON_OFFSET_FILL);
-    }
-    
-    glCullFace(GL_BACK);
-    
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-  }
-  
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  
-  // render scene from active camera
-  
-  {
-    Shader* shader = ShaderCache::instance()->addShader("vmvps.vsh", "fcs.fsh");
+    Shader* shader = ShaderCache::instance()->addShader("vmvp.vsh", "fc.fsh");
     shader->use();
     
     float aspectRatio = MacPlatform::instance()->aspect_ratio();
     glm::mat4 projection = glm::perspective(45.0f, aspectRatio, 1.0f, 200.0f);
     shader->set_uniform(projection, "projection");
     
-    {
+    for (Light* light : shadowLights_) {
+      shader->set_uniform(light->transform(), "view");
+      shadowMap_->begin(light);
+      renderScene(shader);  
+      shadowMap_->end();
+    }
+  }
+    
+  // render scene from active camera  
+  {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    Shader* shader = ShaderCache::instance()->addShader("vmvpcs.vsh", "fcls.fsh");
+    shader->use();
+    
+    shader->set_uniform((int)shadowLights_.size(), "numLights");
+    
+    float lightPositions[shadowLights_.size()*3];
+    int lightPositionIndex = 0;
+    for (Light* light : shadowLights_) {
+      lightPositions[lightPositionIndex++] = light->position().x;
+      lightPositions[lightPositionIndex++] = light->position().y;
+      lightPositions[lightPositionIndex++] = light->position().z;
+    }
+    shader->set_uniform(lightPositions, lightPositionIndex, "lightPositions");
+    
+    float aspectRatio = MacPlatform::instance()->aspect_ratio();
+    glm::mat4 projection = glm::perspective(45.0f, aspectRatio, 1.0f, 200.0f);
+    shader->set_uniform(projection, "projection");
+    
+    for (Light* light : shadowLights_) {
       if (shadowLights_.size()) {
-        glBindTexture(GL_TEXTURE_2D, shadowTexture_);
-        shader->set_uniform(0, "shadowMapTexture");
-        
-        Light* light = shadowLights_[0];
+        shadowMap_->bind(shader);
         
         Matrix4x4 offsetMatrix(0.5f, 0.0f, 0.0f, 0.0f,
                                0.0f, 0.5f, 0.0f, 0.0f,
@@ -165,34 +93,16 @@ void Renderer::render3d() {
         
         Matrix4x4 lightMatrix = offsetMatrix * projection * light->transform();
         shader->set_uniform(lightMatrix, "lightMatrix");
-      }
-    }
-    
-    {  
-      for (Camera* camera : cameras_) {      
-        shader->set_uniform(camera->transform(), "view");
-        renderScene(shader);
+        
+        for (Camera* camera : cameras_) {      
+          shader->set_uniform(camera->transform(), "view");
+          renderScene(shader);
+        }
       }
     }
   }
   
-  //  // render debug shadow map
-  //    
-  //  {   
-  //    glBindVertexArray(depthDebugVertArray_);
-  //    
-  //    Shader* shader = ShaderCache::instance()->addShader("vt.vsh", "ft.fsh");
-  //    shader->use();
-  //    shader->set_uniform(0, "colorMap");
-  //    
-  //    float aspectRatio = MacPlatform::instance()->aspect_ratio();
-  //    glm::mat4 projection = glm::perspective(45.0f, aspectRatio, 1.0f, 200.0f);
-  //    shader->set_uniform(projection, "projection");
-  //    
-  //    glBindTexture(GL_TEXTURE_2D, shadowTexture_);
-  //    glDrawArrays(GL_TRIANGLES, 0, 6);    
-  //  }
-  
+  shadowMap_->debugDraw();
   
   models_.clear();
   lights_.clear();

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4C13AE4714F067A200275ECB /* GameUILayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C13AE4514F067A200275ECB /* GameUILayer.cpp */; };
 		4C13AE4A14F114DF00275ECB /* FPSLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C13AE4814F114DE00275ECB /* FPSLabel.cpp */; };
+		4C13AE4E14F11C1D00275ECB /* ShadowMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C13AE4C14F11C1C00275ECB /* ShadowMap.cpp */; };
 		4C35C45814E81DFF0006A274 /* MouseLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C35C45614E81DFF0006A274 /* MouseLayer.cpp */; };
 		4C35C45C14E82D670006A274 /* MouseClickDispatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C35C45A14E82D670006A274 /* MouseClickDispatcher.cpp */; };
 		4C35C46114E830B60006A274 /* Vector2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C35C45F14E830B60006A274 /* Vector2.cpp */; };
@@ -119,6 +120,8 @@
 		4C13AE4814F114DE00275ECB /* FPSLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FPSLabel.cpp; sourceTree = "<group>"; };
 		4C13AE4914F114DE00275ECB /* FPSLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPSLabel.h; sourceTree = "<group>"; };
 		4C13AE4B14F11B8700275ECB /* GLUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLUtilities.h; sourceTree = "<group>"; };
+		4C13AE4C14F11C1C00275ECB /* ShadowMap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShadowMap.cpp; sourceTree = "<group>"; };
+		4C13AE4D14F11C1C00275ECB /* ShadowMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowMap.h; sourceTree = "<group>"; };
 		4C35C45614E81DFF0006A274 /* MouseLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MouseLayer.cpp; sourceTree = "<group>"; };
 		4C35C45714E81DFF0006A274 /* MouseLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MouseLayer.h; sourceTree = "<group>"; };
 		4C35C45A14E82D670006A274 /* MouseClickDispatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MouseClickDispatcher.cpp; sourceTree = "<group>"; };
@@ -439,6 +442,8 @@
 				4CF604E814EC78AB00F1CF67 /* Renderer.cpp */,
 				4CF604E914EC78AC00F1CF67 /* Renderer.h */,
 				4C13AE4B14F11B8700275ECB /* GLUtilities.h */,
+				4C13AE4C14F11C1C00275ECB /* ShadowMap.cpp */,
+				4C13AE4D14F11C1C00275ECB /* ShadowMap.h */,
 			);
 			name = "Low Level Renderer";
 			sourceTree = "<group>";
@@ -804,6 +809,7 @@
 				4C8E104414F041410095F390 /* GLViewController.mm in Sources */,
 				4C13AE4714F067A200275ECB /* GameUILayer.cpp in Sources */,
 				4C13AE4A14F114DF00275ECB /* FPSLabel.cpp in Sources */,
+				4C13AE4E14F11C1D00275ECB /* ShadowMap.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

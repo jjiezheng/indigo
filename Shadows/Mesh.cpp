@@ -42,7 +42,6 @@ void Mesh::render(Shader* shader) const {
   shader->set_uniform(diffuse_, "diffuse");
   shader->set_uniform(specular_, "specular");
 
-  glBindVertexArray(vertexArray);
-  
+  glBindVertexArray(vertexArray);  
   glDrawArrays(GL_TRIANGLES, 0, numVertices_/3.0f);   
 }

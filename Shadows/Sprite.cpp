@@ -63,7 +63,7 @@ void Sprite::render(Camera *camera, Shader *shader, const glm::mat4 &transform) 
   glEnable(GL_TEXTURE_2D);
   glEnable(GL_BLEND);
   
-  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+//  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   
   glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer_);
   glEnableVertexAttribArray(ATTRIB_VERTEX);
