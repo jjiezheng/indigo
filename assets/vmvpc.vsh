@@ -1,18 +1,18 @@
-attribute vec4 vertex;
+#version 150 core
+
+in vec4 vertex;
+in vec3 normal;
 
 uniform mat4 view, model, projection;
-
-attribute vec3 normal;
 uniform mat3 normalMatrix;
-varying vec3 varyingNormal;
 
-varying vec3 varyingPosition;
-
+out vec3 oNormal;
+out vec3 oPosition;
 
 void main() {  
   gl_Position = projection * view * model * vertex;
   
   vec4 position4 = model * vertex;
-  varyingPosition = position4.xyz / position4.w;
-  varyingNormal = normalMatrix * normal;
+  oPosition = position4.xyz / position4.w;
+  oNormal = normalMatrix * normal;
 }

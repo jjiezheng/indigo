@@ -1,4 +1,6 @@
-attribute vec4 vertex;
+#version 150 
+
+in vec4 vertex;
 uniform mat4 model, view, projection;
 
 void main() {  

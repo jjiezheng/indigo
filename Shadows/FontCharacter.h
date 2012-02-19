@@ -18,7 +18,7 @@ public:
   
 public:
   
-  void render(Camera *camera, Shader *shader, const Matrix4x4& transform) const;
+  void render(Shader *shader) const;
   
 private:
   
@@ -30,6 +30,7 @@ private:
   
 private:
   
+  GLuint vertexArray_;
   GLuint vertexBuffer_;
   GLuint uvBuffer_;
   Rectangle boundingBox_;

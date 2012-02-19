@@ -49,6 +49,9 @@ public:
 public:
   
   static
+  Vector3 IDENTITY;
+  
+  static
   Vector3 FORWARD;
   
   static

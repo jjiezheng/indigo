@@ -13,8 +13,6 @@ TitleSceneUI* TitleSceneUI::ui() {
 }
 
 void TitleSceneUI::init() {
-  Layer2d::init();
-
   Button* button = TitleSpriteButton::button("Play!", "button_up.png", "button_down.png", 
                                              this, selector(TitleSceneUI::playClicked));
   Vector2 screenSize = MacPlatform::instance()->screen_size();

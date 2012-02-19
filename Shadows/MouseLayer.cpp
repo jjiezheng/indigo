@@ -14,8 +14,6 @@ MouseLayer* MouseLayer::mouse() {
 }
 
 void MouseLayer::init() {
-  Layer2d::init();
-  
   scheduleUpdate();
   
   Sprite* mouseSprite = Sprite::sprite("mouse_hand.png");

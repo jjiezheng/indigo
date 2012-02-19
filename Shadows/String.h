@@ -1,7 +1,7 @@
 #ifndef STRING_H
 #define STRING_H
 
-#import "Standard.h"
+#include "Standard.h"
 
 class String {
   

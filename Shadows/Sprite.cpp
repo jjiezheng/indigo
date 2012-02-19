@@ -73,9 +73,7 @@ void Sprite::render(Camera *camera, Shader *shader, const glm::mat4 &transform) 
   glEnableVertexAttribArray(ATTRIB_UV);
   glVertexAttribPointer(ATTRIB_UV, 2, GL_FLOAT, 0, 0, 0);
   
-  glEnableClientState(GL_VERTEX_ARRAY);
   glDrawArrays(GL_TRIANGLES, 0, 6);
-  glDisableClientState(GL_VERTEX_ARRAY);
   
   glDisableVertexAttribArray(ATTRIB_VERTEX);
   

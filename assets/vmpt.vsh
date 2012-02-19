@@ -1,10 +1,12 @@
-attribute vec4 vertex;
+#version 150 
+
 uniform mat4 projection, model;
 
-attribute vec2 textureCoords;
-varying vec2 varyingTextureCoords;
+in vec4 vertex;
+in vec2 textureCoords;
+out vec2 oTextureCoords;
 
 void main() {  
-  varyingTextureCoords = textureCoords;
+  oTextureCoords = textureCoords;
   gl_Position = projection * model * vertex;
 }

@@ -14,7 +14,9 @@ public:
   
 public:
   
-  void render(Camera* camera, Shader* shader, const Matrix4x4& transform) const;
+  void render(Renderer* renderer);
+  
+  void render(Shader* shader) const;
   
 private:
   

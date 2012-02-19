@@ -3,18 +3,29 @@
 #include "Standard.h"
 
 #include "Scheduler.h"
+#include "Scene.h"
+#include "Renderer.h"
 
-#define SAFE_DELETE(o) { delete (o); (o) = nullptr; }
+#include "MacPlatform.h"
+#include "ResourceCache.h"
+
+#include "GameScene.h"
 
 static Game* instance_ = nullptr;
 
 Game::Game() 
   : runningScene_(nullptr)
-  , nextScene_(nullptr) { }
+  , nextScene_(nullptr) { 
+    renderer_ = Renderer::renderer();
+}
 
 Game* Game::instance() {
   if (!instance_) {
     instance_ = new Game();
+    
+    MacPlatform* platform = MacPlatform::instance();    
+    ResourceCache::instance()->set_platform(platform);
+    instance_->init_with_scene(GameScene::scene());
   }
   return instance_;
 }
@@ -36,5 +47,6 @@ void Game::main_loop() {
   
   float dt = clock_.delta_time();
   Scheduler::instance()->update(dt);
-  runningScene_->render();
+  
+  renderer_->render(runningScene_);
 }

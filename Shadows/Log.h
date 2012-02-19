@@ -6,7 +6,7 @@ void DLOG(const char* fmt, ...);
 #ifdef DEBUG
   #define LOG DLOG
 #else
-  #define LOG
+  #define LOG DLOG
 #endif
 
 #endif

@@ -33,7 +33,8 @@ private:
   float* vertices_;
   float* normals_;
   int numVertices_;
-  
+
+  GLuint vertexArray;
   GLuint vertexBuffer;
   GLuint normalBuffer;  
 

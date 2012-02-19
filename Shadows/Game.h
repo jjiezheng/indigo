@@ -1,8 +1,10 @@
 #ifndef CubeFX_Game_h
 #define CubeFX_Game_h
 
-#include "Scene.h"
 #include "Clock.h"
+
+class Renderer;
+class Scene;
 
 class Game {
   
@@ -26,6 +28,8 @@ private:
   
   Scene* runningScene_;
   Scene* nextScene_;
+  
+  Renderer* renderer_;
   
   Clock clock_;
   

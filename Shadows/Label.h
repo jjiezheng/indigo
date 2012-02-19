@@ -8,6 +8,8 @@ class FontDescriptor;
 class FontCharacter;
 class Texture;
 
+class Renderer;
+
 class Label : public SceneNode {
   
 public:
@@ -18,7 +20,9 @@ public:
   
   void setText(const char* text);
   
-  void render(Camera* camera, Shader* shader, const Matrix4x4& transform) const;
+  void render(Renderer* renderer);
+  
+  void render(Shader* shader) const;
   
 private:
   
@@ -27,7 +31,6 @@ private:
   void init(const char* fontFile);
   
   std::string text_;
-  std::vector<FontCharacter*> characters_;
   
   FontDescriptor* font_;
   Texture* texture_;

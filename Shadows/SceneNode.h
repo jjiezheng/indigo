@@ -8,6 +8,7 @@
 
 class Camera;
 class Shader;
+class Renderer;
 
 class SceneNode : public IUpdate {
   
@@ -16,6 +17,12 @@ public:
   void addChild(SceneNode* child);
   
   void addChild(SceneNode* child, int tag);
+  
+  void removeChild(SceneNode* child);
+  
+  void removeAllChildrenAndCleanup();
+  
+  void removeFromParentAndCleanup();
     
   inline int tag();
   
@@ -39,6 +46,11 @@ public:
   
 public:
   
+  Matrix4x4 rotation() const;
+  Matrix4x4 transform() const;
+  
+public:
+  
   virtual
   Rectangle boundingBox() const;
   
@@ -46,8 +58,11 @@ public:
   
 public:
   
+  virtual
+  void render(Renderer* renderer);
+  
   virtual 
-  void render(Camera* camera, Shader* shader, const glm::mat4& transform) const;
+  void render(Shader* shader) const;
   
   virtual 
   void update(float dt);
@@ -55,6 +70,7 @@ public:
 private:
   
   void setTag(int tag);
+  void setParent(SceneNode* parent);
   
 protected:
   
@@ -73,15 +89,11 @@ protected:
   float rotationX_;
   float rotationY_;
   float rotationZ_;
-  
+
+  SceneNode* parent_;
   Vector3 position_;
   bool isVisible_;
 };
-
-inline
-void SceneNode::setVisible(bool isVisible) {
-  isVisible_ = isVisible;
-}
 
 #include "SceneNode.inl"
 

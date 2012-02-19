@@ -15,7 +15,7 @@
 #include "Shader.h"
 #include "ShaderAttribs.h"
 
-#include <iostream>
+#include "Renderer.h"
 
 Model* Model::model(const char* filepath) {
   Model* model = new Model();
@@ -77,7 +77,11 @@ void Model::load(const char *filepath) {
   }
 }
 
-void Model::render(Camera* camera, Shader* shader, const Matrix4x4& transform) const {
+void Model::render(Renderer* renderer) {
+  renderer->queueModel(this);
+}
+
+void Model::render(Shader* shader) const {
   glm::mat4 rotation(1.0f);
   rotation = glm::rotate(rotation, rotationZ_, glm::vec3(0.0f, 0.0f, 1.0f));
   rotation = glm::rotate(rotation, rotationY_, glm::vec3(0.0f, 1.0f, 0.0f));
@@ -91,11 +95,7 @@ void Model::render(Camera* camera, Shader* shader, const Matrix4x4& transform) c
   
   glm::mat4 model = translation * rotation;
   shader->set_uniform(model, "model");
-  
-  float aspectRatio = MacPlatform::instance()->aspect_ratio();
-  glm::mat4 perspective = glm::perspective(45.0f, aspectRatio, 1.0f, 200.0f);
-  shader->set_uniform(perspective, "projection");
-    
+      
   for (Mesh* mesh : meshes_) {
     mesh->render(shader);
   }

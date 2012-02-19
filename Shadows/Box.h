@@ -5,7 +5,7 @@
 #include "SceneNode.h"
 
 class Shader;
-class Camera;
+class Renderer;
 
 class Box : public SceneNode {
   
@@ -17,7 +17,9 @@ public:
   
   void init();
   
-  void render(Camera* camera, Shader* shader) const;
+  void render(Renderer* renderer);
+  
+  void render(Shader* shader) const;
   
 private:
   
@@ -25,6 +27,7 @@ private:
   
 private:
   
+  GLuint vertexArray;
   GLuint vertexBuffer;
   
 };

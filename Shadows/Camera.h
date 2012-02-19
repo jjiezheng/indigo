@@ -15,8 +15,8 @@ public:
   
   void init();
   
-  void render(Shader* shader) const;
-  
+  void render(Renderer* renderer);
+    
   void update(float dt);
   
 public:

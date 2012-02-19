@@ -1,6 +1,10 @@
-varying vec2 varyingTextureCoords;
+#version 150
+
 uniform sampler2D colorMap;
 
+in vec2 oTextureCoords;
+out vec4 fragColor;
+
 void main() {
-  gl_FragColor = texture2D(colorMap, varyingTextureCoords);
+  fragColor = texture(colorMap, oTextureCoords);
 }

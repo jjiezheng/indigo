@@ -6,6 +6,9 @@
 #include "TextureCache.h"
 #include "Texture.h"
 
+#include "Standard.h"
+#include "Renderer.h"
+
 Label* Label::label(const char* text, const char* fontFile) {
   Label* label = new Label();
   label->init(fontFile);
@@ -14,6 +17,7 @@ Label* Label::label(const char* text, const char* fontFile) {
 }
 
 void Label::setText(const char *text) {
+  removeAllChildrenAndCleanup();
   text_ = text;
   float offset = 0;
   for (char chr : text_) {
@@ -30,13 +34,15 @@ void Label::init(const char *fontFile) {
   texture_ = TextureCache::instance()->addTexture(font_->asset().c_str());
 }
 
-void Label::render(Camera *camera, Shader *shader, const Matrix4x4& transform) const {
+void Label::render(Shader *shader) const {
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   texture_->render(shader);
   
-  glm::mat4 nodeTransform = glm::translate(transform, position_);
-  
   for (SceneNode* child : children_) {
-    child->render(camera, shader, nodeTransform);
+    child->render(shader);
   }
+}
+
+void Label::render(Renderer* renderer) {
+  renderer->queueUI(this);
 }

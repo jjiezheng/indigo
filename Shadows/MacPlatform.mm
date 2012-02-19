@@ -39,9 +39,9 @@ std::string MacPlatform::path_for_file(const std::string& filename) const {
 
 void MacPlatform::load_image(const std::string& full_path, INT* width, INT* height, void** data) const {
   NSString* path = [NSString stringWithUTF8String:full_path.c_str()];  
-  NSData *texData = [[NSData alloc] initWithContentsOfFile:path];
+  NSData *texData = [[[NSData alloc] initWithContentsOfFile:path] autorelease];
 
-  NSBitmapImageRep* image = [[NSBitmapImageRep alloc] initWithData:texData];
+  NSBitmapImageRep* image = [[[NSBitmapImageRep alloc] initWithData:texData] autorelease];
     
   if (image == nil)
     NSLog(@"Do real error checking here");

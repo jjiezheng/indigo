@@ -54,9 +54,13 @@ void SceneNode::translateZ(float amount) {
 }
 
 inline
-void SceneNode::addChild(SceneNode* child, int tag) {
-  child->setTag(tag);
-  children_.push_back(child);
+void SceneNode::setParent(SceneNode* parent) {
+  parent_ = parent;
+}
+
+inline
+void SceneNode::setVisible(bool isVisible) {
+  isVisible_ = isVisible;
 }
 
 #endif

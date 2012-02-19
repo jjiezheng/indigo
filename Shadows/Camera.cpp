@@ -1,6 +1,7 @@
 #include "Camera.h"
 #include "Shader.h"
 #include "MacPlatform.h"
+#include "Renderer.h"
 
 #include <iostream>
 
@@ -38,8 +39,8 @@ Matrix4x4 Camera::transform() const {
   return rotation() * translation;
 }
 
-void Camera::render(Shader* shader) const {
-  shader->set_uniform(transform(), "view");
+void Camera::render(Renderer* renderer) {
+  renderer->queueCamera(this);
 }
 
 void Camera::update(float dt) {

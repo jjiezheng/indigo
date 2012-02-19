@@ -16,6 +16,9 @@ void FontCharacter::init(FontCharacterInfo* characterInfo) {
   float width = characterInfo->width;
   float height = characterInfo->height;
   
+  glGenVertexArrays(1, &vertexArray_);
+  glBindVertexArray(vertexArray_);
+  
   {
     float vertices[] = { 
       0,      height, 0.0f,
@@ -34,6 +37,8 @@ void FontCharacter::init(FontCharacterInfo* characterInfo) {
     glGenBuffers(1, &vertexBuffer_);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer_);
     glBufferData(GL_ARRAY_BUFFER, 6 * 3 * sizeof(float), vertices, GL_STATIC_DRAW);
+    glVertexAttribPointer(ATTRIB_VERTEX, 3, GL_FLOAT, 0, 0, 0);
+    glEnableVertexAttribArray(ATTRIB_VERTEX);
   }
   
   {
@@ -56,28 +61,23 @@ void FontCharacter::init(FontCharacterInfo* characterInfo) {
     glGenBuffers(1, &uvBuffer_);
     glBindBuffer(GL_ARRAY_BUFFER, uvBuffer_);
     glBufferData(GL_ARRAY_BUFFER, 6 * 2 * sizeof(float), uvs, GL_STATIC_DRAW);
+    glVertexAttribPointer(ATTRIB_UV, 2, GL_FLOAT, 0, 0, 0);
+    glEnableVertexAttribArray(ATTRIB_UV);
   }
+  
+  glBindVertexArray(0);
 }
 
-void FontCharacter::render(Camera *camera, Shader *shader, const Matrix4x4& transform) const {
+void FontCharacter::render(Shader *shader) const {
   glEnable(GL_TEXTURE_2D);
   glEnable(GL_BLEND);
   
-  glm::mat4 finalTransform = glm::translate(transform, position_);
+  glm::mat4 finalTransform = glm::translate(glm::mat4(1), position_);
   shader->set_uniform(finalTransform, "model");
   
-  glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer_);
-  glEnableVertexAttribArray(ATTRIB_VERTEX);
-  glVertexAttribPointer(ATTRIB_VERTEX, 3, GL_FLOAT, 0, 0, 0);
-  
-  glBindBuffer(GL_ARRAY_BUFFER, uvBuffer_);
-  glEnableVertexAttribArray(ATTRIB_UV);
-  glVertexAttribPointer(ATTRIB_UV, 2, GL_FLOAT, 0, 0, 0);
-  
-  glEnableClientState(GL_VERTEX_ARRAY);
+  glBindVertexArray(vertexArray_);  
   glDrawArrays(GL_TRIANGLES, 0, 6);
-  glDisableClientState(GL_VERTEX_ARRAY);
-
+  
   glDisable(GL_BLEND);
   glDisable(GL_TEXTURE_2D);
 }
