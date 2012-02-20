@@ -34,8 +34,7 @@ Matrix4x4 Camera::rotation() const {
 
 Matrix4x4 Camera::transform() const {
   glm::mat4 translation(1.0f);
-  translation = glm::translate(translation, -position_);
-  
+  translation = glm::translate(translation, -position_);  
   return rotation() * translation;
 }
 

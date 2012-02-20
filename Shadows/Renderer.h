@@ -8,6 +8,8 @@
 
 class SceneNode;
 class Light;
+class DirectionalLight;
+class PointLight;
 class Model;
 class Shader;
 class Camera;
@@ -38,9 +40,13 @@ private:
   
 public:
   
-  void queueLight(Light* light);
+  void queuePointLight(PointLight* light);
+  
+  void queueDirectionalLight(DirectionalLight* light);
   
   void queueShadowLight(Light* light);
+  
+  void queueLight(Light* light);
   
   void queueModel(Model* model);
   
@@ -51,10 +57,13 @@ public:
 private:
   
   std::vector<Camera*> cameras_;
-  std::vector<Light*> lights_;
-  std::vector<Light*> shadowLights_;
   std::vector<Model*> models_;
   std::vector<SceneNode*> uiNodes_;
+
+  std::vector<DirectionalLight*> directionalLights_;
+  std::vector<PointLight*> pointLights_;
+  std::vector<Light*> shadowLights_;
+  std::vector<Light*> lights_;
   
 private:
   
@@ -69,8 +78,13 @@ void Renderer::queueCamera(Camera* camera) {
 }
 
 inline
-void Renderer::queueLight(Light* light) {
-  lights_.push_back(light);
+void Renderer::queueDirectionalLight(DirectionalLight* light) {
+  directionalLights_.push_back(light);
+}
+
+inline
+void Renderer::queuePointLight(PointLight* light) {
+  pointLights_.push_back(light);
 }
 
 inline
@@ -81,6 +95,11 @@ void Renderer::queueModel(Model *model) {
 inline
 void Renderer::queueShadowLight(Light* light) {
   shadowLights_.push_back(light);
+}
+
+inline
+void Renderer::queueLight(Light* light) {
+  lights_.push_back(light);
 }
 
 inline

@@ -2,6 +2,7 @@
 
 #include <sys/sysctl.h>
 #include <sys/time.h>
+#include <iostream>
 
 #include <Foundation/Foundation.h>
 #include <ApplicationServices/ApplicationServices.h>
@@ -83,7 +84,8 @@ void MacPlatform::set_mouse_position(int x, int y) {
 Vector2 MacPlatform::mouse_delta() { 
   if (mouse_position_changed_ && mouse_input_ready_) {
     mouse_position_changed_ = false;
-    return mouse_position_ - last_mouse_position_;;
+    Vector2 delta = mouse_position_ - last_mouse_position_;
+    return delta;
   }
   return Vector2::IDENTITY;
 }

@@ -47,7 +47,12 @@ public:
 public:
   
   Matrix4x4 rotation() const;
+  
+  virtual
   Matrix4x4 transform() const;
+  
+  virtual
+  Matrix4x4 viewTransform() const;
   
 public:
   

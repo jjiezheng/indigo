@@ -11,13 +11,19 @@ public:
   
   static PointLight* light(const Vector3& color);
   
+private:
+  
   PointLight(const Vector3& color);
   
-public:
+private:
   
   void init();
   
-  void render(Camera* camera, Shader* shader) const;
+public:
+  
+  void render(Shader* shader) const;
+  
+  void render(Renderer* renderer);
   
 };
 

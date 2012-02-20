@@ -105,7 +105,11 @@ void ShaderCache::init() {
     shader->add_uniform("projection");
     
     shader->add_uniform("lightPositions");
-    shader->add_uniform("numLights");
+    shader->add_uniform("numPointLights");
+    
+    shader->add_uniform("lightDirections");
+    shader->add_uniform("numDirectionalLights");
+    
     shader->add_uniform("normalMatrix");
     
     shader->add_uniform("ambient");

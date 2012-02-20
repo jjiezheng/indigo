@@ -12,8 +12,7 @@ static const int VERTEX_SIZE = 3;
 static const int VERTEX_LENGTH = 18;
 
 DirectionalLight::DirectionalLight(const Vector3& color) 
-  : Light(color)
-  , direction_(Vector3::FORWARD) { }
+  : Light(color) { } 
 
 DirectionalLight* DirectionalLight::light(const Vector3& color) {
   DirectionalLight* light = new DirectionalLight(color);
@@ -21,7 +20,7 @@ DirectionalLight* DirectionalLight::light(const Vector3& color) {
   return light;
 }
 
-void DirectionalLight::init() {  
+void DirectionalLight::init() {
   GLfloat vertices[] = {
     -0.1f, -0.1f, 0.0f,
     0.1f, -0.1f, 0.0f,
@@ -38,27 +37,6 @@ void DirectionalLight::init() {
 }
 
 void DirectionalLight::render(Renderer* renderer) {
-  renderer->queueShadowLight(this);
-//  glm::mat4 translation = glm::translate(glm::mat4(1), position_);
-//  glm::mat4 invViewRotation = glm::inverse(camera->rotation());
-//  glm::mat4 model = translation * invViewRotation;
-//  shader->set_uniform(model, "model");
-//  
-//  float aspectRatio = MacPlatform::instance()->aspect_ratio();
-//  glm::mat4 perspective = glm::perspective(45.0f, aspectRatio, 1.0f, 200.0f);
-//  shader->set_uniform(perspective, "projection");
-//  
-//  glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer_);
-//  glEnableVertexAttribArray(ATTRIB_VERTEX);
-//  glVertexAttribPointer(ATTRIB_VERTEX, VERTEX_SIZE, GL_FLOAT, 0, 0, 0);
-//  
-//  glEnableClientState(GL_VERTEX_ARRAY);   
-//  glDisable(GL_CULL_FACE);  
-//  glDrawArrays(GL_TRIANGLES, 0, VERTEX_LENGTH);   
-//  glEnable(GL_CULL_FACE);
-//  glDisableClientState(GL_VERTEX_ARRAY);    
-}
-
-void DirectionalLight::castShadow() {
-  
+  Light::render(renderer);
+  renderer->queueDirectionalLight(this);
 }

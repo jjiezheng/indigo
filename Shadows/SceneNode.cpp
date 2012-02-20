@@ -6,7 +6,10 @@
 
 SceneNode::SceneNode() 
   : isVisible_(true)
-  , parent_(nullptr) {
+  , parent_(nullptr)
+  , rotationX_(0.0f)
+  , rotationY_(0.0f)
+  , rotationZ_(0.0f) {
   
 }
 
@@ -82,8 +85,13 @@ Matrix4x4 SceneNode::rotation() const {
 
 Matrix4x4 SceneNode::transform() const {
   glm::mat4 translation(1.0f);
-  translation = glm::translate(translation, -position_);
-  
+  translation = glm::translate(translation, position_);  
+  return rotation() * translation;
+}
+
+Matrix4x4 SceneNode::viewTransform() const {
+  glm::mat4 translation(1.0f);
+  translation = glm::translate(translation, -position_);  
   return rotation() * translation;
 }
 

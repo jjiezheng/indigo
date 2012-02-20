@@ -17,6 +17,8 @@
 
 #include "Renderer.h"
 
+#include <iostream>
+
 Model* Model::model(const char* filepath) {
   Model* model = new Model();
   model->init();
@@ -41,20 +43,28 @@ void Model::load(const char *filepath) {
         
     int vertIndex = 0;
     for (int vertexi = 0; vertexi < aiMesh->mNumVertices; vertexi++) {
+      
       aiVector3D vertex = aiMesh->mVertices[vertexi];
       aiVector3D normal = aiMesh->mNormals[vertexi];
       
-      verts[vertIndex] = vertex.x;
-      normals[vertIndex] = normal.x;
+      glm::vec4 vCorrect(vertex.x, vertex.y, vertex.z, 1.0f);
+      glm::vec4 nCorrect(normal.x, normal.y, normal.z, 1.0f);
+      
+//      std::clog << vCorrect.x << " " << vCorrect.y << " " << vCorrect.z << std::endl;
+//      std::clog << nCorrect.x << " " << nCorrect.y << " " << nCorrect.z << std::endl;
+      
+      verts[vertIndex] = vCorrect.x;
+      normals[vertIndex] = nCorrect.x;
       vertIndex++;
       
-      verts[vertIndex] = vertex.z;
-      normals[vertIndex] = normal.z;
+      verts[vertIndex] = vCorrect.y;
+      normals[vertIndex] = nCorrect.y;
       vertIndex++;
       
-      verts[vertIndex] = -vertex.y;
-      normals[vertIndex] = -normal.y;
+      verts[vertIndex] = vCorrect.z;
+      normals[vertIndex] = nCorrect.z;
       vertIndex++;
+      
     }
     
     Mesh* mesh = Mesh::mesh(verts, normals, vertIndex + 1);
@@ -75,6 +85,8 @@ void Model::load(const char *filepath) {
     
     meshes_.push_back(mesh);
   }
+  
+  rotateX(-90);
 }
 
 void Model::render(Renderer* renderer) {

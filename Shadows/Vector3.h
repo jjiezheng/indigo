@@ -48,6 +48,13 @@ public:
   
 public:
   
+  Vector3 operator * (const Matrix4x4& other) const {
+    glm::vec4 result = glm::vec4(x, y, z, 1.0f) * other;
+    return Vector3(result.x, result.y, result.z);
+  }
+  
+public:
+  
   static
   Vector3 IDENTITY;
   

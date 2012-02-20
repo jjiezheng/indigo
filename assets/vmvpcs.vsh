@@ -1,4 +1,4 @@
-#version 150 core
+#version 150
 
 in vec4 vertex;
 in vec3 normal;
