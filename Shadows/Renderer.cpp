@@ -127,7 +127,7 @@ void Renderer::render3d() {
                              0.0f, 0.0f, 0.5f, 0.0f,
                              0.5f, 0.5f, 0.5f, 1.0f);
       
-      Matrix4x4 lightMatrix = offsetMatrix * projection * light->viewTransform();
+      Matrix4x4 lightMatrix = offsetMatrix * projection * light->transform();
       shader->set_uniform(lightMatrix, "lightMatrix");
       
       for (Camera* camera : cameras_) {      
