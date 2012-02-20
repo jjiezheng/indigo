@@ -58,8 +58,8 @@ void main() {
   fragColor.rgb += ambient;
 
  // multiply by shadow 
- // if (shadowMapCoord.w > 0.0f) {
+ if (shadowMapCoord.w > 0.0f) {
    float shadowedness = textureProj(shadowMapTexture, shadowMapCoord);
-   fragColor = vec4(vec3(1,1,1)*shadowedness, 1);
- // }
+   fragColor = vec4(fragColor.rgb*shadowedness, 1);
+ }
 }
