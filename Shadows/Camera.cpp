@@ -24,20 +24,6 @@ void Camera::init() {
   scheduleUpdate();
 }
 
-Matrix4x4 Camera::rotation() const {
-  glm::mat4 rotation(1.0f);
-  rotation = glm::rotate(rotation, rotationX_, glm::vec3(1.0f, 0.0f, 0.0f));
-  rotation = glm::rotate(rotation, rotationY_, glm::vec3(0.0f, 1.0f, 0.0f));
-  rotation = glm::rotate(rotation, rotationZ_, glm::vec3(0.0f, 0.0f, 1.0f));
-  return rotation;
-}
-
-Matrix4x4 Camera::transform() const {
-  glm::mat4 translation(1.0f);
-  translation = glm::translate(translation, -position_);  
-  return rotation() * translation;
-}
-
 void Camera::render(Renderer* renderer) {
   renderer->queueCamera(this);
 }
@@ -69,16 +55,16 @@ void Camera::update(float dt) {
   }
   
   Vector2 mouseDelta = MacPlatform::instance()->mouse_delta();
-  rotateY(mouseDelta.x * 0.5f);
+  rotateY(-mouseDelta.x * 0.5f);
   rotateX(mouseDelta.y * 0.5f);
 }
 
 void Camera::moveUp(float speed) {
-  position_ = position_ + up_ * speed;
+  position_ = position_ + (up_ * speed);
 }
 
 void Camera::moveForward(float speed) {
-  position_ = position_ + forward_ * speed;
+  position_ = position_ + (forward_ * speed);
 }
 
 void Camera::moveRight(float speed) {

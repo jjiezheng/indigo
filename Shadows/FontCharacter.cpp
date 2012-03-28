@@ -72,7 +72,7 @@ void FontCharacter::render(Shader *shader) const {
   glEnable(GL_TEXTURE_2D);
   glEnable(GL_BLEND);
   
-  glm::mat4 finalTransform = glm::translate(glm::mat4(1), position_);
+  glm::mat4 finalTransform = glm::translate(glm::mat4(1), glm::vec3(position_.x, position_.y, position_.z));
   shader->set_uniform(finalTransform, "model");
   
   glBindVertexArray(vertexArray_);  

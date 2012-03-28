@@ -100,6 +100,7 @@ void ShaderCache::init() {
     shader->bind_attribute(ATTRIB_VERTEX, "vertex");
     shader->bind_attribute(ATTRIB_NORMAL, "normal");
     shader->link();
+    
     shader->add_uniform("model");
     shader->add_uniform("view");
     shader->add_uniform("projection");

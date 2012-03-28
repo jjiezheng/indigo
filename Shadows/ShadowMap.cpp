@@ -35,15 +35,17 @@ void ShadowMap::init() {
     {
       glGenTextures(1, &shadowTexture_);
       glBindTexture(GL_TEXTURE_2D, shadowTexture_);
+      glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, screenSize.x, screenSize.y, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+      
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
+      
       float ones[] = {1, 1, 1, 1};
       glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, ones);
-      glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, screenSize.x, screenSize.y, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, 0);
       
       glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, shadowTexture_, 0);
     }
@@ -93,11 +95,12 @@ void ShadowMap::init() {
 
 void ShadowMap::begin(Light* light) {
   glBindFramebuffer(GL_FRAMEBUFFER, shadowFrameBuffer_);
+  glPolygonOffset(2.5f, 10.0f);
+  glEnable(GL_POLYGON_OFFSET_FILL);
+  
   glClear(GL_DEPTH_BUFFER_BIT);  
   glCullFace(GL_FRONT);
   
-  glPolygonOffset(2.5f, 10.0f);
-  glEnable(GL_POLYGON_OFFSET_FILL);
 }
 
 void ShadowMap::end() {
@@ -113,8 +116,8 @@ void ShadowMap::debugDraw() {
   shader->use();
   shader->set_uniform(0, "colorMap");
   
-  float aspectRatio = MacPlatform::instance()->aspect_ratio();
-  glm::mat4 projection = glm::perspective(45.0f, aspectRatio, 1.0f, 200.0f);
+  Vector2 screenSize = MacPlatform::instance()->screen_size(); 
+  Matrix4x4 projection = Matrix4x4::orthographic(0, screenSize.x, 0, screenSize.y, -1, 1000);  
   shader->set_uniform(projection, "projection");
   
   glBindTexture(GL_TEXTURE_2D, shadowTexture_);

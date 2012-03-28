@@ -3,6 +3,11 @@
 #include "Scheduler.h"
 #include "Shader.h"
 #include "Standard.h"
+#include "ShaderCache.h"
+
+#include "Vector4.h"
+
+#include <iostream>
 
 SceneNode::SceneNode() 
   : isVisible_(true)
@@ -11,6 +16,10 @@ SceneNode::SceneNode()
   , rotationY_(0.0f)
   , rotationZ_(0.0f) {
   
+}
+
+void SceneNode::init() {
+  shader_ = ShaderCache::instance()->addShader("vmvpcs.vsh", "fcls.fsh");
 }
 
 void SceneNode::render(Renderer* renderer) {
@@ -76,23 +85,20 @@ Rectangle SceneNode::boundingBox() const {
 }
 
 Matrix4x4 SceneNode::rotation() const {
-  glm::mat4 rotation(1.0f);
-  rotation = glm::rotate(rotation, rotationX_, glm::vec3(1.0f, 0.0f, 0.0f));
-  rotation = glm::rotate(rotation, rotationY_, glm::vec3(0.0f, 1.0f, 0.0f));
-  rotation = glm::rotate(rotation, rotationZ_, glm::vec3(0.0f, 0.0f, 1.0f));
+  Matrix4x4 rotationX = Matrix4x4::rotationX(rotationX_);
+  Matrix4x4 rotationY = Matrix4x4::rotationY(rotationY_);
+  Matrix4x4 rotationZ = Matrix4x4::rotationZ(rotationZ_);
+  Matrix4x4 rotation = rotationZ * rotationY * rotationX;
   return rotation;
 }
 
 Matrix4x4 SceneNode::transform() const {
-  glm::mat4 translation(1.0f);
-  translation = glm::translate(translation, position_);  
-  return rotation() * translation;
+  Matrix4x4 translation = Matrix4x4::translation(position_);  
+  return translation * rotation();
 }
 
 Matrix4x4 SceneNode::viewTransform() const {
-  glm::mat4 translation(1.0f);
-  translation = glm::translate(translation, -position_);  
-  return rotation() * translation;
+  return transform().inverse();
 }
 
 void SceneNode::removeFromParentAndCleanup() {

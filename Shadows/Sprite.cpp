@@ -57,7 +57,7 @@ void Sprite::render(Camera *camera, Shader *shader, const glm::mat4 &transform) 
   if (!isVisible_) return;
   texture_->render(shader);
   
-  glm::mat4 finalTransform = glm::translate(transform, position_);
+  glm::mat4 finalTransform = glm::translate(transform, glm::vec3(position_.x, position_.y, position_.z));
   shader->set_uniform(finalTransform, "model");
   
   glEnable(GL_TEXTURE_2D);

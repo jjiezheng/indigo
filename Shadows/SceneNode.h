@@ -4,6 +4,7 @@
 #include <vector>
 #include "IUpdate.h"
 #include "Vector3.h"
+#include "Matrix4x4.h"
 #include "Rectangle.h"
 
 class Camera;
@@ -11,6 +12,10 @@ class Shader;
 class Renderer;
 
 class SceneNode : public IUpdate {
+  
+protected:
+  
+  void init();
   
 public:
   
@@ -48,10 +53,8 @@ public:
   
   Matrix4x4 rotation() const;
   
-  virtual
   Matrix4x4 transform() const;
   
-  virtual
   Matrix4x4 viewTransform() const;
   
 public:
@@ -91,13 +94,14 @@ protected:
   
   std::vector<SceneNode*> children_;
   int tag_;
-  float rotationX_;
-  float rotationY_;
-  float rotationZ_;
+  int rotationX_;
+  int rotationY_;
+  int rotationZ_;
 
   SceneNode* parent_;
   Vector3 position_;
   bool isVisible_;
+  Shader* shader_;
 };
 
 #include "SceneNode.inl"

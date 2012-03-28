@@ -3,7 +3,6 @@
 #include "Standard.h"
 #include "File.h"
 #include "json/reader.h"
-//#include "EntityComponent.h"
 #include "LevelResource.h"
 #include "SkyBox.h"
 

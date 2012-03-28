@@ -12,9 +12,10 @@ out vec4 shadowMapCoord;
 void main() {  
   gl_Position = projection * view * model * vertex;
   
-  shadowMapCoord = lightMatrix * vertex;
+  shadowMapCoord = lightMatrix * model * vertex;
   
   vec4 position4 = model * vertex;
   oPosition = position4.xyz / position4.w;
-  oNormal = normalMatrix * normal;
+  
+  oNormal = normalize(normalMatrix * normal);
 }

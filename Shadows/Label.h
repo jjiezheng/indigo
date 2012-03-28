@@ -3,6 +3,7 @@
 
 #include "SceneNode.h"
 #include <vector>
+#include <string>
 
 class FontDescriptor;
 class FontCharacter;

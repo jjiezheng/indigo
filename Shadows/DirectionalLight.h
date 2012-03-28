@@ -3,6 +3,8 @@
 
 #include "Light.h"
 
+#include "Vector4.h"
+
 class DirectionalLight : public Light {
   
 public:
@@ -17,19 +19,21 @@ private:
   
   void init();
   
+  void update(float dt);
+  
 public:
 
   void render(Renderer* renderer);
   
 public:
   
-  Vector3 direction() const;
+  Vector4 direction() const;
   
 };
 
 inline
-Vector3 DirectionalLight::direction() const {
-  return Vector3::FORWARD * rotation(); 
+Vector4 DirectionalLight::direction() const {
+  return rotation() * Vector4::FORWARD;
 }
 
 #endif

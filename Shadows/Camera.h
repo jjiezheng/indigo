@@ -18,13 +18,7 @@ public:
   void render(Renderer* renderer);
     
   void update(float dt);
-  
-public:
-  
-  Matrix4x4 transform() const;
-  
-  Matrix4x4 rotation() const;
-  
+    
 private:
   
   void rotateY(float degrees);

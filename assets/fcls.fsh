@@ -17,49 +17,25 @@ in vec3 oPosition;
 out vec4 fragColor;
 
 void main() {
-  
   fragColor = vec4(vec3(0), 1);
   
-  { // directional lights
-    // diffuse
-    float diffuseStrength = 0.0;
-    for (int i = 0; i < numDirectionalLights; i++) {
-      diffuseStrength += max(0.0, dot(normalize(-oNormal), normalize(lightDirections[i])));
-    }
-
-    float directionalIntensity = 0.5;
-    fragColor.rgb += diffuse * diffuseStrength * directionalIntensity;
+  for (int i = 0; i < numDirectionalLights; i++) {
+    float diffuseStrength = max(0.0, dot(-oNormal, normalize(lightDirections[i])));
+    fragColor.rgb += diffuse * diffuseStrength;
   }
   
-  { // point lights
-    // mix in diffuse
-    float diffuseStrength = 0.0;
-    for (int i = 0; i < numPointLights; i++) {
-      vec3 lightDirection = lightPositions[i] - oPosition;
-      diffuseStrength += max(0.0, dot(normalize(oNormal), normalize(lightDirection)));
-    }
-    fragColor.rgb += diffuse * diffuseStrength;    
-
-    // mix in specular
-    for (int i = 0; i < numPointLights; i++) {
-      vec3 lightDirection = lightPositions[i] - oPosition;
-      vec3 reflection = normalize(reflect(-normalize(lightDirection), 
-                                          normalize(oNormal)));
-      float spec = max(0.0, dot(normalize(oNormal), reflection));
-   
-      if (diffuseStrength != 0.0) {
-        float fSpec = pow(spec, 128.0);
-        fragColor.rgb += vec3(spec, spec, spec); 
-      }
-    }
+  for (int i = 0; i < numPointLights; i++) {
+    vec3 lightDirection = lightPositions[i] - oPosition;
+    float diffuseStrength = max(0.0, dot(normalize(oNormal), normalize(lightDirection)));
+    fragColor.rgb += diffuse * diffuseStrength; 
+  } 
+  
+  vec4 shadowCoord = shadowMapCoord;
+  shadowCoord.z += 0.0005;
+  
+  if (shadowCoord.w > 0.0f) {
+    float depth = textureProj(shadowMapTexture, shadowCoord);
+    float visibility = (depth == 0) ? 0.5 : 1.0;
+    fragColor.rgb = fragColor.rgb * visibility;
   }
-
-  // add ambient
-  fragColor.rgb += ambient;
-
- // multiply by shadow 
- if (shadowMapCoord.w > 0.0f) {
-   float shadowedness = textureProj(shadowMapTexture, shadowMapCoord);
-   fragColor = vec4(fragColor.rgb*shadowedness, 1);
- }
 }

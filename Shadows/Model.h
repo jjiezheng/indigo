@@ -2,6 +2,7 @@
 #define CubeFX_Model_h
 
 #include "SceneNode.h"
+#include <deque>
 
 class Mesh;
 class Camera;
@@ -25,8 +26,6 @@ private:
 private:
   
   void load(const char* filepath);
-  
-  void init();
   
 private:
   

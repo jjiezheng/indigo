@@ -7,6 +7,7 @@
 #include "Camera.h"
 
 #include "Renderer.h"
+#include <iostream>
 
 static const int VERTEX_SIZE = 3;
 static const int VERTEX_LENGTH = 18;
@@ -21,22 +22,29 @@ DirectionalLight* DirectionalLight::light(const Vector3& color) {
 }
 
 void DirectionalLight::init() {
-  GLfloat vertices[] = {
-    -0.1f, -0.1f, 0.0f,
-    0.1f, -0.1f, 0.0f,
-    -0.1f, 0.1f, 0.0f,
-    
-    -0.1f, 0.1f, 0.0f,
-    0.1f, -0.1f, 0.0f,
-    0.1f, 0.1f, 0.0f,
-  };
-  
-  glGenBuffers(1, &vertexBuffer_);
-  glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer_);
-  glBufferData(GL_ARRAY_BUFFER, VERTEX_LENGTH * sizeof(float), &vertices, GL_STATIC_DRAW);
+  scheduleUpdate();
+//  GLfloat vertices[] = {
+//    -0.1f, -0.1f, 0.0f,
+//    0.1f, -0.1f, 0.0f,
+//    -0.1f, 0.1f, 0.0f,
+//    
+//    -0.1f, 0.1f, 0.0f,
+//    0.1f, -0.1f, 0.0f,
+//    0.1f, 0.1f, 0.0f,
+//  };
+//  
+//  glGenBuffers(1, &vertexBuffer_);
+//  glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer_);
+//  glBufferData(GL_ARRAY_BUFFER, VERTEX_LENGTH * sizeof(float), &vertices, GL_STATIC_DRAW);
 }
 
 void DirectionalLight::render(Renderer* renderer) {
   Light::render(renderer);
   renderer->queueDirectionalLight(this);
+}
+
+void DirectionalLight::update(float dt) {  
+  static float accum = 0;
+  accum += 2*dt;
+  translateX(cos(accum));
 }

@@ -12,18 +12,6 @@
 #include <map>
 #include <stack>
 
-#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
-
-//#import <OpenGLES/ES2/gl.h>
-//#import <OpenGLES/ES2/glext.h>
-
-#elif defined(__MAC_OS_X_VERSION_MAX_ALLOWED)
-
-#include <OpenGL/gl3.h>
-#include <OpenGL/gl3ext.h>
-
-#endif
-
 #include "glm/glm.hpp"
 #include "glm/gtx/projection.hpp"
 #include "glm/gtx/rotate_vector.hpp"
@@ -33,6 +21,7 @@
 #include "glm/gtc/type_ptr.hpp"
 
 #include "Vector3.h"
+#include "Color3.h"
 
 #define SAFE_DELETE(o) { delete (o); (o) = nullptr; }
 

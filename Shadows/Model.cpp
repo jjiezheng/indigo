@@ -18,17 +18,15 @@
 #include "Renderer.h"
 
 #include <iostream>
+#include "Matrix3x3.h"
+#include "Vector4.h"
+#include "Matrix4x4.h"
 
 Model* Model::model(const char* filepath) {
   Model* model = new Model();
   model->init();
   model->load(filepath);
   return model;
-}
-
-void Model::init() {
-  rotationX_ = 0;
-  rotationZ_ = 0;
 }
 
 void Model::load(const char *filepath) {
@@ -43,19 +41,27 @@ void Model::load(const char *filepath) {
         
     int vertIndex = 0;
     for (int vertexi = 0; vertexi < aiMesh->mNumVertices; vertexi++) {
+      
+      // vertex
       aiVector3D vertex = aiMesh->mVertices[vertexi];
+      Vector4 originalVertex(vertex.x, vertex.y, vertex.z);
+      Vector4 rotatedVertex = originalVertex;
+      
+      // normal
       aiVector3D normal = aiMesh->mNormals[vertexi];
-      
-      verts[vertIndex] = vertex.x;
-      normals[vertIndex] = normal.x;
+      Vector4 originalNormal(normal.x, normal.y, normal.z);
+      Vector4 rotatedNormal = originalNormal;
+            
+      verts[vertIndex] = rotatedVertex.x;
+      normals[vertIndex] = rotatedNormal.x;
       vertIndex++;
       
-      verts[vertIndex] = vertex.z;
-      normals[vertIndex] = normal.z;
+      verts[vertIndex] = rotatedVertex.y;
+      normals[vertIndex] = rotatedNormal.y;
       vertIndex++;
       
-      verts[vertIndex] = -vertex.y;
-      normals[vertIndex] = -normal.y;
+      verts[vertIndex] = rotatedVertex.z;
+      normals[vertIndex] = rotatedNormal.z;
       vertIndex++;
     }
     
@@ -84,19 +90,8 @@ void Model::render(Renderer* renderer) {
 }
 
 void Model::render(Shader* shader) const {
-  glm::mat4 rotation(1.0f);
-  rotation = glm::rotate(rotation, rotationZ_, glm::vec3(0.0f, 0.0f, 1.0f));
-  rotation = glm::rotate(rotation, rotationY_, glm::vec3(0.0f, 1.0f, 0.0f));
-  rotation = glm::rotate(rotation, rotationX_, glm::vec3(1.0f, 0.0f, 0.0f));
-  
-  glm::mat3 normalMatrix(rotation);
-  shader->set_uniform(normalMatrix, "normalMatrix");
-  
-  glm::mat4 translation(1.0f);
-  translation = glm::translate(translation, position_);
-  
-  glm::mat4 model = translation * rotation;
-  shader->set_uniform(model, "model");
+  shader->set_uniform(rotation().mat3x3(), "normalMatrix");  
+  shader->set_uniform(transform(), "model");
       
   for (Mesh* mesh : meshes_) {
     mesh->render(shader);

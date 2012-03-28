@@ -3,6 +3,8 @@
 
 #include "Standard.h"
 
+#include "Color3.h"
+
 class Shader;
 
 class Mesh {

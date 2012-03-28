@@ -6,14 +6,16 @@
 class Shader;
 
 class Light : public SceneNode {
-  
-public:
+    
+protected:
   
   Light(const Vector3& color);
   
 public:
   
   void setCastsShadows(bool castsShadows);
+  
+  bool castsShadows() const;
   
   void render(Renderer* renderer);
 
@@ -24,6 +26,11 @@ protected:
   bool castsShadows_;
   
 };
+
+inline
+bool Light::castsShadows() const {
+  return castsShadows_;
+}
 
 inline
 void Light::setCastsShadows(bool castsShadows) {
