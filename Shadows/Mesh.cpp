@@ -3,16 +3,20 @@
 #include "Shader.h"
 #include "ShaderAttribs.h"
 #include "MeshResource.h"
+#include "Renderer.h"
 
-Mesh::Mesh(float* vertices, float* normals, int numVertices)
+#include "Maths.h"
+
+Mesh::Mesh(float* vertices, float* normals, int numVertices, Material* material)
   : vertices_(vertices)
   , normals_(normals)
-  , numVertices_(numVertices) {
+  , numVertices_(numVertices)
+  , material_(material) {
   
 }
 
-Mesh* Mesh::mesh(float* vertices, float* normals, int numVertices) {
-  Mesh* mesh = new Mesh(vertices, normals, numVertices);
+Mesh* Mesh::mesh(float* vertices, float* normals, int numVertices, Material* material) {
+  Mesh* mesh = new Mesh(vertices, normals, numVertices, material);
   mesh->init();
   return mesh;
 }
@@ -36,11 +40,14 @@ void Mesh::init() {
   glBindVertexArray(0);
 }
 
-void Mesh::render(Shader* shader) const {
-  shader->set_uniform(ambient_, "ambient");
-  shader->set_uniform(diffuse_, "diffuse");
-  shader->set_uniform(specular_, "specular");
+void Mesh::render(Shader* shader) const {  
+  shader->set_uniform(rotation().mat3x3(), "normalMatrix");  
+  shader->set_uniform(transform(), "model");
 
   glBindVertexArray(vertexArray);  
   glDrawArrays(GL_TRIANGLES, 0, numVertices_/3.0f);   
+}
+
+void Mesh::queueRender(Renderer* renderer) {
+  renderer->queueMesh(this);
 }

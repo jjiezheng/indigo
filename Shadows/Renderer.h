@@ -14,6 +14,7 @@ class Model;
 class Shader;
 class Camera;
 class ShadowMap;
+class Mesh;
 
 class Renderer {
   
@@ -58,24 +59,32 @@ public:
   
   void queueDebug(SceneNode* node);
   
+  void queueMesh(Mesh* node);
+  
 private:
   
   std::vector<Camera*> cameras_;
-  std::vector<Model*> models_;
-  std::vector<SceneNode*> uiNodes_;
+  std::vector<Mesh*> meshes_;
 
   std::vector<DirectionalLight*> directionalLights_;
   std::vector<PointLight*> pointLights_;
   std::vector<Light*> shadowLights_;
   std::vector<Light*> lights_;
+  
+  std::vector<SceneNode*> uiNodes_;
+
   std::vector<SceneNode*> debugNodes_;
   
 private:
-  
 
   ShadowMap* shadowMap_;
   
 };
+
+inline
+void Renderer::queueMesh(Mesh* node) {
+  meshes_.push_back(node);
+}
 
 inline
 void Renderer::queueCamera(Camera* camera) {
@@ -90,11 +99,6 @@ void Renderer::queueDirectionalLight(DirectionalLight* light) {
 inline
 void Renderer::queuePointLight(PointLight* light) {
   pointLights_.push_back(light);
-}
-
-inline
-void Renderer::queueModel(Model *model) {
-  models_.push_back(model);
 }
 
 inline

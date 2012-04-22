@@ -1,11 +1,7 @@
-#ifndef CubeFX_Model_h
-#define CubeFX_Model_h
+#ifndef MODEL_H
+#define MODEL_H
 
 #include "SceneNode.h"
-#include <deque>
-
-class Mesh;
-class Camera;
 
 class Model : public SceneNode {
   
@@ -13,26 +9,10 @@ public:
   
   static Model* model(const char* filepath);
   
-public:
-  
-  void queueRender(Renderer* renderer);
-  
-  void render(Shader* shader) const;
-  
-  void renderDebug() const;
-  
 private:
   
   Model() = default;
-  
-private:
-  
-  void load(const char* filepath);
-  
-private:
-  
-  std::deque<Mesh*> meshes_;
-  
+    
 };
 
 #endif

@@ -33,6 +33,7 @@ void GameWorldLayer::init() {
   {  
     Camera* mainCamera = Camera::camera();
     mainCamera->translateZ(50);
+    mainCamera->translateY(1);
     addChild(mainCamera);
   }
   
@@ -52,17 +53,16 @@ void GameWorldLayer::init() {
 
     
     Model* floor = Model::model("floor.blend");
-    floor->translateY(-2);
     addChild(floor);
     
-//    for (int x = 0; x < 10; x++) {
-//      for (int z = 0; z < 10; z++) {
-//        Model* model = Model::model("cube.blend");
-//        model->translateZ(-z*5);
-//        model->translateX(-x*5);
-//        addChild(model, TAG_CUBE);
-//      }
-//    }
+    for (int x = 0; x < 10; x++) {
+      for (int z = 0; z < 10; z++) {
+        Model* model = Model::model("cube.blend");
+        model->translateZ(-z*5);
+        model->translateX(-x*5);
+        addChild(model, TAG_CUBE);
+      }
+    }
     
     Model* wall = Model::model("wall.blend");
     wall->translateZ(-20);

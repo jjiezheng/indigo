@@ -1,5 +1,7 @@
 #include "String.h"
 
+#include <iostream>
+
 String::String() { 
   
 };
@@ -19,6 +21,14 @@ String String::withFormat(const char* format, ...) {
   vsprintf(buffer, format, args);
   va_end(args);
   return String(buffer);
+}
+
+String String::lastPathComponent() const {
+  std::vector<String> components = this->split('/');
+  if (components.size()) {
+    return components[components.size() - 1];
+  }
+  return "";
 }
 
 std::vector<String> String::split(char delimeter) const {

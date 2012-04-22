@@ -28,9 +28,15 @@ public:
   
   size_t length() const;
   
+  String lastPathComponent() const;
+  
+public:
+  
   const char* c_str() const;
   
   std::string str() const;
+  
+public:
   
   bool startsWith(const String& string) const;
   

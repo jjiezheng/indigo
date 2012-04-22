@@ -44,8 +44,9 @@ void MacPlatform::load_image(const std::string& full_path, INT* width, INT* heig
 
   NSBitmapImageRep* image = [[[NSBitmapImageRep alloc] initWithData:texData] autorelease];
     
-  if (image == nil)
-    NSLog(@"Do real error checking here");
+  if (image == nil) {
+    NSLog(@"Failed to load image %s", full_path.c_str());
+  }
   
   *width = (int)CGImageGetWidth(image.CGImage);
   *height = (int)CGImageGetHeight(image.CGImage);

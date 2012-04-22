@@ -85,12 +85,22 @@ Matrix4x4 Matrix4x4::perspective(float fov, float aspect, float znear, float zfa
 }
 
 Matrix4x4 Matrix4x4::orthographic(float left, float right, float bottom, float top, float near, float far) {
-  glm::mat4 inv = glm::ortho(left, right, bottom, top, near, far);
-//  inv = glm::transpose(inv);
-  return Matrix4x4(inv[0][0], inv[0][1], inv[0][2], inv[0][3],
-                   inv[1][0], inv[1][1], inv[1][2], inv[1][3],
-                   inv[2][0], inv[2][1], inv[2][2], inv[2][3],
-                   inv[3][0], inv[3][1], inv[3][2], inv[3][3]);
+  float w = right / 2.0f;
+  float h = top / 2.0f;
+  
+  float l = -w;
+  float r = w;
+  float t = h;
+  float b = -h;
+  
+  float n = near;
+  float f = far;
+  
+  return Matrix4x4(
+                   2.0f / (r - l) , 0,                 0,               0,
+                   0,               2.0f / (t - b) ,   0,               0,
+                   0,               0,                -(2.0f / (n - f)),  0,
+                   0,               0,                 0,              1);  
 }
 
 Matrix4x4::Matrix4x4() {

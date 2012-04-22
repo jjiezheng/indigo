@@ -4,29 +4,28 @@
 #include "Standard.h"
 
 #include "Color3.h"
+#include "SceneNode.h"
 
 class Shader;
+class Material;
 
-class Mesh {
+class Mesh : public SceneNode {
   
 public:
   
-  static Mesh* mesh(float* vertices, float* normals, int numVertices);
+  static Mesh* mesh(float* vertices, float* normals, int numVertices, Material* material);
   
 public:
   
   void render(Shader* shader) const;
   
-  void setAmbient(float r, float g, float b);
+  void queueRender(Renderer* renderer);
   
-  void setDiffuse(float r, float g, float b);
-  
-  void setSpecular(float r, float g, float b);
-  
+  Material* material() const;
+    
 private:
   
-
-  Mesh(float* vertices, float* normals, int numVertices);
+  Mesh(float* vertices, float* normals, int numVertices, Material* material);
   
   void init();
   
@@ -39,33 +38,13 @@ private:
   GLuint vertexArray;
   GLuint vertexBuffer;
   GLuint normalBuffer;  
-
-  Color3 ambient_;
-  Color3 diffuse_;
-  Color3 specular_;
-
+  
+  Material* material_;
 };
 
 inline
-void Mesh::setAmbient(float r, float g, float b) {
-  ambient_.r = r;
-  ambient_.g = g;
-  ambient_.b = b;
+Material* Mesh::material() const {
+  return material_;
 }
-
-inline
-void Mesh::setDiffuse(float r, float g, float b) {
-  diffuse_.r = r;
-  diffuse_.g = g;
-  diffuse_.b = b;
-}
-
-inline
-void Mesh::setSpecular(float r, float g, float b) {
-  specular_.r = r;
-  specular_.g = g;
-  specular_.b = b;
-}
-
 
 #endif

@@ -1,7 +1,7 @@
 #version 150
 
 uniform vec3 ambient, diffuse, specular;
-uniform int numLights;
+uniform int numPointLights;
 uniform vec3 lightPositions[6];
 
 in vec3 oNormal;
@@ -13,7 +13,7 @@ void main() {
   
   // //calculate diffuse
   float diffuseStrength = 0.0;
-  for (int i = 0; i < numLights; i++) {
+  for (int i = 0; i < numPointLights; i++) {
     vec3 lightDirection = lightPositions[i] - oPosition;
     diffuseStrength += max(0.0, dot(normalize(oNormal), normalize(lightDirection)));
   }
@@ -23,7 +23,7 @@ void main() {
  fragColor.rgb += ambient;
  
  // mix in specular
- for (int i = 0; i < numLights; i++) {
+ for (int i = 0; i < numPointLights; i++) {
    vec3 lightDirection = lightPositions[i] - oPosition;
    vec3 reflection = normalize(reflect(-normalize(lightDirection), 
                                         normalize(oNormal)));

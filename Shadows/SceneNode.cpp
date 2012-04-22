@@ -93,8 +93,14 @@ Matrix4x4 SceneNode::rotation() const {
 }
 
 Matrix4x4 SceneNode::transform() const {
-  Matrix4x4 translation = Matrix4x4::translation(position_);  
-  return translation * rotation();
+  Matrix4x4 transform = Matrix4x4::IDENTITY;
+
+  if (parent_) {
+    transform = transform * parent_->transform();
+  }
+  
+  Matrix4x4 translation = Matrix4x4::translation(position_);
+  return transform * translation * rotation();
 }
 
 Matrix4x4 SceneNode::viewTransform() const {
