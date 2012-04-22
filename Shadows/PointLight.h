@@ -23,7 +23,7 @@ public:
   
   void render(Shader* shader) const;
   
-  void render(Renderer* renderer);
+  void queueRender(Renderer* renderer);
   
 };
 

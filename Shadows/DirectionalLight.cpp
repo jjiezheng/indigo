@@ -8,6 +8,7 @@
 
 #include "Renderer.h"
 #include <iostream>
+#include "DebugDraw.h"
 
 static const int VERTEX_SIZE = 3;
 static const int VERTEX_LENGTH = 18;
@@ -23,28 +24,46 @@ DirectionalLight* DirectionalLight::light(const Vector3& color) {
 
 void DirectionalLight::init() {
   scheduleUpdate();
-//  GLfloat vertices[] = {
-//    -0.1f, -0.1f, 0.0f,
-//    0.1f, -0.1f, 0.0f,
-//    -0.1f, 0.1f, 0.0f,
-//    
-//    -0.1f, 0.1f, 0.0f,
-//    0.1f, -0.1f, 0.0f,
-//    0.1f, 0.1f, 0.0f,
-//  };
-//  
-//  glGenBuffers(1, &vertexBuffer_);
-//  glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer_);
-//  glBufferData(GL_ARRAY_BUFFER, VERTEX_LENGTH * sizeof(float), &vertices, GL_STATIC_DRAW);
+  
+  GLfloat vertices[] = {
+    -0.1f, -0.1f, 0.0f,
+    0.1f, -0.1f, 0.0f,
+    -0.1f, 0.1f, 0.0f,
+    
+    -0.1f, 0.1f, 0.0f,
+    0.1f, -0.1f, 0.0f,
+    0.1f, 0.1f, 0.0f,
+  };
+  
+  glGenVertexArrays(1, &vertexArray_);
+  glBindVertexArray(vertexArray_);
+  
+  glGenBuffers(1, &vertexBuffer_);
+  glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer_);
+  glBufferData(GL_ARRAY_BUFFER, VERTEX_LENGTH * sizeof(float), &vertices, GL_STATIC_DRAW);
+
+  glVertexAttribPointer(ATTRIB_VERTEX, 3, GL_FLOAT, 0, 0, 0);
+  glEnableVertexAttribArray(ATTRIB_VERTEX);
 }
 
-void DirectionalLight::render(Renderer* renderer) {
-  Light::render(renderer);
+void DirectionalLight::queueRender(Renderer* renderer) {
+  Light::queueRender(renderer);
   renderer->queueDirectionalLight(this);
+  renderer->queueDebug(this);
 }
 
-void DirectionalLight::update(float dt) {  
+void DirectionalLight::render(Shader* shader) const {
+  
+}
+
+void DirectionalLight::update(float dt) {
   static float accum = 0;
   accum += 2*dt;
   translateX(cos(accum));
+}
+
+void DirectionalLight::renderDebug(Shader* shader) const {
+  shader->set_uniform(transform(), "model");
+  glBindVertexArray(vertexArray_);  
+  glDrawArrays(GL_TRIANGLES, 0, 18);  
 }

@@ -60,7 +60,7 @@ void PointLight::render(Shader* shader) const {
   
 }
 
-void PointLight::render(Renderer* renderer) {
-  Light::render(renderer);
+void PointLight::queueRender(Renderer* renderer) {
+  Light::queueRender(renderer);
   renderer->queuePointLight(this);
 }

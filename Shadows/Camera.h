@@ -15,7 +15,9 @@ public:
   
   void init();
   
-  void render(Renderer* renderer);
+  void queueRender(Renderer* renderer);
+  
+  void renderDebug() const;
     
   void update(float dt);
     

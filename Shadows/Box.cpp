@@ -43,7 +43,7 @@ void Box::init() {
   glBindVertexArray(0);
 }
 
-void Box::render(Renderer* renderer) {
+void Box::queueRender(Renderer* renderer) {
 //  renderer->queueUI(this);
 }
 

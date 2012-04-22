@@ -8,7 +8,7 @@ Light::Light(const Vector3& color)
   
 }
 
-void Light::render(Renderer* renderer) {
+void Light::queueRender(Renderer* renderer) {
   renderer->queueLight(this);
   if (castsShadows_) {
     renderer->queueShadowLight(this);

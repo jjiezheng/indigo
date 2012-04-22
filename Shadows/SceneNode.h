@@ -67,7 +67,10 @@ public:
 public:
   
   virtual
-  void render(Renderer* renderer);
+  void queueRender(Renderer* renderer);
+  
+  virtual
+  void renderDebug(Shader* shader) const;
   
   virtual 
   void render(Shader* shader) const;

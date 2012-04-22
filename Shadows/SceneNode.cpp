@@ -22,10 +22,10 @@ void SceneNode::init() {
   shader_ = ShaderCache::instance()->addShader("vmvpcs.vsh", "fcls.fsh");
 }
 
-void SceneNode::render(Renderer* renderer) {
+void SceneNode::queueRender(Renderer* renderer) {
   if (!isVisible_) return;
   for (SceneNode* node : children_) {
-    node->render(renderer);
+    node->queueRender(renderer);
   }
 }
 
@@ -119,4 +119,8 @@ void SceneNode::removeChild(SceneNode* child) {
       ++i;
     }
   }
+}
+
+void SceneNode::renderDebug(Shader* shader) const {
+  
 }

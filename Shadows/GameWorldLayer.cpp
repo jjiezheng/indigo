@@ -25,6 +25,7 @@ void GameWorldLayer::init() {
   {    
     DirectionalLight* light1 = DirectionalLight::light(Vector3(1, 1, 1));
     light1->translateZ(50);
+    light1->translateY(1);
     light1->setCastsShadows(true);
     addChild(light1);
   }
@@ -54,14 +55,14 @@ void GameWorldLayer::init() {
     floor->translateY(-2);
     addChild(floor);
     
-    for (int x = 0; x < 10; x++) {
-      for (int z = 0; z < 10; z++) {
-        Model* model = Model::model("cube.blend");
-        model->translateZ(-z*5);
-        model->translateX(-x*5);
-        addChild(model, TAG_CUBE);
-      }
-    }
+//    for (int x = 0; x < 10; x++) {
+//      for (int z = 0; z < 10; z++) {
+//        Model* model = Model::model("cube.blend");
+//        model->translateZ(-z*5);
+//        model->translateX(-x*5);
+//        addChild(model, TAG_CUBE);
+//      }
+//    }
     
     Model* wall = Model::model("wall.blend");
     wall->translateZ(-20);

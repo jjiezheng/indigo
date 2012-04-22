@@ -52,6 +52,8 @@
   }
   
   CGDisplayMoveCursorToPoint (kCGDirectMainDisplay, windowCenter);
+  
+  [[[self view] window] setDelegate:self];
 }
 
 
@@ -63,7 +65,6 @@ CVReturn displayCallback(CVDisplayLinkRef displayLink, const CVTimeStamp *inNow,
 }
 
 - (void)createDisplayLink {
-  CVDisplayLinkRef displayLink = 0;
   CGDirectDisplayID displayID = CGMainDisplayID();
   CVReturn error = CVDisplayLinkCreateWithCGDisplay(displayID, &displayLink);
   
@@ -79,9 +80,12 @@ CVReturn displayCallback(CVDisplayLinkRef displayLink, const CVTimeStamp *inNow,
   }
 }
 
+- (void)windowWillClose:(NSNotification *)notification {
+  CVDisplayLinkStop(displayLink);
+}
+
 - (void)renderForTime:(CVTimeStamp)time {
-  [[[self view] openGLContext] makeCurrentContext];
-  
+  [[[self view] openGLContext] makeCurrentContext];  
   Game::instance()->main_loop();
   
   [[[self view] openGLContext] flushBuffer];

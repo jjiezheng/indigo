@@ -45,6 +45,10 @@ void Label::render(Shader *shader) const {
   glDisable(GL_BLEND);
 }
 
-void Label::render(Renderer* renderer) {
+void Label::queueRender(Renderer* renderer) {
   renderer->queueUI(this);
+}
+
+void Label::renderDebug() const {
+  
 }

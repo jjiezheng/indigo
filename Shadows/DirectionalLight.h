@@ -23,11 +23,21 @@ private:
   
 public:
 
-  void render(Renderer* renderer);
+  void queueRender(Renderer* renderer);
+  
+  void render(Shader* shader) const;
+  
+  void renderDebug(Shader* shader) const;
   
 public:
   
   Vector4 direction() const;
+  
+private:
+  
+  GLuint vertexBuffer_;
+  GLuint vertexArray_;
+
   
 };
 

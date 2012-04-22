@@ -17,12 +17,11 @@ public:
   
   bool castsShadows() const;
   
-  void render(Renderer* renderer);
+  void queueRender(Renderer* renderer);
 
 protected:
   
   Vector3 color_;
-  GLuint vertexBuffer_;
   bool castsShadows_;
   
 };

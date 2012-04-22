@@ -11,3 +11,7 @@ void Scene::render() {
     child->render(0);
   }
 }
+
+void Scene::renderDebug() const {
+  
+}

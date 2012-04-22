@@ -85,7 +85,7 @@ void Model::load(const char *filepath) {
   }
 }
 
-void Model::render(Renderer* renderer) {
+void Model::queueRender(Renderer* renderer) {
   renderer->queueModel(this);
 }
 
@@ -96,4 +96,8 @@ void Model::render(Shader* shader) const {
   for (Mesh* mesh : meshes_) {
     mesh->render(shader);
   }
+}
+
+void Model::renderDebug() const {
+  
 }

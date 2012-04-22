@@ -12,6 +12,8 @@ public:
   virtual
   void render();
   
+  void renderDebug() const;
+  
 };
 
 #endif

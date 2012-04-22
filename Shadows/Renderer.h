@@ -37,6 +37,8 @@ private:
   
   void renderUI();
   void render3d();
+  void renderShadowMap();
+  void renderDebug();
   
 public:
   
@@ -54,6 +56,8 @@ public:
   
   void queueUI(SceneNode* node);
   
+  void queueDebug(SceneNode* node);
+  
 private:
   
   std::vector<Camera*> cameras_;
@@ -64,6 +68,7 @@ private:
   std::vector<PointLight*> pointLights_;
   std::vector<Light*> shadowLights_;
   std::vector<Light*> lights_;
+  std::vector<SceneNode*> debugNodes_;
   
 private:
   
@@ -107,5 +112,10 @@ void Renderer::queueUI(SceneNode* node) {
   uiNodes_.push_back(node);
 }
 
+
+inline
+void Renderer::queueDebug(SceneNode* node) {
+  debugNodes_.push_back(node);
+}
 
 #endif

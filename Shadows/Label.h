@@ -21,9 +21,11 @@ public:
   
   void setText(const char* text);
   
-  void render(Renderer* renderer);
+  void queueRender(Renderer* renderer);
   
   void render(Shader* shader) const;
+  
+  void renderDebug() const;
   
 private:
   

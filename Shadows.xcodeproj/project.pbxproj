@@ -29,6 +29,7 @@
 		4C3E1C6314E7FB33009E35E0 /* TextureCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C3E1C6114E7FB30009E35E0 /* TextureCache.cpp */; };
 		4C3E1C6A14E80075009E35E0 /* String.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C3E1C6914E80075009E35E0 /* String.cpp */; };
 		4C3E1C6D14E80FE3009E35E0 /* Sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C3E1C6B14E80FE1009E35E0 /* Sprite.cpp */; };
+		4C651DDF15444A7800A37233 /* DebugDraw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C651DDE15444A7800A37233 /* DebugDraw.cpp */; };
 		4C6783121436F0D200F39B80 /* Button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C6782B41436F0D200F39B80 /* Button.cpp */; };
 		4C6783141436F0D200F39B80 /* Label.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C6782B61436F0D200F39B80 /* Label.cpp */; };
 		4C6783161436F0D200F39B80 /* FontDescriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C6782B81436F0D200F39B80 /* FontDescriptor.cpp */; };
@@ -141,6 +142,8 @@
 		4C3E1C6914E80075009E35E0 /* String.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = String.cpp; sourceTree = "<group>"; };
 		4C3E1C6B14E80FE1009E35E0 /* Sprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sprite.cpp; sourceTree = "<group>"; };
 		4C3E1C6C14E80FE2009E35E0 /* Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sprite.h; sourceTree = "<group>"; };
+		4C651DDC15444A3800A37233 /* DebugDraw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugDraw.h; sourceTree = "<group>"; };
+		4C651DDE15444A7800A37233 /* DebugDraw.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DebugDraw.cpp; sourceTree = "<group>"; };
 		4C6782AF1436F0D200F39B80 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
 		4C6782B01436F0D200F39B80 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
 		4C6782B31436F0D200F39B80 /* Button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Button.h; sourceTree = "<group>"; };
@@ -447,6 +450,8 @@
 				4C13AE4B14F11B8700275ECB /* GLUtilities.h */,
 				4C13AE4C14F11C1C00275ECB /* ShadowMap.cpp */,
 				4C13AE4D14F11C1C00275ECB /* ShadowMap.h */,
+				4C651DDC15444A3800A37233 /* DebugDraw.h */,
+				4C651DDE15444A7800A37233 /* DebugDraw.cpp */,
 			);
 			name = "Low Level Renderer";
 			sourceTree = "<group>";
@@ -819,6 +824,7 @@
 				4CCD86CF15222B0D006E7E2F /* Color3.cpp in Sources */,
 				4CA9BF27152267D100A449D5 /* Matrix4x4.cpp in Sources */,
 				4CA9BF2A1522699A00A449D5 /* Vector4.cpp in Sources */,
+				4C651DDF15444A7800A37233 /* DebugDraw.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

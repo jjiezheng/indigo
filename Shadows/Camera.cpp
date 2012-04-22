@@ -24,7 +24,7 @@ void Camera::init() {
   scheduleUpdate();
 }
 
-void Camera::render(Renderer* renderer) {
+void Camera::queueRender(Renderer* renderer) {
   renderer->queueCamera(this);
 }
 
@@ -79,4 +79,8 @@ void Camera::rotateY(float degrees) {
 
 void Camera::rotateX(float degrees) {
   SceneNode::rotateX(degrees);
+}
+
+void Camera::renderDebug() const {
+  
 }
