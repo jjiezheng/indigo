@@ -3,7 +3,7 @@
 
 #include "SceneNode.h"
 #include <vector>
-#include <string>
+#include "String.h"
 
 class FontDescriptor;
 class FontCharacter;
@@ -19,7 +19,7 @@ public:
   
 public:
   
-  void setText(const char* text);
+  void setText(const String& text);
   
   void queueRender(Renderer* renderer);
   
@@ -33,7 +33,7 @@ private:
   
   void init(const char* fontFile);
   
-  std::string text_;
+  String text_;
   
   FontDescriptor* font_;
   Texture* texture_;

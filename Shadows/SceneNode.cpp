@@ -112,9 +112,9 @@ void SceneNode::removeFromParentAndCleanup() {
 }
 
 void SceneNode::removeAllChildrenAndCleanup() {
-  for (SceneNode* node : children_) {
-    node->removeAllChildrenAndCleanup();
-    node->removeFromParentAndCleanup();
+  for (std::vector<SceneNode*>::iterator i = children_.begin(); i != children_.end();) {
+    SAFE_DELETE((*i))
+    i = children_.erase(i);
   }
 }
 

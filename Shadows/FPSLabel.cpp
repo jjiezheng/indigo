@@ -50,7 +50,7 @@ void FPSLabel::update(float dt) {
     
     SceneNode* labelNode = getChildByTag(TAG_FPS);
     Label* label = static_cast<Label*>(labelNode);
-    label->setText(fps.str().c_str());
+    label->setText(fps.str());
   }
 }
 

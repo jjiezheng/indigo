@@ -5,6 +5,9 @@
 
 class String {
   
+  typedef typename std::string::const_iterator ConstIterator;
+  typedef typename std::string::iterator Iterator;
+  
 public:
   
   String();
@@ -29,6 +32,16 @@ public:
   size_t length() const;
   
   String lastPathComponent() const;
+  
+public:
+  
+  ConstIterator begin() const {
+    return string_.begin();
+  }
+  
+  ConstIterator end() const {
+    return string_.end();
+  }
   
 public:
   

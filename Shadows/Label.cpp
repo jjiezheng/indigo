@@ -9,6 +9,8 @@
 #include "Standard.h"
 #include "Renderer.h"
 
+#include <iostream>
+
 Label* Label::label(const char* text, const char* fontFile) {
   Label* label = new Label();
   label->init(fontFile);
@@ -16,7 +18,7 @@ Label* Label::label(const char* text, const char* fontFile) {
   return label;
 }
 
-void Label::setText(const char *text) {
+void Label::setText(const String& text) {
   removeAllChildrenAndCleanup();
   text_ = text;
   float offset = 0;
