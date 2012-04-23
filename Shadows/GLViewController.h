@@ -4,6 +4,8 @@
 
 @interface GLViewController : NSViewController<NSWindowDelegate> {
   CVDisplayLinkRef displayLink;
+  NSWindow *_window;
+  NSOpenGLView *_view;
 }
 
 @property (assign) IBOutlet NSWindow *window;

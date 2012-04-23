@@ -25,9 +25,15 @@ public:
   
   void removeChild(SceneNode* child);
   
+public:
+  
+  void removeChildAndCleanup(SceneNode* child);
+  
   void removeAllChildrenAndCleanup();
   
   void removeFromParentAndCleanup();
+  
+public:
     
   inline int tag();
   

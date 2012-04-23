@@ -44,7 +44,7 @@ void Renderer::render(SceneNode *sceneNode) {
   renderShadowMap();
   render3d();
   renderDebug();
-//  renderUI();
+  renderUI();
   
   meshes_.clear();
   pointLights_.clear();
@@ -54,7 +54,6 @@ void Renderer::render(SceneNode *sceneNode) {
   cameras_.clear();
   debugNodes_.clear();
   uiNodes_.clear();
-
 }
 
 void Renderer::renderShadowMap() {    
@@ -82,10 +81,30 @@ void Renderer::renderShadowMap() {
 }
 
 void Renderer::render3d() {
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_CULL_FACE);
-
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  
+  const int MAX_LIGHTS = 6;
+  float lightPositions[MAX_LIGHTS*3];
+  int lightPositionIndex = 0;
+  for (Light* light : pointLights_) {
+    lightPositions[lightPositionIndex++] = light->position().x;
+    lightPositions[lightPositionIndex++] = light->position().y;
+    lightPositions[lightPositionIndex++] = light->position().z;
+  }
+  
+  float lightDirections[MAX_LIGHTS*3];
+  int lightDirectionIndex = 0;
+  for (DirectionalLight* light : directionalLights_) {
+    lightDirections[lightDirectionIndex++] = light->direction().x;
+    lightDirections[lightDirectionIndex++] = light->direction().y;
+    lightDirections[lightDirectionIndex++] = light->direction().z;
+  }    
+  
+  float aspectRatio = MacPlatform::instance()->aspect_ratio();
+  Matrix4x4 projection = Matrix4x4::perspective(45.0f, aspectRatio, 1.0f, 200.0f);
   
   for (Mesh* mesh : meshes_) {
     Material* material = mesh->material();
@@ -93,41 +112,21 @@ void Renderer::render3d() {
     shader->use();
     shadowMap_->bind(shader);
     
-    float aspectRatio = MacPlatform::instance()->aspect_ratio();
-    Matrix4x4 projection = Matrix4x4::perspective(45.0f, aspectRatio, 1.0f, 200.0f);
     shader->set_uniform(projection, "projection");
     
-    {
+    { // materials
       shader->set_uniform(material->ambient(), "ambient");
       shader->set_uniform(material->diffuse(), "diffuse");
       shader->set_uniform(material->specular(), "specular");
     }
   
     { // point lighting
-      shader->set_uniform((int)pointLights_.size(), "numPointLights");
-      
-      const int MAX_LIGHTS = 6;
-      float lightPositions[MAX_LIGHTS*3];
-      int lightPositionIndex = 0;
-      for (Light* light : pointLights_) {
-        lightPositions[lightPositionIndex++] = light->position().x;
-        lightPositions[lightPositionIndex++] = light->position().y;
-        lightPositions[lightPositionIndex++] = light->position().z;
-      }
+      shader->set_uniform((int)pointLights_.size(), "numPointLights");      
       shader->set_uniform(lightPositions, lightPositionIndex, "lightPositions");
     }
 
     { // directional lighting
-      shader->set_uniform((int)directionalLights_.size(), "numDirectionalLights");
-      
-      const int MAX_LIGHTS = 6;
-      float lightDirections[MAX_LIGHTS*3];
-      int lightDirectionIndex = 0;
-      for (DirectionalLight* light : directionalLights_) {
-        lightDirections[lightDirectionIndex++] = light->direction().x;
-        lightDirections[lightDirectionIndex++] = light->direction().y;
-        lightDirections[lightDirectionIndex++] = light->direction().z;
-      }    
+      shader->set_uniform((int)directionalLights_.size(), "numDirectionalLights");      
       shader->set_uniform(lightDirections, lightDirectionIndex, "lightDirections");
     }    
     
@@ -166,7 +165,6 @@ void Renderer::renderUI() {
   for (SceneNode* node : uiNodes_) {
     node->render(shader);
   }
-  
 }
 
 void Renderer::renderScene(Shader* shader) {

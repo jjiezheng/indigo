@@ -9,7 +9,7 @@ GameUILayer* GameUILayer::layer() {
 }
 
 void GameUILayer::init() {  
-//  FPSLabel* fps = FPSLabel::label();
-//  addChild(fps);
+  FPSLabel* fps = FPSLabel::label();
+  addChild(fps);
 }
 

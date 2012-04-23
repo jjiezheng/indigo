@@ -113,8 +113,14 @@ void SceneNode::removeFromParentAndCleanup() {
 
 void SceneNode::removeAllChildrenAndCleanup() {
   for (SceneNode* node : children_) {
+    node->removeAllChildrenAndCleanup();
     node->removeFromParentAndCleanup();
   }
+}
+
+void SceneNode::removeChildAndCleanup(SceneNode* child) {
+  this->removeChild(child);
+  SAFE_DELETE(child);
 }
 
 void SceneNode::removeChild(SceneNode* child) {

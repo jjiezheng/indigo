@@ -34,7 +34,7 @@
   [[[self window] contentView] addSubview:[self view]];
   [[[self view] openGLContext] makeCurrentContext];
 
-  CGSize bounds = [[[self window] contentView] bounds].size;
+  CGSize bounds = NSSizeToCGSize([[[self window] contentView] bounds].size);
   MacPlatform::instance()->set_screen_size(bounds.width, bounds.height);
 
   [self resetCursor];
