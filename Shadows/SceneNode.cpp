@@ -18,6 +18,10 @@ SceneNode::SceneNode()
   
 }
 
+SceneNode* SceneNode::node() {
+  return new SceneNode();
+}
+
 void SceneNode::init() {
   shader_ = ShaderCache::instance()->addShader("vmvpcs.vsh", "fcls.fsh");
 }

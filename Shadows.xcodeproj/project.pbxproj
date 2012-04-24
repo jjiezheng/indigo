@@ -30,6 +30,9 @@
 		4C3E1C6A14E80075009E35E0 /* String.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C3E1C6914E80075009E35E0 /* String.cpp */; };
 		4C3E1C6D14E80FE3009E35E0 /* Sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C3E1C6B14E80FE1009E35E0 /* Sprite.cpp */; };
 		4C426A72154471F300AAF0CC /* Material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C426A71154471F100AAF0CC /* Material.cpp */; };
+		4C4AAA551545EA7F0075425B /* Octree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C4AAA541545EA7F0075425B /* Octree.cpp */; };
+		4C4AAA591545EDF40075425B /* OctreeTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C4AAA581545EDF40075425B /* OctreeTests.mm */; };
+		4C4AAA5B1545EF870075425B /* Frustum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C4AAA5A1545EF870075425B /* Frustum.cpp */; };
 		4C651DDF15444A7800A37233 /* DebugDraw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C651DDE15444A7800A37233 /* DebugDraw.cpp */; };
 		4C6783121436F0D200F39B80 /* Button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C6782B41436F0D200F39B80 /* Button.cpp */; };
 		4C6783141436F0D200F39B80 /* Label.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C6782B61436F0D200F39B80 /* Label.cpp */; };
@@ -146,6 +149,12 @@
 		4C426A6F1544718500AAF0CC /* Material.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Material.h; sourceTree = "<group>"; };
 		4C426A71154471F100AAF0CC /* Material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Material.cpp; sourceTree = "<group>"; };
 		4C426A731544790400AAF0CC /* Maths.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Maths.h; sourceTree = "<group>"; };
+		4C4AAA521545EA560075425B /* Octree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Octree.h; sourceTree = "<group>"; };
+		4C4AAA541545EA7F0075425B /* Octree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Octree.cpp; sourceTree = "<group>"; };
+		4C4AAA561545EB8B0075425B /* Frustum.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Frustum.h; sourceTree = "<group>"; };
+		4C4AAA571545EDDA0075425B /* OctreeTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OctreeTests.h; sourceTree = "<group>"; };
+		4C4AAA581545EDF40075425B /* OctreeTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OctreeTests.mm; sourceTree = "<group>"; };
+		4C4AAA5A1545EF870075425B /* Frustum.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Frustum.cpp; sourceTree = "<group>"; };
 		4C651DDC15444A3800A37233 /* DebugDraw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugDraw.h; sourceTree = "<group>"; };
 		4C651DDE15444A7800A37233 /* DebugDraw.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DebugDraw.cpp; sourceTree = "<group>"; };
 		4C6782AF1436F0D200F39B80 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
@@ -459,6 +468,10 @@
 				4C651DDE15444A7800A37233 /* DebugDraw.cpp */,
 				4C426A6F1544718500AAF0CC /* Material.h */,
 				4C426A71154471F100AAF0CC /* Material.cpp */,
+				4C4AAA521545EA560075425B /* Octree.h */,
+				4C4AAA541545EA7F0075425B /* Octree.cpp */,
+				4C4AAA561545EB8B0075425B /* Frustum.h */,
+				4C4AAA5A1545EF870075425B /* Frustum.cpp */,
 			);
 			name = "Low Level Renderer";
 			sourceTree = "<group>";
@@ -604,6 +617,8 @@
 				4CF5247515225A660016D0FC /* Matrix3x3Tests.mm */,
 				4CA9BF2F1522751200A449D5 /* Matrix4x4Tests.h */,
 				4CA9BF311522751F00A449D5 /* Matrix4x4Tests.mm */,
+				4C4AAA571545EDDA0075425B /* OctreeTests.h */,
+				4C4AAA581545EDF40075425B /* OctreeTests.mm */,
 			);
 			path = ShadowsTests;
 			sourceTree = "<group>";
@@ -833,6 +848,8 @@
 				4CA9BF2A1522699A00A449D5 /* Vector4.cpp in Sources */,
 				4C651DDF15444A7800A37233 /* DebugDraw.cpp in Sources */,
 				4C426A72154471F300AAF0CC /* Material.cpp in Sources */,
+				4C4AAA551545EA7F0075425B /* Octree.cpp in Sources */,
+				4C4AAA5B1545EF870075425B /* Frustum.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -844,6 +861,7 @@
 				4CF5247715225BFD0016D0FC /* Matrix3x3.cpp in Sources */,
 				4CF5247615225A660016D0FC /* Matrix3x3Tests.mm in Sources */,
 				4CA9BF321522751F00A449D5 /* Matrix4x4Tests.mm in Sources */,
+				4C4AAA591545EDF40075425B /* OctreeTests.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

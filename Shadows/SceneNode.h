@@ -19,6 +19,11 @@ protected:
   
 public:
   
+  static
+  SceneNode* node();
+  
+public:
+  
   void addChild(SceneNode* child);
   
   void addChild(SceneNode* child, int tag);
