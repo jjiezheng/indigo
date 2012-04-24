@@ -28,15 +28,15 @@ void SkyBox::init() {
 //  ModelResource* skybox_model_resource = ResourceCache::instance()->load_model("skybox.json");
 //  model_ = Model::model(0, skybox_model_resource);
   
-  ShaderResource* shader_resource = ResourceCache::instance()->load_shader("skybox.vsh", "skybox.fsh");
-  shader_ = Shader::shader(shader_resource);
+//  ShaderResource* shader_resource = ResourceCache::instance()->load_shader("skybox.vsh", "skybox.fsh");
+//  shader_ = Shader::shader(shader_resource);
   
-  shader_->bind_attribute(ATTRIB_VERTEX, "vertex");
-  shader_->link();
-  
-  shader_->add_uniform("projection");
-  shader_->add_uniform("view");
-  shader_->add_uniform("model");
+//  shader_->bind_attribute(ATTRIB_VERTEX, "vertex");
+//  shader_->link();
+//  
+//  shader_->add_uniform("projection");
+//  shader_->add_uniform("view");
+//  shader_->add_uniform("model");
   
   
 //  TextureResource* top = ResourceCache::instance()->load_texture(basename_ + "_top.png");

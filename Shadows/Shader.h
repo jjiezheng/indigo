@@ -14,19 +14,24 @@ class Shader {
   
 public:
   
-  static Shader* shader(const char* vertexPath, const char* fragmentPath);
+  static 
+  Shader* shader(const ShaderResource* shader_resource);
   
-  static Shader* shader(const ShaderResource* shader_resource);
+public:
   
   void compile_vertex(const std::string& vertex_source);
   
   void compile_fragment(const std::string& fragment_source);
+  
+public:
   
   void link();
   
   void use() const;
   
   void bind_attribute(INT attribute_id, const char* attribute_name);
+  
+public:
   
   void set_uniform(const MAT3& uniform_data, const char* uniform_name) const;
   
@@ -48,10 +53,16 @@ public:
   
   void set_uniform(float* uniform_data, size_t size, const char* uniform_name) const;
   
-    
-private:
+public:
   
+  virtual 
+  void render();
+  
+protected:    
+
   Shader();
+
+private:
   
   GLuint compile_shader(const std::string& shader_source, GLint type);
   

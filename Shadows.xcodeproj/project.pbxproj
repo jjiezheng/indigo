@@ -33,6 +33,8 @@
 		4C4AAA551545EA7F0075425B /* Octree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C4AAA541545EA7F0075425B /* Octree.cpp */; };
 		4C4AAA591545EDF40075425B /* OctreeTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C4AAA581545EDF40075425B /* OctreeTests.mm */; };
 		4C4AAA5B1545EF870075425B /* Frustum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C4AAA5A1545EF870075425B /* Frustum.cpp */; };
+		4C5714D9154739CF006E7ECC /* BleedEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C5714D8154739CF006E7ECC /* BleedEffect.cpp */; };
+		4C5714E3154744FC006E7ECC /* BleedShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C5714E2154744FC006E7ECC /* BleedShader.cpp */; };
 		4C651DDF15444A7800A37233 /* DebugDraw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C651DDE15444A7800A37233 /* DebugDraw.cpp */; };
 		4C6783121436F0D200F39B80 /* Button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C6782B41436F0D200F39B80 /* Button.cpp */; };
 		4C6783141436F0D200F39B80 /* Label.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C6782B61436F0D200F39B80 /* Label.cpp */; };
@@ -155,6 +157,11 @@
 		4C4AAA571545EDDA0075425B /* OctreeTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OctreeTests.h; sourceTree = "<group>"; };
 		4C4AAA581545EDF40075425B /* OctreeTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OctreeTests.mm; sourceTree = "<group>"; };
 		4C4AAA5A1545EF870075425B /* Frustum.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Frustum.cpp; sourceTree = "<group>"; };
+		4C5714D8154739CF006E7ECC /* BleedEffect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BleedEffect.cpp; sourceTree = "<group>"; };
+		4C5714DA154739D8006E7ECC /* BleedEffect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BleedEffect.h; sourceTree = "<group>"; };
+		4C5714DC15473A47006E7ECC /* Effect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Effect.h; sourceTree = "<group>"; };
+		4C5714E115474498006E7ECC /* BleedShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BleedShader.h; sourceTree = "<group>"; };
+		4C5714E2154744FC006E7ECC /* BleedShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BleedShader.cpp; sourceTree = "<group>"; };
 		4C651DDC15444A3800A37233 /* DebugDraw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugDraw.h; sourceTree = "<group>"; };
 		4C651DDE15444A7800A37233 /* DebugDraw.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DebugDraw.cpp; sourceTree = "<group>"; };
 		4C6782AF1436F0D200F39B80 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
@@ -366,11 +373,36 @@
 			name = os;
 			sourceTree = "<group>";
 		};
+		4C5714D7154739C6006E7ECC /* Actions */ = {
+			isa = PBXGroup;
+			children = (
+				4C5714D8154739CF006E7ECC /* BleedEffect.cpp */,
+				4C5714DA154739D8006E7ECC /* BleedEffect.h */,
+			);
+			name = Actions;
+			sourceTree = "<group>";
+		};
+		4C5714DB15473A3E006E7ECC /* Effects */ = {
+			isa = PBXGroup;
+			children = (
+				4C5714DC15473A47006E7ECC /* Effect.h */,
+			);
+			name = Effects;
+			sourceTree = "<group>";
+		};
+		4C5714E01547448F006E7ECC /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				4C5714E115474498006E7ECC /* BleedShader.h */,
+				4C5714E2154744FC006E7ECC /* BleedShader.cpp */,
+			);
+			name = Shaders;
+			sourceTree = "<group>";
+		};
 		4C6782A71436F0D200F39B80 /* engine */ = {
 			isa = PBXGroup;
 			children = (
 				4C35C45E14E830AB0006A274 /* Maths */,
-				4CE7F0F414E32BCC007D075C /* Scene */,
 				4C6F10151441F25B00123773 /* IO */,
 				4C6782A81436F0D200F39B80 /* UI */,
 				4C6782A91436F0D200F39B80 /* Gameplay Foundation */,
@@ -415,6 +447,8 @@
 		4C6782A91436F0D200F39B80 /* Gameplay Foundation */ = {
 			isa = PBXGroup;
 			children = (
+				4C5714DB15473A3E006E7ECC /* Effects */,
+				4CE7F0F414E32BCC007D075C /* Scene */,
 			);
 			name = "Gameplay Foundation";
 			sourceTree = "<group>";
@@ -659,6 +693,8 @@
 		4CE7F0FA14E32C33007D075C /* scenes */ = {
 			isa = PBXGroup;
 			children = (
+				4C5714E01547448F006E7ECC /* Shaders */,
+				4C5714D7154739C6006E7ECC /* Actions */,
 				4C3E1C6E14E8197F009E35E0 /* Game */,
 				4C3E1C5014E7C7D3009E35E0 /* Title */,
 			);
@@ -850,6 +886,8 @@
 				4C426A72154471F300AAF0CC /* Material.cpp in Sources */,
 				4C4AAA551545EA7F0075425B /* Octree.cpp in Sources */,
 				4C4AAA5B1545EF870075425B /* Frustum.cpp in Sources */,
+				4C5714D9154739CF006E7ECC /* BleedEffect.cpp in Sources */,
+				4C5714E3154744FC006E7ECC /* BleedShader.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

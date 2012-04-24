@@ -21,11 +21,15 @@ private:
   
 public:
   
-  void render(Shader* shader);
-  
   int width() const;
   
   int height() const;
+  
+  GLuint textureId() const;
+  
+public:
+  
+  void setData(void* data);
   
 private:
   
@@ -43,6 +47,11 @@ int Texture::width() const {
 inline
 int Texture::height() const {
   return height_;
+}
+
+inline
+GLuint Texture::textureId() const {
+  return textureId_;
 }
 
 #endif

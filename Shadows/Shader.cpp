@@ -8,11 +8,6 @@
 #include "ShaderResource.h"
 #include "ShaderCache.h"
 
-Shader* Shader::shader(const char* vertexPath, const char* fragmentPath) {
-  Shader* shader = ShaderCache::instance()->addShader(vertexPath, fragmentPath);
-  return shader;
-}
-
 Shader* Shader::shader(const ShaderResource* shader_resource) {
   Shader* shader = new Shader();
   shader->compile_vertex(shader_resource->vertex_source());
@@ -165,4 +160,8 @@ void Shader::set_uniform(INT uniform_data, const char* uniform_name) const {
 void Shader::set_uniform(float* uniform_data, size_t size, const char* uniform_name) const {
   GLint uniform_id = glGetUniformLocation(program, uniform_name);
   glUniform3fv(uniform_id, (GLsizei)size, uniform_data);
+}
+
+void Shader::render() {
+  
 }

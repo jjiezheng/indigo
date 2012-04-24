@@ -41,10 +41,10 @@ void Renderer::render(SceneNode *sceneNode) {
   glClearColor(1.28, 0.28, 0.28, 1);
   
   sceneNode->queueRender(this);
-  renderShadowMap();
+  //renderShadowMap();
   render3d();
-  renderDebug();
-  renderUI();
+//  renderDebug();
+//  renderUI();
   
   meshes_.clear();
   pointLights_.clear();
@@ -85,6 +85,10 @@ void Renderer::render3d() {
 
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_CULL_FACE);
+  
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
   
   const int MAX_LIGHTS = 6;
   float lightPositions[MAX_LIGHTS*3];
@@ -149,7 +153,8 @@ void Renderer::render3d() {
   }
   
 //  shadowMap_->debugDraw();
-  
+
+  glDisable(GL_BLEND);
   glDisable(GL_DEPTH_TEST);
   glDisable(GL_CULL_FACE);
 }

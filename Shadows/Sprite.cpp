@@ -55,8 +55,9 @@ void Sprite::init(const char *filePath) {
 
 void Sprite::render(Camera *camera, Shader *shader, const glm::mat4 &transform) const {
   if (!isVisible_) return;
-  texture_->render(shader);
-  
+  glBindTexture(GL_TEXTURE_2D, texture_->textureId());
+  shader->set_uniform(0, "colorMap");
+
   glm::mat4 finalTransform = glm::translate(transform, glm::vec3(position_.x, position_.y, position_.z));
   shader->set_uniform(finalTransform, "model");
   

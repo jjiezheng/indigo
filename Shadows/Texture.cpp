@@ -39,7 +39,8 @@ void Texture::init(const char* filePath) {
   glGenerateMipmap(GL_TEXTURE_2D);
 }
 
-void Texture::render(Shader* shader) {
+void Texture::setData(void* data) {
   glBindTexture(GL_TEXTURE_2D, textureId_);
-  shader->set_uniform(0, "colorMap");
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width_, height_, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+  glGenerateMipmap(GL_TEXTURE_2D);
 }

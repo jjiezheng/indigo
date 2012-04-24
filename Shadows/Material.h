@@ -26,11 +26,11 @@ public:
   
 public:
   
-  void setTexture(Texture* texture);
+  Shader* shader() const;
   
 public:
   
-  Shader* shader() const;
+  void render(Shader* shader);
   
 private:
   
@@ -39,7 +39,6 @@ private:
 private:
   
   Shader* shader_;
-  Texture* texture_;
 
 private:
   
@@ -68,11 +67,6 @@ void Material::setSpecular(float r, float g, float b) {
   specular_.r = r;
   specular_.g = g;
   specular_.b = b;
-}
-  
-inline
-void Material::setTexture(Texture* texture) {
-  texture_ = texture;
 }
 
 inline

@@ -9,7 +9,7 @@ public:
   
   static Model* model(const char* filepath);
   
-private:
+protected:
   
   Model() = default;
     

@@ -4,6 +4,7 @@
 #include "Shader.h"
 #include "Standard.h"
 #include "ShaderCache.h"
+#include "Effect.h"
 
 #include "Vector4.h"
 
@@ -24,6 +25,7 @@ SceneNode* SceneNode::node() {
 
 void SceneNode::init() {
   shader_ = ShaderCache::instance()->addShader("vmvpcs.vsh", "fcls.fsh");
+  scheduleUpdate();
 }
 
 void SceneNode::queueRender(Renderer* renderer) {
@@ -35,6 +37,10 @@ void SceneNode::queueRender(Renderer* renderer) {
 
 void SceneNode::render(Shader* shader) const {
   if (!isVisible_) return;
+  for (Effect* effect : effects_) {
+    effect->render();
+  }
+  
   for (SceneNode* node : children_) {
     node->render(shader);
   }
@@ -43,7 +49,7 @@ void SceneNode::render(Shader* shader) const {
 void SceneNode::update(float dt) {
   for (SceneNode* node : children_) {
     node->update(dt);
-  }  
+  }    
 }
 
 void SceneNode::scheduleUpdate() {
@@ -139,4 +145,8 @@ void SceneNode::removeChild(SceneNode* child) {
 
 void SceneNode::renderDebug(Shader* shader) const {
   
+}
+
+void SceneNode::addEffect(Effect* effect) {
+  effects_.push_back(effect);
 }

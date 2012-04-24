@@ -10,6 +10,7 @@
 #include "Renderer.h"
 
 #include <iostream>
+#include "Shader.h"
 
 Label* Label::label(const char* text, const char* fontFile) {
   Label* label = new Label();
@@ -39,8 +40,10 @@ void Label::init(const char *fontFile) {
 void Label::render(Shader *shader) const {
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-  texture_->render(shader);
   
+  glBindTexture(GL_TEXTURE_2D, texture_->textureId());
+  shader->set_uniform(0, "colorMap");
+
   for (SceneNode* child : children_) {
     child->render(shader);
   }

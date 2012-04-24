@@ -25,6 +25,8 @@
 #include "Vector4.h"
 #include "Matrix4x4.h"
 
+#include "BleedShader.h"
+
 Model* Model::model(const char* filepath) {
   Model* model = new Model();
   model->init();
@@ -37,8 +39,10 @@ Model* Model::model(const char* filepath) {
       aiMesh* aiMesh = scene->mMeshes[i];
       float* verts = new float[aiMesh->mNumVertices*sizeof(aiVector3D)];
       float* normals = new float[aiMesh->mNumVertices*sizeof(aiVector3D)];
+      float* uvs = new float[aiMesh->mNumVertices*sizeof(aiVector2D)];
       
       int vertIndex = 0;
+      int uvIndex = 0;
       for (int vertexi = 0; vertexi < aiMesh->mNumVertices; vertexi++) {
         
         // vertex
@@ -51,12 +55,21 @@ Model* Model::model(const char* filepath) {
         Vector4 originalNormal(normal.x, normal.y, normal.z);
         Vector4 rotatedNormal = originalNormal;
         
+        // uv
+        aiVector3D uv = aiMesh->mTextureCoords[0][vertexi];
+        Vector2 originalUV(uv.x, uv.y);
+        Vector2 rotatedUV = originalUV;
+        
         verts[vertIndex] = rotatedVertex.x;
         normals[vertIndex] = rotatedNormal.x;
+        uvs[uvIndex] = rotatedUV.x;
+        uvIndex++;
         vertIndex++;
         
         verts[vertIndex] = rotatedVertex.y;
         normals[vertIndex] = rotatedNormal.y;
+        uvs[uvIndex] = rotatedUV.y;
+        uvIndex++;
         vertIndex++;
         
         verts[vertIndex] = rotatedVertex.z;
@@ -64,10 +77,10 @@ Model* Model::model(const char* filepath) {
         vertIndex++;
       }
       
-      Shader* shader = Shader::shader("vmvpcs.vsh", "fcls.fsh");
+      BleedShader* shader = BleedShader::shader();
       Material* material = Material::material(shader);
       
-      Mesh* mesh = Mesh::mesh(verts, normals, vertIndex + 1, material);
+      Mesh* mesh = Mesh::mesh(verts, normals, uvs, vertIndex + 1, material);
       model->addChild(mesh);
 
       aiMaterial* materialRaw = scene->mMaterials[aiMesh->mMaterialIndex];
@@ -81,7 +94,7 @@ Model* Model::model(const char* filepath) {
         String texturePath = texturePathFull.lastPathComponent();
         
         Texture* texture = TextureCache::instance()->addTexture(texturePath.c_str());
-        material->setTexture(texture);
+        shader->setTexture(texture);
       }
       
       aiColor3D ambient;

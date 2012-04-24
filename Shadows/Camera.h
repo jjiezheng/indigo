@@ -20,13 +20,15 @@ public:
   void renderDebug() const;
     
   void update(float dt);
-    
-private:
+  
+public:
   
   void rotateY(float degrees);
   
   void rotateX(float degrees);
-  
+    
+private:
+    
   void moveForward(float speed);
   
   void moveUp(float speed);

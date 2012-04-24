@@ -10,6 +10,7 @@
 class Camera;
 class Shader;
 class Renderer;
+class Effect;
 
 class SceneNode : public IUpdate {
   
@@ -77,6 +78,10 @@ public:
   
 public:
   
+  void addEffect(Effect* effect);
+  
+public:
+  
   virtual
   void queueRender(Renderer* renderer);
   
@@ -106,6 +111,7 @@ protected:
   
 protected:
   
+  std::vector<Effect*> effects_;
   std::vector<SceneNode*> children_;
   int tag_;
   int rotationX_;
