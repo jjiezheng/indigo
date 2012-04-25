@@ -59,6 +59,7 @@
 		4C67836B1437060E00F39B80 /* MacPlatform.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C67836A1437060E00F39B80 /* MacPlatform.mm */; };
 		4C67837014370BA200F39B80 /* LevelResource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C67836F14370BA100F39B80 /* LevelResource.cpp */; };
 		4C6CF79E14497CCE00DDF37C /* Vector3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C6CF79D14497CCE00DDF37C /* Vector3.cpp */; };
+		4C74AA1815488E140008271B /* Supporting FIles in Resources */ = {isa = PBXBuildFile; fileRef = 4C74AA1715488E140008271B /* Supporting FIles */; };
 		4C83B9C7144B2BF900E0286E /* SkyBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C83B9C6144B2BF900E0286E /* SkyBox.cpp */; };
 		4C8E100714F03D450095F390 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C8E100614F03D450095F390 /* QuartzCore.framework */; };
 		4C8E103714F03EC30095F390 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8E103614F03EC30095F390 /* AppDelegate.m */; };
@@ -219,6 +220,7 @@
 		4C67836F14370BA100F39B80 /* LevelResource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LevelResource.cpp; sourceTree = "<group>"; };
 		4C6CF79B144979D800DDF37C /* Vector3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector3.h; sourceTree = "<group>"; };
 		4C6CF79D14497CCE00DDF37C /* Vector3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vector3.cpp; sourceTree = "<group>"; };
+		4C74AA1715488E140008271B /* Supporting FIles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Supporting FIles"; sourceTree = SOURCE_ROOT; };
 		4C83B9C4144B2BB500E0286E /* SkyBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkyBox.h; sourceTree = "<group>"; };
 		4C83B9C6144B2BF900E0286E /* SkyBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SkyBox.cpp; sourceTree = "<group>"; };
 		4C8E100614F03D450095F390 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -617,6 +619,7 @@
 		4CB8D3181436F03A0079949A /* Shadows */ = {
 			isa = PBXGroup;
 			children = (
+				4C74AA1715488E140008271B /* Supporting FIles */,
 				4C6782A71436F0D200F39B80 /* engine */,
 				4CE7F0F914E32C2A007D075C /* game */,
 				4C3E1C7014E819A6009E35E0 /* os */,
@@ -775,6 +778,7 @@
 				4CB8D31D1436F03A0079949A /* InfoPlist.strings in Resources */,
 				4CB8D3231436F03A0079949A /* Credits.rtf in Resources */,
 				4CB8D3291436F03A0079949A /* MainMenu.xib in Resources */,
+				4C74AA1815488E140008271B /* Supporting FIles in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1013,7 +1017,7 @@
 					libs/assimp/include,
 					libs,
 				);
-				INFOPLIST_FILE = "Shadows/Shadows-Info.plist";
+				INFOPLIST_FILE = "Supporting Files/Shadows-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/libs/assimp\"",
@@ -1042,7 +1046,7 @@
 					libs/assimp/include,
 					libs,
 				);
-				INFOPLIST_FILE = "Shadows/Shadows-Info.plist";
+				INFOPLIST_FILE = "Supporting Files/Shadows-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/libs/assimp\"",
