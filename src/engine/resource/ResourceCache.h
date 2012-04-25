@@ -19,8 +19,6 @@ public:
   
 public:
   
-  void set_platform(Platform* platform);
-  
   const char* loadFile(const char* filePath);
   
   ModelResource* load_model(const char* resourceFile);
@@ -32,15 +30,7 @@ public:
   TextureResource* load_texture(const std::string& resource_file);
   
   LevelResource* load_level(const std::string& resource_file);
-  
-private:
-  
-  Platform* platform_;
-  
+    
 };
-
-inline
-void ResourceCache::set_platform(Platform* platform) { platform_ = platform; };
-
 
 #endif

@@ -34,7 +34,7 @@ Renderer* Renderer::renderer() {
 }
 
 void Renderer::init() {
-  shadowMap_->init();
+//  shadowMap_->init();
 }
 
 void Renderer::render(SceneNode *sceneNode) {  
@@ -114,7 +114,7 @@ void Renderer::render3d() {
     Material* material = mesh->material();
     Shader* shader = material->shader();
     shader->use();
-    shadowMap_->bind(shader);
+//    shadowMap_->bind(shader);
     
     shader->set_uniform(projection, "projection");
     

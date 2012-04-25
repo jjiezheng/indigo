@@ -39,11 +39,11 @@ void Mesh::init() {
   glVertexAttribPointer(ATTRIB_NORMAL, 3, GL_FLOAT, 0, 0, 0);
   glEnableVertexAttribArray(ATTRIB_NORMAL);
   
-  glGenBuffers(1, &uvBuffer);
-  glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
-  glBufferData(GL_ARRAY_BUFFER, 2 * sizeof(float) * numVertices_, uvs_, GL_STATIC_DRAW);
-  glVertexAttribPointer(ATTRIB_UV, 2, GL_FLOAT, 0, 0, 0);
-  glEnableVertexAttribArray(ATTRIB_UV);
+//  glGenBuffers(1, &uvBuffer);
+//  glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
+//  glBufferData(GL_ARRAY_BUFFER, 2 * sizeof(float) * numVertices_, uvs_, GL_STATIC_DRAW);
+//  glVertexAttribPointer(ATTRIB_UV, 2, GL_FLOAT, 0, 0, 0);
+//  glEnableVertexAttribArray(ATTRIB_UV);
 
   glBindVertexArray(0);
 }

@@ -8,7 +8,6 @@
 
 #include "Renderer.h"
 #include <iostream>
-#include "DebugDraw.h"
 
 static const int VERTEX_SIZE = 3;
 static const int VERTEX_LENGTH = 18;

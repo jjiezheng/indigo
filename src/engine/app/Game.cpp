@@ -23,8 +23,6 @@ Game* Game::instance() {
   if (!instance_) {
     instance_ = new Game();
     
-    MacPlatform* platform = MacPlatform::instance();    
-    ResourceCache::instance()->set_platform(platform);
     instance_->init_with_scene(GameScene::scene());
   }
   return instance_;

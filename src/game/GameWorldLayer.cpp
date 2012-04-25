@@ -32,16 +32,23 @@ void GameWorldLayer::init() {
   
   {  
     Camera* mainCamera = Camera::camera();
-    mainCamera->translateZ(35);
-    mainCamera->translateY(15);
-    mainCamera->rotateX(-60);
+//    mainCamera->translateZ(35);
+//    mainCamera->translateY(15);
+//    mainCamera->rotateX(-60);
     addChild(mainCamera);
   }
   
   {
-    Model* book = Model::model("book.blend");
+    Model* book = Model::model("flat.blend");
     book->translateZ(30);
     addChild(book);    
   }
+
+  
+//  {
+//    Model* book = Model::model("book.blend");
+//    book->translateZ(30);
+//    addChild(book);    
+//  }
 }
 

@@ -11,7 +11,7 @@ public:
   void checkFramebufferStatus(int target) {
     GLenum status = glCheckFramebufferStatus(target);
     if (status != GL_FRAMEBUFFER_COMPLETE) {
-      printf("error creating shadow frame buffer\n");
+      printf("error creating frame buffer\n");
     }
     
     switch (status) {

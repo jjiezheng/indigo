@@ -21,7 +21,8 @@ BleedShader* BleedShader::shader() {
 }
 
 void BleedShader::init() {
-  ShaderResource* resource = ResourceCache::instance()->load_shader("vmvpt.vsh", "ft.fsh");
+//  ShaderResource* resource = ResourceCache::instance()->load_shader("vmvpt.vsh", "ft.fsh");
+  ShaderResource* resource = ResourceCache::instance()->load_shader("vmvp.vsh", "f.fsh");
   
   this->compile_vertex(resource->vertex_source());
   this->compile_fragment(resource->fragment_source());
