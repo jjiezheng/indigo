@@ -56,20 +56,20 @@ Model* Model::model(const char* filepath) {
         Vector4 originalNormal(normal.x, normal.y, normal.z);
         Vector4 rotatedNormal = originalNormal;
         
-//        // uv
-//        aiVector3D uv = aiMesh->mTextureCoords[0][vertexi];
-//        Vector2 originalUV(uv.x, uv.y);
-//        Vector2 rotatedUV = originalUV;
+        // uv
+        aiVector3D uv = aiMesh->mTextureCoords[0][vertexi];
+        Vector2 originalUV(uv.x, uv.y);
+        Vector2 rotatedUV = originalUV;
         
         verts[vertIndex] = rotatedVertex.x;
         normals[vertIndex] = rotatedNormal.x;
-//        uvs[uvIndex] = rotatedUV.x;
+        uvs[uvIndex] = rotatedUV.x;
         uvIndex++;
         vertIndex++;
         
         verts[vertIndex] = rotatedVertex.y;
         normals[vertIndex] = rotatedNormal.y;
-//        uvs[uvIndex] = rotatedUV.y;
+        uvs[uvIndex] = rotatedUV.y;
         uvIndex++;
         vertIndex++;
         
@@ -78,7 +78,7 @@ Model* Model::model(const char* filepath) {
         vertIndex++;
       }
       
-      FlatShader* shader = FlatShader::shader();
+      BleedShader* shader = BleedShader::shader();
       Material* material = Material::material(shader);
       
       Mesh* mesh = Mesh::mesh(verts, normals, uvs, vertIndex + 1, material);
@@ -94,8 +94,8 @@ Model* Model::model(const char* filepath) {
         String texturePathFull(texturePathRaw.data);
         String texturePath = texturePathFull.lastPathComponent();
         
-//        Texture* texture = TextureCache::instance()->addTexture(texturePath.c_str());
-//        shader->setTexture(texture);
+        Texture* texture = TextureCache::instance()->addTexture(texturePath.c_str());
+        shader->setTexture(texture);
       }
       
       aiColor3D ambient;
