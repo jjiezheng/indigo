@@ -1,6 +1,6 @@
 #ifndef DirectionalLight_H_
 #define DirectionalLight_H_
-
+/*
 #include "Light.h"
 
 #include "Vector4.h"
@@ -45,5 +45,5 @@ inline
 Vector4 DirectionalLight::direction() const {
   return rotation() * Vector4::FORWARD;
 }
-
+*/
 #endif

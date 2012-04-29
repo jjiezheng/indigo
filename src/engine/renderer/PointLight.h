@@ -1,7 +1,7 @@
 #ifndef PointLight_H_
 #define PointLight_H_
 
-#include "Light.h"
+/*#include "Light.h"
 
 class Vector3;
 
@@ -25,6 +25,6 @@ public:
   
   void queueRender(Renderer* renderer);
   
-};
+};*/
 
 #endif

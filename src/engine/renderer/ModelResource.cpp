@@ -57,8 +57,8 @@ void ModelResource::load(const std::string &file) {
   Reader::Read(json_root, file_data);
   
   Array meshes = json_root[MESHES_KEY];
-  Array::const_iterator it_meshes = meshes.Begin();
-  Array::const_iterator it_meshes_end = meshes.End();
+  Array::const_iterator it_meshes = meshes.begin();
+  Array::const_iterator it_meshes_end = meshes.end();
   for(; it_meshes != it_meshes_end; ++it_meshes) {
     const Object& mesh = *it_meshes;
     
@@ -80,8 +80,8 @@ void ModelResource::load(const std::string &file) {
     const Array& vertices_data = mesh[VERTICES_KEY];
     const Number& vertex_stride = mesh[VERTEX_STRIDE_KEY];
     
-    Array::const_iterator it_vertices = vertices_data.Begin();
-    Array::const_iterator it_vertices_end = vertices_data.End();
+    Array::const_iterator it_vertices = vertices_data.begin();
+    Array::const_iterator it_vertices_end = vertices_data.end();
     int vertex_count = vertices_data.Size() / vertex_stride.Value();
     float* vertices = new float[vertices_data.Size()];
     int vi = 0;
@@ -95,8 +95,8 @@ void ModelResource::load(const std::string &file) {
     const Array& normal_data = mesh[NORMALS_KEY];
     const Number& normal_stride = mesh[NORMAL_STRIDE_KEY];
 
-    Array::const_iterator it_normals = normal_data.Begin();
-    Array::const_iterator it_normals_end = normal_data.End();
+    Array::const_iterator it_normals = normal_data.begin();
+    Array::const_iterator it_normals_end = normal_data.end();
     int normal_count = normal_data.Size() / normal_stride.Value();
     float* normals = new float[normal_data.Size()];
     int ni = 0;
@@ -110,8 +110,8 @@ void ModelResource::load(const std::string &file) {
     const Array& uv_data = mesh[UVS_KEY];
     const Number& uv_stride = mesh[UVS_STRIDE_KEY];
 
-    Array::const_iterator it_uvs = uv_data.Begin();
-    Array::const_iterator it_uvs_end = uv_data.End();
+    Array::const_iterator it_uvs = uv_data.begin();
+    Array::const_iterator it_uvs_end = uv_data.end();
     int uv_count = uv_data.Size() / uv_stride.Value();
     float* uvs = new float[uv_data.Size()];
     int uvi = 0;
@@ -125,8 +125,8 @@ void ModelResource::load(const std::string &file) {
     const Array& materials_data = mesh[MATERIALS_KEY];
 
     std::deque<MaterialResource*> materials;
-    Array::const_iterator it_materials = materials_data.Begin();
-    Array::const_iterator it_materials_end = materials_data.End();
+    Array::const_iterator it_materials = materials_data.begin();
+    Array::const_iterator it_materials_end = materials_data.end();
     for(; it_materials != it_materials_end; ++it_materials) {
       const Object& diffuse_data = (*it_materials)[DIFFUSE_KEY];
       Number diffuse_r = diffuse_data[R_KEY];
@@ -148,8 +148,8 @@ void ModelResource::load(const std::string &file) {
     
       const Array& textures_data = (*it_materials)[TEXTURES_KEY];
       std::deque<TextureResource*> textures;
-      Array::const_iterator it_textures = textures_data.Begin();
-      Array::const_iterator it_textures_end = textures_data.End();
+      Array::const_iterator it_textures = textures_data.begin();
+      Array::const_iterator it_textures_end = textures_data.end();
       for(; it_textures != it_textures_end; ++it_textures) {
         const Object& texture_data = (*it_textures);
         String filename = texture_data[FILENAME_KEY];

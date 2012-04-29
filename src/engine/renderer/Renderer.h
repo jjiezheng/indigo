@@ -15,6 +15,7 @@ class Shader;
 class Camera;
 class ShadowMap;
 class Mesh;
+class Box;
 
 class Renderer {
   
@@ -30,14 +31,14 @@ public:
   
   void init();
   
-  void render(SceneNode* sceneNode);
+  void render(Camera* camera, SceneNode* sceneNode);
   
 private:
   
   void renderScene(Shader* shader);
   
   void renderUI();
-  void render3d();
+  void render3d(Camera* camera);
   void renderShadowMap();
   void renderDebug();
   

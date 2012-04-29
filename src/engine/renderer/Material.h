@@ -1,92 +1,36 @@
 #ifndef MATERIAL_H
 #define MATERIAL_H
 
-#include "Color3.h"
+#include "Shader.h"
+#include "MaterialParameter.h"
 
-class Shader;
-class Texture;
+class IViewer;
+class SceneContext;
 
 class Material {
   
 public:
   
-  static 
-  Material* material(Shader* shader);
+  void bind(const IViewer* camera, const Matrix4x4& model, const Matrix3x3& normalMatrix, const SceneContext& sceneContext) const;
   
-public:
-
-  Color3 ambient() const;
-  void setAmbient(float r, float g, float b);
-
-  Color3 diffuse() const;
-  void setDiffuse(float r, float g, float b);
-
-  Color3 specular() const;
-  void setSpecular(float r, float g, float b);
+  void setShader(const Shader& shader);
   
-public:
-  
-  Shader* shader() const;
-  
-public:
-  
-  void render(Shader* shader);
+  void setParameter(MaterialParameter* parameter);
   
 private:
   
-  Material(Shader* shader);
+  Shader shader_;
   
-private:
-  
-  Shader* shader_;
-
-private:
-  
-  Color3 ambient_;
-  Color3 diffuse_;
-  Color3 specular_;
+  std::vector<MaterialParameter*> parameters_;
   
 };
 
-inline
-void Material::setAmbient(float r, float g, float b) {
-  ambient_.r = r;
-  ambient_.g = g;
-  ambient_.b = b;
+inline void Material::setShader(const Shader& shader) {
+  shader_ = shader;
 }
 
-inline
-void Material::setDiffuse(float r, float g, float b) {
-  diffuse_.r = r;
-  diffuse_.g = g;
-  diffuse_.b = b;
-}
-
-inline
-void Material::setSpecular(float r, float g, float b) {
-  specular_.r = r;
-  specular_.g = g;
-  specular_.b = b;
-}
-
-inline
-Shader* Material::shader() const {
-  return shader_;
-}
-
-inline
-Color3 Material::ambient() const {
-  return ambient_;
-}
-
-inline
-Color3 Material::diffuse() const {
-  return diffuse_;
-}
-
-inline
-Color3 Material::specular() const {
-  return specular_;
+inline void Material::setParameter(MaterialParameter* parameter) {
+  parameters_.push_back(parameter);
 }
 
 #endif

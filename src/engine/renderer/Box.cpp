@@ -9,6 +9,7 @@
 #include "MacPlatform.h"
 
 #include "Renderer.h"
+#include "ResourceCache.h"
 
 static const int VERTEX_SIZE = 3;
 static const int VERTEX_LENGTH = 18;
@@ -25,9 +26,9 @@ void Box::init() {
     1.0f, -1.0f, 0.0f,
     -1.0f, 1.0f, 0.0f,
     
-    -1.0f, 1.0f, 0.5f,
-    1.0f, -1.0f, 1.0f,
-    1.0f, 1.0f, 1.0f,
+    -1.0f, 1.0f, 0.0f,
+    1.0f, -1.0f, 0.0f,
+    1.0f, 1.0f, 0.0f,
   };
   
   glGenVertexArrays(1, &vertexArray);
@@ -41,22 +42,28 @@ void Box::init() {
   glEnableVertexAttribArray(ATTRIB_VERTEX);
   
   glBindVertexArray(0);
+  
+  {
+    ShaderResource* resource = ResourceCache::instance()->load_shader("vmvp.vsh", "f.fsh");
+    
+    shader_.compile_vertex(resource->vertex_source());
+    shader_.compile_fragment(resource->fragment_source());
+    
+    shader_.bind_attribute(ATTRIB_VERTEX, "vertex");
+    
+    shader_.link();    
+    
+    shader_.add_uniform("model");
+    shader_.add_uniform("view");
+    shader_.add_uniform("projection");    
+  }
 }
 
 void Box::queueRender(Renderer* renderer) {
-//  renderer->queueUI(this);
 }
 
-void Box::render(Shader* shader) const {
-//  glm::mat4 model(1.0f);
-//  model = glm::translate(model, position_);
-//  model = glm::rotate(model, rotationZ_, glm::vec3(0.0f, 0.0f, 1.0f));
-//  shader->set_uniform(model, "model");  
-  
+void Box::render() const {
+  shader_.use();
   glBindVertexArray(vertexArray);
-    
-//  glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-//  glEnableClientState(GL_VERTEX_ARRAY);   
   glDrawArrays(GL_TRIANGLES, 0, 6);   
-//  glDisableClientState(GL_VERTEX_ARRAY);    
 }

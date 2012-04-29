@@ -1,5 +1,5 @@
 #include "DirectionalLight.h"
-
+/*
 #include "Shader.h"
 #include "ShaderAttribs.h"
 #include "ShaderCache.h"
@@ -65,4 +65,4 @@ void DirectionalLight::renderDebug(Shader* shader) const {
   shader->set_uniform(transform(), "model");
   glBindVertexArray(vertexArray_);  
   glDrawArrays(GL_TRIANGLES, 0, 18);  
-}
+}*/

@@ -3,11 +3,15 @@
 
 #include "Standard.h"
 #include "SceneNode.h"
+#include "Shader.h"
 
-class Shader;
 class Renderer;
 
-class Box : public SceneNode {
+class Box {
+  
+public:
+  
+  Box() { };
   
 public:
   
@@ -19,16 +23,16 @@ public:
   
   void queueRender(Renderer* renderer);
   
-  void render(Shader* shader) const;
-  
-private:
-  
-  Box() = default;
+  void render() const;
   
 private:
   
   GLuint vertexArray;
   GLuint vertexBuffer;
+  
+private:
+  
+  Shader shader_;
   
 };
 

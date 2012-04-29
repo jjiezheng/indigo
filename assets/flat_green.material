@@ -1,0 +1,11 @@
+{
+  "shader" : "diffuse.shader",
+  "parameters" : {
+    "color" : {
+      "r" : 0,
+      "g" : 1,
+      "b" : 0,
+      "type" : "color3"
+    }
+  }
+}

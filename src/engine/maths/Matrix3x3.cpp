@@ -6,16 +6,28 @@
 
 Matrix3x3 Matrix3x3::rotationX(int degrees) {
   float angleRads = (degrees / 180.0f) * M_PI;
-  return Matrix3x3(1.0f, 0.0f, 0.0f, 
+  return Matrix3x3(1.0f, 0.0f,             0.0f, 
                    0.0f, cosf(angleRads), -sinf(angleRads),
-                   0.0f, sinf(angleRads), cosf(angleRads));
+                   0.0f, sinf(angleRads),  cosf(angleRads));
+}
+
+Matrix3x3 Matrix3x3::rotationX(float radians) {
+  return Matrix3x3(1.0f, 0.0f,           0.0f, 
+                   0.0f, cosf(radians), -sinf(radians),
+                   0.0f, sinf(radians),  cosf(radians));
 }
 
 Matrix3x3 Matrix3x3::rotationY(int degrees) {
   float angleRads = (degrees / 180.0f) * M_PI;
-  return Matrix3x3(cosf(angleRads), 0.0f, sinf(angleRads), 
-                   0.0f, 1.0f, 0.0f,
-                   -sinf(angleRads), 0.0f, cosf(angleRads));
+  return Matrix3x3(cosf(angleRads),   0.0f, sinf(angleRads), 
+                   0.0f,              1.0f, 0.0f,
+                   -sinf(angleRads),  0.0f, cosf(angleRads));
+}
+
+Matrix3x3 Matrix3x3::rotationY(float radians) {
+  return Matrix3x3(cosf(radians),   0.0f, sinf(radians), 
+                   0.0f,            1.0f, 0.0f,
+                   -sinf(radians),  0.0f, cosf(radians));
 }
 
 Matrix3x3::Matrix3x3() {

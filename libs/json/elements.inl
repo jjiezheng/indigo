@@ -235,10 +235,10 @@ private:
 
 
 
-inline Object::iterator Object::Begin() { return m_Members.begin(); }
-inline Object::iterator Object::End() { return m_Members.end(); }
-inline Object::const_iterator Object::Begin() const { return m_Members.begin(); }
-inline Object::const_iterator Object::End() const { return m_Members.end(); }
+inline Object::iterator Object::begin() { return m_Members.begin(); }
+inline Object::iterator Object::end() { return m_Members.end(); }
+inline Object::const_iterator Object::begin() const { return m_Members.begin(); }
+inline Object::const_iterator Object::end() const { return m_Members.end(); }
 
 inline size_t Object::Size() const { return m_Members.size(); }
 inline bool Object::Empty() const { return m_Members.empty(); }
@@ -255,7 +255,7 @@ inline Object::const_iterator Object::Find(const std::string& name) const
 
 inline Object::iterator Object::Insert(const Member& member)
 {
-   return Insert(member, End());
+   return Insert(member, end());
 }
 
 inline Object::iterator Object::Insert(const Member& member, iterator itWhere)
@@ -280,7 +280,7 @@ inline UnknownElement& Object::operator [](const std::string& name)
    if (it == m_Members.end())
    {
       Member member(name);
-      it = Insert(member, End());
+      it = Insert(member, end());
    }
    return it->element;      
 }
@@ -288,7 +288,7 @@ inline UnknownElement& Object::operator [](const std::string& name)
 inline const UnknownElement& Object::operator [](const std::string& name) const 
 {
    const_iterator it = Find(name);
-   if (it == End())
+   if (it == end())
       throw Exception("Object member not found: " + name);
    return it->element;
 }
@@ -307,10 +307,10 @@ inline bool Object::operator == (const Object& object) const
 /////////////////
 // Array members
 
-inline Array::iterator Array::Begin()  { return m_Elements.begin(); }
-inline Array::iterator Array::End()    { return m_Elements.end(); }
-inline Array::const_iterator Array::Begin() const  { return m_Elements.begin(); }
-inline Array::const_iterator Array::End() const    { return m_Elements.end(); }
+inline Array::iterator Array::begin()  { return m_Elements.begin(); }
+inline Array::iterator Array::end()    { return m_Elements.end(); }
+inline Array::const_iterator Array::begin() const  { return m_Elements.begin(); }
+inline Array::const_iterator Array::end() const    { return m_Elements.end(); }
 
 inline Array::iterator Array::Insert(const UnknownElement& element, iterator itWhere)
 { 
@@ -319,7 +319,7 @@ inline Array::iterator Array::Insert(const UnknownElement& element, iterator itW
 
 inline Array::iterator Array::Insert(const UnknownElement& element)
 {
-   return Insert(element, End());
+   return Insert(element, end());
 }
 
 inline Array::iterator Array::Erase(iterator itWhere)

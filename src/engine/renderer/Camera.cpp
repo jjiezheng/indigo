@@ -2,15 +2,19 @@
 #include "Shader.h"
 #include "MacPlatform.h"
 #include "Renderer.h"
-
-#include <iostream>
+#include "Angles.h"
 
 #include "ShaderCache.h"
 
+#include "GL/glfw.h"
+
 Camera::Camera() 
-: forward_(Vector3::FORWARD)
-, right_(Vector3::RIGHT)
-, up_(Vector3::UP) {
+  : forward_(Vector3::FORWARD)
+  , right_(Vector3::RIGHT)
+  , up_(Vector3::UP)
+  , rotationX_(0.0f)
+  , rotationY_(0.0f)
+  , rotationZ_(0.0f) {
   
 }
 
@@ -21,42 +25,52 @@ Camera* Camera::camera() {
 }
 
 void Camera::init() {
-  scheduleUpdate();
-}
-
-void Camera::queueRender(Renderer* renderer) {
-  renderer->queueCamera(this);
 }
 
 void Camera::update(float dt) {
   float speed = dt * 10;
-  if (MacPlatform::instance()->get_key_state(13)) {
+  
+  if (glfwGetKey('W') == GLFW_PRESS) {
     moveForward(speed);
   }
   
-  if (MacPlatform::instance()->get_key_state(1)) {
+  if (glfwGetKey('S') == GLFW_PRESS) {
     moveForward(-speed);
   }
   
-  if (MacPlatform::instance()->get_key_state(0)) {
+  if (glfwGetKey('A') == GLFW_PRESS) {
     moveRight(-speed);
   }
   
-  if (MacPlatform::instance()->get_key_state(2)) {
+  if (glfwGetKey('D') == GLFW_PRESS) {
     moveRight(speed);
   }
   
-  if (MacPlatform::instance()->get_key_state(14)) {
+  if (glfwGetKey('E') == GLFW_PRESS) {
     moveUp(speed);
   }
 
-  if (MacPlatform::instance()->get_key_state(12)) {
+  if (glfwGetKey('Q') == GLFW_PRESS) {
     moveUp(-speed);
   }
   
-  Vector2 mouseDelta = MacPlatform::instance()->mouse_delta();
-  rotateY(-mouseDelta.x * 0.5f);
-  rotateX(mouseDelta.y * 0.5f);
+  int x, y;
+  glfwGetMousePos(&x, &y);
+  
+  int xDelta = x - lastMouseX_;
+  int yDelta = y - lastMouseY_;
+  
+  xDelta = abs(xDelta) > 100 ? 0 : xDelta;
+  yDelta = abs(yDelta) > 100 ? 0 : yDelta;
+  
+  float xDegrees = -xDelta * 0.5f;
+  float yDegrees = yDelta * 0.5f;
+  
+  rotateY(toRadians(xDegrees));
+  rotateX(toRadians(yDegrees));
+  
+  lastMouseX_ = x;
+  lastMouseY_ = y;
 }
 
 void Camera::moveUp(float speed) {
@@ -72,15 +86,24 @@ void Camera::moveRight(float speed) {
 }
 
 void Camera::rotateY(float degrees) {
-  SceneNode::rotateY(degrees);
+  rotationY_ += degrees;
   forward_ = forward_.rotateY(degrees);
   right_ = right_.rotateY(degrees);
 }
 
 void Camera::rotateX(float degrees) {
-  SceneNode::rotateX(degrees);
+  rotationX_ += degrees;
 }
 
-void Camera::renderDebug() const {
-  
+Matrix4x4 Camera::rotation() const {
+  Matrix4x4 rotationX = Matrix4x4::rotationX(rotationX_);
+  Matrix4x4 rotationY = Matrix4x4::rotationY(rotationY_);
+  Matrix4x4 rotationZ = Matrix4x4::rotationZ(rotationZ_);
+  Matrix4x4 rotation = rotationZ * rotationY * rotationX;
+  return rotation;
+}
+
+Matrix4x4 Camera::transform() const {
+  Matrix4x4 translation = Matrix4x4::translation(position_);
+  return translation * rotation();
 }

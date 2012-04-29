@@ -1,11 +1,12 @@
-#ifndef CubeFX_Log_h
-#define CubeFX_Log_h
+#ifndef LOG_H
+#define LG_H
 
-void DLOG(const char* fmt, ...);
+extern const char* LOG_CHANNEL_SHADER;
+extern const char* LOG_CHANNEL_WORLDLOADER;
+
+void DLOG(const char* channel, const char* fmt, ...);
 
 #ifdef DEBUG
-  #define LOG DLOG
-#else
   #define LOG DLOG
 #endif
 

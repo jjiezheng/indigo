@@ -33,6 +33,10 @@ public:
   
   String lastPathComponent() const;
   
+  String pathExtension() const;
+  
+  String removePathExtension() const;
+  
 public:
   
   ConstIterator begin() const {
@@ -72,6 +76,8 @@ public:
   bool operator == (const String& other) const;
   bool operator != (const String& other) const;
   bool operator < (const String& other) const;
+  
+  String operator + (const String& other) const;
   
 private:
   

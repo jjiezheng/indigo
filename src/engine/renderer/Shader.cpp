@@ -8,6 +8,8 @@
 #include "ShaderResource.h"
 #include "ShaderCache.h"
 
+#include "Log.h"
+
 Shader* Shader::shader(const ShaderResource* shader_resource) {
   Shader* shader = new Shader();
   shader->compile_vertex(shader_resource->vertex_source());
@@ -42,7 +44,7 @@ GLuint Shader::compile_shader(const std::string& shader_source, GLint type) {
   
   if (status == 0) {
     glDeleteShader(shader);
-    LOG("Error compiling shader");
+    LOG(LOG_CHANNEL_SHADER, "Error compiling shader");
   }
 
   return shader;
@@ -57,6 +59,7 @@ void Shader::compile_fragment(const std::string& fragment_source) {
 }
 
 void Shader::bind_attribute(INT attribute_id, const char* attribute_name) {
+  LOG(LOG_CHANNEL_SHADER, "Binding attribute %s", attribute_name);
   glBindAttribLocation(program, attribute_id, attribute_name);
 }
 
@@ -80,7 +83,7 @@ void Shader::link() {
   
   glGetProgramiv(program, GL_LINK_STATUS, &status);
   if (status == 0) {
-    LOG("Error linking shader program");
+    LOG(LOG_CHANNEL_SHADER, "Error linking shader program");
   }
 }
 
@@ -145,6 +148,7 @@ void Shader::set_uniform(const Matrix4x4& uniform_data, const char* uniform_name
 }
 
 void Shader::add_uniform(const char* uniform_name) {
+  LOG(LOG_CHANNEL_SHADER, "Adding uniform %s", uniform_name);
   GLint uniform_id = glGetUniformLocation(program, uniform_name);
   uniforms.insert(std::make_pair(uniform_name, uniform_id));
 }
@@ -160,8 +164,4 @@ void Shader::set_uniform(INT uniform_data, const char* uniform_name) const {
 void Shader::set_uniform(float* uniform_data, size_t size, const char* uniform_name) const {
   GLint uniform_id = glGetUniformLocation(program, uniform_name);
   glUniform3fv(uniform_id, (GLsizei)size, uniform_data);
-}
-
-void Shader::render() {
-  
 }

@@ -11,23 +11,19 @@ public:
   
 public:
   
-  static
-  Vector3 IDENTITY;
+  static Vector3 IDENTITY;
   
-  static
-  Vector3 FORWARD;
+  static Vector3 FORWARD;
   
-  static
-  Vector3 RIGHT;
+  static Vector3 RIGHT;
     
-  static
-  Vector3 UP;
+  static Vector3 UP;
   
 public:
   
-  Vector3 rotateX(int degrees);
+  Vector3 rotateX(float degrees);
   
-  Vector3 rotateY(int degrees);
+  Vector3 rotateY(float degrees);
   
 public:
   

@@ -23,6 +23,23 @@ String String::withFormat(const char* format, ...) {
   return String(buffer);
 }
 
+String String::pathExtension() const {
+  std::string key(".");
+  size_t found = 0;
+  
+  found = string_.rfind(key);
+  if (found != std::string::npos) {
+    return string_.substr(found, string_.length() - found);
+  }
+  
+  return "";
+}
+
+String String::removePathExtension() const {
+  String extension = pathExtension();
+  return replace(extension, "");
+}
+
 String String::lastPathComponent() const {
   std::vector<String> components = this->split('/');
   if (components.size()) {
@@ -75,6 +92,10 @@ String String::replace(const String& source, const String& destination) const {
   }
   
   return result;
+}
+
+String String::operator + (const String& other) const {
+  return string_ + other.string_;
 }
 
 bool String::operator == (const String& other) const {

@@ -11,40 +11,39 @@
 
 #include "GameScene.h"
 
-static Game* instance_ = nullptr;
+#include "Camera.h"
 
-Game::Game() 
-  : runningScene_(nullptr)
-  , nextScene_(nullptr) { 
-    renderer_ = Renderer::renderer();
-}
+#include "WorldLoader.h"
+#include "Box.h"
 
-Game* Game::instance() {
-  if (!instance_) {
-    instance_ = new Game();
-    
-    instance_->init_with_scene(GameScene::scene());
-  }
-  return instance_;
-}
+void Game::init() {  
+  renderer_.setBackgroundColor(Color3(0, 1, 0));
 
-void Game::init_with_scene(Scene* scene) {  
-  runningScene_ = scene;  
-}
-
-void Game::changeScene(Scene *scene) {
-  nextScene_ = scene;
-}
-
-void Game::main_loop() {  
-  if (nextScene_) {
-    SAFE_DELETE(runningScene_);
-    runningScene_ = nextScene_;
-    nextScene_ = nullptr;
-  }
+  camera_ = Camera::camera();
+  camera_->translateZ(10);
+//  camera_->translateY(15);
+//  camera_->rotateX(-60);
   
+  Vector2 screenSize = MacPlatform::instance()->screen_size();
+  float aspectRatio = screenSize.aspectRatio();
+  
+  Matrix4x4 projection = Matrix4x4::perspective(45.0f, aspectRatio, 1.0f, 200.0f);
+  camera_->setProjection(projection);
+
+  WorldLoader loader;
+  loader.loadFromSceneFile("test.scene", world_, sceneContext_);
+  
+  
+  shadowRenderer_.init(screenSize);
+  renderer_.setBackgroundColor(Color3(0.4f, 0.6f, 0.93f));
+}
+
+void Game::mainLoop() {  
   float dt = clock_.delta_time();
-  Scheduler::instance()->update(dt);
+  Scheduler::instance()->update(dt);   
   
-  renderer_->render(runningScene_);
+  camera_->update(dt);
+  
+  shadowRenderer_.render(world_, sceneContext_);
+  renderer_.render(camera_, world_, sceneContext_);
 }

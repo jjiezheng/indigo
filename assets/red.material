@@ -1,0 +1,21 @@
+{
+  "shader" : "diffuse.shader",
+  "parameters" : {
+    "diffuse" : {
+      "r" : 1,
+      "g" : 0,
+      "b" : 0,
+      "type" : "color3"
+    },
+    "ambient" : {
+      "r" : 0,
+      "g" : 0,
+      "b" : 0,
+      "type" : "color3"
+    },
+    "numPointLights" : {
+      "type" : "int",
+      "value" : 1
+    }
+  }
+}

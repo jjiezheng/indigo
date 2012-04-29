@@ -57,8 +57,8 @@ void MacPlatform::load_image(const std::string& full_path, INT* width, INT* heig
   
   CGRect bounds = CGRectMake(0, 0, *width, *height) ;
   CGContextClearRect(context, bounds);
-  CGContextTranslateCTM(context, 0, *height);
-  CGContextScaleCTM(context, 1.0, -1.0);
+//  CGContextTranslateCTM(context, 0, *height);
+//  CGContextScaleCTM(context, 1.0, -1.0);
   CGContextDrawImage(context, bounds, image.CGImage);
   CGContextRelease(context);
 }

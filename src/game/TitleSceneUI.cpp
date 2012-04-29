@@ -23,6 +23,6 @@ void TitleSceneUI::init() {
 }
 
 void TitleSceneUI::playClicked() {
-  GameScene* gameScene = GameScene::scene();
-  Game::instance()->changeScene(gameScene);
+//  GameScene* gameScene = GameScene::scene();
+//  Game::instance()->changeScene(gameScene);
 }

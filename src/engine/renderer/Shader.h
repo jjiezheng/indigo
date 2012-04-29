@@ -14,6 +14,10 @@ class Shader {
   
 public:
   
+  Shader();
+  
+public:
+  
   static 
   Shader* shader(const ShaderResource* shader_resource);
   
@@ -52,16 +56,7 @@ public:
   void add_uniform(const char* uniform_name);
   
   void set_uniform(float* uniform_data, size_t size, const char* uniform_name) const;
-  
-public:
-  
-  virtual 
-  void render();
-  
-protected:    
-
-  Shader();
-
+    
 private:
   
   GLuint compile_shader(const std::string& shader_source, GLint type);

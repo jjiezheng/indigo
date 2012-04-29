@@ -12,18 +12,18 @@ LevelFile* LevelFile::level_file(LevelResource* level_resource) {
   return new LevelFile(level_resource);
 }
 
-SkyBox* LevelFile::skybox() {
-  std::stringstream data;
-  data << level_resource_->data();
-  
-  Object rootObject;
-  Reader::Read(rootObject, data);
-
-  const Object& jsonAttributes = rootObject["attributes"];
-  const String& jsonSkyBox = jsonAttributes["skybox"];
-    
-  return SkyBox::skybox(jsonSkyBox.Value());
-}
+//SkyBox* LevelFile::skybox() {
+//  std::stringstream data;
+//  data << level_resource_->data();
+//  
+//  Object rootObject;
+//  Reader::Read(rootObject, data);
+//
+//  const Object& jsonAttributes = rootObject["attributes"];
+//  const String& jsonSkyBox = jsonAttributes["skybox"];
+//    
+//  return SkyBox::skybox(jsonSkyBox.Value());
+//}
 
 /*std::deque<EntityComponent*> LevelFile::components() {
   std::deque<EntityComponent*> components;

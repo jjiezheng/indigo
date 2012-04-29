@@ -31,6 +31,12 @@ public:
   Matrix4x4 translation(const Vector4& v);
   
   static
+  Matrix4x4 scale(const Vector4& v);
+  
+  static
+  Matrix4x4 scale(float scale);
+  
+  static
   Matrix4x4 perspective(float fov, float aspect, float znear, float zfar);
   
   static
@@ -45,6 +51,8 @@ public:
   Matrix3x3 mat3x3() const;
   
 public:
+  
+  Matrix4x4();
   
   Matrix4x4(float m11, float m12, float m13, float m14,
             float m21, float m22, float m23, float m24,
@@ -65,11 +73,7 @@ public:
   
   static
   Matrix4x4 IDENTITY;
-  
-private:
-  
-  Matrix4x4();  
-  
+    
 private:
   
   float m11_, m12_, m13_, m14_, 
@@ -83,6 +87,5 @@ inline
 float const * Matrix4x4::valuePtr() const {
   return &(m11_);
 }
-
 
 #endif

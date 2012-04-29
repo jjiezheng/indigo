@@ -1,18 +1,37 @@
 #ifndef MODEL_H
 #define MODEL_H
 
-#include "SceneNode.h"
+#include "Mesh.h"
+#include "Material.h"
 
-class Model : public SceneNode {
+class IViewer;
+class SceneContext;
+
+class Model {
   
 public:
   
-  static Model* model(const char* filepath);
+  void render(const IViewer* camera, const SceneContext& sceneContext) const;
   
-protected:
+  void addMesh(const Mesh& mesh);
   
-  Model() = default;
+  void setMaterial(const Material& material);
+  
+  void setLocalToWorld(const Matrix4x4& localToWorld);
+  
+private:
+  
+  std::vector<Mesh> meshes_;
+  Matrix4x4 localToWorld_;
     
 };
+
+inline void Model::addMesh(const Mesh& mesh) {
+  meshes_.push_back(mesh);
+}
+
+inline void Model::setLocalToWorld(const Matrix4x4& localToWorld) {
+  localToWorld_ = localToWorld;
+}
 
 #endif

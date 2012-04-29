@@ -86,7 +86,7 @@ CVReturn displayCallback(CVDisplayLinkRef displayLink, const CVTimeStamp *inNow,
 
 - (void)renderForTime:(CVTimeStamp)time {
   [[[self view] openGLContext] makeCurrentContext];  
-  Game::instance()->main_loop();
+//  Game::instance()->main_loop();
   
   [[[self view] openGLContext] flushBuffer];
 }

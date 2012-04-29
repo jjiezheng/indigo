@@ -7,11 +7,13 @@ class Matrix3x3 {
  
 public:
   
-  static
-  Matrix3x3 rotationX(int degrees);
+  static Matrix3x3 rotationX(int degrees);
   
-  static
-  Matrix3x3 rotationY(int degrees);
+  static Matrix3x3 rotationX(float radians);
+  
+  static Matrix3x3 rotationY(int degrees);
+  
+  static Matrix3x3 rotationY(float radians);
   
 public:
   
@@ -37,8 +39,7 @@ private:
   
 };
 
-inline
-float const * Matrix3x3::valuePtr() const {
+inline float const * Matrix3x3::valuePtr() const {
   return &(m11_);
 }
 

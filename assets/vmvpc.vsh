@@ -1,13 +1,12 @@
 #version 150
 
-uniform mat4 view, model, projection;
-uniform mat3 normalMatrix;
-
 in vec4 vertex;
 in vec3 normal;
 
-out vec3 oNormal;
-out vec3 oPosition;
+uniform mat4 view, model, projection;
+uniform mat3 normalMatrix;
+
+out vec3 oNormal, oPosition;
 
 void main() {  
   gl_Position = projection * view * model * vertex;

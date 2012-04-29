@@ -5,29 +5,28 @@
 
 #include "Color3.h"
 #include "SceneNode.h"
+#include "Material.h"
 
 class Shader;
 class Material;
+class IViewer;
+class SceneContext;
 
 class Mesh : public SceneNode {
   
 public:
   
-  static Mesh* mesh(float* vertices, float* normals, float* uvs, int numVertices, Material* material);
+  Mesh(float* vertices, float* normals, float* uvs, int numVertices);
+  
+  void init();
+  
+  static Mesh* mesh(float* vertices, float* normals, float* uvs, int numVertices);
   
 public:
   
-  void render(Shader* shader) const;
+  void render(const IViewer* camera, const Matrix4x4& model, const SceneContext& sceneContext) const;
   
-  void queueRender(Renderer* renderer);
-  
-  Material* material() const;
-    
-private:
-  
-  Mesh(float* vertices, float* normals, float* uvs, int numVertices, Material* material);
-  
-  void init();
+  void setMaterial(const Material& material);
   
 private:
   
@@ -41,12 +40,11 @@ private:
   GLuint normalBuffer;  
   GLuint uvBuffer;  
   
-  Material* material_;
+  Material material_;
 };
 
-inline
-Material* Mesh::material() const {
-  return material_;
+inline void Mesh::setMaterial(const Material& material) {
+  material_ = material;
 }
 
 #endif

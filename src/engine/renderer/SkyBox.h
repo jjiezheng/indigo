@@ -1,33 +1,25 @@
-#ifndef Shadows_SkyBox_h
-#define Shadows_SkyBox_h
+#ifndef SKYBOX_H
+#define SKYBOX_H
 
-#include "Standard.h"
+#include "Shader.h"
 
-class Model;
-class Shader;
+class IViewer;
 
 class SkyBox {
   
 public:
   
-  static
-  SkyBox* skybox(const std::string& basename);
+  void load(const std::string& basename);
   
-  void init();
-  
-  void render(const MAT4& perspective);
+  void render(const IViewer* camera) const;
   
 private:
   
-  SkyBox(const std::string& basename)
-    : basename_(basename) { };
-  
-private:
-  
-  std::string basename_;
-  Model* model_;
-  Shader* shader_;
-  
+  Shader shader_;
+  GLuint vertexArray;
+  GLuint vertexBuffer;
+  GLuint cubeTexture_;
+    
 };
 
 #endif

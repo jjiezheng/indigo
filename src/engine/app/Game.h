@@ -1,37 +1,33 @@
-#ifndef CubeFX_Game_h
-#define CubeFX_Game_h
+#ifndef GAME_H
+#define GAME_H
 
 #include "Clock.h"
+#include "World.h"
+#include "SceneContext.h"
 
-class Renderer;
-class Scene;
+#include "Renderer3d.h"
+#include "RendererShadow.h"
+
+class Camera;
+class Mesh;
 
 class Game {
   
 public:
   
-  static Game* instance();
+  void init();
   
-public:
+  void mainLoop();
   
-  void init_with_scene(Scene* scene);
-  
-  void changeScene(Scene* scene);
-  
-  void main_loop();
   
 private:
   
-  Game();
-  
-private:
-  
-  Scene* runningScene_;
-  Scene* nextScene_;
-  
-  Renderer* renderer_;
-  
+  Camera* camera_;
+  RendererShadow shadowRenderer_;
+  Renderer3d renderer_;
+  World world_;  
   Clock clock_;
+  SceneContext sceneContext_;
   
 };
 

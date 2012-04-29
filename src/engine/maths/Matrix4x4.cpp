@@ -62,6 +62,17 @@ Matrix4x4 Matrix4x4::translation(const Vector4& v) {
                    0.0f,  0.0f, 0.0f,  1.0f);
 }
 
+Matrix4x4 Matrix4x4::scale(float scale) {
+  return Matrix4x4::scale(Vector4(scale, scale, scale));
+}
+
+Matrix4x4 Matrix4x4::scale(const Vector4& v) {
+  return Matrix4x4(v.x,  0.0f, 0.0f, 0.0f,
+                   0.0f,  v.y, 0.0f, 0.0f,
+                   0.0f,  0.0f, v.z, 0.0f,
+                   0.0f,  0.0f, 0.0f, 1.0f);
+}
+
 Matrix4x4 Matrix4x4::perspective(float fov, float aspect, float znear, float zfar) {
   float xymax = znear * tan(fov * (M_PI / 360.0f));
   float ymin = -xymax;
@@ -103,7 +114,8 @@ Matrix4x4 Matrix4x4::orthographic(float left, float right, float bottom, float t
                    0,               0,                 0,              1);  
 }
 
-Matrix4x4::Matrix4x4() {
+Matrix4x4::Matrix4x4()
+  : Matrix4x4(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0) {
   
 }
 

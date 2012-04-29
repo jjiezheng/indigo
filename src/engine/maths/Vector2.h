@@ -5,6 +5,10 @@ class Vector2 {
   
 public:
   
+  static Vector2 IDENTITY;
+  
+public:
+  
   Vector2();
   
   Vector2(float x, float y);
@@ -17,13 +21,16 @@ public:
   
 public:
   
-  float x, y;
+  float aspectRatio() const;
   
 public:
   
-  static
-  Vector2 IDENTITY;
-  
+  float x, y;
+      
 };
+
+inline float Vector2::aspectRatio() const {
+  return x / y;
+}
 
 #endif

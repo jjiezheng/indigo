@@ -7,7 +7,7 @@
 #include "Camera.h"
 
 #include "Renderer.h"
-
+/*
 static const int VERTEX_SIZE = 3;
 static const int VERTEX_LENGTH = 18;
 
@@ -64,3 +64,4 @@ void PointLight::queueRender(Renderer* renderer) {
   Light::queueRender(renderer);
   renderer->queuePointLight(this);
 }
+*/
