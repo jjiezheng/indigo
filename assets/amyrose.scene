@@ -1,0 +1,28 @@
+{
+  "skybox" : "mountains.png",
+  "objects" : [
+    {
+      "mesh" : "shuttle.blend",
+      "material" : "texture.material",
+      "position" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "z" : 0.0
+      }
+    }
+  ],
+  "lights" : [
+    {
+      "position" : {
+        "x" : 0.0,
+        "y" : 5.0,
+        "z" : 5.0
+      },
+      "orientation" : {
+        "x" : 0,
+        "y" : 3.141,
+        "z" : 0
+      }
+    }
+  ]
+}

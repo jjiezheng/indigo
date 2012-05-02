@@ -121,7 +121,7 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
   Assimp::Importer importer;
   
   std::string fullPath = MacPlatform::instance()->path_for_file(modelFilePath);
-  const aiScene* scene = importer.ReadFile(fullPath.c_str(), aiProcess_PreTransformVertices);
+  const aiScene* scene = importer.ReadFile(fullPath.c_str(), aiProcess_PreTransformVertices  );
   
   for (int i = 0; i < scene->mNumMeshes; i++) {
     aiMesh* aiMesh = scene->mMeshes[i];
@@ -156,7 +156,7 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
       
       verts[vertIndex] = rotatedVertex.y;
       normals[vertIndex] = rotatedNormal.y;
-      //        uvs[uvIndex] = rotatedUV.y;
+    //        uvs[uvIndex] = rotatedUV.y;
       uvIndex++;
       vertIndex++;
       
@@ -164,7 +164,7 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
       normals[vertIndex] = rotatedNormal.z;
       vertIndex++;
     }
-    
+        
     Mesh mesh(verts, normals, uvs, vertIndex + 1);
     mesh.init();
     model->addMesh(mesh);

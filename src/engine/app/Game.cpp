@@ -31,7 +31,7 @@ void Game::init() {
   camera_->setProjection(projection);
 
   WorldLoader loader;
-  loader.loadFromSceneFile("test.scene", world_, sceneContext_);
+  loader.loadFromSceneFile("amyrose.scene", world_, sceneContext_);
   
   
   shadowRenderer_.init(screenSize);

@@ -70,7 +70,7 @@ void SkyBox::load(const std::string& basename) {
     shader_.add_uniform("cubeMap");
   }
   
-    float vertices[108] = {
+    float vertices[108] = { 
       1, 1, -1,
       -1, 1, -1,
       -1, -1, -1,
