@@ -1,18 +1,20 @@
 {
-  "vertex" : "vmvpc.vsh",
-  "fragment" : "diffuse.fsh",
+  "vertex" : "vmvpt.vsh",
+  "fragment" : "bump_texture.fsh",
   "attributes" : {
     "vertex" : 1,
-    "normal" : 2
+    "textureCoords" : 3
   },
   "uniforms" : [
     "model",
     "view",
     "projection",
     "normalMatrix",
-    
+
+    "ambient",    
     "diffuse",
-    "ambient",
+    
+    "bumpMap",
     "numPointLights"
   ]
 }

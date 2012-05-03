@@ -3,7 +3,7 @@
   "objects" : [
     {
       "mesh" : "shuttle.blend",
-      "material" : "shuttle_diffuse.material",
+      "material" : "shuttle.material",
       "position" : {
         "x" : 0.0,
         "y" : 0.0,

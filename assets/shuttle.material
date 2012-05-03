@@ -1,5 +1,5 @@
 {
-  "shader" : "diffuse_texture.shader",
+  "shader" : "bump_texture.shader",
   "parameters" : {
     "ambient" : {
       "r" : 0,
@@ -7,7 +7,13 @@
       "b" : 0,
       "type" : "color3"
     },
-    "colorMap" : {
+    "diffuse" : {
+      "r" : 0,
+      "g" : 1,
+      "b" : 0,
+      "type" : "color3"
+    },
+    "bumpMap" : {
       "type" : "int",
       "value" : 0
     },
@@ -17,6 +23,6 @@
     }
   },
   "textures" : [
-    "shuttle_diffuse.png"
+    "shuttle_diffuse  .png"
   ]
 }
