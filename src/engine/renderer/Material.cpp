@@ -42,7 +42,7 @@ void Material::bind(const IViewer* camera, const Matrix4x4& model, const Matrix3
   
   int textureIndex = 0;
   for (const Texture& texture : textures_) {
-    glActiveTexture(GL_TEXTURE0 + textureIndex);
+    glActiveTexture(GL_TEXTURE0 + textureIndex++);
     glBindTexture(GL_TEXTURE_2D, texture.textureId());
   }
     
