@@ -28,6 +28,7 @@
 
 #include "Light.h"
 #include "SkyBox.h"
+#include "Texture.h"
 
 void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, SceneContext& sceneContext) {
   std::string fullFilePath = MacPlatform::instance()->path_for_file(filePath);
@@ -143,21 +144,21 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
       Vector4 originalNormal(normal.x, normal.y, normal.z);
       Vector4 rotatedNormal = originalNormal;
       
-      //        // uv
-      //        aiVector3D uv = aiMesh->mTextureCoords[0][vertexi];
-      //        Vector2 originalUV(uv.x, uv.y);
-      //        Vector2 rotatedUV = originalUV;
+      // uv      
+      if (aiMesh->mTextureCoords[0]) {
+        aiVector3D uv = aiMesh->mTextureCoords[0][vertexi];
+        Vector2 originalUV(uv.x, uv.y);
+        Vector2 rotatedUV = originalUV;        
+        uvs[uvIndex++] = rotatedUV.x;
+        uvs[uvIndex++] = rotatedUV.y;
+      }
       
       verts[vertIndex] = rotatedVertex.x;
       normals[vertIndex] = rotatedNormal.x;
-      //        uvs[uvIndex] = rotatedUV.x;
-      uvIndex++;
       vertIndex++;
       
       verts[vertIndex] = rotatedVertex.y;
       normals[vertIndex] = rotatedNormal.y;
-    //        uvs[uvIndex] = rotatedUV.y;
-      uvIndex++;
       vertIndex++;
       
       verts[vertIndex] = rotatedVertex.z;
@@ -192,7 +193,7 @@ void WorldLoader::loadMaterial(Model* model, const std::string& materialFilePath
     
     json::String parameterTypeString = member.element["type"];
     std::string parameterType = parameterTypeString.Value();
-    
+        
     if (parameterType.compare("color3") == 0) {
       json::Number redNumber = member.element["r"];
       float r = redNumber.Value();
@@ -214,6 +215,14 @@ void WorldLoader::loadMaterial(Model* model, const std::string& materialFilePath
       IntegerMaterialParameter* parameter = new IntegerMaterialParameter(parameterName, value);
       material.setParameter(parameter);
     }
+  }
+  
+  json::Array textures = materialObject["textures"];
+  for (json::String& textureFileString : textures) {
+    std::string textureFile = textureFileString.Value();
+    Texture texture;
+    texture.init(textureFile.c_str());
+    material.addTexture(texture);
   }
   
   model->setMaterial(material);

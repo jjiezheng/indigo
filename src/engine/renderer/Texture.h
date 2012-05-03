@@ -11,13 +11,13 @@ public:
   
   static Texture* texture(const char* filePath);
   
-private:
+public:
+    
+  Texture();
+  
+public:
   
   void init(const char* filePath);
-  
-private:
-  
-  Texture();
   
 public:
   
@@ -26,6 +26,8 @@ public:
   int height() const;
   
   GLuint textureId() const;
+  
+  void bind(int index) const;
   
 public:
   

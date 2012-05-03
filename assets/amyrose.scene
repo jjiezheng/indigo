@@ -3,11 +3,20 @@
   "objects" : [
     {
       "mesh" : "shuttle.blend",
-      "material" : "texture.material",
+      "material" : "shuttle_diffuse.material",
       "position" : {
         "x" : 0.0,
         "y" : 0.0,
         "z" : 0.0
+      }
+    },
+    {
+      "mesh" : "monkey.blend",
+      "material" : "grey.material",
+      "position" : {
+        "x" : 5.0,
+        "y" : 0.0,
+        "z" : -10.0
       }
     }
   ],

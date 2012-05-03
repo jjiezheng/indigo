@@ -2,4 +2,19 @@
 <Bucket
    type = "1"
    version = "1.0">
+   <FileBreakpoints>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../src/engine/renderer/WorldLoader.cpp"
+         timestampString = "357766325.932814"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "220"
+         endingLineNumber = "220"
+         landmarkName = "WorldLoader::loadMaterial(Model* model, const std::string&amp; materialFilePath)"
+         landmarkType = "5">
+      </FileBreakpoint>
+   </FileBreakpoints>
 </Bucket>
