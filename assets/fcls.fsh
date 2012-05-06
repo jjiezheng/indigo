@@ -8,7 +8,7 @@ uniform vec3 lightDirections[6];
 uniform int numPointLights;
 uniform vec3 lightPositions[6];
 
-uniform sampler2DShadow shadowMapTexture;
+uniform sampler2DShadow shadowMap;
 in vec4 shadowMapCoord;
 
 in vec3 oNormal;
@@ -34,7 +34,7 @@ void main() {
   shadowCoord.z += 0.0005;
   
   if (shadowCoord.w > 0.0f) {
-    float depth = textureProj(shadowMapTexture, shadowCoord);
+    float depth = textureProj(shadowMap, shadowCoord);
     float visibility = (depth == 0) ? 0.5 : 1.0;
     fragColor.rgb = fragColor.rgb * visibility;
   }

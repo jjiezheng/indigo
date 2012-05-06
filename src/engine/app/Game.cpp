@@ -21,6 +21,7 @@ void Game::init() {
 
   camera_ = Camera::camera();
   camera_->translateZ(10);
+  camera_->translateY(1.8);
 //  camera_->translateY(15);
 //  camera_->rotateX(-60);
   

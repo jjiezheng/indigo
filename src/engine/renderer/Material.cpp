@@ -33,8 +33,9 @@ void Material::bind(const IViewer* camera, const Matrix4x4& model, const Matrix3
   shader_.set_uniform(camera->projection(), "projection");
   shader_.set_uniform(model, "model");
     
+  glActiveTexture(GL_TEXTURE7);
   glBindTexture(GL_TEXTURE_2D, sceneContext.shadowTexture());
-  shader_.set_uniform(0, "shadowMapTexture");
+  shader_.set_uniform(7, "shadowMap");
   
   for (MaterialParameter* parameter : parameters_) {
     parameter->setShader(shader_);
@@ -45,10 +46,4 @@ void Material::bind(const IViewer* camera, const Matrix4x4& model, const Matrix3
     glActiveTexture(GL_TEXTURE0 + textureIndex++);
     glBindTexture(GL_TEXTURE_2D, texture.textureId());
   }
-    
-  //  shader_->use();
-  ////  shader->set_uniform(rotation().mat3x3(), "normalMatrix");  
-  //  shader_->set_uniform(camera->viewTransform(), "view");
-  //  shader_->set_uniform(camera->projection(), "projection");
-  //  shader_->set_uniform(transform(), "model");
 }

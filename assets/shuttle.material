@@ -1,5 +1,5 @@
 {
-  "shader" : "diffuse_bump_texture.shader",
+  "shader" : "diffuse_bump_texture_shadow.shader",
   "parameters" : {
     "ambient" : {
       "r" : 0,
