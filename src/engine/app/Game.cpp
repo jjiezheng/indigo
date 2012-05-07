@@ -12,6 +12,7 @@
 #include "GameScene.h"
 
 #include "Camera.h"
+#include "FogTypes.h"
 
 #include "WorldLoader.h"
 #include "Box.h"
@@ -34,6 +35,7 @@ void Game::init() {
   WorldLoader loader;
   loader.loadFromSceneFile("amyrose.scene", world_, sceneContext_);
   
+  sceneContext_.setFog(FOG_EXP, 0.66f, -10, -100, Color4(0.6f, 0.6f, 0.6f));
   
   shadowRenderer_.init(screenSize);
   renderer_.setBackgroundColor(Color3(0.4f, 0.6f, 0.93f));

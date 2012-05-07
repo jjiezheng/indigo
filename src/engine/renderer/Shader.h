@@ -9,6 +9,7 @@ class Light;
 class ShaderResource;
 class Matrix4x4;
 class Matrix3x3;
+class Color4;
 
 class Shader {
   
@@ -47,11 +48,15 @@ public:
   
   void set_uniform(const Color3& uniform_data, const char* uniform_name) const;
   
+  void set_uniform(const Color4& uniform_data, const char* uniform_name) const;
+  
   void set_uniform(const VEC3& uniform_data, const char* uniform_name) const;
   
   void set_uniform(const glm::vec4& uniform_data, const char* uniform_name) const;
   
   void set_uniform(INT uniform_data, const char* uniform_name) const;
+  
+  void set_uniform(float uniform_data, const char* uniform_name) const;
   
   void add_uniform(const char* uniform_name);
   

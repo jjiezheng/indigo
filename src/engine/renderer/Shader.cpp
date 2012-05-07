@@ -1,5 +1,7 @@
 #include "Shader.h"
 
+#include "Color4.h"
+
 #include "Matrix4x4.h"
 #include "Matrix3x3.h"
 
@@ -107,6 +109,15 @@ void Shader::set_uniform(const Color3& uniform_data, const char* uniform_name) c
   }    
 }
 
+void Shader::set_uniform(const Color4& uniform_data, const char* uniform_name) const {
+  std::map<std::string, GLint>::const_iterator uniformIt = uniforms.find(uniform_name);
+  if (uniformIt != uniforms.end()) {
+    GLint uniform_id = (*uniformIt).second;
+    glUniform4fv(uniform_id, 1, uniform_data.valuePtr());
+  }    
+}
+
+
 void Shader::set_uniform(const VEC3& uniform_data, const char* uniform_name) const {
   std::map<std::string, GLint>::const_iterator uniformIt = uniforms.find(uniform_name);
   if (uniformIt != uniforms.end()) {
@@ -158,6 +169,14 @@ void Shader::set_uniform(INT uniform_data, const char* uniform_name) const {
   if (uniformIt != uniforms.end()) {
     GLint uniform_id = (*uniformIt).second;
     glUniform1i(uniform_id, uniform_data);
+  }  
+}
+
+void Shader::set_uniform(float uniform_data, const char* uniform_name) const {
+  std::map<std::string, GLint>::const_iterator uniformIt = uniforms.find(uniform_name);
+  if (uniformIt != uniforms.end()) {
+    GLint uniform_id = (*uniformIt).second;
+    glUniform1f(uniform_id, uniform_data);
   }  
 }
 

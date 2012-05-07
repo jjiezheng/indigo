@@ -277,6 +277,9 @@
 		4C74ABC2154892F40008271B /* TitleSpriteButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleSpriteButton.h; sourceTree = "<group>"; };
 		4C74AC07154894020008271B /* App.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = App.cpp; sourceTree = "<group>"; };
 		4C74AC091548940F0008271B /* App.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = App.h; sourceTree = "<group>"; };
+		4C8C92B01558381700DEA969 /* FloatMaterialParameter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FloatMaterialParameter.h; sourceTree = "<group>"; };
+		4C8C92B2155851DE00DEA969 /* Color4.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Color4.h; sourceTree = "<group>"; };
+		4C8C92B315585ED500DEA969 /* FogTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FogTypes.h; sourceTree = "<group>"; };
 		4C8E100614F03D450095F390 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4C9412991438203800D9357E /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		4CB28510144699D300A26530 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -541,6 +544,9 @@
 				4C40C3E3154D5332001E9F75 /* RendererShadow.cpp */,
 				4C40C3E5154D6A73001E9F75 /* IViewer.h */,
 				4C40C3E6154DA618001E9F75 /* Angles.h */,
+				4C8C92B01558381700DEA969 /* FloatMaterialParameter.h */,
+				4C8C92B2155851DE00DEA969 /* Color4.h */,
+				4C8C92B315585ED500DEA969 /* FogTypes.h */,
 			);
 			path = renderer;
 			sourceTree = "<group>";

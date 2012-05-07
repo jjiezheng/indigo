@@ -4,6 +4,7 @@
 #include "Shader.h"
 
 class IViewer;
+class SceneContext;
 
 class SkyBox {
   
@@ -11,7 +12,7 @@ public:
   
   void load(const std::string& basename);
   
-  void render(const IViewer* camera) const;
+  void render(const IViewer* camera, const SceneContext& sceneContext) const;
   
 private:
   

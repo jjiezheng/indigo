@@ -5,7 +5,7 @@ uniform mat4 projection, view, model, lightMatrix;
 in vec4 vertex;
 in vec2 textureCoords;
 
-out vec3 oNormal, oPosition;
+out vec3 oNormal, oPosition, oViewPosition;
 out vec2 oTextureCoords;
 out vec4 oShadowMapCoords;
 
@@ -17,4 +17,7 @@ void main() {
     
   oTextureCoords = textureCoords;
   oShadowMapCoords = lightMatrix * model * vertex;
+  
+  vec4 mvPosition = view * model * vertex;
+  oViewPosition = mvPosition.xyz / mvPosition.w;
 }

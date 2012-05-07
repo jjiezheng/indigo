@@ -11,6 +11,8 @@
 
 #include "String.h"
 
+#include "SceneContext.h"
+
 static const int NUM_VERTICES = 36;
 
 void SkyBox::load(const std::string& basename) {
@@ -57,7 +59,7 @@ void SkyBox::load(const std::string& basename) {
     glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
   }
   {
-    ShaderResource* shaderResource = ResourceCache::instance()->load_shader("skybox.vsh", "skybox.fsh");
+    ShaderResource* shaderResource = ResourceCache::instance()->load_shader("skybox_fog.vsh", "skybox_fog.fsh");
     shader_.compile_vertex(shaderResource->vertex_source());
     shader_.compile_fragment(shaderResource->fragment_source());
 
@@ -68,6 +70,12 @@ void SkyBox::load(const std::string& basename) {
     shader_.add_uniform("view");
     shader_.add_uniform("model");
     shader_.add_uniform("cubeMap");
+    
+    shader_.add_uniform("fogStart");
+    shader_.add_uniform("fogEnd");
+    shader_.add_uniform("fogColor");
+    shader_.add_uniform("fogType");
+    shader_.add_uniform("fogFactor");
   }
   
     float vertices[108] = { 
@@ -124,7 +132,7 @@ void SkyBox::load(const std::string& basename) {
     glEnableVertexAttribArray(ATTRIB_VERTEX);    
 }
 
-void SkyBox::render(const IViewer* camera) const {
+void SkyBox::render(const IViewer* camera, const SceneContext& sceneContext) const {
   shader_.use();
   
   shader_.set_uniform(camera->projection(), "projection");
@@ -138,6 +146,12 @@ void SkyBox::render(const IViewer* camera) const {
   
   glBindTexture(GL_TEXTURE_CUBE_MAP, cubeTexture_);
   shader_.set_uniform(0, "cubeMap");
+  
+  shader_.set_uniform(sceneContext.fogStart(), "fogStart");
+  shader_.set_uniform(sceneContext.fogEnd(), "fogEnd");
+  shader_.set_uniform(sceneContext.fogColor(), "fogColor");
+  shader_.set_uniform(sceneContext.fogType(), "fogType");
+  shader_.set_uniform(sceneContext.fogFactor(), "fogFactor");
   
   glBindVertexArray(vertexArray);
   glDrawArrays(GL_TRIANGLES, 0, NUM_VERTICES);

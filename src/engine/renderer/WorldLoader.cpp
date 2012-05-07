@@ -22,6 +22,7 @@
 #include "MaterialParameter.h"
 #include "Vector3MaterialParameter.h"
 #include "IntegerMaterialParameter.h"
+#include "FloatMaterialParameter.h"
 
 #include "World.h"
 #include "SceneContext.h"
@@ -215,6 +216,14 @@ void WorldLoader::loadMaterial(Model* model, const std::string& materialFilePath
       IntegerMaterialParameter* parameter = new IntegerMaterialParameter(parameterName, value);
       material.setParameter(parameter);
     }
+    
+    if (parameterType.compare("float") == 0) {
+      json::Number valueNumber = member.element["value"];
+      float value = valueNumber.Value();
+      FloatMaterialParameter* parameter = new FloatMaterialParameter(parameterName, value);
+      material.setParameter(parameter);
+    }
+
   }
   
   json::Array textures = materialObject["textures"];

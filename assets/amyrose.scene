@@ -21,7 +21,7 @@
     },
     {
       "mesh" : "floor.blend",
-      "material" : "grey.material",
+      "material" : "floor.material",
       "position" : {
         "x" : 0.0,
         "y" : 0.0,
