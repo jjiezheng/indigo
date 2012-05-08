@@ -1,0 +1,33 @@
+{
+  "shader" : "diffuse_bump_texture_shadow_fog.shader",
+  "parameters" : {
+    "ambient" : {
+      "r" : 0,
+      "g" : 0,
+      "b" : 0,
+      "type" : "color3"
+    },
+    "diffuse" : {
+      "r" : 0.6,
+      "g" : 0.6,
+      "b" : 0.6,
+      "type" : "color3"
+    },
+    "colorMap" : {
+      "type" : "int",
+      "value" : 0
+    },
+    "bumpMap" : {
+      "type" : "int",
+      "value" : 1
+    },
+    "numPointLights" : {
+      "type" : "int",
+      "value" : 1
+    }
+  },
+  "textures" : [
+    "shuttle2_diffuse.png",
+    "shuttle_diffuse_NORM.tga"
+  ]
+}

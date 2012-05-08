@@ -18,6 +18,8 @@
 #include "Box.h"
 
 void Game::init() {  
+  properties_.init();
+  
   renderer_.setBackgroundColor(Color3(0, 1, 0));
 
   camera_ = Camera::camera();
@@ -49,4 +51,12 @@ void Game::mainLoop() {
   
   shadowRenderer_.render(world_, sceneContext_);
   renderer_.render(camera_, world_, sceneContext_);
+
+  if (properties_.getProperty(PROPERTY_RENDER_SHADOWMAP)) {
+    shadowRenderer_.renderDebug(sceneContext_);
+  }
+}
+
+void Game::keyUp(char character) {
+  properties_.keyUp(character);
 }

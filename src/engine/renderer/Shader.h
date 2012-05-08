@@ -15,10 +15,6 @@ class Shader {
   
 public:
   
-  Shader();
-  
-public:
-  
   static 
   Shader* shader(const ShaderResource* shader_resource);
   

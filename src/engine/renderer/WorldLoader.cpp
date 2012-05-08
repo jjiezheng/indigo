@@ -72,24 +72,24 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
       light.setPosition(position);
     }
     
-    sceneContext.addLight(light);
+    {
+      json::Object rotationObject = lightItem["orientation"];
+      
+      json::Number xNumber = rotationObject["x"];
+      float x = xNumber.Value();
+      
+      json::Number yNumber = rotationObject["y"];
+      float y = yNumber.Value();
+      Matrix4x4 rotationY = Matrix4x4::rotationY(y);
+      
+      json::Number zNumber = rotationObject["z"];
+      float z = zNumber.Value();      
+      
+      Matrix4x4 rotation = Matrix4x4::rotationZ(z) * Matrix4x4::rotationY(y) * Matrix4x4::rotationX(x);
+      light.setRotation(rotation);
+    }
     
-//    {
-//      json::Object positionObject = lightItem["orientation"];
-//      
-////      json::Number xNumber = positionObject["x"];
-////      float x = xNumber.Value();
-//      
-//      json::Number yNumber = positionObject["y"];
-//      float y = yNumber.Value();
-//      Matrix4x4 rotationY = Matrix4x4::rotationY(y);
-//      
-////      json::Number zNumber = positionObject["z"];
-////      float z = zNumber.Value();
-//      
-//
-//      light.setPosition(position);
-//    }
+    sceneContext.addLight(light);    
   }
 }
 

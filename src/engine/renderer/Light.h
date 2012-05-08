@@ -20,6 +20,10 @@ public:
   
 public:
   
+  void setRotation(const Matrix4x4& rotation);
+  
+public:
+  
   Matrix4x4 viewTransform() const;
   
   Matrix4x4 projection() const;
@@ -29,9 +33,14 @@ public:
 private:
   
   Vector4 position_;
-    
-};
+  Matrix4x4 rotation_;
   
+};
+ 
+inline void Light::setRotation(const Matrix4x4 &rotation) {
+  rotation_ = rotation;
+}
+
 inline void Light::setPosition(const Vector4 &position) {
   position_ = position;
 }
@@ -41,11 +50,11 @@ inline Vector4 Light::position() const {
 }
 
 inline Matrix4x4 Light::viewTransform() const {
-  return Matrix4x4::translation(position_).inverse();
+  return transform().inverse();
 }
 
 inline Matrix4x4 Light::transform() const {
-  return Matrix4x4::translation(position_);
+  return Matrix4x4::translation(position_) * rotation_;
 }
 
 inline Matrix4x4 Light::projection() const {

@@ -4,11 +4,14 @@
 #include <iostream>
 
 #include "GameScene.h"
-#include "Game.h"
 
 #include "MacPlatform.h"
 
+App* App::app_ = 0;
+
 void App::run() {
+  app_ = this;
+  
   if (!glfwInit()) {
     std::clog << "Error creating gl context" << std::endl;
     return;
@@ -30,17 +33,25 @@ void App::run() {
   }
   
   glfwDisable(GLFW_MOUSE_CURSOR);
+  glfwSetCharCallback(&App::keyFunction);
   
   bool quit = false;
   
-  Game game;
-  game.init();
+  game_.init();
   
   while (!quit) {
-    game.mainLoop();
+    game_.mainLoop();
     glfwSwapBuffers();
     quit = !glfwGetWindowParam(GLFW_OPENED);
   }
   
   glfwTerminate();
+}
+
+void App::keyFunction(int character, int state) {
+  app_->keyUp(character);
+}
+
+void App::keyUp(char character) {
+  game_.keyUp(character);
 }

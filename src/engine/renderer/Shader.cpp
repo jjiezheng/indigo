@@ -19,11 +19,8 @@ Shader* Shader::shader(const ShaderResource* shader_resource) {
   return shader;
 }
 
-Shader::Shader() {
-  program = glCreateProgram();
-}
-
 GLuint Shader::compile_shader(const std::string& shader_source, GLint type) {
+
   GLuint shader = glCreateShader(type);
   const char* source = shader_source.c_str();
   glShaderSource(shader, 1, &source, 0);
@@ -53,6 +50,8 @@ GLuint Shader::compile_shader(const std::string& shader_source, GLint type) {
 }
 
 void Shader::compile_vertex(const std::string& vertex_source) {
+  program = glCreateProgram();
+
   vertex = compile_shader(vertex_source, GL_VERTEX_SHADER);
 }
 

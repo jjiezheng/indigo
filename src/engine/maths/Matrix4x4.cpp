@@ -115,7 +115,10 @@ Matrix4x4 Matrix4x4::orthographic(float left, float right, float bottom, float t
 }
 
 Matrix4x4::Matrix4x4()
-  : Matrix4x4(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0) {
+  : Matrix4x4(1, 0, 0, 0, 
+              0, 1, 0, 0, 
+              0, 0, 1, 0, 
+              0, 0, 0, 1) {
   
 }
 

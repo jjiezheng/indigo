@@ -4,6 +4,7 @@
 #include "Clock.h"
 #include "World.h"
 #include "SceneContext.h"
+#include "Properties.h"
 
 #include "Renderer3d.h"
 #include "RendererShadow.h"
@@ -19,6 +20,7 @@ public:
   
   void mainLoop();
   
+  void keyUp(char character);
   
 private:
   
@@ -28,6 +30,7 @@ private:
   World world_;  
   Clock clock_;
   SceneContext sceneContext_;
+  Properties properties_;
   
 };
 

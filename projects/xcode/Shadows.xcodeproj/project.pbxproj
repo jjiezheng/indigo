@@ -92,6 +92,7 @@
 		4CC9D0B4154C379E00E0EEBB /* elements.inl in Resources */ = {isa = PBXBuildFile; fileRef = 4CC9D0AE154C379E00E0EEBB /* elements.inl */; };
 		4CC9D0B5154C379E00E0EEBB /* reader.inl in Resources */ = {isa = PBXBuildFile; fileRef = 4CC9D0B0154C379E00E0EEBB /* reader.inl */; };
 		4CC9D0B6154C379E00E0EEBB /* writer.inl in Resources */ = {isa = PBXBuildFile; fileRef = 4CC9D0B3154C379E00E0EEBB /* writer.inl */; };
+		4CD48FDB15599EC3005588D8 /* Properties.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CD48FDA15599EC3005588D8 /* Properties.cpp */; };
 		4CF11A6E15489E7E00803740 /* FlatShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CF11A6D15489E7E00803740 /* FlatShader.cpp */; };
 /* End PBXBuildFile section */
 
@@ -299,6 +300,9 @@
 		4CC9D0B1154C379E00E0EEBB /* visitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = visitor.h; sourceTree = "<group>"; };
 		4CC9D0B2154C379E00E0EEBB /* writer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = writer.h; sourceTree = "<group>"; };
 		4CC9D0B3154C379E00E0EEBB /* writer.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = writer.inl; sourceTree = "<group>"; };
+		4CD48FD915599E98005588D8 /* Properties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Properties.h; path = config/Properties.h; sourceTree = "<group>"; };
+		4CD48FDA15599EC3005588D8 /* Properties.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Properties.cpp; path = config/Properties.cpp; sourceTree = "<group>"; };
+		4CD48FDC15599F92005588D8 /* HashedString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HashedString.h; sourceTree = "<group>"; };
 		4CF11A6B15489E2400803740 /* FlatShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlatShader.h; sourceTree = "<group>"; };
 		4CF11A6D15489E7E00803740 /* FlatShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FlatShader.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -355,6 +359,7 @@
 		4C74AB1E154892F40008271B /* engine */ = {
 			isa = PBXGroup;
 			children = (
+				4CD48FD715599E81005588D8 /* config */,
 				4C74AB1F154892F40008271B /* app */,
 				4C74AB23154892F40008271B /* core */,
 				4C74AB2C154892F40008271B /* crap */,
@@ -392,6 +397,7 @@
 				4C74AB29154892F40008271B /* String.cpp */,
 				4C74AB2A154892F40008271B /* String.h */,
 				4C74AB2B154892F40008271B /* Types.h */,
+				4CD48FDC15599F92005588D8 /* HashedString.h */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -685,6 +691,15 @@
 			path = ../../libs/json;
 			sourceTree = "<group>";
 		};
+		4CD48FD715599E81005588D8 /* config */ = {
+			isa = PBXGroup;
+			children = (
+				4CD48FD915599E98005588D8 /* Properties.h */,
+				4CD48FDA15599EC3005588D8 /* Properties.cpp */,
+			);
+			name = config;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -879,6 +894,7 @@
 				4C330926154BE9CF0085ED6B /* Renderer3d.cpp in Sources */,
 				4C33092A154BF0DB0085ED6B /* WorldLoader.cpp in Sources */,
 				4C40C3E4154D5332001E9F75 /* RendererShadow.cpp in Sources */,
+				4CD48FDB15599EC3005588D8 /* Properties.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
