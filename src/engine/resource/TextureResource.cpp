@@ -1,7 +1,8 @@
 #include "TextureResource.h"
 
-#include "Standard.h"
-#include "Platform.h"
+#include "core/Standard.h"
+
+#include "platform/Platform.h"
 
 TextureResource* TextureResource::resource(Platform* platform) {
   return new TextureResource(platform);

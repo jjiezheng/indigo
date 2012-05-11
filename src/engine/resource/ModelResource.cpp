@@ -1,18 +1,19 @@
 #include "ModelResource.h"
 
-#include <fstream>
+/*#include <fstream>
 
-#include "Standard.h"
-#include "File.h"
-#include "MeshResource.h"
-#include "MaterialResource.h"
-#include "TextureResource.h"
+#include "core/Standard.h"
+#include "io/File.h"
 
 #include "json/reader.h"
 #include "json/elements.h"
 using namespace json;
 
-static const char* MESHES_KEY = "meshes";
+#include "MeshResource.h"
+#include "MaterialResource.h"
+#include "TextureResource.h"*/
+
+/*static const char* MESHES_KEY = "meshes";
 
 static const char* NORMALS_KEY = "normals";
 static const char* NORMAL_STRIDE_KEY = "normal_stride";
@@ -40,16 +41,16 @@ static const char* Y_KEY = "y";
 static const char* Z_KEY = "z";
 static const char* R_KEY = "r";
 static const char* G_KEY = "g";
-static const char* B_KEY = "b";
+static const char* B_KEY = "b";*/
 
 ModelResource* ModelResource::resource(const char* filepath) { 
   ModelResource* resource = new ModelResource();
-  resource->load(filepath);
+  //resource->load(filepath);
   return resource;
 }
 
 void ModelResource::load(const std::string &file) {
-  File resource_file(file);
+  /*File resource_file(file);
   std::stringstream file_data;
   file_data << resource_file.data();
   
@@ -168,5 +169,5 @@ void ModelResource::load(const std::string &file) {
                                                    uvs, uv_count, uv_stride.Value(),
                                                    translation, rotation, scale, materials);
     meshes_.push_back(mesh_resource);
-  }
+  }*/
 }

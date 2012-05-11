@@ -16,7 +16,7 @@ void Scheduler::scheduleUpdate(IUpdate *updater) {
 }
 
 void Scheduler::update(float dt) {
-  for (IUpdate* updater : updaters_) {
-    updater->update(dt);
+  for (std::vector<IUpdate*>::iterator i = updaters_.begin(); i != updaters_.end(); ++i) {
+    (*i)->update(dt);
   }
 }

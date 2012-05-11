@@ -1,14 +1,14 @@
 #include "ResourceCache.h"
 
-#include "File.h"
+#include <string>
+
+#include "io/File.h"
+#include "platform/Platform.h"
+#include "platform/MacPlatform.h"
+
 #include "ModelResource.h"
 #include "ShaderResource.h"
 #include "TextureResource.h"
-
-#include "Platform.h"
-#include "MacPlatform.h"
-
-#include <string>
 
 static ResourceCache* _instance = 0;
 

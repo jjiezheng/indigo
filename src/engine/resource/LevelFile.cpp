@@ -1,10 +1,10 @@
 #include "LevelFile.h"
 
-#include "Standard.h"
-#include "File.h"
+#include "core/Standard.h"
+#include "io/File.h"
 #include "json/reader.h"
 #include "LevelResource.h"
-#include "SkyBox.h"
+#include "renderer/SkyBox.h"
 
 using namespace json;
 

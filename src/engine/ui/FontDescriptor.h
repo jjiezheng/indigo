@@ -30,8 +30,7 @@ private:
   
 private:
   
-  FontDescriptor() 
-	  ;
+  FontDescriptor() {}
   
 public:
   

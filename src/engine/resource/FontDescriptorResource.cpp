@@ -1,7 +1,7 @@
 #include "FontDescriptorResource.h"
 
 #include "ResourceCache.h"
-#include "Platform.h"
+#include "platform/Platform.h"
 
 FontDescriptorResource* FontDescriptorResource::resource() {
   return new FontDescriptorResource();

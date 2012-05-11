@@ -44,7 +44,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>../../src/engine;../../libs/glfw/include;../../libs;../../libs/assimp/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../libs/devil/include;../../src/engine;../../libs/glfw/include;../../libs;../../libs/assimp/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -52,8 +52,8 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>GLFW.lib;OpenGL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>../../libs/glfw/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>assimp.lib;DevIL.lib;ILU.lib ;glew32.lib;GLFW.lib;OpenGL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../../libs/assimp/lib;../../libs/devil/lib;../../libs/glew/lib;../../libs/glfw/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
@@ -75,6 +75,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\engine\config\Properties.cpp" />
+    <ClCompile Include="..\..\src\engine\gameflow\Scheduler.cpp" />
+    <ClCompile Include="..\..\src\engine\io\File.cpp" />
+    <ClCompile Include="..\..\src\engine\io\Log.cpp" />
     <ClCompile Include="..\..\src\engine\maths\Frustum.cpp" />
     <ClCompile Include="..\..\src\engine\maths\Matrix3x3.cpp" />
     <ClCompile Include="..\..\src\engine\maths\Matrix4x4.cpp" />
@@ -82,6 +86,13 @@
     <ClCompile Include="..\..\src\engine\maths\Vector2.cpp" />
     <ClCompile Include="..\..\src\engine\maths\Vector3.cpp" />
     <ClCompile Include="..\..\src\engine\maths\Vector4.cpp" />
+    <ClCompile Include="..\..\src\engine\platform\MacPlatform.cpp" />
+    <ClCompile Include="..\..\src\engine\resource\FontDescriptorResource.cpp" />
+    <ClCompile Include="..\..\src\engine\resource\LevelFile.cpp" />
+    <ClCompile Include="..\..\src\engine\resource\LevelResource.cpp" />
+    <ClCompile Include="..\..\src\engine\resource\ModelResource.cpp" />
+    <ClCompile Include="..\..\src\engine\resource\ResourceCache.cpp" />
+    <ClCompile Include="..\..\src\engine\resource\TextureResource.cpp" />
     <ClCompile Include="..\..\src\game\App.cpp" />
     <ClCompile Include="..\..\src\game\Game.cpp" />
     <ClCompile Include="..\..\src\game\main.cpp" />
@@ -125,6 +136,11 @@
     <ClCompile Include="..\..\src\engine\renderer\WorldLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\src\engine\config\Properties.h" />
+    <ClInclude Include="..\..\src\engine\gameflow\IUpdate.h" />
+    <ClInclude Include="..\..\src\engine\gameflow\Scheduler.h" />
+    <ClInclude Include="..\..\src\engine\io\File.h" />
+    <ClInclude Include="..\..\src\engine\io\Log.h" />
     <ClInclude Include="..\..\src\engine\maths\Frustum.h" />
     <ClInclude Include="..\..\src\engine\maths\Maths.h" />
     <ClInclude Include="..\..\src\engine\maths\Matrix3x3.h" />
@@ -133,6 +149,14 @@
     <ClInclude Include="..\..\src\engine\maths\Vector2.h" />
     <ClInclude Include="..\..\src\engine\maths\Vector3.h" />
     <ClInclude Include="..\..\src\engine\maths\Vector4.h" />
+    <ClInclude Include="..\..\src\engine\resource\FontDescriptorResource.h" />
+    <ClInclude Include="..\..\src\engine\resource\LevelFile.h" />
+    <ClInclude Include="..\..\src\engine\resource\LevelFileEntity.h" />
+    <ClInclude Include="..\..\src\engine\resource\LevelResource.h" />
+    <ClInclude Include="..\..\src\engine\resource\ModelResource.h" />
+    <ClInclude Include="..\..\src\engine\resource\ResourceCache.h" />
+    <ClInclude Include="..\..\src\engine\resource\ShaderResource.h" />
+    <ClInclude Include="..\..\src\engine\resource\TextureResource.h" />
     <ClInclude Include="..\..\src\game\App.h" />
     <ClInclude Include="..\..\src\game\Game.h" />
     <ClInclude Include="..\..\src\engine\core\Accessors.h" />

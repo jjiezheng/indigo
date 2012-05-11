@@ -1,10 +1,9 @@
 #include "File.h"
 
-#include "Standard.h"
-#include "Platform.h"
-
 #include <fstream>
 #include <sstream>
+
+#include "core/Standard.h"
 
 std::string File::data() {
   std::ifstream file_stream(file_path.c_str());

@@ -2,7 +2,6 @@
 
 #include <stdio.h>
 #include <stdarg.h>
-#include <pthread.h>
 
 const char* LOG_CHANNEL_SHADER = "SHADER";
 const char* LOG_CHANNEL_WORLDLOADER = "WORLDLOADER";

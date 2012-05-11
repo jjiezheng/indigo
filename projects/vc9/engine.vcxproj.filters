@@ -25,6 +25,18 @@
     <Filter Include="engine\renderer">
       <UniqueIdentifier>{3e4e1545-3d57-4d64-8eea-6159d0c8e4f8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="engine\resource">
+      <UniqueIdentifier>{dcd5b410-413c-42e0-b951-84f9d6afe117}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine\io">
+      <UniqueIdentifier>{e009f6b4-f057-4013-ac47-0ea1eaa9ea45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine\config">
+      <UniqueIdentifier>{c577ae84-9a2e-47bc-878b-f81d28a02bcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine\gameflow">
+      <UniqueIdentifier>{d7cf5db1-209f-4cba-aef6-7ec5a5943b25}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\engine\core\Clock.cpp">
@@ -170,6 +182,39 @@
     </ClCompile>
     <ClCompile Include="..\..\src\engine\maths\Vector4.cpp">
       <Filter>engine\maths</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\resource\LevelResource.cpp">
+      <Filter>engine\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\resource\ModelResource.cpp">
+      <Filter>engine\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\resource\ResourceCache.cpp">
+      <Filter>engine\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\resource\TextureResource.cpp">
+      <Filter>engine\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\resource\FontDescriptorResource.cpp">
+      <Filter>engine\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\resource\LevelFile.cpp">
+      <Filter>engine\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\io\File.cpp">
+      <Filter>engine\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\io\Log.cpp">
+      <Filter>engine\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\platform\MacPlatform.cpp">
+      <Filter>engine\platform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\config\Properties.cpp">
+      <Filter>engine\config</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\gameflow\Scheduler.cpp">
+      <Filter>engine\gameflow</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -382,6 +427,45 @@
     </ClInclude>
     <ClInclude Include="..\..\src\engine\maths\Vector4.h">
       <Filter>engine\maths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\resource\LevelResource.h">
+      <Filter>engine\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\resource\ModelResource.h">
+      <Filter>engine\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\resource\ResourceCache.h">
+      <Filter>engine\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\resource\ShaderResource.h">
+      <Filter>engine\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\resource\TextureResource.h">
+      <Filter>engine\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\resource\FontDescriptorResource.h">
+      <Filter>engine\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\resource\LevelFile.h">
+      <Filter>engine\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\resource\LevelFileEntity.h">
+      <Filter>engine\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\io\File.h">
+      <Filter>engine\io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\io\Log.h">
+      <Filter>engine\io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\config\Properties.h">
+      <Filter>engine\config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\gameflow\IUpdate.h">
+      <Filter>engine\gameflow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\gameflow\Scheduler.h">
+      <Filter>engine\gameflow</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -12,7 +12,7 @@ public:
   
 public:
   
-  virtual void set_screen_size(float width, float height) = 0;
+  virtual void set_screen_size(int width, int height) = 0;
   
   virtual Vector2 screen_size() const = 0;
   
