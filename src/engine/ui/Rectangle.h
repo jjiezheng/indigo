@@ -3,13 +3,13 @@
 
 class Vector2;
 
-class Rectangle {
+class Rect {
   
 public:
   
-  Rectangle(float x_, float y_, float width_, float height_);
+  Rect(float x_, float y_, float width_, float height_);
   
-  Rectangle();
+  Rect();
   
 public:
   

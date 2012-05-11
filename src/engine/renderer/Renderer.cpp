@@ -1,5 +1,9 @@
 #include "Renderer.h"
 
+#include <iostream>
+
+#include "platform/MacPlatform.h"
+
 #include "ShaderCache.h"
 #include "Shader.h"
 #include "ShaderAttribs.h"
@@ -15,14 +19,8 @@
 #include "DirectionalLight.h"
 #include "PointLight.h"
 
-#include "MacPlatform.h"
-
-#include <iostream>
-
 #include "GLUtilities.h"
 #include "ShadowMap.h"
-
-
 #include "Box.h"
 
 Renderer::Renderer() 

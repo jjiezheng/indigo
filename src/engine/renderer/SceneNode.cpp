@@ -1,14 +1,14 @@
 #include "SceneNode.h"
 
-#include "Scheduler.h"
+#include <iostream>
+
+#include "core/Standard.h"
+#include "gameflow/Scheduler.h"
+#include "maths/Vector4.h"
+
 #include "Shader.h"
-#include "Standard.h"
 #include "ShaderCache.h"
 #include "Effect.h"
-
-#include "Vector4.h"
-
-#include <iostream>
 
 SceneNode::SceneNode() 
   : isVisible_(true)

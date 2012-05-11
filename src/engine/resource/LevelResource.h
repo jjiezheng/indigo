@@ -1,7 +1,7 @@
 #ifndef Shadows_LevelResource_h
 #define Shadows_LevelResource_h
 
-#include "Standard.h"
+#include <string>
 
 class LevelResource {
   

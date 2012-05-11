@@ -2,7 +2,6 @@
 #define PROPERTIES_H
 
 #include <map>
-#include "HashedString.h"
 
 enum PropertyType {
   PROPERTY_RENDER_SHADOWMAP = 'g'

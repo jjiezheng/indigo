@@ -1,10 +1,12 @@
 #include "FontCharacter.h"
 
-#include "ShaderAttribs.h"
-#include "FontDescriptor.h"
-#include "Shader.h"
-
 #include <iostream>
+
+#include "renderer/OpenGL.h"
+#include "renderer/Shader.h"
+#include "renderer/ShaderAttribs.h"
+
+#include "FontDescriptor.h"
 
 FontCharacter* FontCharacter::character(FontCharacterInfo* characterInfo) {
   FontCharacter* character = new FontCharacter();
@@ -82,6 +84,6 @@ void FontCharacter::render(Shader *shader) const {
   glDisable(GL_TEXTURE_2D);
 }
 
-Rectangle FontCharacter::boundingBox() const {
+Rect FontCharacter::boundingBox() const {
   return Rectangle(position_.x, position_.y, boundingBox_.width, boundingBox_.height);
 }

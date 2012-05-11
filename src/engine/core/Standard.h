@@ -3,7 +3,7 @@
 
 #include "Accessors.h"
 #include "Types.h"
-#include "Log.h"
+#include "io/Log.h"
 
 #include <string>
 #include <sstream>
@@ -20,8 +20,8 @@
 #include "glm/gtc/matrix_inverse.hpp"
 #include "glm/gtc/type_ptr.hpp"
 
-#include "Vector3.h"
-#include "Color3.h"
+#include "maths/Vector3.h"
+#include "renderer/Color3.h"
 
 #define SAFE_DELETE(o) { delete (o); (o) = nullptr; }
 

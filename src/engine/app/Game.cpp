@@ -1,21 +1,20 @@
 #include "Game.h"
 
-#include "Standard.h"
+#include "core/Standard.h"
 
-#include "Scheduler.h"
-#include "Scene.h"
-#include "Renderer.h"
+#include "gameflow/Scheduler.h"
+#include "renderer/Scene.h"
+#include "renderer/Renderer.h"
+#include "renderer/Camera.h"
+#include "renderer/FogTypes.h"
+#include "renderer/Box.h"
 
-#include "MacPlatform.h"
-#include "ResourceCache.h"
+#include "platform/MacPlatform.h"
+#include "resource/ResourceCache.h"
 
 #include "GameScene.h"
-
-#include "Camera.h"
-#include "FogTypes.h"
-
 #include "WorldLoader.h"
-#include "Box.h"
+
 
 void Game::init() {  
   properties_.init();

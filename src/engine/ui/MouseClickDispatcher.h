@@ -24,7 +24,7 @@ public:
   
 private:
   
-  MouseClickDispatcher() = default;
+  MouseClickDispatcher() { };
   
 private:
   

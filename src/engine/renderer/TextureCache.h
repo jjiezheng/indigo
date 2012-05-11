@@ -18,7 +18,7 @@ public:
   
 private:
   
-  TextureCache() = default;
+  TextureCache() { };
   
 private:
   

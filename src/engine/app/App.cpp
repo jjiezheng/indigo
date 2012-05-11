@@ -3,9 +3,9 @@
 #include "GL/glfw.h"
 #include <iostream>
 
-#include "GameScene.h"
+#include "../../src/game/GameScene.h"
 
-#include "MacPlatform.h"
+#include "platform/MacPlatform.h"
 
 App* App::app_ = 0;
 

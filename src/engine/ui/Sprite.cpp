@@ -1,9 +1,10 @@
 #include "Sprite.h"
 
-#include "ShaderAttribs.h"
-#include "Texture.h"
-#include "TextureCache.h"
-#include "Shader.h"
+#include "renderer/OpenGL.h"
+#include "renderer/ShaderAttribs.h"
+#include "renderer/Texture.h"
+#include "renderer/TextureCache.h"
+#include "renderer/Shader.h"
 
 Sprite* Sprite::sprite(const char* filePath) {
   Sprite* sprite = new Sprite();

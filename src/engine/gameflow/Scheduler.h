@@ -19,7 +19,7 @@ public:
   
 private:
   
-  Scheduler() = default;
+  Scheduler() { }
   
 private:
   

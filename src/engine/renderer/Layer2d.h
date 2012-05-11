@@ -1,5 +1,5 @@
-#ifndef Layer2d_H_
-#define Layer2d_H_
+#ifndef LAYER2D_H
+#define LAYER2D_H
 
 #include "SceneNode.h"
 #include "Selector.h"

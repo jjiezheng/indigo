@@ -1,8 +1,8 @@
 #ifndef IVIEWER_H
 #define IVIEWER_H
 
-#include "Matrix4x4.h"
-#include "Vector4.h"
+#include "maths/Matrix4x4.h"
+#include "maths/Vector4.h"
 
 class IViewer {
   

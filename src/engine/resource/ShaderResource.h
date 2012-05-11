@@ -1,8 +1,8 @@
 #ifndef CubeFX_ShaderResource_h
 #define CubeFX_ShaderResource_h
 
-#include "Standard.h"
-#include "File.h"
+#include "core/Standard.h"
+#include "io/File.h"
 
 class ShaderResource {
   

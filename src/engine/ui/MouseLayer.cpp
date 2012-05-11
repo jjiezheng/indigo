@@ -1,9 +1,10 @@
 #include "MouseLayer.h"
 
-#include "Sprite.h"
-#include "MacPlatform.h"
-
 #include <iostream>
+
+#include "platform/MacPlatform.h"
+
+#include "Sprite.h"
 
 static const int TAG_MOUSE = 100;
 

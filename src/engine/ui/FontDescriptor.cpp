@@ -1,10 +1,10 @@
 #include "FontDescriptor.h"
 
-#include "ResourceCache.h"
-
-#include "String.h"
 #include <sstream>
 #include <string>
+
+#include "resource/ResourceCache.h"
+#include "core/String.h"
 
 FontDescriptor* FontDescriptor::descriptor(const char* fontFile) {
   FontDescriptor* descriptor = new FontDescriptor();

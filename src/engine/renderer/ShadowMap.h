@@ -1,7 +1,7 @@
-#ifndef ShadowMap_H_
-#define ShadowMap_H_
+#ifndef SHADOWMAP_H
+#define SHADOWMAP_H
 
-#include <OpenGL/gl3.h>
+#include "OpenGL.h"
 
 class Light;
 class Shader;

@@ -1,12 +1,10 @@
 #include "Shader.h"
 
+#include "maths/Matrix4x4.h"
+#include "maths/Matrix3x3.h"
+
 #include "Color4.h"
-
-#include "Matrix4x4.h"
-#include "Matrix3x3.h"
-
 #include "ShaderAttribs.h"
-
 #include "ShaderResource.h"
 #include "ShaderCache.h"
 

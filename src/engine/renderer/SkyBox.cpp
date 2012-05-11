@@ -1,16 +1,13 @@
 #include "SkyBox.h"
 
-#include "TextureResource.h"
-#include "ResourceCache.h"
+#include "resource/TextureResource.h"
+#include "resource/ResourceCache.h"
+#include "core/String.h"
+#include "maths/Matrix4x4.h"
+#include "maths/Vector4.h"
 
 #include "ShaderAttribs.h"
 #include "IViewer.h"
-
-#include "Matrix4x4.h"
-#include "Vector4.h"
-
-#include "String.h"
-
 #include "SceneContext.h"
 
 static const int NUM_VERTICES = 36;

@@ -1,6 +1,6 @@
 #include "FlatShader.h"
 
-#include "ResourceCache.h"
+#include "resource/ResourceCache.h"
 
 #include "ShaderAttribs.h"
 

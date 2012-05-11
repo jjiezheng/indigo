@@ -1,8 +1,8 @@
 #ifndef CubeFX_Platform_h
 #define CubeFX_Platform_h
 
-#include "Standard.h"
-#include "Vector2.h"
+#include "core/Standard.h"
+#include "maths/Vector2.h"
 
 class Platform {
   
@@ -18,7 +18,7 @@ public:
   
   virtual std::string path_for_file(const std::string& filename) const = 0;
   
-  virtual void load_image(const std::string& full_path, INT* width, INT* height, void** data) const = 0;
+  virtual void load_image(const std::string& full_path, int* width, int* height, void** data) const = 0;
   
   virtual Vector2 mouse_delta() = 0;
   
@@ -30,9 +30,9 @@ public:
   
   virtual bool mouse_state(int buttonId) const = 0;
   
-  virtual void set_key_state(INT key_code, BOOLEAN state) = 0;
+  virtual void set_key_state(int key_code, bool state) = 0;
   
-  virtual BOOLEAN get_key_state(INT key_code) = 0;
+  virtual bool get_key_state(int key_code) = 0;
 
 };
 

@@ -2,7 +2,6 @@
 
 #include <sys/time.h>
 
-
 float Clock::delta_time() {
   
   struct timeval now;

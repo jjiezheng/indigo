@@ -1,7 +1,7 @@
 #ifndef CubeFX_FontDescriptorResource_h
 #define CubeFX_FontDescriptorResource_h
 
-#include "Standard.h"
+#include "core/Standard.h"
 
 class FontDescriptorResource {
   

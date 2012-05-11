@@ -2,10 +2,10 @@
 #define SceneNode_H_
 
 #include <vector>
-#include "IUpdate.h"
-#include "Vector3.h"
-#include "Matrix4x4.h"
-#include "Rectangle.h"
+#include "gameflow/IUpdate.h"
+#include "maths/Vector3.h"
+#include "maths/Matrix4x4.h"
+#include "ui/Rectangle.h"
 
 class Camera;
 class Shader;
@@ -71,8 +71,7 @@ public:
   
 public:
   
-  virtual
-  Rectangle boundingBox() const;
+  virtual Rect boundingBox() const;
   
   void setVisible(bool isVisible);
   

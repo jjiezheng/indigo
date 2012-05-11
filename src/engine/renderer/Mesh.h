@@ -1,7 +1,7 @@
-#ifndef CubeFX_Mesh_h
-#define CubeFX_Mesh_h
+#ifndef MESH_H
+#define MESH_H
 
-#include "Standard.h"
+#include "core/Standard.h"
 
 #include "Color3.h"
 #include "SceneNode.h"

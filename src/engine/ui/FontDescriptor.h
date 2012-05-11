@@ -1,7 +1,7 @@
 #ifndef CubeFX_FontDescriptor_h
 #define CubeFX_FontDescriptor_h
 
-#include "Standard.h"
+#include "core/Standard.h"
 
 struct FontCharacterInfo {
   
@@ -30,7 +30,8 @@ private:
   
 private:
   
-  FontDescriptor() = default;
+  FontDescriptor() 
+	  ;
   
 public:
   

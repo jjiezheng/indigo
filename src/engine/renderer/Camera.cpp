@@ -1,12 +1,12 @@
+#include <GL/glfw.h>
+
+#include "platform/MacPlatform.h"
+
 #include "Camera.h"
 #include "Shader.h"
-#include "MacPlatform.h"
 #include "Renderer.h"
 #include "Angles.h"
-
 #include "ShaderCache.h"
-
-#include "GL/glfw.h"
 
 Camera::Camera() 
   : forward_(Vector3::FORWARD)

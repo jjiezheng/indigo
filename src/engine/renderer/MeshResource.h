@@ -1,7 +1,7 @@
 #ifndef CubeFX_MeshResource_h
 #define CubeFX_MeshResource_h
 
-#include "Standard.h"
+#include "core/Standard.h"
 
 class MaterialResource;
 
@@ -12,7 +12,7 @@ public:
   MeshResource(float* vertices, int vertex_count, int vertex_size,
                float* normals, int normal_count, int normal_size,
                float* uvs, int uv_count, int uv_size,
-               const VEC3& translation, const VEC3& rotation, const VEC3& scale,
+               const Vector3& translation, const Vector3& rotation, const Vector3& scale,
                std::deque<MaterialResource*> materials)
   : vertices(vertices)
   , vertex_count(vertex_count)
@@ -33,21 +33,21 @@ public:
     
   }
   
-  FLOAT* vertices;
-  INT vertex_count;
-  INT vertex_size;
+  float* vertices;
+  int vertex_count;
+  int vertex_size;
 
-  FLOAT* normals;
-  INT normal_count;
-  INT normal_size;
+  float* normals;
+  int normal_count;
+  int normal_size;
 
-  FLOAT* uvs;
-  INT uv_count;
-  INT uv_size;
+  float* uvs;
+  int uv_count;
+  int uv_size;
   
-  VEC3 translation;
-  VEC3 rotation;
-  VEC3 scale;
+  Vector3 translation;
+  Vector3 rotation;
+  Vector3 scale;
   std::deque<MaterialResource*> materials;
   
 };

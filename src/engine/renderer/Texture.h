@@ -1,7 +1,8 @@
 #ifndef CubeFX_Texture_h
 #define CubeFX_Texture_h
 
-#include "Standard.h"
+#include "renderer/OpenGL.h"
+#include "core/Standard.h"
 
 class Shader;
 

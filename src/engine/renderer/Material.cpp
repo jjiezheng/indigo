@@ -1,9 +1,11 @@
 #include "Material.h"
 
-#include "Shader.h"
-#include "IViewer.h"
-#include "SceneContext.h"
 #include <iostream>
+
+#include "IViewer.h"
+#include "OpenGL.h"
+#include "Shader.h"
+#include "SceneContext.h"
 #include "Light.h"
 
 void Material::bind(const IViewer* camera, const Matrix4x4& model, const Matrix3x3& normalMatrix, const SceneContext& sceneContext) const {

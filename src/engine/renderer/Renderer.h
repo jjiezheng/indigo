@@ -1,8 +1,7 @@
 #ifndef Renderer_H_
 #define Renderer_H_
 
-#include <OpenGL/gl3.h>
-#include <OpenGL/gl3ext.h>
+#include "OpenGL.h"
 
 #include <vector>
 

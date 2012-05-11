@@ -1,6 +1,7 @@
 #include "RendererShadow.h"
 
-#include "Vector2.h"
+#include "maths/Vector2.h"
+
 #include "GLUtilities.h"
 
 #include "World.h"

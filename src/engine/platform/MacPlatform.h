@@ -2,7 +2,7 @@
 #define Shadows_MacPlatform_h
 
 #include "Platform.h"
-#include "Vector2.h"
+#include "maths/Vector2.h"
 
 #define KEY_STATE_COUNT 256
 
@@ -24,7 +24,7 @@ public:
   
 public:
   
-  void set_screen_size(float width, float height);
+  void set_screen_size(int width, int height);
   
   Vector2 screen_size() const;
   
@@ -32,7 +32,7 @@ public:
   
   std::string path_for_file(const std::string& filename) const;
   
-  void load_image(const std::string& full_path, INT* width, INT* height, void** data) const;
+  void load_image(const std::string& full_path, int* width, int* height, void** data) const;
   
   void set_mouse_position(int x, int y);
   
@@ -40,15 +40,15 @@ public:
   
   Vector2 mouse_delta();
   
-  void set_mouse_delta(INT x, INT y);
+  void set_mouse_delta(int x, int y);
   
   void set_mouse_state(int buttonId, bool state);
   
   bool mouse_state(int buttonId) const;
   
-  void set_key_state(INT key_code, BOOLEAN state);
+  void set_key_state(int key_code, bool state);
   
-  BOOLEAN get_key_state(INT key_code);
+  bool get_key_state(int key_code);
   
 private:
   
@@ -64,7 +64,7 @@ private:
   
   float aspect_ratio_;
   
-  BOOLEAN key_states_[KEY_STATE_COUNT];
+  bool key_states_[KEY_STATE_COUNT];
   
   bool mouseState[10];
   
@@ -88,10 +88,10 @@ Vector2 MacPlatform::mouse_position() const {
 }
 
 inline
-void MacPlatform::set_screen_size(float width, float height) {
-  screen_size_.x = width;
-  screen_size_.y = height;
-  aspect_ratio_ = width/height;
+void MacPlatform::set_screen_size(int width, int height) {
+  screen_size_.x = (float)width;
+  screen_size_.y = (float)height;
+  aspect_ratio_ = (float)width/(float)height;
 }
 
 inline

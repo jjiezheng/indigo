@@ -1,9 +1,9 @@
 #ifndef CubeFX_Label_h
 #define CubeFX_Label_h
 
-#include "SceneNode.h"
 #include <vector>
-#include "String.h"
+#include "renderer/SceneNode.h"
+#include "core/String.h"
 
 class FontDescriptor;
 class FontCharacter;
@@ -29,7 +29,7 @@ public:
   
 private:
   
-  Label() = default;
+  Label() { };
   
   void init(const char* fontFile);
   

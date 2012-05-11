@@ -1,9 +1,9 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#include "Matrix4x4.h"
-#include "Vector3.h"
-#include "Vector4.h"
+#include "maths/Matrix4x4.h"
+#include "maths/Vector3.h"
+#include "maths/Vector4.h"
 
 #include "IViewer.h"
 

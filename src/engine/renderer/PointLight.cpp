@@ -1,12 +1,14 @@
 #include "PointLight.h"
 
+#include "platform/MacPlatform.h"
+
 #include "Shader.h"
 #include "ShaderAttribs.h"
 #include "ShaderCache.h"
-#include "MacPlatform.h"
 #include "Camera.h"
 
 #include "Renderer.h"
+
 /*
 static const int VERTEX_SIZE = 3;
 static const int VERTEX_LENGTH = 18;

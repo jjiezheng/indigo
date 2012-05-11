@@ -1,6 +1,8 @@
 #ifndef MATRIX4x4_H
 #define MATRIX4x4_H
 
+#include <string>
+
 class Vector4;
 class Vector3;
 class Matrix3x3;

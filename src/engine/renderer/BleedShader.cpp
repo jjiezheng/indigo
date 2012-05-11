@@ -1,18 +1,16 @@
 #include "BleedShader.h"
 
-#include "ShaderCache.h"
-#include "ShaderResource.h"
-#include "ResourceCache.h"
-
-#include "ShaderAttribs.h"
-
-#include "Texture.h"
-
-#include "Shader.h"
-
 #include <iostream>
 
-#include "Vector2.h"
+#include "maths/Vector2.h"
+#include "resource/ShaderResource.h"
+#include "resource/ResourceCache.h"
+#include "renderer/OpenGL.h"
+
+#include "ShaderCache.h"
+#include "ShaderAttribs.h"
+#include "Texture.h"
+#include "Shader.h"
 
 BleedShader* BleedShader::shader() {
   BleedShader* shader = new BleedShader();

@@ -1,10 +1,10 @@
 #include "WorldLoader.h"
 
-#include "json/reader.h"
-#include "MacPlatform.h"
-
 #include <iostream>
 #include <fstream>
+
+#include "json/reader.h"
+#include "platform/MacPlatform.h"
 
 #include "assimp.hpp"
 #include "aiScene.h"

@@ -2,7 +2,7 @@
 
 #include "Texture.h"
 
-static TextureCache* instance_ = nullptr;
+static TextureCache* instance_ = NULL;
 
 TextureCache* TextureCache::instance() {
   if (!instance_) {

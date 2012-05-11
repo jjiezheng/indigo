@@ -1,7 +1,7 @@
 #ifndef IMouseClickListener_h
 #define IMouseClickListener_h
 
-#include "Vector2.h"
+#include "maths/Vector2.h"
 
 class IMouseClickListener {
   

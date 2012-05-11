@@ -1,7 +1,8 @@
 #include "MouseClickDispatcher.h"
 
+#include "core/Standard.h"
+
 #include "IMouseClickListener.h"
-#include "Standard.h"
 
 static MouseClickDispatcher* instance_ = 0;
 

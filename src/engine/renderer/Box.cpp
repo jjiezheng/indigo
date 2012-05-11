@@ -1,15 +1,12 @@
 #include "Box.h"
 
+#include "platform/MacPlatform.h"
+#include "resource/ResourceCache.h"
+
+#include "OpenGL.h"
 #include "Shader.h"
-
-#include <OpenGL/gl3.h>
-#include <OpenGL/gl3ext.h>
-
 #include "ShaderAttribs.h"
-#include "MacPlatform.h"
-
 #include "Renderer.h"
-#include "ResourceCache.h"
 
 static const int VERTEX_SIZE = 3;
 static const int VERTEX_LENGTH = 18;

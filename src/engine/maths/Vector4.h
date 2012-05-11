@@ -1,6 +1,8 @@
 #ifndef VECTOR4_H
 #define VECTOR4_H
 
+#include <string>
+
 class Vector3;
 
 class Vector4 {

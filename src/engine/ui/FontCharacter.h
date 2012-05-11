@@ -1,7 +1,8 @@
 #ifndef FontCharacter_H_
 #define FontCharacter_H_
 
-#include "SceneNode.h"
+#include "renderer/OpenGL.h"
+#include "renderer/SceneNode.h"
 
 class FontCharacterInfo;
 
@@ -14,7 +15,7 @@ public:
   
 public:
   
-  Rectangle boundingBox() const;
+  Rect boundingBox() const;
   
 public:
   
@@ -26,14 +27,14 @@ private:
     
 private:
   
-  FontCharacter() = default;
+  FontCharacter() { };
   
 private:
   
   GLuint vertexArray_;
   GLuint vertexBuffer_;
   GLuint uvBuffer_;
-  Rectangle boundingBox_;
+  Rect boundingBox_;
   
 };
 

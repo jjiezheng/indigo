@@ -1,5 +1,7 @@
 #include "Scene.h"
 
+#include "OpenGL.h"
+
 void Scene::init() {
 }
 

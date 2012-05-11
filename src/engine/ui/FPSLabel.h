@@ -1,7 +1,7 @@
 #ifndef FPSLabel_H_
 #define FPSLabel_H_
 
-#include "SceneNode.h"
+#include "renderer/SceneNode.h"
 
 #include <deque>
 

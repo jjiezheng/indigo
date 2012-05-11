@@ -3,7 +3,9 @@
 
 #include <string>
 
-#include "Standard.h"
+#include "core/Standard.h"
+
+#include "OpenGL.h"
 
 class Light;
 class ShaderResource;
@@ -30,7 +32,7 @@ public:
   
   void use() const;
   
-  void bind_attribute(INT attribute_id, const char* attribute_name);
+  void bind_attribute(int attribute_id, const char* attribute_name);
   
 public:
   
@@ -50,7 +52,7 @@ public:
   
   void set_uniform(const glm::vec4& uniform_data, const char* uniform_name) const;
   
-  void set_uniform(INT uniform_data, const char* uniform_name) const;
+  void set_uniform(int uniform_data, const char* uniform_name) const;
   
   void set_uniform(float uniform_data, const char* uniform_name) const;
   

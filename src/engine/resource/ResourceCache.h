@@ -1,7 +1,7 @@
 #ifndef CubeFX_ResourceCache_h
 #define CubeFX_ResourceCache_h
 
-#include "Standard.h"
+#include "core/Standard.h"
 
 #include "ModelResource.h"
 #include "ShaderResource.h"

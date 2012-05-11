@@ -13,17 +13,17 @@ int SceneNode::tag() {
 
 inline 
 void SceneNode::rotateX(float degrees) {
-  rotationX_ += degrees;
+  rotationX_ += (int)degrees;
 }
 
 inline 
 void SceneNode::rotateY(float degrees) {
-  rotationY_ += degrees;
+  rotationY_ += (int)degrees;
 }
 
 inline 
 void SceneNode::rotateZ(float degrees) {
-  rotationZ_ += degrees;
+  rotationZ_ += (int)degrees;
 }
 
 inline

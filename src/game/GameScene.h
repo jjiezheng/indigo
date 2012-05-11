@@ -1,7 +1,7 @@
 #ifndef GameScene_H_
 #define GameScene_H_
 
-#include "Scene.h"
+#include "renderer/Scene.h"
 
 class GameScene : public Scene {
   

@@ -1,7 +1,7 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 
-#include "SceneNode.h"
+#include "renderer/SceneNode.h"
 
 class Button : public SceneNode {
   

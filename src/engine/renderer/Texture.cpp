@@ -1,15 +1,14 @@
 #include "Texture.h"
 
-#include "TextureResource.h"
-#include "Shader.h"
-
-#include "MacPlatform.h"
-
-#include "ResourceCache.h"
-
 #include <IL/il.h>
 #include <IL/ilu.h>
 #include <iostream>
+
+#include "resource/ResourceCache.h"
+#include "resource/TextureResource.h"
+#include "platform/MacPlatform.h"
+
+#include "Shader.h"
 
 Texture::Texture() 
   : width_(0)

@@ -1,8 +1,8 @@
 #ifndef Sprite_H_
 #define Sprite_H_
 
-#include "SceneNode.h"
-#include "Texture.h"
+#include "renderer/SceneNode.h"
+#include "renderer/Texture.h"
 
 class Sprite : public SceneNode {
   
@@ -18,11 +18,11 @@ public:
   
   void render(Camera *camera, Shader *shader, const glm::mat4 &transform) const;
   
-  Rectangle boundingBox() const;
+  Rect boundingBox() const;
   
 private:
   
-  Sprite() = default;
+  Sprite() { };
   
 private:
   
@@ -31,12 +31,12 @@ private:
   
   Texture* texture_;
   
-  Rectangle boundingBox_;
+  Rect boundingBox_;
   
 };
 
 inline 
-Rectangle Sprite::boundingBox() const {
+Rect Sprite::boundingBox() const {
   return boundingBox_;
 }
 

@@ -4,14 +4,13 @@
 #include <sstream>
 #include <iostream>
 
-#include "ResourceCache.h"
-#include "Shader.h"
+#include "resource/ResourceCache.h"
 
-#include "ShaderCache.h"
 #include "Shader.h"
+#include "ShaderCache.h"
 #include "ShaderAttribs.h"
 
-static ShaderCache* instance_ = nullptr;
+static ShaderCache* instance_ = NULL;
 
 ShaderCache* ShaderCache::instance() {
   if (!instance_) {

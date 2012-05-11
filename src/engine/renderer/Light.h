@@ -1,14 +1,14 @@
 #ifndef LIGHT_H
 #define LIGHT_H
 
-#include "Vector3.h"
-#include "Vector4.h"
-#include "Matrix4x4.h"
+#include "maths/Vector2.h"
+#include "maths/Vector3.h"
+#include "maths/Vector4.h"
+#include "maths/Matrix4x4.h"
 
 #include "IViewer.h"
 
-#include "Vector2.h"
-#include "MacPlatform.h"
+#include "platform/MacPlatform.h"
 
 class Light : public IViewer {
   

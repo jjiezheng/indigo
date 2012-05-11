@@ -1,7 +1,7 @@
 #ifndef MouseLayer_H_
 #define MouseLayer_H_
 
-#include "Layer2d.h"
+#include "renderer/Layer2d.h"
 
 class MouseLayer : public Layer2d {
   
@@ -18,7 +18,7 @@ private:
   
 private:
   
-  MouseLayer() = default;
+  MouseLayer() { };
   
 };
 

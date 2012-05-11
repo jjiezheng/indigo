@@ -19,7 +19,7 @@ public:
   
 private:
   
-  LONG last_update_;
+  long last_update_;
   
 };
 

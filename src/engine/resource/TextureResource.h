@@ -1,7 +1,7 @@
 #ifndef CubeFX_TextureResource_h
 #define CubeFX_TextureResource_h
 
-#include "Standard.h"
+#include "core/Standard.h"
 
 class Platform;
 
@@ -21,19 +21,19 @@ public:
   
   inline void* data() { return data_; };
   
-  inline INT width() { return width_; };
+  inline int width() { return width_; };
 
-  inline INT height() { return height_; };
+  inline int height() { return height_; };
   
-  inline INT format() { return GL_RGBA; };
+  inline int format() { return GL_RGBA; };
   
-  inline INT components() { return GL_RGBA; };
+  inline int components() { return GL_RGBA; };
   
 private:
   
   void* data_;
-  INT width_;
-  INT height_;
+  int width_;
+  int height_;
   Platform* platform_;
   
 };

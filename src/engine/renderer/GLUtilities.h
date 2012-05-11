@@ -1,7 +1,7 @@
 #ifndef GLUtilities_H
 #define GLUtilities_H
 
-#include <OpenGL/gl3.h>
+#include "OpenGL.h"
 
 class GLUtilities {
   

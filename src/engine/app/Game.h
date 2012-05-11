@@ -1,13 +1,13 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "Clock.h"
-#include "World.h"
-#include "SceneContext.h"
-#include "Properties.h"
+#include "core/Clock.h"
+#include "config/Properties.h"
 
-#include "Renderer3d.h"
-#include "RendererShadow.h"
+#include "renderer/World.h"
+#include "renderer/SceneContext.h"
+#include "renderer/Renderer3d.h"
+#include "renderer/RendererShadow.h"
 
 class Camera;
 class Mesh;
