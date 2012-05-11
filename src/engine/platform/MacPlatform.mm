@@ -1,5 +1,11 @@
 #include "MacPlatform.h"
 
+//extern "C" {
+//  #include <FreeImage.h>
+//}
+
+#include <IL/ilu.h>
+
 #include <sys/sysctl.h>
 #include <sys/time.h>
 #include <iostream>
@@ -17,6 +23,9 @@ MacPlatform* MacPlatform::instance() {
 }
 
 MacPlatform::MacPlatform() {
+//  FreeImage_Initialise();
+  ilInit();
+  
   for (INT i = 0; i < KEY_STATE_COUNT; i++) {
     key_states_[i] = false;
   }
@@ -39,28 +48,42 @@ std::string MacPlatform::path_for_file(const std::string& filename) const {
 }
 
 void MacPlatform::load_image(const std::string& full_path, INT* width, INT* height, void** data) const {
-  NSString* path = [NSString stringWithUTF8String:full_path.c_str()];  
-  NSData *texData = [[[NSData alloc] initWithContentsOfFile:path] autorelease];
 
-  NSBitmapImageRep* image = [[[NSBitmapImageRep alloc] initWithData:texData] autorelease];
+  ilLoadImage(full_path.c_str());
+  
+  std::clog << full_path << std::endl;
+  
+  int mipmaps = ilGetInteger(IL_NUM_MIPMAPS);
+  
+  for (int i = 0; i < mipmaps; i++) {
+//    ilBindImage(imageName);
+    ilActiveMipmap(i);
+    *width =  ilGetInteger(IL_IMAGE_WIDTH);
+    *height = ilGetInteger(IL_IMAGE_HEIGHT);
+    data[i] = ilGetData();
     
-  if (image == nil) {
-    NSLog(@"Failed to load image %s", full_path.c_str());
+    
+//    int size = ilGetDXTCData(NULL, 0, dxtcMode);
+//    ILubyte* buffer = new ILubyte[size];
   }
   
-  *width = (int)CGImageGetWidth(image.CGImage);
-  *height = (int)CGImageGetHeight(image.CGImage);
-  CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-  *data = malloc(*height * *width * 4);
-  CGContextRef context = CGBitmapContextCreate(*data, *width, *height, 8, 4 * *width, colorSpace, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big );
-  CGColorSpaceRelease(colorSpace);
-  
-  CGRect bounds = CGRectMake(0, 0, *width, *height) ;
-  CGContextClearRect(context, bounds);
-//  CGContextTranslateCTM(context, 0, *height);
-//  CGContextScaleCTM(context, 1.0, -1.0);
-  CGContextDrawImage(context, bounds, image.CGImage);
-  CGContextRelease(context);
+  mipmaps = 0;
+
+  {
+//  FREE_IMAGE_FORMAT formato = FreeImage_GetFileType(full_path.c_str(), 0);
+//	FIBITMAP* imagen = FreeImage_Load(formato, full_path.c_str());
+//	
+//	FIBITMAP* temp = imagen;
+//	imagen = FreeImage_ConvertTo32Bits(imagen);
+//  FreeImage_FlipVertical(imagen);
+//  FreeImage_FlipHorizontal(imagen);
+//	FreeImage_Unload(temp);
+//  
+//	*width = FreeImage_GetWidth(imagen);
+//	*height = FreeImage_GetHeight(imagen);
+//
+//	*data = FreeImage_GetBits(imagen);
+  }
 }
 
 void MacPlatform::set_key_state(INT key_code, BOOLEAN state) {

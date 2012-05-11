@@ -2,39 +2,12 @@
   "skybox" : "mountains.png",
   "objects" : [
     {
-      "mesh" : "shuttle2.blend",
-      "material" : "shuttle2.material",
-      "position" : {
-        "x" : 5.0,
-        "y" : 1.0,
-        "z" : 0.0
-      }
-    },
-    {
-      "mesh" : "shuttle.blend",
-      "material" : "shuttle.material",
-      "position" : {
-        "x" : 0.0,
-        "y" : 1.0,
-        "z" : 0.0
-      }
-    },
-    {
-      "mesh" : "monkey.blend",
-      "material" : "grey.material",
-      "position" : {
-        "x" : 5.0,
-        "y" : 1.0,
-        "z" : -10.0
-      }
-    },
-    {
-      "mesh" : "floor.blend",
-      "material" : "floor.material",
+      "mesh" : "test.blend",
+      "material" : "mipmap.material",
       "position" : {
         "x" : 0.0,
         "y" : 0.0,
-        "z" : 0.0
+        "z" : -10.0
       }
     }
   ],
