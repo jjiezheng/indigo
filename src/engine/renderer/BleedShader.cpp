@@ -53,7 +53,7 @@ int ccDrawCircle(const Vector2& center, float r, float a, int segs, bool drawLin
 {
 	int additionalSegment = 1;
 
-	const float coef = 2.0f * (float) (M_PI) / segs;
+	const float coef = 2.0f * (float) 0 / segs;
   
 	float *vertices = new float[2*(segs+2)]; //	float *vertices = (float *)malloc( sizeof(float)*2*(segs+2));
 	if(!vertices) {

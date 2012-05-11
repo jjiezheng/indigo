@@ -39,9 +39,9 @@ public:
   
   void addCharInfo(const FontCharacterInfo& char_info);
   
-  float width();
+  int width();
   
-  float height();
+  int height();
   
   std::string asset();
   
@@ -50,19 +50,19 @@ private:
   
   std::map<char, FontCharacterInfo> char_info_;
   
-  float width_;
-  float height_;
+  int width_;
+  int height_;
   std::string asset_;
   
 };
 
 inline
-float FontDescriptor::width() {
+int FontDescriptor::width() {
   return width_;
 }
 
 inline
-float FontDescriptor::height() {
+int FontDescriptor::height() {
   return height_;
 }
 

@@ -1,11 +1,12 @@
 #include "Mesh.h"
 
+#include "maths/Maths.h"
+
 #include "Shader.h"
 #include "ShaderAttribs.h"
 #include "MeshResource.h"
 #include "Renderer.h"
 
-#include "Maths.h"
 #include "Material.h"
 #include "Camera.h"
 

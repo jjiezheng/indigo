@@ -1,11 +1,11 @@
 #ifndef VECTOR3_MATERIAL_PARAMETER_H
 #define VECTOR3_MATERIAL_PARAMETER_H
 
-#include "MaterialParameter.h"
-
-#include "Vector3.h"
 #include <string>
+
+#include "maths/Vector3.h"
 #include "Shader.h"
+#include "MaterialParameter.h"
 
 class Vector3MaterialParameter : public MaterialParameter {
   

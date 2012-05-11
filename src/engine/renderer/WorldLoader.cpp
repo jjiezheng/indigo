@@ -5,19 +5,20 @@
 
 #include "json/reader.h"
 #include "platform/MacPlatform.h"
+#include "io/Log.h"
 
-#include "assimp.hpp"
-#include "aiScene.h"
-#include "aiPostProcess.h"
+#include <assimp.hpp>
+#include <aiScene.h>
+#include <aiPostProcess.h>
 
 #include "Mesh.h"
-#include "Vector4.h"
+#include "maths/Vector4.h"
 #include "Model.h"
 #include "Shader.h"
 #include "Material.h"
 
-#include "ShaderResource.h"
-#include "ResourceCache.h"
+#include "resource/ShaderResource.h"
+#include "resource/ResourceCache.h"
 
 #include "MaterialParameter.h"
 #include "Vector3MaterialParameter.h"
@@ -46,17 +47,18 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
   
   json::Array objectsArray = sceneObject["objects"];
   
-  for (json::Object& objectItem : objectsArray)  {
-    loadSceneItem(objectItem, world);
+  for (unsigned int i = 0; i < objectsArray.Size(); i++) {
+    loadSceneItem(objectsArray[i], world);
   }
   
   json::Array lightsArray = sceneObject["lights"];
-  
-  for (json::Object& lightItem : lightsArray)  {
+  json::Array::iterator lit = lightsArray.begin();
+
+  for (; lit != lightsArray.end(); ++lit) {
     Light light;
     
     {
-      json::Object positionObject = lightItem["position"];
+      json::Object positionObject = (*lit)["position"];
       
       json::Number xNumber = positionObject["x"];
       float x = xNumber.Value();
@@ -73,7 +75,7 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
     }
     
     {
-      json::Object rotationObject = lightItem["orientation"];
+      json::Object rotationObject = (*lit)["orientation"];
       
       json::Number xNumber = rotationObject["x"];
       float x = xNumber.Value();
@@ -125,7 +127,7 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
   std::string fullPath = MacPlatform::instance()->path_for_file(modelFilePath);
   const aiScene* scene = importer.ReadFile(fullPath.c_str(), aiProcess_PreTransformVertices  );
   
-  for (int i = 0; i < scene->mNumMeshes; i++) {
+  for (unsigned int i = 0; i < scene->mNumMeshes; i++) {
     aiMesh* aiMesh = scene->mMeshes[i];
     float* verts = new float[aiMesh->mNumVertices*sizeof(aiVector3D)];
     float* normals = new float[aiMesh->mNumVertices*sizeof(aiVector3D)];
@@ -133,7 +135,7 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
     
     int vertIndex = 0;
     int uvIndex = 0;
-    for (int vertexi = 0; vertexi < aiMesh->mNumVertices; vertexi++) {
+    for (unsigned int vertexi = 0; vertexi < aiMesh->mNumVertices; vertexi++) {
       
       // vertex
       aiVector3D vertex = aiMesh->mVertices[vertexi];
@@ -187,22 +189,22 @@ void WorldLoader::loadMaterial(Model* model, const std::string& materialFilePath
   loadShader(material, shaderFilePath.Value());
   
   json::Object parameters = materialObject["parameters"];
-  
-  for (json::Object::Member& member : parameters) {
-    json::String parameterNameString = member.name;
+  json::Object::const_iterator pit = parameters.begin();
+  for (; pit != parameters.end(); ++pit) {
+    json::String parameterNameString = (*pit).name;
     std::string parameterName = parameterNameString.Value();
     
-    json::String parameterTypeString = member.element["type"];
+    json::String parameterTypeString = (*pit).element["type"];
     std::string parameterType = parameterTypeString.Value();
         
     if (parameterType.compare("color3") == 0) {
-      json::Number redNumber = member.element["r"];
+      json::Number redNumber = (*pit).element["r"];
       float r = redNumber.Value();
 
-      json::Number greenNumber = member.element["g"];
+      json::Number greenNumber = (*pit).element["g"];
       float g = greenNumber.Value();
 
-      json::Number blueNumber = member.element["b"];
+      json::Number blueNumber = (*pit).element["b"];
       float b = blueNumber.Value();
       
       Vector3 color3(r, g, b);
@@ -211,23 +213,24 @@ void WorldLoader::loadMaterial(Model* model, const std::string& materialFilePath
     }
     
     if (parameterType.compare("int") == 0) {
-      json::Number valueNumber = member.element["value"];
-      int value = valueNumber.Value();
+      json::Number valueNumber = (*pit).element["value"];
+      int value = (int)valueNumber.Value();
       IntegerMaterialParameter* parameter = new IntegerMaterialParameter(parameterName, value);
       material.setParameter(parameter);
     }
     
     if (parameterType.compare("float") == 0) {
-      json::Number valueNumber = member.element["value"];
+      json::Number valueNumber = (*pit).element["value"];
       float value = valueNumber.Value();
       FloatMaterialParameter* parameter = new FloatMaterialParameter(parameterName, value);
       material.setParameter(parameter);
     }
-
   }
   
   json::Array textures = materialObject["textures"];
-  for (json::String& textureFileString : textures) {
+  json::Array::const_iterator tit = textures.begin();
+  for (; tit != textures.end(); ++tit) {
+    json::String textureFileString = (*tit);
     std::string textureFile = textureFileString.Value();
     Texture texture;
     texture.init(textureFile.c_str());
@@ -256,18 +259,20 @@ void WorldLoader::loadShader(Material& material, const std::string &shaderFilePa
   shader.compile_fragment(resource->fragment_source());
   
   json::Object attributesArray = shaderObject["attributes"];
-  for (json::Object::Member& attributeMember : attributesArray) {
-    json::Number attributeIndexNumber = attributeMember.element;
-    int attributeIndex = attributeIndexNumber.Value();
-    std::string attributeName = attributeMember.name;
+  json::Object::iterator ait = attributesArray.begin();
+  for (; ait != attributesArray.end(); ++ait) {
+    json::Number attributeIndexNumber = (*ait).element;
+    int attributeIndex = (int)attributeIndexNumber.Value();
+    std::string attributeName = (*ait).name;
     shader.bind_attribute(attributeIndex, attributeName.c_str());
   }
   
   shader.link();
   
   json::Array uniformsArray = shaderObject["uniforms"];
-  
-  for (json::String& uniformString : uniformsArray) {
+  json::Array::iterator uit = uniformsArray.begin();
+  for (; uit != uniformsArray.end(); ++uit) {
+    json::String uniformString = (*uit);
     std::string uniform = uniformString.Value();
     shader.add_uniform(uniform.c_str());
   }

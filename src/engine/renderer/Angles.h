@@ -2,7 +2,7 @@
 #define ANGLES_H
 
 #define _USE_MATH_DEFINES
-#include <cmath>
+#include <math.h>
 
 float toDegrees(float radians);
 float toDegrees(float radians) {

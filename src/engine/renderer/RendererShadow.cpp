@@ -2,6 +2,9 @@
 
 #include "maths/Vector2.h"
 
+#include "resource/ResourceCache.h"
+#include "resource/ShaderResource.h"
+
 #include "GLUtilities.h"
 
 #include "World.h"
@@ -9,9 +12,6 @@
 
 #include "SceneContext.h"
 #include "ShaderAttribs.h"
-
-#include "ResourceCache.h"
-#include "ShaderResource.h"
 #include "ShaderAttribs.h"
 
 void RendererShadow::init(const Vector2 &screenSize) {
@@ -36,7 +36,7 @@ void RendererShadow::init(const Vector2 &screenSize) {
     {
       glGenTextures(1, &shadowTexture_);
       glBindTexture(GL_TEXTURE_2D, shadowTexture_);
-      glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, screenSize.x, screenSize.y, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+      glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, (GLint)screenSize.x, (GLint)screenSize.y, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
@@ -120,10 +120,11 @@ void RendererShadow::render(const World& world, SceneContext& sceneContext) {
   glCullFace(GL_FRONT);
   
   std::vector<Light> lights = sceneContext.lights();
- 
-  for (const Light& light : lights) {  
-    for (Model* node : world) {
-      node->render(&light, sceneContext);
+  std::vector<Light>::iterator lit = lights.begin();
+  for (; lit != lights.end(); ++lit) {
+    std::vector<Model*>::const_iterator mit = world.begin();
+    for (; mit != world.end(); ++mit) {
+      (*mit)->render(&(*lit), sceneContext);
     }
   }
   

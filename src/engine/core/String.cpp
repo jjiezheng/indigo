@@ -15,12 +15,13 @@ String::String(const char* string) {
 }
 
 String String::withFormat(const char* format, ...) {
-  va_list args;
+  /*va_list args;
   va_start(args, format);
   char buffer[50];
   vsprintf(buffer, format, args);
   va_end(args);
-  return String(buffer);
+  return String(buffer);*/
+  return String();
 }
 
 String String::pathExtension() const {

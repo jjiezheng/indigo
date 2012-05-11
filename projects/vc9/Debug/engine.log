@@ -1,0 +1,272 @@
+﻿Build started 11/05/2012 21:52:52.
+     1>Project "C:\cygwin\home\nk\Development\opengl-game\projects\vc9\engine.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Touching "Debug\engine.unsuccessfulbuild".
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I../../src/engine /I../../libs/glfw/include /I../../libs /I../../libs/assimp/include /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\src\engine\maths\Frustum.cpp ..\..\src\engine\maths\Matrix3x3.cpp ..\..\src\engine\maths\Matrix4x4.cpp ..\..\src\engine\maths\Octree.cpp ..\..\src\engine\maths\Vector2.cpp ..\..\src\engine\maths\Vector3.cpp ..\..\src\engine\maths\Vector4.cpp ..\..\src\game\App.cpp ..\..\src\game\Game.cpp ..\..\src\game\main.cpp ..\..\src\engine\core\Clock.cpp ..\..\src\engine\core\String.cpp ..\..\src\engine\ui\Button.cpp ..\..\src\engine\ui\FontCharacter.cpp ..\..\src\engine\ui\FontDescriptor.cpp ..\..\src\engine\ui\FPSLabel.cpp ..\..\src\engine\ui\Label.cpp ..\..\src\engine\ui\MouseClickDispatcher.cpp ..\..\src\engine\ui\MouseLayer.cpp ..\..\src\engine\ui\Rectangle.cpp ..\..\src\engine\ui\Sprite.cpp ..\..\src\engine\renderer\BleedEffect.cpp ..\..\src\engine\renderer\BleedShader.cpp ..\..\src\engine\renderer\Box.cpp ..\..\src\engine\renderer\Camera.cpp ..\..\src\engine\renderer\Color3.cpp ..\..\src\engine\renderer\DirectionalLight.cpp ..\..\src\engine\renderer\FlatShader.cpp ..\..\src\engine\renderer\Layer2d.cpp ..\..\src\engine\renderer\Layer3d.cpp ..\..\src\engine\renderer\Light.cpp ..\..\src\engine\renderer\Material.cpp ..\..\src\engine\renderer\Mesh.cpp ..\..\src\engine\renderer\Model.cpp ..\..\src\engine\renderer\PointLight.cpp ..\..\src\engine\renderer\Renderer.cpp ..\..\src\engine\renderer\Renderer3d.cpp ..\..\src\engine\renderer\RendererShadow.cpp ..\..\src\engine\renderer\Scene.cpp ..\..\src\engine\renderer\SceneNode.cpp ..\..\src\engine\renderer\Shader.cpp ..\..\src\engine\renderer\ShaderAttribs.cpp ..\..\src\engine\renderer\ShaderCache.cpp ..\..\src\engine\renderer\ShadowMap.cpp ..\..\src\engine\renderer\SkyBox.cpp ..\..\src\engine\renderer\Texture.cpp ..\..\src\engine\renderer\TextureCache.cpp ..\..\src\engine\renderer\WorldLoader.cpp
+         WorldLoader.cpp
+         TextureCache.cpp
+         Texture.cpp
+         SkyBox.cpp
+         ShadowMap.cpp
+         ShaderCache.cpp
+         ShaderAttribs.cpp
+         Shader.cpp
+         SceneNode.cpp
+     1>c:\cygwin\home\nk\development\opengl-game\src\engine\renderer\scenenode.cpp(18): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\cygwin\home\nk\development\opengl-game\src\engine\renderer\scenenode.cpp(18): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\cygwin\home\nk\development\opengl-game\src\engine\renderer\scenenode.cpp(18): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+         Scene.cpp
+         RendererShadow.cpp
+     1>c:\cygwin\home\nk\development\opengl-game\src\engine\renderer\renderershadow.cpp(30): warning C4244: 'argument' : conversion from 'const float' to 'GLsizei', possible loss of data
+     1>c:\cygwin\home\nk\development\opengl-game\src\engine\renderer\renderershadow.cpp(30): warning C4244: 'argument' : conversion from 'const float' to 'GLsizei', possible loss of data
+         Renderer3d.cpp
+         Renderer.cpp
+     1>c:\cygwin\home\nk\development\opengl-game\src\engine\renderer\renderer.cpp(42): warning C4305: 'argument' : truncation from 'double' to 'GLclampf'
+     1>c:\cygwin\home\nk\development\opengl-game\src\engine\renderer\renderer.cpp(42): warning C4305: 'argument' : truncation from 'double' to 'GLclampf'
+     1>c:\cygwin\home\nk\development\opengl-game\src\engine\renderer\renderer.cpp(42): warning C4305: 'argument' : truncation from 'double' to 'GLclampf'
+         PointLight.cpp
+         Model.cpp
+         Mesh.cpp
+     1>c:\cygwin\home\nk\development\opengl-game\src\engine\renderer\mesh.cpp(57): warning C4244: 'argument' : conversion from 'float' to 'GLsizei', possible loss of data
+         Material.cpp
+         Light.cpp
+         Layer3d.cpp
+         Layer2d.cpp
+         Generating Code...
+         Compiling...
+         FlatShader.cpp
+         DirectionalLight.cpp
+         Color3.cpp
+         Camera.cpp
+         Box.cpp
+         BleedShader.cpp
+         BleedEffect.cpp
+         Sprite.cpp
+         Rectangle.cpp
+         MouseLayer.cpp
+         MouseClickDispatcher.cpp
+         Label.cpp
+         FPSLabel.cpp
+         FontDescriptor.cpp
+         FontCharacter.cpp
+         Button.cpp
+         String.cpp
+         Clock.cpp
+         main.cpp
+         Game.cpp
+         Generating Code...
+         Compiling...
+         App.cpp
+         Vector4.cpp
+         Vector3.cpp
+         Vector2.cpp
+         Octree.cpp
+         Matrix4x4.cpp
+         Matrix3x3.cpp
+     1>c:\cygwin\home\nk\development\opengl-game\src\engine\maths\matrix3x3.cpp(9): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>c:\cygwin\home\nk\development\opengl-game\src\engine\maths\matrix3x3.cpp(22): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+         Frustum.cpp
+         Generating Code...
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\cygwin\home\nk\Development\opengl-game\projects\vc9\Debug\engine.exe" /NOLOGO /LIBPATH:../../libs/glfw/lib GLFW.lib OpenGL32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\engine.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\cygwin\home\nk\Development\opengl-game\projects\vc9\Debug\engine.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\cygwin\home\nk\Development\opengl-game\projects\vc9\Debug\engine.lib" /MACHINE:X86 Debug\Frustum.obj
+         Debug\Matrix3x3.obj
+         Debug\Matrix4x4.obj
+         Debug\Octree.obj
+         Debug\Vector2.obj
+         Debug\Vector3.obj
+         Debug\Vector4.obj
+         Debug\App.obj
+         Debug\Game.obj
+         Debug\main.obj
+         Debug\Clock.obj
+         Debug\String.obj
+         Debug\Button.obj
+         Debug\FontCharacter.obj
+         Debug\FontDescriptor.obj
+         Debug\FPSLabel.obj
+         Debug\Label.obj
+         Debug\MouseClickDispatcher.obj
+         Debug\MouseLayer.obj
+         Debug\Rectangle.obj
+         Debug\Sprite.obj
+         Debug\BleedEffect.obj
+         Debug\BleedShader.obj
+         Debug\Box.obj
+         Debug\Camera.obj
+         Debug\Color3.obj
+         Debug\DirectionalLight.obj
+         Debug\FlatShader.obj
+         Debug\Layer2d.obj
+         Debug\Layer3d.obj
+         Debug\Light.obj
+         Debug\Material.obj
+         Debug\Mesh.obj
+         Debug\Model.obj
+         Debug\PointLight.obj
+         Debug\Renderer.obj
+         Debug\Renderer3d.obj
+         Debug\RendererShadow.obj
+         Debug\Scene.obj
+         Debug\SceneNode.obj
+         Debug\Shader.obj
+         Debug\ShaderAttribs.obj
+         Debug\ShaderCache.obj
+         Debug\ShadowMap.obj
+         Debug\SkyBox.obj
+         Debug\Texture.obj
+         Debug\TextureCache.obj
+         Debug\WorldLoader.obj
+     1>WorldLoader.obj : error LNK2001: unresolved external symbol "public: static class MacPlatform * __cdecl MacPlatform::instance(void)" (?instance@MacPlatform@@SAPAV1@XZ)
+     1>Renderer.obj : error LNK2001: unresolved external symbol "public: static class MacPlatform * __cdecl MacPlatform::instance(void)" (?instance@MacPlatform@@SAPAV1@XZ)
+     1>RendererShadow.obj : error LNK2001: unresolved external symbol "public: static class MacPlatform * __cdecl MacPlatform::instance(void)" (?instance@MacPlatform@@SAPAV1@XZ)
+     1>ShadowMap.obj : error LNK2001: unresolved external symbol "public: static class MacPlatform * __cdecl MacPlatform::instance(void)" (?instance@MacPlatform@@SAPAV1@XZ)
+     1>Texture.obj : error LNK2019: unresolved external symbol "public: static class MacPlatform * __cdecl MacPlatform::instance(void)" (?instance@MacPlatform@@SAPAV1@XZ) referenced in function __unwindfunclet$?texture@Texture@@SAPAV1@PBD@Z$0
+     1>App.obj : error LNK2001: unresolved external symbol "public: static class MacPlatform * __cdecl MacPlatform::instance(void)" (?instance@MacPlatform@@SAPAV1@XZ)
+     1>Game.obj : error LNK2001: unresolved external symbol "public: static class MacPlatform * __cdecl MacPlatform::instance(void)" (?instance@MacPlatform@@SAPAV1@XZ)
+     1>MouseLayer.obj : error LNK2001: unresolved external symbol "public: static class MacPlatform * __cdecl MacPlatform::instance(void)" (?instance@MacPlatform@@SAPAV1@XZ)
+     1>Material.obj : error LNK2001: unresolved external symbol "public: static class MacPlatform * __cdecl MacPlatform::instance(void)" (?instance@MacPlatform@@SAPAV1@XZ)
+     1>Game.obj : error LNK2019: unresolved external symbol "public: void __thiscall Properties::init(void)" (?init@Properties@@QAEXXZ) referenced in function "public: void __thiscall Game::init(void)" (?init@Game@@QAEXXZ)
+     1>Game.obj : error LNK2019: unresolved external symbol "public: bool __thiscall Properties::getProperty(char)" (?getProperty@Properties@@QAE_ND@Z) referenced in function "public: void __thiscall Game::mainLoop(void)" (?mainLoop@Game@@QAEXXZ)
+     1>Game.obj : error LNK2019: unresolved external symbol "public: void __thiscall Scheduler::update(float)" (?update@Scheduler@@QAEXM@Z) referenced in function "public: void __thiscall Game::mainLoop(void)" (?mainLoop@Game@@QAEXXZ)
+     1>Game.obj : error LNK2019: unresolved external symbol "public: static class Scheduler * __cdecl Scheduler::instance(void)" (?instance@Scheduler@@SAPAV1@XZ) referenced in function "public: void __thiscall Game::mainLoop(void)" (?mainLoop@Game@@QAEXXZ)
+     1>SceneNode.obj : error LNK2001: unresolved external symbol "public: static class Scheduler * __cdecl Scheduler::instance(void)" (?instance@Scheduler@@SAPAV1@XZ)
+     1>Game.obj : error LNK2019: unresolved external symbol "public: void __thiscall Properties::keyUp(char)" (?keyUp@Properties@@QAEXD@Z) referenced in function "public: void __thiscall Game::keyUp(char)" (?keyUp@Game@@QAEXD@Z)
+     1>Mesh.obj : error LNK2001: unresolved external symbol __imp____glewEnableVertexAttribArray
+     1>RendererShadow.obj : error LNK2001: unresolved external symbol __imp____glewEnableVertexAttribArray
+     1>ShadowMap.obj : error LNK2001: unresolved external symbol __imp____glewEnableVertexAttribArray
+     1>SkyBox.obj : error LNK2019: unresolved external symbol __imp____glewEnableVertexAttribArray referenced in function "public: void __thiscall SkyBox::load(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (?load@SkyBox@@QAEXABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+     1>FontCharacter.obj : error LNK2001: unresolved external symbol __imp____glewEnableVertexAttribArray
+     1>Sprite.obj : error LNK2001: unresolved external symbol __imp____glewEnableVertexAttribArray
+     1>BleedShader.obj : error LNK2001: unresolved external symbol __imp____glewEnableVertexAttribArray
+     1>Box.obj : error LNK2001: unresolved external symbol __imp____glewEnableVertexAttribArray
+     1>Mesh.obj : error LNK2019: unresolved external symbol __imp____glewVertexAttribPointer referenced in function __unwindfunclet$??0Material@@QAE@XZ$0
+     1>RendererShadow.obj : error LNK2001: unresolved external symbol __imp____glewVertexAttribPointer
+     1>ShadowMap.obj : error LNK2001: unresolved external symbol __imp____glewVertexAttribPointer
+     1>SkyBox.obj : error LNK2001: unresolved external symbol __imp____glewVertexAttribPointer
+     1>FontCharacter.obj : error LNK2001: unresolved external symbol __imp____glewVertexAttribPointer
+     1>Sprite.obj : error LNK2001: unresolved external symbol __imp____glewVertexAttribPointer
+     1>BleedShader.obj : error LNK2001: unresolved external symbol __imp____glewVertexAttribPointer
+     1>Box.obj : error LNK2001: unresolved external symbol __imp____glewVertexAttribPointer
+     1>Mesh.obj : error LNK2001: unresolved external symbol __imp____glewBufferData
+     1>RendererShadow.obj : error LNK2001: unresolved external symbol __imp____glewBufferData
+     1>ShadowMap.obj : error LNK2001: unresolved external symbol __imp____glewBufferData
+     1>SkyBox.obj : error LNK2001: unresolved external symbol __imp____glewBufferData
+     1>FontCharacter.obj : error LNK2001: unresolved external symbol __imp____glewBufferData
+     1>Sprite.obj : error LNK2001: unresolved external symbol __imp____glewBufferData
+     1>BleedShader.obj : error LNK2001: unresolved external symbol __imp____glewBufferData
+     1>Box.obj : error LNK2001: unresolved external symbol __imp____glewBufferData
+     1>Mesh.obj : error LNK2001: unresolved external symbol __imp____glewBindBuffer
+     1>RendererShadow.obj : error LNK2001: unresolved external symbol __imp____glewBindBuffer
+     1>ShadowMap.obj : error LNK2019: unresolved external symbol __imp____glewBindBuffer referenced in function "public: void __thiscall ShadowMap::debugDraw(void)" (?debugDraw@ShadowMap@@QAEXXZ)
+     1>SkyBox.obj : error LNK2001: unresolved external symbol __imp____glewBindBuffer
+     1>FontCharacter.obj : error LNK2001: unresolved external symbol __imp____glewBindBuffer
+     1>Sprite.obj : error LNK2001: unresolved external symbol __imp____glewBindBuffer
+     1>BleedShader.obj : error LNK2001: unresolved external symbol __imp____glewBindBuffer
+     1>Box.obj : error LNK2001: unresolved external symbol __imp____glewBindBuffer
+     1>Mesh.obj : error LNK2001: unresolved external symbol __imp____glewGenBuffers
+     1>RendererShadow.obj : error LNK2001: unresolved external symbol __imp____glewGenBuffers
+     1>ShadowMap.obj : error LNK2019: unresolved external symbol __imp____glewGenBuffers referenced in function "public: void __thiscall ShadowMap::debugDraw(void)" (?debugDraw@ShadowMap@@QAEXXZ)
+     1>SkyBox.obj : error LNK2001: unresolved external symbol __imp____glewGenBuffers
+     1>FontCharacter.obj : error LNK2001: unresolved external symbol __imp____glewGenBuffers
+     1>Sprite.obj : error LNK2001: unresolved external symbol __imp____glewGenBuffers
+     1>BleedShader.obj : error LNK2001: unresolved external symbol __imp____glewGenBuffers
+     1>Box.obj : error LNK2001: unresolved external symbol __imp____glewGenBuffers
+     1>RendererShadow.obj : error LNK2001: unresolved external symbol __imp____glewBindVertexArray
+     1>ShadowMap.obj : error LNK2001: unresolved external symbol __imp____glewBindVertexArray
+     1>SkyBox.obj : error LNK2019: unresolved external symbol __imp____glewBindVertexArray referenced in function "public: void __thiscall SkyBox::load(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (?load@SkyBox@@QAEXABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+     1>FontCharacter.obj : error LNK2001: unresolved external symbol __imp____glewBindVertexArray
+     1>BleedShader.obj : error LNK2001: unresolved external symbol __imp____glewBindVertexArray
+     1>Box.obj : error LNK2001: unresolved external symbol __imp____glewBindVertexArray
+     1>Mesh.obj : error LNK2001: unresolved external symbol __imp____glewBindVertexArray
+     1>RendererShadow.obj : error LNK2019: unresolved external symbol __imp____glewGenVertexArrays referenced in function "public: static void __cdecl GLUtilities::checkFramebufferStatus(int)" (?checkFramebufferStatus@GLUtilities@@SAXH@Z)
+     1>ShadowMap.obj : error LNK2001: unresolved external symbol __imp____glewGenVertexArrays
+     1>SkyBox.obj : error LNK2001: unresolved external symbol __imp____glewGenVertexArrays
+     1>FontCharacter.obj : error LNK2001: unresolved external symbol __imp____glewGenVertexArrays
+     1>BleedShader.obj : error LNK2001: unresolved external symbol __imp____glewGenVertexArrays
+     1>Box.obj : error LNK2001: unresolved external symbol __imp____glewGenVertexArrays
+     1>Mesh.obj : error LNK2001: unresolved external symbol __imp____glewGenVertexArrays
+     1>FontDescriptor.obj : error LNK2019: unresolved external symbol "private: __thiscall FontDescriptor::FontDescriptor(void)" (??0FontDescriptor@@AAE@XZ) referenced in function "public: static class FontDescriptor * __cdecl FontDescriptor::descriptor(char const *)" (?descriptor@FontDescriptor@@SAPAV1@PBD@Z)
+     1>FontDescriptor.obj : error LNK2019: unresolved external symbol "public: char const * __thiscall ResourceCache::loadFile(char const *)" (?loadFile@ResourceCache@@QAEPBDPBD@Z) referenced in function "private: void __thiscall FontDescriptor::init(char const *)" (?init@FontDescriptor@@AAEXPBD@Z)
+     1>RendererShadow.obj : error LNK2001: unresolved external symbol "public: static class ResourceCache * __cdecl ResourceCache::instance(void)" (?instance@ResourceCache@@SAPAV1@XZ)
+     1>SkyBox.obj : error LNK2001: unresolved external symbol "public: static class ResourceCache * __cdecl ResourceCache::instance(void)" (?instance@ResourceCache@@SAPAV1@XZ)
+     1>WorldLoader.obj : error LNK2001: unresolved external symbol "public: static class ResourceCache * __cdecl ResourceCache::instance(void)" (?instance@ResourceCache@@SAPAV1@XZ)
+     1>FontDescriptor.obj : error LNK2019: unresolved external symbol "public: static class ResourceCache * __cdecl ResourceCache::instance(void)" (?instance@ResourceCache@@SAPAV1@XZ) referenced in function "private: void __thiscall FontDescriptor::init(char const *)" (?init@FontDescriptor@@AAEXPBD@Z)
+     1>BleedShader.obj : error LNK2001: unresolved external symbol "public: static class ResourceCache * __cdecl ResourceCache::instance(void)" (?instance@ResourceCache@@SAPAV1@XZ)
+     1>Box.obj : error LNK2001: unresolved external symbol "public: static class ResourceCache * __cdecl ResourceCache::instance(void)" (?instance@ResourceCache@@SAPAV1@XZ)
+     1>FlatShader.obj : error LNK2001: unresolved external symbol "public: static class ResourceCache * __cdecl ResourceCache::instance(void)" (?instance@ResourceCache@@SAPAV1@XZ)
+     1>Sprite.obj : error LNK2001: unresolved external symbol __imp____glewDisableVertexAttribArray
+     1>SkyBox.obj : error LNK2019: unresolved external symbol "public: class ShaderResource * __thiscall ResourceCache::load_shader(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (?load_shader@ResourceCache@@QAEPAVShaderResource@@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0@Z) referenced in function "public: void __thiscall SkyBox::load(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (?load@SkyBox@@QAEXABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+     1>WorldLoader.obj : error LNK2001: unresolved external symbol "public: class ShaderResource * __thiscall ResourceCache::load_shader(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (?load_shader@ResourceCache@@QAEPAVShaderResource@@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0@Z)
+     1>BleedShader.obj : error LNK2001: unresolved external symbol "public: class ShaderResource * __thiscall ResourceCache::load_shader(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (?load_shader@ResourceCache@@QAEPAVShaderResource@@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0@Z)
+     1>Box.obj : error LNK2001: unresolved external symbol "public: class ShaderResource * __thiscall ResourceCache::load_shader(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (?load_shader@ResourceCache@@QAEPAVShaderResource@@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0@Z)
+     1>FlatShader.obj : error LNK2001: unresolved external symbol "public: class ShaderResource * __thiscall ResourceCache::load_shader(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (?load_shader@ResourceCache@@QAEPAVShaderResource@@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0@Z)
+     1>RendererShadow.obj : error LNK2001: unresolved external symbol "public: class ShaderResource * __thiscall ResourceCache::load_shader(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (?load_shader@ResourceCache@@QAEPAVShaderResource@@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0@Z)
+     1>BleedShader.obj : error LNK2001: unresolved external symbol __imp____glewActiveTexture
+     1>Material.obj : error LNK2001: unresolved external symbol __imp____glewActiveTexture
+     1>RendererShadow.obj : error LNK2001: unresolved external symbol __imp____glewActiveTexture
+     1>BleedShader.obj : error LNK2001: unresolved external symbol __imp____glewCheckFramebufferStatus
+     1>RendererShadow.obj : error LNK2001: unresolved external symbol __imp____glewCheckFramebufferStatus
+     1>ShadowMap.obj : error LNK2001: unresolved external symbol __imp____glewCheckFramebufferStatus
+     1>BleedShader.obj : error LNK2001: unresolved external symbol __imp____glewFramebufferTexture
+     1>BleedShader.obj : error LNK2001: unresolved external symbol __imp____glewBindFramebuffer
+     1>RendererShadow.obj : error LNK2001: unresolved external symbol __imp____glewBindFramebuffer
+     1>ShadowMap.obj : error LNK2001: unresolved external symbol __imp____glewBindFramebuffer
+     1>BleedShader.obj : error LNK2001: unresolved external symbol __imp____glewGenFramebuffers
+     1>RendererShadow.obj : error LNK2001: unresolved external symbol __imp____glewGenFramebuffers
+     1>ShadowMap.obj : error LNK2001: unresolved external symbol __imp____glewGenFramebuffers
+     1>RendererShadow.obj : error LNK2001: unresolved external symbol __imp____glewFramebufferTexture2D
+     1>ShadowMap.obj : error LNK2019: unresolved external symbol __imp____glewFramebufferTexture2D referenced in function "public: static void __cdecl GLUtilities::checkFramebufferStatus(int)" (?checkFramebufferStatus@GLUtilities@@SAXH@Z)
+     1>RendererShadow.obj : error LNK2001: unresolved external symbol __imp____glewFramebufferRenderbuffer
+     1>ShadowMap.obj : error LNK2019: unresolved external symbol __imp____glewFramebufferRenderbuffer referenced in function "public: static void __cdecl GLUtilities::checkFramebufferStatus(int)" (?checkFramebufferStatus@GLUtilities@@SAXH@Z)
+     1>RendererShadow.obj : error LNK2001: unresolved external symbol __imp____glewRenderbufferStorage
+     1>ShadowMap.obj : error LNK2019: unresolved external symbol __imp____glewRenderbufferStorage referenced in function "public: static void __cdecl GLUtilities::checkFramebufferStatus(int)" (?checkFramebufferStatus@GLUtilities@@SAXH@Z)
+     1>RendererShadow.obj : error LNK2001: unresolved external symbol __imp____glewBindRenderbuffer
+     1>ShadowMap.obj : error LNK2001: unresolved external symbol __imp____glewBindRenderbuffer
+     1>RendererShadow.obj : error LNK2001: unresolved external symbol __imp____glewGenRenderbuffers
+     1>ShadowMap.obj : error LNK2001: unresolved external symbol __imp____glewGenRenderbuffers
+     1>SceneNode.obj : error LNK2019: unresolved external symbol "public: void __thiscall Scheduler::scheduleUpdate(class IUpdate *)" (?scheduleUpdate@Scheduler@@QAEXPAVIUpdate@@@Z) referenced in function "protected: void __thiscall SceneNode::scheduleUpdate(void)" (?scheduleUpdate@SceneNode@@IAEXXZ)
+     1>Shader.obj : error LNK2019: unresolved external symbol "void __cdecl DLOG(char const *,char const *,...)" (?DLOG@@YAXPBD0ZZ) referenced in function "private: unsigned int __thiscall Shader::compile_shader(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,int)" (?compile_shader@Shader@@AAEIABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@H@Z)
+     1>WorldLoader.obj : error LNK2001: unresolved external symbol "void __cdecl DLOG(char const *,char const *,...)" (?DLOG@@YAXPBD0ZZ)
+     1>Shader.obj : error LNK2001: unresolved external symbol "char const * const LOG_CHANNEL_SHADER" (?LOG_CHANNEL_SHADER@@3PBDB)
+     1>Shader.obj : error LNK2001: unresolved external symbol __imp____glewDeleteShader
+     1>Shader.obj : error LNK2001: unresolved external symbol __imp____glewGetShaderiv
+     1>Shader.obj : error LNK2001: unresolved external symbol __imp____glewCompileShader
+     1>Shader.obj : error LNK2001: unresolved external symbol __imp____glewShaderSource
+     1>Shader.obj : error LNK2001: unresolved external symbol __imp____glewCreateShader
+     1>Shader.obj : error LNK2001: unresolved external symbol __imp____glewCreateProgram
+     1>Shader.obj : error LNK2001: unresolved external symbol __imp____glewBindAttribLocation
+     1>Shader.obj : error LNK2001: unresolved external symbol __imp____glewGetProgramiv
+     1>Shader.obj : error LNK2001: unresolved external symbol __imp____glewLinkProgram
+     1>Shader.obj : error LNK2001: unresolved external symbol __imp____glewAttachShader
+     1>Shader.obj : error LNK2001: unresolved external symbol __imp____glewUseProgram
+     1>Shader.obj : error LNK2001: unresolved external symbol __imp____glewUniform4fv
+     1>Shader.obj : error LNK2001: unresolved external symbol __imp____glewUniform3fv
+     1>Shader.obj : error LNK2001: unresolved external symbol __imp____glewUniformMatrix3fv
+     1>Shader.obj : error LNK2001: unresolved external symbol __imp____glewUniformMatrix4fv
+     1>Shader.obj : error LNK2001: unresolved external symbol __imp____glewGetUniformLocation
+     1>Shader.obj : error LNK2001: unresolved external symbol __imp____glewUniform1i
+     1>Shader.obj : error LNK2001: unresolved external symbol __imp____glewUniform1f
+     1>SkyBox.obj : error LNK2001: unresolved external symbol __imp____glewGenerateMipmap
+     1>Texture.obj : error LNK2019: unresolved external symbol __imp____glewGenerateMipmap referenced in function "public: __thiscall std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >(char const *)" (??0?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE@PBD@Z)
+     1>SkyBox.obj : error LNK2019: unresolved external symbol "public: class TextureResource * __thiscall ResourceCache::load_texture(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (?load_texture@ResourceCache@@QAEPAVTextureResource@@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z) referenced in function "public: void __thiscall SkyBox::load(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (?load@SkyBox@@QAEXABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+     1>Texture.obj : error LNK2019: unresolved external symbol __imp__ilGetDXTCData@12 referenced in function "public: void __thiscall Texture::init(char const *)" (?init@Texture@@QAEXPBD@Z)
+     1>Texture.obj : error LNK2019: unresolved external symbol __imp__ilGetData@0 referenced in function "public: void __thiscall Texture::init(char const *)" (?init@Texture@@QAEXPBD@Z)
+     1>Texture.obj : error LNK2019: unresolved external symbol __imp__ilActiveMipmap@4 referenced in function "public: void __thiscall Texture::init(char const *)" (?init@Texture@@QAEXPBD@Z)
+     1>Texture.obj : error LNK2019: unresolved external symbol __imp__ilSetInteger@8 referenced in function "public: void __thiscall Texture::init(char const *)" (?init@Texture@@QAEXPBD@Z)
+     1>Texture.obj : error LNK2019: unresolved external symbol __imp__ilGetInteger@4 referenced in function "public: void __thiscall Texture::init(char const *)" (?init@Texture@@QAEXPBD@Z)
+     1>Texture.obj : error LNK2019: unresolved external symbol __imp__iluErrorString@4 referenced in function "public: void __thiscall Texture::init(char const *)" (?init@Texture@@QAEXPBD@Z)
+     1>Texture.obj : error LNK2019: unresolved external symbol __imp__ilLoadImage@4 referenced in function "public: void __thiscall Texture::init(char const *)" (?init@Texture@@QAEXPBD@Z)
+     1>Texture.obj : error LNK2019: unresolved external symbol __imp__ilGetError@0 referenced in function "public: void __thiscall Texture::init(char const *)" (?init@Texture@@QAEXPBD@Z)
+     1>Texture.obj : error LNK2019: unresolved external symbol __imp__iluInit@0 referenced in function "public: void __thiscall Texture::init(char const *)" (?init@Texture@@QAEXPBD@Z)
+     1>Texture.obj : error LNK2019: unresolved external symbol __imp__ilInit@0 referenced in function "public: void __thiscall Texture::init(char const *)" (?init@Texture@@QAEXPBD@Z)
+     1>WorldLoader.obj : error LNK2019: unresolved external symbol "public: __thiscall Assimp::Importer::~Importer(void)" (??1Importer@Assimp@@QAE@XZ) referenced in function "private: void __thiscall WorldLoader::loadModel(class Model *,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (?loadModel@WorldLoader@@AAEXPAVModel@@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+     1>WorldLoader.obj : error LNK2019: unresolved external symbol "public: struct aiScene const * __thiscall Assimp::Importer::ReadFile(char const *,unsigned int)" (?ReadFile@Importer@Assimp@@QAEPBUaiScene@@PBDI@Z) referenced in function "private: void __thiscall WorldLoader::loadModel(class Model *,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (?loadModel@WorldLoader@@AAEXPAVModel@@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+     1>WorldLoader.obj : error LNK2019: unresolved external symbol "public: __thiscall Assimp::Importer::Importer(void)" (??0Importer@Assimp@@QAE@XZ) referenced in function "private: void __thiscall WorldLoader::loadModel(class Model *,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (?loadModel@WorldLoader@@AAEXPAVModel@@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+     1>WorldLoader.obj : error LNK2001: unresolved external symbol "char const * const LOG_CHANNEL_WORLDLOADER" (?LOG_CHANNEL_WORLDLOADER@@3PBDB)
+     1>C:\cygwin\home\nk\Development\opengl-game\projects\vc9\Debug\engine.exe : fatal error LNK1120: 65 unresolved externals
+     1>Done Building Project "C:\cygwin\home\nk\Development\opengl-game\projects\vc9\engine.vcxproj" (build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:37.45

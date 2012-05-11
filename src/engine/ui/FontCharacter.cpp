@@ -15,8 +15,8 @@ FontCharacter* FontCharacter::character(FontCharacterInfo* characterInfo) {
 }
 
 void FontCharacter::init(FontCharacterInfo* characterInfo) {
-  float width = characterInfo->width;
-  float height = characterInfo->height;
+  float width = (float)characterInfo->width;
+  float height = (float)characterInfo->height;
   
   glGenVertexArrays(1, &vertexArray_);
   glBindVertexArray(vertexArray_);
@@ -85,5 +85,5 @@ void FontCharacter::render(Shader *shader) const {
 }
 
 Rect FontCharacter::boundingBox() const {
-  return Rectangle(position_.x, position_.y, boundingBox_.width, boundingBox_.height);
+  return Rect(position_.x, position_.y, boundingBox_.width, boundingBox_.height);
 }

@@ -1,12 +1,14 @@
 #ifndef STRING_H
 #define STRING_H
 
-#include "Standard.h"
+#include "core/Standard.h"
 
 class String {
+
+public:
   
-  typedef typename std::string::const_iterator ConstIterator;
-  typedef typename std::string::iterator Iterator;
+  typedef std::string::const_iterator ConstIterator;
+  typedef std::string::iterator Iterator;
   
 public:
   

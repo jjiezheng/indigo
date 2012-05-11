@@ -1,5 +1,6 @@
 #include "Matrix4x4.h"
 
+#define _USE_MATH_DEFINES
 #include <math.h>
 #include <sstream>
 
@@ -12,7 +13,6 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/matrix_inverse.hpp"
 
-
 Matrix4x4 Matrix4x4::IDENTITY = Matrix4x4(1.0f, 0.0f, 0.0f, 0.0f, 
                                           0.0f, 1.0f, 0.0f, 0.0f, 
                                           0.0f, 0.0f, 1.0f, 0.0f,
@@ -20,7 +20,7 @@ Matrix4x4 Matrix4x4::IDENTITY = Matrix4x4(1.0f, 0.0f, 0.0f, 0.0f,
                                           
 
 Matrix4x4 Matrix4x4::rotationX(int degrees) {
-  float radians = (degrees / 180.0f) * M_PI;
+  float radians = (degrees / 180.0f) * (float)M_PI;
   return Matrix4x4::rotationX(radians);
 }
 
@@ -32,7 +32,7 @@ Matrix4x4 Matrix4x4::rotationX(float radians) {
 }
 
 Matrix4x4 Matrix4x4::rotationY(int degrees) {
-  float radians = (degrees / 180.0f) * M_PI;
+  float radians = (degrees / 180.0f) * (float)M_PI;
   return Matrix4x4::rotationY(radians);
 }
 
@@ -44,7 +44,7 @@ Matrix4x4 Matrix4x4::rotationY(float radians) {
 }
 
 Matrix4x4 Matrix4x4::rotationZ(int degrees) {
-  float radians = (degrees / 180.0f) * M_PI;
+  float radians = (degrees / 180.0f) * (float)M_PI;
   return Matrix4x4::rotationZ(radians);
 }
 
@@ -59,7 +59,7 @@ Matrix4x4 Matrix4x4::translation(const Vector4& v) {
   return Matrix4x4(1.0f,  0.0f, 0.0f, v.x,
                    0.0f,  1.0f, 0.0f, v.y,
                    0.0f,  0.0f, 1.0f, v.z,
-                   0.0f,  0.0f, 0.0f,  1.0f);
+                   0.0f,  0.0f, 0.0f, 1.0f);
 }
 
 Matrix4x4 Matrix4x4::scale(float scale) {
@@ -74,7 +74,7 @@ Matrix4x4 Matrix4x4::scale(const Vector4& v) {
 }
 
 Matrix4x4 Matrix4x4::perspective(float fov, float aspect, float znear, float zfar) {
-  float xymax = znear * tan(fov * (M_PI / 360.0f));
+  float xymax = znear * tan(fov * ((float)M_PI / 360.0f));
   float ymin = -xymax;
   float xmin = -xymax;
   
@@ -115,10 +115,10 @@ Matrix4x4 Matrix4x4::orthographic(float left, float right, float bottom, float t
 }
 
 Matrix4x4::Matrix4x4()
-  : Matrix4x4(1, 0, 0, 0, 
-              0, 1, 0, 0, 
-              0, 0, 1, 0, 
-              0, 0, 0, 1) {
+  : m11_(1), m12_(0), m13_(0), m14_(0), 
+    m21_(0), m22_(0), m23_(0), m24_(0),
+    m31_(0), m32_(0), m33_(0), m34_(0),
+    m41_(0), m42_(0), m43_(0), m44_(0) {
   
 }
 

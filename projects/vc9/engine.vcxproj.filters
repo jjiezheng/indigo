@@ -1,0 +1,398 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="game">
+      <UniqueIdentifier>{9f562349-d5d2-40c2-99a4-7728cd6cf663}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine">
+      <UniqueIdentifier>{f58a53fa-0dc8-4bb4-8cf6-ac9b89c056dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine\maths">
+      <UniqueIdentifier>{a4137567-6877-4e07-95b5-1e9bf2221a2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine\app">
+      <UniqueIdentifier>{68e77899-d5ab-44ef-8b24-778b82d47af7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine\core">
+      <UniqueIdentifier>{85461ba6-f6c8-45d1-8e15-f2c6218a9b3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine\ui">
+      <UniqueIdentifier>{787ae860-c0a8-4b26-9b07-6c6df5f0e524}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine\platform">
+      <UniqueIdentifier>{9233baa7-1f80-4867-8201-2a7bb4088ae6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine\renderer">
+      <UniqueIdentifier>{3e4e1545-3d57-4d64-8eea-6159d0c8e4f8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\engine\core\Clock.cpp">
+      <Filter>engine\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\core\String.cpp">
+      <Filter>engine\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\ui\Button.cpp">
+      <Filter>engine\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\ui\FontCharacter.cpp">
+      <Filter>engine\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\ui\FontDescriptor.cpp">
+      <Filter>engine\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\ui\FPSLabel.cpp">
+      <Filter>engine\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\ui\Label.cpp">
+      <Filter>engine\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\ui\MouseClickDispatcher.cpp">
+      <Filter>engine\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\ui\MouseLayer.cpp">
+      <Filter>engine\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\ui\Rectangle.cpp">
+      <Filter>engine\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\ui\Sprite.cpp">
+      <Filter>engine\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\renderer\BleedEffect.cpp">
+      <Filter>engine\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\renderer\BleedShader.cpp">
+      <Filter>engine\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\renderer\Box.cpp">
+      <Filter>engine\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\renderer\Camera.cpp">
+      <Filter>engine\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\renderer\Color3.cpp">
+      <Filter>engine\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\renderer\DirectionalLight.cpp">
+      <Filter>engine\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\renderer\FlatShader.cpp">
+      <Filter>engine\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\renderer\Layer2d.cpp">
+      <Filter>engine\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\renderer\Layer3d.cpp">
+      <Filter>engine\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\renderer\Light.cpp">
+      <Filter>engine\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\renderer\Material.cpp">
+      <Filter>engine\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\renderer\Mesh.cpp">
+      <Filter>engine\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\renderer\Model.cpp">
+      <Filter>engine\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\renderer\PointLight.cpp">
+      <Filter>engine\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\renderer\Renderer.cpp">
+      <Filter>engine\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\renderer\Renderer3d.cpp">
+      <Filter>engine\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\renderer\RendererShadow.cpp">
+      <Filter>engine\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\renderer\Scene.cpp">
+      <Filter>engine\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\renderer\SceneNode.cpp">
+      <Filter>engine\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\renderer\Shader.cpp">
+      <Filter>engine\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\renderer\ShaderAttribs.cpp">
+      <Filter>engine\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\renderer\ShaderCache.cpp">
+      <Filter>engine\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\renderer\ShadowMap.cpp">
+      <Filter>engine\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\renderer\SkyBox.cpp">
+      <Filter>engine\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\renderer\Texture.cpp">
+      <Filter>engine\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\renderer\TextureCache.cpp">
+      <Filter>engine\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\renderer\WorldLoader.cpp">
+      <Filter>engine\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\game\main.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\game\Game.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\game\App.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\maths\Frustum.cpp">
+      <Filter>engine\maths</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\maths\Matrix3x3.cpp">
+      <Filter>engine\maths</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\maths\Matrix4x4.cpp">
+      <Filter>engine\maths</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\maths\Octree.cpp">
+      <Filter>engine\maths</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\maths\Vector2.cpp">
+      <Filter>engine\maths</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\maths\Vector3.cpp">
+      <Filter>engine\maths</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\engine\maths\Vector4.cpp">
+      <Filter>engine\maths</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\engine\core\Accessors.h">
+      <Filter>engine\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\core\Any.h">
+      <Filter>engine\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\core\Clock.h">
+      <Filter>engine\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\core\HashedString.h">
+      <Filter>engine\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\core\Standard.h">
+      <Filter>engine\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\core\String.h">
+      <Filter>engine\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\core\Types.h">
+      <Filter>engine\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\ui\Button.h">
+      <Filter>engine\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\ui\FontCharacter.h">
+      <Filter>engine\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\ui\FontDescriptor.h">
+      <Filter>engine\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\ui\FPSLabel.h">
+      <Filter>engine\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\ui\IMouseClickListener.h">
+      <Filter>engine\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\ui\Label.h">
+      <Filter>engine\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\ui\MouseClickDispatcher.h">
+      <Filter>engine\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\ui\MouseLayer.h">
+      <Filter>engine\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\ui\Rectangle.h">
+      <Filter>engine\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\ui\Selector.h">
+      <Filter>engine\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\ui\Sprite.h">
+      <Filter>engine\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\platform\MacPlatform.h">
+      <Filter>engine\platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\platform\Platform.h">
+      <Filter>engine\platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\Angles.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\BleedEffect.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\BleedShader.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\Box.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\Camera.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\Color3.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\Color4.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\DirectionalLight.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\Effect.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\FlatShader.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\FloatMaterialParameter.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\FogTypes.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\GLUtilities.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\IntegerMaterialParameter.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\IViewer.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\Layer2d.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\Layer3d.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\Light.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\Material.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\MaterialParameter.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\Mesh.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\Model.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\OpenGL.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\PointLight.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\Renderer.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\Renderer3d.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\RendererShadow.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\Scene.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\SceneContext.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\SceneNode.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\Shader.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\ShaderAttribs.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\ShaderCache.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\ShadowMap.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\SkyBox.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\Texture.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\TextureCache.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\Vector3MaterialParameter.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\World.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\renderer\WorldLoader.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\game\Game.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\game\App.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\maths\Frustum.h">
+      <Filter>engine\maths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\maths\Maths.h">
+      <Filter>engine\maths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\maths\Matrix3x3.h">
+      <Filter>engine\maths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\maths\Matrix4x4.h">
+      <Filter>engine\maths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\maths\Octree.h">
+      <Filter>engine\maths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\maths\Vector2.h">
+      <Filter>engine\maths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\maths\Vector3.h">
+      <Filter>engine\maths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\maths\Vector4.h">
+      <Filter>engine\maths</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\src\engine\platform\MacPlatform.mm">
+      <Filter>engine\platform</Filter>
+    </None>
+    <None Include="..\..\src\engine\platform\Platform.mm">
+      <Filter>engine\platform</Filter>
+    </None>
+    <None Include="..\..\src\engine\renderer\SceneNode.inl">
+      <Filter>engine\renderer</Filter>
+    </None>
+  </ItemGroup>
+</Project>

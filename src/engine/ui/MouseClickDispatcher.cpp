@@ -13,15 +13,18 @@ MouseClickDispatcher* MouseClickDispatcher::instance() {
   return instance_;
 }
 
+
 void MouseClickDispatcher::mouseDown(int buttonId, const Vector2& location) {
-  for (IMouseClickListener* listener : listeners_) {
-    listener->onMouseDown(buttonId, location);
+  std::vector<IMouseClickListener*>::iterator it = listeners_.begin();
+  for (; it != listeners_.end(); ++it) {
+    (*it)->onMouseDown(buttonId, location);
   }  
 }
 
 void MouseClickDispatcher::mouseUp(int buttonId, const Vector2& location) {
-  for (IMouseClickListener* listener : listeners_) {
-    listener->onMouseUp(buttonId, location);
+  std::vector<IMouseClickListener*>::iterator it = listeners_.begin();
+  for (; it != listeners_.end(); ++it) {
+    (*it)->onMouseUp(buttonId, location);
   }
 }
 

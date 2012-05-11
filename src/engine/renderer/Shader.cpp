@@ -2,13 +2,12 @@
 
 #include "maths/Matrix4x4.h"
 #include "maths/Matrix3x3.h"
+#include "resource/ShaderResource.h"
+#include "io/Log.h"
 
 #include "Color4.h"
 #include "ShaderAttribs.h"
-#include "ShaderResource.h"
 #include "ShaderCache.h"
-
-#include "Log.h"
 
 Shader* Shader::shader(const ShaderResource* shader_resource) {
   Shader* shader = new Shader();
@@ -57,7 +56,7 @@ void Shader::compile_fragment(const std::string& fragment_source) {
   fragment = compile_shader(fragment_source, GL_FRAGMENT_SHADER);
 }
 
-void Shader::bind_attribute(INT attribute_id, const char* attribute_name) {
+void Shader::bind_attribute(int attribute_id, const char* attribute_name) {
   LOG(LOG_CHANNEL_SHADER, "Binding attribute %s", attribute_name);
   glBindAttribLocation(program, attribute_id, attribute_name);
 }
@@ -161,7 +160,7 @@ void Shader::add_uniform(const char* uniform_name) {
   uniforms.insert(std::make_pair(uniform_name, uniform_id));
 }
 
-void Shader::set_uniform(INT uniform_data, const char* uniform_name) const {
+void Shader::set_uniform(int uniform_data, const char* uniform_name) const {
   std::map<std::string, GLint>::const_iterator uniformIt = uniforms.find(uniform_name);
   if (uniformIt != uniforms.end()) {
     GLint uniform_id = (*uniformIt).second;

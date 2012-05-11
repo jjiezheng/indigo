@@ -20,12 +20,13 @@ void Material::bind(const IViewer* camera, const Matrix4x4& model, const Matrix3
   float lightPositions[MAX_LIGHTS*3];
   int lightPositionIndex = 0;
   std::vector<Light> lights = sceneContext.lights();
-  for (const Light& light : lights) {
-    lightPositions[lightPositionIndex++] = light.position().x;
-    lightPositions[lightPositionIndex++] = light.position().y;
-    lightPositions[lightPositionIndex++] = light.position().z;
+  std::vector<Light>::iterator it = lights.begin();
+  for (; it != lights.end(); ++it) {
+    lightPositions[lightPositionIndex++] = (*it).position().x;
+    lightPositions[lightPositionIndex++] = (*it).position().y;
+    lightPositions[lightPositionIndex++] = (*it).position().z;
     
-    Matrix4x4 lightMatrix = offsetMatrix * camera->projection() * light.viewTransform();
+    Matrix4x4 lightMatrix = offsetMatrix * camera->projection() * (*it).viewTransform();
     shader_.set_uniform(lightMatrix, "lightMatrix");        
   }
   
@@ -45,13 +46,15 @@ void Material::bind(const IViewer* camera, const Matrix4x4& model, const Matrix3
   shader_.set_uniform(sceneContext.fogEnd(), "fogType");
   shader_.set_uniform(sceneContext.fogColor(), "fogFactor");
 
-  for (MaterialParameter* parameter : parameters_) {
-    parameter->setShader(shader_);
+  std::vector<MaterialParameter*>::const_iterator mit = parameters_.begin();
+  for (; mit != parameters_.end(); ++mit) {
+    (*mit)->setShader(shader_);
   }
   
   int textureIndex = 0;
-  for (const Texture& texture : textures_) {
+  std::vector<Texture>::const_iterator tit = textures_.begin();
+  for (; tit != textures_.end(); ++tit) {
     glActiveTexture(GL_TEXTURE0 + textureIndex++);
-    glBindTexture(GL_TEXTURE_2D, texture.textureId());
+    glBindTexture(GL_TEXTURE_2D, (*tit).textureId());
   }
 }

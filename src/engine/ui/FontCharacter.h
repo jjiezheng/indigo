@@ -4,7 +4,7 @@
 #include "renderer/OpenGL.h"
 #include "renderer/SceneNode.h"
 
-class FontCharacterInfo;
+struct FontCharacterInfo;
 
 class FontCharacter : public SceneNode {
   

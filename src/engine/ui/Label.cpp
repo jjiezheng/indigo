@@ -1,16 +1,15 @@
 #include "Label.h"
 
+#include <iostream>
+
+#include "core/Standard.h"
+#include "renderer/TextureCache.h"
+#include "renderer/Texture.h"
+#include "renderer/Renderer.h"
+#include "renderer/Shader.h"
+
 #include "FontDescriptor.h"
 #include "FontCharacter.h"
-
-#include "TextureCache.h"
-#include "Texture.h"
-
-#include "Standard.h"
-#include "Renderer.h"
-
-#include <iostream>
-#include "Shader.h"
 
 Label* Label::label(const char* text, const char* fontFile) {
   Label* label = new Label();
@@ -23,8 +22,9 @@ void Label::setText(const String& text) {
   removeAllChildrenAndCleanup();
   text_ = text;
   float offset = 0;
-  for (char chr : text_) {
-    FontCharacterInfo character_info = font_->charInfo(chr);
+  String::ConstIterator it = text.begin();
+  for (; it != text.end(); ++it) {
+    FontCharacterInfo character_info = font_->charInfo((*it));
     FontCharacter* character = FontCharacter::character(&character_info);
     character->setPosition(offset, 0);
     addChild(character);
@@ -44,8 +44,9 @@ void Label::render(Shader *shader) const {
   glBindTexture(GL_TEXTURE_2D, texture_->textureId());
   shader->set_uniform(0, "colorMap");
 
-  for (SceneNode* child : children_) {
-    child->render(shader);
+  std::vector<SceneNode*>::const_iterator it = children_.begin();
+  for (; it != children_.end(); ++it) {
+    (*it)->render(shader);
   }
   glDisable(GL_BLEND);
 }

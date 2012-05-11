@@ -160,7 +160,7 @@ void Renderer::render3d(Camera* camera) {
 }
 
 void Renderer::renderUI() {
-  Shader* shader = ShaderCache::instance()->addShader("vmpt.vsh", "ft.fsh");
+  /*Shader* shader = ShaderCache::instance()->addShader("vmpt.vsh", "ft.fsh");
   shader->use();
 
   Vector2 screenSize = MacPlatform::instance()->screen_size();
@@ -169,7 +169,7 @@ void Renderer::renderUI() {
 
   for (SceneNode* node : uiNodes_) {
     node->render(shader);
-  }
+  }*/
 }
 
 void Renderer::renderScene(Shader* shader) {
@@ -179,7 +179,7 @@ void Renderer::renderScene(Shader* shader) {
 }
 
 void Renderer::renderDebug() {
-  glEnable(GL_DEPTH_TEST);
+  /*glEnable(GL_DEPTH_TEST);
 
   Shader* shader = ShaderCache::instance()->addShader("vmvp.vsh", "fc.fsh");
   shader->use();
@@ -188,13 +188,14 @@ void Renderer::renderDebug() {
   Matrix4x4 projection = Matrix4x4::perspective(45.0f, aspectRatio, 1.0f, 200.0f);    
   shader->set_uniform(projection, "projection");
   
-  for (Camera* camera : cameras_) {
-    shader->set_uniform(camera->viewTransform(), "view");
+  std::vector<Camera*>::iterator it = cameras_.begin();
+  for (; it != cameras_.end(); ++it) {
+    shader->set_uniform((*it)->viewTransform(), "view");
   
     for (SceneNode* node : debugNodes_) {
       node->renderDebug(shader);
     }    
   }
   
-  glDisable(GL_DEPTH_TEST);
+  glDisable(GL_DEPTH_TEST);*/
 }

@@ -38,8 +38,9 @@ void FPSLabel::update(float dt) {
   if (timeSkipAccum_ >= TIME_TO_SKIP_SECS) {
     timeSkipAccum_ = 0.0f;
     float totalfps = 0.0f;
-    for (float fps : fpss_) {
-      totalfps += fps;
+    std::deque<float>::iterator it = fpss_.begin();
+    for (;it != fpss_.end(); ++it) {
+      totalfps += (*it);
     }
     totalfps /= fpss_.size();
     

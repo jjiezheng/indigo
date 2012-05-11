@@ -6,4 +6,4 @@ Color3::Color3(float r_, float g_, float b_)
 }
 
 Color3::Color3()
-	: : r(0), g(0), b(0) { }
+	: r(0), g(0), b(0) { }

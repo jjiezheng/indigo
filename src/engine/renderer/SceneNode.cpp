@@ -30,25 +30,29 @@ void SceneNode::init() {
 
 void SceneNode::queueRender(Renderer* renderer) {
   if (!isVisible_) return;
-  for (SceneNode* node : children_) {
-    node->queueRender(renderer);
+  std::vector<SceneNode*>::const_iterator it = children_.begin();
+  for (; it != children_.end(); ++it) {
+    (*it)->queueRender(renderer);
   }
 }
 
 void SceneNode::render(Shader* shader) const {
   if (!isVisible_) return;
-  for (Effect* effect : effects_) {
-    effect->render();
+  std::vector<Effect*>::const_iterator cit = effects_.begin();
+  for (; cit != effects_.end(); ++cit) {
+    (*cit)->render();
   }
   
-  for (SceneNode* node : children_) {
-    node->render(shader);
+  std::vector<SceneNode*>::const_iterator it = children_.begin();
+  for (; it != children_.end(); ++it) {
+    (*it)->render(shader);
   }
 }
 
 void SceneNode::update(float dt) {
-  for (SceneNode* node : children_) {
-    node->update(dt);
+  std::vector<SceneNode*>::const_iterator it = children_.begin();
+  for (; it != children_.end(); ++it) {
+    (*it)->update(dt);
   }    
 }
 
@@ -57,12 +61,13 @@ void SceneNode::scheduleUpdate() {
 }
 
 SceneNode* SceneNode::getChildByTag(int tag) {
-  for (SceneNode* child : children_) {
-    if (child->tag_ == tag) {
-      return child;
+  std::vector<SceneNode*>::const_iterator it = children_.begin();
+  for (; it != children_.end(); ++it) {
+    if ((*it)->tag_ == tag) {
+      return (*it);
     }
   }
-  return nullptr;
+  return NULL;
 }
 
 void SceneNode::addChild(SceneNode* child) {
@@ -75,12 +80,13 @@ void SceneNode::addChild(SceneNode* child, int tag) {
   children_.push_back(child);
 }
 
-Rectangle SceneNode::boundingBox() const {
-  Rectangle boundingBox;
+Rect SceneNode::boundingBox() const {
+  Rect boundingBox;
   boundingBox.x = position_.x;
   boundingBox.y = position_.y;
-  for (SceneNode* child : children_) {
-    Rectangle childBoundingBox = child->boundingBox();
+  std::vector<SceneNode*>::const_iterator it = children_.begin();
+  for (; it != children_.end(); ++it) {
+    Rect childBoundingBox = (*it)->boundingBox();
     float childWidthExtent = childBoundingBox.x + childBoundingBox.width;
     if (childWidthExtent > boundingBox.width) {
       boundingBox.width = childWidthExtent;

@@ -2,6 +2,7 @@
 #define CubeFX_TextureResource_h
 
 #include "core/Standard.h"
+#include "renderer/OpenGL.h"
 
 class Platform;
 

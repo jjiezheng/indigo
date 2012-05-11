@@ -15,8 +15,8 @@ Sprite* Sprite::sprite(const char* filePath) {
 void Sprite::init(const char *filePath) {
   texture_ = TextureCache::instance()->addTexture(filePath);
   
-  float height = texture_->height();
-  float width = texture_->width();
+  float height = (float)texture_->height();
+  float width = (float)texture_->width();
   
   boundingBox_.width = width;
   boundingBox_.height = height;

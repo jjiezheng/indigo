@@ -471,7 +471,7 @@ inline void Reader::Parse(Number& number, Reader::TokenStream& tokenStream)
    const std::string& sValue = MatchExpectedToken(Token::TOKEN_NUMBER, tokenStream);
 
    std::istringstream iStr(sValue);
-   double dValue;
+   float dValue;
    iStr >> dValue;
 
    // did we consume all characters in the token?

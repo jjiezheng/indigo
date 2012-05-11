@@ -15,8 +15,9 @@ void Renderer3d::render(const Camera* camera, const World& world, const SceneCon
   
   world.skyBox().render(camera, sceneContext);
   
-  for (Model* node : world) {
-    node->render(camera, sceneContext);
+  std::vector<Model*>::const_iterator it = world.begin();
+  for (; it != world.end(); ++it) {
+    (*it)->render(camera, sceneContext);
   }
   
   glDisable(GL_DEPTH_TEST);

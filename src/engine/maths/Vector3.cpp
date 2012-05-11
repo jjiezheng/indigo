@@ -14,7 +14,7 @@ Vector3::Vector3(float x_, float y_, float z_)
   : x(x_), y(y_), z(z_) { }
 
 Vector3::Vector3()
-  : Vector3(0, 0, 0) { }
+  : x(0), y(0), z(0) { }
 
 Vector3 Vector3::operator + (const Vector3& other) const {
   return Vector3(other.x + x, other.y + y, other.z + z);

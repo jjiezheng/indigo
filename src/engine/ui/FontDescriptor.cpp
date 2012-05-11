@@ -22,8 +22,9 @@ void FontDescriptor::init(const char* fontFile) {
     
     if (line_type == "common") {
       std::vector<String> parameters = String(line).split(' ');
-      for (String parameter : parameters) {
-        std::vector<String> tokens = parameter.split('=');
+      std::vector<String>::iterator it = parameters.begin();
+      for (;it != parameters.end(); ++it) {
+        std::vector<String> tokens = (*it).split('=');
         
         if (tokens.front() == "scaleW") {
           width_ = atoi(tokens.back().c_str());
@@ -38,8 +39,9 @@ void FontDescriptor::init(const char* fontFile) {
     
     if (line_type == "page") {
       std::vector<String> parameters = String(line).split(' ');
-      for (String parameter : parameters) {
-        std::vector<String> tokens = parameter.split('=');
+      std::vector<String>::iterator it = parameters.begin();
+      for (;it != parameters.end(); ++it) {
+        std::vector<String> tokens = (*it).split('=');
         
         if (tokens.front() == "file") {
           asset_ = tokens.back().replace("\"", "").c_str();
@@ -51,10 +53,11 @@ void FontDescriptor::init(const char* fontFile) {
       std::vector<String> parameters = String(line).split(' ');
       
       FontCharacterInfo char_info;
-      char_info.sheet_height = height_;
-      char_info.sheet_width = width_;
-      for (String parameter : parameters) {
-        std::vector<String> tokens = parameter.split('=');
+      char_info.sheet_height = (int)height_;
+      char_info.sheet_width = (int)width_;
+      std::vector<String>::iterator it = parameters.begin();
+      for (;it != parameters.end(); ++it) {
+        std::vector<String> tokens = (*it).split('=');
         
         if (tokens.front() == "width") {
           char_info.width = atoi(tokens.back().c_str());

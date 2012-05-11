@@ -19,3 +19,6 @@ void DLOG(const char* channel, const char* fmt, ...) {
 //  pthread_mutex_unlock(&log_mutex);
   va_end(args);
 };
+
+void RLOG(const char* channel, const char* fmt, ...) {
+}

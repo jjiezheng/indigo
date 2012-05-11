@@ -1,8 +1,9 @@
 #include "ShadowMap.h"
 
-#include <OpenGL/gl3.h>
-#include "Standard.h"
-#include "MacPlatform.h"
+#include "core/Standard.h"
+#include "platform/MacPlatform.h"
+
+#include "OpenGL.h"
 #include "GLUtilities.h"
 #include "ShaderAttribs.h"
 
@@ -26,7 +27,7 @@ void ShadowMap::init() {
     {
       glGenRenderbuffers(1, &shadowRenderDepthBuffer_);
       glBindRenderbuffer(GL_RENDERBUFFER, shadowRenderDepthBuffer_);
-      glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, screenSize.x, screenSize.y);
+      glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, (GLint)screenSize.x, (GLint)screenSize.y);
       glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, shadowRenderDepthBuffer_);
     }
     
@@ -35,7 +36,7 @@ void ShadowMap::init() {
     {
       glGenTextures(1, &shadowTexture_);
       glBindTexture(GL_TEXTURE_2D, shadowTexture_);
-      glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, screenSize.x, screenSize.y, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+      glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, (GLint)screenSize.x, (GLint)screenSize.y, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);

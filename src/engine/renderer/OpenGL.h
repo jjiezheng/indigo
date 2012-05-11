@@ -3,10 +3,7 @@
 
 #ifdef _WIN32
 
-#include <windows.h>
-#include <gl/gl.h>
-#include <gl/glu.h>
-#pragma comment(lib,"opengl32.lib")
+#include "gl/glew.h"
 
 #endif
 
