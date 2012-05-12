@@ -12,7 +12,7 @@
 App* App::app_ = 0;
 
 void App::run() {
-  glewInit();
+  //glewInit();
   app_ = this;
   
   if (!glfwInit()) {
@@ -25,9 +25,9 @@ void App::run() {
   
   MacPlatform::instance()->set_screen_size(screenWidth, screenHeight);
   
-  //glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+  glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
   glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 3);
-  glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 1);
+  glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 2);
   
   if (!glfwOpenWindow(screenWidth, screenHeight, 0, 0, 0, 0, 32, 0, GLFW_WINDOW)) {
     std::clog << "Error opening gl window" << std::endl;
@@ -42,7 +42,7 @@ void App::run() {
   
   bool quit = false;
 
-  glewInit();
+  //glewInit();
 
   game_.init();
   
@@ -56,7 +56,7 @@ void App::run() {
     }
   }
 
-  //glfwTerminate();
+  glfwTerminate();
 }
 
 void App::keyFunction(int character, int state) {

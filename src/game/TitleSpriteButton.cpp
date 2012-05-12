@@ -31,8 +31,8 @@ void TitleSpriteButton::init(const char* title, const char* upImage, const char*
   Label* label = Label::label(title, "copperplate_18.fnt");
   addChild(label);
   
-  Rectangle boundingBox = this->boundingBox();
-  Rectangle labelBoundingBox = label->boundingBox();
+  Rect boundingBox = this->boundingBox();
+  Rect labelBoundingBox = label->boundingBox();
   
   float labelX = (boundingBox.width - labelBoundingBox.width) / 2.0f;
   float labelY = (boundingBox.height - labelBoundingBox.height) / 2.0f;
@@ -42,7 +42,7 @@ void TitleSpriteButton::init(const char* title, const char* upImage, const char*
 }
 
 void TitleSpriteButton::onMouseDown(int buttonId, const Vector2& location) {
-  Rectangle boundingBox = this->boundingBox();
+  Rect boundingBox = this->boundingBox();
   if (boundingBox.contains(location)) {
     getChildByTag(TAG_DOWN)->setVisible(true);
     getChildByTag(TAG_UP)->setVisible(false);

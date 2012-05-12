@@ -1,6 +1,33 @@
 #include "Clock.h"
 
-#ifdef _APPLE
+
+#ifdef _WIN32 
+
+#include <windows.h>
+
+float Clock::delta_time() {
+  /*  LARGE_INTEGER frequency;        // ticks per second
+   LARGE_INTEGER t1, t2;           // ticks
+   double elapsedTime;
+   
+   // get ticks per second
+   //QueryPerformanceFrequency(&frequency);
+   
+   // start timer
+   //QueryPerformanceCounter(&t1);
+   
+   // do something
+   // ...
+   
+   // stop timer
+   //QueryPerformanceCounter(&t2);
+   
+   float dt = ((t2.QuadPart - t1.QuadPart) * 1000.0.0f) / frequency.QuadPart;
+   return dt;*/
+  return 0;
+}
+
+#else
 
 #include <sys/time.h>
 
@@ -14,7 +41,7 @@ float Clock::delta_time() {
   
   long timeNow = (now.tv_sec * 1000000) + now.tv_usec;
  
-  LONG dt = timeNow - last_update_;
+  long dt = timeNow - last_update_;
   
   if (!last_update_) {
     dt = 0;
@@ -25,32 +52,5 @@ float Clock::delta_time() {
   return dt / 1000000.0f;
 }
 
-#endif
-
-#ifdef _WIN32 
-
-#include <windows.h>
-
-float Clock::delta_time() {
-/*  LARGE_INTEGER frequency;        // ticks per second
-  LARGE_INTEGER t1, t2;           // ticks
-  double elapsedTime;
-
-  // get ticks per second
-  //QueryPerformanceFrequency(&frequency);
-
-  // start timer
-  //QueryPerformanceCounter(&t1);
-
-  // do something
-  // ...
-
-  // stop timer
-  //QueryPerformanceCounter(&t2);
-
-  float dt = ((t2.QuadPart - t1.QuadPart) * 1000.0.0f) / frequency.QuadPart;
-  return dt;*/
-  return 0;
-}
 
 #endif

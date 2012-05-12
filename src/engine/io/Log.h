@@ -10,7 +10,7 @@ void RLOG(const char* channel, const char* fmt, ...);
 #ifdef _DEBUG
   #define LOG DLOG
 #else
-  #define LOG
+  #define LOG RLOG
 #endif
 
 #endif

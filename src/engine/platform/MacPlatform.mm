@@ -23,10 +23,9 @@ MacPlatform* MacPlatform::instance() {
 }
 
 MacPlatform::MacPlatform() {
-//  FreeImage_Initialise();
   ilInit();
   
-  for (INT i = 0; i < KEY_STATE_COUNT; i++) {
+  for (int i = 0; i < KEY_STATE_COUNT; i++) {
     key_states_[i] = false;
   }
 }
@@ -47,50 +46,19 @@ std::string MacPlatform::path_for_file(const std::string& filename) const {
   return final_path;
 }
 
-void MacPlatform::load_image(const std::string& full_path, INT* width, INT* height, void** data) const {
-
+void MacPlatform::load_image(const std::string& full_path, int* width, int* height, void** data) const {
   ilLoadImage(full_path.c_str());
   
-  std::clog << full_path << std::endl;
-  
-  int mipmaps = ilGetInteger(IL_NUM_MIPMAPS);
-  
-  for (int i = 0; i < mipmaps; i++) {
-//    ilBindImage(imageName);
-    ilActiveMipmap(i);
-    *width =  ilGetInteger(IL_IMAGE_WIDTH);
-    *height = ilGetInteger(IL_IMAGE_HEIGHT);
-    data[i] = ilGetData();
-    
-    
-//    int size = ilGetDXTCData(NULL, 0, dxtcMode);
-//    ILubyte* buffer = new ILubyte[size];
-  }
-  
-  mipmaps = 0;
-
-  {
-//  FREE_IMAGE_FORMAT formato = FreeImage_GetFileType(full_path.c_str(), 0);
-//	FIBITMAP* imagen = FreeImage_Load(formato, full_path.c_str());
-//	
-//	FIBITMAP* temp = imagen;
-//	imagen = FreeImage_ConvertTo32Bits(imagen);
-//  FreeImage_FlipVertical(imagen);
-//  FreeImage_FlipHorizontal(imagen);
-//	FreeImage_Unload(temp);
-//  
-//	*width = FreeImage_GetWidth(imagen);
-//	*height = FreeImage_GetHeight(imagen);
-//
-//	*data = FreeImage_GetBits(imagen);
-  }
+  *width =  ilGetInteger(IL_IMAGE_WIDTH);
+  *height = ilGetInteger(IL_IMAGE_HEIGHT);
+  *data = ilGetData();  
 }
 
-void MacPlatform::set_key_state(INT key_code, BOOLEAN state) {
+void MacPlatform::set_key_state(int key_code, bool state) {
   key_states_[key_code] = state;
 }
 
-BOOLEAN MacPlatform::get_key_state(INT key_code) {
+bool MacPlatform::get_key_state(int key_code) {
   return key_states_[key_code];
 }
 
