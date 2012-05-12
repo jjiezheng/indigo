@@ -32,18 +32,16 @@ Matrix3x3 Matrix3x3::rotationY(float radians) {
 }
 
 Matrix3x3::Matrix3x3()
-  : m11_(1), m12_(0), m13_(0), 
-    m21_(0), m22_(1), m23_(0), 
-    m31_(0), m32_(0), m33_(1) {
-  
-}
+  : m11_(1.0f), m12_(0.0f), m13_(0.0f), 
+    m21_(0.0f), m22_(1.0f), m23_(0.0f), 
+    m31_(0.0f), m32_(0.0f), m33_(1.0f) { }
 
 Matrix3x3::Matrix3x3(float m11, float m12, float m13,
                      float m21, float m22, float m23,
                      float m31, float m32, float m33)
-                    : m11_(m11), m12_(m12), m13_(m13), 
-                      m21_(m21), m22_(m22), m23_(m23), 
-                      m31_(m31), m32_(m32), m33_(m33) { }
+  : m11_(m11), m12_(m12), m13_(m13), 
+    m21_(m21), m22_(m22), m23_(m23), 
+    m31_(m31), m32_(m32), m33_(m33) { }
 
 Vector3 Matrix3x3::operator * (const Vector3& b) const {
   return Vector3(m11_ * b.x + m12_ * b.y + m13_ * b.z,

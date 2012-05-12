@@ -115,27 +115,25 @@ Matrix4x4 Matrix4x4::orthographic(float left, float right, float bottom, float t
 }
 
 Matrix4x4::Matrix4x4()
-  : m11_(1), m12_(0), m13_(0), m14_(0), 
-    m21_(0), m22_(1), m23_(0), m24_(0),
-    m31_(0), m32_(0), m33_(1), m34_(0),
-    m41_(0), m42_(0), m43_(0), m44_(1) {
-  
-}
+  : m11_(1.0f), m12_(0.0f), m13_(0.0f), m14_(0.0f), 
+    m21_(0.0f), m22_(1.0f), m23_(0.0f), m24_(0.0f),
+    m31_(0.0f), m32_(0.0f), m33_(1.0f), m34_(0.0f),
+    m41_(0.0f), m42_(0.0f), m43_(0.0f), m44_(1.0f) { }
 
 Matrix4x4::Matrix4x4(float m11, float m12, float m13, float m14,
                      float m21, float m22, float m23, float m24,
                      float m31, float m32, float m33, float m34,
                      float m41, float m42, float m43, float m44)
-                    : m11_(m11), m12_(m12), m13_(m13), m14_(m14), 
-                      m21_(m21), m22_(m22), m23_(m23), m24_(m24), 
-                      m31_(m31), m32_(m32), m33_(m33), m34_(m34),
-                      m41_(m41), m42_(m42), m43_(m43), m44_(m44) { }
+  : m11_(m11), m12_(m12), m13_(m13), m14_(m14), 
+    m21_(m21), m22_(m22), m23_(m23), m24_(m24), 
+    m31_(m31), m32_(m32), m33_(m33), m34_(m34),
+    m41_(m41), m42_(m42), m43_(m43), m44_(m44) { }
 
 Vector4 Matrix4x4::operator * (const Vector4& b) const {
-  return Vector4(m11_ * b.x + m12_ * b.y + m13_ * b.z + m14_*b.w,
-                 m21_ * b.x + m22_ * b.y + m23_ * b.z + m24_*b.w,
-                 m31_ * b.x + m32_ * b.y + m33_ * b.z + m34_*b.w,
-                 m41_ * b.x + m42_ * b.y + m43_ * b.z + m44_*b.w);
+  return Vector4(m11_ * b.x + m12_ * b.y + m13_ * b.z + m14_ * b.w,
+                 m21_ * b.x + m22_ * b.y + m23_ * b.z + m24_ * b.w,
+                 m31_ * b.x + m32_ * b.y + m33_ * b.z + m34_ * b.w,
+                 m41_ * b.x + m42_ * b.y + m43_ * b.z + m44_ * b.w);
 }
 
 Matrix4x4 Matrix4x4::operator * (const Matrix4x4& other) const {

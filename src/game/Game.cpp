@@ -2,7 +2,6 @@
 
 #include "core/Standard.h"
 
-#include "gameflow/Scheduler.h"
 #include "renderer/Camera.h"
 #include "renderer/FogTypes.h"
 #include "renderer/Box.h"
@@ -32,8 +31,7 @@ void Game::init() {
 }
 
 void Game::mainLoop() {  
-  float dt = clock_.delta_time();
-  Scheduler::instance()->update(dt);   
+  float dt = clock_.delta_time(); 
   
   camera_->update(dt);
   

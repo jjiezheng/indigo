@@ -19,17 +19,20 @@ void Material::bind(const IViewer* camera, const Matrix4x4& model, const Matrix3
   const int MAX_LIGHTS = 6;
   float lightPositions[MAX_LIGHTS*3];
   int lightPositionIndex = 0;
+  
   std::vector<Light> lights = sceneContext.lights();
-  std::vector<Light>::iterator it = lights.begin();
-  for (; it != lights.end(); ++it) {
-    lightPositions[lightPositionIndex++] = (*it).position().x;
-    lightPositions[lightPositionIndex++] = (*it).position().y;
-    lightPositions[lightPositionIndex++] = (*it).position().z;
+  std::vector<Light>::iterator lit = lights.begin();
+  
+  for (; lit != lights.end(); ++lit) {
+    lightPositions[lightPositionIndex++] = (*lit).position().x;
+    lightPositions[lightPositionIndex++] = (*lit).position().y;
+    lightPositions[lightPositionIndex++] = (*lit).position().z;
     
-    Matrix4x4 lightMatrix = offsetMatrix * camera->projection() * (*it).viewTransform();
+    Matrix4x4 lightMatrix = offsetMatrix * camera->projection() * (*lit).viewTransform();
     shader_.set_uniform(lightMatrix, "lightMatrix");        
   }
   
+  shader_.set_uniform((int)lights.size(), "numPointLights");
   shader_.set_uniform(normalMatrix, "normalMatrix");  
   shader_.set_uniform(lightPositions, lightPositionIndex, "lightPositions");  
   shader_.set_uniform(camera->viewTransform(), "view");

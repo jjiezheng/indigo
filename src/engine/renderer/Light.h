@@ -37,11 +37,11 @@ private:
   
 };
  
-inline void Light::setRotation(const Matrix4x4 &rotation) {
+inline void Light::setRotation(const Matrix4x4& rotation) {
   rotation_ = rotation;
 }
 
-inline void Light::setPosition(const Vector4 &position) {
+inline void Light::setPosition(const Vector4& position) {
   position_ = position;
 }
 

@@ -37,7 +37,6 @@
 		4C74AB1C154892070008271B /* libglfw.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C74AB1B154892070008271B /* libglfw.dylib */; };
 		4C74ABC5154892F40008271B /* Clock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C74AB26154892F40008271B /* Clock.cpp */; };
 		4C74ABC6154892F40008271B /* String.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C74AB29154892F40008271B /* String.cpp */; };
-		4C74ABCC154892F40008271B /* Scheduler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C74AB3D154892F40008271B /* Scheduler.cpp */; };
 		4C74ABCE154892F40008271B /* File.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C74AB43154892F40008271B /* File.cpp */; };
 		4C74ABCF154892F40008271B /* Log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C74AB45154892F40008271B /* Log.cpp */; };
 		4C74ABD1154892F40008271B /* Matrix3x3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C74AB4B154892F40008271B /* Matrix3x3.cpp */; };
@@ -136,9 +135,6 @@
 		4C74AB29154892F40008271B /* String.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = String.cpp; sourceTree = "<group>"; };
 		4C74AB2A154892F40008271B /* String.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = String.h; sourceTree = "<group>"; };
 		4C74AB2B154892F40008271B /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
-		4C74AB3C154892F40008271B /* IUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IUpdate.h; sourceTree = "<group>"; };
-		4C74AB3D154892F40008271B /* Scheduler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scheduler.cpp; sourceTree = "<group>"; };
-		4C74AB3E154892F40008271B /* Scheduler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scheduler.h; sourceTree = "<group>"; };
 		4C74AB43154892F40008271B /* File.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = File.cpp; sourceTree = "<group>"; };
 		4C74AB44154892F40008271B /* File.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = File.h; sourceTree = "<group>"; };
 		4C74AB45154892F40008271B /* Log.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Log.cpp; sourceTree = "<group>"; };
@@ -232,7 +228,6 @@
 				4CD48FD715599E81005588D8 /* config */,
 				4C74AB1F154892F40008271B /* app */,
 				4C74AB23154892F40008271B /* core */,
-				4C74AB3B154892F40008271B /* gameflow */,
 				4C74AB3F154892F40008271B /* io */,
 				4C74AB47154892F40008271B /* maths */,
 				4C74AB57154892F40008271B /* platform */,
@@ -261,16 +256,6 @@
 				4C74AB2B154892F40008271B /* Types.h */,
 			);
 			path = core;
-			sourceTree = "<group>";
-		};
-		4C74AB3B154892F40008271B /* gameflow */ = {
-			isa = PBXGroup;
-			children = (
-				4C74AB3C154892F40008271B /* IUpdate.h */,
-				4C74AB3D154892F40008271B /* Scheduler.cpp */,
-				4C74AB3E154892F40008271B /* Scheduler.h */,
-			);
-			path = gameflow;
 			sourceTree = "<group>";
 		};
 		4C74AB3F154892F40008271B /* io */ = {
@@ -580,7 +565,6 @@
 			files = (
 				4C74ABC5154892F40008271B /* Clock.cpp in Sources */,
 				4C74ABC6154892F40008271B /* String.cpp in Sources */,
-				4C74ABCC154892F40008271B /* Scheduler.cpp in Sources */,
 				4C74ABCE154892F40008271B /* File.cpp in Sources */,
 				4C74ABCF154892F40008271B /* Log.cpp in Sources */,
 				4C74ABD1154892F40008271B /* Matrix3x3.cpp in Sources */,

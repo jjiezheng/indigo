@@ -13,9 +13,7 @@ Mesh::Mesh(float* vertices, float* normals, float* uvs, int numVertices)
   : vertices_(vertices)
   , normals_(normals)
   , numVertices_(numVertices)
-  , uvs_(uvs) {
-  
-}
+  , uvs_(uvs) { }
 
 Mesh* Mesh::mesh(float* vertices, float* normals, float* uvs, int numVertices) {
   Mesh* mesh = new Mesh(vertices, normals, uvs, numVertices);
@@ -48,16 +46,8 @@ void Mesh::init() {
   glBindVertexArray(0);
 }
 
-void Mesh::render(const IViewer* camera, const Matrix4x4& model, const SceneContext& sceneContext) const {
-  material_.bind(camera, model, rotation().mat3x3(), sceneContext);
+void Mesh::render(const IViewer* camera, const Matrix4x4& model, const Matrix3x3& normalMatrix, const SceneContext& sceneContext) const {
+  material_.bind(camera, model, normalMatrix, sceneContext);
   glBindVertexArray(vertexArray);
   glDrawArrays(GL_TRIANGLES, 0, numVertices_/3.0f);   
-}
-
-Matrix4x4 Mesh::rotation() const {
-  Matrix4x4 rotationX = Matrix4x4::rotationX(rotationX_);
-  Matrix4x4 rotationY = Matrix4x4::rotationY(rotationY_);
-  Matrix4x4 rotationZ = Matrix4x4::rotationZ(rotationZ_);
-  Matrix4x4 rotation = rotationZ * rotationY * rotationX;
-  return rotation;
 }

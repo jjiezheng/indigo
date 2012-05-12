@@ -23,13 +23,9 @@ public:
   
 public:
   
-  void render(const IViewer* camera, const Matrix4x4& model, const SceneContext& sceneContext) const;
+  void render(const IViewer* camera, const Matrix4x4& model, const Matrix3x3& normalMatrix, const SceneContext& sceneContext) const;
   
   void setMaterial(const Material& material);
-  
-public:
-  
-  Matrix4x4 rotation() const;
   
 private:
   
@@ -44,12 +40,6 @@ private:
   GLuint uvBuffer;  
     
   Material material_;
-  
-private:
-  
-  int rotationX_;
-  int rotationY_;
-  int rotationZ_;
   
 };
 

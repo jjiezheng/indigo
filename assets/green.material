@@ -12,10 +12,6 @@
       "g" : 0,
       "b" : 0,
       "type" : "color3"
-    },
-    "numPointLights" : {
-      "type" : "int",
-      "value" : 2
     }
   }
 }
