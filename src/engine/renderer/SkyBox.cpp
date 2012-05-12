@@ -1,7 +1,6 @@
 #include "SkyBox.h"
 
-#include "resource/TextureResource.h"
-#include "resource/ResourceCache.h"
+#include "io/Image.h"
 #include "core/String.h"
 #include "maths/Matrix4x4.h"
 #include "maths/Vector4.h"
@@ -23,22 +22,22 @@ void SkyBox::load(const std::string& basename) {
     String filename = basenameString.removePathExtension();
     
     std::string topFileName = (filename + "_top" + extension).str();
-    TextureResource* top = ResourceCache::instance()->load_texture(topFileName);
+    Image* top = Image::imageFromFile(topFileName);
     
     std::string bottomFileName = (filename + "_bottom" + extension).str();
-    TextureResource* bottom = ResourceCache::instance()->load_texture(bottomFileName);
+    Image* bottom = Image::imageFromFile(bottomFileName);
     
     std::string leftFileName = (filename + "_left" + extension).str();
-    TextureResource* left = ResourceCache::instance()->load_texture(leftFileName);
+    Image* left = Image::imageFromFile(leftFileName);
     
     std::string rightFileName = (filename + "_right" + extension).str();
-    TextureResource* right = ResourceCache::instance()->load_texture(rightFileName);
+    Image* right = Image::imageFromFile(rightFileName);
     
     std::string frontFileName = (filename + "_front" + extension).str();
-    TextureResource* front = ResourceCache::instance()->load_texture(frontFileName);
+    Image* front = Image::imageFromFile(frontFileName);
     
     std::string backFileName = (filename + "_back" + extension).str();
-    TextureResource* back = ResourceCache::instance()->load_texture(backFileName);
+    Image* back = Image::imageFromFile(backFileName);
 
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR); 
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); 
@@ -56,10 +55,7 @@ void SkyBox::load(const std::string& basename) {
     glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
   }
   {
-    ShaderResource* shaderResource = ResourceCache::instance()->load_shader("skybox_fog.vsh", "skybox_fog.fsh");
-    shader_.compile_vertex(shaderResource->vertex_source());
-    shader_.compile_fragment(shaderResource->fragment_source());
-
+    shader_.load("skybox_fog.vsh", "skybox_fog.fsh");
     shader_.bind_attribute(ATTRIB_VERTEX, "vertex");
     shader_.link();
     

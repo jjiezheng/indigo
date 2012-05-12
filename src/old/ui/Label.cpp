@@ -5,7 +5,6 @@
 #include "core/Standard.h"
 #include "renderer/TextureCache.h"
 #include "renderer/Texture.h"
-#include "renderer/Renderer.h"
 #include "renderer/Shader.h"
 
 #include "FontDescriptor.h"
@@ -52,7 +51,6 @@ void Label::render(Shader *shader) const {
 }
 
 void Label::queueRender(Renderer* renderer) {
-  renderer->queueUI(this);
 }
 
 void Label::renderDebug() const {

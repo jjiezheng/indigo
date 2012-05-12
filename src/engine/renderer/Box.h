@@ -2,7 +2,6 @@
 #define Box_H_
 
 #include "core/Standard.h"
-#include "SceneNode.h"
 #include "Shader.h"
 
 class Renderer;

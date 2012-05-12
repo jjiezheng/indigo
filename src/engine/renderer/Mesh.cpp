@@ -1,16 +1,13 @@
 #include "Mesh.h"
 
-#include "maths/Maths.h"
+#include "maths/Matrix3x3.h"
 
 #include "Shader.h"
 #include "ShaderAttribs.h"
 #include "MeshResource.h"
-#include "Renderer.h"
 
 #include "Material.h"
 #include "Camera.h"
-
-#include <iostream>
 
 Mesh::Mesh(float* vertices, float* normals, float* uvs, int numVertices)
   : vertices_(vertices)
@@ -55,4 +52,12 @@ void Mesh::render(const IViewer* camera, const Matrix4x4& model, const SceneCont
   material_.bind(camera, model, rotation().mat3x3(), sceneContext);
   glBindVertexArray(vertexArray);
   glDrawArrays(GL_TRIANGLES, 0, numVertices_/3.0f);   
+}
+
+Matrix4x4 Mesh::rotation() const {
+  Matrix4x4 rotationX = Matrix4x4::rotationX(rotationX_);
+  Matrix4x4 rotationY = Matrix4x4::rotationY(rotationY_);
+  Matrix4x4 rotationZ = Matrix4x4::rotationZ(rotationZ_);
+  Matrix4x4 rotation = rotationZ * rotationY * rotationX;
+  return rotation;
 }

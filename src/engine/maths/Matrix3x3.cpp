@@ -31,7 +31,10 @@ Matrix3x3 Matrix3x3::rotationY(float radians) {
                    -sinf(radians),  0.0f, cosf(radians));
 }
 
-Matrix3x3::Matrix3x3() {
+Matrix3x3::Matrix3x3()
+  : m11_(1), m12_(0), m13_(0), 
+    m21_(0), m22_(1), m23_(0), 
+    m31_(0), m32_(0), m33_(1) {
   
 }
 

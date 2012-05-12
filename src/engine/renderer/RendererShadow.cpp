@@ -2,9 +2,6 @@
 
 #include "maths/Vector2.h"
 
-#include "resource/ResourceCache.h"
-#include "resource/ShaderResource.h"
-
 #include "GLUtilities.h"
 
 #include "World.h"
@@ -91,9 +88,7 @@ void RendererShadow::init(const Vector2 &screenSize) {
     glVertexAttribPointer(ATTRIB_UV, 2, GL_FLOAT, 0, 0, 0);
     glEnableVertexAttribArray(ATTRIB_UV);
         
-    ShaderResource* resource = ResourceCache::instance()->load_shader("vt.vsh", "ft.fsh");
-    debugShader_.compile_vertex(resource->vertex_source());
-    debugShader_.compile_fragment(resource->fragment_source());
+    debugShader_.load("vt.vsh", "ft.fsh");
     debugShader_.bind_attribute(ATTRIB_VERTEX, "vertex");
     debugShader_.bind_attribute(ATTRIB_UV, "textureCoords");
     debugShader_.link();

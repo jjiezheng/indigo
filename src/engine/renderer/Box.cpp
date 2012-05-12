@@ -1,12 +1,10 @@
 #include "Box.h"
 
 #include "platform/MacPlatform.h"
-#include "resource/ResourceCache.h"
 
 #include "OpenGL.h"
 #include "Shader.h"
 #include "ShaderAttribs.h"
-#include "Renderer.h"
 
 static const int VERTEX_SIZE = 3;
 static const int VERTEX_LENGTH = 18;
@@ -41,11 +39,7 @@ void Box::init() {
   glBindVertexArray(0);
   
   {
-    ShaderResource* resource = ResourceCache::instance()->load_shader("vmvp.vsh", "f.fsh");
-    
-    shader_.compile_vertex(resource->vertex_source());
-    shader_.compile_fragment(resource->fragment_source());
-    
+    shader_.load("vmvp.vsh", "f.fsh");    
     shader_.bind_attribute(ATTRIB_VERTEX, "vertex");
     
     shader_.link();    

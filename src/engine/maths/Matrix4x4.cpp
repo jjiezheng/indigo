@@ -116,9 +116,9 @@ Matrix4x4 Matrix4x4::orthographic(float left, float right, float bottom, float t
 
 Matrix4x4::Matrix4x4()
   : m11_(1), m12_(0), m13_(0), m14_(0), 
-    m21_(0), m22_(0), m23_(0), m24_(0),
-    m31_(0), m32_(0), m33_(0), m34_(0),
-    m41_(0), m42_(0), m43_(0), m44_(0) {
+    m21_(0), m22_(1), m23_(0), m24_(0),
+    m31_(0), m32_(0), m33_(1), m34_(0),
+    m41_(0), m42_(0), m43_(0), m44_(1) {
   
 }
 

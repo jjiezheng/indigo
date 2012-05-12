@@ -1,6 +1,8 @@
 #ifndef MODEL_H
 #define MODEL_H
 
+#include "maths/Matrix4x4.h"
+
 #include "Mesh.h"
 #include "Material.h"
 

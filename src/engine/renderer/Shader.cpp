@@ -2,19 +2,12 @@
 
 #include "maths/Matrix4x4.h"
 #include "maths/Matrix3x3.h"
-#include "resource/ShaderResource.h"
 #include "io/Log.h"
+#include "io/File.h"
 
 #include "Color4.h"
 #include "ShaderAttribs.h"
-#include "ShaderCache.h"
-
-Shader* Shader::shader(const ShaderResource* shader_resource) {
-  Shader* shader = new Shader();
-  shader->compile_vertex(shader_resource->vertex_source());
-  shader->compile_fragment(shader_resource->fragment_source());
-  return shader;
-}
+#include "MacPlatform.h"
 
 GLuint Shader::compile_shader(const std::string& shader_source, GLint type) {
 
@@ -59,6 +52,17 @@ void Shader::compile_fragment(const std::string& fragment_source) {
 void Shader::bind_attribute(int attribute_id, const char* attribute_name) {
   LOG(LOG_CHANNEL_SHADER, "Binding attribute %s", attribute_name);
   glBindAttribLocation(program, attribute_id, attribute_name);
+}
+
+void Shader::load(const std::string& vertexShaderPath, const std::string& fragmentShaderPath) {
+  std::string vert_path = MacPlatform::instance()->path_for_file(vertexShaderPath);
+  std::string frag_path = MacPlatform::instance()->path_for_file(fragmentShaderPath);
+
+  std::string vertex = File(vert_path).data();
+  std::string fragment = File(frag_path).data();
+  
+  compile_vertex(vertex);
+  compile_fragment(fragment);
 }
 
 void Shader::link() {

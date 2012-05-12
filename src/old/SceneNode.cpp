@@ -7,8 +7,6 @@
 #include "maths/Vector4.h"
 
 #include "Shader.h"
-#include "ShaderCache.h"
-#include "Effect.h"
 
 SceneNode::SceneNode() 
   : isVisible_(true)
@@ -24,7 +22,7 @@ SceneNode* SceneNode::node() {
 }
 
 void SceneNode::init() {
-  shader_ = ShaderCache::instance()->addShader("vmvpcs.vsh", "fcls.fsh");
+  //shader_ = ShaderCache::instance()->addShader("vmvpcs.vsh", "fcls.fsh");
   scheduleUpdate();
 }
 
@@ -37,16 +35,16 @@ void SceneNode::queueRender(Renderer* renderer) {
 }
 
 void SceneNode::render(Shader* shader) const {
-  if (!isVisible_) return;
-  std::vector<Effect*>::const_iterator cit = effects_.begin();
-  for (; cit != effects_.end(); ++cit) {
-    (*cit)->render();
-  }
-  
-  std::vector<SceneNode*>::const_iterator it = children_.begin();
-  for (; it != children_.end(); ++it) {
-    (*it)->render(shader);
-  }
+//  if (!isVisible_) return;
+//  std::vector<Effect*>::const_iterator cit = effects_.begin();
+//  for (; cit != effects_.end(); ++cit) {
+//    (*cit)->render();
+//  }
+//  
+//  std::vector<SceneNode*>::const_iterator it = children_.begin();
+//  for (; it != children_.end(); ++it) {
+//    (*it)->render(shader);
+//  }
 }
 
 void SceneNode::update(float dt) {

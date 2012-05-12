@@ -3,17 +3,12 @@
 #include "core/Standard.h"
 
 #include "gameflow/Scheduler.h"
-#include "renderer/Scene.h"
-#include "renderer/Renderer.h"
 #include "renderer/Camera.h"
 #include "renderer/FogTypes.h"
 #include "renderer/Box.h"
 #include "renderer/WorldLoader.h"
 
 #include "platform/MacPlatform.h"
-#include "resource/ResourceCache.h"
-
-#include "GameScene.h"
 
 void Game::init() {  
   properties_.init();

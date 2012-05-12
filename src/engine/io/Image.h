@@ -1,22 +1,16 @@
-#ifndef CubeFX_TextureResource_h
-#define CubeFX_TextureResource_h
+#ifndef IMAGE_H
+#define IMAGE_H
 
 #include "core/Standard.h"
 #include "renderer/OpenGL.h"
 
-class Platform;
-
-class TextureResource {
+class Image {
   
 public:
   
-  static TextureResource* resource(Platform* platform);
+  static Image* imageFromFile(const std::string& filename);
   
-  TextureResource(Platform* platform)
-    : platform_(platform)
-  {
-    
-  }
+public:
   
   void load(const std::string& filename);
   
@@ -35,7 +29,6 @@ private:
   void* data_;
   int width_;
   int height_;
-  Platform* platform_;
   
 };
 

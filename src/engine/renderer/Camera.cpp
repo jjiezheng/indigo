@@ -2,9 +2,7 @@
 
 #include "Camera.h"
 #include "Shader.h"
-#include "Renderer.h"
 #include "Angles.h"
-#include "ShaderCache.h"
 
 #include <GL/glfw.h>
 

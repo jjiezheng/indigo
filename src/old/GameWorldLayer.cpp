@@ -3,8 +3,6 @@
 #include "ModelResource.h"
 #include "Model.h"
 #include "Box.h"
-#include "PointLight.h"
-#include "DirectionalLight.h"
 #include "Camera.h"
 
 static const int TAG_CUBE = 100;

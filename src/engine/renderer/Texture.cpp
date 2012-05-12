@@ -4,8 +4,7 @@
 #include <IL/ilu.h>
 #include <iostream>
 
-#include "resource/ResourceCache.h"
-#include "resource/TextureResource.h"
+#include "io/Image.h"
 #include "platform/MacPlatform.h"
 
 #include "Shader.h"

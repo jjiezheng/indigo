@@ -14,12 +14,7 @@ class Matrix3x3;
 class Color4;
 
 class Shader {
-  
-public:
-  
-  static 
-  Shader* shader(const ShaderResource* shader_resource);
-  
+    
 public:
   
   void compile_vertex(const std::string& vertex_source);
@@ -27,6 +22,8 @@ public:
   void compile_fragment(const std::string& fragment_source);
   
 public:
+  
+  void load(const std::string& vertexShaderPath, const std::string& fragmentShaderPath);
   
   void link();
   

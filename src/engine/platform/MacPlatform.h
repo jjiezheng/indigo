@@ -1,7 +1,6 @@
 #ifndef Shadows_MacPlatform_h
 #define Shadows_MacPlatform_h
 
-#include "Platform.h"
 #include "maths/Vector2.h"
 
 #define KEY_STATE_COUNT 256
@@ -12,7 +11,7 @@ enum MouseButtons {
   MAX_MOUSE_BUTTONS
 };
 
-class MacPlatform : public Platform {
+class MacPlatform {
   
 public:
   

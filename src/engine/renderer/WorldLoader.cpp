@@ -17,9 +17,6 @@
 #include "Shader.h"
 #include "Material.h"
 
-#include "resource/ShaderResource.h"
-#include "resource/ResourceCache.h"
-
 #include "MaterialParameter.h"
 #include "Vector3MaterialParameter.h"
 #include "IntegerMaterialParameter.h"
@@ -253,11 +250,8 @@ void WorldLoader::loadShader(Material& material, const std::string &shaderFilePa
 
   json::String vertexFilePath = shaderObject["vertex"];
   json::String fragmentFilePath = shaderObject["fragment"];
-   
-  ShaderResource* resource = ResourceCache::instance()->load_shader(vertexFilePath.Value(), fragmentFilePath.Value()); 
-  
-  shader.compile_vertex(resource->vertex_source());
-  shader.compile_fragment(resource->fragment_source());
+     
+  shader.load(vertexFilePath.Value(), fragmentFilePath.Value());
   
   json::Object attributesArray = shaderObject["attributes"];
   json::Object::iterator ait = attributesArray.begin();

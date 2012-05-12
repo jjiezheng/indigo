@@ -4,7 +4,6 @@
 #include "core/Standard.h"
 
 #include "Color3.h"
-#include "SceneNode.h"
 #include "Material.h"
 
 class Shader;
@@ -12,7 +11,7 @@ class Material;
 class IViewer;
 class SceneContext;
 
-class Mesh : public SceneNode {
+class Mesh {
   
 public:
   
@@ -28,6 +27,10 @@ public:
   
   void setMaterial(const Material& material);
   
+public:
+  
+  Matrix4x4 rotation() const;
+  
 private:
   
   float* vertices_;
@@ -39,8 +42,15 @@ private:
   GLuint vertexBuffer;
   GLuint normalBuffer;  
   GLuint uvBuffer;  
-  
+    
   Material material_;
+  
+private:
+  
+  int rotationX_;
+  int rotationY_;
+  int rotationZ_;
+  
 };
 
 inline void Mesh::setMaterial(const Material& material) {
