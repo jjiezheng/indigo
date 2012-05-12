@@ -6,3 +6,11 @@
 *.suo
 *.vcproj.*
 *.user
+*.ilk
+*.obj
+*.lastbuildstate
+*.manifest
+*.tlog
+*.pdb
+*.log
+*.idb
