@@ -40,7 +40,7 @@ std::string MacPlatform::path_for_file(const std::string& filename) const {
   return final_path;
 }
 
-void MacPlatform::load_image(const std::string& full_path, int* width, int* height, void** data) const {
+void MacPlatform::load_image(const std::string& full_path, int* width, int* height, void** data, int* format) const {
   NSString* path = [NSString stringWithUTF8String:full_path.c_str()];  
   NSData *texData = [[[NSData alloc] initWithContentsOfFile:path] autorelease];
   
@@ -63,6 +63,8 @@ void MacPlatform::load_image(const std::string& full_path, int* width, int* heig
   //  CGContextScaleCTM(context, 1.0, -1.0);
   CGContextDrawImage(context, bounds, image.CGImage);
   CGContextRelease(context);
+  
+  *format = GL_RGBA;
 }
 
 void MacPlatform::set_key_state(int key_code, bool state) {

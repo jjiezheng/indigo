@@ -1,6 +1,8 @@
 #include "Clock.h"
 
-#if PLATFORM == PLATFORM_WINDOWS
+#include "PlatformDefs.h"
+
+#ifdef PLATFORM_WINDOWS
 
 #include <windows.h>
 
@@ -25,7 +27,9 @@ float Clock::delta_time() {
    return finalDt;
 }
 
-#elif PLATFORM == PLATFORM_MAC
+#endif
+
+#ifdef PLATFORM_MAC
 
 #include <sys/time.h>
 

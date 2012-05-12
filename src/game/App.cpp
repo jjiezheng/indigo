@@ -18,13 +18,15 @@ void App::run() {
   
   MacPlatform::instance()->set_screen_size(screenWidth, screenHeight);
  
-#ifdef _WIN32
+#ifdef PLATFORM_WINDOWS
   glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 3);
   glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 1);
-#else
+#endif
+  
+#ifdef PLATFORM_MAC  
   glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
   glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 3);
-  glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 1);
+  glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 2);
 #endif
   
   if (!glfwOpenWindow(screenWidth, screenHeight, 0, 0, 0, 0, 32, 0, GLFW_WINDOW)) {
@@ -37,7 +39,7 @@ void App::run() {
   glfwSetCharCallback(&App::keyFunction);
   
   bool quit = false;
-#ifdef _WIN32
+#ifdef PLATFORM_WINDOWS
   glewInit();
 #endif  
   game_.init();

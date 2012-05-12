@@ -35,7 +35,7 @@ void Texture::init(const char* filePath) {
   void* data = NULL;
   MacPlatform::instance()->load_image(fullPath, &width_, &height_, &data, &format);
   
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width_, height_, 0, GL_BGRA, GL_UNSIGNED_BYTE, data);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width_, height_, 0, format, GL_UNSIGNED_BYTE, data);
   glGenerateMipmap(GL_TEXTURE_2D);
 }
  

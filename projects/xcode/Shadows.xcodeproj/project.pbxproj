@@ -170,6 +170,8 @@
 		4CC9D0B3154C379E00E0EEBB /* writer.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = writer.inl; sourceTree = "<group>"; };
 		4CD48FD915599E98005588D8 /* Properties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Properties.h; path = config/Properties.h; sourceTree = "<group>"; };
 		4CD48FDA15599EC3005588D8 /* Properties.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Properties.cpp; path = config/Properties.cpp; sourceTree = "<group>"; };
+		4CD9C607155E962C003AA28A /* maindef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = maindef.h; sourceTree = "<group>"; };
+		4CD9C608155E962C003AA28A /* PlatformDefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlatformDefs.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -291,6 +293,8 @@
 		4C74AB57154892F40008271B /* platform */ = {
 			isa = PBXGroup;
 			children = (
+				4CD9C607155E962C003AA28A /* maindef.h */,
+				4CD9C608155E962C003AA28A /* PlatformDefs.h */,
 				4C74AB58154892F40008271B /* MacPlatform.h */,
 				4C74AB59154892F40008271B /* MacPlatform.mm */,
 			);

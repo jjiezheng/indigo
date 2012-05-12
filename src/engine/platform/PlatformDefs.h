@@ -1,18 +1,14 @@
 #ifndef CONFIGDEFS_H
 #define CONFIGDEFS_H
 
-#define PLATFORM_UNDEFINED 0
-#define PLATFORM_MAC 1
-#define PLATFORM_WINDOWS 2
-
 #if defined(_WIN32)
-  #define PLATFORM PLATFORM_WINDOWS
+  #define PLATFORM_WINDOWS 1
 #elif defined(_WIN64)
-  #define PLATFORM PLATFORM_WINDOWS
-#elif defined(_APPLE_)
-  #define PLATFORM PLATFORM_MAC
+  #define PLATFORM_WINDOWS 1
+#elif defined(__APPLE__)
+  #define PLATFORM_MAC 1
 #else
-  #define PLATFORM PLATFORM_UNDEFINED
+  #define PLATFORM_UNDEFINED 1
 #endif
 
 #endif

@@ -16,6 +16,10 @@ public:
   
 private:
   
+  void loadCubeSide(const std::string& filename, GLint direction);
+  
+private:
+  
   Shader shader_;
   GLuint vertexArray;
   GLuint vertexBuffer;

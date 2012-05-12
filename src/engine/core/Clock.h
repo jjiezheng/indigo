@@ -1,5 +1,5 @@
-#ifndef CubeFX_Clock_h
-#define CubeFX_Clock_h
+#ifndef CLOCK_H
+#define CLOCK_H
 
 #include "Standard.h"
 
