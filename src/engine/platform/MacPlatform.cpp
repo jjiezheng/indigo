@@ -1,12 +1,11 @@
 #include "MacPlatform.h"
 
-//extern "C" {
-//  #include <FreeImage.h>
-//}
+#include "windows.h"
 
 #include <IL/ilu.h>
 
 #include <iostream>
+#include "core/String.h"
 
 static MacPlatform* platform_ = 0;
 
@@ -27,59 +26,20 @@ MacPlatform::MacPlatform() {
 }
 
 std::string MacPlatform::path_for_file(const std::string& filename) const {
-  /*NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-  NSString* objc_filename = [NSString stringWithUTF8String:filename.c_str()];
-
-  NSString* basename = [[objc_filename lastPathComponent] stringByDeletingPathExtension];
-  NSString* extension = [objc_filename pathExtension];
-  NSString* path = [[NSBundle mainBundle] pathForResource:basename ofType:extension];
-
-
-
-  std::string final_path = !path ? filename : [path cStringUsingEncoding:NSUTF8StringEncoding];
-
-  [pool release];
-  return final_path;*/
-  return "";
+  char szFileName[MAX_PATH];
+  HINSTANCE hInstance = GetModuleHandle(NULL);
+  GetModuleFileName(hInstance, szFileName, MAX_PATH);
+  String exePath = String(szFileName).pathComponent();
+  String assetsPath = exePath.addPathComponent("assets");
+  String fullPath = assetsPath.addPathComponent(filename);
+  return fullPath.str();
 }
 
 void MacPlatform::load_image(const std::string& full_path, int* width, int* height, void** data) const {
-
   ilLoadImage(full_path.c_str());
-
-  std::clog << full_path << std::endl;
-
-  int mipmaps = ilGetInteger(IL_NUM_MIPMAPS);
-
-  for (int i = 0; i < mipmaps; i++) {
-    //    ilBindImage(imageName);
-    ilActiveMipmap(i);
-    *width =  ilGetInteger(IL_IMAGE_WIDTH);
-    *height = ilGetInteger(IL_IMAGE_HEIGHT);
-    data[i] = ilGetData();
-
-
-    //    int size = ilGetDXTCData(NULL, 0, dxtcMode);
-    //    ILubyte* buffer = new ILubyte[size];
-  }
-
-  mipmaps = 0;
-
-  {
-    //  FREE_IMAGE_FORMAT formato = FreeImage_GetFileType(full_path.c_str(), 0);
-    //	FIBITMAP* imagen = FreeImage_Load(formato, full_path.c_str());
-    //	
-    //	FIBITMAP* temp = imagen;
-    //	imagen = FreeImage_ConvertTo32Bits(imagen);
-    //  FreeImage_FlipVertical(imagen);
-    //  FreeImage_FlipHorizontal(imagen);
-    //	FreeImage_Unload(temp);
-    //  
-    //	*width = FreeImage_GetWidth(imagen);
-    //	*height = FreeImage_GetHeight(imagen);
-    //
-    //	*data = FreeImage_GetBits(imagen);
-  }
+  *width =  ilGetInteger(IL_IMAGE_WIDTH);
+  *height = ilGetInteger(IL_IMAGE_HEIGHT);
+  *data = ilGetData();
 }
 
 void MacPlatform::set_key_state(int key_code, bool state) {

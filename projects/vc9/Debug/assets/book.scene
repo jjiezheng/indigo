@@ -1,0 +1,7 @@
+[
+  {
+    "model" : "book.blend",
+    "effect" : "diffuse.effect",
+    "type" : "model"
+  }
+]

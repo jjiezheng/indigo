@@ -1,0 +1,6 @@
+{
+  "name" : "diffuse",
+  "vertex" : "vmvp.vsh",
+  "fragment" : "fcl.vsh"
+  ""
+}

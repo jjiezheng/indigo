@@ -23,6 +23,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v100</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -40,6 +41,7 @@
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</GenerateManifest>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -141,6 +143,7 @@
     <ClInclude Include="..\..\src\engine\gameflow\Scheduler.h" />
     <ClInclude Include="..\..\src\engine\io\File.h" />
     <ClInclude Include="..\..\src\engine\io\Log.h" />
+    <ClInclude Include="..\..\src\engine\io\Path.h" />
     <ClInclude Include="..\..\src\engine\maths\Frustum.h" />
     <ClInclude Include="..\..\src\engine\maths\Maths.h" />
     <ClInclude Include="..\..\src\engine\maths\Matrix3x3.h" />
@@ -149,6 +152,7 @@
     <ClInclude Include="..\..\src\engine\maths\Vector2.h" />
     <ClInclude Include="..\..\src\engine\maths\Vector3.h" />
     <ClInclude Include="..\..\src\engine\maths\Vector4.h" />
+    <ClInclude Include="..\..\src\engine\platform\maindef.h" />
     <ClInclude Include="..\..\src\engine\resource\FontDescriptorResource.h" />
     <ClInclude Include="..\..\src\engine\resource\LevelFile.h" />
     <ClInclude Include="..\..\src\engine\resource\LevelFileEntity.h" />

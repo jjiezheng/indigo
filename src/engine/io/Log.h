@@ -1,5 +1,5 @@
 #ifndef LOG_H
-#define LG_H
+#define LOG_H
 
 extern const char* LOG_CHANNEL_SHADER;
 extern const char* LOG_CHANNEL_WORLDLOADER;

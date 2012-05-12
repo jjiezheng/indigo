@@ -32,12 +32,20 @@ public:
   std::vector<String> split(char delimeter) const;
   
   size_t length() const;
+
+  String pathComponent() const;
   
   String lastPathComponent() const;
   
   String pathExtension() const;
   
   String removePathExtension() const;
+
+  String addPathComponent(const String& pathComponent);
+
+public:
+
+  int size() const;
   
 public:
   

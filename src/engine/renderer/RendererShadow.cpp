@@ -15,7 +15,7 @@
 #include "ShaderAttribs.h"
 
 void RendererShadow::init(const Vector2 &screenSize) {
-  {
+{
     glGenFramebuffers(1, &frameBuffer_);
     glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer_);
     

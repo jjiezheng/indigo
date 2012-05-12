@@ -42,11 +42,35 @@ String String::removePathExtension() const {
 }
 
 String String::lastPathComponent() const {
-  std::vector<String> components = this->split('/');
+  String posixPath = this->replace("\\", "/");
+  std::vector<String> components = posixPath.split('/');
   if (components.size()) {
     return components[components.size() - 1];
   }
   return "";
+}
+
+String String::pathComponent() const {
+  return this->replace(this->lastPathComponent(), "");
+}
+
+String String::addPathComponent(const String& pathComponent) {
+  char pathSeperator = '/';
+#ifdef _WIN32
+  pathSeperator = '\\';
+#endif
+  std::stringstream pathStream;
+  pathStream << string_;
+  char finalCharacter = charAt(size() - 1);
+  if (finalCharacter != pathSeperator) {
+    pathStream << pathSeperator;
+  }
+  pathStream << pathComponent.c_str();
+  return pathStream.str();
+}
+
+int String::size() const {
+  return string_.size();
 }
 
 std::vector<String> String::split(char delimeter) const {

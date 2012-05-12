@@ -467,6 +467,12 @@
     <ClInclude Include="..\..\src\engine\gameflow\Scheduler.h">
       <Filter>engine\gameflow</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\engine\io\Path.h">
+      <Filter>engine\io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\engine\platform\maindef.h">
+      <Filter>engine\platform</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\src\engine\platform\MacPlatform.mm">
