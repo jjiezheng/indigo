@@ -46,9 +46,10 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
   world.setSkyBox(skybox);
   
   json::Array objectsArray = sceneObject["objects"];
+  json::Array::iterator oit = objectsArray.begin();
   
-  for (unsigned int i = 0; i < objectsArray.Size(); i++) {
-    loadSceneItem(objectsArray[i], world);
+  for (; oit != objectsArray.end(); ++oit) {
+    loadSceneItem((*oit), world);
   }
   
   json::Array lightsArray = sceneObject["lights"];

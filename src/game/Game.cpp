@@ -18,13 +18,9 @@
 void Game::init() {  
   properties_.init();
   
-  renderer_.setBackgroundColor(Color3(0, 1, 0));
-
   camera_ = Camera::camera();
   camera_->translateZ(10.0f);
   camera_->translateY(1.8f);
-//  camera_->translateY(15);
-//  camera_->rotateX(-60);
   
   Vector2 screenSize = MacPlatform::instance()->screen_size();
   float aspectRatio = screenSize.aspectRatio();
@@ -36,9 +32,8 @@ void Game::init() {
   loader.loadFromSceneFile("amyrose.scene", world_, sceneContext_);
   
   sceneContext_.setFog(FOG_EXP, 0.66f, -10, -100, Color4(0.6f, 0.6f, 0.6f));
-  
-  shadowRenderer_.init(screenSize);
   renderer_.setBackgroundColor(Color3(0.4f, 0.6f, 0.93f));
+  shadowRenderer_.init(screenSize);
 }
 
 void Game::mainLoop() {  

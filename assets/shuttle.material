@@ -14,7 +14,7 @@
       "type" : "color3"
     },
     "colorMap" : {
-      "type" : "int",
+      "type" : "int", 
       "value" : 0
     },
     "bumpMap" : {
@@ -27,7 +27,7 @@
     }
   },
   "textures" : [
-    "shuttle_diffuse.dds",
+    "shuttle_diffuse.png",
     "shuttle_diffuse_NORM.tga"
   ]
 }

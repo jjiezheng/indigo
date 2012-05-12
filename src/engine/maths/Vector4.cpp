@@ -13,7 +13,7 @@ Vector4 Vector4::RIGHT = Vector4(1, 0, 0, 1);
 Vector4 Vector4::UP = Vector4(0, 1, 0, 1);
 
 Vector4::Vector4(float x_, float y_, float z_) 
-  : x(0), y(0), z(0), w(1) {
+  : x(x_), y(y_), z(z_), w(1) {
   
 }
 

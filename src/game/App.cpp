@@ -9,10 +9,9 @@
 
 #include "platform/MacPlatform.h"
 
-App* App::app_ = 0;
+App* App::app_ = NULL;
 
 void App::run() {
-  //glewInit();
   app_ = this;
   
   if (!glfwInit()) {
@@ -35,8 +34,6 @@ void App::run() {
     return;
   }
 
-  glfwSwapBuffers();
-  
   glfwDisable(GLFW_MOUSE_CURSOR);
   glfwSetCharCallback(&App::keyFunction);
   

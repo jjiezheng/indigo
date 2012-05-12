@@ -1,9 +1,5 @@
 #include "MacPlatform.h"
 
-//extern "C" {
-//  #include <FreeImage.h>
-//}
-
 #include <IL/ilu.h>
 
 #include <sys/sysctl.h>
@@ -38,8 +34,6 @@ std::string MacPlatform::path_for_file(const std::string& filename) const {
   NSString* extension = [objc_filename pathExtension];
   NSString* path = [[NSBundle mainBundle] pathForResource:basename ofType:extension];
   
-  
-  
   std::string final_path = !path ? filename : [path cStringUsingEncoding:NSUTF8StringEncoding];
     
   [pool release];
@@ -47,11 +41,28 @@ std::string MacPlatform::path_for_file(const std::string& filename) const {
 }
 
 void MacPlatform::load_image(const std::string& full_path, int* width, int* height, void** data) const {
-  ilLoadImage(full_path.c_str());
+  NSString* path = [NSString stringWithUTF8String:full_path.c_str()];  
+  NSData *texData = [[[NSData alloc] initWithContentsOfFile:path] autorelease];
   
-  *width =  ilGetInteger(IL_IMAGE_WIDTH);
-  *height = ilGetInteger(IL_IMAGE_HEIGHT);
-  *data = ilGetData();  
+  NSBitmapImageRep* image = [[[NSBitmapImageRep alloc] initWithData:texData] autorelease];
+  
+  if (image == nil) {
+    NSLog(@"Failed to load image %s", full_path.c_str());
+  }
+  
+  *width = (int)CGImageGetWidth(image.CGImage);
+  *height = (int)CGImageGetHeight(image.CGImage);
+  CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+  *data = malloc(*height * *width * 4);
+  CGContextRef context = CGBitmapContextCreate(*data, *width, *height, 8, 4 * *width, colorSpace, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big );
+  CGColorSpaceRelease(colorSpace);
+  
+  CGRect bounds = CGRectMake(0, 0, *width, *height) ;
+  CGContextClearRect(context, bounds);
+  //  CGContextTranslateCTM(context, 0, *height);
+  //  CGContextScaleCTM(context, 1.0, -1.0);
+  CGContextDrawImage(context, bounds, image.CGImage);
+  CGContextRelease(context);
 }
 
 void MacPlatform::set_key_state(int key_code, bool state) {
