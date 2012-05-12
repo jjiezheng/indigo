@@ -33,7 +33,7 @@ public:
   
   std::string path_for_file(const std::string& filename) const;
   
-  void load_image(const std::string& full_path, int* width, int* height, void** data) const;
+  void load_image(const std::string& full_path, int* width, int* height, void* data) const;
   
   void set_mouse_position(int x, int y);
   

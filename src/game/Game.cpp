@@ -1,4 +1,4 @@
-#include "Game.h"
+#include "Game.h" 
 
 #include "core/Standard.h"
 
@@ -9,7 +9,7 @@
 
 #include "platform/MacPlatform.h"
 
-void Game::init() {  
+void Game::init() {
   properties_.init();
   
   camera_ = Camera::camera();

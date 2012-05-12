@@ -11,48 +11,47 @@
 
 static const int NUM_VERTICES = 36;
 
+void loadCubeSide(const std::string& filename, GLint direction) {
+  Image* image = Image::imageFromFile(filename);
+  glTexImage2D(direction, 0, image->components(), image->width(), 
+               image->height(), 0, image->format(), GL_UNSIGNED_BYTE, image->data());
+}
+
 void SkyBox::load(const std::string& basename) {
   {
     glGenTextures(1, &cubeTexture_);
     glBindTexture(GL_TEXTURE_CUBE_MAP, cubeTexture_);
   }
   {
-    String basenameString(basename);
-    String extension = basenameString.pathExtension();
-    String filename = basenameString.removePathExtension();
-    
-    std::string topFileName = (filename + "_top" + extension).str();
-    Image* top = Image::imageFromFile(topFileName);
-    
-    std::string bottomFileName = (filename + "_bottom" + extension).str();
-    Image* bottom = Image::imageFromFile(bottomFileName);
-    
-    std::string leftFileName = (filename + "_left" + extension).str();
-    Image* left = Image::imageFromFile(leftFileName);
-    
-    std::string rightFileName = (filename + "_right" + extension).str();
-    Image* right = Image::imageFromFile(rightFileName);
-    
-    std::string frontFileName = (filename + "_front" + extension).str();
-    Image* front = Image::imageFromFile(frontFileName);
-    
-    std::string backFileName = (filename + "_back" + extension).str();
-    Image* back = Image::imageFromFile(backFileName);
-
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR); 
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); 
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S,GL_CLAMP_TO_EDGE); 
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); 
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-    /*
-    glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, top->components(), top->width(), top->height(), 0, top->format(), GL_UNSIGNED_BYTE, top->data());  
-    glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, bottom->components(), bottom->width(), bottom->height(), 0, bottom->format(), GL_UNSIGNED_BYTE, bottom->data());  
-    glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, left->components(), left->width(), left->height(), 0, left->format(), GL_UNSIGNED_BYTE, left->data());  
-    glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, right->components(), right->width(), right->height(), 0, right->format(), GL_UNSIGNED_BYTE, right->data());  
-    glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, front->components(), front->width(), front->height(), 0, front->format(), GL_UNSIGNED_BYTE, front->data());  
-    glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, back->components(), back->width(), back->height(), 0, back->format(), GL_UNSIGNED_BYTE, back->data());  
+
+    String basenameString(basename);
+    String extension = basenameString.pathExtension();
+    String filename = basenameString.removePathExtension();
     
-    glGenerateMipmap(GL_TEXTURE_CUBE_MAP);*/
+    std::string topFileName = (filename + "_top" + extension).str();
+    loadCubeSide(topFileName, GL_TEXTURE_CUBE_MAP_POSITIVE_Y);
+    
+    std::string bottomFileName = (filename + "_bottom" + extension).str();
+    loadCubeSide(topFileName, GL_TEXTURE_CUBE_MAP_NEGATIVE_Y);
+
+    std::string leftFileName = (filename + "_left" + extension).str();
+    loadCubeSide(topFileName, GL_TEXTURE_CUBE_MAP_POSITIVE_X);
+    
+    std::string rightFileName = (filename + "_right" + extension).str();
+    loadCubeSide(topFileName, GL_TEXTURE_CUBE_MAP_NEGATIVE_X);
+    
+    std::string frontFileName = (filename + "_front" + extension).str();
+    loadCubeSide(topFileName, GL_TEXTURE_CUBE_MAP_NEGATIVE_Z);
+    
+    std::string backFileName = (filename + "_back" + extension).str();
+    loadCubeSide(topFileName, GL_TEXTURE_CUBE_MAP_POSITIVE_Z);
+    
+    glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
   }
   {
     shader_.load("skybox_fog.vsh", "skybox_fog.fsh");

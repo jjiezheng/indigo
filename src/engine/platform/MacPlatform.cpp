@@ -36,13 +36,13 @@ std::string MacPlatform::path_for_file(const std::string& filename) const {
   return fullPath.str();
 }
 
-void MacPlatform::load_image(const std::string& full_path, int* width, int* height, void** data) const {
+void MacPlatform::load_image(const std::string& full_path, int* width, int* height, void* data) const {
   if (!ilLoadImage(full_path.c_str())) {
     LOG(LOG_CHANNEL_IMAGELOAD, "failed to load image", full_path.c_str());
   }
   *width = ilGetInteger(IL_IMAGE_WIDTH); 
   *height = ilGetInteger(IL_IMAGE_HEIGHT); 
-  *data = ilGetData();
+  data = ilGetData();
 }
 
 void MacPlatform::set_key_state(int key_code, bool state) {

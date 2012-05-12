@@ -59,6 +59,16 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
+    <PostBuildEvent>
+      <Command>mkdir $(OutputPath)\assets
+
+copy $(ProjectDir)..\..\libs\glew\bin\glew32.dll $(OutputPath)
+copy $(ProjectDir)..\..\libs\devil\lib\DevIL.dll $(OutputPath)
+copy $(ProjectDir)..\..\libs\devil\lib\ILU.dll $(OutputPath)
+copy $(ProjectDir)..\..\libs\msvcr\*.dll $(OutputPath)
+copy $(ProjectDir)..\..\libs\assimp\dll\Assimp32.dll $(OutputPath)
+copy $(ProjectDir)..\..\assets $(OutputPath)\assets</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
