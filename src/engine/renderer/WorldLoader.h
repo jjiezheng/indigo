@@ -1,7 +1,6 @@
 #ifndef WORLDLOADER_H
 #define WORLDLOADER_H
 
-#include <vector>
 #include "json/elements.h"
 
 class Model;

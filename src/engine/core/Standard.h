@@ -1,9 +1,5 @@
-#ifndef CubeFX_Standard_h
-#define CubeFX_Standard_h
-
-#include "Accessors.h"
-#include "Types.h"
-#include "io/Log.h"
+#ifndef STANDARD_H
+#define STANDARD_H
 
 #include <string>
 #include <sstream>
@@ -12,17 +8,14 @@
 #include <map>
 #include <stack>
 
-#include "glm/glm.hpp"
-#include "glm/gtx/projection.hpp"
-#include "glm/gtx/rotate_vector.hpp"
-#include "glm/gtx/vector_angle.hpp"
-#include "glm/gtc/matrix_transform.hpp"
-#include "glm/gtc/matrix_inverse.hpp"
-#include "glm/gtc/type_ptr.hpp"
-
 #include "maths/Vector3.h"
 #include "renderer/Color3.h"
+#include "io/Log.h"
+
+#include "Accessors.h"
+#include "Types.h"
 
 #define SAFE_DELETE(o) { delete (o); (o) = nullptr; }
+#define SAFE_FREE(o) { free (o); (o) = nullptr; }
 
 #endif

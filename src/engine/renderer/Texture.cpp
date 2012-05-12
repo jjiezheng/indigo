@@ -29,13 +29,12 @@ void Texture::init(const char* filePath) {
   
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
-  
-  GLint format;
+
   std::string fullPath = MacPlatform::instance()->path_for_file(filePath);
-  void* data = NULL;
-  MacPlatform::instance()->load_image(fullPath, &width_, &height_, &data, &format);
-  
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width_, height_, 0, format, GL_UNSIGNED_BYTE, data);
+  Image image;
+  image.load(fullPath);
+
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.width(), image.height(), 0, image.format(), GL_UNSIGNED_BYTE, image.data());
   glGenerateMipmap(GL_TEXTURE_2D);
 }
  

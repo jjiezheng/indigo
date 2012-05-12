@@ -8,6 +8,10 @@ class Image {
   
 public:
   
+  ~Image();
+  
+public:
+  
   static Image* imageFromFile(const std::string& filename);
   
 public:
@@ -20,7 +24,7 @@ public:
 
   inline int height() { return height_; };
   
-  inline int format() { return GL_RGBA; };
+  inline int format() { return format_; };
   
   inline int components() { return GL_RGBA; };
   
@@ -29,6 +33,7 @@ private:
   void* data_;
   int width_;
   int height_;
+  int format_;
   
 };
 

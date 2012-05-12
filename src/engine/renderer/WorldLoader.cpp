@@ -94,7 +94,7 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
 }
 
 void WorldLoader::loadSceneItem(const json::Object& objectItem, World& world) {
-  Model* model = new Model();
+  Model model;
 
   json::String meshFilePath = objectItem["mesh"];
   json::String materialFilePath = objectItem["material"];
@@ -112,10 +112,10 @@ void WorldLoader::loadSceneItem(const json::Object& objectItem, World& world) {
   
   Vector3 position(x, y, z);
   Matrix4x4 localToWorld = Matrix4x4::translation(position);
-  model->setLocalToWorld(localToWorld);
+  model.setLocalToWorld(localToWorld);
   
-  loadModel(model, meshFilePath);
-  loadMaterial(model, materialFilePath);
+  loadModel(&model, meshFilePath);
+  loadMaterial(&model, materialFilePath);
   world.addObject(model);
 }
 
@@ -167,10 +167,16 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
       vertIndex++;
     }
         
-    Mesh mesh(verts, normals, uvs, vertIndex + 1);
-    mesh.init();
+    Mesh mesh;
+    mesh.init(verts, normals, uvs, vertIndex + 1);
     model->addMesh(mesh);
+    
+    SAFE_DELETE(verts);
+    SAFE_DELETE(normals);
+    SAFE_DELETE(uvs);
   }
+  
+  importer.FreeScene();
 }
 
 void WorldLoader::loadMaterial(Model* model, const std::string& materialFilePath) {

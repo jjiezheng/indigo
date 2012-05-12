@@ -4,15 +4,15 @@
 #include <vector>
 
 #include "SkyBox.h"
+#include "Model.h"
 
-class Model;
 class Vector3;
 
 class World {
-
+  
 public:
   
-  void addObject(Model* model);
+  void addObject(const Model& model);
   
   void setSkyBox(const SkyBox& skyBox);
   
@@ -20,12 +20,12 @@ public:
   
 public:
   
-  std::vector<Model*>::const_iterator begin() const;
-  std::vector<Model*>::const_iterator end() const;
+  std::vector<Model>::const_iterator begin() const;
+  std::vector<Model>::const_iterator end() const;
   
 private:
   
-  std::vector<Model*> models_;
+  std::vector<Model> models_;
   
   SkyBox skyBox_;
 };
@@ -38,15 +38,15 @@ inline void World::setSkyBox(const SkyBox &skyBox) {
   skyBox_ = skyBox;
 }
 
-inline void World::addObject(Model *model) {
+inline void World::addObject(const Model& model) {
   models_.push_back(model);
 }
 
-inline std::vector<Model*>::const_iterator World::begin() const {
+inline std::vector<Model>::const_iterator World::begin() const {
   return models_.begin();
 }
 
-inline std::vector<Model*>::const_iterator World::end() const {
+inline std::vector<Model>::const_iterator World::end() const {
   return models_.end();
 }
 

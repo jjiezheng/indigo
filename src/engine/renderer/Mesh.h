@@ -15,11 +15,7 @@ class Mesh {
   
 public:
   
-  Mesh(float* vertices, float* normals, float* uvs, int numVertices);
-  
-  void init();
-  
-  static Mesh* mesh(float* vertices, float* normals, float* uvs, int numVertices);
+  void init(float* vertices, float* normals, float* uvs, int numVertices);
   
 public:
   
@@ -29,9 +25,6 @@ public:
   
 private:
   
-  float* vertices_;
-  float* normals_;
-  float* uvs_;
   int numVertices_;
 
   GLuint vertexArray;

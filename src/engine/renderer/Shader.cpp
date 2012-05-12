@@ -89,14 +89,6 @@ void Shader::use() const {
   glUseProgram(program);
 }
 
-void Shader::set_uniform(const glm::vec4& uniform_data, const char* uniform_name) const {
-  std::map<std::string, GLint>::const_iterator uniformIt = uniforms.find(uniform_name);
-  if (uniformIt != uniforms.end()) {
-    GLint uniform_id = (*uniformIt).second;
-    glUniform4fv(uniform_id, 1, glm::value_ptr(uniform_data));
-  }    
-}
-
 void Shader::set_uniform(const Color3& uniform_data, const char* uniform_name) const {
   std::map<std::string, GLint>::const_iterator uniformIt = uniforms.find(uniform_name);
   if (uniformIt != uniforms.end()) {
@@ -114,28 +106,12 @@ void Shader::set_uniform(const Color4& uniform_data, const char* uniform_name) c
 }
 
 
-void Shader::set_uniform(const VEC3& uniform_data, const char* uniform_name) const {
+void Shader::set_uniform(const Vector3& uniform_data, const char* uniform_name) const {
   std::map<std::string, GLint>::const_iterator uniformIt = uniforms.find(uniform_name);
   if (uniformIt != uniforms.end()) {
     GLint uniform_id = (*uniformIt).second;
     glUniform3fv(uniform_id, 1, uniform_data.valuePtr());
   }    
-}
-
-void Shader::set_uniform(const MAT3& uniform_data, const char* uniform_name) const {
-  std::map<std::string, GLint>::const_iterator uniformIt = uniforms.find(uniform_name);
-  if (uniformIt != uniforms.end()) {
-    GLint uniform_id = (*uniformIt).second;
-    glUniformMatrix3fv(uniform_id, 1, GL_FALSE, glm::value_ptr(uniform_data));
-  }
-}
-
-void Shader::set_uniform(const MAT4& uniform_data, const char* uniform_name) const {
-  std::map<std::string, GLint>::const_iterator uniformIt = uniforms.find(uniform_name);
-  if (uniformIt != uniforms.end()) {
-    GLint uniform_id = (*uniformIt).second;
-    glUniformMatrix4fv(uniform_id, 1, GL_FALSE, glm::value_ptr(uniform_data));
-  }
 }
 
 void Shader::set_uniform(const Matrix3x3& uniform_data, const char* uniform_name) const {

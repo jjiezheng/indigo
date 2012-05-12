@@ -117,9 +117,9 @@ void RendererShadow::render(const World& world, SceneContext& sceneContext) {
   std::vector<Light> lights = sceneContext.lights();
   std::vector<Light>::iterator lit = lights.begin();
   for (; lit != lights.end(); ++lit) {
-    std::vector<Model*>::const_iterator mit = world.begin();
+    std::vector<Model>::const_iterator mit = world.begin();
     for (; mit != world.end(); ++mit) {
-      (*mit)->render(&(*lit), sceneContext);
+      (*mit).render(&(*lit), sceneContext);
     }
   }
   

@@ -8,9 +8,7 @@
 #include "renderer/SceneContext.h"
 #include "renderer/Renderer3d.h"
 #include "renderer/RendererShadow.h"
-
-class Camera;
-class Mesh;
+#include "renderer/Camera.h"
 
 class Game {
   
@@ -24,7 +22,7 @@ public:
   
 private:
   
-  Camera* camera_;
+  Camera camera_;
   RendererShadow shadowRenderer_;
   Renderer3d renderer_;
   World world_;  

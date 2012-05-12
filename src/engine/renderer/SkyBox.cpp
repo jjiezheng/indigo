@@ -12,9 +12,10 @@
 static const int NUM_VERTICES = 36;
 
 void SkyBox::loadCubeSide(const std::string& filename, GLint direction) {
-  Image* image = Image::imageFromFile(filename);
-  glTexImage2D(direction, 0, image->components(), image->width(), 
-               image->height(), 0, image->format(), GL_UNSIGNED_BYTE, image->data());
+  Image image;
+  image.load(filename);
+  glTexImage2D(direction, 0, image.components(), image.width(), 
+               image.height(), 0, image.format(), GL_UNSIGNED_BYTE, image.data());
 }
 
 void SkyBox::load(const std::string& basename) {
