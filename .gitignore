@@ -1,1 +1,8 @@
 .DS_Store
+*.ncb
+*.opensdf
+*.sdf
+*.sln
+*.suo
+*.vcproj.*
+*.user
