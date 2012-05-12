@@ -46,7 +46,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>../../libs/devil/include;../../src/engine;../../libs/glfw/include;../../libs;../../libs/assimp/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../libs/devil/include;../../src/engine;../../libs/glfw/include;../../libs;../../libs/assimp/include;../../libs/freeimage;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -54,14 +54,16 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>assimp.lib;DevIL.lib;ILU.lib ;glew32.lib;GLFW.lib;OpenGL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>../../libs/assimp/lib;../../libs/devil/lib;../../libs/glew/lib;../../libs/glfw/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>FreeImage.lib;assimp.lib;DevIL.lib;ILU.lib ;glew32.lib;GLFW.lib;OpenGL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../../libs/assimp/lib;../../libs/devil/lib;../../libs/glew/lib;../../libs/glfw/lib;../../libs/freeimage;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <PostBuildEvent>
       <Command>mkdir $(OutputPath)\assets
 
+
+copy $(ProjectDir)..\..\libs\freeimage\FreeImage.dll $(OutputPath)
 copy $(ProjectDir)..\..\libs\glew\bin\glew32.dll $(OutputPath)
 copy $(ProjectDir)..\..\libs\devil\lib\DevIL.dll $(OutputPath)
 copy $(ProjectDir)..\..\libs\devil\lib\ILU.dll $(OutputPath)

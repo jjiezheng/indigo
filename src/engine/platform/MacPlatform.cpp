@@ -2,6 +2,7 @@
 
 #include "windows.h"
 
+#include <FreeImage.h>
 #include <GL/glfw.h>
 #include <IL/ilu.h>
 
@@ -18,8 +19,9 @@ MacPlatform* MacPlatform::instance() {
 }
 
 MacPlatform::MacPlatform() {
-  //  FreeImage_Initialise();
+  FreeImage_Initialise();
   ilInit();
+  
 
   for (int i = 0; i < KEY_STATE_COUNT; i++) {
     key_states_[i] = false;
@@ -36,13 +38,21 @@ std::string MacPlatform::path_for_file(const std::string& filename) const {
   return fullPath.str();
 }
 
-void MacPlatform::load_image(const std::string& full_path, int* width, int* height, void* data) const {
-  if (!ilLoadImage(full_path.c_str())) {
-    LOG(LOG_CHANNEL_IMAGELOAD, "failed to load image", full_path.c_str());
+void MacPlatform::load_image(const std::string& full_path, int* width, int* height, void** data, int* format) const {
+  {
+    FREE_IMAGE_FORMAT formato = FreeImage_GetFileType(full_path.c_str(), 0);	  	
+    FIBITMAP* imagen = FreeImage_Load(formato, full_path.c_str());
+    FIBITMAP* temp = imagen;
+    imagen = FreeImage_ConvertTo32Bits(imagen);
+    FreeImage_FlipVertical(imagen);
+    FreeImage_FlipHorizontal(imagen);
+    FreeImage_Unload(temp);
+    *width = FreeImage_GetWidth(imagen);
+    *height = FreeImage_GetHeight(imagen);
+    BYTE* pixelData = FreeImage_GetBits(imagen);
+
+    *data = pixelData;
   }
-  *width = ilGetInteger(IL_IMAGE_WIDTH); 
-  *height = ilGetInteger(IL_IMAGE_HEIGHT); 
-  data = ilGetData();
 }
 
 void MacPlatform::set_key_state(int key_code, bool state) {

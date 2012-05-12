@@ -39,7 +39,6 @@ private:
   GLuint textureId_;
   int width_;
   int height_;
-  
 };
 
 inline

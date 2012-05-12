@@ -1,33 +1,31 @@
 #include "Clock.h"
 
-
-#ifdef _WIN32 
+#if PLATFORM == PLATFORM_WINDOWS
 
 #include <windows.h>
 
 float Clock::delta_time() {
-  /*  LARGE_INTEGER frequency;        // ticks per second
-   LARGE_INTEGER t1, t2;           // ticks
-   double elapsedTime;
+   LARGE_INTEGER frequency;
+   LARGE_INTEGER t1;
    
-   // get ticks per second
-   //QueryPerformanceFrequency(&frequency);
-   
-   // start timer
-   //QueryPerformanceCounter(&t1);
-   
-   // do something
-   // ...
-   
-   // stop timer
-   //QueryPerformanceCounter(&t2);
-   
-   float dt = ((t2.QuadPart - t1.QuadPart) * 1000.0.0f) / frequency.QuadPart;
-   return dt;*/
-  return 0;
+   QueryPerformanceFrequency(&frequency);
+   QueryPerformanceCounter(&t1);
+
+   long timeNow = (t1.QuadPart * 1000.0f) / frequency.QuadPart;
+   long dt = timeNow - last_update_;
+
+   if (!last_update_) {
+     dt = 0;
+   }
+
+   last_update_ = timeNow;
+
+   float finalDt = dt / 1000.0f;
+
+   return finalDt;
 }
 
-#else
+#elif PLATFORM == PLATFORM_MAC
 
 #include <sys/time.h>
 

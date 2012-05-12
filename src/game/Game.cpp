@@ -32,7 +32,7 @@ void Game::init() {
 
 void Game::mainLoop() {  
   float dt = clock_.delta_time(); 
-  
+
   camera_->update(dt);
   
   shadowRenderer_.render(world_, sceneContext_);

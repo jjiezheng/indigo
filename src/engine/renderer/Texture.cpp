@@ -30,12 +30,12 @@ void Texture::init(const char* filePath) {
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
   
-  void* data = NULL;
-  
+  GLint format;
   std::string fullPath = MacPlatform::instance()->path_for_file(filePath);
-  MacPlatform::instance()->load_image(fullPath, &width_, &height_, &data);
+  void* data = NULL;
+  MacPlatform::instance()->load_image(fullPath, &width_, &height_, &data, &format);
   
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width_, height_, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width_, height_, 0, GL_BGRA, GL_UNSIGNED_BYTE, data);
   glGenerateMipmap(GL_TEXTURE_2D);
 }
  

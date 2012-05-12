@@ -10,24 +10,20 @@
 #include "ShaderAttribs.h"
 
 GLuint Shader::compile_shader(const std::string& shader_source, GLint type) {
-
   GLuint shader = glCreateShader(type);
   const char* source = shader_source.c_str();
   glShaderSource(shader, 1, &source, 0);
   glCompileShader(shader);
   
-#if defined(DEBUG)
   GLint logLength;
   glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &logLength);
-  if (logLength > 0)
-  {
+  if (logLength > 0) {
     GLchar *log = (GLchar *)malloc(logLength);
     glGetShaderInfoLog(shader, logLength, &logLength, log);
     LOG("Shader compile log: %s", log);
     free(log);
   }
-#endif
-  
+
   GLint status = 0;
   glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
   
