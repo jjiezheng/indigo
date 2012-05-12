@@ -2,6 +2,7 @@
 
 #include "windows.h"
 
+#include <GL/glfw.h>
 #include <IL/ilu.h>
 
 #include <iostream>
@@ -36,9 +37,11 @@ std::string MacPlatform::path_for_file(const std::string& filename) const {
 }
 
 void MacPlatform::load_image(const std::string& full_path, int* width, int* height, void** data) const {
-  ilLoadImage(full_path.c_str());
-  *width =  ilGetInteger(IL_IMAGE_WIDTH);
-  *height = ilGetInteger(IL_IMAGE_HEIGHT);
+  if (!ilLoadImage(full_path.c_str())) {
+    LOG(LOG_CHANNEL_IMAGELOAD, "failed to load image", full_path.c_str());
+  }
+  *width = ilGetInteger(IL_IMAGE_WIDTH); 
+  *height = ilGetInteger(IL_IMAGE_HEIGHT); 
   *data = ilGetData();
 }
 

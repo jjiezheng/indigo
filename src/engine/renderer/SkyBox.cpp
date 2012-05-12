@@ -44,7 +44,7 @@ void SkyBox::load(const std::string& basename) {
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S,GL_CLAMP_TO_EDGE); 
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); 
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-    
+    /*
     glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, top->components(), top->width(), top->height(), 0, top->format(), GL_UNSIGNED_BYTE, top->data());  
     glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, bottom->components(), bottom->width(), bottom->height(), 0, bottom->format(), GL_UNSIGNED_BYTE, bottom->data());  
     glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, left->components(), left->width(), left->height(), 0, left->format(), GL_UNSIGNED_BYTE, left->data());  
@@ -52,7 +52,7 @@ void SkyBox::load(const std::string& basename) {
     glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, front->components(), front->width(), front->height(), 0, front->format(), GL_UNSIGNED_BYTE, front->data());  
     glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, back->components(), back->width(), back->height(), 0, back->format(), GL_UNSIGNED_BYTE, back->data());  
     
-    glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
+    glGenerateMipmap(GL_TEXTURE_CUBE_MAP);*/
   }
   {
     shader_.load("skybox_fog.vsh", "skybox_fog.fsh");

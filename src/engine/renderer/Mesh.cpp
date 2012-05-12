@@ -49,5 +49,5 @@ void Mesh::init() {
 void Mesh::render(const IViewer* camera, const Matrix4x4& model, const Matrix3x3& normalMatrix, const SceneContext& sceneContext) const {
   material_.bind(camera, model, normalMatrix, sceneContext);
   glBindVertexArray(vertexArray);
-  glDrawArrays(GL_TRIANGLES, 0, numVertices_/3.0f);   
+  glDrawArrays(GL_TRIANGLES, 0, (GLint)(numVertices_/3.0f));   
 }

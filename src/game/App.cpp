@@ -1,10 +1,6 @@
 #include "App.h"
 
-
-#include "renderer/OpenGL.h"
 #include "GL/glfw.h"
-#include <iostream>
-
 #include "platform/MacPlatform.h"
 
 App* App::app_ = NULL;
@@ -13,7 +9,7 @@ void App::run() {
   app_ = this;
   
   if (!glfwInit()) {
-    std::clog << "Error creating gl context" << std::endl;
+    LOG(LOG_CHANNEL_INIT, "Error initializing GLFW");
     return;
   }
   
@@ -21,13 +17,18 @@ void App::run() {
   int screenHeight = 768;
   
   MacPlatform::instance()->set_screen_size(screenWidth, screenHeight);
-  
+ 
+#ifdef _WIN32
+  glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 3);
+  glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 1);
+#else
   glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
   glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 3);
-  glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 2);
+  glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 1);
+#endif
   
   if (!glfwOpenWindow(screenWidth, screenHeight, 0, 0, 0, 0, 32, 0, GLFW_WINDOW)) {
-    std::clog << "Error opening gl window" << std::endl;
+    LOG(LOG_CHANNEL_INIT, "Error opening GLFW Window");
     glfwTerminate();
     return;
   }
@@ -36,9 +37,9 @@ void App::run() {
   glfwSetCharCallback(&App::keyFunction);
   
   bool quit = false;
-
-  //glewInit();
-
+#ifdef _WIN32
+  glewInit();
+#endif  
   game_.init();
   
   while (!quit) {

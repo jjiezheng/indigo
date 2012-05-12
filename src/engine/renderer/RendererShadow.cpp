@@ -24,7 +24,7 @@ void RendererShadow::init(const Vector2 &screenSize) {
     {
       glGenRenderbuffers(1, &depthBuffer_);
       glBindRenderbuffer(GL_RENDERBUFFER, depthBuffer_);
-      glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, screenSize.x, screenSize.y);
+      glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, (GLint)screenSize.x, (GLint)screenSize.y);
       glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthBuffer_);
     }
     

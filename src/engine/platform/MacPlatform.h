@@ -1,6 +1,8 @@
 #ifndef Shadows_MacPlatform_h
 #define Shadows_MacPlatform_h
 
+
+#include <string>
 #include "maths/Vector2.h"
 
 #define KEY_STATE_COUNT 256

@@ -4,10 +4,10 @@
 #include "maths/Matrix3x3.h"
 #include "io/Log.h"
 #include "io/File.h"
+#include "platform/MacPlatform.h"
 
 #include "Color4.h"
 #include "ShaderAttribs.h"
-#include "MacPlatform.h"
 
 GLuint Shader::compile_shader(const std::string& shader_source, GLint type) {
 
