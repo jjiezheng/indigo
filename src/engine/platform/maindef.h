@@ -5,7 +5,7 @@
 #ifdef _WIN32
 #include <windows.h>
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
-#else*/
+#else
 int main()
 #endif
 

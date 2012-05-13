@@ -13,6 +13,7 @@
 #ifdef PLATFORM_MAC
 #include <OpenGL/gl3.h>
 #include <OpenGL/gl3ext.h>
+#include <GL/glfw.h>
 #endif
 
 #endif
