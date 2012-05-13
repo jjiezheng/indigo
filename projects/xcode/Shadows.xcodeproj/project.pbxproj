@@ -45,6 +45,7 @@
 		4C74ABD4154892F40008271B /* Vector2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C74AB51154892F40008271B /* Vector2.cpp */; };
 		4C74ABD5154892F40008271B /* Vector3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C74AB53154892F40008271B /* Vector3.cpp */; };
 		4C74ABD6154892F40008271B /* Vector4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C74AB55154892F40008271B /* Vector4.cpp */; };
+		4C79CC2915602B8B0037EA75 /* DDSImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C79CC2815602B8B0037EA75 /* DDSImage.cpp */; };
 		4C8E100714F03D450095F390 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C8E100614F03D450095F390 /* QuartzCore.framework */; };
 		4C94129A1438203800D9357E /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9412991438203800D9357E /* ApplicationServices.framework */; };
 		4CB28511144699D300A26530 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CB28510144699D300A26530 /* OpenGL.framework */; };
@@ -153,6 +154,10 @@
 		4C74AB54154892F40008271B /* Vector3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector3.h; sourceTree = "<group>"; };
 		4C74AB55154892F40008271B /* Vector4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vector4.cpp; sourceTree = "<group>"; };
 		4C74AB56154892F40008271B /* Vector4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector4.h; sourceTree = "<group>"; };
+		4C79CC25156029680037EA75 /* dds.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dds.h; sourceTree = "<group>"; };
+		4C79CC2715602B5C0037EA75 /* DDSImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDSImage.h; sourceTree = "<group>"; };
+		4C79CC2815602B8B0037EA75 /* DDSImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DDSImage.cpp; sourceTree = "<group>"; };
+		4C79CC2A156030F20037EA75 /* DDSMipLevel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDSMipLevel.h; sourceTree = "<group>"; };
 		4C8E100614F03D450095F390 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4C9412991438203800D9357E /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		4CB28510144699D300A26530 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -277,6 +282,10 @@
 				4C74AB44154892F40008271B /* File.h */,
 				4C74AB45154892F40008271B /* Log.cpp */,
 				4C74AB46154892F40008271B /* Log.h */,
+				4C79CC25156029680037EA75 /* dds.h */,
+				4C79CC2715602B5C0037EA75 /* DDSImage.h */,
+				4C79CC2815602B8B0037EA75 /* DDSImage.cpp */,
+				4C79CC2A156030F20037EA75 /* DDSMipLevel.h */,
 			);
 			path = io;
 			sourceTree = "<group>";
@@ -603,6 +612,7 @@
 				4CD9C60B155E9B09003AA28A /* World.cpp in Sources */,
 				4C6E9596155FECFD004DC0BB /* Path.mm in Sources */,
 				4C6E9599155FEE9A004DC0BB /* Window.cpp in Sources */,
+				4C79CC2915602B8B0037EA75 /* DDSImage.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
