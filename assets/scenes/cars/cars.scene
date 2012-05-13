@@ -1,6 +1,6 @@
 
 {
-  "skybox" : "mountains.png",
+  "skybox" : "skyboxes/mountains/mountains.png",
   "objects" : [
     {
       "mesh" : "scenes/cars/floor/floor.blend",
