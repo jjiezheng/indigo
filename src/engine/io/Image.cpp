@@ -9,6 +9,7 @@ Image::~Image() {
 
 void Image::load(const std::string& filename) {
   std::string fullPath = Path::pathForFile(filename);
+  LOG(LOG_CHANNEL_IO, "Loading image %s", fullPath.c_str());
   FREE_IMAGE_FORMAT fif = FreeImage_GetFileType(fullPath.c_str(), 0);	  	
   fib_ = FreeImage_Load(fif, fullPath.c_str());
   fib_ = FreeImage_ConvertTo32Bits(fib_);

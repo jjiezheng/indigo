@@ -4,6 +4,7 @@ const char* LOG_CHANNEL_INIT = "INIT";
 const char* LOG_CHANNEL_SHADER = "SHADER";
 const char* LOG_CHANNEL_WORLDLOADER = "WORLDLOADER";
 const char* LOG_CHANNEL_IMAGELOAD = "IMAGELOAD";
+const char* LOG_CHANNEL_IO = "IO";
 
 #include <stdio.h>
 #include <stdarg.h>

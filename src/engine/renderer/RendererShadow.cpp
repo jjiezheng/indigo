@@ -88,7 +88,7 @@ void RendererShadow::init(const CSize &screenSize) {
     glVertexAttribPointer(ATTRIB_UV, 2, GL_FLOAT, 0, 0, 0);
     glEnableVertexAttribArray(ATTRIB_UV);
         
-    debugShader_.load("vt.vsh", "ft.fsh");
+    debugShader_.load("glsl/vt.vsh", "glsl/ft.fsh");
     debugShader_.bind_attribute(ATTRIB_VERTEX, "vertex");
     debugShader_.bind_attribute(ATTRIB_UV, "textureCoords");
     debugShader_.link();

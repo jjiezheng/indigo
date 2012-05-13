@@ -151,7 +151,7 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
         Vector2 originalUV(uv.x, uv.y);
         Vector2 rotatedUV = originalUV;        
         uvs[uvIndex++] = rotatedUV.x;
-        uvs[uvIndex++] = 1.0f - rotatedUV.y;
+        uvs[uvIndex++] =rotatedUV.y;
       }
       
       verts[vertIndex] = rotatedVertex.x;
@@ -181,6 +181,8 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
 
 void WorldLoader::loadMaterial(Model* model, const std::string& materialFilePath) {
   std::string fullMaterialFilePath = Path::pathForFile(materialFilePath);
+  
+  LOG(LOG_CHANNEL_WORLDLOADER, "Loading material %s", fullMaterialFilePath.c_str());
   
   std::ifstream materialFile(fullMaterialFilePath, std::ifstream::in);
   
@@ -245,7 +247,6 @@ void WorldLoader::loadMaterial(Model* model, const std::string& materialFilePath
 }
 
 void WorldLoader::loadShader(Material& material, const std::string &shaderFilePath) {
-  
   Shader shader;
   std::string fullShaderFilePath = Path::pathForFile(shaderFilePath);
   std::ifstream shaderFile(fullShaderFilePath, std::ifstream::in);

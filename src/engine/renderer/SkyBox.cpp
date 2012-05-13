@@ -55,7 +55,7 @@ void SkyBox::load(const std::string& basename) {
     glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
   }
   {
-    shader_.load("skybox_fog.vsh", "skybox_fog.fsh");
+    shader_.load("glsl/skybox_fog.vsh", "glsl/skybox_fog.fsh");
     shader_.bind_attribute(ATTRIB_VERTEX, "vertex");
     shader_.link();
     

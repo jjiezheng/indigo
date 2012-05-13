@@ -19,6 +19,7 @@ void DDSImage::load(const char* filePath) {
   
   FILE *fp = fopen(fullpath.c_str(), "rb");
   if (fp == NULL) {
+    LOG(LOG_CHANNEL_IO, "Failed to load %s", filePath);
     return;
   }
   
@@ -46,6 +47,8 @@ void DDSImage::load(const char* filePath) {
   
   unsigned int blockSize = (fourCC == FOURCC_DXT1) ? 8 : 16;
   unsigned int offset = 0;
+  
+  mipLevels = new DDSMipLevel*[numMipLevels];
   
   for (unsigned int level = 0; level < numMipLevels && (width || height); ++level) {
     unsigned int size = ((width+3)/4)*((height+3)/4)*blockSize;
