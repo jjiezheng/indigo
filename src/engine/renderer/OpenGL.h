@@ -6,6 +6,8 @@
 #ifdef PLATFORM_WINDOWS
 #include "gl/glew.h"
 #pragma comment(lib,"opengl32.lib")
+#include <GL/glfw.h>
+
 #endif
 
 #ifdef PLATFORM_MAC

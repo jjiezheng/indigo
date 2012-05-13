@@ -1,6 +1,6 @@
 #include "Clock.h"
 
-#include "PlatformDefs.h"
+#include "platform/PlatformDefs.h"
 
 #ifdef PLATFORM_WINDOWS
 

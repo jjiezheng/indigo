@@ -151,7 +151,7 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
         Vector2 originalUV(uv.x, uv.y);
         Vector2 rotatedUV = originalUV;        
         uvs[uvIndex++] = rotatedUV.x;
-        uvs[uvIndex++] = rotatedUV.y;
+        uvs[uvIndex++] = 1.0f - rotatedUV.y;
       }
       
       verts[vertIndex] = rotatedVertex.x;

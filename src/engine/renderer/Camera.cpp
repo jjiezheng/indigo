@@ -1,7 +1,7 @@
 #include "Camera.h"
 
-#include <GL/glfw.h>
 #include "app/Window.h"
+#include "OpenGL.h"
 
 #include "Shader.h"
 #include "Angles.h"

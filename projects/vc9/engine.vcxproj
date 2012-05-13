@@ -89,18 +89,19 @@ copy $(ProjectDir)..\..\assets $(OutputPath)\assets</Command>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\engine\app\Window.cpp" />
     <ClCompile Include="..\..\src\engine\config\Properties.cpp" />
     <ClCompile Include="..\..\src\engine\core\Clock.cpp" />
     <ClCompile Include="..\..\src\engine\core\String.cpp" />
     <ClCompile Include="..\..\src\engine\io\File.cpp" />
     <ClCompile Include="..\..\src\engine\io\Image.cpp" />
     <ClCompile Include="..\..\src\engine\io\Log.cpp" />
+    <ClCompile Include="..\..\src\engine\io\Path.cpp" />
     <ClCompile Include="..\..\src\engine\maths\Matrix3x3.cpp" />
     <ClCompile Include="..\..\src\engine\maths\Matrix4x4.cpp" />
     <ClCompile Include="..\..\src\engine\maths\Vector2.cpp" />
     <ClCompile Include="..\..\src\engine\maths\Vector3.cpp" />
     <ClCompile Include="..\..\src\engine\maths\Vector4.cpp" />
-    <ClCompile Include="..\..\src\engine\platform\MacPlatform.cpp" />
     <ClCompile Include="..\..\src\engine\renderer\Box.cpp" />
     <ClCompile Include="..\..\src\engine\renderer\Camera.cpp" />
     <ClCompile Include="..\..\src\engine\renderer\Color3.cpp" />
@@ -114,17 +115,18 @@ copy $(ProjectDir)..\..\assets $(OutputPath)\assets</Command>
     <ClCompile Include="..\..\src\engine\renderer\ShaderAttribs.cpp" />
     <ClCompile Include="..\..\src\engine\renderer\SkyBox.cpp" />
     <ClCompile Include="..\..\src\engine\renderer\Texture.cpp" />
-    <ClCompile Include="..\..\src\engine\renderer\TextureCache.cpp" />
     <ClCompile Include="..\..\src\engine\renderer\WorldLoader.cpp" />
     <ClCompile Include="..\..\src\game\App.cpp" />
     <ClCompile Include="..\..\src\game\Game.cpp" />
     <ClCompile Include="..\..\src\game\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\src\engine\app\Window.h" />
     <ClInclude Include="..\..\src\engine\config\Properties.h" />
     <ClInclude Include="..\..\src\engine\core\Accessors.h" />
     <ClInclude Include="..\..\src\engine\core\Any.h" />
     <ClInclude Include="..\..\src\engine\core\Clock.h" />
+    <ClInclude Include="..\..\src\engine\core\Size.h" />
     <ClInclude Include="..\..\src\engine\core\Standard.h" />
     <ClInclude Include="..\..\src\engine\core\String.h" />
     <ClInclude Include="..\..\src\engine\core\Types.h" />
@@ -137,7 +139,6 @@ copy $(ProjectDir)..\..\assets $(OutputPath)\assets</Command>
     <ClInclude Include="..\..\src\engine\maths\Vector2.h" />
     <ClInclude Include="..\..\src\engine\maths\Vector3.h" />
     <ClInclude Include="..\..\src\engine\maths\Vector4.h" />
-    <ClInclude Include="..\..\src\engine\platform\MacPlatform.h" />
     <ClInclude Include="..\..\src\engine\platform\maindef.h" />
     <ClInclude Include="..\..\src\engine\platform\PlatformDefs.h" />
     <ClInclude Include="..\..\src\engine\renderer\Angles.h" />
@@ -165,7 +166,6 @@ copy $(ProjectDir)..\..\assets $(OutputPath)\assets</Command>
     <ClInclude Include="..\..\src\engine\renderer\ShaderAttribs.h" />
     <ClInclude Include="..\..\src\engine\renderer\SkyBox.h" />
     <ClInclude Include="..\..\src\engine\renderer\Texture.h" />
-    <ClInclude Include="..\..\src\engine\renderer\TextureCache.h" />
     <ClInclude Include="..\..\src\engine\renderer\Vector3MaterialParameter.h" />
     <ClInclude Include="..\..\src\engine\renderer\World.h" />
     <ClInclude Include="..\..\src\engine\renderer\WorldLoader.h" />

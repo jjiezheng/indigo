@@ -4,7 +4,7 @@
   "objects" : [
     {
       "mesh" : "shuttle.blend",
-      "material" : "shuttle.material",
+      "material" : "shuttle_texture.material",
       "position" : {
         "x" : 0.0,
         "y" : 1.0,
