@@ -1,42 +1,34 @@
-#include "MacPlatform.h"
-
-#include <IL/ilu.h>
-
-#include <sys/sysctl.h>
-#include <sys/time.h>
-#include <iostream>
+#include "Platform.h"
 
 #include <Foundation/Foundation.h>
 #include <ApplicationServices/ApplicationServices.h>
-
 #include <GL/glfw.h>
 
-float MacPlatform::aspectRatio() {
+float Platform::aspectRatio() {
   int width, height = 0;
   glfwGetWindowSize(&width, &height);
   return (float)width/(float)height;
 }
 
-int MacPlatform::screenWidth() {
+int Platform::screenWidth() {
   int width, height = 0;
   glfwGetWindowSize(&width, &height);
   return width;
 }
 
-int MacPlatform::screenHeight() {
+int Platform::screenHeight() {
   int width, height = 0;
   glfwGetWindowSize(&width, &height);
   return height;  
 }
 
-Vector2 MacPlatform::screenSize() {
+CSize Platform::screenSize() {
   int width, height = 0;
   glfwGetWindowSize(&width, &height);
-  return Vector2(width, height);
+  return CSize(width, height);
 }
 
-
-std::string MacPlatform::path_for_file(const std::string& filename) {
+std::string Platform::path_for_file(const std::string& filename) {
   NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
   NSString* objc_filename = [NSString stringWithUTF8String:filename.c_str()];
   
@@ -50,7 +42,7 @@ std::string MacPlatform::path_for_file(const std::string& filename) {
   return final_path;
 }
 
-void MacPlatform::load_image(const std::string& full_path, int* width, int* height, void** data, int* format) {
+void Platform::load_image(const std::string& full_path, int* width, int* height, void** data, int* format) {
   NSString* path = [NSString stringWithUTF8String:full_path.c_str()];  
   NSData *texData = [[[NSData alloc] initWithContentsOfFile:path] autorelease];
   
@@ -69,8 +61,6 @@ void MacPlatform::load_image(const std::string& full_path, int* width, int* heig
   
   CGRect bounds = CGRectMake(0, 0, *width, *height) ;
   CGContextClearRect(context, bounds);
-  //  CGContextTranslateCTM(context, 0, *height);
-  //  CGContextScaleCTM(context, 1.0, -1.0);
   CGContextDrawImage(context, bounds, image.CGImage);
   CGContextRelease(context);
   

@@ -9,11 +9,7 @@ class Image {
 public:
   
   ~Image();
-  
-public:
-  
-  static Image* imageFromFile(const std::string& filename);
-  
+    
 public:
   
   void load(const std::string& filename);

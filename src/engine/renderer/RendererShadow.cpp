@@ -1,6 +1,6 @@
 #include "RendererShadow.h"
 
-#include "maths/Vector2.h"
+#include "core/Size.h"
 
 #include "GLUtilities.h"
 
@@ -11,7 +11,7 @@
 #include "ShaderAttribs.h"
 #include "ShaderAttribs.h"
 
-void RendererShadow::init(const Vector2 &screenSize) {
+void RendererShadow::init(const CSize &screenSize) {
 {
     glGenFramebuffers(1, &frameBuffer_);
     glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer_);
@@ -24,7 +24,7 @@ void RendererShadow::init(const Vector2 &screenSize) {
     {
       glGenRenderbuffers(1, &depthBuffer_);
       glBindRenderbuffer(GL_RENDERBUFFER, depthBuffer_);
-      glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, (GLint)screenSize.x, (GLint)screenSize.y);
+      glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, screenSize.width, screenSize.height);
       glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthBuffer_);
     }
     
@@ -33,7 +33,7 @@ void RendererShadow::init(const Vector2 &screenSize) {
     {
       glGenTextures(1, &shadowTexture_);
       glBindTexture(GL_TEXTURE_2D, shadowTexture_);
-      glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, (GLint)screenSize.x, (GLint)screenSize.y, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+      glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, screenSize.width, screenSize.height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
@@ -95,7 +95,7 @@ void RendererShadow::init(const Vector2 &screenSize) {
     
     debugShader_.add_uniform("colorMap");
     
-    Matrix4x4 projection = Matrix4x4::orthographic(0, MacPlatform::screenWidth(), 0, MacPlatform::screenHeight(), -1, 1000);  
+    Matrix4x4 projection = Matrix4x4::orthographic(0, Platform::screenWidth(), 0, Platform::screenHeight(), -1, 1000);  
     debugShader_.set_uniform(projection, "projection");
   }
 }

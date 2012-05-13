@@ -5,10 +5,9 @@
 #include "maths/Vector3.h"
 #include "maths/Vector4.h"
 #include "maths/Matrix4x4.h"
+#include "platform/Platform.h"
 
 #include "IViewer.h"
-
-#include "platform/MacPlatform.h"
 
 class Light : public IViewer {
   
@@ -58,7 +57,7 @@ inline Matrix4x4 Light::transform() const {
 }
 
 inline Matrix4x4 Light::projection() const {
-  return Matrix4x4::perspective(45.0f, MacPlatform::aspectRatio(), 1.0f, 200.0f);
+  return Matrix4x4::perspective(45.0f, Platform::aspectRatio(), 1.0f, 200.0f);
 }
 
 #endif

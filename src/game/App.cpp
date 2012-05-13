@@ -1,7 +1,7 @@
 #include "App.h"
 
 #include "GL/glfw.h"
-#include "platform/MacPlatform.h"
+#include "platform/Platform.h"
 
 App* App::app_ = NULL;
 
@@ -12,18 +12,18 @@ void App::run() {
     LOG(LOG_CHANNEL_INIT, "Error initializing GLFW");
     return;
   }
-  
+
 #ifdef PLATFORM_WINDOWS
   glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 3);
   glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 1);
 #endif
-  
+
 #ifdef PLATFORM_MAC  
   glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
   glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 3);
   glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 2);
 #endif
-  
+
   if (!glfwOpenWindow(1024, 768, 0, 0, 0, 0, 32, 0, GLFW_WINDOW)) {
     LOG(LOG_CHANNEL_INIT, "Error opening GLFW Window");
     glfwTerminate();
@@ -36,7 +36,7 @@ void App::run() {
   bool quit = false;
 #ifdef PLATFORM_WINDOWS
   glewInit();
-#endif  
+#endif
   game_.init();
   
   while (!quit) {

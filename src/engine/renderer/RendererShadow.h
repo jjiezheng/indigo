@@ -3,18 +3,17 @@
 
 #include "Shader.h"
 
+class CSize;
 class Camera;
 class World;
 class SceneContext;
 class Renderer3d;
 
-class Vector2;
-
 class RendererShadow {
   
 public:
   
-  void init(const Vector2& screenSize);
+  void init(const CSize& screenSize);
   
   void render(const World& world, SceneContext& sceneContext);
   

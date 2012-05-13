@@ -1,4 +1,4 @@
-#include "platform/MacPlatform.h"
+#include "platform/Platform.h"
 
 #include "Camera.h"
 #include "Shader.h"

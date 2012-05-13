@@ -1,6 +1,6 @@
 #include "Box.h"
 
-#include "platform/MacPlatform.h"
+#include "platform/Platform.h"
 
 #include "OpenGL.h"
 #include "Shader.h"

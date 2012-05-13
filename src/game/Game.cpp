@@ -7,7 +7,7 @@
 #include "renderer/Box.h"
 #include "renderer/WorldLoader.h"
 
-#include "platform/MacPlatform.h"
+#include "platform/Platform.h"
 
 void Game::init() {
   properties_.init();
@@ -15,9 +15,9 @@ void Game::init() {
   camera_.translateZ(10.0f);
   camera_.translateY(1.8f);
   
-  shadowRenderer_.init(MacPlatform::screenSize());
+  shadowRenderer_.init(Platform::screenSize());
 
-  Matrix4x4 projection = Matrix4x4::perspective(45.0f, MacPlatform::aspectRatio(), 1.0f, 200.0f);
+  Matrix4x4 projection = Matrix4x4::perspective(45.0f, Platform::aspectRatio(), 1.0f, 200.0f);
   camera_.setProjection(projection);
 
   WorldLoader loader;

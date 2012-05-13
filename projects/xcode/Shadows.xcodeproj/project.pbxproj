@@ -25,7 +25,6 @@
 		4C4D2BF0155E4779005EE885 /* ShaderAttribs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C4D2BCB155E4779005EE885 /* ShaderAttribs.cpp */; };
 		4C4D2BF3155E4779005EE885 /* SkyBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C4D2BD1155E4779005EE885 /* SkyBox.cpp */; };
 		4C4D2BF4155E4779005EE885 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C4D2BD3155E4779005EE885 /* Texture.cpp */; };
-		4C4D2BF5155E4779005EE885 /* TextureCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C4D2BD5155E4779005EE885 /* TextureCache.cpp */; };
 		4C4D2BF6155E4779005EE885 /* WorldLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C4D2BD9155E4779005EE885 /* WorldLoader.cpp */; };
 		4C4D2C03155E50CB005EE885 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 4C4D2BFD155E50CB005EE885 /* Credits.rtf */; };
 		4C4D2C04155E50CB005EE885 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C4D2BFF155E50CB005EE885 /* InfoPlist.strings */; };
@@ -44,7 +43,7 @@
 		4C74ABD4154892F40008271B /* Vector2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C74AB51154892F40008271B /* Vector2.cpp */; };
 		4C74ABD5154892F40008271B /* Vector3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C74AB53154892F40008271B /* Vector3.cpp */; };
 		4C74ABD6154892F40008271B /* Vector4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C74AB55154892F40008271B /* Vector4.cpp */; };
-		4C74ABD7154892F40008271B /* MacPlatform.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C74AB59154892F40008271B /* MacPlatform.mm */; };
+		4C74ABD7154892F40008271B /* Platform.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C74AB59154892F40008271B /* Platform.mm */; };
 		4C8E100714F03D450095F390 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C8E100614F03D450095F390 /* QuartzCore.framework */; };
 		4C94129A1438203800D9357E /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9412991438203800D9357E /* ApplicationServices.framework */; };
 		4CB28511144699D300A26530 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CB28510144699D300A26530 /* OpenGL.framework */; };
@@ -73,7 +72,7 @@
 		4C372FE714E47D8800FBAF6B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		4C4D2B79155E46E2005EE885 /* App.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = App.cpp; sourceTree = "<group>"; };
 		4C4D2B7A155E46E2005EE885 /* App.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = App.h; sourceTree = "<group>"; };
-		4C4D2B7B155E46E2005EE885 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
+		4C4D2B7B155E46E2005EE885 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = Game.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		4C4D2B7C155E46E2005EE885 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
 		4C4D2B7D155E46E2005EE885 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		4C4D2B95155E4779005EE885 /* Angles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Angles.h; sourceTree = "<group>"; };
@@ -90,7 +89,7 @@
 		4C4D2BA9155E4779005EE885 /* IntegerMaterialParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntegerMaterialParameter.h; sourceTree = "<group>"; };
 		4C4D2BAA155E4779005EE885 /* IViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IViewer.h; sourceTree = "<group>"; };
 		4C4D2BAF155E4779005EE885 /* Light.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Light.cpp; sourceTree = "<group>"; };
-		4C4D2BB0155E4779005EE885 /* Light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Light.h; sourceTree = "<group>"; };
+		4C4D2BB0155E4779005EE885 /* Light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Light.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		4C4D2BB1155E4779005EE885 /* Material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Material.cpp; sourceTree = "<group>"; };
 		4C4D2BB2155E4779005EE885 /* Material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Material.h; sourceTree = "<group>"; };
 		4C4D2BB3155E4779005EE885 /* MaterialParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaterialParameter.h; sourceTree = "<group>"; };
@@ -112,8 +111,6 @@
 		4C4D2BD2155E4779005EE885 /* SkyBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkyBox.h; sourceTree = "<group>"; };
 		4C4D2BD3155E4779005EE885 /* Texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Texture.cpp; sourceTree = "<group>"; };
 		4C4D2BD4155E4779005EE885 /* Texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Texture.h; sourceTree = "<group>"; };
-		4C4D2BD5155E4779005EE885 /* TextureCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureCache.cpp; sourceTree = "<group>"; };
-		4C4D2BD6155E4779005EE885 /* TextureCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureCache.h; sourceTree = "<group>"; };
 		4C4D2BD7155E4779005EE885 /* Vector3MaterialParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector3MaterialParameter.h; sourceTree = "<group>"; };
 		4C4D2BD8155E4779005EE885 /* World.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = World.h; sourceTree = "<group>"; };
 		4C4D2BD9155E4779005EE885 /* WorldLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WorldLoader.cpp; sourceTree = "<group>"; };
@@ -121,12 +118,13 @@
 		4C4D2BFE155E50CB005EE885 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		4C4D2C00155E50CB005EE885 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4C4D2C02155E50CB005EE885 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		4C4D2C06155E58FE005EE885 /* Image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Image.cpp; sourceTree = "<group>"; };
+		4C4D2C06155E58FE005EE885 /* Image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = Image.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		4C4D2C07155E58FE005EE885 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
 		4C573811155C626900798AA9 /* libfreeimage.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfreeimage.dylib; path = usr/local/lib/libfreeimage.dylib; sourceTree = SDKROOT; };
 		4C573814155C6B9300798AA9 /* libIL.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libIL.1.dylib; path = /usr/local/Cellar/devil/1.7.8/lib/libIL.1.dylib; sourceTree = "<absolute>"; };
 		4C573816155C7A6400798AA9 /* libILU.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libILU.1.dylib; path = /usr/local/Cellar/devil/1.7.8/lib/libILU.1.dylib; sourceTree = "<absolute>"; };
 		4C6783671436F0F500F39B80 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		4C6E9593155FE570004DC0BB /* Size.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Size.h; sourceTree = "<group>"; };
 		4C74AB1B154892070008271B /* libglfw.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.dylib; path = usr/local/lib/libglfw.dylib; sourceTree = SDKROOT; };
 		4C74AB24154892F40008271B /* Accessors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Accessors.h; sourceTree = "<group>"; };
 		4C74AB25154892F40008271B /* Any.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Any.h; sourceTree = "<group>"; };
@@ -150,8 +148,8 @@
 		4C74AB54154892F40008271B /* Vector3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector3.h; sourceTree = "<group>"; };
 		4C74AB55154892F40008271B /* Vector4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vector4.cpp; sourceTree = "<group>"; };
 		4C74AB56154892F40008271B /* Vector4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector4.h; sourceTree = "<group>"; };
-		4C74AB58154892F40008271B /* MacPlatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacPlatform.h; sourceTree = "<group>"; };
-		4C74AB59154892F40008271B /* MacPlatform.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MacPlatform.mm; sourceTree = "<group>"; };
+		4C74AB58154892F40008271B /* Platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Platform.h; sourceTree = "<group>"; };
+		4C74AB59154892F40008271B /* Platform.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Platform.mm; sourceTree = "<group>"; };
 		4C8E100614F03D450095F390 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4C9412991438203800D9357E /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		4CB28510144699D300A26530 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -258,6 +256,7 @@
 				4C74AB29154892F40008271B /* String.cpp */,
 				4C74AB2A154892F40008271B /* String.h */,
 				4C74AB2B154892F40008271B /* Types.h */,
+				4C6E9593155FE570004DC0BB /* Size.h */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -297,8 +296,8 @@
 			children = (
 				4CD9C607155E962C003AA28A /* maindef.h */,
 				4CD9C608155E962C003AA28A /* PlatformDefs.h */,
-				4C74AB58154892F40008271B /* MacPlatform.h */,
-				4C74AB59154892F40008271B /* MacPlatform.mm */,
+				4C74AB58154892F40008271B /* Platform.h */,
+				4C74AB59154892F40008271B /* Platform.mm */,
 			);
 			path = platform;
 			sourceTree = "<group>";
@@ -342,8 +341,6 @@
 				4C4D2BD2155E4779005EE885 /* SkyBox.h */,
 				4C4D2BD3155E4779005EE885 /* Texture.cpp */,
 				4C4D2BD4155E4779005EE885 /* Texture.h */,
-				4C4D2BD5155E4779005EE885 /* TextureCache.cpp */,
-				4C4D2BD6155E4779005EE885 /* TextureCache.h */,
 				4C4D2BD7155E4779005EE885 /* Vector3MaterialParameter.h */,
 				4C4D2BD8155E4779005EE885 /* World.h */,
 				4C4D2BD9155E4779005EE885 /* WorldLoader.cpp */,
@@ -579,7 +576,7 @@
 				4C74ABD4154892F40008271B /* Vector2.cpp in Sources */,
 				4C74ABD5154892F40008271B /* Vector3.cpp in Sources */,
 				4C74ABD6154892F40008271B /* Vector4.cpp in Sources */,
-				4C74ABD7154892F40008271B /* MacPlatform.mm in Sources */,
+				4C74ABD7154892F40008271B /* Platform.mm in Sources */,
 				4CD48FDB15599EC3005588D8 /* Properties.cpp in Sources */,
 				4C4D2B7E155E46E2005EE885 /* App.cpp in Sources */,
 				4C4D2B7F155E46E2005EE885 /* Game.cpp in Sources */,
@@ -597,7 +594,6 @@
 				4C4D2BF0155E4779005EE885 /* ShaderAttribs.cpp in Sources */,
 				4C4D2BF3155E4779005EE885 /* SkyBox.cpp in Sources */,
 				4C4D2BF4155E4779005EE885 /* Texture.cpp in Sources */,
-				4C4D2BF5155E4779005EE885 /* TextureCache.cpp in Sources */,
 				4C4D2BF6155E4779005EE885 /* WorldLoader.cpp in Sources */,
 				4C4D2C08155E58FE005EE885 /* Image.cpp in Sources */,
 				4CD9C60B155E9B09003AA28A /* World.cpp in Sources */,

@@ -1,10 +1,10 @@
-#ifndef MACPLATFORM_H
-#define MACPLATFORM_H
+#ifndef PLATFORM_H
+#define PLATFORM_H
 
 #include <string>
-#include "maths/Vector2.h"
+#include "core/Size.h"
 
-class MacPlatform {
+class Platform {
   
 public:
   
@@ -14,7 +14,7 @@ public:
   
   static int screenHeight();
   
-  static Vector2 screenSize();
+  static CSize screenSize();
   
 public:
   
