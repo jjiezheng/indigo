@@ -9,24 +9,34 @@
 #include <Foundation/Foundation.h>
 #include <ApplicationServices/ApplicationServices.h>
 
-static MacPlatform* platform_ = 0;
+#include <GL/glfw.h>
 
-MacPlatform* MacPlatform::instance() {
-  if (!platform_) {
-    platform_ = new MacPlatform(); 
-  }
-  return platform_;
+float MacPlatform::aspectRatio() {
+  int width, height = 0;
+  glfwGetWindowSize(&width, &height);
+  return (float)width/(float)height;
 }
 
-MacPlatform::MacPlatform() {
-  ilInit();
-  
-  for (int i = 0; i < KEY_STATE_COUNT; i++) {
-    key_states_[i] = false;
-  }
+int MacPlatform::screenWidth() {
+  int width, height = 0;
+  glfwGetWindowSize(&width, &height);
+  return width;
 }
 
-std::string MacPlatform::path_for_file(const std::string& filename) const {
+int MacPlatform::screenHeight() {
+  int width, height = 0;
+  glfwGetWindowSize(&width, &height);
+  return height;  
+}
+
+Vector2 MacPlatform::screenSize() {
+  int width, height = 0;
+  glfwGetWindowSize(&width, &height);
+  return Vector2(width, height);
+}
+
+
+std::string MacPlatform::path_for_file(const std::string& filename) {
   NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
   NSString* objc_filename = [NSString stringWithUTF8String:filename.c_str()];
   
@@ -40,7 +50,7 @@ std::string MacPlatform::path_for_file(const std::string& filename) const {
   return final_path;
 }
 
-void MacPlatform::load_image(const std::string& full_path, int* width, int* height, void** data, int* format) const {
+void MacPlatform::load_image(const std::string& full_path, int* width, int* height, void** data, int* format) {
   NSString* path = [NSString stringWithUTF8String:full_path.c_str()];  
   NSData *texData = [[[NSData alloc] initWithContentsOfFile:path] autorelease];
   
@@ -67,30 +77,3 @@ void MacPlatform::load_image(const std::string& full_path, int* width, int* heig
   *format = GL_RGBA;
 }
 
-void MacPlatform::set_key_state(int key_code, bool state) {
-  key_states_[key_code] = state;
-}
-
-bool MacPlatform::get_key_state(int key_code) {
-  return key_states_[key_code];
-}
-
-void MacPlatform::set_mouse_position(int x, int y) {
-  last_mouse_position_ = mouse_position_;
-  mouse_position_.x = x;
-  mouse_position_.y = y;
-  if (!mouse_input_ready_) {
-    mouse_input_ready_ = true;
-  } else {
-    mouse_position_changed_ = true;
-  }
-}
-
-Vector2 MacPlatform::mouse_delta() { 
-  if (mouse_position_changed_ && mouse_input_ready_) {
-    mouse_position_changed_ = false;
-    Vector2 delta = mouse_position_ - last_mouse_position_;
-    return delta;
-  }
-  return Vector2::IDENTITY;
-}

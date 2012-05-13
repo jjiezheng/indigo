@@ -95,8 +95,7 @@ void RendererShadow::init(const Vector2 &screenSize) {
     
     debugShader_.add_uniform("colorMap");
     
-    Vector2 screenSize = MacPlatform::instance()->screen_size(); 
-    Matrix4x4 projection = Matrix4x4::orthographic(0, screenSize.x, 0, screenSize.y, -1, 1000);  
+    Matrix4x4 projection = Matrix4x4::orthographic(0, MacPlatform::screenWidth(), 0, MacPlatform::screenHeight(), -1, 1000);  
     debugShader_.set_uniform(projection, "projection");
   }
 }

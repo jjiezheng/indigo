@@ -30,7 +30,7 @@ void Texture::init(const char* filePath) {
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
 
-  std::string fullPath = MacPlatform::instance()->path_for_file(filePath);
+  std::string fullPath = MacPlatform::path_for_file(filePath);
   Image image;
   image.load(fullPath);
 

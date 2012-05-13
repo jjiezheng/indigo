@@ -30,7 +30,7 @@
 #include "Texture.h"
 
 void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, SceneContext& sceneContext) {
-  std::string fullFilePath = MacPlatform::instance()->path_for_file(filePath);
+  std::string fullFilePath = MacPlatform::path_for_file(filePath);
   std::ifstream levelFile(fullFilePath, std::ifstream::in);
   json::Object sceneObject;
   json::Reader::Read(sceneObject, levelFile);
@@ -122,7 +122,7 @@ void WorldLoader::loadSceneItem(const json::Object& objectItem, World& world) {
 void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
   Assimp::Importer importer;
   
-  std::string fullPath = MacPlatform::instance()->path_for_file(modelFilePath);
+  std::string fullPath = MacPlatform::path_for_file(modelFilePath);
   const aiScene* scene = importer.ReadFile(fullPath.c_str(), aiProcess_PreTransformVertices  );
   
   for (unsigned int i = 0; i < scene->mNumMeshes; i++) {
@@ -180,7 +180,7 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
 }
 
 void WorldLoader::loadMaterial(Model* model, const std::string& materialFilePath) {
-  std::string fullMaterialFilePath = MacPlatform::instance()->path_for_file(materialFilePath);
+  std::string fullMaterialFilePath = MacPlatform::path_for_file(materialFilePath);
   
   std::ifstream materialFile(fullMaterialFilePath, std::ifstream::in);
   
@@ -247,7 +247,7 @@ void WorldLoader::loadMaterial(Model* model, const std::string& materialFilePath
 void WorldLoader::loadShader(Material& material, const std::string &shaderFilePath) {
   
   Shader shader;
-  std::string fullShaderFilePath = MacPlatform::instance()->path_for_file(shaderFilePath);
+  std::string fullShaderFilePath = MacPlatform::path_for_file(shaderFilePath);
   std::ifstream shaderFile(fullShaderFilePath, std::ifstream::in);
   
   json::Object shaderObject;

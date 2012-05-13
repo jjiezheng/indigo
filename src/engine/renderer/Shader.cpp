@@ -51,8 +51,8 @@ void Shader::bind_attribute(int attribute_id, const char* attribute_name) {
 }
 
 void Shader::load(const std::string& vertexShaderPath, const std::string& fragmentShaderPath) {
-  std::string vert_path = MacPlatform::instance()->path_for_file(vertexShaderPath);
-  std::string frag_path = MacPlatform::instance()->path_for_file(fragmentShaderPath);
+  std::string vert_path = MacPlatform::path_for_file(vertexShaderPath);
+  std::string frag_path = MacPlatform::path_for_file(fragmentShaderPath);
 
   std::string vertex = File(vert_path).data();
   std::string fragment = File(frag_path).data();

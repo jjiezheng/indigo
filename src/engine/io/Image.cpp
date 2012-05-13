@@ -16,6 +16,6 @@ Image* Image::imageFromFile(const std::string& filename) {
 
 
 void Image::load(const std::string& filename) {
-  std::string fullPath = MacPlatform::instance()->path_for_file(filename);
-  MacPlatform::instance()->load_image(fullPath, &width_, &height_, &data_, &format_);
+  std::string fullPath = MacPlatform::path_for_file(filename);
+  MacPlatform::load_image(fullPath, &width_, &height_, &data_, &format_);
 }

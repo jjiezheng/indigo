@@ -15,10 +15,9 @@ void Game::init() {
   camera_.translateZ(10.0f);
   camera_.translateY(1.8f);
   
-  Vector2 screenSize = MacPlatform::instance()->screen_size();
-  float aspectRatio = screenSize.aspectRatio();
-  
-  Matrix4x4 projection = Matrix4x4::perspective(45.0f, aspectRatio, 1.0f, 200.0f);
+  shadowRenderer_.init(MacPlatform::screenSize());
+
+  Matrix4x4 projection = Matrix4x4::perspective(45.0f, MacPlatform::aspectRatio(), 1.0f, 200.0f);
   camera_.setProjection(projection);
 
   WorldLoader loader;
@@ -26,7 +25,6 @@ void Game::init() {
 
   sceneContext_.setFog(FOG_EXP, 0.66f, -10, -100, Color4(0.6f, 0.6f, 0.6f));
   sceneContext_.setBackgroundColor(Color3(0.4f, 0.6f, 0.93f));
-  shadowRenderer_.init(screenSize);
 }
 
 void Game::mainLoop() {  

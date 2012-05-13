@@ -13,11 +13,6 @@ void App::run() {
     return;
   }
   
-  int screenWidth = 1024;
-  int screenHeight = 768;
-  
-  MacPlatform::instance()->set_screen_size(screenWidth, screenHeight);
- 
 #ifdef PLATFORM_WINDOWS
   glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 3);
   glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 1);
@@ -29,12 +24,12 @@ void App::run() {
   glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 2);
 #endif
   
-  if (!glfwOpenWindow(screenWidth, screenHeight, 0, 0, 0, 0, 32, 0, GLFW_WINDOW)) {
+  if (!glfwOpenWindow(1024, 768, 0, 0, 0, 0, 32, 0, GLFW_WINDOW)) {
     LOG(LOG_CHANNEL_INIT, "Error opening GLFW Window");
     glfwTerminate();
     return;
   }
-
+  
   glfwDisable(GLFW_MOUSE_CURSOR);
   glfwSetCharCallback(&App::keyFunction);
   

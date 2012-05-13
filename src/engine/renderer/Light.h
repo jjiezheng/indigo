@@ -58,9 +58,7 @@ inline Matrix4x4 Light::transform() const {
 }
 
 inline Matrix4x4 Light::projection() const {
-  Vector2 screenSize = MacPlatform::instance()->screen_size();
-  float aspectRatio = screenSize.aspectRatio();
-  return Matrix4x4::perspective(45.0f, aspectRatio, 1.0f, 200.0f);
+  return Matrix4x4::perspective(45.0f, MacPlatform::aspectRatio(), 1.0f, 200.0f);
 }
 
 #endif
