@@ -1,7 +1,7 @@
 #include "App.h"
 
 #include "GL/glfw.h"
-#include "platform/Platform.h"
+#include "app/Window.h"
 
 App* App::app_ = NULL;
 

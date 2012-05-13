@@ -95,7 +95,7 @@ void RendererShadow::init(const CSize &screenSize) {
     
     debugShader_.add_uniform("colorMap");
     
-    Matrix4x4 projection = Matrix4x4::orthographic(0, Platform::screenWidth(), 0, Platform::screenHeight(), -1, 1000);  
+    Matrix4x4 projection = Matrix4x4::orthographic(0, Window::screenWidth(), 0, Window::screenHeight(), -1, 1000);  
     debugShader_.set_uniform(projection, "projection");
   }
 }

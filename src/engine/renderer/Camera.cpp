@@ -1,11 +1,10 @@
-#include "platform/Platform.h"
-
 #include "Camera.h"
-#include "Shader.h"
-#include "Angles.h"
 
 #include <GL/glfw.h>
+#include "app/Window.h"
 
+#include "Shader.h"
+#include "Angles.h"
 
 Camera::Camera() 
   : forward_(Vector3::FORWARD)

@@ -2,9 +2,10 @@
 
 #include "maths/Matrix4x4.h"
 #include "maths/Matrix3x3.h"
+#include "app/Window.h"
 #include "io/Log.h"
 #include "io/File.h"
-#include "platform/Platform.h"
+#include "io/Path.h"
 
 #include "Color4.h"
 #include "ShaderAttribs.h"
@@ -51,8 +52,8 @@ void Shader::bind_attribute(int attribute_id, const char* attribute_name) {
 }
 
 void Shader::load(const std::string& vertexShaderPath, const std::string& fragmentShaderPath) {
-  std::string vert_path = Platform::path_for_file(vertexShaderPath);
-  std::string frag_path = Platform::path_for_file(fragmentShaderPath);
+  std::string vert_path = Path::pathForFile(vertexShaderPath);
+  std::string frag_path = Path::pathForFile(fragmentShaderPath);
 
   std::string vertex = File(vert_path).data();
   std::string fragment = File(frag_path).data();

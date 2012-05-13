@@ -1,7 +1,7 @@
 #include "Texture.h"
 
 #include "io/Image.h"
-#include "platform/Platform.h"
+#include "app/Window.h"
 
 void Texture::init(const char* filePath) {
   glGenTextures(1, &textureId_);
