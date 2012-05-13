@@ -27,7 +27,7 @@
     }
   },
   "textures" : [
-    "shuttle_diffuse.png",
+    "shuttle_diffuse.dds",
     "shuttle_diffuse_NORM.tga"
   ]
 }
