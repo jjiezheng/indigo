@@ -20,7 +20,7 @@
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
-			CharacterSet="1"
+			CharacterSet="2"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../src/engine;../../libs/glfw/include;../../libs"
+				AdditionalIncludeDirectories="../../src/engine;../../libs/assimp/include;../../libs/freeimage;../../libs/glew/include;../../libs/glfw/include;../../libs"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -58,8 +58,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="GLFW.lib OpenGL32.lib"
-				AdditionalLibraryDirectories="../../libs/glfw/lib"
+				AdditionalDependencies="GLFW.lib OpenGL32.lib assimp.lib FreeImage.lib glew32.lib "
+				AdditionalLibraryDirectories="../../libs/glew/lib;../../libs/glfw/lib;../../libs/assimp/lib;../../libs/freeimage"
 				GenerateDebugInformation="true"
 				TargetMachine="1"
 			/>
@@ -83,6 +83,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				CommandLine="mkdir $(TargetDir)\assets&#x0D;&#x0A;copy $(ProjectDir)..\..\assets $(TargetDir)\assets&#x0D;&#x0A;&#x0D;&#x0A;copy $(ProjectDir)..\..\libs\freeimage\FreeImage.dll $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)..\..\libs\glew\bin\glew32.dll $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)..\..\libs\devil\lib\DevIL.dll $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)..\..\libs\devil\lib\ILU.dll $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)..\..\libs\msvcr\*.dll $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)..\..\libs\assimp\dll\Assimp32.dll $(TargetDir)"
 			/>
 		</Configuration>
 		<Configuration
@@ -163,7 +164,23 @@
 			Name="game"
 			>
 			<File
-				RelativePath="D:\projects\opengl-game\src\game\main.cpp"
+				RelativePath="..\..\src\game\App.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\game\App.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\game\Game.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\game\Game.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\game\main.cpp"
 				>
 			</File>
 		</Filter>
@@ -171,86 +188,26 @@
 			Name="engine"
 			>
 			<Filter
-				Name="maths"
+				Name="app"
 				>
 				<File
-					RelativePath="D:\projects\opengl-game\src\engine\maths\Frustum.cpp"
+					RelativePath="..\..\src\engine\app\Window.cpp"
 					>
 				</File>
 				<File
-					RelativePath="D:\projects\opengl-game\src\engine\maths\Frustum.h"
-					>
-				</File>
-				<File
-					RelativePath="D:\projects\opengl-game\src\engine\maths\Maths.h"
-					>
-				</File>
-				<File
-					RelativePath="D:\projects\opengl-game\src\engine\maths\Matrix3x3.cpp"
-					>
-				</File>
-				<File
-					RelativePath="D:\projects\opengl-game\src\engine\maths\Matrix3x3.h"
-					>
-				</File>
-				<File
-					RelativePath="D:\projects\opengl-game\src\engine\maths\Matrix4x4.cpp"
-					>
-				</File>
-				<File
-					RelativePath="D:\projects\opengl-game\src\engine\maths\Matrix4x4.h"
-					>
-				</File>
-				<File
-					RelativePath="D:\projects\opengl-game\src\engine\maths\Octree.cpp"
-					>
-				</File>
-				<File
-					RelativePath="D:\projects\opengl-game\src\engine\maths\Octree.h"
-					>
-				</File>
-				<File
-					RelativePath="D:\projects\opengl-game\src\engine\maths\Vector2.cpp"
-					>
-				</File>
-				<File
-					RelativePath="D:\projects\opengl-game\src\engine\maths\Vector2.h"
-					>
-				</File>
-				<File
-					RelativePath="D:\projects\opengl-game\src\engine\maths\Vector3.cpp"
-					>
-				</File>
-				<File
-					RelativePath="D:\projects\opengl-game\src\engine\maths\Vector3.h"
-					>
-				</File>
-				<File
-					RelativePath="D:\projects\opengl-game\src\engine\maths\Vector4.cpp"
-					>
-				</File>
-				<File
-					RelativePath="D:\projects\opengl-game\src\engine\maths\Vector4.h"
+					RelativePath="..\..\src\engine\app\Window.h"
 					>
 				</File>
 			</Filter>
 			<Filter
-				Name="app"
+				Name="config"
 				>
 				<File
-					RelativePath="..\..\src\engine\app\App.cpp"
+					RelativePath="..\..\src\engine\config\Properties.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\engine\app\App.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\app\Game.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\app\Game.h"
+					RelativePath="..\..\src\engine\config\Properties.h"
 					>
 				</File>
 			</Filter>
@@ -274,7 +231,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\engine\core\HashedString.h"
+					RelativePath="..\..\src\engine\core\Size.h"
 					>
 				</File>
 				<File
@@ -295,94 +252,98 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="ui"
+				Name="io"
 				>
 				<File
-					RelativePath="..\..\src\engine\ui\Button.cpp"
+					RelativePath="..\..\src\engine\io\dds.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\engine\ui\Button.h"
+					RelativePath="..\..\src\engine\io\DDSImage.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\engine\ui\FontCharacter.cpp"
+					RelativePath="..\..\src\engine\io\DDSImage.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\engine\ui\FontCharacter.h"
+					RelativePath="..\..\src\engine\io\DDSMipLevel.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\engine\ui\FontDescriptor.cpp"
+					RelativePath="..\..\src\engine\io\File.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\engine\ui\FontDescriptor.h"
+					RelativePath="..\..\src\engine\io\File.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\engine\ui\FontDescriptorResource.cpp"
+					RelativePath="..\..\src\engine\io\Image.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\engine\ui\FontDescriptorResource.h"
+					RelativePath="..\..\src\engine\io\Image.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\engine\ui\FPSLabel.cpp"
+					RelativePath="..\..\src\engine\io\Log.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\engine\ui\FPSLabel.h"
+					RelativePath="..\..\src\engine\io\Log.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\engine\ui\IMouseClickListener.h"
+					RelativePath="..\..\src\engine\io\Path.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\engine\ui\Label.cpp"
+					RelativePath="..\..\src\engine\io\Path.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="maths"
+				>
+				<File
+					RelativePath="..\..\src\engine\maths\Matrix3x3.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\engine\ui\Label.h"
+					RelativePath="..\..\src\engine\maths\Matrix3x3.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\engine\ui\MouseClickDispatcher.cpp"
+					RelativePath="..\..\src\engine\maths\Matrix4x4.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\engine\ui\MouseClickDispatcher.h"
+					RelativePath="..\..\src\engine\maths\Matrix4x4.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\engine\ui\MouseLayer.cpp"
+					RelativePath="..\..\src\engine\maths\Vector2.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\engine\ui\MouseLayer.h"
+					RelativePath="..\..\src\engine\maths\Vector2.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\engine\ui\Rectangle.cpp"
+					RelativePath="..\..\src\engine\maths\Vector3.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\engine\ui\Rectangle.h"
+					RelativePath="..\..\src\engine\maths\Vector3.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\engine\ui\Selector.h"
+					RelativePath="..\..\src\engine\maths\Vector4.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\engine\ui\Sprite.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\ui\Sprite.h"
+					RelativePath="..\..\src\engine\maths\Vector4.h"
 					>
 				</File>
 			</Filter>
@@ -390,19 +351,11 @@
 				Name="platform"
 				>
 				<File
-					RelativePath="..\..\src\engine\platform\MacPlatform.h"
+					RelativePath="..\..\src\engine\platform\maindef.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\engine\platform\MacPlatform.mm"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\platform\Platform.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\platform\Platform.mm"
+					RelativePath="..\..\src\engine\platform\PlatformDefs.h"
 					>
 				</File>
 			</Filter>
@@ -411,22 +364,6 @@
 				>
 				<File
 					RelativePath="..\..\src\engine\renderer\Angles.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\renderer\BleedEffect.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\renderer\BleedEffect.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\renderer\BleedShader.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\renderer\BleedShader.h"
 					>
 				</File>
 				<File
@@ -458,26 +395,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\engine\renderer\DirectionalLight.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\renderer\DirectionalLight.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\renderer\Effect.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\renderer\FlatShader.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\renderer\FlatShader.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\src\engine\renderer\FloatMaterialParameter.h"
 					>
 				</File>
@@ -495,22 +412,6 @@
 				</File>
 				<File
 					RelativePath="..\..\src\engine\renderer\IViewer.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\renderer\Layer2d.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\renderer\Layer2d.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\renderer\Layer3d.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\renderer\Layer3d.h"
 					>
 				</File>
 				<File
@@ -558,31 +459,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\engine\renderer\ModelResource.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\renderer\ModelResource.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\src\engine\renderer\OpenGL.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\renderer\PointLight.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\renderer\PointLight.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\renderer\Renderer.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\renderer\Renderer.h"
 					>
 				</File>
 				<File
@@ -602,27 +479,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\engine\renderer\Scene.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\renderer\Scene.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\src\engine\renderer\SceneContext.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\renderer\SceneNode.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\renderer\SceneNode.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\renderer\SceneNode.inl"
 					>
 				</File>
 				<File
@@ -642,26 +499,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\engine\renderer\ShaderCache.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\renderer\ShaderCache.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\renderer\ShaderResource.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\renderer\ShadowMap.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\renderer\ShadowMap.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\src\engine\renderer\SkyBox.cpp"
 					>
 				</File>
@@ -678,23 +515,11 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\engine\renderer\TextureCache.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\renderer\TextureCache.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\renderer\TextureResource.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\renderer\TextureResource.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\src\engine\renderer\Vector3MaterialParameter.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\engine\renderer\World.cpp"
 					>
 				</File>
 				<File

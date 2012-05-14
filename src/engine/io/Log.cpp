@@ -15,8 +15,8 @@ const char* LOG_CHANNEL_IO = "IO";
 void DLOG(const char* channel, const char* fmt, ...)
 {
   
-  OutputDebugString(channel);
-  OutputDebugString(": ");
+  OutputDebugStringA(channel);
+  OutputDebugStringA(": ");
   char    buf[4096], *p = buf;
   va_list args;
   int     n;
@@ -34,7 +34,7 @@ void DLOG(const char* channel, const char* fmt, ...)
   *p++ = '\n';
   *p   = '\0';
 
-  OutputDebugString(buf);
+  OutputDebugStringA(buf);
 }
 #else
 void DLOG(const char* channel, const char* fmt, ...) {

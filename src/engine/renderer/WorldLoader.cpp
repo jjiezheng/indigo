@@ -31,7 +31,7 @@
 
 void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, SceneContext& sceneContext) {
   std::string fullFilePath = Path::pathForFile(filePath);
-  std::ifstream levelFile(fullFilePath, std::ifstream::in);
+  std::ifstream levelFile(fullFilePath.c_str(), std::ifstream::in);
   json::Object sceneObject;
   json::Reader::Read(sceneObject, levelFile);
   
@@ -184,9 +184,9 @@ void WorldLoader::loadMaterial(Model* model, const std::string& materialFilePath
   
   LOG(LOG_CHANNEL_WORLDLOADER, "Loading material %s", fullMaterialFilePath.c_str());
   
-  std::ifstream materialFile(fullMaterialFilePath, std::ifstream::in);
+  std::ifstream materialFile(fullMaterialFilePath.c_str(), std::ifstream::in);
   
-  json::Object materialObject;
+  json::Object materialObject; 
   json::Reader::Read(materialObject, materialFile); 
 
   json::String shaderFilePath = materialObject["shader"];
@@ -249,7 +249,7 @@ void WorldLoader::loadMaterial(Model* model, const std::string& materialFilePath
 void WorldLoader::loadShader(Material& material, const std::string &shaderFilePath) {
   Shader shader;
   std::string fullShaderFilePath = Path::pathForFile(shaderFilePath);
-  std::ifstream shaderFile(fullShaderFilePath, std::ifstream::in);
+  std::ifstream shaderFile(fullShaderFilePath.c_str(), std::ifstream::in);
   
   json::Object shaderObject;
   LOG(LOG_CHANNEL_WORLDLOADER, "loading shader %s", shaderFilePath.c_str());
