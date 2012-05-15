@@ -19,12 +19,12 @@ void App::run() {
 #endif
 
 #ifdef PLATFORM_MAC  
-  glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-  glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 3);
-  glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 2);
+//  glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
+  glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 2);
+  glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 1);
 #endif
 
-  if (!glfwOpenWindow(1024, 768, 0, 0, 0, 0, 32, 0, GLFW_WINDOW)) {
+  if (!glfwOpenWindow(1024, 768, 0, 0, 0, 0, 0, 0, GLFW_WINDOW)) {
     LOG(LOG_CHANNEL_INIT, "Error opening GLFW Window");
     glfwTerminate();
     return;
@@ -32,6 +32,7 @@ void App::run() {
   
   glfwDisable(GLFW_MOUSE_CURSOR);
   glfwSetCharCallback(&App::keyFunction);
+  glfwSwapBuffers();
   
   bool quit = false;
 #ifdef PLATFORM_WINDOWS

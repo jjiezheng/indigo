@@ -1,7 +1,7 @@
 #ifndef MATERIAL_H
 #define MATERIAL_H
 
-#include "Shader.h"
+#include "IShader.h"
 #include "MaterialParameter.h"
 #include "Texture.h"
 
@@ -14,7 +14,7 @@ public:
   
   void bind(const IViewer* camera, const Matrix4x4& model, const Matrix3x3& normalMatrix, const SceneContext& sceneContext) const;
   
-  void setShader(const Shader& shader);
+  void setShader(IShader* shader);
   
   void setParameter(MaterialParameter* parameter);
   
@@ -22,14 +22,14 @@ public:
   
 private:
   
-  Shader shader_;
+  IShader* shader_;
   
   std::vector<MaterialParameter*> parameters_;
   std::vector<Texture> textures_;
   
 };
 
-inline void Material::setShader(const Shader& shader) {
+inline void Material::setShader(IShader* shader) {
   shader_ = shader;
 }
 

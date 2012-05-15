@@ -89,14 +89,14 @@ void RendererShadow::init(const CSize &screenSize) {
     glEnableVertexAttribArray(ATTRIB_UV);
         
     debugShader_.load("glsl/vt.vsh", "glsl/ft.fsh");
-    debugShader_.bind_attribute(ATTRIB_VERTEX, "vertex");
-    debugShader_.bind_attribute(ATTRIB_UV, "textureCoords");
+    debugShader_.bindAttribute(ATTRIB_VERTEX, "vertex");
+    debugShader_.bindAttribute(ATTRIB_UV, "textureCoords");
     debugShader_.link();
     
-    debugShader_.add_uniform("colorMap");
+    debugShader_.addUniform("colorMap");
     
     Matrix4x4 projection = Matrix4x4::orthographic(0, Window::screenWidth(), 0, Window::screenHeight(), -1, 1000);  
-    debugShader_.set_uniform(projection, "projection");
+    debugShader_.setUniform(projection, "projection");
   }
 }
 
@@ -136,7 +136,7 @@ void RendererShadow::renderDebug(SceneContext& sceneContext) {
   debugShader_.use();
   
   glActiveTexture(GL_TEXTURE0);
-  debugShader_.set_uniform(0, "colorMap");
+  debugShader_.setUniform(0, "colorMap");
   
   glBindTexture(GL_TEXTURE_2D, shadowTexture_);  
   glBindVertexArray(debugVertArray_);

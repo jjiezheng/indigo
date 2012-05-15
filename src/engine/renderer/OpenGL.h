@@ -5,15 +5,23 @@
 
 #ifdef PLATFORM_WINDOWS
 #include "gl/glew.h"
+
 #pragma comment(lib,"opengl32.lib")
 #include <GL/glfw.h>
 
 #endif
 
 #ifdef PLATFORM_MAC
-#include <OpenGL/gl3.h>
-#include <OpenGL/gl3ext.h>
+//#include <OpenGL/gl3.h>
+//#include <OpenGL/gl3ext.h>
+//#include <OpenGL/gltypes.h>
+//#include <OpenGL/gl.h>
+typedef int64_t GLint64EXT;
+typedef uint64_t GLuint64EXT;
+
+#include <GL/glew.h>
 #include <GL/glfw.h>
+
 #endif
 
 #endif

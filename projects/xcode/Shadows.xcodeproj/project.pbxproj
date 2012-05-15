@@ -46,6 +46,8 @@
 		4C74ABD5154892F40008271B /* Vector3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C74AB53154892F40008271B /* Vector3.cpp */; };
 		4C74ABD6154892F40008271B /* Vector4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C74AB55154892F40008271B /* Vector4.cpp */; };
 		4C79CC2915602B8B0037EA75 /* DDSImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C79CC2815602B8B0037EA75 /* DDSImage.cpp */; };
+		4C79CC2C156189F70037EA75 /* Cg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C79CC2B156189F70037EA75 /* Cg.framework */; };
+		4C79CC3015618C430037EA75 /* CGShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C79CC2F15618C430037EA75 /* CGShader.cpp */; };
 		4C8E100714F03D450095F390 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C8E100614F03D450095F390 /* QuartzCore.framework */; };
 		4C94129A1438203800D9357E /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9412991438203800D9357E /* ApplicationServices.framework */; };
 		4CB28511144699D300A26530 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CB28510144699D300A26530 /* OpenGL.framework */; };
@@ -158,6 +160,10 @@
 		4C79CC2715602B5C0037EA75 /* DDSImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDSImage.h; sourceTree = "<group>"; };
 		4C79CC2815602B8B0037EA75 /* DDSImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DDSImage.cpp; sourceTree = "<group>"; };
 		4C79CC2A156030F20037EA75 /* DDSMipLevel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDSMipLevel.h; sourceTree = "<group>"; };
+		4C79CC2B156189F70037EA75 /* Cg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cg.framework; path = Library/Frameworks/Cg.framework; sourceTree = SDKROOT; };
+		4C79CC2D15618A9B0037EA75 /* CGShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGShader.h; sourceTree = "<group>"; };
+		4C79CC2E15618B6A0037EA75 /* IShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IShader.h; sourceTree = "<group>"; };
+		4C79CC2F15618C430037EA75 /* CGShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CGShader.cpp; sourceTree = "<group>"; };
 		4C8E100614F03D450095F390 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4C9412991438203800D9357E /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		4CB28510144699D300A26530 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -187,6 +193,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C79CC2C156189F70037EA75 /* Cg.framework in Frameworks */,
 				4C573817155C7A6400798AA9 /* libILU.1.dylib in Frameworks */,
 				4C573815155C6B9300798AA9 /* libIL.1.dylib in Frameworks */,
 				4C573812155C626900798AA9 /* libfreeimage.dylib in Frameworks */,
@@ -360,6 +367,9 @@
 				4C4D2BD9155E4779005EE885 /* WorldLoader.cpp */,
 				4C4D2BDA155E4779005EE885 /* WorldLoader.h */,
 				4CD9C60A155E9B09003AA28A /* World.cpp */,
+				4C79CC2D15618A9B0037EA75 /* CGShader.h */,
+				4C79CC2E15618B6A0037EA75 /* IShader.h */,
+				4C79CC2F15618C430037EA75 /* CGShader.cpp */,
 			);
 			path = renderer;
 			sourceTree = "<group>";
@@ -399,6 +409,7 @@
 		4CB8D3111436F03A0079949A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4C79CC2B156189F70037EA75 /* Cg.framework */,
 				4C573816155C7A6400798AA9 /* libILU.1.dylib */,
 				4C573814155C6B9300798AA9 /* libIL.1.dylib */,
 				4C573811155C626900798AA9 /* libfreeimage.dylib */,
@@ -613,6 +624,7 @@
 				4C6E9596155FECFD004DC0BB /* Path.mm in Sources */,
 				4C6E9599155FEE9A004DC0BB /* Window.cpp in Sources */,
 				4C79CC2915602B8B0037EA75 /* DDSImage.cpp in Sources */,
+				4C79CC3015618C430037EA75 /* CGShader.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -722,7 +734,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
-					"GLFW_INCLUDE_GL3=1",
 				);
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_PEDANTIC = YES;

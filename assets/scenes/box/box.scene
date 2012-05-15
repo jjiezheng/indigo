@@ -1,0 +1,29 @@
+
+{
+  "skybox" : "skyboxes/mountains/mountains.png",
+  "objects" : [
+    {
+      "mesh" : "actors/box/box.blend",
+      "material" : "actors/box/box.material",
+      "position" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "z" : 0.0
+      }
+    }
+  ],
+  "lights" : [
+    {
+      "position" : {
+        "x" : 0.0,
+        "y" : 20.0,
+        "z" : 20.0
+      },
+      "orientation" : {
+        "x" : -0.7,
+        "y" : 0,
+        "z" : 0
+      }
+    }
+  ]
+}

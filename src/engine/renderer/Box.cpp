@@ -38,13 +38,13 @@ void Box::init() {
   
   {
     shader_.load("vmvp.vsh", "f.fsh");    
-    shader_.bind_attribute(ATTRIB_VERTEX, "vertex");
+    shader_.bindAttribute(ATTRIB_VERTEX, "vertex");
     
     shader_.link();    
     
-    shader_.add_uniform("model");
-    shader_.add_uniform("view");
-    shader_.add_uniform("projection");    
+    shader_.addUniform("model");
+    shader_.addUniform("view");
+    shader_.addUniform("projection");    
   }
 }
 

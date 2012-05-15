@@ -14,7 +14,7 @@
 #include "Mesh.h"
 #include "maths/Vector4.h"
 #include "Model.h"
-#include "Shader.h"
+#include "CGShader.h"
 #include "Material.h"
 
 #include "MaterialParameter.h"
@@ -123,6 +123,7 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
   Assimp::Importer importer;
   
   std::string fullPath = Path::pathForFile(modelFilePath);
+  LOG(LOG_CHANNEL_WORLDLOADER, "Loading model %s", fullPath.c_str());
   const aiScene* scene = importer.ReadFile(fullPath.c_str(), aiProcess_PreTransformVertices  );
   
   for (unsigned int i = 0; i < scene->mNumMeshes; i++) {
@@ -247,7 +248,7 @@ void WorldLoader::loadMaterial(Model* model, const std::string& materialFilePath
 }
 
 void WorldLoader::loadShader(Material& material, const std::string &shaderFilePath) {
-  Shader shader;
+  CGShader* shader = new CGShader();
   std::string fullShaderFilePath = Path::pathForFile(shaderFilePath);
   std::ifstream shaderFile(fullShaderFilePath.c_str(), std::ifstream::in);
   
@@ -258,7 +259,7 @@ void WorldLoader::loadShader(Material& material, const std::string &shaderFilePa
   json::String vertexFilePath = shaderObject["vertex"];
   json::String fragmentFilePath = shaderObject["fragment"];
      
-  shader.load(vertexFilePath.Value(), fragmentFilePath.Value());
+  shader->load(vertexFilePath.Value(), fragmentFilePath.Value());
   
   json::Object attributesArray = shaderObject["attributes"];
   json::Object::iterator ait = attributesArray.begin();
@@ -266,17 +267,17 @@ void WorldLoader::loadShader(Material& material, const std::string &shaderFilePa
     json::Number attributeIndexNumber = (*ait).element;
     int attributeIndex = (int)attributeIndexNumber.Value();
     std::string attributeName = (*ait).name;
-    shader.bind_attribute(attributeIndex, attributeName.c_str());
+    shader->bindAttribute(attributeIndex, attributeName.c_str());
   }
   
-  shader.link();
+  shader->link();
   
   json::Array uniformsArray = shaderObject["uniforms"];
   json::Array::iterator uit = uniformsArray.begin();
   for (; uit != uniformsArray.end(); ++uit) {
     json::String uniformString = (*uit);
     std::string uniform = uniformString.Value();
-    shader.add_uniform(uniform.c_str());
+    shader->addUniform(uniform.c_str());
   }
   
   material.setShader(shader);

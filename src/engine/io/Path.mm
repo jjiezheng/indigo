@@ -5,14 +5,12 @@
 
 std::string Path::pathForFile(const std::string &filename) {
   NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-  NSString* objc_filename = [NSString stringWithUTF8String:filename.c_str()];
   
-  NSString* basename = [[objc_filename lastPathComponent] stringByDeletingPathExtension];
-  NSString* extension = [objc_filename pathExtension];
-  NSString* path = [[NSBundle mainBundle] pathForResource:basename ofType:extension];
+  NSString* objcFilename = [NSString stringWithCString:filename.c_str() encoding:NSUTF8StringEncoding];
+  NSString* path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:objcFilename];
   
-  std::string final_path = !path ? filename : [path cStringUsingEncoding:NSUTF8StringEncoding];
+  std::string finalPath = [path cStringUsingEncoding:NSUTF8StringEncoding];
   
   [pool release];
-  return final_path;
+  return finalPath;
 }

@@ -1,15 +1,12 @@
-#ifndef CubeFX_Shader_h
-#define CubeFX_Shader_h
+#ifndef CGSHADER_H
+#define CGSHADER_H
 
-#include <string>
-
-#include "core/Standard.h"
-
-#include "OpenGL.h"
 #include "IShader.h"
 
-class Shader : public IShader {
-      
+#include <Cg/Cg.h>
+
+class CGShader : public IShader {
+  
 public:
   
   void load(const std::string& vertexShaderPath, const std::string& fragmentShaderPath);
@@ -41,20 +38,11 @@ public:
   void addUniform(const char* uniformName);
   
   void setUniform(float* uniformData, size_t size, const char* uniformName) const;
-    
+  
 private:
   
-  void compile_vertex(const std::string& vertex_source);
-  
-  void compile_fragment(const std::string& fragment_source);
-  
-  GLuint compile_shader(const std::string& shader_source, GLint type);
-  
-  GLuint program;
-  GLuint vertex;
-  GLuint fragment;
-  
-  std::map<std::string, GLint> uniforms;
+  CGcontext context_;
+  CGprogram program_;
   
 };
 

@@ -4,7 +4,7 @@
 #include "MaterialParameter.h"
 
 #include <string>
-#include "Shader.h"
+#include "IShader.h"
 
 class IntegerMaterialParameter : public MaterialParameter {
   
@@ -12,7 +12,7 @@ public:
   
   IntegerMaterialParameter(const std::string& name, int value);
   
-  void setShader(const Shader& shader);
+  void setShader(const IShader* shader);
   
 private:
   
@@ -25,8 +25,8 @@ IntegerMaterialParameter::IntegerMaterialParameter(const std::string& name, int 
   : name_(name)
   , value_(value) { }
 
-inline void IntegerMaterialParameter::setShader(const Shader &shader) {
-  shader.set_uniform(value_, name_.c_str());
+inline void IntegerMaterialParameter::setShader(const IShader* shader) {
+  shader->setUniform(value_, name_.c_str());
 }
 
 

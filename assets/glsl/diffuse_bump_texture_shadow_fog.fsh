@@ -52,19 +52,21 @@ void main() {
   float f = 0;
   
   // linear
-  if (fogType == 0) {
+  if (fogType == 1) {
     f = clamp((fogEnd - oViewPosition.z) / (fogEnd - fogStart), 0, 1);
   }
   
   // exp  
-  if (fogType == 1) {
+  if (fogType == 2) {
     f = clamp(e * (fogFactor * oViewPosition.z), 0, 1);
   }
   
   // exp2
-  if (fogType == 2) {
+  if (fogType == 3) {
     f = clamp(pow(e * (fogFactor * oViewPosition.z), 2), 0, 1);
   }
-    
- fragColor = (f * fragColor) + (1 - f) * fogColor;
+  
+  if (fogType != 0) {
+    fragColor = (f * fragColor) + (1 - f) * fogColor; 
+  }
 }

@@ -9,7 +9,7 @@
 #include "Light.h"
 
 void Material::bind(const IViewer* camera, const Matrix4x4& model, const Matrix3x3& normalMatrix, const SceneContext& sceneContext) const {
-  shader_.use();
+  shader_->use();
   
   Matrix4x4 offsetMatrix(0.5f, 0.0f, 0.0f, 0.5f,
                          0.0f, 0.5f, 0.0f, 0.5f,
@@ -29,25 +29,25 @@ void Material::bind(const IViewer* camera, const Matrix4x4& model, const Matrix3
     lightPositions[lightPositionIndex++] = (*lit).position().z;
     
     Matrix4x4 lightMatrix = offsetMatrix * camera->projection() * (*lit).viewTransform();
-    shader_.set_uniform(lightMatrix, "lightMatrix");        
+    shader_->setUniform(lightMatrix, "lightMatrix");        
   }
   
-  shader_.set_uniform((int)lights.size(), "numPointLights");
-  shader_.set_uniform(normalMatrix, "normalMatrix");  
-  shader_.set_uniform(lightPositions, lightPositionIndex, "lightPositions");  
-  shader_.set_uniform(camera->viewTransform(), "view");
-  shader_.set_uniform(camera->projection(), "projection");
-  shader_.set_uniform(model, "model");
+  shader_->setUniform((int)lights.size(), "numPointLights");
+  shader_->setUniform(normalMatrix, "normalMatrix");  
+  shader_->setUniform(lightPositions, lightPositionIndex, "lightPositions");  
+  shader_->setUniform(camera->viewTransform(), "view");
+  shader_->setUniform(camera->projection(), "projection");
+  shader_->setUniform(model, "model");
       
   glActiveTexture(GL_TEXTURE7);
   glBindTexture(GL_TEXTURE_2D, sceneContext.shadowTexture());
-  shader_.set_uniform(7, "shadowMap");
+  shader_->setUniform(7, "shadowMap");
   
-  shader_.set_uniform(sceneContext.fogStart(), "fogStart");
-  shader_.set_uniform(sceneContext.fogEnd(), "fogEnd");
-  shader_.set_uniform(sceneContext.fogColor(), "fogColor");
-  shader_.set_uniform(sceneContext.fogEnd(), "fogType");
-  shader_.set_uniform(sceneContext.fogColor(), "fogFactor");
+  shader_->setUniform(sceneContext.fogStart(), "fogStart");
+  shader_->setUniform(sceneContext.fogEnd(), "fogEnd");
+  shader_->setUniform(sceneContext.fogColor(), "fogColor");
+  shader_->setUniform(sceneContext.fogEnd(), "fogType");
+  shader_->setUniform(sceneContext.fogColor(), "fogFactor");
 
   std::vector<MaterialParameter*>::const_iterator mit = parameters_.begin();
   for (; mit != parameters_.end(); ++mit) {

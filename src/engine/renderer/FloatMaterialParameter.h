@@ -12,7 +12,7 @@ public:
   
   FloatMaterialParameter(const std::string& name, float value);
   
-  void setShader(const Shader& shader);
+  void setShader(const IShader* shader);
   
 private:
   
@@ -25,8 +25,8 @@ FloatMaterialParameter::FloatMaterialParameter(const std::string& name, float va
   : name_(name)
   , value_(value) { }
 
-inline void FloatMaterialParameter::setShader(const Shader &shader) {
-  shader.set_uniform(value_, name_.c_str());
+inline void FloatMaterialParameter::setShader(const IShader* shader) {
+  shader->setUniform(value_, name_.c_str());
 }
 
 #endif

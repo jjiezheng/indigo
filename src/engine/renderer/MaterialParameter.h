@@ -1,13 +1,13 @@
 #ifndef MATERIAL_PARAMETER_H
 #define MATERIAL_PARAMETER_H
 
-class Shader;
+class IShader;
 
 class MaterialParameter {
   
 public:
   
-  virtual void setShader(const Shader& shader) = 0;
+  virtual void setShader(const IShader* shader) = 0;
   
 };
 

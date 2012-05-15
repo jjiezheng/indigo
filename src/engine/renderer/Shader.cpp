@@ -2,7 +2,8 @@
 
 #include "maths/Matrix4x4.h"
 #include "maths/Matrix3x3.h"
-#include "app/Window.h"
+#include "maths/Vector4.h"
+
 #include "io/Log.h"
 #include "io/File.h"
 #include "io/Path.h"
@@ -46,9 +47,9 @@ void Shader::compile_fragment(const std::string& fragment_source) {
   fragment = compile_shader(fragment_source, GL_FRAGMENT_SHADER);
 }
 
-void Shader::bind_attribute(int attribute_id, const char* attribute_name) {
+void Shader::bindAttribute(int attributeId, const char* attribute_name) {
   LOG(LOG_CHANNEL_SHADER, "Binding attribute %s", attribute_name);
-  glBindAttribLocation(program, attribute_id, attribute_name);
+  glBindAttribLocation(program, attributeId, attribute_name);
 }
 
 void Shader::load(const std::string& vertexShaderPath, const std::string& fragmentShaderPath) {
@@ -90,70 +91,78 @@ void Shader::use() const {
   glUseProgram(program);
 }
 
-void Shader::set_uniform(const Color3& uniform_data, const char* uniform_name) const {
-  std::map<std::string, GLint>::const_iterator uniformIt = uniforms.find(uniform_name);
+void Shader::setUniform(const Color3& uniformData, const char* uniformName) const {
+  std::map<std::string, GLint>::const_iterator uniformIt = uniforms.find(uniformName);
   if (uniformIt != uniforms.end()) {
     GLint uniform_id = (*uniformIt).second;
-    glUniform3fv(uniform_id, 1, uniform_data.valuePtr());
+    glUniform3fv(uniform_id, 1, uniformData.valuePtr());
   }    
 }
 
-void Shader::set_uniform(const Color4& uniform_data, const char* uniform_name) const {
-  std::map<std::string, GLint>::const_iterator uniformIt = uniforms.find(uniform_name);
+void Shader::setUniform(const Color4& uniformData, const char* uniformName) const {
+  std::map<std::string, GLint>::const_iterator uniformIt = uniforms.find(uniformName);
   if (uniformIt != uniforms.end()) {
     GLint uniform_id = (*uniformIt).second;
-    glUniform4fv(uniform_id, 1, uniform_data.valuePtr());
+    glUniform4fv(uniform_id, 1, uniformData.valuePtr());
   }    
 }
 
 
-void Shader::set_uniform(const Vector3& uniform_data, const char* uniform_name) const {
-  std::map<std::string, GLint>::const_iterator uniformIt = uniforms.find(uniform_name);
+void Shader::setUniform(const Vector3& uniformData, const char* uniformName) const {
+  std::map<std::string, GLint>::const_iterator uniformIt = uniforms.find(uniformName);
   if (uniformIt != uniforms.end()) {
     GLint uniform_id = (*uniformIt).second;
-    glUniform3fv(uniform_id, 1, uniform_data.valuePtr());
+    glUniform3fv(uniform_id, 1, uniformData.valuePtr());
   }    
 }
 
-void Shader::set_uniform(const Matrix3x3& uniform_data, const char* uniform_name) const {
-  std::map<std::string, GLint>::const_iterator uniformIt = uniforms.find(uniform_name);
+void Shader::setUniform(const Vector4& uniformData, const char* uniformName) const {
+  std::map<std::string, GLint>::const_iterator uniformIt = uniforms.find(uniformName);
   if (uniformIt != uniforms.end()) {
     GLint uniform_id = (*uniformIt).second;
-    glUniformMatrix3fv(uniform_id, 1, GL_TRUE, uniform_data.valuePtr());
+    glUniform4fv(uniform_id, 1, uniformData.valuePtr());
+  }    
+}
+
+void Shader::setUniform(const Matrix3x3& uniformData, const char* uniformName) const {
+  std::map<std::string, GLint>::const_iterator uniformIt = uniforms.find(uniformName);
+  if (uniformIt != uniforms.end()) {
+    GLint uniform_id = (*uniformIt).second;
+    glUniformMatrix3fv(uniform_id, 1, GL_TRUE, uniformData.valuePtr());
   }
 }
 
-void Shader::set_uniform(const Matrix4x4& uniform_data, const char* uniform_name) const {
-  std::map<std::string, GLint>::const_iterator uniformIt = uniforms.find(uniform_name);
+void Shader::setUniform(const Matrix4x4& uniformData, const char* uniformName) const {
+  std::map<std::string, GLint>::const_iterator uniformIt = uniforms.find(uniformName);
   if (uniformIt != uniforms.end()) {
     GLint uniform_id = (*uniformIt).second;
-    glUniformMatrix4fv(uniform_id, 1, GL_TRUE, uniform_data.valuePtr());
+    glUniformMatrix4fv(uniform_id, 1, GL_TRUE, uniformData.valuePtr());
   }
 }
 
-void Shader::add_uniform(const char* uniform_name) {
-  LOG(LOG_CHANNEL_SHADER, "Adding uniform %s", uniform_name);
-  GLint uniform_id = glGetUniformLocation(program, uniform_name);
-  uniforms.insert(std::make_pair(uniform_name, uniform_id));
+void Shader::addUniform(const char* uniformName) {
+  LOG(LOG_CHANNEL_SHADER, "Adding uniform %s", uniformName);
+  GLint uniform_id = glGetUniformLocation(program, uniformName);
+  uniforms.insert(std::make_pair(uniformName, uniform_id));
 }
 
-void Shader::set_uniform(int uniform_data, const char* uniform_name) const {
-  std::map<std::string, GLint>::const_iterator uniformIt = uniforms.find(uniform_name);
+void Shader::setUniform(int uniformData, const char* uniformName) const {
+  std::map<std::string, GLint>::const_iterator uniformIt = uniforms.find(uniformName);
   if (uniformIt != uniforms.end()) {
     GLint uniform_id = (*uniformIt).second;
-    glUniform1i(uniform_id, uniform_data);
+    glUniform1i(uniform_id, uniformData);
   }  
 }
 
-void Shader::set_uniform(float uniform_data, const char* uniform_name) const {
-  std::map<std::string, GLint>::const_iterator uniformIt = uniforms.find(uniform_name);
+void Shader::setUniform(float uniformData, const char* uniformName) const {
+  std::map<std::string, GLint>::const_iterator uniformIt = uniforms.find(uniformName);
   if (uniformIt != uniforms.end()) {
     GLint uniform_id = (*uniformIt).second;
-    glUniform1f(uniform_id, uniform_data);
+    glUniform1f(uniform_id, uniformData);
   }  
 }
 
-void Shader::set_uniform(float* uniform_data, size_t size, const char* uniform_name) const {
-  GLint uniform_id = glGetUniformLocation(program, uniform_name);
-  glUniform3fv(uniform_id, (GLsizei)size, uniform_data);
+void Shader::setUniform(float* uniformData, size_t size, const char* uniformName) const {
+  GLint uniform_id = glGetUniformLocation(program, uniformName);
+  glUniform3fv(uniform_id, (GLsizei)size, uniformData);
 }
