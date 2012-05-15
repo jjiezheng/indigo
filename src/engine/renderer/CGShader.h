@@ -9,7 +9,7 @@ class CGShader : public IShader {
   
 public:
   
-  void load(const std::string& vertexShaderPath, const std::string& fragmentShaderPath);
+  void load(const char* vertexShaderPath, const char* fragmentShaderPath);
   
   void link();
   

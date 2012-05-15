@@ -58,7 +58,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="GLFW.lib OpenGL32.lib assimp.lib FreeImage.lib glew32.lib "
+				AdditionalDependencies="cg.lib cgGL.lib GLFW.lib OpenGL32.lib assimp.lib FreeImage.lib glew32.lib "
 				AdditionalLibraryDirectories="../../libs/glew/lib;../../libs/glfw/lib;../../libs/assimp/lib;../../libs/freeimage"
 				GenerateDebugInformation="true"
 				TargetMachine="1"
@@ -83,7 +83,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="mkdir $(TargetDir)\assets&#x0D;&#x0A;copy $(ProjectDir)..\..\assets $(TargetDir)\assets&#x0D;&#x0A;&#x0D;&#x0A;copy $(ProjectDir)..\..\libs\freeimage\FreeImage.dll $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)..\..\libs\glew\bin\glew32.dll $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)..\..\libs\devil\lib\DevIL.dll $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)..\..\libs\devil\lib\ILU.dll $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)..\..\libs\msvcr\*.dll $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)..\..\libs\assimp\dll\Assimp32.dll $(TargetDir)"
+				CommandLine="mkdir $(TargetDir)\assets&#x0D;&#x0A;copy $(ProjectDir)..\..\assets $(TargetDir)\assets&#x0D;&#x0A;&#x0D;&#x0A;copy $(ProjectDir)..\..\libs\freeimage\FreeImage.dll $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)..\..\libs\glew\bin\glew32.dll $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)..\..\libs\devil\lib\DevIL.dll $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)..\..\libs\devil\lib\ILU.dll $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)..\..\libs\msvcr\*.dll $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)..\..\libs\assimp\dll\Assimp32.dll $(TargetDir)&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -380,6 +380,14 @@
 				</File>
 				<File
 					RelativePath="..\..\src\engine\renderer\Camera.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\engine\renderer\CGShader.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\engine\renderer\CGShader.h"
 					>
 				</File>
 				<File

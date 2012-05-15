@@ -259,7 +259,7 @@ void WorldLoader::loadShader(Material& material, const std::string &shaderFilePa
   json::String vertexFilePath = shaderObject["vertex"];
   json::String fragmentFilePath = shaderObject["fragment"];
      
-  shader->load(vertexFilePath.Value(), fragmentFilePath.Value());
+  shader->load(vertexFilePath.Value().c_str(), fragmentFilePath.Value().c_str());
   
   json::Object attributesArray = shaderObject["attributes"];
   json::Object::iterator ait = attributesArray.begin();

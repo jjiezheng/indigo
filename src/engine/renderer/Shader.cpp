@@ -52,7 +52,7 @@ void Shader::bindAttribute(int attributeId, const char* attribute_name) {
   glBindAttribLocation(program, attributeId, attribute_name);
 }
 
-void Shader::load(const std::string& vertexShaderPath, const std::string& fragmentShaderPath) {
+void Shader::load(const char* vertexShaderPath, const char* fragmentShaderPath) {
   std::string vert_path = Path::pathForFile(vertexShaderPath);
   std::string frag_path = Path::pathForFile(fragmentShaderPath);
 

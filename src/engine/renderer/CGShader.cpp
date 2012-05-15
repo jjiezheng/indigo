@@ -12,6 +12,7 @@
 #include "Color4.h"
 #include "Color3.h"
 
+#include "OpenGL.h"
 #include <Cg/Cg.h>
 #define CGGL_NO_OPENGL
 #include <Cg/cgGL.h>
@@ -49,7 +50,7 @@ CGprogram loadCGProgram(CGcontext context, const std::string& fullPath, CGGLenum
   return program;
 }
 
-void CGShader::load(const std::string& vertexShaderPath, const std::string& fragmentShaderPath) {  
+void CGShader::load(const char* vertexShaderPath, const char* fragmentShaderPath) {  
   context_ = cgCreateContext();  
   checkForCgError(context_, "creating context");
   

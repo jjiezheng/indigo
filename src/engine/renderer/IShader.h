@@ -14,7 +14,7 @@ class IShader {
 
 public:
   
-  virtual void load(const std::string& vertexShaderPath, const std::string& fragmentShaderPath) = 0;
+  virtual void load(const char* vertexShaderPath, const char* fragmentShaderPath) = 0;
   
   virtual void link() = 0;
   
