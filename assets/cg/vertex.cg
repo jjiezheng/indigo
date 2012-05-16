@@ -1,10 +1,10 @@
-struct Output {
+struct VOutput {
   float4 position : POSITION;
 };
 
-Output main(float4 position : POSITION) 
+VOutput vmain(float4 position : ATTR0) 
 {
-	Output OUT;
+	VOutput OUT;
 	OUT.position = position;
   return OUT;
 }

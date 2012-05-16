@@ -16,11 +16,15 @@
 //#include <OpenGL/gl3ext.h>
 //#include <OpenGL/gltypes.h>
 //#include <OpenGL/gl.h>
-typedef int64_t GLint64EXT;
-typedef uint64_t GLuint64EXT;
+//typedef int64_t GLint64EXT;
+//typedef uint64_t GLuint64EXT;
 
-#include <GL/glew.h>
+//#include <GL/glew.h>
+#include <OpenGL/glu.h>
 #include <GL/glfw.h>
+
+#define glBindVertexArray glBindVertexArrayAPPLE
+#define glGenVertexArrays glGenVertexArraysAPPLE
 
 #endif
 

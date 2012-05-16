@@ -56,7 +56,7 @@ void CGShader::load(const char* vertexShaderPath, const char* fragmentShaderPath
   context_ = cgCreateContext();  
   checkForCgError(context_, "creating context");
   
-  cgGLSetDebugMode(CG_FALSE);
+  cgGLSetDebugMode(CG_TRUE);
   cgSetParameterSettingMode(context_, CG_DEFERRED_PARAMETER_SETTING);
 
   std::string fullVertexPath = Path::pathForFile(vertexShaderPath);
@@ -102,7 +102,7 @@ void CGShader::setUniform(const Matrix3x3& uniformData, const char* uniformName)
 void CGShader::setUniform(const Matrix4x4& uniformData, const char* uniformName) const {
   CGparameter parameter = cgGetNamedParameter(program_, uniformName);
   if (parameter) {
-	cgGLSetMatrixParameterfr(parameter, uniformData.valuePtr());
+    cgGLSetMatrixParameterfr(parameter, uniformData.valuePtr());
   }
 }
 
@@ -127,10 +127,10 @@ void CGShader::setUniform(int uniformData, const char* uniformName) const {
   if (parameter) {
    // cgGLSetParameter1d(parameter, uniformData);
   }
-
-  if (uniformName == "colorMap") {
-    //cgGLSetTextureParameter(parameter, uniformData);
-  }
+//
+//  if (uniformName == "colorMap") {
+//    //cgGLSetTextureParameter(parameter, uniformData);
+//  }
 }
 
 void CGShader::setUniform(float uniformData, const char* uniformName) const {

@@ -32,7 +32,7 @@ public:
     GLenum error = glGetError();
  
     if (error != GL_NO_ERROR) {
-      const GLubyte * errorString = glGetString(error);
+      const GLubyte * errorString = gluErrorString(error);
       printf("%s", errorString);
     }
     assert(error == GL_NO_ERROR);

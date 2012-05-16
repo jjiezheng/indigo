@@ -25,9 +25,14 @@ void Game::init() {
 
   sceneContext_.setFog(FOG_NONE, 0.66f, -10, -100, Color4(0.6f, 0.6f, 0.6f));
   sceneContext_.setBackgroundColor(Color3( 0.4f, 0.6f, 0.93f));
+  
+//  box_.init();
 }
  
 void Game::mainLoop() { 
+//  glClearColor(0.0, 1.0, 0.0, 1.0);
+//  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//  box_.render();
   float dt = clock_.delta_time(); 
 
   camera_.update(dt);
