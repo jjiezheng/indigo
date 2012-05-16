@@ -37,8 +37,8 @@ CGprogram loadCGProgram(CGcontext context, const std::string& fullPath, CGGLenum
   CGprofile profile = cgGLGetLatestProfile(type);
   checkForCgError(context, "selecting vertex profile");
   
-//  cgGLSetOptimalOptions(profile);
-//  checkForCgError(context, "setting optimal options");
+  cgGLSetOptimalOptions(profile);
+  checkForCgError(context, "setting optimal options");
   
   printf("compiling shader %s\n", fullPath.c_str());
   CGprogram program = cgCreateProgramFromFile(context, CG_SOURCE, fullPath.c_str(), profile, "main", NULL);
@@ -57,18 +57,42 @@ void CGShader::load(const char* vertexShaderPath, const char* fragmentShaderPath
   cgGLSetDebugMode(CG_FALSE);
   cgSetParameterSettingMode(context_, CG_DEFERRED_PARAMETER_SETTING);
   
-  CGprogram programs[2];
-  
-  std::string fullVertexPath = Path::pathForFile(vertexShaderPath);
-  programs[0] = loadCGProgram(context_, fullVertexPath, CG_GL_VERTEX);
-    
-  std::string fullFragPath = Path::pathForFile(fragmentShaderPath);
-  programs[1] = loadCGProgram(context_, fullFragPath, CG_GL_FRAGMENT);
-  
-  program_ = cgCombinePrograms(2, programs);
-  
-  cgDestroyProgram(programs[1]);
-  cgDestroyProgram(programs[0]);
+  {
+    std::string fullVertexPath = Path::pathForFile(vertexShaderPath);
+    vertexProfile = cgGLGetLatestProfile(CG_GL_VERTEX);
+    checkForCgError(context_, "selecting vertex profile");
+
+    cgGLSetOptimalOptions(vertexProfile);
+    checkForCgError(context_, "setting optimal options");
+
+    printf("compiling shader %s\n", fullVertexPath.c_str());
+    vertexProgram = cgCreateProgramFromFile(context_, CG_SOURCE, fullVertexPath.c_str(), vertexProfile, "main", NULL);
+    checkForCgError(context_, "creating program from file");
+
+    cgGLLoadProgram(vertexProgram);  
+    checkForCgError(context_, "loading vertex program");
+  }
+
+  {
+    std::string fullFragmentPath = Path::pathForFile(fragmentShaderPath);
+    fragmentProfile = cgGLGetLatestProfile(CG_GL_FRAGMENT);
+    checkForCgError(context_, "selecting fragment profile");
+
+    cgGLSetOptimalOptions(fragmentProfile);
+    checkForCgError(context_, "setting optimal options");
+
+    printf("compiling shader %s\n", fullFragmentPath.c_str());
+    fragmentProgram = cgCreateProgramFromFile(context_, CG_SOURCE, fullFragmentPath.c_str(), fragmentProfile, "main", NULL);
+    checkForCgError(context_, "creating program from file");
+
+    cgGLLoadProgram(fragmentProgram);  
+    checkForCgError(context_, "loading fragment program");
+
+    CGprogram programs[] = {vertexProgram, fragmentProgram};
+    program_ = cgCombinePrograms(2, programs);
+
+    cgGLLoadProgram(program_);
+  }
 }
 
 void CGShader::link() {
@@ -76,7 +100,21 @@ void CGShader::link() {
 }
 
 void CGShader::use() const {
+  cgGLLoadProgram(program_);
   cgGLBindProgram(program_);
+  checkForCgError(context_, "binding vertex program");
+  
+  /*cgGLBindProgram(vertexProgram);
+  checkForCgError(context_, "binding vertex program");*/
+
+  cgGLEnableProfile(vertexProfile);
+  checkForCgError(context_, "enabling vertex profile");
+
+  /*cgGLBindProgram(fragmentProgram);
+  checkForCgError(context_, "binding fragment program");*/
+
+  cgGLEnableProfile(fragmentProfile);
+  checkForCgError(context_, "enabling fragment profile"); 
 }
 
 void CGShader::bindAttribute(int attributeId, const char* attribute_name) {

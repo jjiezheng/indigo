@@ -19,7 +19,7 @@ void App::run() {
 #endif
 
 #ifdef PLATFORM_MAC  
-//  glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
+  glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
   glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 2);
   glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 1);
 #endif

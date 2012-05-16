@@ -5,7 +5,7 @@ struct Output {
 
 Output main() {
 	Output OUT;
-	OUT.color = float4(0, 0, 0, 1);
+	OUT.color = float4(1, 1, 0, 1);
 
   return OUT;
 }

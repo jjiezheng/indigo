@@ -47,9 +47,7 @@ void Shader::compile_fragment(const std::string& fragment_source) {
   fragment = compile_shader(fragment_source, GL_FRAGMENT_SHADER);
 }
 
-void Shader::bindAttribute(int attributeId, const char* attribute_name) {
-  LOG(LOG_CHANNEL_SHADER, "Binding attribute %s", attribute_name);
-  glBindAttribLocation(program, attributeId, attribute_name);
+void Shader::bindAttribute(int attributeId, const char* attribute_name) { 
 }
 
 void Shader::load(const char* vertexShaderPath, const char* fragmentShaderPath) {
