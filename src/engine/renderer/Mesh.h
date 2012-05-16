@@ -1,8 +1,6 @@
 #ifndef MESH_H
 #define MESH_H
 
-#include <OpenGL/OpenGL.h>
-
 #include "core/Standard.h"
 
 #include "Color3.h"
