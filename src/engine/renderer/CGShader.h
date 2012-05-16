@@ -43,6 +43,7 @@ private:
   
   CGcontext context_;
   CGprogram program_;
+  CGprofile profile_;
 
   CGprofile vertexProfile;
   CGprogram vertexProgram;

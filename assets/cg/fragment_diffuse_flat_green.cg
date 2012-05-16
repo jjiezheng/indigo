@@ -1,11 +1,3 @@
-
-struct Output {
-	float4 color : COLOR;
-};
-
-Output main() {
-	Output OUT;
-	OUT.color = float4(1, 1, 0, 1);
-
-  return OUT;
+float4 main() : COLOR {
+  return float4(1.0, 1.0, 0.0, 1.0);
 }

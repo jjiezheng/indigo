@@ -24,7 +24,7 @@ void App::run() {
   glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 1);
 #endif
 
-  if (!glfwOpenWindow(1024, 768, 0, 0, 0, 0, 0, 0, GLFW_WINDOW)) {
+  if (!glfwOpenWindow(1024, 768, 0, 0, 0, 0, 32, 0, GLFW_WINDOW)) {
     LOG(LOG_CHANNEL_INIT, "Error opening GLFW Window");
     glfwTerminate();
     return;
@@ -50,7 +50,7 @@ void App::run() {
     }
   }
 
-  //glfwTerminate();
+  glfwTerminate();
 }
 
 void App::keyFunction(int character, int state) {

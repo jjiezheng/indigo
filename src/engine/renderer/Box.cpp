@@ -15,13 +15,13 @@ Box* Box::box() {
 
 void Box::init() {
   GLfloat vertices[] = {
-    -1.0f, -1.0f, 0.0f,
-    1.0f, -1.0f, 0.0f,
-    -1.0f, 1.0f, 0.0f,
+    -0.5f, -0.5f, 0.0f,
+    0.5f, -0.5f, 0.0f,
+    -0.5f, 0.5f, 0.0f,
     
-    -1.0f, 1.0f, 0.0f,
-    1.0f, -1.0f, 0.0f,
-    1.0f, 1.0f, 0.0f,
+    -0.5f, 0.5f, 0.0f,
+    0.5f, -0.5f, 0.0f,
+    0.5f, 0.5f, 0.0f,
   };
   
   glGenVertexArrays(1, &vertexArray);
@@ -36,15 +36,17 @@ void Box::init() {
   
   glBindVertexArray(0);
   
-  {
-    shader_.load("vmvp.vsh", "f.fsh");    
+  /*{
+    shader_.load("glsl/v.vsh", "glsl/f.fsh");    
     shader_.bindAttribute(ATTRIB_VERTEX, "vertex");
     
     shader_.link();    
-    
-    shader_.addUniform("model");
-    shader_.addUniform("view");
-    shader_.addUniform("projection");    
+  }*/
+  {
+
+	cgShader_.load("cg/vertex.cg", "cg/fragment_diffuse_flat_green.cg");
+	cgShader_.bindAttribute(ATTRIB_VERTEX, "position");
+	cgShader_.link();    
   }
 }
 
@@ -52,7 +54,8 @@ void Box::queueRender(Renderer* renderer) {
 }
 
 void Box::render() const {
-  shader_.use();
+  //shader_.use();
+  cgShader_.use();
   glBindVertexArray(vertexArray);
   glDrawArrays(GL_TRIANGLES, 0, 6);   
 }

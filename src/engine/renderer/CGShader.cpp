@@ -17,6 +17,8 @@
 #define CGGL_NO_OPENGL
 #include <Cg/cgGL.h>
 
+static const char* kEntryPointName = "main";
+
 
 static void checkForCgError(CGcontext context, const char *situation) {
   CGerror error;
@@ -66,7 +68,7 @@ void CGShader::load(const char* vertexShaderPath, const char* fragmentShaderPath
     checkForCgError(context_, "setting optimal options");
 
     printf("compiling shader %s\n", fullVertexPath.c_str());
-    vertexProgram = cgCreateProgramFromFile(context_, CG_SOURCE, fullVertexPath.c_str(), vertexProfile, "main", NULL);
+    vertexProgram = cgCreateProgramFromFile(context_, CG_SOURCE, fullVertexPath.c_str(), vertexProfile, kEntryPointName, NULL);
     checkForCgError(context_, "creating program from file");
 
     cgGLLoadProgram(vertexProgram);  
@@ -82,7 +84,7 @@ void CGShader::load(const char* vertexShaderPath, const char* fragmentShaderPath
     checkForCgError(context_, "setting optimal options");
 
     printf("compiling shader %s\n", fullFragmentPath.c_str());
-    fragmentProgram = cgCreateProgramFromFile(context_, CG_SOURCE, fullFragmentPath.c_str(), fragmentProfile, "main", NULL);
+    fragmentProgram = cgCreateProgramFromFile(context_, CG_SOURCE, fullFragmentPath.c_str(), fragmentProfile, kEntryPointName, NULL);
     checkForCgError(context_, "creating program from file");
 
     cgGLLoadProgram(fragmentProgram);  
@@ -101,20 +103,13 @@ void CGShader::link() {
 
 void CGShader::use() const {
   cgGLLoadProgram(program_);
+  checkForCgError(context_, "loading program");
+
   cgGLBindProgram(program_);
-  checkForCgError(context_, "binding vertex program");
-  
-  /*cgGLBindProgram(vertexProgram);
-  checkForCgError(context_, "binding vertex program");*/
+  checkForCgError(context_, "binding shader program");
 
-  cgGLEnableProfile(vertexProfile);
-  checkForCgError(context_, "enabling vertex profile");
-
-  /*cgGLBindProgram(fragmentProgram);
-  checkForCgError(context_, "binding fragment program");*/
-
-  cgGLEnableProfile(fragmentProfile);
-  checkForCgError(context_, "enabling fragment profile"); 
+  cgGLEnableProgramProfiles(program_);
+  checkForCgError(context_, "enable program profiles");
 }
 
 void CGShader::bindAttribute(int attributeId, const char* attribute_name) {
@@ -122,52 +117,41 @@ void CGShader::bindAttribute(int attributeId, const char* attribute_name) {
 }
 
 void CGShader::setUniform(const Matrix3x3& uniformData, const char* uniformName) const {
-  CGparameter parameter = cgGetNamedParameter(program_, uniformName);
-  cgSetMatrixParameterfr(parameter, uniformData.valuePtr());
+ 
 }
 
 void CGShader::setUniform(const Matrix4x4& uniformData, const char* uniformName) const {
-  CGparameter parameter = cgGetNamedParameter(program_, uniformName);
-  cgSetMatrixParameterfr(parameter, uniformData.valuePtr());  
+  
 }
 
 void CGShader::setUniform(const Color3& uniformData, const char* uniformName) const {
-  CGparameter parameter = cgGetNamedParameter(program_, uniformName);
-  cgSetParameter3fv(parameter, uniformData.valuePtr());
+ 
 }
 
 void CGShader::setUniform(const Color4& uniformData, const char* uniformName) const {
-  CGparameter parameter = cgGetNamedParameter(program_, uniformName);
-  cgSetParameter4fv(parameter, uniformData.valuePtr());
+ 
 }
 
 void CGShader::setUniform(const Vector3& uniformData, const char* uniformName) const {
-  CGparameter parameter = cgGetNamedParameter(program_, uniformName);
-  cgSetParameter3fv(parameter, uniformData.valuePtr());
+  
 }
 
 void CGShader::setUniform(const Vector4& uniformData, const char* uniformName) const {
-  CGparameter parameter = cgGetNamedParameter(program_, uniformName);
-  cgSetParameter4fv(parameter, uniformData.valuePtr());  
+  
 }
 
 void CGShader::setUniform(int uniformData, const char* uniformName) const {
-  CGparameter parameter = cgGetNamedParameter(program_, uniformName);
-  cgSetParameter1i(parameter, uniformData);
+  
 }
 
 void CGShader::setUniform(float uniformData, const char* uniformName) const {
-  CGparameter parameter = cgGetNamedParameter(program_, uniformName);
-  cgSetParameter1f(parameter, uniformData);
+  
 }
 
 void CGShader::addUniform(const char* uniformName) {
-  cgGetNamedParameter(program_, uniformName);
-//  checkForCgError(context_, "could not get parameter");
+ 
 }
 
 void CGShader::setUniform(float* uniformData, size_t size, const char* uniformName) const {
-  CGparameter parameter = cgGetNamedParameter(program_, uniformName);
-  cgSetParameterValuefr(parameter, size, uniformData);
-  
+ 
 }

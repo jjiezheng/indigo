@@ -3,6 +3,7 @@
 
 #include "core/Standard.h"
 #include "Shader.h"
+#include "CGShader.h"
 
 class Renderer;
 
@@ -11,7 +12,7 @@ class Box {
 public:
   
   Box() { };
-  
+	
 public:
   
   static Box* box();
@@ -32,6 +33,7 @@ private:
 private:
   
   Shader shader_;
+  CGShader cgShader_;
   
 };
 
