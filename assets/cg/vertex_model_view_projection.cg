@@ -1,0 +1,11 @@
+struct Output {
+	float4 position : POSITION;
+};
+
+Output main(float4 position : POSITION,
+	         uniform float4x4 modelViewProjection) {
+
+	Output OUT;
+	OUT.position = mul(modelViewProjection, position);
+  return OUT;
+}

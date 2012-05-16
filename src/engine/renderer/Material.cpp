@@ -29,12 +29,16 @@ void Material::bind(const IViewer* camera, const Matrix4x4& model, const Matrix3
     lightPositions[lightPositionIndex++] = (*lit).position().z;
     
     Matrix4x4 lightMatrix = offsetMatrix * camera->projection() * (*lit).viewTransform();
-    shader_->setUniform(lightMatrix, "lightMatrix");        
+    shader_->setUniform(lightMatrix, "lightMatrix");
   }
-  
+   
   shader_->setUniform((int)lights.size(), "numPointLights");
   shader_->setUniform(normalMatrix, "normalMatrix");  
   shader_->setUniform(lightPositions, lightPositionIndex, "lightPositions");  
+
+	Matrix4x4 modelViewProjection = camera->projection() * camera->viewTransform() * model;
+  shader_->setUniform(modelViewProjection, "modelViewProjection");  
+
   shader_->setUniform(camera->viewTransform(), "view");
   shader_->setUniform(camera->projection(), "projection");
   shader_->setUniform(model, "model");

@@ -101,7 +101,7 @@ void RendererShadow::init(const CSize &screenSize) {
 }
 
 void RendererShadow::render(const World& world, SceneContext& sceneContext) {
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  /*glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_CULL_FACE);
@@ -130,6 +130,8 @@ void RendererShadow::render(const World& world, SceneContext& sceneContext) {
   
   glDisable(GL_DEPTH_TEST);
   glDisable(GL_CULL_FACE);
+
+  glUseProgram(0);*/ 
 }
 
 void RendererShadow::renderDebug(SceneContext& sceneContext) {
@@ -141,4 +143,6 @@ void RendererShadow::renderDebug(SceneContext& sceneContext) {
   glBindTexture(GL_TEXTURE_2D, shadowTexture_);  
   glBindVertexArray(debugVertArray_);
   glDrawArrays(GL_TRIANGLES, 0, 6);    
+
+  glUseProgram(0);
 }

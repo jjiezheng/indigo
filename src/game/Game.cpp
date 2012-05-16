@@ -10,29 +10,25 @@
 #include "app/Window.h"
 
 void Game::init() {
-  box_.init();
-  /*properties_.init();
+  properties_.init();
   
   camera_.translateZ(10.0f);
   camera_.translateY(1.8f);
   
   shadowRenderer_.init(Window::screenSize());
-
+ 
   Matrix4x4 projection = Matrix4x4::perspective(45.0f, Window::aspectRatio(), 1.0f, 200.0f);
   camera_.setProjection(projection);
   
   WorldLoader loader;
-  loader.loadFromSceneFile("scenes/box/box.scene", world_, sceneContext_);
+  loader.loadFromSceneFile("scenes/testcars/testcars.scene", world_, sceneContext_);
 
   sceneContext_.setFog(FOG_NONE, 0.66f, -10, -100, Color4(0.6f, 0.6f, 0.6f));
-  sceneContext_.setBackgroundColor(Color3( 0.4f, 0.6f, 0.93f)); */
+  sceneContext_.setBackgroundColor(Color3( 0.4f, 0.6f, 0.93f));
 }
 
 void Game::mainLoop() {
-	glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
-  box_.render();
-  /*float dt = clock_.delta_time(); 
+  float dt = clock_.delta_time(); 
 
   camera_.update(dt);
   
@@ -41,7 +37,7 @@ void Game::mainLoop() {
 
   if (properties_.getProperty(PROPERTY_RENDER_SHADOWMAP)) {
     shadowRenderer_.renderDebug(sceneContext_);
-  }*/
+  }
 }
 
 void Game::keyUp(char character) {

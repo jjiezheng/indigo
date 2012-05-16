@@ -1,0 +1,14 @@
+struct Output {
+	float4 position : POSITION;
+  float2 texture  : TEXCOORD0;
+};
+
+Output main(float4 position : POSITION,
+			      float2 texture : TEXCOORD0,
+	          uniform float4x4 modelViewProjection) {
+
+	Output OUT;
+	OUT.position = mul(modelViewProjection, position);
+  OUT.texture = texture;
+  return OUT;
+}

@@ -1,10 +1,10 @@
 struct Output {
-	float4 position : POSITION;
+  float4 position : POSITION;
 };
 
-Output main(float3 position : POSITION) 
+Output main(float4 position : POSITION) 
 {
 	Output OUT;
-	OUT.position = float4(position, 1);
+	OUT.position = position;
   return OUT;
 }

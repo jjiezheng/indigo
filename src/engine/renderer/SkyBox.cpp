@@ -148,4 +148,8 @@ void SkyBox::render(const IViewer* camera, const SceneContext& sceneContext) con
   
   glBindVertexArray(vertexArray);
   glDrawArrays(GL_TRIANGLES, 0, NUM_VERTICES);
+
+  glBindTexture(GL_TEXTURE_2D, 0);
+
+  glUseProgram(0);
 }

@@ -1,0 +1,4 @@
+float4 main(float2 texture  : TEXCOORD0,
+			uniform sampler2D colorMap) : COLOR {
+  return tex2D(colorMap, texture);
+}

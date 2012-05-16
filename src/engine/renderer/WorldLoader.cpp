@@ -133,13 +133,15 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
     float* uvs = new float[aiMesh->mNumVertices*sizeof(aiVector2D)];
     
     int vertIndex = 0;
-    int uvIndex = 0;
+    int uvIndex = 0; 
     for (unsigned int vertexi = 0; vertexi < aiMesh->mNumVertices; vertexi++) {
       
       // vertex
       aiVector3D vertex = aiMesh->mVertices[vertexi];
       Vector4 originalVertex(vertex.x, vertex.y, vertex.z);
       Vector4 rotatedVertex = originalVertex;
+ 
+      LOG(LOG_CHANNEL_WORLDLOADER, "%s", rotatedVertex.toString().c_str());
       
       // normal
       aiVector3D normal = aiMesh->mNormals[vertexi];
@@ -189,7 +191,7 @@ void WorldLoader::loadMaterial(Model* model, const std::string& materialFilePath
   
   json::Object materialObject; 
   json::Reader::Read(materialObject, materialFile); 
-
+ 
   json::String shaderFilePath = materialObject["shader"];
  
   Material material;
