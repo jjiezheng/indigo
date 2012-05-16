@@ -1,5 +1,7 @@
 {
-  "shader" : "cgshaders/diffuse_flat_green.shader",
+  "shader" : "cgshaders/diffuse_bump_texture.shader",
   "parameters" : { },
-  "textures" : [ ]
+  "textures" : [
+    "actors/shuttle/shuttle_diffuse.dds"
+  ]
 }

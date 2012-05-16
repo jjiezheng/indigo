@@ -164,3 +164,8 @@ void Shader::setUniform(float* uniformData, size_t size, const char* uniformName
   GLint uniform_id = glGetUniformLocation(program, uniformName);
   glUniform3fv(uniform_id, (GLsizei)size, uniformData);
 }
+
+void Shader::setTexture(int textureIndex, unsigned int textureId, const char* uniformName) {
+  glActiveTexture(GL_TEXTURE0 + textureIndex);
+  glBindTexture(GL_TEXTURE_2D, textureId);
+}

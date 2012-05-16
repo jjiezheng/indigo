@@ -32,14 +32,10 @@ void Mesh::init(float* vertices, float* normals, float* uvs, int numVertices) {
   glBufferData(GL_ARRAY_BUFFER, 2 * sizeof(float) * numVertices, uvs, GL_STATIC_DRAW);
   glVertexAttribPointer(ATTRIB_UV, 2, GL_FLOAT, 0, 0, 0);
   glEnableVertexAttribArray(ATTRIB_UV);
-
-  glBindVertexArray(0);
 }
 
 void Mesh::render(const IViewer* camera, const Matrix4x4& model, const Matrix3x3& normalMatrix, const SceneContext& sceneContext) const {
   material_.bind(camera, model, normalMatrix, sceneContext);
   glBindVertexArray(vertexArray);
-  
-  //cgGLSetParameterPointer(cgGetNamedParameter(programId, "position"), 3, GL_FLOAT, 0, vertices);
   glDrawArrays(GL_TRIANGLES, 0, (GLint)(numVertices_/3.0f));   
 }

@@ -14,7 +14,7 @@ void Renderer3d::render(const Camera& camera, const World& world, const SceneCon
   
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   
-  world.skyBox().render(&camera, sceneContext);
+//  world.skyBox().render(&camera, sceneContext);
   
   std::vector<Model>::const_iterator it = world.begin();
   for (; it != world.end(); ++it) {

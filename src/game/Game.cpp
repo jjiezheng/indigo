@@ -15,24 +15,24 @@ void Game::init() {
   camera_.translateZ(10.0f);
   camera_.translateY(1.8f);
   
-  shadowRenderer_.init(Window::screenSize());
+  //shadowRenderer_.init(Window::screenSize());
  
   Matrix4x4 projection = Matrix4x4::perspective(45.0f, Window::aspectRatio(), 1.0f, 200.0f);
   camera_.setProjection(projection);
   
-  WorldLoader loader;
-  loader.loadFromSceneFile("scenes/testcars/testcars.scene", world_, sceneContext_);
+  WorldLoader loader; 
+  loader.loadFromSceneFile("scenes/box/box.scene", world_, sceneContext_);
 
   sceneContext_.setFog(FOG_NONE, 0.66f, -10, -100, Color4(0.6f, 0.6f, 0.6f));
   sceneContext_.setBackgroundColor(Color3( 0.4f, 0.6f, 0.93f));
 }
-
-void Game::mainLoop() {
+ 
+void Game::mainLoop() { 
   float dt = clock_.delta_time(); 
 
   camera_.update(dt);
   
-  shadowRenderer_.render(world_, sceneContext_);
+  //shadowRenderer_.render(world_, sceneContext_);
   renderer_.render(camera_, world_, sceneContext_);
 
   if (properties_.getProperty(PROPERTY_RENDER_SHADOWMAP)) {

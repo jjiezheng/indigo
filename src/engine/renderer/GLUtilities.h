@@ -2,6 +2,7 @@
 #define GLUtilities_H
 
 #include "OpenGL.h"
+#include <assert.h>
 
 class GLUtilities {
   
@@ -24,6 +25,17 @@ public:
       case GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE: printf("GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE\n"); break;
       default: break;
     }
+  }
+
+  static
+  void checkForError() {
+    GLenum error = glGetError();
+ 
+    if (error != GL_NO_ERROR) {
+      const GLubyte * errorString = glGetString(error);
+      printf("%s", errorString);
+    }
+    assert(error == GL_NO_ERROR);
   }
   
 };

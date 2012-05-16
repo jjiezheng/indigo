@@ -41,6 +41,10 @@ public:
   void addUniform(const char* uniformName);
   
   void setUniform(float* uniformData, size_t size, const char* uniformName) const;
+
+public:
+
+  void setTexture(int textureIndex, unsigned int textureId, const char* uniformName);
     
 private:
   

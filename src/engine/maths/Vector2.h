@@ -1,6 +1,8 @@
 #ifndef Vector2_H_
 #define Vector2_H_
 
+#include <string>
+
 class Vector2 {
   
 public:
@@ -22,6 +24,10 @@ public:
 public:
   
   float aspectRatio() const;
+
+public:
+
+  std::string toString() const;
   
 public:
   

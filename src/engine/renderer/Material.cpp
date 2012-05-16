@@ -10,8 +10,16 @@
 
 void Material::bind(const IViewer* camera, const Matrix4x4& model, const Matrix3x3& normalMatrix, const SceneContext& sceneContext) const {
   shader_->use();
+
+  Matrix4x4 modelViewProjection = camera->projection() * camera->viewTransform() * model;
+  shader_->setUniform(modelViewProjection, "modelViewProjection"); 
+
+  /*shader_->setUniform(camera->viewTransform(), "view");
+  shader_->setUniform(camera->projection(), "projection");
+  shader_->setUniform(model, "model");  */
+
   
-  Matrix4x4 offsetMatrix(0.5f, 0.0f, 0.0f, 0.5f,
+/*  Matrix4x4 offsetMatrix(0.5f, 0.0f, 0.0f, 0.5f,
                          0.0f, 0.5f, 0.0f, 0.5f,
                          0.0f, 0.0f, 0.5f, 0.5f,
                          0.0f, 0.0f, 0.0f, 1.0f);
@@ -21,7 +29,7 @@ void Material::bind(const IViewer* camera, const Matrix4x4& model, const Matrix3
   int lightPositionIndex = 0;
   
   std::vector<Light> lights = sceneContext.lights();
-  std::vector<Light>::iterator lit = lights.begin();
+  std::vector<Light>::iterator lit = lights.begin(); 
   
   for (; lit != lights.end(); ++lit) {
     lightPositions[lightPositionIndex++] = (*lit).position().x;
@@ -35,33 +43,26 @@ void Material::bind(const IViewer* camera, const Matrix4x4& model, const Matrix3
   shader_->setUniform((int)lights.size(), "numPointLights");
   shader_->setUniform(normalMatrix, "normalMatrix");  
   shader_->setUniform(lightPositions, lightPositionIndex, "lightPositions");  
-
-	Matrix4x4 modelViewProjection = camera->projection() * camera->viewTransform() * model;
-  shader_->setUniform(modelViewProjection, "modelViewProjection");  
-
-  shader_->setUniform(camera->viewTransform(), "view");
-  shader_->setUniform(camera->projection(), "projection");
-  shader_->setUniform(model, "model");
-      
+    
   glActiveTexture(GL_TEXTURE7);
   glBindTexture(GL_TEXTURE_2D, sceneContext.shadowTexture());
-  shader_->setUniform(7, "shadowMap");
+  shader_->setUniform(7, "shadowMap"); 
   
   shader_->setUniform(sceneContext.fogStart(), "fogStart");
   shader_->setUniform(sceneContext.fogEnd(), "fogEnd");
   shader_->setUniform(sceneContext.fogColor(), "fogColor");
   shader_->setUniform(sceneContext.fogEnd(), "fogType");
-  shader_->setUniform(sceneContext.fogColor(), "fogFactor");
+  shader_->setUniform(sceneContext.fogColor(), "fogFactor");*/
 
-  std::vector<MaterialParameter*>::const_iterator mit = parameters_.begin();
+  /*std::vector<MaterialParameter*>::const_iterator mit = parameters_.begin(); 
   for (; mit != parameters_.end(); ++mit) {
-    (*mit)->setShader(shader_);
-  }
+    (*mit)->setShader(shader_); 
+  }*/
   
   int textureIndex = 0;
   std::vector<Texture>::const_iterator tit = textures_.begin();
   for (; tit != textures_.end(); ++tit) {
-    glActiveTexture(GL_TEXTURE0 + textureIndex++);
-    glBindTexture(GL_TEXTURE_2D, (*tit).textureId());
+    shader_->setTexture(textureIndex++, (*tit).textureId(), "colorMap");
+    break;
   }
 }

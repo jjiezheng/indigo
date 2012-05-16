@@ -141,20 +141,22 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
       Vector4 originalVertex(vertex.x, vertex.y, vertex.z);
       Vector4 rotatedVertex = originalVertex;
  
-      LOG(LOG_CHANNEL_WORLDLOADER, "%s", rotatedVertex.toString().c_str());
+      LOG(LOG_CHANNEL_WORLDLOADER, "vert: %s", rotatedVertex.toString().c_str());
       
       // normal
       aiVector3D normal = aiMesh->mNormals[vertexi];
       Vector4 originalNormal(normal.x, normal.y, normal.z);
       Vector4 rotatedNormal = originalNormal;
-      
+      LOG(LOG_CHANNEL_WORLDLOADER, "norm: %s", originalNormal.toString().c_str());
+
       // uv      
       if (aiMesh->mTextureCoords[0]) {
         aiVector3D uv = aiMesh->mTextureCoords[0][vertexi];
         Vector2 originalUV(uv.x, uv.y);
         Vector2 rotatedUV = originalUV;        
+        LOG(LOG_CHANNEL_WORLDLOADER, "uv: %s", rotatedUV.toString().c_str());
         uvs[uvIndex++] = rotatedUV.x;
-        uvs[uvIndex++] =rotatedUV.y;
+        uvs[uvIndex++] = rotatedUV.y;
       }
       
       verts[vertIndex] = rotatedVertex.x;

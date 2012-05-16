@@ -44,6 +44,10 @@ public:
   
   virtual void setUniform(float* uniformData, size_t size, const char* uniformName) const = 0;
 
+public:
+
+  virtual void setTexture(int textureIndex, unsigned int textureId, const char* uniformName) = 0; 
+
   
 };
 

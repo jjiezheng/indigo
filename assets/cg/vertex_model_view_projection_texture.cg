@@ -1,14 +1,14 @@
-struct Output {
+struct VOutput {
 	float4 position : POSITION;
-  float2 texture  : TEXCOORD0;
+  float2 texCoord : TEXCOORD0;
 };
 
-Output main(float4 position : POSITION,
-			      float2 texture : TEXCOORD0,
+VOutput vmain(float4 position : POSITION,
+              float2 texCoord : TEXCOORD0,
 	          uniform float4x4 modelViewProjection) {
 
-	Output OUT;
+	VOutput OUT;
 	OUT.position = mul(modelViewProjection, position);
-  OUT.texture = texture;
+  OUT.texCoord = texCoord;
   return OUT;
 }

@@ -9,6 +9,8 @@
 #include "IViewer.h"
 #include "SceneContext.h"
 
+#include "GLUtilities.h"
+
 static const int NUM_VERTICES = 36;
 
 void SkyBox::loadCubeSide(const std::string& filename, GLint direction) {
@@ -147,6 +149,7 @@ void SkyBox::render(const IViewer* camera, const SceneContext& sceneContext) con
   shader_.setUniform(sceneContext.fogFactor(), "fogFactor");
   
   glBindVertexArray(vertexArray);
+  GLUtilities::checkForError();
   glDrawArrays(GL_TRIANGLES, 0, NUM_VERTICES);
 
   glBindTexture(GL_TEXTURE_2D, 0);
