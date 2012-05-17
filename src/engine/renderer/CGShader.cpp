@@ -17,18 +17,16 @@
 #define CGGL_NO_OPENGL
 #include <Cg/cgGL.h>
 
-static const char* kFEntryPointName = "fmain";
-static const char* kVEntryPointName = "vmain";
-
+static const char* kEntryPointName = "main";
 
 static void checkForCgError(CGcontext context, const char *situation) {
   CGerror error;
   const char *string = cgGetLastErrorString(&error); 
   
   if (error != CG_NO_ERROR) {
-    printf("%s: %s\n", situation, string);
+   LOG(LOG_CHANNEL_SHADER, "%s: %s\n", situation, string);
     if (error == CG_COMPILER_ERROR) {
-      printf("%s\n", cgGetLastListing(context)); 
+     LOG(LOG_CHANNEL_SHADER, "%s\n", cgGetLastListing(context)); 
     }
     exit(1);
   }
@@ -60,14 +58,14 @@ void CGShader::load(const char* vertexShaderPath, const char* fragmentShaderPath
   cgSetParameterSettingMode(context_, CG_DEFERRED_PARAMETER_SETTING);
 
   std::string fullVertexPath = Path::pathForFile(vertexShaderPath);
-  CGprogram vertexProgram = loadCGProgram(context_, fullVertexPath, CG_GL_VERTEX, kVEntryPointName);
+  CGprogram vertexProgram = loadCGProgram(context_, fullVertexPath, CG_GL_VERTEX, kEntryPointName);
   
   std::string fullFragmentPath = Path::pathForFile(fragmentShaderPath);
-  CGprogram fragmentProgram = loadCGProgram(context_, fullFragmentPath, CG_GL_FRAGMENT, kFEntryPointName);
+  CGprogram fragmentProgram = loadCGProgram(context_, fullFragmentPath, CG_GL_FRAGMENT, kEntryPointName);
 
   CGprogram programs[] = {vertexProgram, fragmentProgram};
   checkForCgError(context_, "combining programs");
-  program_ = cgCombinePrograms(2, programs);
+  program_ = cgCombinePrograms(2, programs); 
 
   cgGLLoadProgram(program_);
 }
@@ -75,8 +73,8 @@ void CGShader::load(const char* vertexShaderPath, const char* fragmentShaderPath
 void CGShader::link() {
  
 }
-
-void CGShader::addUniform(const char* uniformName) {
+ 
+void CGShader::addUniform(const char* uniformName) { 
 
 }
 
@@ -115,22 +113,24 @@ void CGShader::setUniform(const Color4& uniformData, const char* uniformName) co
 }
 
 void CGShader::setUniform(const Vector3& uniformData, const char* uniformName) const {
-  
-}
-
-void CGShader::setUniform(const Vector4& uniformData, const char* uniformName) const {
-  
-}
-
-void CGShader::setUniform(int uniformData, const char* uniformName) const {
   CGparameter parameter = cgGetNamedParameter(program_, uniformName);
   if (parameter) {
-   // cgGLSetParameter1d(parameter, uniformData);
+    cgGLSetParameter3fv(parameter, uniformData.valuePtr());
   }
-//
-//  if (uniformName == "colorMap") {
-//    //cgGLSetTextureParameter(parameter, uniformData);
-//  }
+}
+
+void CGShader::setUniform(const Vector4& uniformData, const char* uniformName) const { 
+  CGparameter parameter = cgGetNamedParameter(program_, uniformName);
+  if (parameter) {
+    cgGLSetParameter4fv(parameter,  uniformData.valuePtr());
+  }
+}
+
+void CGShader::setUniform(int uniformData, const char* uniformName) const { 
+  CGparameter parameter = cgGetNamedParameter(program_, uniformName);
+  if (parameter) {
+    cgGLSetParameter1d(parameter, uniformData);
+  }
 }
 
 void CGShader::setUniform(float uniformData, const char* uniformName) const {
@@ -141,7 +141,10 @@ void CGShader::setUniform(float uniformData, const char* uniformName) const {
 }
 
 void CGShader::setUniform(float* uniformData, size_t size, const char* uniformName) const {
- 
+  CGparameter parameter = cgGetNamedParameter(program_, uniformName);
+  if (parameter) {
+    cgGLSetParameterArray3f(parameter, 0, size, uniformData);
+  }
 }
 
 void CGShader::setTexture(int textureIndex, unsigned int textureId, const char* uniformName) {

@@ -2,9 +2,10 @@ struct FOutput {
   float4 color : COLOR;
 };
 
-FOutput fmain(float2 texCoord  : TEXCOORD0,
+FOutput main(float2 texCoord  : TEXCOORD0,
 	          uniform sampler2D colorMap) {
   FOutput OUT;
   OUT.color = tex2D(colorMap, texCoord);
+  
   return OUT;
 } 

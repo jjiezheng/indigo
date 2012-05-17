@@ -1,0 +1,25 @@
+float4 main(float3 vPosition  : TEXCOORD0, 
+            uniform float4 ambient,
+			      uniform float4 diffuse,
+            uniform float3 lightPosition,
+			      uniform int numPointLights) : COLOR {
+
+
+  float3 lightDirection = lightPosition - vPosition;
+  float diffuseStrength = max(0.0f, dot(normalize(normal), normalize(lightDirection)));
+
+  float4 diffuseAmount = diffuse * diffuseStrength;
+  float4 finalColor = diffuseAmount + ambient;
+
+  return float4(normal, 1);
+
+  /*for (int i = 0; i < numPointLights; i++) {
+    float3 lightDirection = lightPositions[i] - vPosition;
+    diffuseStrength += max(0.0f, dot(normalize(normal), normalize(lightDirection)));
+  }*/
+
+  //float4 diffuseAmount = diffuse * diffuseStrength;
+  //float4 finalColor = diffuseAmount + ambient;
+
+  //return float4(numPointLights, 0, 0, 1);
+}

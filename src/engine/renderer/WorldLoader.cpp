@@ -241,7 +241,7 @@ void WorldLoader::loadMaterial(Model* model, const std::string& materialFilePath
   json::Array textures = materialObject["textures"];
   json::Array::const_iterator tit = textures.begin();
   for (; tit != textures.end(); ++tit) {
-    json::String textureFileString = (*tit);
+    json::String textureFileString = (*tit); 
     std::string textureFile = textureFileString.Value();
     Texture texture;
     texture.init(textureFile.c_str());
@@ -251,7 +251,7 @@ void WorldLoader::loadMaterial(Model* model, const std::string& materialFilePath
   model->setMaterial(material);
 }
 
-void WorldLoader::loadShader(Material& material, const std::string &shaderFilePath) {
+void WorldLoader::loadShader(Material& material, const std::string &shaderFilePath) { 
   CGShader* shader = new CGShader();
   std::string fullShaderFilePath = Path::pathForFile(shaderFilePath);
   std::ifstream shaderFile(fullShaderFilePath.c_str(), std::ifstream::in);
@@ -264,25 +264,6 @@ void WorldLoader::loadShader(Material& material, const std::string &shaderFilePa
   json::String fragmentFilePath = shaderObject["fragment"];
      
   shader->load(vertexFilePath.Value().c_str(), fragmentFilePath.Value().c_str());
-  
-  json::Object attributesArray = shaderObject["attributes"];
-  json::Object::iterator ait = attributesArray.begin();
-  for (; ait != attributesArray.end(); ++ait) {
-    json::Number attributeIndexNumber = (*ait).element;
-    int attributeIndex = (int)attributeIndexNumber.Value();
-    std::string attributeName = (*ait).name;
-    shader->bindAttribute(attributeIndex, attributeName.c_str());
-  }
-  
-  shader->link();
-  
-  json::Array uniformsArray = shaderObject["uniforms"];
-  json::Array::iterator uit = uniformsArray.begin();
-  for (; uit != uniformsArray.end(); ++uit) {
-    json::String uniformString = (*uit);
-    std::string uniform = uniformString.Value();
-    shader->addUniform(uniform.c_str());
-  }
   
   material.setShader(shader);
 }

@@ -2,7 +2,7 @@ struct VOutput {
   float4 position : POSITION;
 };
 
-VOutput vmain(float4 position : ATTR0) 
+VOutput main(float4 position : ATTR0) 
 {
 	VOutput OUT;
 	OUT.position = position;

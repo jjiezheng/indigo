@@ -1,5 +1,5 @@
 {
-  "shader" : "cgshaders/diffuse_bump_texture.shader",
+  "shader" : "cgshaders/diffuse_lights.shader",
   "parameters" : {
     "ambient" : {
       "r" : 0,
@@ -18,8 +18,5 @@
       "value" : 1
     }
   },
-  "textures" : [
-    "actors/shuttle/shuttle_diffuse.dds",
-    "actors/shuttle/shuttle_normal.dds"
-  ]
+  "textures" : [ ]
 }

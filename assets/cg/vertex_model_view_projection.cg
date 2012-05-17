@@ -1,11 +1,16 @@
 struct Output {
-	float4 position : POSITION;
+	float4 position  : POSITION;
+  float3 vPosition : TEXCOORD0;
+  float4 normal    : NORMAL0;
 };
 
 Output main(float4 position : POSITION,
+              float4 normal : NORMAL,
 	         uniform float4x4 modelViewProjection) {
 
 	Output OUT;
 	OUT.position = mul(modelViewProjection, position);
+  OUT.vPosition = position.xyz / position.z;
+  OUT.normal = normal;
   return OUT;
 }
