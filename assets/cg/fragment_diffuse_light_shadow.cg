@@ -1,0 +1,33 @@
+float4 main(float4 vPosition      : TEXCOORD0, 
+            float3 normal         : TEXCOORD1,
+            float4 shadowMapCoord : TEXCOORD2,
+            uniform sampler2D shadowMap,
+            uniform float4 ambient,
+			      uniform float4 diffuse,
+            uniform float4 lightPosition) : COLOR {
+
+  float4 finalColor = float4(0, 0, 0, 1);
+
+  // diffuse + ambient
+  {
+    float4 lightDirection = lightPosition - vPosition;
+    float diffuseStrength = max(0.0f, dot(normalize(normal), normalize(lightDirection)));
+
+    float4 diffuseAmount = diffuse * diffuseStrength;
+    finalColor += diffuseAmount + ambient;
+  }
+
+  // shadow
+  {
+    float4 shadowCoord = shadowMapCoord;
+    shadowCoord.z += 0.005f;
+
+    if (shadowCoord.w > 0.0f) {
+      float depth = tex2Dproj(shadowMap, shadowCoord);
+      float visibility = (depth == 0) ? 0.5 : 1.0;
+      finalColor.rgb += finalColor.rgb * visibility;
+    }
+  }
+
+  return finalColor;
+}

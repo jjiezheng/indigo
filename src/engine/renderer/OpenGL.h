@@ -21,6 +21,7 @@
 
 //#include <GL/glew.h>
 #include <OpenGL/glu.h>
+#include <OpenGL/glext.h>
 #include <GL/glfw.h>
 
 #define glBindVertexArray glBindVertexArrayAPPLE

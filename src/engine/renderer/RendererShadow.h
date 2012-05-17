@@ -8,6 +8,7 @@ class Camera;
 class World;
 class SceneContext;
 class Renderer3d;
+class IViewer;
 
 class RendererShadow {
   
@@ -15,7 +16,7 @@ public:
   
   void init(const CSize& screenSize);
   
-  void render(const World& world, SceneContext& sceneContext);
+  void render(IViewer* viewer, const World& world, SceneContext& sceneContext);
   
   void renderDebug(SceneContext& sceneContext);
   

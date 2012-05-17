@@ -15,14 +15,25 @@ void Material::bind(const IViewer* camera, const Matrix4x4& model, const Matrix3
   shader_->setUniform(modelViewProjection, "modelViewProjection"); 
 
   /*shader_->setUniform(camera->viewTransform(), "view");
-  shader_->setUniform(camera->projection(), "projection");
-  shader_->setUniform(model, "model");  */
+  shader_->setUniform(camera->projection(), "projection");*/
+  shader_->setUniform(model, "model"); 
 
-  
   Matrix4x4 offsetMatrix(0.5f, 0.0f, 0.0f, 0.5f,
                          0.0f, 0.5f, 0.0f, 0.5f,
                          0.0f, 0.0f, 0.5f, 0.5f,
                          0.0f, 0.0f, 0.0f, 1.0f);
+
+
+  Light light = sceneContext.lights().front();
+  
+  shader_->setUniform(light.position(), "lightPosition");
+  
+  Matrix4x4 lightMatrix = offsetMatrix * camera->projection() * light.viewTransform();
+  Matrix4x4 modelLight = lightMatrix * model;
+  shader_->setUniform(modelLight, "modelLight");
+  
+
+  
 
   /*const int MAX_LIGHTS = 6;
   float lightPositions[MAX_LIGHTS*3]; 
@@ -36,14 +47,13 @@ void Material::bind(const IViewer* camera, const Matrix4x4& model, const Matrix3
     lightPositions[lightPositionIndex++] = (*lit).position().y;
     lightPositions[lightPositionIndex++] = (*lit).position().z;
     
-    Matrix4x4 lightMatrix = offsetMatrix * camera->projection() * (*lit).viewTransform();
+    
     shader_->setUniform(lightMatrix, "lightMatrix");
   }*/
 
-  shader_->setUniform(sceneContext.lights()[0].position(), "lightPosition");
    
   //shader_->setUniform((int)lights.size(), "numPointLights");
-  shader_->setUniform(normalMatrix, "normalMatrix");  
+//  shader_->setUniform(normalMatrix, "normalMatrix");  
   //shader_->setUniform(lightPositions, lightPositionIndex, "lightPositions");  
     
   /*glActiveTexture(GL_TEXTURE7);

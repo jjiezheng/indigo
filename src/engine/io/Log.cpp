@@ -5,6 +5,7 @@ const char* LOG_CHANNEL_SHADER = "SHADER";
 const char* LOG_CHANNEL_WORLDLOADER = "WORLDLOADER";
 const char* LOG_CHANNEL_IMAGELOAD = "IMAGELOAD";
 const char* LOG_CHANNEL_IO = "IO";
+const char* LOG_CHANNEL_GL_UTILS = "GL_UTILS";
 
 #include <stdio.h>
 #include <stdarg.h>

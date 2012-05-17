@@ -1,9 +1,5 @@
 #include "ShaderAttribs.h"
 
-int ATTRIB_VERTEX = 0;
-int ATTRIB_NORMAL = 2;
-int ATTRIB_UV = 8;
-
 enum GenericVertexInputIndices {
     POSITION        = 0,
     BLENDWEIGHT     = 1,
@@ -22,3 +18,7 @@ enum GenericVertexInputIndices {
     TEXCOORD6       = 14,   TANGENT     = 14,
     TEXCOORD7       = 15,   BINORMAL    = 15,
 };
+
+int ATTRIB_VERTEX = POSITION;
+int ATTRIB_NORMAL = NORMAL;
+int ATTRIB_UV = TEXCOORD0;
