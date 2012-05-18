@@ -1,6 +1,6 @@
 float4 main(float4 vPosition  : TEXCOORD0, 
             float3 normal     : TEXCOORD1,
-            float2 texCoord  : TEXCOORD2,
+            float2 texCoord   : TEXCOORD2,
 	          uniform sampler2D colorMap,
             uniform sampler2D normalMap,
             uniform float4 ambient,

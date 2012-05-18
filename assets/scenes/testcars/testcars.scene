@@ -10,15 +10,6 @@
         "y" : 1.0,
         "z" : 0.0
       }
-    },
-    {
-      "mesh" : "actors/floor/floor.blend",
-      "material" : "actors/floor/floor.material",
-      "position" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "z" : 0.0
-      }
     }
   ],
   "lights" : [

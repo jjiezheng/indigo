@@ -1,5 +1,5 @@
 {
-  "shader" : "cgshaders/diffuse_light_bump_texture.shader",
+  "effect" : "cgfx/diffuse_flat/flat.cgfx",
   "parameters" : {
     "ambient" : {
       "r" : 0,

@@ -9,9 +9,15 @@
 #include "Light.h"
 
 void Material::bind(const IViewer* camera, const Matrix4x4& model, const Matrix3x3& normalMatrix, const SceneContext& sceneContext) const {
-  shader_->use();
+  effect_->beginDraw();
 
-  Matrix4x4 modelViewProjection = camera->projection() * camera->viewTransform() * model;
+
+  //effect_->use();
+  
+  //shader_->use();
+
+
+  /*Matrix4x4 modelViewProjection = camera->projection() * camera->viewTransform() * model;
   shader_->setUniform(modelViewProjection, "modelViewProjection"); 
 
   shader_->setUniform(model, "model"); 
@@ -33,13 +39,13 @@ void Material::bind(const IViewer* camera, const Matrix4x4& model, const Matrix3
   int textureIndex = 0;
   std::map<std::string, Texture>::const_iterator tit = textures_.begin();
   for (; tit != textures_.end(); ++tit) {
-    shader_->setTexture(textureIndex++, (*tit).second.textureId(), (*tit).first.c_str()); 
+    shader_->setTexture(textureIndex++, (*tit).second.textureId(), (*tit).first.c_str());
   }
 
   std::vector<MaterialParameter*>::const_iterator mit = parameters_.begin(); 
   for (; mit != parameters_.end(); ++mit) {
     (*mit)->setShader(shader_);
-  }
+  }*/
 
   /*shader_->setUniform(camera->viewTransform(), "view");
   shader_->setUniform(camera->projection(), "projection");*/ 
@@ -70,4 +76,8 @@ void Material::bind(const IViewer* camera, const Matrix4x4& model, const Matrix3
   shader_->setUniform(sceneContext.fogColor(), "fogColor");
   shader_->setUniform(sceneContext.fogEnd(), "fogType");
   shader_->setUniform(sceneContext.fogColor(), "fogFactor");*/
+}
+
+void Material::unbind() const {
+  effect_->endDraw();
 }

@@ -14,6 +14,6 @@ void Model::render(const IViewer* camera, const SceneContext& sceneContext) cons
 void Model::setMaterial(const Material &material) {
   std::vector<Mesh>::iterator it = meshes_.begin();
   for (; it != meshes_.end(); ++it) {
-    (*it).setMaterial(material); 
-  }  
+    (*it).setMaterial(material);
+  }
 } 

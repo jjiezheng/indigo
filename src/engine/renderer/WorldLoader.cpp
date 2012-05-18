@@ -16,6 +16,7 @@
 #include "Model.h"
 #include "CGShader.h"
 #include "Material.h"
+#include "Effect.h"
 
 #include "MaterialParameter.h"
 #include "Vector3MaterialParameter.h"
@@ -194,10 +195,10 @@ void WorldLoader::loadMaterial(Model* model, const std::string& materialFilePath
   json::Object materialObject; 
   json::Reader::Read(materialObject, materialFile); 
  
-  json::String shaderFilePath = materialObject["shader"];
+  json::String effectFilePath = materialObject["effect"];
  
   Material material;
-  loadShader(material, shaderFilePath.Value());
+  loadEffect(material, effectFilePath.Value()); 
   
   json::Object parameters = materialObject["parameters"];
   json::Object::const_iterator pit = parameters.begin();
@@ -255,8 +256,13 @@ void WorldLoader::loadMaterial(Model* model, const std::string& materialFilePath
   model->setMaterial(material);
 }
 
-void WorldLoader::loadShader(Material& material, const std::string &shaderFilePath) { 
-  CGShader* shader = new CGShader();
+void WorldLoader::loadEffect(Material& material, const std::string &shaderFilePath) { 
+  Effect* effect = new Effect();
+  std::string fullEffectPath = Path::pathForFile(shaderFilePath);
+  effect->load(fullEffectPath);
+  material.setEffect(effect);
+
+  /*CGShader* shader = new CGShader();
   std::string fullShaderFilePath = Path::pathForFile(shaderFilePath);
   std::ifstream shaderFile(fullShaderFilePath.c_str(), std::ifstream::in);
   
@@ -269,5 +275,5 @@ void WorldLoader::loadShader(Material& material, const std::string &shaderFilePa
      
   shader->load(vertexFilePath.Value().c_str(), fragmentFilePath.Value().c_str());
   
-  material.setShader(shader);
+  material.setShader(shader);*/
 }

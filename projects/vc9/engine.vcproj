@@ -405,6 +405,14 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\src\engine\renderer\Effect.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\engine\renderer\Effect.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\src\engine\renderer\FloatMaterialParameter.h"
 					>
 				</File>
