@@ -21,46 +21,46 @@ void RendererShadow::init(const CSize &screenSize) {
       glDrawBuffer(GL_NONE);
     }
     
-//    {
-//      glGenRenderbuffers(1, &depthBuffer_);
-//      GLUtilities::checkForError();
-//      glBindRenderbuffer(GL_RENDERBUFFER, depthBuffer_);
-//      GLUtilities::checkForError();
-//      glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, screenSize.width, screenSize.height);
-//      GLUtilities::checkForError();
-//      glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthBuffer_);
-//      GLUtilities::checkForError();
-//    }
+    {
+      glGenRenderbuffers(1, &depthBuffer_);
+      GLUtilities::checkForError();
+      glBindRenderbuffer(GL_RENDERBUFFER, depthBuffer_);
+      GLUtilities::checkForError();
+      glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, screenSize.width, screenSize.height);
+      GLUtilities::checkForError();
+      glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthBuffer_);
+      GLUtilities::checkForError();
+    }
     
-//    GLUtilities::checkForError();
-//    GLUtilities::checkFramebufferStatus(GL_FRAMEBUFFER);
-//    
-//    {
-//      glGenTextures(1, &shadowTexture_);
-//      glBindTexture(GL_TEXTURE_2D, shadowTexture_);
-//      glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, screenSize.width, screenSize.height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
-//      
-//      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-//      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-//      
-//      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-//      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-//      
-//      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_R_TO_TEXTURE);
-//      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
-//      
-//      float ones[] = {1, 1, 1, 1};
-//      glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, ones);
-//      
-//      glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, shadowTexture_, 0);
-//    }
-//    
-//    GLUtilities::checkFramebufferStatus(GL_FRAMEBUFFER);
-//    
-//    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-//  }
+    GLUtilities::checkForError();
+    GLUtilities::checkFramebufferStatus(GL_FRAMEBUFFER);
+    
+    {
+      glGenTextures(1, &shadowTexture_);
+      glBindTexture(GL_TEXTURE_2D, shadowTexture_);
+      glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, screenSize.width, screenSize.height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+      
+      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+      
+      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+      
+      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_R_TO_TEXTURE);
+      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
+      
+      float ones[] = {1, 1, 1, 1};
+      glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, ones);
+      
+      glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, shadowTexture_, 0);
+    }
+    
+    GLUtilities::checkFramebufferStatus(GL_FRAMEBUFFER);
+    
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+  }
   
-  /*{
+  {
     GLfloat vertices[] = {
       -1.0f, -1.0f, 0.0f,
       -0.5f, -1.0f, 0.0f,
@@ -103,7 +103,7 @@ void RendererShadow::init(const CSize &screenSize) {
     debugShader_.addUniform("colorMap");
     
     Matrix4x4 projection = Matrix4x4::orthographic(0, Window::screenWidth(), 0, Window::screenHeight(), -1, 1000);  
-    debugShader_.setUniform(projection, "projection");*/ 
+    debugShader_.setUniform(projection, "projection");
   }
 }
 
@@ -121,7 +121,6 @@ void RendererShadow::render(IViewer* viewer, const World& world, SceneContext& s
   
   glClear(GL_DEPTH_BUFFER_BIT);  
   glCullFace(GL_FRONT);
-  
 
   std::vector<Model>::const_iterator mit = world.begin();
   for (; mit != world.end(); ++mit) {
@@ -138,10 +137,12 @@ void RendererShadow::render(IViewer* viewer, const World& world, SceneContext& s
   
   glDisable(GL_DEPTH_TEST);
   glDisable(GL_CULL_FACE);
+
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void RendererShadow::renderDebug(SceneContext& sceneContext) {
-/*  debugShader_.use();
+  debugShader_.use();
   
   glActiveTexture(GL_TEXTURE0);
   debugShader_.setUniform(0, "colorMap");
@@ -150,5 +151,5 @@ void RendererShadow::renderDebug(SceneContext& sceneContext) {
   glBindVertexArray(debugVertArray_);
   glDrawArrays(GL_TRIANGLES, 0, 6);    
 
-  glUseProgram(0);*/
+  glUseProgram(0);
 }

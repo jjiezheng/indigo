@@ -60,7 +60,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="cg.lib cgGL.lib GLFW.lib OpenGL32.lib assimp.lib FreeImage.lib glew32.lib "
+				AdditionalDependencies="cg.lib cgGL.lib GLFW.lib OpenGL32.lib  glu32.lib assimp.lib FreeImage.lib glew32.lib "
 				AdditionalLibraryDirectories="../../libs/glew/lib;../../libs/glfw/lib;../../libs/assimp/lib;../../libs/freeimage"
 				GenerateDebugInformation="true"
 				TargetMachine="1"

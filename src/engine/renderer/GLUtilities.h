@@ -8,8 +8,7 @@ class GLUtilities {
   
 public:
   
-  static
-  void checkFramebufferStatus(int target) {
+  static void checkFramebufferStatus(int target) {
     GLenum status = glCheckFramebufferStatus(target);
     if (status != GL_FRAMEBUFFER_COMPLETE) {
       LOG(LOG_CHANNEL_GL_UTILS, "error creating frame buffer");
@@ -29,8 +28,7 @@ public:
     assert(status == GL_FRAMEBUFFER_COMPLETE);
   }
 
-  static
-  void checkForError() {
+  static void checkForError() {
     GLenum error = glGetError();
  
     if (error != GL_NO_ERROR) {

@@ -53,9 +53,6 @@ CGprogram loadCGProgram(CGcontext context, const std::string& fullPath, CGGLenum
 void CGShader::load(const char* vertexShaderPath, const char* fragmentShaderPath) {  
   context_ = cgCreateContext();  
   checkForCgError(context_, "creating context");
-  
-  cgGLSetDebugMode(CG_TRUE);
-  cgSetParameterSettingMode(context_, CG_DEFERRED_PARAMETER_SETTING);
 
   std::string fullVertexPath = Path::pathForFile(vertexShaderPath);
   CGprogram vertexProgram = loadCGProgram(context_, fullVertexPath, CG_GL_VERTEX, kEntryPointName);
