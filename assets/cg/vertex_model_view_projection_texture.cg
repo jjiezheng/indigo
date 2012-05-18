@@ -1,6 +1,6 @@
 struct VOutput {
 	float4 position : POSITION;
-  float2 texCoord : TEXCOORD0;
+  float2 texCoord : TEXCOORD2;
 };
 
 VOutput main(float4 position : ATTR0,

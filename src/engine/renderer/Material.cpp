@@ -28,10 +28,21 @@ void Material::bind(const IViewer* camera, const Matrix4x4& model, const Matrix3
   Matrix4x4 modelLight = lightMatrix * model;
   shader_->setUniform(modelLight, "modelLight");
 
-  shader_->setTexture(7, sceneContext.shadowTexture(), "shadowMap"); 
+  shader_->setTexture(7, sceneContext.shadowTexture(), "shadowMap");
+
+  int textureIndex = 0;
+  std::map<std::string, Texture>::const_iterator tit = textures_.begin();
+  for (; tit != textures_.end(); ++tit) {
+    shader_->setTexture(textureIndex++, (*tit).second.textureId(), (*tit).first.c_str()); 
+  }
+
+  std::vector<MaterialParameter*>::const_iterator mit = parameters_.begin(); 
+  for (; mit != parameters_.end(); ++mit) {
+    (*mit)->setShader(shader_);
+  }
 
   /*shader_->setUniform(camera->viewTransform(), "view");
-  shader_->setUniform(camera->projection(), "projection");*/
+  shader_->setUniform(camera->projection(), "projection");*/ 
 
   /*const int MAX_LIGHTS = 6;
   float lightPositions[MAX_LIGHTS*3]; 
@@ -49,28 +60,14 @@ void Material::bind(const IViewer* camera, const Matrix4x4& model, const Matrix3
     shader_->setUniform(lightMatrix, "lightMatrix");
   }*/
 
-   
   //shader_->setUniform((int)lights.size(), "numPointLights");
-//  shader_->setUniform(normalMatrix, "normalMatrix");  
+  //shader_->setUniform(normalMatrix, "normalMatrix");  
   //shader_->setUniform(lightPositions, lightPositionIndex, "lightPositions");  
     
   /*
-  
   shader_->setUniform(sceneContext.fogStart(), "fogStart");
   shader_->setUniform(sceneContext.fogEnd(), "fogEnd");
   shader_->setUniform(sceneContext.fogColor(), "fogColor");
   shader_->setUniform(sceneContext.fogEnd(), "fogType");
   shader_->setUniform(sceneContext.fogColor(), "fogFactor");*/
-
-  std::vector<MaterialParameter*>::const_iterator mit = parameters_.begin(); 
-  for (; mit != parameters_.end(); ++mit) {
-    (*mit)->setShader(shader_); 
-  }
-  
-  int textureIndex = 0;
-  std::vector<Texture>::const_iterator tit = textures_.begin();
-  for (; tit != textures_.end(); ++tit) {
-    shader_->setTexture(textureIndex++, (*tit).textureId(), "colorMap");
-    break;
-  }
 }

@@ -1,0 +1,24 @@
+float4 main(float4 vPosition  : TEXCOORD0, 
+            float3 normal     : TEXCOORD1,
+            float2 texCoord  : TEXCOORD2,
+	          uniform sampler2D colorMap,
+            uniform sampler2D normalMap,
+            uniform float4 ambient,
+            uniform float4 lightPosition) : COLOR {
+
+  float4 finalColor = float4(0, 0, 0, 1);
+
+  float4 bumpColor = tex2D(normalMap, texCoord);
+  float4 diffuseColor = tex2D(colorMap, texCoord);
+
+  // diffuse + ambient
+  {
+    float4 lightDirection = lightPosition - vPosition;
+    float diffuseStrength = max(0.0f, dot(normalize(bumpColor), normalize(lightDirection)));
+
+    float4 diffuseAmount = diffuseColor * diffuseStrength;
+    finalColor += diffuseAmount + ambient;
+  }
+  
+  return finalColor;
+} 

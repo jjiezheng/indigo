@@ -12,11 +12,7 @@
       "g" : 0.6,
       "b" : 0.6,
       "type" : "color3"
-    },
-    "numPointLights" : {
-      "type" : "int",
-      "value" : 1
     }
   },
-  "textures" : [ ]
+  "textures" : { }
 }

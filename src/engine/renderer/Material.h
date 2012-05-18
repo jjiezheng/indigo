@@ -18,14 +18,14 @@ public:
   
   void setParameter(MaterialParameter* parameter);
   
-  void addTexture(const Texture& texture);
+  void addTexture(const std::string& type, const Texture& texture);
   
 private:
   
   IShader* shader_;
   
   std::vector<MaterialParameter*> parameters_;
-  std::vector<Texture> textures_;
+  std::map<std::string, Texture> textures_;
   
 };
 
@@ -37,8 +37,8 @@ inline void Material::setParameter(MaterialParameter* parameter) {
   parameters_.push_back(parameter);
 }
 
-inline void Material::addTexture(const Texture& texture) {
-  textures_.push_back(texture);
+inline void Material::addTexture(const std::string& type, const Texture& texture) {
+  textures_.insert(std::make_pair(type, texture));
 }
 
 #endif

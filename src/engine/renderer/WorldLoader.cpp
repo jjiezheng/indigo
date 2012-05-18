@@ -237,15 +237,19 @@ void WorldLoader::loadMaterial(Model* model, const std::string& materialFilePath
       material.setParameter(parameter);
     }
   }
-  
-  json::Array textures = materialObject["textures"];
-  json::Array::const_iterator tit = textures.begin();
+
+  json::Object textures = materialObject["textures"];
+  json::Object::const_iterator tit = textures.begin();
   for (; tit != textures.end(); ++tit) {
-    json::String textureFileString = (*tit); 
+    json::String textureTypeString = (*tit).name;
+    std::string textureType = textureTypeString.Value();
+    
+    json::String textureFileString = (*tit).element;
     std::string textureFile = textureFileString.Value();
+
     Texture texture;
     texture.init(textureFile.c_str());
-    material.addTexture(texture);
+    material.addTexture(textureType, texture);
   }
   
   model->setMaterial(material);
