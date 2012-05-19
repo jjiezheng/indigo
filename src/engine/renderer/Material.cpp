@@ -17,7 +17,8 @@ void Material::bind(const IViewer* camera, const Matrix4x4& model, const Matrix3
   //shader_->use();
 
 
-  /*Matrix4x4 modelViewProjection = camera->projection() * camera->viewTransform() * model;
+  /*
+  Matrix4x4 modelViewProjection = camera->projection() * camera->viewTransform() * model;
   shader_->setUniform(modelViewProjection, "modelViewProjection"); 
 
   shader_->setUniform(model, "model"); 

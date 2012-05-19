@@ -15,7 +15,7 @@ void Game::init() {
   camera_.translateZ(10.0f);
   camera_.translateY(1.8f);
   
-  shadowRenderer_.init(Window::screenSize());
+//  shadowRenderer_.init(Window::screenSize());
  
   Matrix4x4 projection = Matrix4x4::perspective(45.0f, Window::aspectRatio(), 1.0f, 200.0f);
   camera_.setProjection(projection);
@@ -32,9 +32,9 @@ void Game::mainLoop() {
 
   camera_.update(dt);
   
-  Light light = sceneContext_.lights().front();
+//  Light light = sceneContext_.lights().front();
   
-  shadowRenderer_.render(&light, world_, sceneContext_);
+//  shadowRenderer_.render(&light, world_, sceneContext_);
   renderer_.render(camera_, world_, sceneContext_);
 
   if (properties_.getProperty(PROPERTY_RENDER_SHADOWMAP)) {

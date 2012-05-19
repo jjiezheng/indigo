@@ -59,6 +59,7 @@
 		4CC9D0B6154C379E00E0EEBB /* writer.inl in Resources */ = {isa = PBXBuildFile; fileRef = 4CC9D0B3154C379E00E0EEBB /* writer.inl */; };
 		4CD48FDB15599EC3005588D8 /* Properties.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CD48FDA15599EC3005588D8 /* Properties.cpp */; };
 		4CD9C60B155E9B09003AA28A /* World.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CD9C60A155E9B09003AA28A /* World.cpp */; };
+		4CF01A971567B39B002C2307 /* Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CF01A961567B39B002C2307 /* Effect.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -186,6 +187,8 @@
 		4CD9C607155E962C003AA28A /* maindef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = maindef.h; sourceTree = "<group>"; };
 		4CD9C608155E962C003AA28A /* PlatformDefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlatformDefs.h; sourceTree = "<group>"; };
 		4CD9C60A155E9B09003AA28A /* World.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = World.cpp; sourceTree = "<group>"; };
+		4CF01A961567B39B002C2307 /* Effect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Effect.cpp; sourceTree = "<group>"; };
+		4CF01A991567B3A1002C2307 /* Effect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Effect.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -326,6 +329,8 @@
 		4C74AB5C154892F40008271B /* renderer */ = {
 			isa = PBXGroup;
 			children = (
+				4CF01A991567B3A1002C2307 /* Effect.h */,
+				4CF01A961567B39B002C2307 /* Effect.cpp */,
 				4C4D2B95155E4779005EE885 /* Angles.h */,
 				4C4D2B9A155E4779005EE885 /* Box.cpp */,
 				4C4D2B9B155E4779005EE885 /* Box.h */,
@@ -625,6 +630,7 @@
 				4C6E9599155FEE9A004DC0BB /* Window.cpp in Sources */,
 				4C79CC2915602B8B0037EA75 /* DDSImage.cpp in Sources */,
 				4C79CC3015618C430037EA75 /* CGShader.cpp in Sources */,
+				4CF01A971567B39B002C2307 /* Effect.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
