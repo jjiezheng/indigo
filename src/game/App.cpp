@@ -9,7 +9,7 @@ void App::run() {
   app_ = this;
   
   if (!glfwInit()) {
-    LOG(LOG_CHANNEL_INIT, "Error initializing GLFW");
+    LOG(LOG_CHANNEL_INIT, "Error initializing GLFW"); 
     return;
   }
 

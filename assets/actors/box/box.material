@@ -1,7 +1,5 @@
 {
-  "shader" : "cgshaders/diffuse_bump_texture.shader",
+  "effect" : "cgfx/diffuse_flat/model_view_projection.cgfx",
   "parameters" : { },
-  "textures" : [
-    "actors/shuttle/shuttle_diffuse.dds"
-  ]
+  "textures" : { }
 }

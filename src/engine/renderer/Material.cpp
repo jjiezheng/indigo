@@ -10,20 +10,13 @@
 
 void Material::bind(const IViewer* camera, const Matrix4x4& model, const Matrix3x3& normalMatrix, const SceneContext& sceneContext) const {
   effect_->beginDraw();
-
-
-  //effect_->use();
   
-  //shader_->use();
-
-
-  /*
   Matrix4x4 modelViewProjection = camera->projection() * camera->viewTransform() * model;
-  shader_->setUniform(modelViewProjection, "modelViewProjection"); 
+  effect_->setUniform(modelViewProjection, "WorldViewProj"); 
 
-  shader_->setUniform(model, "model"); 
+  effect_->setUniform(model, "model"); 
 
-  Matrix4x4 offsetMatrix(0.5f, 0.0f, 0.0f, 0.5f,
+  /*Matrix4x4 offsetMatrix(0.5f, 0.0f, 0.0f, 0.5f,
                          0.0f, 0.5f, 0.0f, 0.5f,
                          0.0f, 0.0f, 0.5f, 0.5f,
                          0.0f, 0.0f, 0.0f, 1.0f);

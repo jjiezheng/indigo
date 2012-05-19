@@ -1,0 +1,15 @@
+float4 mainVS(float3 pos : ATTR0) : POSITION{
+	return float4(pos.xyz, 1.0);
+}
+
+float4 mainPS() : COLOR {
+	return float4(1.0, 1.0, 1.0, 1.0);
+}
+
+technique technique0 {
+	pass p0 {
+		CullFaceEnable = false;	
+		VertexProgram = compile arbvp1 mainVS();
+		FragmentProgram = compile arbfp1 mainPS();
+	}
+}

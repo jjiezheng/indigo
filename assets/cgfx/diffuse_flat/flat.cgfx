@@ -6,7 +6,7 @@ float3 DiffuseColor : Diffuse <
 
 float4x4 WorldViewProj : WorldViewProjection;
 
-float4 mainVS(float3 pos : POSITION) : POSITION{
+float4 mainVS(float3 pos : ATTR0) : POSITION {
 	return mul(WorldViewProj, float4(pos.xyz, 1.0));
 }
 
@@ -17,7 +17,7 @@ float4 mainPS() : COLOR {
 technique technique0 {
 	pass p0 {
 		CullFaceEnable = false;	
-		VertexProgram = compile vp40 mainVS();
-		FragmentProgram = compile fp40 mainPS();
+		VertexProgram = compile arbvp1 mainVS();
+		FragmentProgram = compile arbfp1 mainPS();
 	}
 }
