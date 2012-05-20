@@ -15,7 +15,7 @@
 		</contributor>
 		<created>2012-05-18T11:38:35Z</created>
 		<keywords>FXComposer, NVIDIA</keywords>
-		<modified>2012-05-19T20:58:25Z</modified>
+		<modified>2012-05-20T19:14:52Z</modified>
 		<subject/>
 		<title/>
 		<unit/>
@@ -25,6 +25,7 @@
 		<visual_scene id="DefaultScene" name="DefaultScene">
 			<node id="Node5" name="Node5" layer="">
 				<matrix sid="">1 0 0 0 0 1 0 -3.95894 0 0 1 0.963511 0 0 0 1</matrix>
+				<matrix sid="FXComposer2DiffMatrix">1 0 0 1.90093 0 1 0 5.21314 0 0 1 0 0 0 0 1</matrix>
 				<instance_light url="#PointLight1" sid="Light1" name="PointLight1"/>
 			</node>
 			<node id="Node6" name="Node6" layer="">
@@ -32,7 +33,7 @@
 				<instance_geometry url="#Sphere2" sid="GeometryInstance4" name="Sphere2">
 					<bind_material>
 						<technique_common>
-							<instance_material symbol="SphereMaterial" target="#diffuse_shadow"/>
+							<instance_material symbol="SphereMaterial" target="#Material3"/>
 						</technique_common>
 					</bind_material>
 				</instance_geometry>
@@ -218,6 +219,18 @@
 				</technique>
 			</extra>
 		</effect>
+		<effect id="Effect6" name="diffuse_bump_texture">
+			<profile_COMMON>
+				<technique sid="__fxc_remove_profile_COMMON">
+					<constant/>
+				</technique>
+			</profile_COMMON>
+			<extra type="import">
+				<technique profile="NVIDIA_FXCOMPOSER">
+					<import url="diffuse_bump_texture.cgfx" compiler_options="" profile="cgfx"/>
+				</technique>
+			</extra>
+		</effect>
 	</library_effects>
 	<library_materials>
 		<material id="DefaultMaterial" name="DefaultMaterial">
@@ -264,7 +277,7 @@
 					<float3>1 1 1</float3>
 				</setparam>
 				<setparam ref="WorldViewProj">
-					<float4x4>1.03507 -0.0876488 0.041057 0.0410519 -2.11233e-006 -1.59702 -0.451733 -0.451678 -0.0732863 -1.23788 0.579888 0.579817 -0.0961994 6.96869 6.9074 6.91018</float4x4>
+					<float4x4>0.0991105 1.23098 0.14091 0.140893 -4.60538e-006 0.387527 -0.448589 -0.448534 2.1091 -0.0578452 -0.00662261 -0.00662181 4.72344 5.89122 4.04708 4.05014</float4x4>
 				</setparam>
 			</instance_effect>
 		</material>
@@ -277,197 +290,231 @@
 			<instance_effect url="#Effect4">
 				<technique_hint platform="PC-OGL" ref="technique0"/>
 				<setparam ref="WorldViewProj">
-					<float4x4>1.03507 -0.0876488 0.041057 0.0410519 -2.11233e-006 -1.59702 -0.451733 -0.451678 -0.0732863 -1.23788 0.579888 0.579817 -0.0961994 6.96869 6.9074 6.91018</float4x4>
+					<float4x4>0.0991105 1.23098 0.14091 0.140893 -4.60538e-006 0.387527 -0.448589 -0.448534 2.1091 -0.0578452 -0.00662261 -0.00662181 4.72344 5.89122 4.04708 4.05014</float4x4>
 				</setparam>
 			</instance_effect>
 		</material>
 		<material id="diffuse" name="diffuse_Material">
 			<instance_effect url="#Effect5">
 				<technique_hint platform="PC-OGL" ref="technique0"/>
-				<setparam ref="DiffuseColor">
-					<float4>1 0 0 1</float4>
+				<setparam ref="diffuseColor">
+					<float3>1 0 0</float3>
+				</setparam>
+				<setparam ref="ambientColor">
+					<float3>0 1 1</float3>
+				</setparam>
+				<setparam ref="lightPosition">
+					<float3>1.90093 1.2542 0.963511</float3>
 				</setparam>
 				<setparam ref="WorldViewProj">
-					<float4x4>1.03507 -0.0876488 0.041057 0.0410519 -2.11233e-006 -1.59702 -0.451733 -0.451678 -0.0732863 -1.23788 0.579888 0.579817 -0.0961994 6.96869 6.9074 6.91018</float4x4>
+					<float4x4>0.0991105 1.23098 0.14091 0.140893 -4.60538e-006 0.387527 -0.448589 -0.448534 2.1091 -0.0578452 -0.00662261 -0.00662181 4.72344 5.89122 4.04708 4.05014</float4x4>
 				</setparam>
 				<setparam ref="World">
-					<float4x4>0.736129 0 0 0 0 0.736129 0 0 0 0 0.736129 0 0 -3.95894 0.963511 1</float4x4>
+					<float4x4>0.470189 0 0 0 0 0.470189 0 0 0 0 0.470189 0 1.90093 1.2542 0.963511 1</float4x4>
 				</setparam>
-			</instance_effect>
-		</material>
-		<material id="diffuse_texture1" name="diffuse_texture_Material">
-			<instance_effect url="#Effect3">
-				<technique_hint platform="PC-OGL" ref="technique0"/>
-				<setparam ref="DiffuseColor">
-					<float4>0 0 0 0</float4>
-				</setparam>
-				<setparam ref="WorldViewProj">
-					<float4x4>1.03507 -0.0876488 0.041057 0.0410519 -2.11233e-006 -1.59702 -0.451733 -0.451678 -0.0732863 -1.23788 0.579888 0.579817 -0.0961994 6.96869 6.9074 6.91018</float4x4>
-				</setparam>
-				<setparam ref="ColorMap">
-					<surface type="2D">
-						<init_as_null/>
-						<format>A8R8G8B8</format>
-						<size>0 0 1</size>
-					</surface>
+				<setparam ref="NormalMatrix">
+					<float4x4>4.49059 0 0 0 0 2.74748 0 0 0 0 -1.00012 -1 0 0 -0.00355365 0</float4x4>
 				</setparam>
 			</instance_effect>
 		</material>
 		<material id="diffuse_texture_bump_shadow" name="diffuse_texture_bump_shadow_Material">
 			<instance_effect url="#Effect9">
 				<technique_hint platform="PC-OGL" ref="technique0"/>
-				<setparam ref="ShadowMap">
+				<setparam ref="shadowMap">
 					<surface type="2D">
-						<init_from>Particle</init_from>
-						<format>R8G8B8A8</format>
+						<init_as_null/>
+						<format>A8R8G8B8</format>
 						<size>0 0 1</size>
 					</surface>
 				</setparam>
-				<setparam ref="diffuse">
+				<setparam ref="diffuseColor">
 					<float3>1 0 0</float3>
 				</setparam>
-				<setparam ref="ambient">
-					<float3>0 0 0</float3>
+				<setparam ref="ambientColor">
+					<float3>0 1 1</float3>
 				</setparam>
 				<setparam ref="lightPosition">
-					<float3>0 -3.95894 0.963511</float3>
+					<float3>-0.5 2 1.25</float3>
 				</setparam>
 				<setparam ref="WorldViewProj">
-					<float4x4>1.03507 -0.0876488 0.041057 0.0410519 -2.11233e-006 -1.59702 -0.451733 -0.451678 -0.0732863 -1.23788 0.579888 0.579817 -0.0961994 6.96869 6.9074 6.91018</float4x4>
+					<float4x4>0.0991105 1.23098 0.14091 0.140893 -4.60538e-006 0.387527 -0.448589 -0.448534 2.1091 -0.0578452 -0.00662261 -0.00662181 4.72344 5.89122 4.04708 4.05014</float4x4>
 				</setparam>
 				<setparam ref="World">
-					<float4x4>0.736129 0 0 0 0 0.736129 0 0 0 0 0.736129 0 0 -3.95894 0.963511 1</float4x4>
+					<float4x4>0.470189 0 0 0 0 0.470189 0 0 0 0 0.470189 0 1.90093 1.2542 0.963511 1</float4x4>
 				</setparam>
 				<setparam ref="WorldLight">
-					<float4x4>0.736129 0 0 0 0 0.736129 0 0 0 0 0.736129 0 0 -3.95894 0.963511 1</float4x4>
+					<float4x4>4.49059 0 0 0 0 2.74748 0 0 0 0 -1.00012 -1 0 0 -0.00355365 0</float4x4>
+				</setparam>
+				<setparam ref="NormalMatrix">
+					<float4x4>4.49059 0 0 0 0 2.74748 0 0 0 0 -1.00012 -1 0 0 -0.00355365 0</float4x4>
 				</setparam>
 			</instance_effect>
 		</material>
 		<material id="Material" name="diffuse_texture_bump_shadow_Material1">
 			<instance_effect url="#Effect7">
 				<technique_hint platform="PC-OGL" ref="technique0"/>
-				<setparam ref="ColorMap">
+				<setparam ref="colorMap">
 					<surface type="2D">
 						<init_as_null/>
 						<format>A8R8G8B8</format>
 						<size>0 0 1</size>
 					</surface>
 				</setparam>
-				<setparam ref="NormalMap">
+				<setparam ref="normalMap">
 					<surface type="2D">
 						<init_as_null/>
 						<format>A8R8G8B8</format>
 						<size>0 0 1</size>
 					</surface>
 				</setparam>
-				<setparam ref="Ambient">
+				<setparam ref="ambientColor">
 					<float3>0 1 1</float3>
 				</setparam>
-				<setparam ref="LightPosition">
+				<setparam ref="lightPosition">
 					<float3>-0.5 2 1.25</float3>
 				</setparam>
 				<setparam ref="WorldViewProj">
-					<float4x4>1.03507 -0.0876488 0.041057 0.0410519 -2.11233e-006 -1.59702 -0.451733 -0.451678 -0.0732863 -1.23788 0.579888 0.579817 -0.0961994 6.96869 6.9074 6.91018</float4x4>
+					<float4x4>0.0991105 1.23098 0.14091 0.140893 -4.60538e-006 0.387527 -0.448589 -0.448534 2.1091 -0.0578452 -0.00662261 -0.00662181 4.72344 5.89122 4.04708 4.05014</float4x4>
 				</setparam>
 				<setparam ref="World">
-					<float4x4>0.736129 0 0 0 0 0.736129 0 0 0 0 0.736129 0 0 -3.95894 0.963511 1</float4x4>
+					<float4x4>0.470189 0 0 0 0 0.470189 0 0 0 0 0.470189 0 1.90093 1.2542 0.963511 1</float4x4>
 				</setparam>
-				<setparam ref="WorldLight">
-					<float4x4>1.40962 0 0 0 0 2.74748 0 0 0 0 -1.00012 -1 0 0 -0.00362281 0</float4x4>
+				<setparam ref="NormalMatrix">
+					<float4x4>4.49059 0 0 0 0 2.74748 0 0 0 0 -1.00012 -1 0 0 -0.00355365 0</float4x4>
 				</setparam>
 			</instance_effect>
 		</material>
 		<material id="Material1" name="diffuse_texture_bump_shadow_Material2">
 			<instance_effect url="#Effect7">
 				<technique_hint platform="PC-OGL" ref="technique0"/>
-				<setparam ref="ColorMap">
+				<setparam ref="colorMap">
 					<surface type="2D">
 						<init_as_null/>
 						<format>A8R8G8B8</format>
 						<size>0 0 1</size>
 					</surface>
 				</setparam>
-				<setparam ref="NormalMap">
+				<setparam ref="normalMap">
 					<surface type="2D">
 						<init_as_null/>
 						<format>A8R8G8B8</format>
 						<size>0 0 1</size>
 					</surface>
 				</setparam>
-				<setparam ref="Ambient">
+				<setparam ref="ambientColor">
 					<float3>0 1 1</float3>
 				</setparam>
-				<setparam ref="LightPosition">
+				<setparam ref="lightPosition">
 					<float3>-0.5 2 1.25</float3>
 				</setparam>
 				<setparam ref="WorldViewProj">
-					<float4x4>1.03507 -0.0876488 0.041057 0.0410519 -2.11233e-006 -1.59702 -0.451733 -0.451678 -0.0732863 -1.23788 0.579888 0.579817 -0.0961994 6.96869 6.9074 6.91018</float4x4>
+					<float4x4>0.0991105 1.23098 0.14091 0.140893 -4.60538e-006 0.387527 -0.448589 -0.448534 2.1091 -0.0578452 -0.00662261 -0.00662181 4.72344 5.89122 4.04708 4.05014</float4x4>
 				</setparam>
 				<setparam ref="World">
-					<float4x4>0.736129 0 0 0 0 0.736129 0 0 0 0 0.736129 0 0 -3.95894 0.963511 1</float4x4>
+					<float4x4>0.470189 0 0 0 0 0.470189 0 0 0 0 0.470189 0 1.90093 1.2542 0.963511 1</float4x4>
 				</setparam>
-				<setparam ref="WorldLight">
-					<float4x4>1.40962 0 0 0 0 2.74748 0 0 0 0 -1.00012 -1 0 0 -0.00362281 0</float4x4>
+				<setparam ref="NormalMatrix">
+					<float4x4>4.49059 0 0 0 0 2.74748 0 0 0 0 -1.00012 -1 0 0 -0.00355365 0</float4x4>
 				</setparam>
 			</instance_effect>
 		</material>
 		<material id="diffuse_shadow" name="diffuse_shadow_Material">
 			<instance_effect url="#Effect9">
 				<technique_hint platform="PC-OGL" ref="technique0"/>
-				<setparam ref="ShadowMap">
+				<setparam ref="shadowMap">
 					<surface type="2D">
 						<init_as_null/>
 						<format>A8R8G8B8</format>
 						<size>0 0 1</size>
 					</surface>
 				</setparam>
-				<setparam ref="diffuse">
+				<setparam ref="diffuseColor">
 					<float3>1 0 0</float3>
 				</setparam>
-				<setparam ref="ambient">
+				<setparam ref="ambientColor">
 					<float3>0 1 1</float3>
 				</setparam>
 				<setparam ref="lightPosition">
-					<float3>0 -3.95894 0.963511</float3>
+					<float3>1.90093 1.2542 0.963511</float3>
 				</setparam>
 				<setparam ref="WorldViewProj">
-					<float4x4>1.03507 -0.0876488 0.041057 0.0410519 -2.11233e-006 -1.59702 -0.451733 -0.451678 -0.0732863 -1.23788 0.579888 0.579817 -0.0961994 6.96869 6.9074 6.91018</float4x4>
+					<float4x4>0.0991105 1.23098 0.14091 0.140893 -4.60538e-006 0.387527 -0.448589 -0.448534 2.1091 -0.0578452 -0.00662261 -0.00662181 4.72344 5.89122 4.04708 4.05014</float4x4>
 				</setparam>
 				<setparam ref="World">
-					<float4x4>0.736129 0 0 0 0 0.736129 0 0 0 0 0.736129 0 0 -3.95894 0.963511 1</float4x4>
+					<float4x4>0.470189 0 0 0 0 0.470189 0 0 0 0 0.470189 0 1.90093 1.2542 0.963511 1</float4x4>
 				</setparam>
 				<setparam ref="WorldLight">
-					<float4x4>0.736129 0 0 0 0 0.736129 0 0 0 0 0.736129 0 0 -3.95894 0.963511 1</float4x4>
+					<float4x4>4.49059 0 0 0 0 2.74748 0 0 0 0 -1.00012 -1 0 0 -0.00355365 0</float4x4>
+				</setparam>
+				<setparam ref="NormalMatrix">
+					<float4x4>4.49059 0 0 0 0 2.74748 0 0 0 0 -1.00012 -1 0 0 -0.00355365 0</float4x4>
 				</setparam>
 			</instance_effect>
 		</material>
 		<material id="Material2" name="diffuse_shadow_Material1">
 			<instance_effect url="#Effect9">
 				<technique_hint platform="PC-OGL" ref="technique0"/>
-				<setparam ref="ShadowMap">
+				<setparam ref="shadowMap">
 					<surface type="2D">
 						<init_as_null/>
 						<format>A8R8G8B8</format>
 						<size>0 0 1</size>
 					</surface>
 				</setparam>
-				<setparam ref="diffuse">
+				<setparam ref="diffuseColor">
 					<float3>1 0 0</float3>
 				</setparam>
-				<setparam ref="ambient">
-					<float3>0 0 0</float3>
+				<setparam ref="ambientColor">
+					<float3>0 1 1</float3>
 				</setparam>
 				<setparam ref="lightPosition">
-					<float3>0 -3.95894 0.963511</float3>
+					<float3>-0.5 2 1.25</float3>
 				</setparam>
 				<setparam ref="WorldViewProj">
-					<float4x4>1.03507 -0.0876488 0.041057 0.0410519 -2.11233e-006 -1.59702 -0.451733 -0.451678 -0.0732863 -1.23788 0.579888 0.579817 -0.0961994 6.96869 6.9074 6.91018</float4x4>
+					<float4x4>0.0991105 1.23098 0.14091 0.140893 -4.60538e-006 0.387527 -0.448589 -0.448534 2.1091 -0.0578452 -0.00662261 -0.00662181 4.72344 5.89122 4.04708 4.05014</float4x4>
 				</setparam>
 				<setparam ref="World">
-					<float4x4>0.736129 0 0 0 0 0.736129 0 0 0 0 0.736129 0 0 -3.95894 0.963511 1</float4x4>
+					<float4x4>0.470189 0 0 0 0 0.470189 0 0 0 0 0.470189 0 1.90093 1.2542 0.963511 1</float4x4>
 				</setparam>
 				<setparam ref="WorldLight">
-					<float4x4>0.736129 0 0 0 0 0.736129 0 0 0 0 0.736129 0 0 -3.95894 0.963511 1</float4x4>
+					<float4x4>4.49059 0 0 0 0 2.74748 0 0 0 0 -1.00012 -1 0 0 -0.00355365 0</float4x4>
+				</setparam>
+				<setparam ref="NormalMatrix">
+					<float4x4>4.49059 0 0 0 0 2.74748 0 0 0 0 -1.00012 -1 0 0 -0.00355365 0</float4x4>
+				</setparam>
+			</instance_effect>
+		</material>
+		<material id="Material3" name="diffuse_bump_texture_Material">
+			<instance_effect url="#Effect6">
+				<technique_hint platform="PC-OGL" ref="technique0"/>
+				<setparam ref="colorMap">
+					<surface type="2D">
+						<init_from>default_color</init_from>
+						<format>R8G8B8A8</format>
+						<size>0 0 1</size>
+					</surface>
+				</setparam>
+				<setparam ref="normalMap">
+					<surface type="2D">
+						<init_as_null/>
+						<format>A8R8G8B8</format>
+						<size>0 0 1</size>
+					</surface>
+				</setparam>
+				<setparam ref="ambientColor">
+					<float3>0.55562 1 0.351476</float3>
+				</setparam>
+				<setparam ref="lightPosition">
+					<float3>1.90093 1.2542 0.963511</float3>
+				</setparam>
+				<setparam ref="WorldViewProj">
+					<float4x4>0.0991105 1.23098 0.14091 0.140893 -4.60538e-006 0.387527 -0.448589 -0.448534 2.1091 -0.0578452 -0.00662261 -0.00662181 4.72344 5.89122 4.04708 4.05014</float4x4>
+				</setparam>
+				<setparam ref="World">
+					<float4x4>0.470189 0 0 0 0 0.470189 0 0 0 0 0.470189 0 1.90093 1.2542 0.963511 1</float4x4>
+				</setparam>
+				<setparam ref="NormalMatrix">
+					<float4x4>4.49059 0 0 0 0 2.74748 0 0 0 0 -1.00012 -1 0 0 -0.00355365 0</float4x4>
 				</setparam>
 			</instance_effect>
 		</material>

@@ -1,23 +1,59 @@
+float3 diffuseColor : Diffuse <
+    string UIName =  "Diffuse Light";
+    string UIWidget = "Color";
+> = {1.0f,0.0f,1.0f};
+
+float3 ambientColor : Ambient <
+    string UIName =  "Ambient Light";
+    string UIWidget = "Color";
+> = {0.0f,0.0f,0.0f};
+
+float3 lightPosition : Position <
+    string Object = "PointLight0";
+    string UIName =  "LightPosition";
+    string Space = "World";
+> = {-0.5f,2.0f,1.25f};
+
 float4x4 WorldViewProj : WorldViewProjection< string UIWidget="None"; >;
 float4x4 World : World< string UIWidget="None"; >;
+float4x4 NormalMatrix : Projection< string UIWidget="None"; >;
 
 struct VOutput {
-	float4 position  : POSITION;
+	float4 position			: POSITION;
+	float3 normal			: TEXCOORD0;
+	float3 vPosition		: TEXCOORD1;
 };
 
-VOutput mainVS(float4 position : ATTR0) {	
+VOutput mainVS(	float4 position 		: POSITION,
+				float4 normal 			: ATTR2) {
 	VOutput OUT;
 	OUT.position = mul(WorldViewProj, position);
-  	return OUT;
+	OUT.vPosition = mul(World, position).xyz;
+	OUT.normal = normal.xyz;// mul(NormalMatrix, normal).xyz;
+ 	return OUT;
 }
 
-float4 mainPS() : COLOR {
-	return float4(0.0f, 0.0f, 1.0f, 1.0f);
+float4 mainPS(	float3 normal			: TEXCOORD0,
+				float3 vPosition		: TEXCOORD1,
+				uniform float3 lightPosition) : COLOR {
+	
+	float3 finalColor = float3(0, 0, 0);
+	
+	// diffuse + ambient
+	{
+		float3 lightDirection = lightPosition - vPosition;
+		float diffuseStrength = max(0.0f, dot(normalize(normal), normalize(lightDirection)));
+
+		float3 diffuseAmount = diffuseColor * diffuseStrength;
+		finalColor += diffuseAmount + ambientColor;
+	}
+	
+	return float4(finalColor, 1);
 }
 
 technique technique0 {
 	pass p0 {
 		VertexProgram = compile glslv mainVS();
-		FragmentProgram = compile glslf mainPS();
+		FragmentProgram = compile glslf mainPS(lightPosition);
 	}
 }

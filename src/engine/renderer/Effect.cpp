@@ -18,6 +18,7 @@ void Effect::load(const std::string& filePath) {
   if (!context_) {
     context_ = cgCreateContext();
     cgGLRegisterStates(context_);
+    cgGLSetManageTextureParameters(context_, GL_TRUE);
   }
 
   effect_ = cgCreateEffectFromFile(context_, filePath.c_str(), NULL);
@@ -51,53 +52,47 @@ void Effect::endDraw() {
   CGtechnique technique = cgGetFirstTechnique(effect_);
   CGpass pass = cgGetFirstPass(technique);
   cgResetPassState(pass);
-  cgGetNextPass(pass);
 }
 
 void Effect::setUniform(const Vector3& uniformData, const char* uniformName) const {
-  std::map<std::string, CGparameter>::const_iterator it = parameters_.find(uniformName);
-  if (it == parameters_.end()) return;
-  cgGLSetParameter3fv((*it).second, uniformData.valuePtr());
+  CGparameter parameter = cgGetNamedEffectParameter(effect_, uniformName);
+  if (!parameter) return;
+  cgGLSetParameter3fv(parameter, uniformData.valuePtr());
 }
 
 void Effect::setUniform(const Vector4& uniformData, const char* uniformName) const { 
-  std::map<std::string, CGparameter>::const_iterator it = parameters_.find(uniformName);
-  if (it == parameters_.end()) return;
-  cgGLSetParameter4fv((*it).second, uniformData.valuePtr()); 
+  CGparameter parameter = cgGetNamedEffectParameter(effect_, uniformName);
+  if (!parameter) return;
+  cgGLSetParameter4fv(parameter, uniformData.valuePtr()); 
 }
 
 void Effect::setUniform(const Matrix3x3& uniformData, const char* uniformName) const {
-  std::map<std::string, CGparameter>::const_iterator it = parameters_.find(uniformName);
-  if (it == parameters_.end()) return;
-  cgGLSetMatrixParameterfr((*it).second, uniformData.valuePtr());
+  CGparameter parameter = cgGetNamedEffectParameter(effect_, uniformName);
+  if (!parameter) return;
+  cgGLSetMatrixParameterfr(parameter, uniformData.valuePtr());
 }
 
 void Effect::setUniform(const Matrix4x4& uniformData, const char* uniformName) const {
-  std::map<std::string, CGparameter>::const_iterator it = parameters_.find(uniformName);
-  if (it == parameters_.end()) return;
-  cgGLSetMatrixParameterfr((*it).second, uniformData.valuePtr());
+  CGparameter parameter = cgGetNamedEffectParameter(effect_, uniformName);
+  if (!parameter) return;
+  cgGLSetMatrixParameterfr(parameter, uniformData.valuePtr());
 }
 
 void Effect::setUniform(int uniformData, const char* uniformName) const {
-  std::map<std::string, CGparameter>::const_iterator it = parameters_.find(uniformName);
-  if (it == parameters_.end()) return; 
-  cgGLSetParameter1d((*it).second, uniformData);
+  CGparameter parameter = cgGetNamedEffectParameter(effect_, uniformName);
+  if (!parameter) return;
+  cgGLSetParameter1d(parameter, uniformData);
 }
 
 void Effect::setUniform(float uniformData, const char* uniformName) const {
-  std::map<std::string, CGparameter>::const_iterator it = parameters_.find(uniformName);
-  if (it == parameters_.end()) return;
-  cgGLSetParameter1f((*it).second, uniformData);
+  CGparameter parameter = cgGetNamedEffectParameter(effect_, uniformName);
+  if (!parameter) return;
+  cgGLSetParameter1f(parameter, uniformData);
 }
 
 void Effect::setTexture(int textureIndex, unsigned int textureId, const char* uniformName) {
-  std::map<std::string, CGparameter>::const_iterator it = parameters_.find(uniformName);
-  if (it == parameters_.end()) return;
+  CGparameter parameter = cgGetNamedEffectParameter(effect_, uniformName);
+  if (!parameter) return;
 
-  glActiveTexture(GL_TEXTURE0 + textureIndex);
-  glBindTexture(GL_TEXTURE_2D, textureId);
-
-  cgGLSetTextureParameter((*it).second, textureId);
-  //cgSetSamplerState((*it).second);
-  cgGLEnableTextureParameter((*it).second);
+  cgGLSetTextureParameter(parameter, textureId);
 }

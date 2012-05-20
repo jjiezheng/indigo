@@ -42,6 +42,19 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
   SkyBox skybox;
   skybox.load(skyboxBasename);
   world.setSkyBox(skybox);
+
+  json::Object backgroundColor = sceneObject["backgroundColor"];
+  json::Number redNumber = backgroundColor["r"];
+  float r = redNumber.Value();
+
+  json::Number greenNumber = backgroundColor["g"];
+  float g = greenNumber.Value();
+
+  json::Number blueNumber = backgroundColor["b"];
+  float b = blueNumber.Value();
+
+  Color3 backgroundColor3(r, g, b);
+  sceneContext.setBackgroundColor(backgroundColor3);
   
   json::Array objectsArray = sceneObject["objects"];
   json::Array::iterator oit = objectsArray.begin();

@@ -122,7 +122,7 @@ void RendererShadow::render(IViewer* viewer, const World& world, SceneContext& s
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_CULL_FACE);
 
-  glPolygonOffset(2.5f, 10.0f);
+  //glPolygonOffset(2.5f, 10.0f);
   glEnable(GL_POLYGON_OFFSET_FILL);
   
   glClear(GL_DEPTH_BUFFER_BIT);  

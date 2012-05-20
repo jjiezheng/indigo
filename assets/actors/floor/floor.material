@@ -1,13 +1,13 @@
 {
   "effect" : "cgfx/diffuse_shadow.cgfx",
   "parameters" : {
-    "ambient" : {
+    "ambientColor" : {
       "r" : 0,
       "g" : 0,
       "b" : 0,
       "type" : "color3"
     },
-    "diffuse" : {
+    "diffuseColor" : {
       "r" : 0.6,
       "g" : 0.6,
       "b" : 0.6,

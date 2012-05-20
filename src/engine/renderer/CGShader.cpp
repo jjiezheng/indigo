@@ -145,12 +145,12 @@ void CGShader::setUniform(float* uniformData, size_t size, const char* uniformNa
 }
 
 void CGShader::setTexture(int textureIndex, unsigned int textureId, const char* uniformName) {
-  glActiveTexture(GL_TEXTURE0 + textureIndex);
-  glBindTexture(GL_TEXTURE_2D, textureId);
+  //glActiveTexture(GL_TEXTURE0 + textureIndex);
+ // glBindTexture(GL_TEXTURE_2D, textureId);
 
-  CGparameter parameter = cgGetNamedParameter(program_, uniformName);
+  /*CGparameter parameter = cgGetNamedParameter(program_, uniformName);
   if (parameter) {
     cgGLSetTextureParameter(parameter, textureId);
     cgGLEnableTextureParameter(parameter);
-  }
+  }*/
 }
