@@ -13,7 +13,7 @@ public:
   
   Vector3MaterialParameter(const std::string& name, const Vector3& value);
   
-  void setShader(const IShader* shader);
+  void setEffect(const Effect* effect);
   
 private:
   
@@ -26,8 +26,8 @@ Vector3MaterialParameter::Vector3MaterialParameter(const std::string& name, cons
 : name_(name)
 , value_(value) { }
 
-inline void Vector3MaterialParameter::setShader(const IShader* shader) {
-  shader->setUniform(value_, name_.c_str());
+inline void Vector3MaterialParameter::setEffect(const Effect* effect) {
+  effect->setUniform(value_, name_.c_str());
 }
 
 #endif

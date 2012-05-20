@@ -1,7 +1,9 @@
 #ifndef RENDERER_SHADOW_H
 #define RENDERER_SHADOW_H
 
-#include "Shader.h"
+#include "OpenGL.h"
+#include "Effect.h"
+#include "Texture.h"
 
 class CSize;
 class Camera;
@@ -29,7 +31,9 @@ private:
   GLuint debugVertArray_;
   GLuint debugVertBuffer_;
   GLuint debugUVBuffer_;
-  Shader debugShader_;
+
+  Effect debugShader_;
+  Texture testTexture_;
 };
 
 #endif

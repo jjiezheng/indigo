@@ -1,7 +1,6 @@
 #ifndef MATERIAL_H
 #define MATERIAL_H
 
-#include "IShader.h"
 #include "Effect.h"
 #include "MaterialParameter.h"
 #include "Texture.h"
@@ -17,8 +16,6 @@ public:
 
   void unbind() const;
 
-  void setShader(IShader* shader);
-
   void setEffect(Effect* effect);
   
   void setParameter(MaterialParameter* parameter);
@@ -27,17 +24,12 @@ public:
   
 private:
   
-  IShader* shader_;
   Effect* effect_;
   
   std::vector<MaterialParameter*> parameters_;
   std::map<std::string, Texture> textures_;
   
 };
-
-inline void Material::setShader(IShader* shader) {
-  shader_ = shader;
-}
 
 inline void Material::setParameter(MaterialParameter* parameter) {
   parameters_.push_back(parameter);

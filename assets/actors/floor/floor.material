@@ -1,5 +1,5 @@
 {
-  "shader" : "cgshaders/diffuse_lights_shadow.shader",
+  "effect" : "cgfx/diffuse_shadow.cgfx",
   "parameters" : {
     "ambient" : {
       "r" : 0,

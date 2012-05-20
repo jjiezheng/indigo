@@ -1,0 +1,23 @@
+float4x4 WorldViewProj : WorldViewProjection< string UIWidget="None"; >;
+float4x4 World : World< string UIWidget="None"; >;
+
+struct VOutput {
+	float4 position  : POSITION;
+};
+
+VOutput mainVS(float4 position : ATTR0) {	
+	VOutput OUT;
+	OUT.position = mul(WorldViewProj, position);
+  	return OUT;
+}
+
+float4 mainPS() : COLOR {
+	return float4(0.0f, 0.0f, 1.0f, 1.0f);
+}
+
+technique technique0 {
+	pass p0 {
+		VertexProgram = compile glslv mainVS();
+		FragmentProgram = compile glslf mainPS();
+	}
+}

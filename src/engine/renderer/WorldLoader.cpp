@@ -261,19 +261,4 @@ void WorldLoader::loadEffect(Material& material, const std::string &shaderFilePa
   std::string fullEffectPath = Path::pathForFile(shaderFilePath);
   effect->load(fullEffectPath);
   material.setEffect(effect);
-
-  /*CGShader* shader = new CGShader();
-  std::string fullShaderFilePath = Path::pathForFile(shaderFilePath);
-  std::ifstream shaderFile(fullShaderFilePath.c_str(), std::ifstream::in);
-  
-  json::Object shaderObject;
-  LOG(LOG_CHANNEL_WORLDLOADER, "loading shader %s", shaderFilePath.c_str());
-  json::Reader::Read(shaderObject, shaderFile); 
-
-  json::String vertexFilePath = shaderObject["vertex"];
-  json::String fragmentFilePath = shaderObject["fragment"];
-     
-  shader->load(vertexFilePath.Value().c_str(), fragmentFilePath.Value().c_str());
-  
-  material.setShader(shader);*/
 }

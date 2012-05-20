@@ -12,7 +12,7 @@ public:
   
   IntegerMaterialParameter(const std::string& name, int value);
   
-  void setShader(const IShader* shader);
+  void setEffect(const Effect* effect);
   
 private:
   
@@ -25,8 +25,8 @@ IntegerMaterialParameter::IntegerMaterialParameter(const std::string& name, int 
   : name_(name)
   , value_(value) { }
 
-inline void IntegerMaterialParameter::setShader(const IShader* shader) {
-  shader->setUniform(value_, name_.c_str());
+inline void IntegerMaterialParameter::setEffect(const Effect* effect) {
+  effect->setUniform(value_, name_.c_str());
 }
 
 

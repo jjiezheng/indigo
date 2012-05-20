@@ -7,7 +7,7 @@ class MaterialParameter {
   
 public:
   
-  virtual void setShader(const IShader* shader) = 0;
+  virtual void setEffect(const Effect* effect) = 0;
   
 };
 

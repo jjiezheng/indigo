@@ -1,0 +1,71 @@
+texture ShadowMap  <
+	string ResourceName = "";//Optional default file name
+	string UIName =  "ShadowMap Texture";
+	string ResourceType = "2D";
+>;
+
+sampler2D ShadowMapSampler = sampler_state {
+	Texture = <ShadowMap>;
+	MinFilter = LinearMipMapLinear;
+	MagFilter = Linear;
+	WrapS = Clamp;
+	WrapT = Clamp;
+};
+
+float3 diffuse : Diffuse <
+    string UIName =  "Diffuse Light";
+    string UIWidget = "Color";
+> = {1.0f,0.0f,0.0f};
+
+float3 ambient : Ambient <
+    string UIName =  "Ambient Light";
+    string UIWidget = "Color";
+> = {0.0f,1.0f,1.0f};
+
+float3 lightPosition : Position <
+    string Object = "PointLight0";
+    string UIName =  "LightPosition";
+    string Space = "World";
+> = {-0.5f,2.0f,1.25f};
+
+float4x4 WorldViewProj : WorldViewProjection< string UIWidget="None"; >;
+float4x4 World : World< string UIWidget="None"; >;
+float4x4 WorldLight : Projection< string UIWidget="None"; >;
+
+struct VOutput {
+	float4 position			: POSITION;
+	float4 shadowMapCoord	: TEXCOORD0;
+};
+
+VOutput mainVS(	float4 position 		: POSITION,
+												float3 normal 			: NORMAL) {
+	VOutput OUT;
+	OUT.position = mul(WorldViewProj, position);
+	OUT.shadowMapCoord = mul(WorldLight, position);
+ 	return OUT;
+}
+
+float4 mainPS(float4 shadowMapCoord 	: TEXCOORD0) : COLOR {
+	
+	float3 finalColor = float3(0, 0, 0);
+					
+	// shadow
+	{
+		float4 shadowCoord = shadowMapCoord;
+    	shadowCoord.z += 0.0005f;
+
+    	if (shadowCoord.w > 0.0f) {
+      		float depth = tex2Dproj(ShadowMapSampler, shadowCoord).z;
+			float shadow = depth == 0 ? 0.5f : 1.0f;
+      		finalColor.rgb = float3(1, 0, 0) * shadow;
+    	}
+ 	}									
+	return float4(finalColor, 1);
+}
+
+technique technique0 {
+	pass p0 {
+		VertexProgram = compile glslv mainVS();
+		FragmentProgram = compile glslf mainPS();
+	}
+}

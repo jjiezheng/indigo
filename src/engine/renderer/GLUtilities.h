@@ -2,7 +2,8 @@
 #define GLUtilities_H
 
 #include "OpenGL.h"
-#include <assert.h>
+#include <assert.h> 
+#include "io/Log.h"
 
 class GLUtilities {
   

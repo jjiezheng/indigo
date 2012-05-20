@@ -51,7 +51,7 @@ void App::run() {
     }
   }
 
-  glfwTerminate();
+  //glfwTerminate();
 }
 
 void App::keyFunction(int character, int state) {

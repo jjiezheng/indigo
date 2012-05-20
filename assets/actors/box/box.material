@@ -1,5 +1,5 @@
 {
-  "effect" : "cgfx/diffuse_flat/model_view_projection.cgfx",
+  "effect" : "cgfx/diffuse.cgfx",
   "parameters" : { },
   "textures" : { }
 }

@@ -13,59 +13,33 @@ void Material::bind(const IViewer* camera, const Matrix4x4& model, const Matrix3
   
   Matrix4x4 modelViewProjection = camera->projection() * camera->viewTransform() * model;
   effect_->setUniform(modelViewProjection, "WorldViewProj"); 
+  effect_->setUniform(model, "World");
 
-  effect_->setUniform(model, "model"); 
-
-  /*Matrix4x4 offsetMatrix(0.5f, 0.0f, 0.0f, 0.5f,
+  Matrix4x4 offsetMatrix(0.5f, 0.0f, 0.0f, 0.5f,
                          0.0f, 0.5f, 0.0f, 0.5f,
                          0.0f, 0.0f, 0.5f, 0.5f,
                          0.0f, 0.0f, 0.0f, 1.0f);
-
+ 
   Light light = sceneContext.lights().front();
-  shader_->setUniform(light.position(), "lightPosition");
+  effect_->setUniform(light.position(), "lightPosition"); 
   
-  Matrix4x4 lightMatrix = offsetMatrix * camera->projection() * light.viewTransform();
-  Matrix4x4 modelLight = lightMatrix * model;
-  shader_->setUniform(modelLight, "modelLight");
+  Matrix4x4 lightMatrix = offsetMatrix * camera->projection() * light.viewTransform() * model;
+  effect_->setUniform(lightMatrix, "WorldLight");
 
-  shader_->setTexture(7, sceneContext.shadowTexture(), "shadowMap");
+  effect_->setTexture(0, sceneContext.shadowTexture(), "ShadowMap");
 
   int textureIndex = 0;
-  std::map<std::string, Texture>::const_iterator tit = textures_.begin();
+  std::map<std::string, Texture>::const_iterator tit = textures_.begin(); 
   for (; tit != textures_.end(); ++tit) {
-    shader_->setTexture(textureIndex++, (*tit).second.textureId(), (*tit).first.c_str());
+    effect_->setTexture(textureIndex++, (*tit).second.textureId(), (*tit).first.c_str()); 
   }
 
   std::vector<MaterialParameter*>::const_iterator mit = parameters_.begin(); 
   for (; mit != parameters_.end(); ++mit) {
-    (*mit)->setShader(shader_);
-  }*/
-
-  /*shader_->setUniform(camera->viewTransform(), "view");
-  shader_->setUniform(camera->projection(), "projection");*/ 
-
-  /*const int MAX_LIGHTS = 6;
-  float lightPositions[MAX_LIGHTS*3]; 
-  int lightPositionIndex = 0; 
-  
-  std::vector<Light> lights = sceneContext.lights();
-  std::vector<Light>::iterator lit = lights.begin(); 
-  
-  for (; lit != lights.end(); ++lit) {
-    lightPositions[lightPositionIndex++] = (*lit).position().x; 
-    lightPositions[lightPositionIndex++] = (*lit).position().y;
-    lightPositions[lightPositionIndex++] = (*lit).position().z;
+    (*mit)->setEffect(effect_);
+  }
     
-    
-    shader_->setUniform(lightMatrix, "lightMatrix");
-  }*/
-
-  //shader_->setUniform((int)lights.size(), "numPointLights");
-  //shader_->setUniform(normalMatrix, "normalMatrix");  
-  //shader_->setUniform(lightPositions, lightPositionIndex, "lightPositions");  
-    
-  /*
-  shader_->setUniform(sceneContext.fogStart(), "fogStart");
+  /* shader_->setUniform(sceneContext.fogStart(), "fogStart");
   shader_->setUniform(sceneContext.fogEnd(), "fogEnd");
   shader_->setUniform(sceneContext.fogColor(), "fogColor");
   shader_->setUniform(sceneContext.fogEnd(), "fogType");

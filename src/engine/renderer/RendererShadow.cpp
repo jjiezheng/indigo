@@ -11,6 +11,11 @@
 #include "ShaderAttribs.h"
 #include "ShaderAttribs.h"
 
+#include "Texture.h"
+
+#include "io/Log.h"
+#include "io/Path.h"
+
 void RendererShadow::init(const CSize &screenSize) {
 {
     glGenFramebuffers(1, &frameBuffer_);
@@ -24,10 +29,13 @@ void RendererShadow::init(const CSize &screenSize) {
     {
       glGenRenderbuffers(1, &depthBuffer_);
       GLUtilities::checkForError();
+
       glBindRenderbuffer(GL_RENDERBUFFER, depthBuffer_);
       GLUtilities::checkForError();
+
       glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, screenSize.width, screenSize.height);
       GLUtilities::checkForError();
+
       glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthBuffer_);
       GLUtilities::checkForError();
     }
@@ -36,6 +44,7 @@ void RendererShadow::init(const CSize &screenSize) {
     GLUtilities::checkFramebufferStatus(GL_FRAMEBUFFER);
     
     {
+      glGenTextures(1, &shadowTexture_);
       glGenTextures(1, &shadowTexture_);
       glBindTexture(GL_TEXTURE_2D, shadowTexture_);
       glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, screenSize.width, screenSize.height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
@@ -46,7 +55,7 @@ void RendererShadow::init(const CSize &screenSize) {
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
       
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_R_TO_TEXTURE);
+      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
       
       float ones[] = {1, 1, 1, 1};
@@ -87,35 +96,32 @@ void RendererShadow::init(const CSize &screenSize) {
       0.0f, 1.0f,
       1.0f, 0.0f,
       1.0f, 1.0f
-    };
+    }; 
     
     glGenBuffers(1, &debugUVBuffer_);
     glBindBuffer(GL_ARRAY_BUFFER, debugUVBuffer_);
     glBufferData(GL_ARRAY_BUFFER, 12 * sizeof(float), &uvs, GL_STATIC_DRAW);
     glVertexAttribPointer(ATTRIB_UV, 2, GL_FLOAT, 0, 0, 0);
     glEnableVertexAttribArray(ATTRIB_UV);
-        
-    debugShader_.load("glsl/vt.vsh", "glsl/ft.fsh");
-    debugShader_.bindAttribute(ATTRIB_VERTEX, "vertex");
-    debugShader_.bindAttribute(ATTRIB_UV, "textureCoords");
-    debugShader_.link();
-    
-    debugShader_.addUniform("colorMap");
-    
-    Matrix4x4 projection = Matrix4x4::orthographic(0, Window::screenWidth(), 0, Window::screenHeight(), -1, 1000);  
-    debugShader_.setUniform(projection, "projection");
+
+    std::string fullPath = Path::pathForFile("cgfx/diffuse_texture.cgfx");
+    debugShader_.load(fullPath.c_str());
+         
   }
-}
+
+  testTexture_.init("actors/shuttle/shuttle_diffuse.dds");
+} 
 
 void RendererShadow::render(IViewer* viewer, const World& world, SceneContext& sceneContext) {
+
+  glBindRenderbuffer(GL_RENDERBUFFER, depthBuffer_);
+  glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer_);
+
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_CULL_FACE);
 
-  glBindRenderbuffer(GL_RENDERBUFFER, depthBuffer_);
-  glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer_);
-  
   glPolygonOffset(2.5f, 10.0f);
   glEnable(GL_POLYGON_OFFSET_FILL);
   
@@ -130,26 +136,22 @@ void RendererShadow::render(IViewer* viewer, const World& world, SceneContext& s
   glDisable(GL_POLYGON_OFFSET_FILL);
   glCullFace(GL_BACK);
   
-  glBindFramebuffer(GL_FRAMEBUFFER, 0);
+  glBindFramebuffer(GL_FRAMEBUFFER, 0); 
   glBindRenderbuffer(GL_RENDERBUFFER, 0);
   
   sceneContext.setShadowTexture(shadowTexture_);
   
-  glDisable(GL_DEPTH_TEST);
+  glDisable(GL_DEPTH_TEST); 
   glDisable(GL_CULL_FACE);
-
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void RendererShadow::renderDebug(SceneContext& sceneContext) {
-  debugShader_.use();
-  
-  glActiveTexture(GL_TEXTURE0);
-  debugShader_.setUniform(0, "colorMap");
-  
-  glBindTexture(GL_TEXTURE_2D, shadowTexture_);  
-  glBindVertexArray(debugVertArray_);
-  glDrawArrays(GL_TRIANGLES, 0, 6);    
+void RendererShadow::renderDebug(SceneContext& sceneContext) { 
+  debugShader_.beginDraw();
 
-  glUseProgram(0);
+  debugShader_.setTexture(0, shadowTexture_, "ColorMap");
+  
+  glBindVertexArray(debugVertArray_);
+  glDrawArrays(GL_TRIANGLES, 0, 6);
+
+  debugShader_.endDraw();
 }

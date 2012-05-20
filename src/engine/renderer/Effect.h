@@ -2,6 +2,7 @@
 #define EFFECT_H
 
 #include <string>
+#include <map>
 #include <CG/cg.h>
 
 class Matrix4x4;
@@ -28,10 +29,6 @@ public:
 
   void setUniform(const Matrix4x4& uniformData, const char* uniformName) const;
 
-  void setUniform(const Color3& uniformData, const char* uniformName) const;
-
-  void setUniform(const Color4& uniformData, const char* uniformName) const;
-
   void setUniform(const Vector3& uniformData, const char* uniformName) const;
 
   void setUniform(const Vector4& uniformData, const char* uniformName) const;
@@ -40,16 +37,14 @@ public:
 
   void setUniform(float uniformData, const char* uniformName) const;
 
-  void addUniform(const char* uniformName);
-
-  void setUniform(float* uniformData, size_t size, const char* uniformName) const;
+  void setTexture(int textureIndex, unsigned int textureId, const char* uniformName);
 
 private:
 
-  CGcontext context_;
-  CGtechnique technique_; 
-  CGpass pass_;
-  CGprogram program_;
+  static CGcontext context_;
+  CGeffect effect_;
+
+  std::map<std::string, CGparameter> parameters_;
 };
 
 
