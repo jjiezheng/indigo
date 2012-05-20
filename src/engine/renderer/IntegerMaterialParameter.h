@@ -4,7 +4,6 @@
 #include "MaterialParameter.h"
 
 #include <string>
-#include "IShader.h"
 
 class IntegerMaterialParameter : public MaterialParameter {
   

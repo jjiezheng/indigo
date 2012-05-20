@@ -1,7 +1,7 @@
 #include "Box.h"
 
 #include "OpenGL.h"
-#include "Shader.h"
+#include "Effect.h"
 #include "ShaderAttribs.h"
 
 static const int VERTEX_SIZE = 3;
@@ -42,9 +42,9 @@ void Box::init() {
 //    shader_.link();    
 //  }
   {
-    cgShader_.load("cg/vertex.cg", "cg/fragment_diffuse_flat_green.cg");
+    //cgShader_.load("cg/vertex.cg", "cg/fragment_diffuse_flat_green.cg");
 //    cgShader_.bindAttribute(ATTRIB_VERTEX, "position");
-    cgShader_.link();    
+    //cgShader_.link();    
   }
 }
 
@@ -53,7 +53,7 @@ void Box::queueRender(Renderer* renderer) {
 
 void Box::render() const {
 //  shader_.use();
-  cgShader_.use();
+  //cgShader_.use();
   glBindVertexArray(vertexArray);
   glDrawArrays(GL_TRIANGLES, 0, 6);   
 }

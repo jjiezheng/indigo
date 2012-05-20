@@ -1,10 +1,7 @@
 #include "Material.h"
 
-#include <iostream>
-
 #include "IViewer.h"
 #include "OpenGL.h"
-#include "Shader.h"
 #include "SceneContext.h"
 #include "Light.h"
 

@@ -4,7 +4,6 @@
 #include <string>
 
 #include "maths/Vector3.h"
-#include "IShader.h"
 #include "MaterialParameter.h"
 
 class Vector3MaterialParameter : public MaterialParameter {

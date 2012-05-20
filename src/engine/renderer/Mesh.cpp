@@ -2,7 +2,6 @@
 
 #include "maths/Matrix3x3.h"
 
-#include "Shader.h"
 #include "ShaderAttribs.h"
 #include "MeshResource.h"
 

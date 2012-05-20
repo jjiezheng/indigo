@@ -1,7 +1,8 @@
 #ifndef SKYBOX_H
 #define SKYBOX_H
 
-#include "Shader.h"
+#include "Effect.h"
+#include "OpenGL.h"
 
 class IViewer;
 class SceneContext;
@@ -20,7 +21,7 @@ private:
   
 private:
   
-  Shader shader_;
+  Effect effect_;
   GLuint vertexArray;
   GLuint vertexBuffer;
   GLuint cubeTexture_;

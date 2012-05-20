@@ -4,7 +4,6 @@
 #include "MaterialParameter.h"
 
 #include <string>
-#include "Shader.h"
 
 class FloatMaterialParameter : public MaterialParameter {
   

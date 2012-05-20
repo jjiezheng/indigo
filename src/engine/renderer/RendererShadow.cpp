@@ -105,11 +105,9 @@ void RendererShadow::init(const CSize &screenSize) {
     glEnableVertexAttribArray(ATTRIB_UV);
 
     std::string fullPath = Path::pathForFile("cgfx/diffuse_texture.cgfx");
-    debugShader_.load(fullPath.c_str());
+    debugEffect_.load(fullPath.c_str());
          
   }
-
-  testTexture_.init("actors/shuttle/shuttle_diffuse.dds");
 } 
 
 void RendererShadow::render(IViewer* viewer, const World& world, SceneContext& sceneContext) {
@@ -146,12 +144,12 @@ void RendererShadow::render(IViewer* viewer, const World& world, SceneContext& s
 }
 
 void RendererShadow::renderDebug(SceneContext& sceneContext) { 
-  debugShader_.beginDraw();
+  debugEffect_.beginDraw();
 
-  debugShader_.setTexture(shadowTexture_, "ColorMap");
+  debugEffect_.setTexture(shadowTexture_, "colorMapSampler");
   
   glBindVertexArray(debugVertArray_);
   glDrawArrays(GL_TRIANGLES, 0, 6);
 
-  debugShader_.endDraw();
+  debugEffect_.endDraw();
 }

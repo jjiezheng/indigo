@@ -2,8 +2,8 @@
 #define Box_H_
 
 #include "core/Standard.h"
-#include "Shader.h"
-#include "CGShader.h"
+#include "OpenGL.h"
+#include "Effect.h"
 
 class Renderer;
 
@@ -32,8 +32,7 @@ private:
   
 private:
   
-  Shader shader_;
-  CGShader cgShader_;
+  Effect effect_;
   
 };
 

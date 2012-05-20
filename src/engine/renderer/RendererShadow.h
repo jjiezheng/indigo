@@ -32,8 +32,7 @@ private:
   GLuint debugVertBuffer_;
   GLuint debugUVBuffer_;
 
-  Effect debugShader_;
-  Texture testTexture_;
+  Effect debugEffect_;
 };
 
 #endif

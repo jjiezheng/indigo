@@ -3,7 +3,6 @@
 #include "app/Window.h"
 #include "OpenGL.h"
 
-#include "Shader.h"
 #include "Angles.h"
 
 Camera::Camera() 

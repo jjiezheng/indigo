@@ -14,7 +14,6 @@
 #include "Mesh.h"
 #include "maths/Vector4.h"
 #include "Model.h"
-#include "CGShader.h"
 #include "Material.h"
 #include "Effect.h"
 
