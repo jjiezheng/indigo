@@ -40,7 +40,7 @@ struct VOutput {
 	float4 shadowMapCoord	: TEXCOORD2;
 };
 
-VOutput mainVS(	float4 position 		: POSITION,
+VOutput mainVS(	float4 position 		: ATTR0,
 				float4 normal 			: ATTR2) {
 	VOutput OUT;
 	OUT.position = mul(WorldViewProj, position);

@@ -1,3 +1,0 @@
-float4 main() : COLOR {
-  return float4(1.0, 1.0, 1.0, 1.0);
-}

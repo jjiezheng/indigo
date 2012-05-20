@@ -21,7 +21,7 @@ struct VOutput {
   	float2 texCoord : TEXCOORD0;
 };
 
-VOutput mainVS(	float4 position : POSITION,
+VOutput mainVS(	float4 position : ATTR0,
              	float2 texCoord : ATTR8) {
 
 	VOutput OUT;

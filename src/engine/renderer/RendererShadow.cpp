@@ -55,7 +55,7 @@ void RendererShadow::init(const CSize &screenSize) {
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
       
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
+      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_R_TO_TEXTURE);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
       
       float ones[] = {1, 1, 1, 1};
@@ -148,7 +148,7 @@ void RendererShadow::render(IViewer* viewer, const World& world, SceneContext& s
 void RendererShadow::renderDebug(SceneContext& sceneContext) { 
   debugShader_.beginDraw();
 
-  debugShader_.setTexture(0, shadowTexture_, "ColorMap");
+  debugShader_.setTexture(shadowTexture_, "ColorMap");
   
   glBindVertexArray(debugVertArray_);
   glDrawArrays(GL_TRIANGLES, 0, 6);

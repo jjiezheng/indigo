@@ -28,12 +28,11 @@ void Material::bind(const IViewer* camera, const Matrix4x4& model, const Matrix3
   Matrix4x4 lightMatrix = offsetMatrix * camera->projection() * light.viewTransform() * model;
   effect_->setUniform(lightMatrix, "WorldLight");
 
-  effect_->setTexture(0, sceneContext.shadowTexture(), "shadowMapSampler");
+  effect_->setTexture(sceneContext.shadowTexture(), "shadowMapSampler");
 
-  int textureIndex = 1;
   std::map<std::string, Texture>::const_iterator tit = textures_.begin(); 
   for (; tit != textures_.end(); ++tit) {
-    effect_->setTexture(textureIndex++, (*tit).second.textureId(), (*tit).first.c_str()); 
+    effect_->setTexture((*tit).second.textureId(), (*tit).first.c_str()); 
   }
 
   std::vector<MaterialParameter*>::const_iterator mit = parameters_.begin(); 

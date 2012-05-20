@@ -50,7 +50,7 @@ struct VOutput {
 	float3 normal			: TEXCOORD2;
 };
 
-VOutput mainVS(	float4 position 		: POSITION,
+VOutput mainVS(	float4 position 		: ATTR0,
 				float4 normal 			: ATTR2,
 				float2 texCoord 		: ATTR8) {
 	VOutput OUT;
@@ -89,7 +89,7 @@ float4 mainPS(	float2 texCoord			: TEXCOORD0,
 
 technique technique0 {
 	pass p0 {
-		VertexProgram = compile glslv mainVS();
-		FragmentProgram = compile glslf mainPS(lightPosition, colorMapSampler, normalMapSampler, NormalMatrix);
+		VertexProgram = compile arbvp1 mainVS();
+		FragmentProgram = compile arbfp1 mainPS(lightPosition, colorMapSampler, normalMapSampler, NormalMatrix);
 	}
 }

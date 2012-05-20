@@ -2,7 +2,6 @@
 #define EFFECT_H
 
 #include <string>
-#include <map>
 #include <CG/cg.h>
 
 class Matrix4x4;
@@ -37,14 +36,12 @@ public:
 
   void setUniform(float uniformData, const char* uniformName) const;
 
-  void setTexture(int textureIndex, unsigned int textureId, const char* uniformName);
+  void setTexture(unsigned int textureId, const char* uniformName);
 
 private:
 
   static CGcontext context_;
   CGeffect effect_;
-
-  std::map<std::string, CGparameter> parameters_;
 };
 
 

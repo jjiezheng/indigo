@@ -32,14 +32,6 @@ void Effect::load(const std::string& filePath) {
   if (cgValidateTechnique(technique) == CG_FALSE) {
       LOG(LOG_CHANNEL_SHADER, "Technique %s did not validate. Skipping.", cgGetTechniqueName(technique));
   }
-
-  CGparameter parameter = cgGetFirstEffectParameter(effect_);
-  while(parameter) {
-    const char* parameterName = cgGetParameterName(parameter);
-    parameters_[parameterName] = parameter;
-    LOG(LOG_CHANNEL_SHADER, "Parameter: %s", parameterName);
-    parameter = cgGetNextParameter(parameter);
-  }
 }
 
 void Effect::beginDraw() { 
@@ -90,9 +82,8 @@ void Effect::setUniform(float uniformData, const char* uniformName) const {
   cgGLSetParameter1f(parameter, uniformData);
 }
 
-void Effect::setTexture(int textureIndex, unsigned int textureId, const char* uniformName) {
+void Effect::setTexture(unsigned int textureId, const char* uniformName) {
   CGparameter parameter = cgGetNamedEffectParameter(effect_, uniformName);
   if (!parameter) return;
-
   cgGLSetTextureParameter(parameter, textureId);
 }
