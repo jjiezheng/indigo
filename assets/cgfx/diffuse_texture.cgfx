@@ -36,7 +36,7 @@ float4 mainPS(float2 texCoord  : TEXCOORD) : COLOR {
 
 technique technique0 {
 	pass p0 {
-		VertexProgram = compile arbvp1 mainVS();
-		FragmentProgram = compile arbfp1 mainPS();
+		VertexProgram = compile glslv mainVS();
+		FragmentProgram = compile glslf mainPS();
 	}
 }

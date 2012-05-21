@@ -85,7 +85,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine=""
+				CommandLine="mkdir $(TargetDir)\assets&#x0D;&#x0A;copy $(ProjectDir)..\..\libs\freeimage\FreeImage.dll $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)..\..\libs\glew\bin\glew32.dll $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)..\..\libs\devil\lib\DevIL.dll $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)..\..\libs\devil\lib\ILU.dll $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)..\..\libs\msvcr\*.dll $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)..\..\libs\assimp\dll\Assimp32.dll $(TargetDir)&#x0D;&#x0A;copy &quot;C:\Program Files (x86)\NVIDIA Corporation\Cg\bin\cg.dll&quot; $(TargetDir)&#x0D;&#x0A;copy &quot;C:\Program Files (x86)\NVIDIA Corporation\Cg\bin\cgGL.dll&quot; $(TargetDir)&#x0D;&#x0A;copy &quot;C:\Program Files (x86)\NVIDIA Corporation\Cg\bin\cgD3D11.dll&quot; $(TargetDir)"
 			/>
 		</Configuration>
 		<Configuration
@@ -385,14 +385,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\engine\renderer\CGShader.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\renderer\CGShader.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\src\engine\renderer\Color3.cpp"
 					>
 				</File>
@@ -502,14 +494,6 @@
 				</File>
 				<File
 					RelativePath="..\..\src\engine\renderer\SceneContext.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\renderer\Shader.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\renderer\Shader.h"
 					>
 				</File>
 				<File
