@@ -11,11 +11,11 @@ int App::run() {
   Window::init();
   Window::openWindow(1024, 768);
 
- // game_.init();
+  game_.init();
 
   bool quit = false;  
   while (!quit) {
-    //game_.mainLoop();
+    game_.mainLoop();
     Window::swapBuffers();
     quit = Window::windowClosed();
   }

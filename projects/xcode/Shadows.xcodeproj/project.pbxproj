@@ -33,7 +33,6 @@
 		4C573815155C6B9300798AA9 /* libIL.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C573814155C6B9300798AA9 /* libIL.1.dylib */; };
 		4C573817155C7A6400798AA9 /* libILU.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C573816155C7A6400798AA9 /* libILU.1.dylib */; };
 		4C6E9596155FECFD004DC0BB /* Path.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C6E9595155FECFD004DC0BB /* Path.mm */; };
-		4C6E9599155FEE9A004DC0BB /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C6E9597155FEE9A004DC0BB /* Window.cpp */; };
 		4C74AB1C154892070008271B /* libglfw.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C74AB1B154892070008271B /* libglfw.dylib */; };
 		4C74ABC5154892F40008271B /* Clock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C74AB26154892F40008271B /* Clock.cpp */; };
 		4C74ABC6154892F40008271B /* String.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C74AB29154892F40008271B /* String.cpp */; };
@@ -48,6 +47,7 @@
 		4C79CC2C156189F70037EA75 /* Cg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C79CC2B156189F70037EA75 /* Cg.framework */; };
 		4C8E100714F03D450095F390 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C8E100614F03D450095F390 /* QuartzCore.framework */; };
 		4C94129A1438203800D9357E /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9412991438203800D9357E /* ApplicationServices.framework */; };
+		4CA8037A156AF8DA00045849 /* Window.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4CA80379156AF8DA00045849 /* Window.mm */; };
 		4CB28511144699D300A26530 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CB28510144699D300A26530 /* OpenGL.framework */; };
 		4CB8D3131436F03A0079949A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CB8D3121436F03A0079949A /* Cocoa.framework */; };
 		4CB8D3311436F03A0079949A /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CB8D3301436F03A0079949A /* SenTestingKit.framework */; };
@@ -125,7 +125,6 @@
 		4C6E9593155FE570004DC0BB /* Size.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Size.h; sourceTree = "<group>"; };
 		4C6E9594155FECE1004DC0BB /* Path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Path.h; sourceTree = "<group>"; };
 		4C6E9595155FECFD004DC0BB /* Path.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Path.mm; sourceTree = "<group>"; };
-		4C6E9597155FEE9A004DC0BB /* Window.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Window.cpp; sourceTree = "<group>"; };
 		4C6E9598155FEE9A004DC0BB /* Window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Window.h; sourceTree = "<group>"; };
 		4C74AB1B154892070008271B /* libglfw.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.dylib; path = usr/local/lib/libglfw.dylib; sourceTree = SDKROOT; };
 		4C74AB24154892F40008271B /* Accessors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Accessors.h; sourceTree = "<group>"; };
@@ -157,6 +156,7 @@
 		4C79CC2B156189F70037EA75 /* Cg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cg.framework; path = Library/Frameworks/Cg.framework; sourceTree = SDKROOT; };
 		4C8E100614F03D450095F390 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4C9412991438203800D9357E /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
+		4CA80379156AF8DA00045849 /* Window.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Window.mm; sourceTree = "<group>"; };
 		4CB28510144699D300A26530 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		4CB8D30E1436F03A0079949A /* Shadows.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shadows.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CB8D3121436F03A0079949A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -246,7 +246,7 @@
 		4C74AB1F154892F40008271B /* app */ = {
 			isa = PBXGroup;
 			children = (
-				4C6E9597155FEE9A004DC0BB /* Window.cpp */,
+				4CA80379156AF8DA00045849 /* Window.mm */,
 				4C6E9598155FEE9A004DC0BB /* Window.h */,
 			);
 			path = app;
@@ -602,9 +602,9 @@
 				4C4D2C08155E58FE005EE885 /* Image.cpp in Sources */,
 				4CD9C60B155E9B09003AA28A /* World.cpp in Sources */,
 				4C6E9596155FECFD004DC0BB /* Path.mm in Sources */,
-				4C6E9599155FEE9A004DC0BB /* Window.cpp in Sources */,
 				4C79CC2915602B8B0037EA75 /* DDSImage.cpp in Sources */,
 				4CF01A971567B39B002C2307 /* Effect.cpp in Sources */,
+				4CA8037A156AF8DA00045849 /* Window.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

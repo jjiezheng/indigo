@@ -3,6 +3,9 @@
 #include <GL/glfw.h>
 #include "io/Log.h"
 
+bool Window::windowClosed_ = false;
+int Window::exitCode_ = 0;
+
 float Window::aspectRatio() {
   int width, height = 0;
   glfwGetWindowSize(&width, &height);
@@ -45,9 +48,9 @@ bool Window::openWindow( int width, int height ) {
     return false;
   }
   
-  #ifdef PLATFORM_WINDOWS
+#ifdef PLATFORM_WINDOWS
     glewInit();
-  #endif
+#endif
 
   glfwDisable(GLFW_MOUSE_CURSOR);
   //glfwSetCharCallback(&App::keyFunction);
@@ -56,10 +59,15 @@ bool Window::openWindow( int width, int height ) {
   return true;
 }
 
-void Window::closeWindow() {
+int Window::closeWindow() {
   glfwTerminate();
+  return exitCode_;
 }
 
 void Window::swapBuffers() {
   glfwSwapBuffers();
+  
+  if (!glfwGetWindowParam(GLFW_OPENED)) {
+    windowClosed_ = true;
+  }
 }
