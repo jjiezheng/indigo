@@ -5,25 +5,22 @@
 
 App* App::app_ = NULL;
 
-void App::run() {
+int App::run() {
   app_ = this;
 
   Window::init();
   Window::openWindow(1024, 768);
-  
-#ifdef PLATFORM_WINDOWS
-  glewInit();
-#endif
 
-  game_.init();
+ // game_.init();
 
   bool quit = false;  
   while (!quit) {
-    game_.mainLoop();
+    //game_.mainLoop();
     Window::swapBuffers();
+    quit = Window::windowClosed();
   }
 
-  Window::closeWindow();
+  return Window::closeWindow();
 }
 
 void App::keyFunction(int character, int state) {

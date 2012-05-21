@@ -11,7 +11,7 @@ public:
 
   static bool openWindow(int width, int height);
 
-  static void closeWindow();
+  static int closeWindow();
 
   static void swapBuffers();
 
@@ -22,7 +22,17 @@ public:
   static int screenHeight();
   
   static CSize screenSize();
-  
+
+  static bool windowClosed();
+
+private:
+
+  static bool windowClosed_;
+  static int exitCode_;
 };
+
+inline bool Window::windowClosed() {
+  return windowClosed_;
+}
 
 #endif
