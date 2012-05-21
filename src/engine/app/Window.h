@@ -6,7 +6,15 @@
 class Window {
   
 public:
-  
+
+  static void init();
+
+  static bool openWindow(int width, int height);
+
+  static void closeWindow();
+
+  static void swapBuffers();
+
   static float aspectRatio();
   
   static int screenWidth();
