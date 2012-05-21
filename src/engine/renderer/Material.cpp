@@ -20,7 +20,8 @@ void Material::bind(const IViewer* camera, const Matrix4x4& model, const Matrix3
                          0.0f, 0.0f, 0.0f, 1.0f);
  
   Light light = sceneContext.lights().front();
-  effect_->setUniform(light.position(), "lightPosition"); 
+  effect_->setUniform(light.position(), "lightPosition");
+  effect_->setUniform(light.color(), "lightColor");
   
   Matrix4x4 lightMatrix = offsetMatrix * camera->projection() * light.viewTransform() * model;
   effect_->setUniform(lightMatrix, "WorldLight");

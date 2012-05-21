@@ -101,6 +101,21 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
       Matrix4x4 rotation = Matrix4x4::rotationZ(z) * Matrix4x4::rotationY(y) * Matrix4x4::rotationX(x);
       light.setRotation(rotation);
     }
+
+     {
+      json::Object colorObject = (*lit)["color"];
+      
+      json::Number rNumber = colorObject["r"];
+      float r = rNumber.Value();
+      
+      json::Number gNumber = colorObject["g"];
+      float g = gNumber.Value();
+
+      json::Number bNumber = colorObject["b"];
+      float b = bNumber.Value();      
+      
+      light.setColor(Color3(r, g, b));
+    }
     
     sceneContext.addLight(light);    
   }

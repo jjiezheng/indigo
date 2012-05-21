@@ -61,6 +61,11 @@ VOutput mainVS(	float4 position 		: ATTR0,
  	return OUT;
 }
 
+float3 expand(float3 v) {
+  return (v - 0.5) * 2; // Expand a range-compressed vector
+}
+
+
 float4 mainPS(	float2 texCoord			: TEXCOORD0,
 				float3 vPosition		: TEXCOORD1,
 				float3 normal 			: TEXCOORD2,
@@ -71,7 +76,7 @@ float4 mainPS(	float2 texCoord			: TEXCOORD0,
 	
 	float3 finalColor = float3(0, 0, 0);
 					
-	normal += 2 * tex2D(normalMapSampler, texCoord).rgb - 1;
+	normal += expand(tex2D(normalMapSampler, texCoord).rgb);
 	
 	float3 diffuseColor = tex2D(colorMapSampler, texCoord).rgb;
 					

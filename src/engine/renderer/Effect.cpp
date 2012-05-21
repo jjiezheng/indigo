@@ -11,6 +11,7 @@
 #include "maths/Matrix3x3.h"
 #include "maths/Vector4.h"
 #include "maths/Vector3.h"
+#include "Color3.h"
 
 CGcontext Effect::context_ = 0;
 
@@ -44,6 +45,12 @@ void Effect::endDraw() {
   CGtechnique technique = cgGetFirstTechnique(effect_);
   CGpass pass = cgGetFirstPass(technique);
   cgResetPassState(pass);
+}
+
+void Effect::setUniform(const Color3& uniformData, const char* uniformName) const {
+  CGparameter parameter = cgGetNamedEffectParameter(effect_, uniformName);
+  if (!parameter) return;
+  cgGLSetParameter3fv(parameter, uniformData.valuePtr());
 }
 
 void Effect::setUniform(const Vector3& uniformData, const char* uniformName) const {

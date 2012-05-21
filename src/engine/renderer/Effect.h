@@ -28,6 +28,8 @@ public:
 
   void setUniform(const Matrix4x4& uniformData, const char* uniformName) const;
 
+  void setUniform(const Color3& uniformData, const char* uniformName) const;
+
   void setUniform(const Vector3& uniformData, const char* uniformName) const;
 
   void setUniform(const Vector4& uniformData, const char* uniformName) const;

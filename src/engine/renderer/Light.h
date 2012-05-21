@@ -4,6 +4,7 @@
 #include "maths/Vector2.h"
 #include "maths/Vector3.h"
 #include "maths/Vector4.h"
+#include "Color3.h"
 #include "maths/Matrix4x4.h"
 #include "app/Window.h"
 
@@ -20,6 +21,10 @@ public:
 public:
   
   void setRotation(const Matrix4x4& rotation);
+
+  void setColor(const Color3& color);
+
+  Color3 color() const;
   
 public:
   
@@ -33,31 +38,10 @@ private:
   
   Vector4 position_;
   Matrix4x4 rotation_;
+  Color3 color_;
   
 };
  
-inline void Light::setRotation(const Matrix4x4& rotation) {
-  rotation_ = rotation;
-}
-
-inline void Light::setPosition(const Vector4& position) {
-  position_ = position;
-}
-
-inline Vector4 Light::position() const {
-  return position_;
-}
-
-inline Matrix4x4 Light::viewTransform() const {
-  return transform().inverse();
-}
-
-inline Matrix4x4 Light::transform() const {
-  return Matrix4x4::translation(position_) * rotation_;
-}
-
-inline Matrix4x4 Light::projection() const {
-  return Matrix4x4::perspective(45.0f, Window::aspectRatio(), 1.0f, 200.0f);
-}
+#include "Light.inl"
 
 #endif

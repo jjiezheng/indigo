@@ -441,6 +441,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\src\engine\renderer\Light.inl"
+					>
+				</File>
+				<File
 					RelativePath="..\..\src\engine\renderer\Material.cpp"
 					>
 				</File>

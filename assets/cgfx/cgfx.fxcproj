@@ -58,28 +58,28 @@
     <FXComposer.Scene.Services.FXRenderPortService>
       <defaultScene sceneUri="Document1.dae#DefaultScene" />
       <camera type="Top" scene="Document1.dae#DefaultScene">
-        <focallength>1.923452</focallength>
+        <focallength>12.92082</focallength>
         <fov>40</fov>
         <zoomrect>0 0 1 1</zoomrect>
-        <viewtransform>1 0 0 0 0 5.960463E-08 -0.9999998 0 0 0.9999998 5.960463E-08 0 0 1.923452 0 1 </viewtransform>
+        <viewtransform>1 0 0 0 0 5.960464E-08 -0.9999999 0 0 0.9999999 5.960464E-08 0 0 12.92082 0 1 </viewtransform>
       </camera>
       <camera type="Front" scene="Document1.dae#DefaultScene">
-        <focallength>1.923452</focallength>
+        <focallength>12.92082</focallength>
         <fov>40</fov>
         <zoomrect>0 0 1 1</zoomrect>
-        <viewtransform>1 0 0 0 0 1 0 0 0 0 0.9999999 0 0 0 1.923452 1 </viewtransform>
+        <viewtransform>1 0 0 0 0 1 0 0 0 0 1 0 0 0 12.92082 1 </viewtransform>
       </camera>
       <camera type="Right" scene="Document1.dae#DefaultScene">
-        <focallength>1.923452</focallength>
+        <focallength>12.92082</focallength>
         <fov>40</fov>
         <zoomrect>0 0 1 1</zoomrect>
-        <viewtransform>5.960463E-08 0 -0.9999998 0 0 1 0 0 0.9999998 0 5.960463E-08 0 1.923452 0 0 1 </viewtransform>
+        <viewtransform>5.960464E-08 0 -0.9999999 0 0 1 0 0 0.9999999 0 5.960464E-08 0 12.92082 0 0 1 </viewtransform>
       </camera>
       <camera type="Perspective" scene="Document1.dae#DefaultScene">
-        <focallength>4.690413</focallength>
+        <focallength>35.49967</focallength>
         <fov>40</fov>
         <zoomrect>0 0 1 1</zoomrect>
-        <viewtransform>0.04694008 -2.216147E-06 0.9988976 0 0.9528933 0.2999819 -0.0447776 0 -0.2996511 0.9539449 0.01408326 0 -1.405298 4.474586 0.06587121 1 </viewtransform>
+        <viewtransform>0.707107 -9.733397E-08 -0.7071069 0 -0.4082485 0.8164967 -0.4082483 0 0.5773504 0.5773506 0.5773504 0 20.49574 20.49574 20.49574 1 </viewtransform>
       </camera>
       <renderPort name="Render" />
     </FXComposer.Scene.Services.FXRenderPortService>
@@ -87,11 +87,11 @@
       <grid_settings sceneUri="Document1.dae#DefaultScene">
         <show_grid value="True" />
         <axes_color value="0, 0, 0, 1" />
-        <size value="17.32051" />
+        <size value="0" />
         <major_ticks_color value="0.25, 0.25, 0.25, 1" />
         <major_tick_every_nth value="10" />
         <ticks_color value="0.425, 0.425, 0.425, 1" />
-        <ticks_interval_in_units value="0.3464102" />
+        <ticks_interval_in_units value="0" />
       </grid_settings>
       <background_color color="0.5 0.5 0.5 0" />
     </FXComposer.Scene.Services.FXSceneService>

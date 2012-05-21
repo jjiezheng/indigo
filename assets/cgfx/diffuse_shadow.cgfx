@@ -28,6 +28,11 @@ float3 lightPosition : Position <
     string Space = "World";
 > = {-0.5f,2.0f,1.25f};
 
+float3 lightColor : Color <
+    string UIName =  "Light Color";
+    string UIWidget = "Color";
+> = {0.0f,0.0f,0.0f};
+
 float4x4 WorldViewProj : WorldViewProjection< string UIWidget="None"; >;
 float4x4 World : World< string UIWidget="None"; >;
 float4x4 WorldLight : Projection< string UIWidget="None"; >;
@@ -53,7 +58,8 @@ VOutput mainVS(	float4 position 		: ATTR0,
 float4 mainPS(	float3 normal			: TEXCOORD0,
 				float3 vPosition		: TEXCOORD1,
 				float4 shadowMapCoord 	: TEXCOORD2,
-				uniform float3 lightPosition) : COLOR {
+				uniform float3 lightPosition,
+				uniform float3 lightColor) : COLOR {
 	
 	float3 finalColor = float3(0, 0, 0);
 	
@@ -62,7 +68,7 @@ float4 mainPS(	float3 normal			: TEXCOORD0,
 		float3 lightDirection = lightPosition - vPosition;
 		float diffuseStrength = max(0.0f, dot(normalize(normal), normalize(lightDirection)));
 
-		float3 diffuseAmount = diffuseColor * diffuseStrength;
+		float3 diffuseAmount = lerp(diffuseColor, lightColor, 0.5) * diffuseStrength;
 		finalColor += diffuseAmount + ambientColor;
 	}
 					
@@ -84,6 +90,6 @@ float4 mainPS(	float3 normal			: TEXCOORD0,
 technique technique0 {
 	pass p0 {
 		VertexProgram = compile glslv mainVS();
-		FragmentProgram = compile glslf mainPS(lightPosition);
+		FragmentProgram = compile glslf mainPS(lightPosition, lightColor);
 	}
 }
