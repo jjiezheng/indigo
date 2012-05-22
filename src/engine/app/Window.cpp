@@ -40,3 +40,11 @@ CSize Window::screenSize() {
 bool Window::windowClosed() {
   return graphicsInterface_->windowClosed();
 }
+
+int Window::createVertexBuffer(float* vertices, float* normals, float* uvs, int numVertices) {
+  return graphicsInterface_->createVertexBuffer(vertices, normals, uvs, numVertices);
+}
+
+void Window::drawVertexBuffer(int vertexBuffer) {
+  graphicsInterface_->drawVertexBuffer(vertexBuffer);
+}

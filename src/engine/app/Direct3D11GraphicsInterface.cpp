@@ -117,3 +117,11 @@ int Direct3D11GraphicsInterface::exitCode() const {
 
   return exitCode_;
 }
+
+int Direct3D11GraphicsInterface::createVertexBuffer( float* vertices, float* normals, float* uvs, int numVertices ) {
+  return 0;
+}
+
+void Direct3D11GraphicsInterface::drawVertexBuffer(int vertexBuffer) {
+
+}

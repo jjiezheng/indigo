@@ -27,6 +27,9 @@ public:
 
   static bool windowClosed();
 
+  static int createVertexBuffer(float* vertices, float* normals, float* uvs, int numVertices);
+
+  static void drawVertexBuffer(int vertexBuffer);
 
 private:
 

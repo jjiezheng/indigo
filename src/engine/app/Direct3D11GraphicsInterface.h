@@ -18,11 +18,17 @@ public:
 
   void openWindow(int width, int height);
 
-  void swapBuffers();
-
   bool windowClosed() const;
 
   int exitCode() const;
+
+public:
+
+  void swapBuffers();
+
+  int createVertexBuffer(float* vertices, float* normals, float* uvs, int numVertices);
+
+  void drawVertexBuffer(int vertexBuffer);
 
 private:
 

@@ -27,6 +27,8 @@ private:
   
   int numVertices_;
 
+  int vertexBuffer_;
+
   GLuint vertexArray;
   GLuint vertexBuffer;
   GLuint normalBuffer;  

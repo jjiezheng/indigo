@@ -7,11 +7,14 @@
 
 #include "Material.h"
 #include "Camera.h"
+#include "app/Window.h"
 
 void Mesh::init(float* vertices, float* normals, float* uvs, int numVertices) {
   numVertices_ = numVertices;
+
+  vertexBuffer_ = Window::createVertexBuffer(vertices, normals, uvs, numVertices);
   
-  glGenVertexArrays(1, &vertexArray);
+  /*glGenVertexArrays(1, &vertexArray);
   glBindVertexArray(vertexArray);
   
   glGenBuffers(1, &vertexBuffer);
@@ -30,12 +33,13 @@ void Mesh::init(float* vertices, float* normals, float* uvs, int numVertices) {
   glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
   glBufferData(GL_ARRAY_BUFFER, 2 * sizeof(float) * numVertices, uvs, GL_STATIC_DRAW);
   glVertexAttribPointer(ATTRIB_UV, 2, GL_FLOAT, 0, 0, 0);
-  glEnableVertexAttribArray(ATTRIB_UV);
+  glEnableVertexAttribArray(ATTRIB_UV);*/
 }
 
 void Mesh::render(const IViewer* camera, const Matrix4x4& model, const Matrix3x3& normalMatrix, const SceneContext& sceneContext) const {
   material_.bind(camera, model, normalMatrix, sceneContext);
-  glBindVertexArray(vertexArray);
-  glDrawArrays(GL_TRIANGLES, 0, (GLint)(numVertices_/3.0f));
+  Window::drawVertexBuffer(vertexBuffer_);
+/*  glBindVertexArray(vertexArray);
+  glDrawArrays(GL_TRIANGLES, 0, (GLint)(numVertices_/3.0f));*/
   material_.unbind();
 }
