@@ -3,6 +3,8 @@
 
 #include "core/Size.h"
 
+class IGraphicsInterface;
+
 class Window {
   
 public:
@@ -25,14 +27,11 @@ public:
 
   static bool windowClosed();
 
+
 private:
 
-  static bool windowClosed_;
-  static int exitCode_;
-};
+  static IGraphicsInterface* graphicsInterface_;
 
-inline bool Window::windowClosed() {
-  return windowClosed_;
-}
+};
 
 #endif

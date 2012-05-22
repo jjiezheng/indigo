@@ -15,7 +15,7 @@ void Game::init() {
   camera_.translateZ(10.0f);
   camera_.translateY(1.8f);
   
-  shadowRenderer_.init(Window::screenSize()); 
+//  shadowRenderer_.init(Window::screenSize()); 
  
   Matrix4x4 projection = Matrix4x4::perspective(45.0f, Window::aspectRatio(), 1.0f, 200.0f);
   camera_.setProjection(projection);
@@ -27,7 +27,7 @@ void Game::init() {
 }
  
 void Game::mainLoop() { 
-  float dt = clock_.delta_time();
+  /*float dt = clock_.delta_time();
 
   camera_.update(dt);
   
@@ -38,7 +38,7 @@ void Game::mainLoop() {
 
   if (properties_.getProperty(PROPERTY_RENDER_SHADOWMAP)) {
     shadowRenderer_.renderDebug(sceneContext_);
-  }
+  }*/
 }
 
 void Game::keyUp(char character) {
