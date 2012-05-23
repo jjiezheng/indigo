@@ -4,6 +4,7 @@
 #include "core/Size.h"
 
 class IGraphicsInterface;
+class IEffect;
 
 class Window {
   
@@ -27,9 +28,13 @@ public:
 
   static bool windowClosed();
 
+public:
+
+  static IEffect* createEffect();
+
   static int createVertexBuffer(float* vertices, float* normals, float* uvs, int numVertices);
 
-  static void drawVertexBuffer(int vertexBuffer);
+  static void drawVertexBuffer(int vertexBuffer,int vertexCount);
 
 private:
 

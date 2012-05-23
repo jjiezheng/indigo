@@ -3,36 +3,25 @@
 
 #include "core/Standard.h"
 #include "OpenGL.h"
-#include "Effect.h"
 
 class Renderer;
+class IEffect;
 
 class Box {
   
 public:
   
-  Box() { };
-	
-public:
-  
-  static Box* box();
-  
-public:
-  
   void init();
   
-  void queueRender(Renderer* renderer);
-  
-  void render() const;
+  void render();
   
 private:
   
-  GLuint vertexArray;
-  GLuint vertexBuffer;
+  int vertexBuffer;
   
 private:
   
-  Effect effect_;
+  IEffect* effect_;
   
 };
 

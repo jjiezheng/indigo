@@ -15,7 +15,7 @@
 #include "maths/Vector4.h"
 #include "Model.h"
 #include "Material.h"
-#include "Effect.h"
+#include "IEffect.h"
 
 #include "MaterialParameter.h"
 #include "Vector3MaterialParameter.h"
@@ -284,7 +284,7 @@ void WorldLoader::loadMaterial(Model* model, const std::string& materialFilePath
 }
 
 void WorldLoader::loadEffect(Material& material, const std::string &shaderFilePath) { 
-  Effect* effect = new Effect();
+  IEffect* effect = Window::createEffect();
   std::string fullEffectPath = Path::pathForFile(shaderFilePath);
   effect->load(fullEffectPath);
   material.setEffect(effect);

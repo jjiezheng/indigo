@@ -2,7 +2,6 @@
 #define RENDERER_SHADOW_H
 
 #include "OpenGL.h"
-#include "Effect.h"
 #include "Texture.h"
 
 class CSize;
@@ -11,6 +10,7 @@ class World;
 class SceneContext;
 class Renderer3d;
 class IViewer;
+class IEffect;
 
 class RendererShadow {
   
@@ -32,7 +32,7 @@ private:
   GLuint debugVertBuffer_;
   GLuint debugUVBuffer_;
 
-  Effect debugEffect_;
+  IEffect* debugEffect_;
 };
 
 #endif

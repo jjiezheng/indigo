@@ -1,6 +1,8 @@
 #ifndef IGRAPHICS_INTERFACE_H
 #define IGRAPHICS_INTERFACE_H
 
+class IEffect;
+
 class IGraphicsInterface {
 
 public:
@@ -21,7 +23,9 @@ public:
 
   virtual int createVertexBuffer(float* vertices, float* normals, float* uvs, int numVertices) = 0;
 
-  virtual void drawVertexBuffer(int vertexBuffer) = 0;
+  virtual void drawVertexBuffer(int vertexBuffer, int vertexCount) = 0;
+
+  virtual IEffect* createEffect() = 0;
 
 };
 

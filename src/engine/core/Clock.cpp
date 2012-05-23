@@ -13,7 +13,8 @@ float Clock::delta_time() {
    QueryPerformanceFrequency(&frequency);
    QueryPerformanceCounter(&t1);
 
-   long timeNow = (t1.QuadPart * 1000.0f) / frequency.QuadPart;
+   float timeNowf = (t1.QuadPart * 1000.0f) / frequency.QuadPart;
+   long timeNow = (long)timeNowf;
    long dt = timeNow - last_update_;
 
    if (!last_update_) {

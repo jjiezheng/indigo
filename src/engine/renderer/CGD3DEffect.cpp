@@ -1,9 +1,7 @@
-#include "Effect.h"
+#include "CGD3DEffect.h"
 
-#include "OpenGL.h"
 #include <Cg/Cg.h>
-#define CGGL_NO_OPENGL
-#include <Cg/cgGL.h>
+#include <CG/cgD3D11.h>
 
 #include "io/Log.h"
 
@@ -13,13 +11,11 @@
 #include "maths/Vector3.h"
 #include "Color3.h"
 
-CGcontext Effect::context_ = 0;
-
-void Effect::load(const std::string& filePath) {
+void CGD3DEffect::load(const std::string& filePath) {
   if (!context_) {
     context_ = cgCreateContext();
-    cgGLRegisterStates(context_);
-    cgGLSetManageTextureParameters(context_, GL_TRUE);
+    cgD3D11RegisterStates(context_);
+    cgD3D11SetManageTextureParameters(context_, CG_TRUE);
   }
 
   effect_ = cgCreateEffectFromFile(context_, filePath.c_str(), NULL);
@@ -35,62 +31,62 @@ void Effect::load(const std::string& filePath) {
   }
 }
 
-void Effect::beginDraw() { 
+void CGD3DEffect::beginDraw() { 
   CGtechnique technique = cgGetFirstTechnique(effect_);
   CGpass pass = cgGetFirstPass(technique);
   cgSetPassState(pass);
 }
 
-void Effect::endDraw() {
+void CGD3DEffect::endDraw() {
   CGtechnique technique = cgGetFirstTechnique(effect_);
   CGpass pass = cgGetFirstPass(technique);
   cgResetPassState(pass);
 }
 
-void Effect::setUniform(const Color3& uniformData, const char* uniformName) const {
+void CGD3DEffect::setUniform(const Color3& uniformData, const char* uniformName) const {
   CGparameter parameter = cgGetNamedEffectParameter(effect_, uniformName);
   if (!parameter) return;
-  cgGLSetParameter3fv(parameter, uniformData.valuePtr());
+  
 }
 
-void Effect::setUniform(const Vector3& uniformData, const char* uniformName) const {
+void CGD3DEffect::setUniform(const Vector3& uniformData, const char* uniformName) const {
   CGparameter parameter = cgGetNamedEffectParameter(effect_, uniformName);
   if (!parameter) return;
-  cgGLSetParameter3fv(parameter, uniformData.valuePtr());
+  
 }
 
-void Effect::setUniform(const Vector4& uniformData, const char* uniformName) const { 
+void CGD3DEffect::setUniform(const Vector4& uniformData, const char* uniformName) const { 
   CGparameter parameter = cgGetNamedEffectParameter(effect_, uniformName);
   if (!parameter) return;
-  cgGLSetParameter4fv(parameter, uniformData.valuePtr()); 
+  
 }
 
-void Effect::setUniform(const Matrix3x3& uniformData, const char* uniformName) const {
+void CGD3DEffect::setUniform(const Matrix3x3& uniformData, const char* uniformName) const {
   CGparameter parameter = cgGetNamedEffectParameter(effect_, uniformName);
   if (!parameter) return;
-  cgGLSetMatrixParameterfr(parameter, uniformData.valuePtr());
+  
 }
 
-void Effect::setUniform(const Matrix4x4& uniformData, const char* uniformName) const {
+void CGD3DEffect::setUniform(const Matrix4x4& uniformData, const char* uniformName) const {
   CGparameter parameter = cgGetNamedEffectParameter(effect_, uniformName);
   if (!parameter) return;
-  cgGLSetMatrixParameterfr(parameter, uniformData.valuePtr());
+  
 }
 
-void Effect::setUniform(int uniformData, const char* uniformName) const {
+void CGD3DEffect::setUniform(int uniformData, const char* uniformName) const {
   CGparameter parameter = cgGetNamedEffectParameter(effect_, uniformName);
   if (!parameter) return;
-  cgGLSetParameter1d(parameter, uniformData);
+  
 }
 
-void Effect::setUniform(float uniformData, const char* uniformName) const {
+void CGD3DEffect::setUniform(float uniformData, const char* uniformName) const {
   CGparameter parameter = cgGetNamedEffectParameter(effect_, uniformName);
   if (!parameter) return;
-  cgGLSetParameter1f(parameter, uniformData);
+ 
 }
 
-void Effect::setTexture(unsigned int textureId, const char* uniformName) {
+void CGD3DEffect::setTexture(unsigned int textureId, const char* uniformName) {
   CGparameter parameter = cgGetNamedEffectParameter(effect_, uniformName);
   if (!parameter) return;
-  cgGLSetTextureParameter(parameter, textureId);
+  
 }

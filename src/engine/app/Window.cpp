@@ -45,6 +45,10 @@ int Window::createVertexBuffer(float* vertices, float* normals, float* uvs, int 
   return graphicsInterface_->createVertexBuffer(vertices, normals, uvs, numVertices);
 }
 
-void Window::drawVertexBuffer(int vertexBuffer) {
-  graphicsInterface_->drawVertexBuffer(vertexBuffer);
+void Window::drawVertexBuffer(int vertexBuffer, int vertexCount) {
+  graphicsInterface_->drawVertexBuffer(vertexBuffer, vertexCount);
+}
+
+IEffect* Window::createEffect() {
+  return graphicsInterface_->createEffect();
 }

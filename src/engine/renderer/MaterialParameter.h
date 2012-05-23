@@ -2,12 +2,13 @@
 #define MATERIAL_PARAMETER_H
 
 class IShader;
+class IEffect;
 
 class MaterialParameter {
   
 public:
   
-  virtual void setEffect(const Effect* effect) = 0;
+  virtual void setEffect(const IEffect* effect) = 0;
   
 };
 

@@ -2,6 +2,9 @@
 
 #include <D3DX10.h>
 #include <D3DX11.h>
+#include <assert.h>
+
+#include "renderer/CGD3DEffect.h"
 
 void GetDesktopResolution(int& horizontal, int& vertical) {
   RECT desktop;
@@ -114,14 +117,46 @@ bool Direct3D11GraphicsInterface::windowClosed() const {
 }
 
 int Direct3D11GraphicsInterface::exitCode() const {
-
   return exitCode_;
 }
 
-int Direct3D11GraphicsInterface::createVertexBuffer( float* vertices, float* normals, float* uvs, int numVertices ) {
-  return 0;
+struct VERTEX { FLOAT X, Y, Z; };
+
+int Direct3D11GraphicsInterface::createVertexBuffer(float* vertices, float* normals, float* uvs, int numVertices) {
+  D3D11_BUFFER_DESC bufferDesc;
+  ZeroMemory(&bufferDesc, sizeof(bufferDesc));
+
+  bufferDesc.Usage = D3D11_USAGE_DYNAMIC;
+  bufferDesc.ByteWidth = sizeof(VERTEX) * 3;
+  bufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+  bufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+
+  ID3D11Buffer *buffer;
+  HRESULT result = device_->CreateBuffer(&bufferDesc, NULL, &buffer);
+
+  assert(result == S_OK, "Error creating vertex buffer");
+
+  D3D11_MAPPED_SUBRESOURCE mappedSubResource;
+  deviceConnection_->Map(buffer, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &mappedSubResource);
+  memcpy(mappedSubResource.pData, vertices, sizeof(vertices));
+  deviceConnection_->Unmap(buffer, NULL);
+
+  int bufferId = vertexBuffers_.size();
+  vertexBuffers_.push_back(buffer);
+  return bufferId;
 }
 
-void Direct3D11GraphicsInterface::drawVertexBuffer(int vertexBuffer) {
+void Direct3D11GraphicsInterface::drawVertexBuffer(int vertexBuffer, int vertexCount) {
+  ID3D11Buffer* buffer = vertexBuffers_[vertexBuffer];
 
+  UINT stride = sizeof(VERTEX);
+  UINT offset = 0;
+
+  deviceConnection_->IASetVertexBuffers(0, 1, &buffer, &stride, &offset);
+  deviceConnection_->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+  deviceConnection_->Draw(vertexCount, 0);
+}
+
+IEffect* Direct3D11GraphicsInterface::createEffect() {
+  return new CGD3DEffect();
 }

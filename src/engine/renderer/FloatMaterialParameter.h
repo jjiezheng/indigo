@@ -1,9 +1,11 @@
 #ifndef FLOAT_MATERIAL_PARAMETER_H
 #define FLOAT_MATERIAL_PARAMETER_H
 
+#include <string>
+
 #include "MaterialParameter.h"
 
-#include <string>
+class IEffect;
 
 class FloatMaterialParameter : public MaterialParameter {
   
@@ -11,7 +13,7 @@ public:
   
   FloatMaterialParameter(const std::string& name, float value);
   
-  void setEffect(const Effect* effect);
+  void setEffect(const IEffect* effect);
   
 private:
   
@@ -24,7 +26,7 @@ FloatMaterialParameter::FloatMaterialParameter(const std::string& name, float va
   : name_(name)
   , value_(value) { }
 
-inline void FloatMaterialParameter::setEffect(const Effect* effect) {
+inline void FloatMaterialParameter::setEffect(const IEffect* effect) {
   effect->setUniform(value_, name_.c_str());
 }
 

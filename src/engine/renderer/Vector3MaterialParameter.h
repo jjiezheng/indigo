@@ -6,13 +6,15 @@
 #include "maths/Vector3.h"
 #include "MaterialParameter.h"
 
+class IEffect;
+
 class Vector3MaterialParameter : public MaterialParameter {
   
 public:
   
   Vector3MaterialParameter(const std::string& name, const Vector3& value);
   
-  void setEffect(const Effect* effect);
+  void setEffect(const IEffect* effect);
   
 private:
   
@@ -25,7 +27,7 @@ Vector3MaterialParameter::Vector3MaterialParameter(const std::string& name, cons
 : name_(name)
 , value_(value) { }
 
-inline void Vector3MaterialParameter::setEffect(const Effect* effect) {
+inline void Vector3MaterialParameter::setEffect(const IEffect* effect) {
   effect->setUniform(value_, name_.c_str());
 }
 

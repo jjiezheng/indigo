@@ -1,5 +1,6 @@
 #include "Material.h"
 
+#include "IEffect.h"
 #include "IViewer.h"
 #include "OpenGL.h"
 #include "SceneContext.h"

@@ -10,6 +10,7 @@
 #include "SceneContext.h"
 #include "ShaderAttribs.h"
 #include "ShaderAttribs.h"
+#include "IEffect.h"
 
 #include "Texture.h"
 
@@ -105,7 +106,7 @@ void RendererShadow::init(const CSize &screenSize) {
     glEnableVertexAttribArray(ATTRIB_UV);
 
     std::string fullPath = Path::pathForFile("cgfx/diffuse_texture.cgfx");
-    debugEffect_.load(fullPath.c_str());
+    debugEffect_->load(fullPath.c_str());
          
   }
 } 
@@ -144,12 +145,12 @@ void RendererShadow::render(IViewer* viewer, const World& world, SceneContext& s
 }
 
 void RendererShadow::renderDebug(SceneContext& sceneContext) { 
-  debugEffect_.beginDraw();
+  debugEffect_->beginDraw();
 
-  debugEffect_.setTexture(shadowTexture_, "colorMapSampler");
+  debugEffect_->setTexture(shadowTexture_, "colorMapSampler");
   
   glBindVertexArray(debugVertArray_);
   glDrawArrays(GL_TRIANGLES, 0, 6);
 
-  debugEffect_.endDraw();
+  debugEffect_->endDraw();
 }

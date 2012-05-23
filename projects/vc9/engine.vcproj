@@ -60,7 +60,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="d3d11.lib cg.lib cgGL.lib GLFW.lib OpenGL32.lib  glu32.lib assimp.lib FreeImage.lib glew32.lib "
+				AdditionalDependencies="d3d11.lib cg.lib cgGL.lib cgD3D11.lib GLFW.lib OpenGL32.lib  glu32.lib assimp.lib FreeImage.lib glew32.lib "
 				AdditionalLibraryDirectories="../../libs/glew/lib;../../libs/glfw/lib;../../libs/assimp/lib;../../libs/freeimage"
 				GenerateDebugInformation="true"
 				TargetMachine="1"
@@ -405,6 +405,14 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\src\engine\renderer\CGGLEffect.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\engine\renderer\CGGLEffect.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\src\engine\renderer\Color3.cpp"
 					>
 				</File>
@@ -417,14 +425,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\engine\renderer\Effect.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\renderer\Effect.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\src\engine\renderer\FloatMaterialParameter.h"
 					>
 				</File>
@@ -434,6 +434,10 @@
 				</File>
 				<File
 					RelativePath="..\..\src\engine\renderer\GLUtilities.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\engine\renderer\IEffect.h"
 					>
 				</File>
 				<File
@@ -490,10 +494,6 @@
 				</File>
 				<File
 					RelativePath="..\..\src\engine\renderer\Model.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\renderer\OpenGL.h"
 					>
 				</File>
 				<File
@@ -560,6 +560,26 @@
 					RelativePath="..\..\src\engine\renderer\WorldLoader.h"
 					>
 				</File>
+				<Filter
+					Name="D3D11"
+					>
+					<File
+						RelativePath="..\..\src\engine\renderer\CGD3DEffect.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\engine\renderer\CGD3DEffect.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="OpenGL"
+					>
+					<File
+						RelativePath="..\..\src\engine\renderer\OpenGL.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 	</Files>

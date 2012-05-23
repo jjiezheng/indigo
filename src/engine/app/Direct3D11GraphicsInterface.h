@@ -5,6 +5,9 @@
 
 #include <windows.h>
 #include <D3D11.h>
+#include <vector>
+
+class IEffect;
 
 class Direct3D11GraphicsInterface : public IGraphicsInterface {
 
@@ -28,7 +31,9 @@ public:
 
   int createVertexBuffer(float* vertices, float* normals, float* uvs, int numVertices);
 
-  void drawVertexBuffer(int vertexBuffer);
+  void drawVertexBuffer(int vertexBuffer, int vertexCount);
+
+  IEffect* createEffect();
 
 private:
 
@@ -46,6 +51,10 @@ private:
   ID3D11Device *device_;
   ID3D11DeviceContext *deviceConnection_;
   ID3D11RenderTargetView* backBuffer_;
+
+private:
+
+  std::vector<ID3D11Buffer*> vertexBuffers_;
 
 };
 

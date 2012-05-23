@@ -1,9 +1,11 @@
 #ifndef INTEGER_MATERIAL_PARAMETER_H
 #define INTEGER_MATERIAL_PARAMETER_H
 
+#include <string>
+
 #include "MaterialParameter.h"
 
-#include <string>
+class IEffect;
 
 class IntegerMaterialParameter : public MaterialParameter {
   
@@ -11,7 +13,7 @@ public:
   
   IntegerMaterialParameter(const std::string& name, int value);
   
-  void setEffect(const Effect* effect);
+  void setEffect(const IEffect* effect);
   
 private:
   
@@ -24,7 +26,7 @@ IntegerMaterialParameter::IntegerMaterialParameter(const std::string& name, int 
   : name_(name)
   , value_(value) { }
 
-inline void IntegerMaterialParameter::setEffect(const Effect* effect) {
+inline void IntegerMaterialParameter::setEffect(const IEffect* effect) {
   effect->setUniform(value_, name_.c_str());
 }
 

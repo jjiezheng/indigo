@@ -1,11 +1,12 @@
 #ifndef SKYBOX_H
 #define SKYBOX_H
 
-#include "Effect.h"
 #include "OpenGL.h"
+#include <string>
 
 class IViewer;
 class SceneContext;
+class IEffect;
 
 class SkyBox {
   
@@ -21,7 +22,7 @@ private:
   
 private:
   
-  Effect effect_;
+  IEffect* effect_;
   GLuint vertexArray;
   GLuint vertexBuffer;
   GLuint cubeTexture_;

@@ -1,18 +1,9 @@
-#ifndef EFFECT_H
-#define EFFECT_H
+#ifndef CGD3DEFFECT_H
+#define CGD3DEFFECT_H
 
-#include <string>
-#include <CG/cg.h>
+#include "IEffect.h"
 
-class Matrix4x4;
-class Matrix3x3;
-class Color3;
-class Color4;
-class Vector2;
-class Vector3;
-class Vector4;
-
-class Effect {
+class CGD3DEffect : public IEffect {
 
 public:
 
@@ -39,12 +30,7 @@ public:
   void setUniform(float uniformData, const char* uniformName) const;
 
   void setTexture(unsigned int textureId, const char* uniformName);
-
-private:
-
-  static CGcontext context_;
-  CGeffect effect_;
+  
 };
-
 
 #endif
