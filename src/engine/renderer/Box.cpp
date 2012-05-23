@@ -9,18 +9,17 @@
 
 static const int VERTEX_SIZE = 3;
 static const int VERTEX_LENGTH = 18;
-static const int VERTEX_COUNT = 18;
+static const int VERTEX_COUNT = 6;
 
 void Box::init() {
   float vertices[] = {
     -0.5f, -0.5f, 0.0f,
     -0.5f, 0.5f, 0.0f,
     0.5f, -0.5f, 0.0f,
-    
-    -0.5f, -0.5f, 0.0f,
-    0.5f, 0.5f, 0.0f,
+
     0.5f, -0.5f, 0.0f,
-    
+    -0.5f, 0.5f, 0.0f,
+    0.5f, 0.5f, 0.0f,
   };
 /*  GLfloat vertices[] = {
     -0.5f, -0.5f, 0.0f,

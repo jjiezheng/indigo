@@ -141,7 +141,7 @@ int Direct3D11GraphicsInterface::createVertexBuffer(float* vertices, float* norm
   ZeroMemory(&bufferDesc, sizeof(bufferDesc));
 
   bufferDesc.Usage = D3D11_USAGE_DYNAMIC;
-  bufferDesc.ByteWidth = sizeof(VERTEX) * 3;
+  bufferDesc.ByteWidth = sizeof(VERTEX) * numVertices;
   bufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
   bufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 
