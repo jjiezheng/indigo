@@ -2,8 +2,13 @@
 #define CGD3DEFFECT_H
 
 #include "IEffect.h"
+#include <CG/cgD3D11.h>
 
 class CGD3DEffect : public IEffect {
+
+public:
+
+  static void initCG(ID3D11Device* device);
 
 public:
 

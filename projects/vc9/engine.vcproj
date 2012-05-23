@@ -437,6 +437,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\src\engine\renderer\IEffect.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\src\engine\renderer\IEffect.h"
 					>
 				</File>

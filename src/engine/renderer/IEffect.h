@@ -16,16 +16,13 @@ class IEffect {
 
 public:
 
-  IEffect() 
-    : context_(0) { };
-
-public:
-
   virtual void load(const std::string& filePath) = 0;
 
   virtual void beginDraw() = 0;
 
   virtual void endDraw() = 0;
+
+  virtual CGpass pass() { return pass_; };
 
 public:
 
@@ -47,8 +44,9 @@ public:
 
 protected:
 
-  CGcontext context_;
+  static CGcontext context_;
   CGeffect effect_;
+  CGpass pass_;
 
 };
 

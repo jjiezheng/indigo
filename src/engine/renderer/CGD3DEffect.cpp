@@ -12,13 +12,14 @@
 #include "maths/Vector3.h"
 #include "Color3.h"
 
-void CGD3DEffect::load(const std::string& filePath) {
-  if (!context_) {
-    context_ = cgCreateContext();
-    cgD3D11RegisterStates(context_);
-    cgD3D11SetManageTextureParameters(context_, CG_TRUE);
-  }
+void CGD3DEffect::initCG(ID3D11Device* device) {
+  context_ = cgCreateContext();
+  cgD3D11SetDevice(context_, device);
+  cgD3D11RegisterStates(context_);
+  cgD3D11SetManageTextureParameters(context_, CG_TRUE);
+}
 
+void CGD3DEffect::load(const std::string& filePath) {
   effect_ = cgCreateEffectFromFile(context_, filePath.c_str(), NULL);
   LOG(LOG_CHANNEL_SHADER, "opening cgfx file %s", filePath.c_str());
 
@@ -30,18 +31,16 @@ void CGD3DEffect::load(const std::string& filePath) {
   if (cgValidateTechnique(technique) == CG_FALSE) {
       LOG(LOG_CHANNEL_SHADER, "Technique %s did not validate. Skipping.", cgGetTechniqueName(technique));
   }
+
+  pass_ = cgGetFirstPass(technique);
 }
 
 void CGD3DEffect::beginDraw() { 
-  CGtechnique technique = cgGetFirstTechnique(effect_);
-  CGpass pass = cgGetFirstPass(technique);
-  cgSetPassState(pass);
+  cgSetPassState(pass_);
 }
 
 void CGD3DEffect::endDraw() {
-  CGtechnique technique = cgGetFirstTechnique(effect_);
-  CGpass pass = cgGetFirstPass(technique);
-  cgResetPassState(pass);
+  cgResetPassState(pass_);
 }
 
 void CGD3DEffect::setUniform(const Color3& uniformData, const char* uniformName) const {

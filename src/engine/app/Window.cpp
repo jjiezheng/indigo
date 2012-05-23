@@ -52,3 +52,11 @@ void Window::drawVertexBuffer(int vertexBuffer, int vertexCount) {
 IEffect* Window::createEffect() {
   return graphicsInterface_->createEffect();
 }
+
+void Window::clearBuffer(const Color3& clearColor) {
+  graphicsInterface_->clearBuffer(clearColor);
+}
+
+void Window::setPass(CGpass pass) {
+  graphicsInterface_->setPass(pass);
+}

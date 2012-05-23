@@ -5,6 +5,11 @@
 #include <assert.h>
 
 #include "renderer/CGD3DEffect.h"
+#include "io/Log.h"
+#include "renderer/Color3.h"
+
+#include <Cg/cg.h>
+#include <Cg/cgD3D11.h>
 
 void GetDesktopResolution(int& horizontal, int& vertical) {
   RECT desktop;
@@ -64,15 +69,23 @@ void Direct3D11GraphicsInterface::CreateGraphicsContext(HWND hWnd, int width, in
   DXGI_SWAP_CHAIN_DESC swapChainDesc;
   ZeroMemory(&swapChainDesc, sizeof(DXGI_SWAP_CHAIN_DESC));
 
-  swapChainDesc.BufferCount = 1;                                    // one back buffer
+  swapChainDesc.BufferCount = 1;   
+  swapChainDesc.BufferDesc.Width = width;
+  swapChainDesc.BufferDesc.Height = height;       
   swapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;     // use 32-bit color
   swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;      // how swap chain is to be used
   swapChainDesc.OutputWindow = hWnd;                                // the window to be used
   swapChainDesc.SampleDesc.Count = 4;                               // how many multisamples
   swapChainDesc.Windowed = TRUE;                                    // windowed/full-screen mode 
 
-  D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, NULL, NULL, NULL,
+  D3D_FEATURE_LEVEL featureLevels = D3D_FEATURE_LEVEL_10_0;
+
+  HRESULT result = D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, NULL, NULL, NULL,
     D3D11_SDK_VERSION, &swapChainDesc, &swapChain_, &device_, NULL, &deviceConnection_);
+
+  D3D_FEATURE_LEVEL featureLevel = device_->GetFeatureLevel();
+
+ assert(result == S_OK);
 
   backBuffer_ = NULL;
   ID3D11Texture2D *backBufferTexture = NULL;
@@ -90,6 +103,8 @@ void Direct3D11GraphicsInterface::CreateGraphicsContext(HWND hWnd, int width, in
   viewport.Height = (float)height;
 
   deviceConnection_->RSSetViewports(1, &viewport);
+
+  CGD3DEffect::initCG(device_);
 }
 
 void Direct3D11GraphicsInterface::openWindow( int width, int height ) {
@@ -98,7 +113,6 @@ void Direct3D11GraphicsInterface::openWindow( int width, int height ) {
 }
 
 void Direct3D11GraphicsInterface::swapBuffers() {
-  deviceConnection_->ClearRenderTargetView(backBuffer_, D3DXCOLOR(0.0f, 0.2, 0.4, 1.0f));
   swapChain_->Present(0, 0);
 
   MSG msg;
@@ -131,15 +145,15 @@ int Direct3D11GraphicsInterface::createVertexBuffer(float* vertices, float* norm
   bufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
   bufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 
+  D3D11_SUBRESOURCE_DATA subResourceData;
+  ZeroMemory(&subResourceData, sizeof(D3D11_SUBRESOURCE_DATA));
+
+  subResourceData.pSysMem = vertices;
+
   ID3D11Buffer *buffer;
-  HRESULT result = device_->CreateBuffer(&bufferDesc, NULL, &buffer);
+  HRESULT result = device_->CreateBuffer(&bufferDesc, &subResourceData, &buffer);
 
-  assert(result == S_OK, "Error creating vertex buffer");
-
-  D3D11_MAPPED_SUBRESOURCE mappedSubResource;
-  deviceConnection_->Map(buffer, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &mappedSubResource);
-  memcpy(mappedSubResource.pData, vertices, sizeof(vertices));
-  deviceConnection_->Unmap(buffer, NULL);
+  assert(result == S_OK);
 
   int bufferId = vertexBuffers_.size();
   vertexBuffers_.push_back(buffer);
@@ -153,10 +167,29 @@ void Direct3D11GraphicsInterface::drawVertexBuffer(int vertexBuffer, int vertexC
   UINT offset = 0;
 
   deviceConnection_->IASetVertexBuffers(0, 1, &buffer, &stride, &offset);
-  deviceConnection_->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+  deviceConnection_->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
   deviceConnection_->Draw(vertexCount, 0);
 }
 
 IEffect* Direct3D11GraphicsInterface::createEffect() {
   return new CGD3DEffect();
+}
+
+void Direct3D11GraphicsInterface::clearBuffer(const Color3& color) {
+  D3DXCOLOR clearColor(color.r, color.g, color.b, 1.0f);
+  deviceConnection_->ClearRenderTargetView(backBuffer_, clearColor);
+}
+
+void Direct3D11GraphicsInterface::setPass(CGpass pass) {
+  ID3D10Blob * pVSBuf = cgD3D11GetIASignatureByPass(pass);
+
+  D3D11_INPUT_ELEMENT_DESC ied[] = {
+    {"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0}
+  };
+    
+  ID3D11InputLayout *layout;
+  HRESULT result = device_->CreateInputLayout(ied, 1, pVSBuf->GetBufferPointer(), pVSBuf->GetBufferSize(), &layout); 
+  assert(result == S_OK);
+  
+  deviceConnection_->IASetInputLayout(layout);
 }

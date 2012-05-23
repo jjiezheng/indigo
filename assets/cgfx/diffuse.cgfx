@@ -58,7 +58,6 @@ float4 mainPS(	float3 normal			: TEXCOORD0,
 
 technique technique0 {
 	pass p0 {
-		VertexProgram = compile glslv mainVS();
-		FragmentProgram = compile glslf mainPS(lightPosition, lightColor);
+		VertexProgram = compile vs_3_0 mainVS();
 	}
 }

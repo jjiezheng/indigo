@@ -21,7 +21,9 @@ void Game::init() {
   camera_.setProjection(projection);
   
   //WorldLoader loader; 
-  //loader.loadFromSceneFile("scenes/testcars/testcars.scene", world_, sceneContext_); 
+  //loader.loadFromSceneFile("scenes/testcars/testcars.scene", world_, sceneContext_);
+
+  sceneContext_.setBackgroundColor(Color3(0.5, 0.5, 0.5));
 
   //sceneContext_.setFog(FOG_NONE, 0.66f, -10, -100, Color4(0.6f, 0.6f, 0.6f));
 
@@ -29,6 +31,8 @@ void Game::init() {
 }
  
 void Game::mainLoop() {
+  Color3 backgroundColor = sceneContext_.backgroundColor();
+  Window::clearBuffer(backgroundColor);
   box_.render();
   /*float dt = clock_.delta_time();
 

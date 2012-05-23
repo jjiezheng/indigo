@@ -35,6 +35,10 @@ public:
 
   IEffect* createEffect();
 
+  void clearBuffer(const Color3& color);
+
+  void setPass(CGpass pass);
+
 private:
 
   bool windowClosed_;
