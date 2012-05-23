@@ -1,6 +1,7 @@
 #include "CGD3DEffect.h"
 
 #include <Cg/Cg.h>
+#include <CG/cgD3D10.h>
 #include <CG/cgD3D11.h>
 
 #include "io/Log.h"
@@ -46,47 +47,47 @@ void CGD3DEffect::endDraw() {
 void CGD3DEffect::setUniform(const Color3& uniformData, const char* uniformName) const {
   CGparameter parameter = cgGetNamedEffectParameter(effect_, uniformName);
   if (!parameter) return;
-  
+  cgSetParameter3fv(parameter, uniformData.valuePtr());
 }
 
 void CGD3DEffect::setUniform(const Vector3& uniformData, const char* uniformName) const {
   CGparameter parameter = cgGetNamedEffectParameter(effect_, uniformName);
   if (!parameter) return;
-  
+  cgSetParameter3fv(parameter, uniformData.valuePtr());
 }
 
 void CGD3DEffect::setUniform(const Vector4& uniformData, const char* uniformName) const { 
   CGparameter parameter = cgGetNamedEffectParameter(effect_, uniformName);
   if (!parameter) return;
-  
+  cgSetParameter4fv(parameter, uniformData.valuePtr());
 }
 
 void CGD3DEffect::setUniform(const Matrix3x3& uniformData, const char* uniformName) const {
   CGparameter parameter = cgGetNamedEffectParameter(effect_, uniformName);
   if (!parameter) return;
-  
+  cgSetMatrixParameterfr(parameter, uniformData.valuePtr());
 }
 
 void CGD3DEffect::setUniform(const Matrix4x4& uniformData, const char* uniformName) const {
   CGparameter parameter = cgGetNamedEffectParameter(effect_, uniformName);
   if (!parameter) return;
-  
+  cgSetMatrixParameterfr(parameter, uniformData.valuePtr());
 }
 
 void CGD3DEffect::setUniform(int uniformData, const char* uniformName) const {
   CGparameter parameter = cgGetNamedEffectParameter(effect_, uniformName);
   if (!parameter) return;
-  
+  cgSetParameter1d(parameter, uniformData);
 }
 
 void CGD3DEffect::setUniform(float uniformData, const char* uniformName) const {
   CGparameter parameter = cgGetNamedEffectParameter(effect_, uniformName);
   if (!parameter) return;
- 
+  cgSetParameter1f(parameter, uniformData);
 }
 
 void CGD3DEffect::setTexture(unsigned int textureId, const char* uniformName) {
   CGparameter parameter = cgGetNamedEffectParameter(effect_, uniformName);
   if (!parameter) return;
-  
+  //cgGLSetTextureParameter(parameter, textureId);
 }

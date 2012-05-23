@@ -5,6 +5,7 @@
 #include "ShaderAttribs.h"
 
 #include "app/Window.h"
+#include "io/Path.h"
 
 static const int VERTEX_SIZE = 3;
 static const int VERTEX_LENGTH = 18;
@@ -23,7 +24,8 @@ void Box::init() {
 
   vertexBuffer = Window::createVertexBuffer(vertices, NULL, NULL, VERTEX_LENGTH);
   effect_ = Window::createEffect();
-  effect_->load("cgfx/diffuse.cgfx");
+  std::string fullEffectPath = Path::pathForFile("cgfx/diffuse.cgfx");
+  effect_->load(fullEffectPath);
 }
 
 void Box::render() {

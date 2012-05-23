@@ -16,6 +16,11 @@ class IEffect {
 
 public:
 
+  IEffect() 
+    : context_(0) { };
+
+public:
+
   virtual void load(const std::string& filePath) = 0;
 
   virtual void beginDraw() = 0;

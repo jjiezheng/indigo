@@ -20,13 +20,16 @@ void Game::init() {
   Matrix4x4 projection = Matrix4x4::perspective(45.0f, Window::aspectRatio(), 1.0f, 200.0f);
   camera_.setProjection(projection);
   
-  WorldLoader loader; 
-  loader.loadFromSceneFile("scenes/testcars/testcars.scene", world_, sceneContext_); 
+  //WorldLoader loader; 
+  //loader.loadFromSceneFile("scenes/testcars/testcars.scene", world_, sceneContext_); 
 
-  sceneContext_.setFog(FOG_NONE, 0.66f, -10, -100, Color4(0.6f, 0.6f, 0.6f));
+  //sceneContext_.setFog(FOG_NONE, 0.66f, -10, -100, Color4(0.6f, 0.6f, 0.6f));
+
+  box_.init();
 }
  
-void Game::mainLoop() { 
+void Game::mainLoop() {
+  box_.render();
   /*float dt = clock_.delta_time();
 
   camera_.update(dt);
