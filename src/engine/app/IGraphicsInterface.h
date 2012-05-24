@@ -36,6 +36,10 @@ public:
 
   virtual IEffect* createEffect() = 0;
 
+public:
+
+  virtual bool getKeySate(char key) = 0;
+
 };
 
 #endif

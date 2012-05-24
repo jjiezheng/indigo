@@ -8,7 +8,6 @@ float4 mainPS() : COLOR {
 
 technique technique0 {
 	pass p0 {
-		CullFaceEnable = false;	
 		VertexProgram = compile arbvp1 mainVS();
 		FragmentProgram = compile arbfp1 mainPS();
 	}

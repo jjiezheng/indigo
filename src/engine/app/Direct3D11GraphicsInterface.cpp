@@ -131,9 +131,21 @@ void Direct3D11GraphicsInterface::CreateGraphicsContext(HWND hWnd, int width, in
   }
 }
 
+
 void Direct3D11GraphicsInterface::openWindow( int width, int height ) {
   HWND hWnd = CreateWindowsWindow(width, height);
-  CreateGraphicsContext(hWnd, width, height);
+
+  {
+    CreateGraphicsContext(hWnd, width, height);
+  }
+
+  {
+    DirectInput8Create(GetModuleHandle(NULL), DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&directInput_, NULL);
+    directInput_->CreateDevice(GUID_SysKeyboard, &keyboardDevice_, NULL);
+    keyboardDevice_->SetDataFormat(&c_dfDIKeyboard);
+    keyboardDevice_->SetCooperativeLevel(hWnd, DISCL_BACKGROUND | DISCL_NONEXCLUSIVE);
+    keyboardDevice_->Acquire();
+  }
 }
 
 void Direct3D11GraphicsInterface::swapBuffers() {
@@ -217,4 +229,10 @@ void Direct3D11GraphicsInterface::setPass(CGpass pass) {
   assert(result == S_OK);
   
   deviceConnection_->IASetInputLayout(layout);
+}
+
+bool Direct3D11GraphicsInterface::getKeySate(char key) {
+  bool keyBuffer[256];
+  keyboardDevice_->GetDeviceState(sizeof(keyBuffer), &keyBuffer);
+  return keyBuffer[key];
 }

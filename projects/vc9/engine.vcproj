@@ -60,7 +60,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="d3d11.lib cg.lib cgGL.lib cgD3D11.lib GLFW.lib OpenGL32.lib  glu32.lib assimp.lib FreeImage.lib glew32.lib "
+				AdditionalDependencies="dxguid.lib dinput8.lib d3d11.lib cg.lib cgGL.lib cgD3D11.lib GLFW.lib OpenGL32.lib  glu32.lib assimp.lib FreeImage.lib glew32.lib "
 				AdditionalLibraryDirectories="../../libs/glew/lib;../../libs/glfw/lib;../../libs/assimp/lib;../../libs/freeimage"
 				GenerateDebugInformation="true"
 				TargetMachine="1"
@@ -206,14 +206,6 @@
 				</File>
 				<File
 					RelativePath="..\..\src\engine\app\IGraphicsInterface.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\app\OpenGL21GraphicsInterface.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\app\OpenGL21GraphicsInterface.h"
 					>
 				</File>
 				<File

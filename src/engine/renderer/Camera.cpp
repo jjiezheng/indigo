@@ -26,28 +26,28 @@ void Camera::init() {
 
 void Camera::update(float dt) {
   float speed = dt * 10;
-  
-  if (glfwGetKey('W') == GLFW_PRESS) {
+
+  if (Window::getKeyState(17)) {
     moveForward(speed);
   }
   
-  if (glfwGetKey('S') == GLFW_PRESS) {
+  if (Window::getKeyState(31)) {
     moveForward(-speed);
   }
   
-  if (glfwGetKey('A') == GLFW_PRESS) {
+  if (Window::getKeyState(30)) {
     moveRight(-speed);
   }
   
-  if (glfwGetKey('D') == GLFW_PRESS) {
+  if (Window::getKeyState(32)) {
     moveRight(speed);
   }
   
-  if (glfwGetKey('E') == GLFW_PRESS) {
+  if (Window::getKeyState(18)) {
     moveUp(speed);
   }
 
-  if (glfwGetKey('Q') == GLFW_PRESS) {
+  if (Window::getKeyState(16)) {
     moveUp(-speed);
   }
   

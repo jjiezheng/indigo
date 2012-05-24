@@ -1,7 +1,7 @@
 float4x4 WorldViewProj : WorldViewProjection;
 
-float4 mainVS(float3 pos : ATTR0) : POSITION{
-	return mul(WorldViewProj, float4(pos.xyz, 1.0));
+float4 mainVS(float4 pos : POSITION) : POSITION{
+	return mul(WorldViewProj, pos);
 }
 
 float4 mainPS() : COLOR {
@@ -10,8 +10,7 @@ float4 mainPS() : COLOR {
 
 technique technique0 {
 	pass p0 {
-		CullFaceEnable = false;	
-		VertexProgram = compile arbvp1 mainVS();
-		FragmentProgram = compile arbfp1 mainPS();
+		VertexProgram = compile vs_4_0 mainVS();
+		FragmentProgram = compile ps_4_0 mainPS();
 	}
 }

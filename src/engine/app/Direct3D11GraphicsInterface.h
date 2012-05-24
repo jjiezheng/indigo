@@ -5,6 +5,7 @@
 
 #include <windows.h>
 #include <D3D11.h>
+#include <dinput.h>
 #include <vector>
 
 class IEffect;
@@ -39,6 +40,10 @@ public:
 
   void setPass(CGpass pass);
 
+public:
+
+  bool getKeySate(char key);
+
 private:
 
   bool windowClosed_;
@@ -56,6 +61,9 @@ private:
   ID3D11DeviceContext *deviceConnection_;
   ID3D11RenderTargetView* backBuffer_;
   ID3D11RasterizerState* rasterState_;
+
+  LPDIRECTINPUT8 directInput_;
+  LPDIRECTINPUTDEVICE8 keyboardDevice_;
 
 private:
 

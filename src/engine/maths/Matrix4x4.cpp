@@ -179,6 +179,18 @@ Matrix4x4 Matrix4x4::inverse() const {
                    inv[3][0], inv[3][1], inv[3][2], inv[3][3]);
 }
 
+Matrix4x4 Matrix4x4::transpose() const {
+  glm::mat4 mat(m11_, m12_, m13_, m14_,
+    m21_, m22_, m23_, m24_,
+    m31_, m32_, m33_, m34_,
+    m41_, m42_, m43_, m44_);
+  glm::mat4 inv = glm::transpose(mat);
+  return Matrix4x4(inv[0][0], inv[0][1], inv[0][2], inv[0][3],
+    inv[1][0], inv[1][1], inv[1][2], inv[1][3],
+    inv[2][0], inv[2][1], inv[2][2], inv[2][3],
+    inv[3][0], inv[3][1], inv[3][2], inv[3][3]);
+}
+
 Matrix3x3 Matrix4x4::mat3x3() const {
   return Matrix3x3(m11_, m12_, m13_,
                    m21_, m22_, m23_,

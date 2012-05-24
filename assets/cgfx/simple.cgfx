@@ -16,11 +16,7 @@ technique cgfx_simple
 {
   pass
   {
-      AlphaBlendEnable = false;
-      CullMode = None;
-      FillMode = Solid;
-      
-      VertexProgram = compile vs_4_0 vs();
-      FragmentProgram = compile ps_4_0 ps();
+    VertexProgram = compile vs_4_0 vs();
+    FragmentProgram = compile ps_4_0 ps();
   }
 }

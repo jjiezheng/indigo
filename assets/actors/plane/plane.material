@@ -1,5 +1,5 @@
 {
-  "effect" : "cgfx/simple.cgfx",
+  "effect" : "cgfx/model_view_projection.cgfx",
   "parameters" : { 
     "diffuseColor" : {
       "r" : 0.6,

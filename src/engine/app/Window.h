@@ -42,6 +42,10 @@ public:
 
   static void setPass(CGpass pass);
 
+public:
+
+  static bool getKeyState(char key);
+
 private:
 
   static IGraphicsInterface* graphicsInterface_;

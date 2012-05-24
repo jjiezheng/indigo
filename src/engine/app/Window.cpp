@@ -60,3 +60,7 @@ void Window::clearBuffer(const Color3& clearColor) {
 void Window::setPass(CGpass pass) {
   graphicsInterface_->setPass(pass);
 }
+
+bool Window::getKeyState(char key) {
+  return graphicsInterface_->getKeySate(key);
+}
