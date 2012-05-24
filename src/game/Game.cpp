@@ -12,13 +12,16 @@
 void Game::init() { 
   properties_.init();
   
-  //camera_.translateZ(-10.0f);
+  camera_.translateZ(2.0f);
   //camera_.translateY(1.8f);
   
 //  shadowRenderer_.init(Window::screenSize()); 
  
   Matrix4x4 projection = Matrix4x4::perspective(45.0f, Window::aspectRatio(), 1.0f, 200.0f);
   camera_.setProjection(projection);
+
+  Vector4 test(0, 0, 1, 0);
+  Vector4 result = projection * test;
   
   WorldLoader loader; 
   loader.loadFromSceneFile("scenes/testcars/testcars.scene", world_, sceneContext_);

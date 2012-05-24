@@ -9,8 +9,8 @@ void Material::bind(const IViewer* camera, const Matrix4x4& model, const Matrix3
   Window::setPass(effect_->pass());
   effect_->beginDraw();
   
-  Matrix4x4 modelViewProjection = camera->projection();// * camera->viewTransform() * model;
-  effect_->setUniform(modelViewProjection, "WorldViewProj"); 
+  Matrix4x4 modelViewProjection = camera->projection();//camera->viewTransform();//camera->projection();// * camera->viewTransform() * model;
+  effect_->setUniform(modelViewProjection, "WorldViewProj");
   effect_->setUniform(model, "World");
 
   effect_->setUniform(normalMatrix, "NormalMatrix");
