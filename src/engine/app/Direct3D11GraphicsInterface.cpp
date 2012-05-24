@@ -88,29 +88,6 @@ void Direct3D11GraphicsInterface::CreateGraphicsContext(HWND hWnd, int width, in
 
     assert(result == S_OK);
   }
-  
-  {
-    D3D11_RASTERIZER_DESC rasterDesc;
-    ZeroMemory(&rasterDesc, sizeof(D3D11_RASTERIZER_DESC));
-
-	  rasterDesc.AntialiasedLineEnable = false;
-	  rasterDesc.CullMode = D3D11_CULL_BACK;
-	  rasterDesc.DepthBias = 0;
-	  rasterDesc.DepthBiasClamp = 0.0f;
-	  rasterDesc.DepthClipEnable = true;
-	  rasterDesc.FillMode = D3D11_FILL_SOLID;
-	  rasterDesc.FrontCounterClockwise = true;
-	  rasterDesc.MultisampleEnable = true;
-	  rasterDesc.ScissorEnable = false;
-	  rasterDesc.SlopeScaledDepthBias = 0.0f;
-
-	  ID3D11RasterizerState* rasterState;
-	  HRESULT result = device_->CreateRasterizerState(&rasterDesc, &rasterState);
-  
-    assert(result == S_OK);
-
-	  deviceConnection_->RSSetState(rasterState);
-  }
 
   {
     backBuffer_ = NULL;
@@ -132,6 +109,26 @@ void Direct3D11GraphicsInterface::CreateGraphicsContext(HWND hWnd, int width, in
   }
 
   CGD3DEffect::initCG(device_);
+
+  {
+    D3D11_RASTERIZER_DESC rasterDesc;
+    ZeroMemory(&rasterDesc, sizeof(D3D11_RASTERIZER_DESC));
+
+	  rasterDesc.AntialiasedLineEnable = false;
+	  rasterDesc.CullMode = D3D11_CULL_BACK;
+	  rasterDesc.DepthBias = 0;
+	  rasterDesc.DepthBiasClamp = 0.0f;
+	  rasterDesc.DepthClipEnable = true;
+	  rasterDesc.FillMode = D3D11_FILL_SOLID;
+	  rasterDesc.FrontCounterClockwise = true;
+	  rasterDesc.MultisampleEnable = true;
+	  rasterDesc.ScissorEnable = false;
+	  rasterDesc.SlopeScaledDepthBias = 0.0f;
+
+	  HRESULT result = device_->CreateRasterizerState(&rasterDesc, &rasterState_);
+  
+    assert(result == S_OK);
+  }
 }
 
 void Direct3D11GraphicsInterface::openWindow( int width, int height ) {
@@ -193,6 +190,7 @@ void Direct3D11GraphicsInterface::drawVertexBuffer(int vertexBuffer, int vertexC
   UINT stride = sizeof(VERTEX);
   UINT offset = 0;
 
+  deviceConnection_->RSSetState(rasterState_);
   deviceConnection_->IASetVertexBuffers(0, 1, &buffer, &stride, &offset);
   deviceConnection_->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
   deviceConnection_->Draw(vertexCount, 0);

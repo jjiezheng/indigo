@@ -55,6 +55,7 @@ private:
   ID3D11Device *device_;
   ID3D11DeviceContext *deviceConnection_;
   ID3D11RenderTargetView* backBuffer_;
+  ID3D11RasterizerState* rasterState_;
 
 private:
 
