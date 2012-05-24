@@ -58,6 +58,7 @@ float4 mainPS(	float3 normal			: TEXCOORD0,
 
 technique technique0 {
 	pass p0 {
-		VertexProgram = compile vs_3_0 mainVS();
+		VertexProgram = compile vs_4_0 mainVS();
+		FragmentProgram = compile ps_4_0 mainPS();
 	}
 }

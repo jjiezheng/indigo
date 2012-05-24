@@ -28,11 +28,13 @@ public:
 
   virtual void drawVertexBuffer(int vertexBuffer, int vertexCount) = 0;
 
-  virtual IEffect* createEffect() = 0;
-
   virtual void clearBuffer(const Color3& color) = 0;
 
+public:
+
   virtual void setPass(CGpass pass) = 0;
+
+  virtual IEffect* createEffect() = 0;
 
 };
 

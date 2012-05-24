@@ -1,0 +1,12 @@
+{
+  "effect" : "cgfx/simple.cgfx",
+  "parameters" : { 
+    "diffuseColor" : {
+      "r" : 0.6,
+      "g" : 0.6,
+      "b" : 0.6,
+      "type" : "color3"
+    }
+  },
+  "textures" : { }
+}

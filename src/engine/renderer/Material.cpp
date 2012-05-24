@@ -2,11 +2,11 @@
 
 #include "IEffect.h"
 #include "IViewer.h"
-#include "OpenGL.h"
 #include "SceneContext.h"
 #include "Light.h"
 
 void Material::bind(const IViewer* camera, const Matrix4x4& model, const Matrix3x3& normalMatrix, const SceneContext& sceneContext) const {
+  Window::setPass(effect_->pass());
   effect_->beginDraw();
   
   Matrix4x4 modelViewProjection = camera->projection() * camera->viewTransform() * model;

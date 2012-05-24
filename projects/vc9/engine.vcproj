@@ -209,6 +209,14 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\src\engine\app\OpenGL21GraphicsInterface.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\engine\app\OpenGL21GraphicsInterface.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\src\engine\app\Window.cpp"
 					>
 				</File>
@@ -405,14 +413,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\engine\renderer\CGGLEffect.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\renderer\CGGLEffect.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\src\engine\renderer\Color3.cpp"
 					>
 				</File>
@@ -579,6 +579,14 @@
 				<Filter
 					Name="OpenGL"
 					>
+					<File
+						RelativePath="..\..\src\engine\renderer\CGGLEffect.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\engine\renderer\CGGLEffect.h"
+						>
+					</File>
 					<File
 						RelativePath="..\..\src\engine\renderer\OpenGL.h"
 						>

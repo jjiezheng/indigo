@@ -6,13 +6,8 @@
 #include "SceneContext.h"
 
 void Renderer3d::render(const Camera& camera, const World& world, const SceneContext& sceneContext) {
-  glEnable(GL_DEPTH_TEST);
-  glEnable(GL_CULL_FACE);
-
   Color3 backgroundColor = sceneContext.backgroundColor();
-  glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, 1.0f);
-  
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  Window::clearBuffer(backgroundColor);
   
 //  world.skyBox().render(&camera, sceneContext);
   
@@ -20,7 +15,10 @@ void Renderer3d::render(const Camera& camera, const World& world, const SceneCon
   for (; it != world.end(); ++it) {
     (*it).render(&camera, sceneContext);
   }
-  
-  glDisable(GL_DEPTH_TEST);
-  glDisable(GL_CULL_FACE);
 }
+
+  /*glEnable(GL_DEPTH_TEST);
+  glEnable(GL_CULL_FACE);*/
+
+ /*glDisable(GL_DEPTH_TEST);
+  glDisable(GL_CULL_FACE);*/

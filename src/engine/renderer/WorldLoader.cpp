@@ -159,9 +159,10 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
     float* verts = new float[aiMesh->mNumVertices*sizeof(aiVector3D)];
     float* normals = new float[aiMesh->mNumVertices*sizeof(aiVector3D)];
     float* uvs = new float[aiMesh->mNumVertices*sizeof(aiVector2D)];
-    
+   
     int vertIndex = 0;
-    int uvIndex = 0; 
+    int uvIndex = 0;
+
     for (unsigned int vertexi = 0; vertexi < aiMesh->mNumVertices; vertexi++) {
       
       // vertex
@@ -175,6 +176,7 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
       aiVector3D normal = aiMesh->mNormals[vertexi];
       Vector4 originalNormal(normal.x, normal.y, normal.z);
       Vector4 rotatedNormal = originalNormal;
+
       LOG(LOG_CHANNEL_WORLDLOADER, "norm: %s", originalNormal.toString().c_str());
 
       // uv      

@@ -66,43 +66,70 @@ HWND Direct3D11GraphicsInterface::CreateWindowsWindow(int width, int height) {
 }
 
 void Direct3D11GraphicsInterface::CreateGraphicsContext(HWND hWnd, int width, int height) {
-  DXGI_SWAP_CHAIN_DESC swapChainDesc;
-  ZeroMemory(&swapChainDesc, sizeof(DXGI_SWAP_CHAIN_DESC));
+  {
+    DXGI_SWAP_CHAIN_DESC swapChainDesc;
+    ZeroMemory(&swapChainDesc, sizeof(DXGI_SWAP_CHAIN_DESC));
 
-  swapChainDesc.BufferCount = 1;   
-  swapChainDesc.BufferDesc.Width = width;
-  swapChainDesc.BufferDesc.Height = height;       
-  swapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;     // use 32-bit color
-  swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;      // how swap chain is to be used
-  swapChainDesc.OutputWindow = hWnd;                                // the window to be used
-  swapChainDesc.SampleDesc.Count = 4;                               // how many multisamples
-  swapChainDesc.Windowed = TRUE;                                    // windowed/full-screen mode 
+    swapChainDesc.BufferCount = 1;   
+    swapChainDesc.BufferDesc.Width = width;
+    swapChainDesc.BufferDesc.Height = height;       
+    swapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;     // use 32-bit color
+    swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;      // how swap chain is to be used
+    swapChainDesc.OutputWindow = hWnd;                                // the window to be used
+    swapChainDesc.SampleDesc.Count = 4;                               // how many multisamples
+    swapChainDesc.Windowed = TRUE;                                    // windowed/full-screen mode 
 
-  D3D_FEATURE_LEVEL featureLevels = D3D_FEATURE_LEVEL_10_0;
+    D3D_FEATURE_LEVEL featureLevels = D3D_FEATURE_LEVEL_10_0;
 
-  HRESULT result = D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, NULL, NULL, NULL,
-    D3D11_SDK_VERSION, &swapChainDesc, &swapChain_, &device_, NULL, &deviceConnection_);
+    HRESULT result = D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, NULL, NULL, NULL,
+      D3D11_SDK_VERSION, &swapChainDesc, &swapChain_, &device_, NULL, &deviceConnection_);
 
-  D3D_FEATURE_LEVEL featureLevel = device_->GetFeatureLevel();
+    D3D_FEATURE_LEVEL featureLevel = device_->GetFeatureLevel();
 
- assert(result == S_OK);
+    assert(result == S_OK);
+  }
+  
+  {
+    D3D11_RASTERIZER_DESC rasterDesc;
+    ZeroMemory(&rasterDesc, sizeof(D3D11_RASTERIZER_DESC));
 
-  backBuffer_ = NULL;
-  ID3D11Texture2D *backBufferTexture = NULL;
-  swapChain_->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&backBufferTexture);
+	  rasterDesc.AntialiasedLineEnable = false;
+	  rasterDesc.CullMode = D3D11_CULL_BACK;
+	  rasterDesc.DepthBias = 0;
+	  rasterDesc.DepthBiasClamp = 0.0f;
+	  rasterDesc.DepthClipEnable = true;
+	  rasterDesc.FillMode = D3D11_FILL_SOLID;
+	  rasterDesc.FrontCounterClockwise = true;
+	  rasterDesc.MultisampleEnable = true;
+	  rasterDesc.ScissorEnable = false;
+	  rasterDesc.SlopeScaledDepthBias = 0.0f;
 
-  device_->CreateRenderTargetView(backBufferTexture, NULL, &backBuffer_);
-  backBufferTexture->Release();
+	  ID3D11RasterizerState* rasterState;
+	  HRESULT result = device_->CreateRasterizerState(&rasterDesc, &rasterState);
+  
+    assert(result == S_OK);
 
-  deviceConnection_->OMSetRenderTargets(1, &backBuffer_, NULL);
+	  deviceConnection_->RSSetState(rasterState);
+  }
 
-  D3D11_VIEWPORT viewport;
-  ZeroMemory(&viewport, sizeof(D3D11_VIEWPORT));
+  {
+    backBuffer_ = NULL;
+    ID3D11Texture2D *backBufferTexture = NULL;
+    swapChain_->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&backBufferTexture);
 
-  viewport.Width = (float)width;
-  viewport.Height = (float)height;
+    device_->CreateRenderTargetView(backBufferTexture, NULL, &backBuffer_);
+    backBufferTexture->Release();
 
-  deviceConnection_->RSSetViewports(1, &viewport);
+    deviceConnection_->OMSetRenderTargets(1, &backBuffer_, NULL);
+
+    D3D11_VIEWPORT viewport;
+    ZeroMemory(&viewport, sizeof(D3D11_VIEWPORT));
+
+    viewport.Width = (float)width;
+    viewport.Height = (float)height;
+
+    deviceConnection_->RSSetViewports(1, &viewport);
+  }
 
   CGD3DEffect::initCG(device_);
 }
