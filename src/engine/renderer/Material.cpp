@@ -11,7 +11,7 @@ void Material::bind(const IViewer* camera, const Matrix4x4& model, const Matrix3
   GraphicsInterface::setPass(effect_->pass());
   effect_->beginDraw();
   
-  Matrix4x4 modelViewProjection = camera->projection();// * camera->viewTransform() * model;
+  Matrix4x4 modelViewProjection = camera->projection() * camera->viewTransform();// * model;
   effect_->setUniform(modelViewProjection, "WorldViewProj");
   effect_->setUniform(model, "World");
 
