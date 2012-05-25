@@ -1,6 +1,6 @@
 #include "Camera.h"
 
-#include "app/Window.h"
+#include "GraphicsInterface.h"
 #include "OpenGL.h"
 
 #include "Angles.h"
@@ -27,27 +27,27 @@ void Camera::init() {
 void Camera::update(float dt) {
   float speed = dt * 10;
 
-  if (Window::getKeyState(17)) {
+  if (GraphicsInterface::getKeyState(17)) {
     moveForward(speed);
   }
   
-  if (Window::getKeyState(31)) {
+  if (GraphicsInterface::getKeyState(31)) {
     moveForward(-speed);
   }
   
-  if (Window::getKeyState(30)) {
+  if (GraphicsInterface::getKeyState(30)) {
     moveRight(-speed);
   }
   
-  if (Window::getKeyState(32)) {
+  if (GraphicsInterface::getKeyState(32)) {
     moveRight(speed);
   }
   
-  if (Window::getKeyState(18)) {
+  if (GraphicsInterface::getKeyState(18)) {
     moveUp(speed);
   }
 
-  if (Window::getKeyState(16)) {
+  if (GraphicsInterface::getKeyState(16)) {
     moveUp(-speed);
   }
   
@@ -103,4 +103,8 @@ Matrix4x4 Camera::rotation() const {
 Matrix4x4 Camera::transform() const {
   Matrix4x4 translation = Matrix4x4::translation(position_);
   return translation * rotation();
+}
+
+Matrix4x4 Camera::viewTransform() const {
+  return transform().inverse();
 }

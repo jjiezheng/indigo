@@ -1,26 +1,26 @@
 #include "App.h"
 
 #include "GL/glfw.h"
-#include "app/Window.h"
+#include "renderer/GraphicsInterface.h"
 
 App* App::app_ = NULL;
 
 int App::run() {
   app_ = this;
 
-  Window::init();
-  Window::openWindow(1024, 768);
+  GraphicsInterface::init(GRAPHICSAPI_OPENGL21);
+  GraphicsInterface::openWindow(1024, 768);
 
   game_.init();
 
   bool quit = false;  
   while (!quit) {
     game_.mainLoop();
-    Window::swapBuffers();
-    quit = Window::windowClosed();
+    GraphicsInterface::swapBuffers();
+    quit = GraphicsInterface::windowClosed();
   }
 
-  return Window::closeWindow();
+  return GraphicsInterface::closeWindow();
 }
 
 void App::keyFunction(int character, int state) {

@@ -1,16 +1,16 @@
 float4x4 WorldViewProj : WorldViewProjection;
 
-float4 mainVS(float4 pos : POSITION) : POSITION{
+float4 vs(float4 pos : POSITION) : POSITION{
 	return mul(WorldViewProj, pos);
 }
 
-float4 mainPS() : COLOR {
+float4 ps() : COLOR {
 	return float4(1.0, 1.0, 1.0, 1.0);
 }
 
 technique technique0 {
 	pass p0 {
-		VertexProgram = compile vs_4_0 mainVS();
-		FragmentProgram = compile ps_4_0 mainPS();
+		VertexProgram = compile glslv vs();
+		FragmentProgram = compile glslf ps();
 	}
 }

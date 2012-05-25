@@ -6,7 +6,6 @@
 #include "maths/Vector4.h"
 #include "Color3.h"
 #include "maths/Matrix4x4.h"
-#include "app/Window.h"
 
 #include "IViewer.h"
 

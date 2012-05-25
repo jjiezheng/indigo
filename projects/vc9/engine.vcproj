@@ -192,34 +192,6 @@
 			<Filter
 				Name="app"
 				>
-				<File
-					RelativePath="..\..\src\engine\app\Direct3D11GraphicsInterface.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\app\Direct3D11GraphicsInterface.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\app\IGraphicsInterface.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\app\IGraphicsInterface.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\app\Window.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\app\Window.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\app\Window.mm"
-					>
-				</File>
 			</Filter>
 			<Filter
 				Name="config"
@@ -429,11 +401,31 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\src\engine\renderer\GraphicsAPIType.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\engine\renderer\GraphicsInterface.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\engine\renderer\GraphicsInterface.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\src\engine\renderer\IEffect.cpp"
 					>
 				</File>
 				<File
 					RelativePath="..\..\src\engine\renderer\IEffect.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\engine\renderer\IGraphicsInterface.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\engine\renderer\IGraphicsInterface.h"
 					>
 				</File>
 				<File
@@ -567,6 +559,14 @@
 						RelativePath="..\..\src\engine\renderer\CGD3DEffect.h"
 						>
 					</File>
+					<File
+						RelativePath="..\..\src\engine\renderer\Direct3D11GraphicsInterface.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\engine\renderer\Direct3D11GraphicsInterface.h"
+						>
+					</File>
 				</Filter>
 				<Filter
 					Name="OpenGL"
@@ -581,6 +581,14 @@
 					</File>
 					<File
 						RelativePath="..\..\src\engine\renderer\OpenGL.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\engine\renderer\OpenGL21GraphicsInterface.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\engine\renderer\OpenGL21GraphicsInterface.h"
 						>
 					</File>
 				</Filter>

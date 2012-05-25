@@ -4,7 +4,7 @@
 #include "io/DDSImage.h"
 #include "io/DDSMipLevel.h"
 
-#include "app/Window.h"
+#include "GraphicsInterface.h"
 
 #include "io/File.h"
 #include "io/Path.h"

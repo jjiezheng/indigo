@@ -94,10 +94,6 @@ inline void Camera::translateZ(float amount) {
   position_.z += amount;
 }
 
-inline Matrix4x4 Camera::viewTransform() const {
-  return transform().inverse();
-}
-
 inline Vector4 Camera::position() const {
   return position_;
 }

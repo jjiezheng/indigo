@@ -4,63 +4,63 @@
 
 IGraphicsInterface* Window::graphicsInterface_ = 0;
 
-void Window::init() {
+void GraphicsInterface::init() {
   graphicsInterface_ = IGraphicsInterface::createInterface();
 }
 
-bool Window::openWindow(int width, int height) {
+bool GraphicsInterface::openWindow(int width, int height) {
   graphicsInterface_->openWindow(width, height);
   return true;
 }
 
-int Window::closeWindow() {
+int GraphicsInterface::closeWindow() {
   return graphicsInterface_->exitCode();;
 }
 
-void Window::swapBuffers() {
+void GraphicsInterface::swapBuffers() {
   graphicsInterface_->swapBuffers();
 }
 
-float Window::aspectRatio() {
+float GraphicsInterface::aspectRatio() {
   return 0;
 }
 
-int Window::screenWidth() {
+int GraphicsInterface::screenWidth() {
   return 0;
 }
 
-int Window::screenHeight() {
+int GraphicsInterface::screenHeight() {
   return 0;
 }
 
-CSize Window::screenSize() {
+CSize GraphicsInterface::screenSize() {
   return CSize(0, 0);
 }
 
-bool Window::windowClosed() {
+bool GraphicsInterface::windowClosed() {
   return graphicsInterface_->windowClosed();
 }
 
-int Window::createVertexBuffer(float* vertices, float* normals, float* uvs, int numVertices) {
+int GraphicsInterface::createVertexBuffer(float* vertices, float* normals, float* uvs, int numVertices) {
   return graphicsInterface_->createVertexBuffer(vertices, normals, uvs, numVertices);
 }
 
-void Window::drawVertexBuffer(int vertexBuffer, int vertexCount) {
+void GraphicsInterface::drawVertexBuffer(int vertexBuffer, int vertexCount) {
   graphicsInterface_->drawVertexBuffer(vertexBuffer, vertexCount);
 }
 
-IEffect* Window::createEffect() {
+IEffect* GraphicsInterface::createEffect() {
   return graphicsInterface_->createEffect();
 }
 
-void Window::clearBuffer(const Color3& clearColor) {
+void GraphicsInterface::clearBuffer(const Color3& clearColor) {
   graphicsInterface_->clearBuffer(clearColor);
 }
 
-void Window::setPass(CGpass pass) {
+void GraphicsInterface::setPass(CGpass pass) {
   graphicsInterface_->setPass(pass);
 }
 
-bool Window::getKeyState(char key) {
+bool GraphicsInterface::getKeyState(char key) {
   return graphicsInterface_->getKeySate(key);
 }

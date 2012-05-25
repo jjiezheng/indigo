@@ -5,9 +5,11 @@
 #include "Camera.h"
 #include "SceneContext.h"
 
+#include "GraphicsInterface.h"
+
 void Renderer3d::render(const Camera& camera, const World& world, const SceneContext& sceneContext) {
   Color3 backgroundColor = sceneContext.backgroundColor();
-  Window::clearBuffer(backgroundColor);
+  GraphicsInterface::clearBuffer(backgroundColor);
   
 //  world.skyBox().render(&camera, sceneContext);
   

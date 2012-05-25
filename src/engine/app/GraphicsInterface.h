@@ -8,7 +8,7 @@ class IGraphicsInterface;
 class IEffect;
 class Color3;
 
-class Window {
+class GraphicsInterface {
   
 public:
 

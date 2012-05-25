@@ -3,6 +3,8 @@
 
 #include <Cg/cg.h>
 
+#include "GraphicsAPIType.h"
+
 class IEffect;
 class Color3;
 
@@ -10,7 +12,7 @@ class IGraphicsInterface {
 
 public:
 
-  static IGraphicsInterface* createInterface();
+  static IGraphicsInterface* createInterface(GraphicsAPIType graphicsAPIType);
 
 public:
 

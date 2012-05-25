@@ -29,6 +29,8 @@
 #include "SkyBox.h"
 #include "Texture.h"
 
+#include "GraphicsInterface.h"
+
 void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, SceneContext& sceneContext) {
   std::string fullFilePath = Path::pathForFile(filePath);
   std::ifstream levelFile(fullFilePath.c_str(), std::ifstream::in);
@@ -286,7 +288,7 @@ void WorldLoader::loadMaterial(Model* model, const std::string& materialFilePath
 }
 
 void WorldLoader::loadEffect(Material& material, const std::string &shaderFilePath) { 
-  IEffect* effect = Window::createEffect();
+  IEffect* effect = GraphicsInterface::createEffect();
   std::string fullEffectPath = Path::pathForFile(shaderFilePath);
   effect->load(fullEffectPath);
   material.setEffect(effect);

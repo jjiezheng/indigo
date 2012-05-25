@@ -7,17 +7,17 @@
 #include "renderer/Box.h"
 #include "renderer/WorldLoader.h"
 
-#include "app/Window.h"
+#include "renderer/GraphicsInterface.h"
 
-void Game::init() { 
+void Game::init() {
   properties_.init();
   
-  camera_.translateZ(2.0f);
-  //camera_.translateY(1.8f);
+  camera_.translateZ(5.0f);
+  camera_.translateY(1.8f);
   
-//  shadowRenderer_.init(Window::screenSize()); 
+//  shadowRenderer_.init(GraphicsInterface::screenSize()); 
  
-  Matrix4x4 projection = Matrix4x4::perspective(45.0f, Window::aspectRatio(), 1.0f, 200.0f);
+  Matrix4x4 projection = Matrix4x4::perspective(45.0f, GraphicsInterface::aspectRatio(), 1.0f, 200.0f);
   camera_.setProjection(projection);
 
   Vector4 test(0, 0, 1, 0);
@@ -35,7 +35,7 @@ void Game::init() {
  
 void Game::mainLoop() {
   Color3 backgroundColor = sceneContext_.backgroundColor();
-  Window::clearBuffer(backgroundColor);
+  GraphicsInterface::clearBuffer(backgroundColor);
   //box_.render();
   float dt = clock_.delta_time();
 

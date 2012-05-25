@@ -3,7 +3,7 @@
 #include "IEffect.h"
 #include "ShaderAttribs.h"
 
-#include "app/Window.h"
+#include "GraphicsInterface.h"
 #include "io/Path.h"
 
 static const int VERTEX_SIZE = 3;
@@ -30,15 +30,15 @@ void Box::init() {
     0.5f, 0.5f, 0.0f,
   };*/
 
-  vertexBuffer = Window::createVertexBuffer(vertices, NULL, NULL, VERTEX_LENGTH);
-  effect_ = Window::createEffect();
+  vertexBuffer = GraphicsInterface::createVertexBuffer(vertices, NULL, NULL, VERTEX_LENGTH);
+  effect_ = GraphicsInterface::createEffect();
   std::string fullEffectPath = Path::pathForFile("cgfx/simple.cgfx");
   effect_->load(fullEffectPath);
 }
 
 void Box::render() {
   effect_->beginDraw();
-  Window::setPass(effect_->pass());
-  Window::drawVertexBuffer(vertexBuffer, VERTEX_COUNT);
+  GraphicsInterface::setPass(effect_->pass());
+  GraphicsInterface::drawVertexBuffer(vertexBuffer, VERTEX_COUNT);
   effect_->endDraw(); 
 }

@@ -13,8 +13,6 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/matrix_inverse.hpp"
 
-#include <D3DX10.h>
-
 Matrix4x4 Matrix4x4::IDENTITY = Matrix4x4(1.0f, 0.0f, 0.0f, 0.0f, 
                                           0.0f, 1.0f, 0.0f, 0.0f, 
                                           0.0f, 0.0f, 1.0f, 0.0f,
@@ -76,23 +74,7 @@ Matrix4x4 Matrix4x4::scale(const Vector4& v) {
 }
 
 Matrix4x4 Matrix4x4::perspective(float fov, float aspect, float znear, float zfar) {
-
-  D3DXMATRIX projectionM;
-  D3DXMatrixPerspectiveFovLH(&projectionM, fov, aspect, znear, zfar);
-
-  D3DXMATRIX projectionT;
-  D3DXMatrixTranspose(&projectionT, &projectionM);
-
-
-  return Matrix4x4(
-    projectionT._11, projectionT._12, projectionT._13, projectionT._14, 
-    projectionT._21, projectionT._22, projectionT._23, projectionT._24, 
-    projectionT._31, projectionT._32, projectionT._33, projectionT._34, 
-    projectionT._41, projectionT._42, projectionT._43, projectionT._44);
-
-  return Matrix4x4::IDENTITY;
-  
-  /*float xymax = znear * tan(fov * ((float)M_PI / 360.0f));
+  float xymax = znear * tan(fov * ((float)M_PI / 360.0f));
   float ymin = -xymax;
   float xmin = -xymax;
   
@@ -110,7 +92,7 @@ Matrix4x4 Matrix4x4::perspective(float fov, float aspect, float znear, float zfa
   return Matrix4x4(w, 0, 0, 0,
                    0, h, 0, 0, 
                    0, 0, q, -1, 
-                   0, 0, qn, 0);*/
+                   0, 0, qn, 0);
 }
 
 Matrix4x4 Matrix4x4::orthographic(float left, float right, float bottom, float top, float znear, float zfar) {
