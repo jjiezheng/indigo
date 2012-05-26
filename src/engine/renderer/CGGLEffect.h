@@ -7,7 +7,9 @@ class CGGLEffect : public IEffect {
 
 public:
 
-  void load(const std::string& filePath);
+  static void initCG();
+
+public:
 
   void beginDraw();
 
@@ -30,6 +32,10 @@ public:
   void setUniform(float uniformData, const char* uniformName) const;
 
   void setTexture(unsigned int textureId, const char* uniformName);
+
+private:
+
+  CGtechnique technique_;
 
 };
 

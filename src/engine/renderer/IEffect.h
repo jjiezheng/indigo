@@ -16,7 +16,9 @@ class IEffect {
 
 public:
 
-  virtual void load(const std::string& filePath) = 0;
+  void load(const std::string& filePath);
+
+public:
 
   virtual void beginDraw() = 0;
 
@@ -47,7 +49,7 @@ protected:
   static CGcontext context_;
   CGeffect effect_;
   CGpass pass_;
-
+  CGtechnique technique_;
 };
 
 

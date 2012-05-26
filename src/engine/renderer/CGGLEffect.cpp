@@ -13,35 +13,19 @@
 #include "maths/Vector3.h"
 #include "Color3.h"
 
-void CGGLEffect::load(const std::string& filePath) {
-  if (!context_) {
-    context_ = cgCreateContext();
-    cgGLRegisterStates(context_);
-    cgGLSetManageTextureParameters(context_, GL_TRUE);
-  }
-
-  effect_ = cgCreateEffectFromFile(context_, filePath.c_str(), NULL);
-  LOG(LOG_CHANNEL_SHADER, "opening cgfx file %s", filePath.c_str());
-
-  if (!effect_) {
-    LOG(LOG_CHANNEL_SHADER, "Failed to open cgfx file %s", filePath.c_str());
-  } 
-
-  CGtechnique technique = cgGetFirstTechnique(effect_);
-  if (cgValidateTechnique(technique) == CG_FALSE) {
-      LOG(LOG_CHANNEL_SHADER, "Technique %s did not validate. Skipping.", cgGetTechniqueName(technique));
-  }
+void CGGLEffect::initCG() {
+  context_ = cgCreateContext();
+  cgGLRegisterStates(context_);
+  cgGLSetManageTextureParameters(context_, GL_TRUE);
 }
 
 void CGGLEffect::beginDraw() { 
-  CGtechnique technique = cgGetFirstTechnique(effect_);
-  CGpass pass = cgGetFirstPass(technique);
+  CGpass pass = cgGetFirstPass(technique_);
   cgSetPassState(pass);
 }
 
 void CGGLEffect::endDraw() {
-  CGtechnique technique = cgGetFirstTechnique(effect_);
-  CGpass pass = cgGetFirstPass(technique);
+  CGpass pass = cgGetFirstPass(technique_);
   cgResetPassState(pass);
 }
 

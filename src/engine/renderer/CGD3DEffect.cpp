@@ -19,23 +19,7 @@ void CGD3DEffect::initCG(ID3D11Device* device) {
   cgD3D11SetManageTextureParameters(context_, CG_TRUE);
 }
 
-void CGD3DEffect::load(const std::string& filePath) {
-  effect_ = cgCreateEffectFromFile(context_, filePath.c_str(), NULL);
-  LOG(LOG_CHANNEL_SHADER, "opening cgfx file %s", filePath.c_str());
-
-  if (!effect_) {
-    LOG(LOG_CHANNEL_SHADER, "Failed to open cgfx file %s", filePath.c_str());
-  } 
-
-  CGtechnique technique = cgGetFirstTechnique(effect_);
-  if (cgValidateTechnique(technique) == CG_FALSE) {
-      LOG(LOG_CHANNEL_SHADER, "Technique %s did not validate. Skipping.", cgGetTechniqueName(technique));
-  }
-
-  pass_ = cgGetFirstPass(technique);
-}
-
-void CGD3DEffect::beginDraw() { 
+void CGD3DEffect::beginDraw() {
   cgSetPassState(pass_);
 }
 

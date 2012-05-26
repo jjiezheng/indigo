@@ -56,6 +56,7 @@ void OpenGL21GraphicsInterface::openWindow(int width, int height) {
   HWND hWnd = WindowsUtils::createWindow(width, height);
   deviceContext_ = createGraphicsContext(hWnd, width, height);
   glewInit();
+  CGGLEffect::initCG();
 }
 
 void OpenGL21GraphicsInterface::swapBuffers() {

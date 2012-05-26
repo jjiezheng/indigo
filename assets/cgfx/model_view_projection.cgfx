@@ -8,9 +8,16 @@ float4 ps() : COLOR {
 	return float4(1.0, 1.0, 1.0, 1.0);
 }
 
-technique technique0 {
-	pass p0 {
+technique gl {
+	pass {
 		VertexProgram = compile glslv vs();
 		FragmentProgram = compile glslf ps();
+	}
+}
+
+technique dx {
+	pass {
+		VertexProgram = compile vs_4_0 vs();
+		FragmentProgram = compile ps_4_0 ps();
 	}
 }
