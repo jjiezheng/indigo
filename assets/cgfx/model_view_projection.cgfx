@@ -10,8 +10,8 @@ float4 ps() : COLOR {
 
 technique gl {
 	pass {
-		VertexProgram = compile glslv vs();
-		FragmentProgram = compile glslf ps();
+		VertexProgram = compile latest vs();
+		FragmentProgram = compile latest ps();
 	}
 }
 

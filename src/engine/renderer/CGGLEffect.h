@@ -33,10 +33,6 @@ public:
 
   void setTexture(unsigned int textureId, const char* uniformName);
 
-private:
-
-  CGtechnique technique_;
-
 };
 
 

@@ -20,9 +20,6 @@ void Game::init() {
   Matrix4x4 projection = Matrix4x4::perspective(45.0f, GraphicsInterface::aspectRatio(), 1.0f, 200.0f);
   camera_.setProjection(projection);
 
-  Vector4 test(0, 0, 1, 0);
-  Vector4 result = projection * test;
-  
   WorldLoader loader; 
   loader.loadFromSceneFile("scenes/testcars/testcars.scene", world_, sceneContext_);
 
