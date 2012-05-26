@@ -1,7 +1,6 @@
 #include "Box.h"
 
 #include "IEffect.h"
-#include "ShaderAttribs.h"
 
 #include "GraphicsInterface.h"
 #include "io/Path.h"
@@ -30,10 +29,10 @@ void Box::init() {
     0.5f, 0.5f, 0.0f,
   };*/
 
-  vertexBuffer = GraphicsInterface::createVertexBuffer(vertices, NULL, NULL, VERTEX_LENGTH);
+/*  vertexBuffer = GraphicsInterface::createVertexBuffer(vertices, NULL, NULL, VERTEX_LENGTH);
   effect_ = GraphicsInterface::createEffect();
   std::string fullEffectPath = Path::pathForFile("cgfx/simple.cgfx");
-  effect_->load(fullEffectPath);
+  effect_->load(fullEffectPath);*/
 }
 
 void Box::render() {

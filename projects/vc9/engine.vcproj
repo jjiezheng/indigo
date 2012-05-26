@@ -493,6 +493,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\src\engine\renderer\Point.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\src\engine\renderer\Renderer3d.cpp"
 					>
 				</File>
@@ -513,11 +517,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\engine\renderer\ShaderAttribs.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\renderer\ShaderAttribs.h"
+					RelativePath="..\..\src\engine\renderer\ShaderSemantics.h"
 					>
 				</File>
 				<File
@@ -538,6 +538,10 @@
 				</File>
 				<File
 					RelativePath="..\..\src\engine\renderer\Vector3MaterialParameter.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\engine\renderer\VertexDefinition.h"
 					>
 				</File>
 				<File

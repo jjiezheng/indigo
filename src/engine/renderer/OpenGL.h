@@ -7,7 +7,7 @@
 #include "gl/glew.h"
 
 #pragma comment(lib,"opengl32.lib")
-#include <GL/glfw.h>
+//#include <GL/glfw.h>
 
 #endif
 

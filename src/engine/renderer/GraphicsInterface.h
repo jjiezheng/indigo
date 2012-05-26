@@ -9,6 +9,8 @@
 class IGraphicsInterface;
 class IEffect;
 class Color3;
+class VertexDef;
+class DDSImage;
 
 class GraphicsInterface {
   
@@ -38,11 +40,13 @@ public:
 
   static IEffect* createEffect();
 
-  static int createVertexBuffer(float* vertices, float* normals, float* uvs, int numVertices);
+  static int createVertexBuffer(VertexDef* vertexData, int numVertices);
 
   static void drawVertexBuffer(int vertexBuffer,int vertexCount);
 
   static void setPass(CGpass pass);
+
+  static int createTexture(const DDSImage& image);
 
 public:
 

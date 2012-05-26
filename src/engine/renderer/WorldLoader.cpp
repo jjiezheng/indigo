@@ -13,6 +13,7 @@
 
 #include "Mesh.h"
 #include "maths/Vector4.h"
+#include "VertexDefinition.h"
 #include "Model.h"
 #include "Material.h"
 #include "IEffect.h"
@@ -158,59 +159,35 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
   
   for (unsigned int i = 0; i < scene->mNumMeshes; i++) {
     aiMesh* aiMesh = scene->mMeshes[i];
-    float* verts = new float[aiMesh->mNumVertices*sizeof(aiVector3D)];
-    float* normals = new float[aiMesh->mNumVertices*sizeof(aiVector3D)];
-    float* uvs = new float[aiMesh->mNumVertices*sizeof(aiVector2D)];
-   
-    int vertIndex = 0;
-    int uvIndex = 0;
-
+    VertexDef* defs = new VertexDef[aiMesh->mNumVertices];
     for (unsigned int vertexi = 0; vertexi < aiMesh->mNumVertices; vertexi++) {
-      
-      // vertex
+      VertexDef def;
+
       aiVector3D vertex = aiMesh->mVertices[vertexi];
-      Vector4 originalVertex(vertex.x, vertex.y, vertex.z);
-      Vector4 rotatedVertex = originalVertex;
- 
-      LOG(LOG_CHANNEL_WORLDLOADER, "vert: %s", rotatedVertex.toString().c_str());
-      
-      // normal
+      def.vertex.x = vertex.x; 
+      def.vertex.y = vertex.y; 
+      def.vertex.z = vertex.z; 
+      LOG(LOG_CHANNEL_WORLDLOADER, "vert: %s", def.vertex.toString().c_str());
+
       aiVector3D normal = aiMesh->mNormals[vertexi];
-      Vector4 originalNormal(normal.x, normal.y, normal.z);
-      Vector4 rotatedNormal = originalNormal;
+      def.normal.x = normal.x; 
+      def.normal.y = normal.y; 
+      def.normal.z = normal.z; 
+      LOG(LOG_CHANNEL_WORLDLOADER, "norm: %s", def.normal.toString().c_str());
 
-      LOG(LOG_CHANNEL_WORLDLOADER, "norm: %s", originalNormal.toString().c_str());
-
-      // uv      
       if (aiMesh->mTextureCoords[0]) {
         aiVector3D uv = aiMesh->mTextureCoords[0][vertexi];
-        Vector2 originalUV(uv.x, uv.y);
-        Vector2 rotatedUV = originalUV;        
-        LOG(LOG_CHANNEL_WORLDLOADER, "uv: %s", rotatedUV.toString().c_str());
-        uvs[uvIndex++] = rotatedUV.x;
-        uvs[uvIndex++] = rotatedUV.y;
+  //      def.uv.x = uv.x; 
+  //      def.uv.y = uv.y; 
       }
-      
-      verts[vertIndex] = rotatedVertex.x;
-      normals[vertIndex] = rotatedNormal.x;
-      vertIndex++;
-      
-      verts[vertIndex] = rotatedVertex.y;
-      normals[vertIndex] = rotatedNormal.y;
-      vertIndex++;
-      
-      verts[vertIndex] = rotatedVertex.z;
-      normals[vertIndex] = rotatedNormal.z;
-      vertIndex++;
+      //LOG(LOG_CHANNEL_WORLDLOADER, "uv: %s", def.uv.toString().c_str());
+      defs[vertexi] = def;
     }
-        
+
     Mesh mesh;
-    mesh.init(verts, normals, uvs, vertIndex + 1);
+    mesh.init(defs, aiMesh->mNumVertices);
     model->addMesh(mesh);
     
-    SAFE_DELETE(verts);
-    SAFE_DELETE(normals);
-    SAFE_DELETE(uvs);
   }
   
   importer.FreeScene();

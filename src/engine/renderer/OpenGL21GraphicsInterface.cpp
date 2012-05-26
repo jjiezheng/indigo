@@ -1,11 +1,12 @@
 #include "OpenGL21GraphicsInterface.h"
 
-#include "renderer/CGGLEffect.h"
+#include "CGGLEffect.h"
 #include "io/Log.h"
-#include "renderer/Color3.h"
+#include "Color3.h"
+#include "VertexDefinition.h"
 
-#include "renderer/OpenGL.h"
-#include "renderer/ShaderAttribs.h"
+#include "OpenGL.h"
+#include "ShaderSemantics.h"
 
 #include <windows.h>
 #include "platform/WindowsUtils.h"
@@ -14,6 +15,13 @@
 #include <Cg/cgGL.h>
 
 #include "OpenGL.h"
+
+#include "io/DDSImage.h"
+
+#include "io/dds.h"
+#include "io/DDSImage.h"
+#include "io/DDSMipLevel.h"
+
 
 HDC OpenGL21GraphicsInterface::createGraphicsContext(HWND hWnd, int width, int height) {
   static	PIXELFORMATDESCRIPTOR pixelFormatDescriptor =				// pfd Tells Windows How We Want Things To Be
@@ -64,31 +72,65 @@ void OpenGL21GraphicsInterface::swapBuffers() {
   windowClosed_ = WindowsUtils::pumpMessages();
 }
 
-int OpenGL21GraphicsInterface::createVertexBuffer(float* vertices, float* normals, float* uvs, int numVertices) {
+int OpenGL21GraphicsInterface::createVertexBuffer(VertexDef* vertexData, int numVertices) {
   GLuint vertexArray;
   glGenVertexArrays(1, &vertexArray);
   glBindVertexArray(vertexArray);
 
-  GLuint vertexBuffer;  
-  glGenBuffers(1, &vertexBuffer);
-  glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-  glBufferData(GL_ARRAY_BUFFER, 3 * sizeof(float) * numVertices, vertices, GL_STATIC_DRAW);  
-  glVertexAttribPointer(ATTRIB_VERTEX, 3, GL_FLOAT, 0, 0, 0);
-  glEnableVertexAttribArray(ATTRIB_VERTEX);
-  
+  {
+    float vertexCoordsCount = numVertices * 3;
+    float* vertices = new float[vertexCoordsCount];
+    int vertexi = 0;
+    for (int i = 0; i < numVertices; i++) {
+      vertices[vertexi++] = vertexData[i].vertex.x;
+      vertices[vertexi++] = vertexData[i].vertex.y;
+      vertices[vertexi++] = vertexData[i].vertex.z;
+    }
+
+    GLuint vertexBuffer;  
+    glGenBuffers(1, &vertexBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+    glBufferData(GL_ARRAY_BUFFER, 3 * sizeof(float) * numVertices, vertices, GL_STATIC_DRAW);  
+    glVertexAttribPointer(POSITION, 3, GL_FLOAT, 0, 0, 0);
+    glEnableVertexAttribArray(POSITION);
+
+    delete[] vertices;
+  }
+
+  float normalCoordsCount = numVertices * 3;
+  float* normals = new float[normalCoordsCount];
+  int normali = 0;
+  for (int i = 0; i < numVertices; i++) {
+    normals[normali++] = vertexData[i].normal.x;
+    normals[normali++] = vertexData[i].normal.y;
+    normals[normali++] = vertexData[i].normal.z;
+  }
+
   GLuint normalBuffer;
   glGenBuffers(1, &normalBuffer);
   glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
   glBufferData(GL_ARRAY_BUFFER, 3 * sizeof(float) * numVertices, normals, GL_STATIC_DRAW);    
-  glVertexAttribPointer(ATTRIB_NORMAL, 3, GL_FLOAT, 0, 0, 0);
-  glEnableVertexAttribArray(ATTRIB_NORMAL);
+  glVertexAttribPointer(NORMAL, 3, GL_FLOAT, 0, 0, 0);
+  glEnableVertexAttribArray(NORMAL);
+
+  delete[] normals;
+  
+  float uvCoordsCount = numVertices * 2;
+  float* uvs = new float[uvCoordsCount];
+  int uvi = 0;
+  for (int i = 0; i < numVertices; i++) {
+    uvs[uvi++] = vertexData[i].uv.x;
+    uvs[uvi++] = vertexData[i].uv.y;
+  }
   
   GLuint uvBuffer;
   glGenBuffers(1, &uvBuffer); 
   glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
   glBufferData(GL_ARRAY_BUFFER, 2 * sizeof(float) * numVertices, uvs, GL_STATIC_DRAW);
-  glVertexAttribPointer(ATTRIB_UV, 2, GL_FLOAT, 0, 0, 0);
-  glEnableVertexAttribArray(ATTRIB_UV);
+  glVertexAttribPointer(TEXCOORD0, 2, GL_FLOAT, 0, 0, 0);
+  glEnableVertexAttribArray(TEXCOORD0);
+
+  delete[] uvs;
 
   return vertexArray;
 }
@@ -112,5 +154,35 @@ void OpenGL21GraphicsInterface::setPass(CGpass pass) {
 }
 
 bool OpenGL21GraphicsInterface::getKeySate(char key) {
-  return glfwGetKey(key) == GLFW_PRESS;
+  return false;//glfwGetKey(key) == GLFW_PRESS;
+}
+
+int OpenGL21GraphicsInterface::createTexture(const DDSImage& image) {
+  unsigned int format = 0;
+  switch(image.fourCC) {
+    case FOURCC_DXT1: format = GL_COMPRESSED_RGBA_S3TC_DXT1_EXT; break;
+    case FOURCC_DXT3: format = GL_COMPRESSED_RGBA_S3TC_DXT3_EXT; break;
+    case FOURCC_DXT5: format = GL_COMPRESSED_RGBA_S3TC_DXT5_EXT; break;
+    default: return -1;
+  }
+
+  GLuint textureId;
+  glGenTextures(1, &textureId);
+  glBindTexture(GL_TEXTURE_2D, textureId);
+  
+  glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+  glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+  
+  glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+  glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_LINEAR);
+
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, image.numMipLevels - 1);
+
+  for (unsigned int i = 0; i < image.numMipLevels; i++) {
+    DDSMipLevel* mipLevel = image.mipLevels[i];
+    glCompressedTexImage2D(GL_TEXTURE_2D, i, format, mipLevel->width, mipLevel->height, 
+                           0, mipLevel->size, image.data + mipLevel->offset);
+  }
+
+  return textureId;
 }

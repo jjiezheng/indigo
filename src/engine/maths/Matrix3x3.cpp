@@ -6,7 +6,7 @@
 #include "Vector3.h"
 
 Matrix3x3 Matrix3x3::rotationX(int degrees) {
-  float angleRads = (degrees / 180.0f) * M_PI;
+  float angleRads = (degrees / 180.0f) * (float)M_PI;
   return Matrix3x3(1.0f, 0.0f,             0.0f, 
                    0.0f, cosf(angleRads), -sinf(angleRads),
                    0.0f, sinf(angleRads),  cosf(angleRads));
@@ -19,7 +19,7 @@ Matrix3x3 Matrix3x3::rotationX(float radians) {
 }
 
 Matrix3x3 Matrix3x3::rotationY(int degrees) {
-  float angleRads = (degrees / 180.0f) * M_PI;
+  float angleRads = (degrees / 180.0f) *(float) M_PI;
   return Matrix3x3(cosf(angleRads),   0.0f, sinf(angleRads), 
                    0.0f,              1.0f, 0.0f,
                    -sinf(angleRads),  0.0f, cosf(angleRads));

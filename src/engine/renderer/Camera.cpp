@@ -51,8 +51,9 @@ void Camera::update(float dt) {
     moveUp(-speed);
   }
   
-  int x, y;
-  glfwGetMousePos(&x, &y);
+  int x = 0;
+  int y = 0;
+  //glfwGetMousePos(&x, &y);
   
   int xDelta = x - lastMouseX_;
   int yDelta = y - lastMouseY_;

@@ -21,9 +21,9 @@ void Game::init() {
   camera_.setProjection(projection);
 
   WorldLoader loader; 
-  loader.loadFromSceneFile("scenes/testcars/testcars.scene", world_, sceneContext_);
+  loader.loadFromSceneFile("scenes/cars/cars.scene", world_, sceneContext_);
 
-  sceneContext_.setBackgroundColor(Color3(0.7, 0.5, 0.5));
+  sceneContext_.setBackgroundColor(Color3(0.7f, 0.5f, 0.5f));
 
   //sceneContext_.setFog(FOG_NONE, 0.66f, -10, -100, Color4(0.6f, 0.6f, 0.6f));
 

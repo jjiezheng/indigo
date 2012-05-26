@@ -8,9 +8,12 @@
 #include "renderer/CGD3DEffect.h"
 #include "io/Log.h"
 #include "renderer/Color3.h"
+#include "VertexDefinition.h"
 
 #include <Cg/cg.h>
 #include <Cg/cgD3D11.h>
+
+#include "ShaderSemantics.h"
 
 void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, int height) {
   {
@@ -98,21 +101,18 @@ void Direct3D11GraphicsInterface::swapBuffers() {
   windowClosed_ = WindowsUtils::pumpMessages();
 }
 
-struct VERTEX { FLOAT X, Y, Z; };
-
-int Direct3D11GraphicsInterface::createVertexBuffer(float* vertices, float* normals, float* uvs, int numVertices) {
+int Direct3D11GraphicsInterface::createVertexBuffer(VertexDef* vertexData, int numVertices) {
   D3D11_BUFFER_DESC bufferDesc;
   ZeroMemory(&bufferDesc, sizeof(bufferDesc));
 
   bufferDesc.Usage = D3D11_USAGE_DYNAMIC;
-  bufferDesc.ByteWidth = sizeof(VERTEX) * numVertices;
+  bufferDesc.ByteWidth = sizeof(VertexDef) * numVertices;
   bufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
   bufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 
   D3D11_SUBRESOURCE_DATA subResourceData;
   ZeroMemory(&subResourceData, sizeof(D3D11_SUBRESOURCE_DATA));
-
-  subResourceData.pSysMem = vertices;
+  subResourceData.pSysMem = vertexData;
 
   ID3D11Buffer *buffer;
   HRESULT result = device_->CreateBuffer(&bufferDesc, &subResourceData, &buffer);
@@ -127,7 +127,7 @@ int Direct3D11GraphicsInterface::createVertexBuffer(float* vertices, float* norm
 void Direct3D11GraphicsInterface::drawVertexBuffer(int vertexBuffer, int vertexCount) {
   ID3D11Buffer* buffer = vertexBuffers_[vertexBuffer];
 
-  UINT stride = sizeof(VERTEX);
+  UINT stride = sizeof(VertexDef);
   UINT offset = 0;
 
   deviceConnection_->RSSetState(rasterState_);
@@ -149,11 +149,13 @@ void Direct3D11GraphicsInterface::setPass(CGpass pass) {
   ID3D10Blob * pVSBuf = cgD3D11GetIASignatureByPass(pass);
 
   D3D11_INPUT_ELEMENT_DESC ied[] = {
-    {"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0}
+    {"POSITION",    0, DXGI_FORMAT_R32G32B32_FLOAT, 0,  0, D3D11_INPUT_PER_VERTEX_DATA, 0},
+    {"NORMAL",      0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0},
+    {"TEXCOORD",   0, DXGI_FORMAT_R32G32_FLOAT,    0, 24, D3D11_INPUT_PER_VERTEX_DATA, 0}
   };
     
   ID3D11InputLayout *layout;
-  HRESULT result = device_->CreateInputLayout(ied, 1, pVSBuf->GetBufferPointer(), pVSBuf->GetBufferSize(), &layout); 
+  HRESULT result = device_->CreateInputLayout(ied, 3, pVSBuf->GetBufferPointer(), pVSBuf->GetBufferSize(), &layout); 
   assert(result == S_OK);
   
   deviceConnection_->IASetInputLayout(layout);
@@ -163,4 +165,8 @@ bool Direct3D11GraphicsInterface::getKeySate(char key) {
   bool keyBuffer[256];
   keyboardDevice_->GetDeviceState(sizeof(keyBuffer), &keyBuffer);
   return keyBuffer[key];
+}
+
+int Direct3D11GraphicsInterface::createTexture(const DDSImage& image) {
+  return 0;
 }

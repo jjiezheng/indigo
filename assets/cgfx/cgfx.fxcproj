@@ -61,7 +61,7 @@
         <focallength>1.725908</focallength>
         <fov>40</fov>
         <zoomrect>0 0 1 1</zoomrect>
-        <viewtransform>1 0 0 0 0 5.960464E-08 -0.9999999 0 0 0.9999999 5.960464E-08 0 0 1.725908 0 1 </viewtransform>
+        <viewtransform>1 0 0 0 0 5.960464E-08 -0.9999998 0 0 0.9999998 5.960464E-08 0 0 1.725908 0 1 </viewtransform>
       </camera>
       <camera type="Front" scene="Document1.dae#DefaultScene">
         <focallength>1.725908</focallength>
@@ -73,13 +73,13 @@
         <focallength>1.725908</focallength>
         <fov>40</fov>
         <zoomrect>0 0 1 1</zoomrect>
-        <viewtransform>5.960464E-08 0 -0.9999999 0 0 1 0 0 0.9999999 0 5.960464E-08 0 1.725908 0 0 1 </viewtransform>
+        <viewtransform>5.960464E-08 0 -0.9999998 0 0 1 0 0 0.9999998 0 5.960464E-08 0 1.725908 0 0 1 </viewtransform>
       </camera>
       <camera type="Perspective" scene="Document1.dae#DefaultScene">
         <focallength>4.741893</focallength>
         <fov>40</fov>
         <zoomrect>0 0 1 1</zoomrect>
-        <viewtransform>0.9913297 -5.970833E-07 -0.1313974 0 -0.07358309 0.8284875 -0.5551527 0 0.1088614 0.5600078 0.8213041 0 0.5162089 2.655497 3.894535 1 </viewtransform>
+        <viewtransform>0.9913297 -6.044112E-07 -0.1313974 0 -0.07358309 0.8284875 -0.5551527 0 0.1088614 0.5600079 0.8213041 0 0.5162089 2.655497 3.894535 1 </viewtransform>
       </camera>
       <renderPort name="Render" />
     </FXComposer.Scene.Services.FXRenderPortService>

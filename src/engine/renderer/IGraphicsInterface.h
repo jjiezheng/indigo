@@ -8,6 +8,8 @@
 
 class IEffect;
 class Color3;
+class VertexDef;
+class DDSImage;
 
 class IGraphicsInterface {
 
@@ -31,7 +33,7 @@ public:
 
   virtual void swapBuffers() = 0;
 
-  virtual int createVertexBuffer(float* vertices, float* normals, float* uvs, int numVertices) = 0;
+  virtual int createVertexBuffer(VertexDef* vertexData, int numVertices) = 0;
 
   virtual void drawVertexBuffer(int vertexBuffer, int vertexCount) = 0;
 
@@ -42,6 +44,8 @@ public:
   virtual void setPass(CGpass pass) = 0;
 
   virtual IEffect* createEffect() = 0;
+
+  virtual int createTexture(const DDSImage& image) = 0;
 
 public:
 

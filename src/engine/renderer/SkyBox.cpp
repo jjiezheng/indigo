@@ -5,7 +5,7 @@
 #include "maths/Matrix4x4.h"
 #include "maths/Vector4.h"
 
-#include "ShaderAttribs.h"
+#include "ShaderSemantics.h"
 #include "IViewer.h"
 #include "SceneContext.h"
 

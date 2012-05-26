@@ -10,12 +10,13 @@ class Shader;
 class Material;
 class IViewer;
 class SceneContext;
+class VertexDef;
 
 class Mesh {
   
 public:
   
-  void init(float* vertices, float* normals, float* uvs, int numVertices);
+  void init(VertexDef* vertexData, int numVertices);
   
 public:
   

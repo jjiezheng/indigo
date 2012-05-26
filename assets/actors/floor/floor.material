@@ -1,5 +1,5 @@
 {
-  "effect" : "cgfx/diffuse_shadow.cgfx",
+  "effect" : "cgfx/diffuse.cgfx",
   "parameters" : {
     "ambientColor" : {
       "r" : 0,

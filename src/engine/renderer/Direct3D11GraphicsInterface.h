@@ -1,6 +1,8 @@
 #ifndef DIRECT_3D_11_GRAPHICS_INTERFACE_H
 #define DIRECT_3D_11_GRAPHICS_INTERFACE_H
 
+#define DIRECTINPUT_VERSION 0x0800
+
 #include "IGraphicsInterface.h"
 
 #include <windows.h>
@@ -20,7 +22,7 @@ public:
 
   void swapBuffers();
 
-  int createVertexBuffer(float* vertices, float* normals, float* uvs, int numVertices);
+  int createVertexBuffer(VertexDef* vertexData, int numVertices);
 
   void drawVertexBuffer(int vertexBuffer, int vertexCount);
 
@@ -29,6 +31,8 @@ public:
   void clearBuffer(const Color3& color);
 
   void setPass(CGpass pass);
+
+  int createTexture(const DDSImage& image);
 
 public:
 

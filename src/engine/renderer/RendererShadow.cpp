@@ -8,8 +8,7 @@
 #include "Model.h"
 
 #include "SceneContext.h"
-#include "ShaderAttribs.h"
-#include "ShaderAttribs.h"
+#include "ShaderSemantics.h"
 #include "IEffect.h"
 
 #include "Texture.h"
@@ -87,8 +86,8 @@ void RendererShadow::init(const CSize &screenSize) {
     glGenBuffers(1, &debugVertBuffer_);
     glBindBuffer(GL_ARRAY_BUFFER, debugVertBuffer_);
     glBufferData(GL_ARRAY_BUFFER, 18 * sizeof(float), &vertices, GL_STATIC_DRAW);
-    glVertexAttribPointer(ATTRIB_VERTEX, 3, GL_FLOAT, 0, 0, 0);
-    glEnableVertexAttribArray(ATTRIB_VERTEX);
+    glVertexAttribPointer(POSITION, 3, GL_FLOAT, 0, 0, 0);
+    glEnableVertexAttribArray(POSITION);
     
     GLfloat uvs[] = {
       0.0f, 0.0f,
@@ -102,8 +101,8 @@ void RendererShadow::init(const CSize &screenSize) {
     glGenBuffers(1, &debugUVBuffer_);
     glBindBuffer(GL_ARRAY_BUFFER, debugUVBuffer_);
     glBufferData(GL_ARRAY_BUFFER, 12 * sizeof(float), &uvs, GL_STATIC_DRAW);
-    glVertexAttribPointer(ATTRIB_UV, 2, GL_FLOAT, 0, 0, 0);
-    glEnableVertexAttribArray(ATTRIB_UV);
+    glVertexAttribPointer(TEXCOORD0, 2, GL_FLOAT, 0, 0, 0);
+    glEnableVertexAttribArray(TEXCOORD0);
 
     std::string fullPath = Path::pathForFile("cgfx/diffuse_texture.cgfx");
     debugEffect_->load(fullPath.c_str());

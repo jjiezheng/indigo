@@ -18,9 +18,3 @@ void Renderer3d::render(const Camera& camera, const World& world, const SceneCon
     (*it).render(&camera, sceneContext);
   }
 }
-
-  /*glEnable(GL_DEPTH_TEST);
-  glEnable(GL_CULL_FACE);*/
-
- /*glDisable(GL_DEPTH_TEST);
-  glDisable(GL_CULL_FACE);*/

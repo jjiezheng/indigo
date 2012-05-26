@@ -6,7 +6,7 @@
 #include "DDSMipLevel.h"
 
 DDSImage::~DDSImage() {
-  for (int i = 0; i < numMipLevels; i++) {
+  for (unsigned int i = 0; i < numMipLevels; i++) {
     delete mipLevels[i];
   }
   free(data);
@@ -17,7 +17,8 @@ void DDSImage::load(const char* filePath) {
   
   unsigned char header[124];
   
-  FILE *fp = fopen(fullpath.c_str(), "rb");
+  FILE *fp = NULL;
+  fopen_s(&fp, fullpath.c_str(), "rb");
   if (fp == NULL) {
     LOG(LOG_CHANNEL_IO, "Failed to load %s", filePath);
     return;

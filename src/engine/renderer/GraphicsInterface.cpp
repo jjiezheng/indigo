@@ -41,8 +41,8 @@ bool GraphicsInterface::windowClosed() {
   return graphicsInterface_->windowClosed();
 }
 
-int GraphicsInterface::createVertexBuffer(float* vertices, float* normals, float* uvs, int numVertices) {
-  return graphicsInterface_->createVertexBuffer(vertices, normals, uvs, numVertices);
+int GraphicsInterface::createVertexBuffer(VertexDef* vertexData, int numVertices) {
+  return graphicsInterface_->createVertexBuffer(vertexData, numVertices);
 }
 
 void GraphicsInterface::drawVertexBuffer(int vertexBuffer, int vertexCount) {
@@ -63,4 +63,8 @@ void GraphicsInterface::setPass(CGpass pass) {
 
 bool GraphicsInterface::getKeyState(char key) {
   return graphicsInterface_->getKeySate(key);
+}
+
+int GraphicsInterface::createTexture(const DDSImage& image) {
+  return graphicsInterface_->createTexture(image);
 }

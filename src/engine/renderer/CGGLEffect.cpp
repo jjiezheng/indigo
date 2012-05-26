@@ -26,7 +26,7 @@ void CGGLEffect::beginDraw() {
 
 void CGGLEffect::endDraw() {
   CGpass pass = cgGetFirstPass(technique_);
-  cgResetPassState(pass);
+  //cgResetPassState(pass);
 }
 
 void CGGLEffect::setUniform(const Color3& uniformData, const char* uniformName) const {

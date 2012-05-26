@@ -50,9 +50,9 @@ struct VOutput {
 	float3 normal			: TEXCOORD2;
 };
 
-VOutput mainVS(	float4 position 		: ATTR0,
-				float4 normal 			: ATTR2,
-				float2 texCoord 		: ATTR8) {
+VOutput vs(	float4 position 		: POSITION,
+			float4 normal 			: NORMAL,
+			float2 texCoord 		: TEXCOORD0) {
 	VOutput OUT;
 	OUT.position = mul(WorldViewProj, position);
 	OUT.vPosition = mul(World, position).xyz;
@@ -66,13 +66,13 @@ float3 expand(float3 v) {
 }
 
 
-float4 mainPS(	float2 texCoord			: TEXCOORD0,
-				float3 vPosition		: TEXCOORD1,
-				float3 normal 			: TEXCOORD2,
-				uniform float3 lightPosition,
-				uniform sampler2D colorMapSampler,
-				uniform sampler2D normalMapSampler,
-				uniform float4x4 normalMatrix) : COLOR {
+float4 ps(	float2 texCoord			: TEXCOORD0,
+			float3 vPosition		: TEXCOORD1,
+			float3 normal 			: TEXCOORD2,
+			uniform float3 lightPosition,
+			uniform sampler2D colorMapSampler,
+			uniform sampler2D normalMapSampler,
+			uniform float4x4 normalMatrix) : COLOR {
 	
 	float3 finalColor = float3(0, 0, 0);
 					
@@ -89,12 +89,22 @@ float4 mainPS(	float2 texCoord			: TEXCOORD0,
 		finalColor += diffuseAmount + ambientColor;
 	}
 					
-	return float4(finalColor, 1.0f);
+	return float4(diffuseColor, 1.0f);
 }
 
-technique technique0 {
-	pass p0 {
-		VertexProgram = compile glslv mainVS();
-		FragmentProgram = compile glslf mainPS(lightPosition, colorMapSampler, normalMapSampler, NormalMatrix);
+technique gl {
+	pass {
+		CullFaceEnable = true;
+		DepthTestEnable = true;
+		Texture2DEnable = true;
+		VertexProgram = compile latest vs();
+		FragmentProgram = compile latest ps(lightPosition, colorMapSampler, normalMapSampler, NormalMatrix);
+	}
+}
+
+technique dx {
+	pass {
+		VertexProgram = compile vs_4_0 vs();
+		FragmentProgram = compile ps_4_0 ps(lightPosition, colorMapSampler, normalMapSampler, NormalMatrix);
 	}
 }

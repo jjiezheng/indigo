@@ -21,8 +21,8 @@ struct VOutput {
   	float2 texCoord : TEXCOORD0;
 };
 
-VOutput mainVS(	float4 position : ATTR0,
-             	float2 texCoord : ATTR8) {
+VOutput vs(float4 position : POSITION,
+           float2 texCoord : NORMAL) {
 
 	VOutput OUT;
 	OUT.position = position;
@@ -30,13 +30,20 @@ VOutput mainVS(	float4 position : ATTR0,
   	return OUT;
 }
 
-float4 mainPS(float2 texCoord  : TEXCOORD) : COLOR {
+float4 ps(float2 texCoord  : TEXCOORD) : COLOR {
   return tex2D(colorMapSampler, texCoord);
 } 
 
-technique technique0 {
-	pass p0 {
-		VertexProgram = compile glslv mainVS();
-		FragmentProgram = compile glslf mainPS();
+technique gl {
+	pass {
+		VertexProgram = compile latest vs();
+		FragmentProgram = compile latest ps();
+	}
+}
+
+technique dx {
+	pass {
+		VertexProgram = compile vs_4_0 vs();
+		FragmentProgram = compile ps_4_0 ps();
 	}
 }

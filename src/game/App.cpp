@@ -1,6 +1,5 @@
 #include "App.h"
 
-#include "GL/glfw.h"
 #include "renderer/GraphicsInterface.h"
 
 App* App::app_ = NULL;
@@ -8,7 +7,7 @@ App* App::app_ = NULL;
 int App::run() {
   app_ = this;
 
-  GraphicsInterface::init(GRAPHICSAPI_D3D11);
+  GraphicsInterface::init(GRAPHICSAPI_OPENGL21);
   GraphicsInterface::openWindow(1024, 768);
 
   game_.init();

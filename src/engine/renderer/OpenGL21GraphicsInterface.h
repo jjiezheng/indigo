@@ -15,7 +15,7 @@ public:
 
   void swapBuffers();
 
-  int createVertexBuffer(float* vertices, float* normals, float* uvs, int numVertices);
+  int createVertexBuffer(VertexDef* vertexData, int numVertices);
 
   void drawVertexBuffer(int vertexBuffer, int vertexCount);
 
@@ -26,6 +26,8 @@ public:
   void setPass(CGpass pass);
 
   IEffect* createEffect();
+
+  int createTexture(const DDSImage& image);
 
 public:
 
