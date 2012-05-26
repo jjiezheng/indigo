@@ -352,6 +352,14 @@
 					RelativePath="..\..\src\engine\platform\PlatformDefs.h"
 					>
 				</File>
+				<File
+					RelativePath="..\..\src\engine\platform\WindowsUtils.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\engine\platform\WindowsUtils.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="renderer"

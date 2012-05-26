@@ -22,19 +22,19 @@ void GraphicsInterface::swapBuffers() {
 }
 
 float GraphicsInterface::aspectRatio() {
-  return 0;
+  return (float)screenWidth()/(float)screenHeight();
 }
 
 int GraphicsInterface::screenWidth() {
-  return 0;
+  return screenSize().width;
 }
 
 int GraphicsInterface::screenHeight() {
-  return 0;
+  return screenSize().height;
 }
 
 CSize GraphicsInterface::screenSize() {
-  return CSize(0, 0);
+  return graphicsInterface_->screenSize();
 }
 
 bool GraphicsInterface::windowClosed() {

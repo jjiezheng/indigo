@@ -7,38 +7,60 @@
 #include "renderer/OpenGL.h"
 #include "renderer/ShaderAttribs.h"
 
+#include <windows.h>
+#include "platform/WindowsUtils.h"
+
 #include <Cg/cg.h>
 #include <Cg/cgGL.h>
 
 #include "OpenGL.h"
 
+HDC OpenGL21GraphicsInterface::createGraphicsContext(HWND hWnd, int width, int height) {
+  static	PIXELFORMATDESCRIPTOR pixelFormatDescriptor =				// pfd Tells Windows How We Want Things To Be
+  {
+    sizeof(PIXELFORMATDESCRIPTOR),				// Size Of This Pixel Format Descriptor
+    1,											// Version Number
+    PFD_DRAW_TO_WINDOW |						// Format Must Support Window
+    PFD_SUPPORT_OPENGL |						// Format Must Support OpenGL
+    PFD_DOUBLEBUFFER,							// Must Support Double Buffering
+    PFD_TYPE_RGBA,								// Request An RGBA Format
+    32,										    // Select Our Color Depth
+    0, 0, 0, 0, 0, 0,							// Color Bits Ignored
+    0,											// No Alpha Buffer
+    0,											// Shift Bit Ignored
+    0,											// No Accumulation Buffer
+    0, 0, 0, 0,									// Accumulation Bits Ignored
+    16,											// 16Bit Z-Buffer (Depth Buffer)  
+    0,											// No Stencil Buffer
+    0,											// No Auxiliary Buffer
+    PFD_MAIN_PLANE,								// Main Drawing Layer
+    0,											// Reserved
+    0, 0, 0										// Layer Masks Ignored
+  };
+
+  HDC deviceContext = GetDC(hWnd);
+  int pixelFormat = ChoosePixelFormat(deviceContext, &pixelFormatDescriptor);
+  SetPixelFormat(deviceContext, pixelFormat, &pixelFormatDescriptor);
+
+  HGLRC glResource = wglCreateContext(deviceContext);
+
+  wglMakeCurrent(deviceContext, glResource);
+
+  glViewport(0, 0, width, height);
+
+  return deviceContext;
+}
 
 void OpenGL21GraphicsInterface::openWindow(int width, int height) {
-  glfwInit();
-
-  glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 2);
-  glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 1);
-  glfwOpenWindowHint(GLFW_FSAA_SAMPLES, 4);
-
-  if (!glfwOpenWindow(width, height, 8, 8, 8, 0, 24, 0, GLFW_WINDOW)) {
-    LOG(LOG_CHANNEL_INIT, "Error opening GLFW Window");
-    glfwTerminate();
-    return;
-  }
-
+  screenSize_ = CSize(width, height);
+  HWND hWnd = WindowsUtils::createWindow(width, height);
+  deviceContext_ = createGraphicsContext(hWnd, width, height);
   glewInit();
 }
 
 void OpenGL21GraphicsInterface::swapBuffers() {
-  glfwSwapBuffers();
-}
-
-bool OpenGL21GraphicsInterface::windowClosed() const {
-  return !glfwGetWindowParam(GLFW_OPENED);
-}
-
-int OpenGL21GraphicsInterface::exitCode() const {
-  return exitCode_;
+  SwapBuffers(deviceContext_);
+  windowClosed_ = WindowsUtils::pumpMessages();
 }
 
 int OpenGL21GraphicsInterface::createVertexBuffer(float* vertices, float* normals, float* uvs, int numVertices) {

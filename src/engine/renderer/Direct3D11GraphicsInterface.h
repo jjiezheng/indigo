@@ -14,17 +14,7 @@ class Direct3D11GraphicsInterface : public IGraphicsInterface {
 
 public:
 
-  Direct3D11GraphicsInterface() 
-    : windowClosed_(false)
-    , exitCode_(0) { }
-
-public:
-
   void openWindow(int width, int height);
-
-  bool windowClosed() const;
-
-  int exitCode() const;
 
 public:
 
@@ -46,13 +36,8 @@ public:
 
 private:
 
-  bool windowClosed_;
-  int exitCode_;
-
-private:
-
-  HWND CreateWindowsWindow(int width, int height);
-  void CreateGraphicsContext(HWND hWnd, int width, int height);
+  void createGraphicsContext(HWND hWnd, int width, int height);
+  void createInputContext(HWND hWnd);
 
 private:
 

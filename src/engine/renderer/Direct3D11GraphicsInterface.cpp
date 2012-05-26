@@ -4,6 +4,7 @@
 #include <D3DX11.h>
 #include <assert.h>
 
+#include "platform/WindowsUtils.h"
 #include "renderer/CGD3DEffect.h"
 #include "io/Log.h"
 #include "renderer/Color3.h"
@@ -11,61 +12,7 @@
 #include <Cg/cg.h>
 #include <Cg/cgD3D11.h>
 
-void GetDesktopResolution(int& horizontal, int& vertical) {
-  RECT desktop;
-  const HWND hDesktop = GetDesktopWindow();
-  GetWindowRect(hDesktop, &desktop);
-  horizontal = desktop.right;
-  vertical = desktop.bottom;
-}
-
-LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
-  switch(message) {
-  case WM_DESTROY:
-    PostQuitMessage(0);
-    return 0;
-    break;
-  }
-  return DefWindowProc (hWnd, message, wParam, lParam);
-}
-
-HWND Direct3D11GraphicsInterface::CreateWindowsWindow(int width, int height) {
-  WNDCLASSEX wc;
-
-  HINSTANCE hInstance = GetModuleHandle(NULL);
-
-  ZeroMemory(&wc, sizeof(WNDCLASSEX));
-
-  wc.cbSize = sizeof(WNDCLASSEX);
-  wc.style = CS_HREDRAW | CS_VREDRAW;
-  wc.lpfnWndProc = WindowProc;
-  wc.hInstance = hInstance;
-  wc.hCursor = LoadCursor(NULL, IDC_ARROW);
-  wc.hbrBackground = (HBRUSH)COLOR_WINDOW;
-  wc.lpszClassName = "WindowClass1";
-
-  RegisterClassEx(&wc);
-
-  int screenWidth, screenHeight;
-  GetDesktopResolution(screenWidth, screenHeight);
-
-  int windowPositionX = (int)((screenWidth - width) / 2.0f);
-  int windowPositionY = (int)((screenHeight - height) / 2.0f);
-
-  HWND hWnd = CreateWindowEx(NULL, "WindowClass1", "Game", WS_OVERLAPPEDWINDOW,
-    windowPositionX, windowPositionY, width, height, NULL, NULL, hInstance, NULL);
-
-  LPSTR lpCmdLine = GetCommandLine();
-
-  STARTUPINFO lpStartupInfo;
-  GetStartupInfo(&lpStartupInfo);
-
-  ShowWindow(hWnd, lpStartupInfo.wShowWindow);
-
-  return hWnd;
-}
-
-void Direct3D11GraphicsInterface::CreateGraphicsContext(HWND hWnd, int width, int height) {
+void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, int height) {
   {
     DXGI_SWAP_CHAIN_DESC swapChainDesc;
     ZeroMemory(&swapChainDesc, sizeof(DXGI_SWAP_CHAIN_DESC));
@@ -131,43 +78,24 @@ void Direct3D11GraphicsInterface::CreateGraphicsContext(HWND hWnd, int width, in
   }
 }
 
+void Direct3D11GraphicsInterface::createInputContext(HWND hWnd) {
+  DirectInput8Create(GetModuleHandle(NULL), DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&directInput_, NULL);
+  directInput_->CreateDevice(GUID_SysKeyboard, &keyboardDevice_, NULL);
+  keyboardDevice_->SetDataFormat(&c_dfDIKeyboard);
+  keyboardDevice_->SetCooperativeLevel(hWnd, DISCL_BACKGROUND | DISCL_NONEXCLUSIVE);
+  keyboardDevice_->Acquire();
+}
 
-void Direct3D11GraphicsInterface::openWindow( int width, int height ) {
-  HWND hWnd = CreateWindowsWindow(width, height);
-
-  {
-    CreateGraphicsContext(hWnd, width, height);
-  }
-
-  {
-    DirectInput8Create(GetModuleHandle(NULL), DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&directInput_, NULL);
-    directInput_->CreateDevice(GUID_SysKeyboard, &keyboardDevice_, NULL);
-    keyboardDevice_->SetDataFormat(&c_dfDIKeyboard);
-    keyboardDevice_->SetCooperativeLevel(hWnd, DISCL_BACKGROUND | DISCL_NONEXCLUSIVE);
-    keyboardDevice_->Acquire();
-  }
+void Direct3D11GraphicsInterface::openWindow(int width, int height) {
+  screenSize_ = CSize(width, height);
+  HWND hWnd = WindowsUtils::createWindow(width, height);
+  createGraphicsContext(hWnd, width, height);
+  createInputContext(hWnd);
 }
 
 void Direct3D11GraphicsInterface::swapBuffers() {
   swapChain_->Present(0, 0);
-
-  MSG msg;
-  if(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
-    TranslateMessage(&msg);
-    DispatchMessage(&msg);
-    if(msg.message == WM_QUIT) {
-      windowClosed_ = true;
-      exitCode_ = msg.wParam;
-    }
-  }
-}
-
-bool Direct3D11GraphicsInterface::windowClosed() const {
-  return windowClosed_;
-}
-
-int Direct3D11GraphicsInterface::exitCode() const {
-  return exitCode_;
+  windowClosed_ = WindowsUtils::pumpMessages();
 }
 
 struct VERTEX { FLOAT X, Y, Z; };

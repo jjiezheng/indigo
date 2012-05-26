@@ -4,6 +4,10 @@
 class CSize {
   
 public:
+
+  CSize() 
+    : width(0)
+    , height(0) { }
   
   CSize(int width_, int height_)
     : width(width_)

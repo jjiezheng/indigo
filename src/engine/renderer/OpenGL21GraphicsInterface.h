@@ -3,15 +3,13 @@
 
 #include "IGraphicsInterface.h"
 
+#include <windows.h>
+
 class OpenGL21GraphicsInterface : public IGraphicsInterface {
 
 public:
 
   void openWindow(int width, int height);
-
-  bool windowClosed() const;
-
-  int exitCode() const;
 
 public:
 
@@ -35,8 +33,12 @@ public:
 
 private:
 
-  bool windowClosed_;
-  int exitCode_;
+
+  HDC createGraphicsContext(HWND hWnd, int width, int height);
+
+private:
+
+  HDC deviceContext_;
 
 };
 

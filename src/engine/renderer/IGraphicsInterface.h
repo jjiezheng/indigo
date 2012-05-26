@@ -4,6 +4,7 @@
 #include <Cg/cg.h>
 
 #include "GraphicsAPIType.h"
+#include "core/Size.h"
 
 class IEffect;
 class Color3;
@@ -16,11 +17,15 @@ public:
 
 public:
 
+  bool windowClosed() const;
+
+  int exitCode() const;
+
+  CSize screenSize() const;
+
+public:
+
   virtual void openWindow(int width, int height) = 0;
-
-  virtual bool windowClosed() const = 0;
-
-  virtual int exitCode() const = 0;
 
 public:
 
@@ -42,6 +47,24 @@ public:
 
   virtual bool getKeySate(char key) = 0;
 
+protected:
+
+  bool windowClosed_;
+  int exitCode_;
+  CSize screenSize_;
+
 };
+
+inline CSize IGraphicsInterface::screenSize() const {
+  return screenSize_;
+}
+
+inline bool IGraphicsInterface::windowClosed() const {
+  return windowClosed_;
+}
+
+inline int IGraphicsInterface::exitCode() const {
+  return exitCode_;
+}
 
 #endif
