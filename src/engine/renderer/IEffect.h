@@ -18,6 +18,10 @@ public:
 
   void load(const std::string& filePath);
 
+  static void onError();
+
+  static void handleError(CGcontext context, CGerror error, void *data);
+
 public:
 
   virtual void beginDraw() = 0;

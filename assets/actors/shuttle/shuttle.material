@@ -2,7 +2,7 @@
   "effect" : "cgfx/diffuse_bump_texture.cgfx",
   "parameters" : { },
   "textures" : {
-    "colorMapSampler" : "actors/shuttle/shuttle_diffuse.dds",
-    "normalMapSampler" : "actors/shuttle/shuttle_normal.dds"
+    "ColorMap" : "actors/shuttle/shuttle_diffuse.dds",
+    "NormalMap" : "actors/shuttle/shuttle_normal.dds"
   }
 }

@@ -32,7 +32,11 @@ public:
 
   void setPass(CGpass pass);
 
+public:
+
   int createTexture(const DDSImage& image);
+
+  void setTexture(int textureId, CGparameter parameter);
 
 public:
 
@@ -49,6 +53,7 @@ private:
   ID3D11Device *device_;
   ID3D11DeviceContext *deviceConnection_;
   ID3D11RenderTargetView* backBuffer_;
+  ID3D11DepthStencilView* depthBuffer_;
   ID3D11RasterizerState* rasterState_;
 
   LPDIRECTINPUT8 directInput_;
@@ -57,6 +62,7 @@ private:
 private:
 
   std::vector<ID3D11Buffer*> vertexBuffers_;
+  std::vector<ID3D11Resource*> textures_;
 
 };
 

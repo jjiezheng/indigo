@@ -7,6 +7,7 @@
 CGcontext IEffect::context_ = 0;
 
 void IEffect::load(const std::string& filePath) {
+  cgSetErrorHandler(&IEffect::handleError, NULL);
   effect_ = cgCreateEffectFromFile(context_, filePath.c_str(), NULL);
   LOG(LOG_CHANNEL_SHADER, "opening cgfx file %s", filePath.c_str());
 
@@ -23,4 +24,14 @@ void IEffect::load(const std::string& filePath) {
   LOG(LOG_CHANNEL_SHADER, "Selected %s technique", cgGetTechniqueName(technique_));
 
   pass_ = cgGetFirstPass(technique_);
+}
+
+void IEffect::onError() {
+  CGerror error;
+  const char *string = cgGetLastErrorString(&error);
+  LOG(LOG_CHANNEL_SHADER, string);
+}
+
+void IEffect::handleError(CGcontext context, CGerror error, void *data) {
+  LOG(LOG_CHANNEL_SHADER, "%s", cgGetErrorString(error));
 }

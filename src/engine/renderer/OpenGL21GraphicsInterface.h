@@ -29,6 +29,8 @@ public:
 
   int createTexture(const DDSImage& image);
 
+  void setTexture(int textureId, CGparameter parameter);
+
 public:
 
   bool getKeySate(char key);

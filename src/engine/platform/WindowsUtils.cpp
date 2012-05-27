@@ -1,5 +1,7 @@
 #include "WindowsUtils.h"
 
+#include "io/Log.h"
+
 void WindowsUtils::getDesktopResolution(int& horizontal, int& vertical) {
   RECT desktop;
   const HWND hDesktop = GetDesktopWindow();
@@ -31,9 +33,11 @@ HWND WindowsUtils::createWindow(int width, int height) {
   wc.hInstance = hInstance;
   wc.hCursor = LoadCursor(NULL, IDC_ARROW);
   wc.hbrBackground = (HBRUSH)COLOR_WINDOW;
-  wc.lpszClassName = "WindowClass1";
+  wc.lpszClassName = "GameWindowClass";
 
-  RegisterClassEx(&wc);
+  if(!RegisterClassEx(&wc)) {
+    LOG(LOG_CHANNEL_GRAPHICS_API, "Failed to register window class");
+  }
 
   int screenWidth, screenHeight;
   WindowsUtils::getDesktopResolution(screenWidth, screenHeight);
@@ -41,7 +45,7 @@ HWND WindowsUtils::createWindow(int width, int height) {
   int windowPositionX = (int)((screenWidth - width) / 2.0f);
   int windowPositionY = (int)((screenHeight - height) / 2.0f);
 
-  HWND hWnd = CreateWindowEx(NULL, "WindowClass1", "Game", WS_OVERLAPPEDWINDOW,
+  HWND hWnd = CreateWindow("GameWindowClass", "Game", WS_OVERLAPPEDWINDOW,
     windowPositionX, windowPositionY, width, height, NULL, NULL, hInstance, NULL);
 
   LPSTR lpCmdLine = GetCommandLine();
@@ -49,7 +53,7 @@ HWND WindowsUtils::createWindow(int width, int height) {
   STARTUPINFO lpStartupInfo;
   GetStartupInfo(&lpStartupInfo);
 
-  ShowWindow(hWnd, lpStartupInfo.wShowWindow);
+  ShowWindow(hWnd, SW_SHOW);
 
   return hWnd;
 }

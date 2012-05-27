@@ -68,3 +68,7 @@ bool GraphicsInterface::getKeyState(char key) {
 int GraphicsInterface::createTexture(const DDSImage& image) {
   return graphicsInterface_->createTexture(image);
 }
+
+void GraphicsInterface::setTexture(int textureId, CGparameter parameter) {
+  return graphicsInterface_->setTexture(textureId, parameter);
+}

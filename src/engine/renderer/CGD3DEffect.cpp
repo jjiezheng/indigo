@@ -12,15 +12,20 @@
 #include "maths/Vector3.h"
 #include "Color3.h"
 
+#include "GraphicsInterface.h"
+
 void CGD3DEffect::initCG(ID3D11Device* device) {
   context_ = cgCreateContext();
+  cgSetErrorCallback(&IEffect::onError);
   cgD3D11SetDevice(context_, device);
   cgD3D11RegisterStates(context_);
   cgD3D11SetManageTextureParameters(context_, CG_TRUE);
 }
 
 void CGD3DEffect::beginDraw() {
+  bool result = cgD3D11GetManageTextureParameters(context_);
   cgSetPassState(pass_);
+  result = cgD3D11GetManageTextureParameters(context_);
 }
 
 void CGD3DEffect::endDraw() {
@@ -72,5 +77,5 @@ void CGD3DEffect::setUniform(float uniformData, const char* uniformName) const {
 void CGD3DEffect::setTexture(unsigned int textureId, const char* uniformName) {
   CGparameter parameter = cgGetNamedEffectParameter(effect_, uniformName);
   if (!parameter) return;
-  //cgGLSetTextureParameter(parameter, textureId);
+  GraphicsInterface::setTexture(textureId, parameter);
 }

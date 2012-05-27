@@ -15,6 +15,7 @@
 
 void CGGLEffect::initCG() {
   context_ = cgCreateContext();
+  cgSetErrorCallback(&IEffect::onError);
   cgGLRegisterStates(context_);
   cgGLSetManageTextureParameters(context_, GL_TRUE);
 }
@@ -26,7 +27,7 @@ void CGGLEffect::beginDraw() {
 
 void CGGLEffect::endDraw() {
   CGpass pass = cgGetFirstPass(technique_);
-  //cgResetPassState(pass);
+//  cgResetPassState(pass);
 }
 
 void CGGLEffect::setUniform(const Color3& uniformData, const char* uniformName) const {
@@ -75,4 +76,5 @@ void CGGLEffect::setTexture(unsigned int textureId, const char* uniformName) {
   CGparameter parameter = cgGetNamedEffectParameter(effect_, uniformName);
   if (!parameter) return;
   cgGLSetTextureParameter(parameter, textureId);
+  cgSetSamplerState(parameter);
 }

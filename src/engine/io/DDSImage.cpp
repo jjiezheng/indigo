@@ -40,10 +40,10 @@ void DDSImage::load(const char* filePath) {
   numMipLevels = *(unsigned int*)&(header[24]);
   fourCC = *(unsigned int*)&(header[80]);
   
-  unsigned int bufsize = numMipLevels > 1 ? linearSize * 2 : linearSize;
-  data = (unsigned char*)malloc(bufsize * sizeof(unsigned char));
+  dataSize = numMipLevels > 1 ? linearSize * 2 : linearSize;
+  data = (unsigned char*)malloc(dataSize * sizeof(unsigned char));
   
-  fread(data, 1, bufsize, fp);
+  fread(data, 1, dataSize, fp);
   fclose(fp);
   
   unsigned int blockSize = (fourCC == FOURCC_DXT1) ? 8 : 16;

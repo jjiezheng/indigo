@@ -17,6 +17,7 @@ public:
   DDSMipLevel** mipLevels;
   
   unsigned char* data;
+  unsigned int dataSize;
   unsigned int fourCC;
 };
 

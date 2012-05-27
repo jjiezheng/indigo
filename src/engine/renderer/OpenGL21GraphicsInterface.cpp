@@ -169,12 +169,6 @@ int OpenGL21GraphicsInterface::createTexture(const DDSImage& image) {
   GLuint textureId;
   glGenTextures(1, &textureId);
   glBindTexture(GL_TEXTURE_2D, textureId);
-  
-  glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-  glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-  
-  glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-  glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_LINEAR);
 
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, image.numMipLevels - 1);
 
@@ -185,4 +179,8 @@ int OpenGL21GraphicsInterface::createTexture(const DDSImage& image) {
   }
 
   return textureId;
+}
+
+void OpenGL21GraphicsInterface::setTexture(int textureId, CGparameter parameter) {
+
 }

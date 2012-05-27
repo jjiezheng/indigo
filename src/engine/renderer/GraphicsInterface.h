@@ -48,6 +48,8 @@ public:
 
   static int createTexture(const DDSImage& image);
 
+  static void setTexture(int textureId, CGparameter parameter);
+
 public:
 
   static bool getKeyState(char key);

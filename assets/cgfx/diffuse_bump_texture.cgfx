@@ -1,28 +1,12 @@
-
-texture colorMap  <
-	string ResourceName = "";//Optional default file name
-	string UIName =  "colorMap Texture";
-	string ResourceType = "2D";
->;
-
-sampler2D colorMapSampler = sampler_state {
-	Texture = <colorMap>;
+sampler2D ColorMap = sampler_state {
 	MinFilter = LinearMipMapLinear;
 	MagFilter = Linear;
 	WrapS = Repeat;
 	WrapT = Repeat;
 };
 
-
-texture normalMap  <
-	string ResourceName = "";//Optional default file name
-	string UIName =  "normalMap Texture";
-	string ResourceType = "2D";
->;
-
-sampler2D normalMapSampler = sampler_state {
-	Texture = <normalMap>;
-	MinFilter = LinearMipMapLinear;
+sampler2D NormalMap = sampler_state {
+	MinFilter = Linear;
 	MagFilter = Linear;
 	WrapS = Repeat;
 	WrapT = Repeat;
@@ -76,15 +60,15 @@ float4 ps(	float2 texCoord			: TEXCOORD0,
 			float3 vPosition		: TEXCOORD1,
 			float3 normal 			: TEXCOORD2,
 			uniform float3 lightPosition,
-			uniform sampler2D colorMapSampler,
-			uniform sampler2D normalMapSampler,
+			uniform sampler2D colorMap,
+			uniform sampler2D normalMap,
 			uniform float4x4 normalMatrix) : COLOR {
 	
 	float3 finalColor = float3(0, 0, 0);
 					
-	normal += expand(tex2D(normalMapSampler, texCoord).rgb);
+	normal += expand(tex2D(normalMap, texCoord).rgb);
 	
-	float3 diffuseColor = tex2D(colorMapSampler, texCoord).rgb;
+	float3 diffuseColor = tex2D(colorMap, texCoord).rgb;
 					
 	// diffuse + ambient
 	{
@@ -98,18 +82,16 @@ float4 ps(	float2 texCoord			: TEXCOORD0,
 	return float4(finalColor, 1.0f);
 }
 
-technique gl {
-	pass {
-		CullFaceEnable = true;
-		DepthTestEnable = true;
-		VertexProgram = compile latest vsgl();
-		FragmentProgram = compile latest ps(lightPosition, colorMapSampler, normalMapSampler, NormalMatrix);
-	}
-}
-
 technique dx {
 	pass {
 		VertexProgram = compile vs_4_0 vs();
-		FragmentProgram = compile ps_4_0 ps(lightPosition, colorMapSampler, normalMapSampler, NormalMatrix);
+		FragmentProgram = compile ps_4_0 ps(lightPosition, ColorMap, NormalMap, NormalMatrix);
+	}
+}
+
+technique gl {
+	pass {
+		VertexProgram = compile latest vsgl();
+		FragmentProgram = compile latest ps(lightPosition, ColorMap, NormalMap, NormalMatrix);
 	}
 }
