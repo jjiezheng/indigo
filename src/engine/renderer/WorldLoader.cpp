@@ -177,10 +177,10 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
 
       if (aiMesh->mTextureCoords[0]) {
         aiVector3D uv = aiMesh->mTextureCoords[0][vertexi];
-  //      def.uv.x = uv.x; 
-  //      def.uv.y = uv.y; 
+        def.uv.x = uv.x; 
+        def.uv.y = uv.y; 
       }
-      //LOG(LOG_CHANNEL_WORLDLOADER, "uv: %s", def.uv.toString().c_str());
+      LOG(LOG_CHANNEL_WORLDLOADER, "uv: %s", def.uv.toString().c_str());
       defs[vertexi] = def;
     }
 

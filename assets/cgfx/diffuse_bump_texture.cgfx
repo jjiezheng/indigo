@@ -61,6 +61,12 @@ VOutput vs(	float4 position 		: POSITION,
  	return OUT;
 }
 
+VOutput vsgl(float4 position 		: POSITION,
+			 float4 normal 			: NORMAL,
+			 float2 texCoord 		: ATTR8) {
+	return vs(position, normal, texCoord);
+}
+
 float3 expand(float3 v) {
   return (v - 0.5) * 2; // Expand a range-compressed vector
 }
@@ -89,15 +95,14 @@ float4 ps(	float2 texCoord			: TEXCOORD0,
 		finalColor += diffuseAmount + ambientColor;
 	}
 					
-	return float4(diffuseColor, 1.0f);
+	return float4(finalColor, 1.0f);
 }
 
 technique gl {
 	pass {
 		CullFaceEnable = true;
 		DepthTestEnable = true;
-		Texture2DEnable = true;
-		VertexProgram = compile latest vs();
+		VertexProgram = compile latest vsgl();
 		FragmentProgram = compile latest ps(lightPosition, colorMapSampler, normalMapSampler, NormalMatrix);
 	}
 }
