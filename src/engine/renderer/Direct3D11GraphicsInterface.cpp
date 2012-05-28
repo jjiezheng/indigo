@@ -219,12 +219,16 @@ bool Direct3D11GraphicsInterface::getKeySate(char key) {
   return keyBuffer[key];
 }
 
-int Direct3D11GraphicsInterface::createTexture(const DDSImage& image) {
-  const char * texturePath = "C:\\Cygwin\\home\\NK\\Development\\opengl-game\\assets\\actors\\shuttle\\test.png";
+int Direct3D11GraphicsInterface::createTexture(const char* filePath) {
+
   D3DX11_IMAGE_INFO fileInfo;
-  D3DX11GetImageInfoFromFile(texturePath, NULL, &fileInfo, NULL );
+  ZeroMemory(&fileInfo, sizeof(D3DX11_IMAGE_INFO));
+
+  HRESULT result;
+  D3DX11GetImageInfoFromFile(filePath, NULL, &fileInfo, &result); 
 
   D3DX11_IMAGE_LOAD_INFO loadInfo;
+  ZeroMemory(&loadInfo, sizeof(D3DX11_IMAGE_LOAD_INFO));
   loadInfo.Width          = fileInfo.Width;
   loadInfo.Height         = fileInfo.Height;
   loadInfo.FirstMipLevel  = 0;
@@ -239,11 +243,11 @@ int Direct3D11GraphicsInterface::createTexture(const DDSImage& image) {
   loadInfo.pSrcInfo       = &fileInfo;
 
   ID3D11Resource* texture;
-  HRESULT result = D3DX11CreateTextureFromFile(device_, texturePath, &loadInfo, NULL, &texture, NULL);
+  D3DX11CreateTextureFromFile(device_, filePath, &loadInfo, NULL, &texture, &result);
   assert(result == S_OK);
 
   int textureId = textures_.size();
-  textures_.push_back(texture);
+  textures_.push_front(texture);
   return textureId;
 }
 

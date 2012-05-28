@@ -157,7 +157,10 @@ bool OpenGL21GraphicsInterface::getKeySate(char key) {
   return false;//glfwGetKey(key) == GLFW_PRESS;
 }
 
-int OpenGL21GraphicsInterface::createTexture(const DDSImage& image) {
+int OpenGL21GraphicsInterface::createTexture(const char* filePath) {
+  DDSImage image;
+  image.load(filePath);
+
   unsigned int format = 0;
   switch(image.fourCC) {
     case FOURCC_DXT1: format = GL_COMPRESSED_RGBA_S3TC_DXT1_EXT; break;

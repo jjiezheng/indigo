@@ -46,7 +46,7 @@ public:
 
   static void setPass(CGpass pass);
 
-  static int createTexture(const DDSImage& image);
+  static int createTexture(const char* filePath);
 
   static void setTexture(int textureId, CGparameter parameter);
 

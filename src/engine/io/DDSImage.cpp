@@ -15,6 +15,7 @@ DDSImage::~DDSImage() {
 void DDSImage::load(const char* filePath) {
   std::string fullpath = Path::pathForFile(filePath);
   
+  this->filePath = fullpath;
   unsigned char header[124];
   
   FILE *fp = NULL;
@@ -63,4 +64,6 @@ void DDSImage::load(const char* filePath) {
     width  /= 2;
     height /= 2;
   }
+
+  dataSize = linearSize;
 }

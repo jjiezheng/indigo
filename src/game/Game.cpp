@@ -23,7 +23,7 @@ void Game::init() {
   WorldLoader loader; 
   loader.loadFromSceneFile("scenes/cars/cars.scene", world_, sceneContext_);
 
-  sceneContext_.setBackgroundColor(Color3(0.7f, 0.5f, 0.5f));
+  sceneContext_.setBackgroundColor(Color3(0, 0, 0));
 
   //sceneContext_.setFog(FOG_NONE, 0.66f, -10, -100, Color4(0.6f, 0.6f, 0.6f));
 

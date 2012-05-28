@@ -45,7 +45,7 @@ public:
 
   virtual IEffect* createEffect() = 0;
 
-  virtual int createTexture(const DDSImage& image) = 0;
+  virtual int createTexture(const char* filePath) = 0;
 
   virtual void setTexture(int textureId, CGparameter parameter) = 0;
 

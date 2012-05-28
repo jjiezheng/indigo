@@ -9,6 +9,7 @@
 #include <D3D11.h>
 #include <dinput.h>
 #include <vector>
+#include <deque>
 
 class IEffect;
 
@@ -34,7 +35,7 @@ public:
 
 public:
 
-  int createTexture(const DDSImage& image);
+  int createTexture(const char* filePath);
 
   void setTexture(int textureId, CGparameter parameter);
 
@@ -62,7 +63,7 @@ private:
 private:
 
   std::vector<ID3D11Buffer*> vertexBuffers_;
-  std::vector<ID3D11Resource*> textures_;
+  std::deque<ID3D11Resource*> textures_;
 
 };
 

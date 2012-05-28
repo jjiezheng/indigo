@@ -27,7 +27,7 @@ public:
 
   IEffect* createEffect();
 
-  int createTexture(const DDSImage& image);
+  int createTexture(const char* filePath);
 
   void setTexture(int textureId, CGparameter parameter);
 

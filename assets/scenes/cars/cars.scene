@@ -19,6 +19,15 @@
         "y" : 1.0,
         "z" : -2.0
       }
+    },
+    {
+      "mesh" : "actors/cube/cube.blend",
+      "material" : "actors/cube/cube.material",
+      "position" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "z" : 0.0
+      }
     }
   ],
   "lights" : [

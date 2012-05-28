@@ -1,6 +1,8 @@
 #ifndef DDSIMAGE_H
 #define DDSIMAGE_H
 
+#include <string>
+
 class DDSMipLevel;
 
 class DDSImage {
@@ -19,6 +21,7 @@ public:
   unsigned char* data;
   unsigned int dataSize;
   unsigned int fourCC;
+  std::string filePath;
 };
 
 #endif
