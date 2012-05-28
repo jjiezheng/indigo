@@ -5,6 +5,10 @@
 
 #include <windows.h>
 
+#include "OpenGLShadowMap.h"
+
+#include <vector>
+
 class OpenGL21GraphicsInterface : public IGraphicsInterface {
 
 public:
@@ -15,7 +19,7 @@ public:
 
   void swapBuffers();
 
-  int createVertexBuffer(VertexDef* vertexData, int numVertices);
+  unsigned int createVertexBuffer(VertexDef* vertexData, int numVertices);
 
   void drawVertexBuffer(int vertexBuffer, int vertexCount);
 
@@ -27,7 +31,15 @@ public:
 
   IEffect* createEffect();
 
-  int createTexture(const char* filePath);
+public:
+
+  void bindShadowMap(unsigned int shadowMapId);
+
+  unsigned int createShadowMap(const CSize& shadowMapSiz);
+
+public:
+
+  unsigned int createTexture(const std::string& filePath);
 
   void setTexture(int textureId, CGparameter parameter);
 
@@ -43,6 +55,8 @@ private:
 private:
 
   HDC deviceContext_;
+
+  std::vector<OpenGLShadowMap> shadowMaps_;
 
 };
 

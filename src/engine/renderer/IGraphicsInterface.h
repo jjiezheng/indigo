@@ -1,6 +1,7 @@
 #ifndef IGRAPHICS_INTERFACE_H
 #define IGRAPHICS_INTERFACE_H
 
+#include <string>
 #include <Cg/cg.h>
 
 #include "GraphicsAPIType.h"
@@ -10,6 +11,7 @@ class IEffect;
 class Color3;
 class VertexDef;
 class DDSImage;
+class CSize;
 
 class IGraphicsInterface {
 
@@ -33,7 +35,7 @@ public:
 
   virtual void swapBuffers() = 0;
 
-  virtual int createVertexBuffer(VertexDef* vertexData, int numVertices) = 0;
+  virtual unsigned int createVertexBuffer(VertexDef* vertexData, int numVertices) = 0;
 
   virtual void drawVertexBuffer(int vertexBuffer, int vertexCount) = 0;
 
@@ -45,7 +47,15 @@ public:
 
   virtual IEffect* createEffect() = 0;
 
-  virtual int createTexture(const char* filePath) = 0;
+public:
+
+  virtual void bindShadowMap(unsigned int shadowMapId) = 0;
+
+  virtual unsigned int createShadowMap(const CSize& shadowMapSize) = 0;
+
+public:
+
+  virtual unsigned int createTexture(const std::string& filePath) = 0;
 
   virtual void setTexture(int textureId, CGparameter parameter) = 0;
 

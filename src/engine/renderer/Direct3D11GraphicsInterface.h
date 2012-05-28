@@ -23,7 +23,7 @@ public:
 
   void swapBuffers();
 
-  int createVertexBuffer(VertexDef* vertexData, int numVertices);
+  unsigned int createVertexBuffer(VertexDef* vertexData, int numVertices);
 
   void drawVertexBuffer(int vertexBuffer, int vertexCount);
 
@@ -35,7 +35,13 @@ public:
 
 public:
 
-  int createTexture(const char* filePath);
+  void bindShadowMap(unsigned int shadowMapId);
+
+  unsigned int createShadowMap(const CSize& shadowMapSize);
+
+public:
+
+  unsigned int createTexture(const std::string& filePath);
 
   void setTexture(int textureId, CGparameter parameter);
 

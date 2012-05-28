@@ -11,7 +11,7 @@ public:
   
   ~DDSImage();
   
-  void load(const char* filePath);
+  void load(const std::string& filePath);
   
 public:
   

@@ -23,8 +23,10 @@ public:
   void renderDebug(SceneContext& sceneContext);
   
 private:
+
+  unsigned int shadowMap_;
   
-  GLuint frameBuffer_;
+  /*GLuint frameBuffer_;
   GLuint depthBuffer_;
   GLuint shadowTexture_;
   
@@ -32,7 +34,7 @@ private:
   GLuint debugVertBuffer_;
   GLuint debugUVBuffer_;
 
-  IEffect* debugEffect_;
+  IEffect* debugEffect_;*/
 };
 
 #endif

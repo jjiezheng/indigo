@@ -40,13 +40,21 @@ public:
 
   static IEffect* createEffect();
 
-  static int createVertexBuffer(VertexDef* vertexData, int numVertices);
+  static unsigned int createVertexBuffer(VertexDef* vertexData, int numVertices);
 
   static void drawVertexBuffer(int vertexBuffer,int vertexCount);
 
   static void setPass(CGpass pass);
 
-  static int createTexture(const char* filePath);
+public:
+
+  static void bindShadowMap(unsigned int shadowMapId);
+
+  static unsigned int createShadowMap(const CSize& shadowMapSize);
+
+public:
+
+  static unsigned int createTexture(const char* filePath);
 
   static void setTexture(int textureId, CGparameter parameter);
 

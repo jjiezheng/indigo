@@ -41,7 +41,7 @@ bool GraphicsInterface::windowClosed() {
   return graphicsInterface_->windowClosed();
 }
 
-int GraphicsInterface::createVertexBuffer(VertexDef* vertexData, int numVertices) {
+unsigned int GraphicsInterface::createVertexBuffer(VertexDef* vertexData, int numVertices) {
   return graphicsInterface_->createVertexBuffer(vertexData, numVertices);
 }
 
@@ -65,10 +65,20 @@ bool GraphicsInterface::getKeyState(char key) {
   return graphicsInterface_->getKeySate(key);
 }
 
-int GraphicsInterface::createTexture(const char* filePath) {
+unsigned int GraphicsInterface::createShadowMap(const CSize& shadowMapSize) {
+  return graphicsInterface_->createShadowMap(shadowMapSize);
+}
+
+void GraphicsInterface::bindShadowMap(unsigned int shadowMapId) {
+  graphicsInterface_->bindShadowMap(shadowMapId);
+}
+
+
+unsigned int GraphicsInterface::createTexture(const char* filePath) {
   return graphicsInterface_->createTexture(filePath);
 }
 
 void GraphicsInterface::setTexture(int textureId, CGparameter parameter) {
   return graphicsInterface_->setTexture(textureId, parameter);
 }
+

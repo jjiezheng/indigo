@@ -72,13 +72,13 @@ void OpenGL21GraphicsInterface::swapBuffers() {
   windowClosed_ = WindowsUtils::pumpMessages();
 }
 
-int OpenGL21GraphicsInterface::createVertexBuffer(VertexDef* vertexData, int numVertices) {
+unsigned int OpenGL21GraphicsInterface::createVertexBuffer(VertexDef* vertexData, int numVertices) {
   GLuint vertexArray;
   glGenVertexArrays(1, &vertexArray);
   glBindVertexArray(vertexArray);
 
   {
-    float vertexCoordsCount = numVertices * 3;
+    unsigned int vertexCoordsCount = numVertices * 3;
     float* vertices = new float[vertexCoordsCount];
     int vertexi = 0;
     for (int i = 0; i < numVertices; i++) {
@@ -97,7 +97,7 @@ int OpenGL21GraphicsInterface::createVertexBuffer(VertexDef* vertexData, int num
     delete[] vertices;
   }
 
-  float normalCoordsCount = numVertices * 3;
+  unsigned int normalCoordsCount = numVertices * 3;
   float* normals = new float[normalCoordsCount];
   int normali = 0;
   for (int i = 0; i < numVertices; i++) {
@@ -115,7 +115,7 @@ int OpenGL21GraphicsInterface::createVertexBuffer(VertexDef* vertexData, int num
 
   delete[] normals;
   
-  float uvCoordsCount = numVertices * 2;
+  unsigned int uvCoordsCount = numVertices * 2;
   float* uvs = new float[uvCoordsCount];
   int uvi = 0;
   for (int i = 0; i < numVertices; i++) {
@@ -154,19 +154,19 @@ void OpenGL21GraphicsInterface::setPass(CGpass pass) {
 }
 
 bool OpenGL21GraphicsInterface::getKeySate(char key) {
-  return false;//glfwGetKey(key) == GLFW_PRESS;
+  return WindowsUtils::getKeyState(key);
 }
 
-int OpenGL21GraphicsInterface::createTexture(const char* filePath) {
+unsigned int OpenGL21GraphicsInterface::createTexture(const std::string& filePath) {
   DDSImage image;
-  image.load(filePath);
+  image.load(filePath.c_str());
 
   unsigned int format = 0;
   switch(image.fourCC) {
     case FOURCC_DXT1: format = GL_COMPRESSED_RGBA_S3TC_DXT1_EXT; break;
     case FOURCC_DXT3: format = GL_COMPRESSED_RGBA_S3TC_DXT3_EXT; break;
     case FOURCC_DXT5: format = GL_COMPRESSED_RGBA_S3TC_DXT5_EXT; break;
-    default: return -1;
+    default: return 0;
   }
 
   GLuint textureId;
@@ -182,6 +182,56 @@ int OpenGL21GraphicsInterface::createTexture(const char* filePath) {
   }
 
   return textureId;
+}
+
+unsigned int OpenGL21GraphicsInterface::createShadowMap(const CSize& shadowMapSize) {
+
+  GLuint frameBuffer;
+  glGenFramebuffers(1, &frameBuffer);
+  glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
+
+  glReadBuffer(GL_NONE);
+  glDrawBuffer(GL_NONE);
+
+  GLuint depthBuffer;
+  glGenRenderbuffers(1, &depthBuffer);
+  glBindRenderbuffer(GL_RENDERBUFFER, depthBuffer);
+  glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, shadowMapSize.width, shadowMapSize.height);
+  glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthBuffer);
+
+  GLuint shadowTexture;
+  glGenTextures(1, &shadowTexture);
+  glGenTextures(1, &shadowTexture);
+  glBindTexture(GL_TEXTURE_2D, shadowTexture);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, shadowMapSize.width, shadowMapSize.height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_R_TO_TEXTURE);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
+
+  float ones[] = {1, 1, 1, 1};
+  glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, ones);
+
+  glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, shadowTexture, 0);
+
+  glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+  OpenGLShadowMap shadowMap(frameBuffer, depthBuffer, shadowTexture);
+  int shadowMapId = shadowMaps_.size();
+  shadowMaps_.push_back(shadowMap);
+
+  return shadowMapId;
+}
+
+void OpenGL21GraphicsInterface::bindShadowMap(unsigned int shadowMapId) {
+  OpenGLShadowMap shadowMap = shadowMaps_[shadowMapId];
+  glBindRenderbuffer(GL_RENDERBUFFER, shadowMap.renderBufferId);
+  glBindFramebuffer(GL_FRAMEBUFFER, shadowMap.depthBufferId);
 }
 
 void OpenGL21GraphicsInterface::setTexture(int textureId, CGparameter parameter) {

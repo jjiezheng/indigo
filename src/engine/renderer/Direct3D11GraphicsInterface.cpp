@@ -152,7 +152,7 @@ void Direct3D11GraphicsInterface::swapBuffers() {
   windowClosed_ = WindowsUtils::pumpMessages();
 }
 
-int Direct3D11GraphicsInterface::createVertexBuffer(VertexDef* vertexData, int numVertices) {
+unsigned int Direct3D11GraphicsInterface::createVertexBuffer(VertexDef* vertexData, int numVertices) {
   D3D11_BUFFER_DESC bufferDesc;
   ZeroMemory(&bufferDesc, sizeof(bufferDesc));
 
@@ -219,13 +219,13 @@ bool Direct3D11GraphicsInterface::getKeySate(char key) {
   return keyBuffer[key];
 }
 
-int Direct3D11GraphicsInterface::createTexture(const char* filePath) {
+unsigned int Direct3D11GraphicsInterface::createTexture(const std::string& filePath) {
 
   D3DX11_IMAGE_INFO fileInfo;
   ZeroMemory(&fileInfo, sizeof(D3DX11_IMAGE_INFO));
 
   HRESULT result;
-  D3DX11GetImageInfoFromFile(filePath, NULL, &fileInfo, &result); 
+  D3DX11GetImageInfoFromFile(filePath.c_str(), NULL, &fileInfo, &result); 
 
   D3DX11_IMAGE_LOAD_INFO loadInfo;
   ZeroMemory(&loadInfo, sizeof(D3DX11_IMAGE_LOAD_INFO));
@@ -243,7 +243,7 @@ int Direct3D11GraphicsInterface::createTexture(const char* filePath) {
   loadInfo.pSrcInfo       = &fileInfo;
 
   ID3D11Resource* texture;
-  D3DX11CreateTextureFromFile(device_, filePath, &loadInfo, NULL, &texture, &result);
+  D3DX11CreateTextureFromFile(device_, filePath.c_str(), &loadInfo, NULL, &texture, &result);
   assert(result == S_OK);
 
   int textureId = textures_.size();
@@ -251,8 +251,16 @@ int Direct3D11GraphicsInterface::createTexture(const char* filePath) {
   return textureId;
 }
 
+unsigned int Direct3D11GraphicsInterface::createShadowMap(const CSize& shadowMapSize) {
+  return 0;
+}
+
 void Direct3D11GraphicsInterface::setTexture(int textureId, CGparameter parameter) {
   ID3D11Resource* textureResource = textures_[textureId];
   cgD3D11SetTextureParameter(parameter, textureResource);
   cgSetSamplerState(parameter);
+}
+
+void Direct3D11GraphicsInterface::bindShadowMap(unsigned int shadowMapId) {
+
 }

@@ -15,7 +15,7 @@ void Game::init() {
   camera_.translateZ(5.0f);
   camera_.translateY(1.8f);
   
-//  shadowRenderer_.init(GraphicsInterface::screenSize()); 
+  shadowRenderer_.init(GraphicsInterface::screenSize()); 
  
   Matrix4x4 projection = Matrix4x4::perspective(45.0f, GraphicsInterface::aspectRatio(), 1.0f, 200.0f);
   camera_.setProjection(projection);

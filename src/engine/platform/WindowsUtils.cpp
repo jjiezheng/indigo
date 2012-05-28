@@ -2,6 +2,8 @@
 
 #include "io/Log.h"
 
+bool WindowsUtils::keyStates_[256];
+
 void WindowsUtils::getDesktopResolution(int& horizontal, int& vertical) {
   RECT desktop;
   const HWND hDesktop = GetDesktopWindow();
@@ -66,6 +68,20 @@ bool WindowsUtils::pumpMessages() {
     if(msg.message == WM_QUIT) {
       return true;
     }
+
+    if (msg.message == WM_KEYDOWN) {
+      char wParam = MapVirtualKey( (UINT) msg.wParam, 2 ) & 0x0000FFFF;
+      keyStates_[wParam] = true;
+    }
+
+    if (msg.message == WM_KEYUP) {
+      char wParam = MapVirtualKey( (UINT) msg.wParam, 2 ) & 0x0000FFFF;
+      keyStates_[wParam] = false;
+    }
   }
   return false;
+}
+
+bool WindowsUtils::getKeyState(int key) {
+  return keyStates_[key];
 }

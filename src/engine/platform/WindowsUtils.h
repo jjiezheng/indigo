@@ -15,6 +15,12 @@ public:
 
  static bool pumpMessages();
 
+ static bool getKeyState(int key);
+
+private:
+
+  static bool keyStates_[256];
+
 };
 
 #endif
