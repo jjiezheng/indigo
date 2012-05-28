@@ -40,7 +40,7 @@ void Game::mainLoop() {
   
   Light light = sceneContext_.lights().front();
   
-  //shadowRenderer_.render(&light, world_, sceneContext_);
+  shadowRenderer_.render(&light, world_, sceneContext_);
   renderer_.render(camera_, world_, sceneContext_);
 
   if (properties_.getProperty(PROPERTY_RENDER_SHADOWMAP)) {

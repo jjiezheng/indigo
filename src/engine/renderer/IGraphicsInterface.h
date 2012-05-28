@@ -53,6 +53,8 @@ public:
 
   virtual unsigned int createShadowMap(const CSize& shadowMapSize) = 0;
 
+  virtual void setShadowMap(unsigned int shadowMapId, CGparameter shadowMapSampler) = 0;
+
 public:
 
   virtual unsigned int createTexture(const std::string& filePath) = 0;

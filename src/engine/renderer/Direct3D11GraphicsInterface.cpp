@@ -264,3 +264,7 @@ void Direct3D11GraphicsInterface::setTexture(int textureId, CGparameter paramete
 void Direct3D11GraphicsInterface::bindShadowMap(unsigned int shadowMapId) {
 
 }
+
+void Direct3D11GraphicsInterface::setShadowMap(unsigned int shadowMapId, CGparameter shadowMapSampler) {
+
+}

@@ -52,6 +52,8 @@ public:
 
   static unsigned int createShadowMap(const CSize& shadowMapSize);
 
+  static void setShadowMap(unsigned int shadowMapId, CGparameter shadowMapSampler);
+
 public:
 
   static unsigned int createTexture(const char* filePath);

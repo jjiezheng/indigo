@@ -39,6 +39,8 @@ public:
 
   unsigned int createShadowMap(const CSize& shadowMapSize);
 
+  void setShadowMap(unsigned int shadowMapId, CGparameter shadowMapSampler);
+
 public:
 
   unsigned int createTexture(const std::string& filePath);

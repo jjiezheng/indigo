@@ -35,6 +35,8 @@ public:
   void setUniform(float uniformData, const char* uniformName) const;
 
   void setTexture(unsigned int textureId, const char* uniformName);
+
+  void setShadowMap(unsigned int shadowMapId);
   
 };
 

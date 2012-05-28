@@ -185,7 +185,6 @@ unsigned int OpenGL21GraphicsInterface::createTexture(const std::string& filePat
 }
 
 unsigned int OpenGL21GraphicsInterface::createShadowMap(const CSize& shadowMapSize) {
-
   GLuint frameBuffer;
   glGenFramebuffers(1, &frameBuffer);
   glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
@@ -193,11 +192,12 @@ unsigned int OpenGL21GraphicsInterface::createShadowMap(const CSize& shadowMapSi
   glReadBuffer(GL_NONE);
   glDrawBuffer(GL_NONE);
 
-  GLuint depthBuffer;
-  glGenRenderbuffers(1, &depthBuffer);
-  glBindRenderbuffer(GL_RENDERBUFFER, depthBuffer);
+  GLuint renderBuffer;
+  glGenRenderbuffers(1, &renderBuffer);
+  glBindRenderbuffer(GL_RENDERBUFFER, renderBuffer);
   glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, shadowMapSize.width, shadowMapSize.height);
-  glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthBuffer);
+  
+  glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, renderBuffer);
 
   GLuint shadowTexture;
   glGenTextures(1, &shadowTexture);
@@ -205,23 +205,11 @@ unsigned int OpenGL21GraphicsInterface::createShadowMap(const CSize& shadowMapSi
   glBindTexture(GL_TEXTURE_2D, shadowTexture);
   glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, shadowMapSize.width, shadowMapSize.height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
 
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_R_TO_TEXTURE);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
-
-  float ones[] = {1, 1, 1, 1};
-  glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, ones);
-
   glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, shadowTexture, 0);
 
   glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-  OpenGLShadowMap shadowMap(frameBuffer, depthBuffer, shadowTexture);
+  OpenGLShadowMap shadowMap(shadowTexture, frameBuffer, renderBuffer);
   int shadowMapId = shadowMaps_.size();
   shadowMaps_.push_back(shadowMap);
 
@@ -231,9 +219,24 @@ unsigned int OpenGL21GraphicsInterface::createShadowMap(const CSize& shadowMapSi
 void OpenGL21GraphicsInterface::bindShadowMap(unsigned int shadowMapId) {
   OpenGLShadowMap shadowMap = shadowMaps_[shadowMapId];
   glBindRenderbuffer(GL_RENDERBUFFER, shadowMap.renderBufferId);
-  glBindFramebuffer(GL_FRAMEBUFFER, shadowMap.depthBufferId);
+  glBindFramebuffer(GL_FRAMEBUFFER, shadowMap.frameBufferId);
+  
+  glEnable(GL_DEPTH_TEST);
+  glEnable(GL_CULL_FACE);
+
+  //glPolygonOffset(2.5f, 10.0f);
+  glEnable(GL_POLYGON_OFFSET_FILL);
+  
+  glClear(GL_DEPTH_BUFFER_BIT);  
+  glCullFace(GL_FRONT);
 }
 
 void OpenGL21GraphicsInterface::setTexture(int textureId, CGparameter parameter) {
 
+}
+
+void OpenGL21GraphicsInterface::setShadowMap(unsigned int shadowMapId, CGparameter shadowMapSampler) {
+  OpenGLShadowMap shadowMap = shadowMaps_[shadowMapId];
+  cgGLSetTextureParameter(shadowMapSampler, shadowMap.shadowTextureId);
+  cgSetSamplerState(shadowMapSampler);
 }

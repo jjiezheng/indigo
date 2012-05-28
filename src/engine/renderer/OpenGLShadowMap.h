@@ -5,15 +5,15 @@ class OpenGLShadowMap {
 
 public:
 
-  OpenGLShadowMap(int shadowTextureId_, int depthBufferId_, int renderBufferId_)
+  OpenGLShadowMap(int shadowTextureId_, int frameBufferId_, int renderBufferId_)
     : shadowTextureId(shadowTextureId_)
-    , depthBufferId(depthBufferId_)
+    , frameBufferId(frameBufferId_)
     , renderBufferId(renderBufferId_) { }
 
 public:
 
   int shadowTextureId;
-  int depthBufferId;
+  int frameBufferId;
   int renderBufferId;
 
 };

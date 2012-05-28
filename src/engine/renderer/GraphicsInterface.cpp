@@ -82,3 +82,7 @@ void GraphicsInterface::setTexture(int textureId, CGparameter parameter) {
   return graphicsInterface_->setTexture(textureId, parameter);
 }
 
+void GraphicsInterface::setShadowMap(unsigned int shadowMapId, CGparameter shadowMapSampler) {
+  graphicsInterface_->setShadowMap(shadowMapId, shadowMapSampler);
+}
+

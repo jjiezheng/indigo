@@ -12,6 +12,7 @@
 #include "maths/Vector4.h"
 #include "maths/Vector3.h"
 #include "Color3.h"
+#include "GraphicsInterface.h"
 
 void CGGLEffect::initCG() {
   context_ = cgCreateContext();
@@ -27,7 +28,7 @@ void CGGLEffect::beginDraw() {
 
 void CGGLEffect::endDraw() {
   CGpass pass = cgGetFirstPass(technique_);
-//  cgResetPassState(pass);
+  cgResetPassState(pass);
 }
 
 void CGGLEffect::setUniform(const Color3& uniformData, const char* uniformName) const {
@@ -77,4 +78,10 @@ void CGGLEffect::setTexture(unsigned int textureId, const char* uniformName) {
   if (!parameter) return;
   cgGLSetTextureParameter(parameter, textureId);
   cgSetSamplerState(parameter);
+}
+
+void CGGLEffect::setShadowMap(unsigned int shadowMapId) {
+  CGparameter parameter = cgGetNamedEffectParameter(effect_, "ShadowMap");
+  if (!parameter) return;
+  GraphicsInterface::setShadowMap(shadowMapId, parameter);
 }
