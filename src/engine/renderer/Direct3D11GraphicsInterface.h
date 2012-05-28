@@ -63,7 +63,7 @@ private:
 private:
 
   std::vector<ID3D11Buffer*> vertexBuffers_;
-  std::deque<ID3D11Resource*> textures_;
+  std::vector<ID3D11Resource*> textures_;
 
 };
 

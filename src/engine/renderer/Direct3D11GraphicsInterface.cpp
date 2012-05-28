@@ -247,7 +247,7 @@ int Direct3D11GraphicsInterface::createTexture(const char* filePath) {
   assert(result == S_OK);
 
   int textureId = textures_.size();
-  textures_.push_front(texture);
+  textures_.push_back(texture);
   return textureId;
 }
 
