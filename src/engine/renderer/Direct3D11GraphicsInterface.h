@@ -7,6 +7,8 @@
 #include <D3D11.h>
 #include <vector>
 
+#include "DirectXShadowMap.h"
+
 class IEffect;
 
 class Direct3D11GraphicsInterface : public IGraphicsInterface {
@@ -67,6 +69,8 @@ private:
 
   std::vector<ID3D11Buffer*> vertexBuffers_;
   std::vector<ID3D11Resource*> textures_;
+
+  std::vector<DirectXShadowMap> shadowMaps_;
 
 };
 

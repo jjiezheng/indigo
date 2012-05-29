@@ -19,6 +19,8 @@
 #include "io/DDSImage.h"
 #include "io/DDSMipLevel.h"
 
+#include "DirectXShadowMap.h"
+
 static const int kMultiSamples = 4;
 
 void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, int height) {
@@ -247,17 +249,61 @@ void Direct3D11GraphicsInterface::setTexture(int textureId, CGparameter paramete
 }
 
 unsigned int Direct3D11GraphicsInterface::createShadowMap(const CSize& shadowMapSize) {
-  return 0;
+  D3D11_TEXTURE2D_DESC shadowTextureDesc;
+  shadowTextureDesc.Width = shadowMapSize.width;
+  shadowTextureDesc.Height = shadowMapSize.height;
+  shadowTextureDesc.MipLevels = 1;
+  shadowTextureDesc.ArraySize = 1;
+  shadowTextureDesc.Format = DXGI_FORMAT_R32_TYPELESS;
+  shadowTextureDesc.SampleDesc.Count = 1;
+  shadowTextureDesc.SampleDesc.Quality = 0;
+  shadowTextureDesc.Usage = D3D11_USAGE_DEFAULT;
+  shadowTextureDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL | D3D11_BIND_SHADER_RESOURCE;
+  shadowTextureDesc.CPUAccessFlags = 0;
+  shadowTextureDesc.MiscFlags = 0;
+
+  D3D11_DEPTH_STENCIL_VIEW_DESC depthStencilDesc;
+  depthStencilDesc.Format = shadowTextureDesc.Format;
+  depthStencilDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+  depthStencilDesc.Texture2D.MipSlice = 0;
+
+  D3D11_SHADER_RESOURCE_VIEW_DESC shaderViewDesc;
+  shaderViewDesc.Format = DXGI_FORMAT_R32_FLOAT;
+  shaderViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+  shaderViewDesc.Texture2D.MipLevels = shadowTextureDesc.MipLevels;
+  shaderViewDesc.Texture2D.MostDetailedMip = 0;
+
+  ID3D11Texture2D* shadowMapTexture;
+  ID3D11DepthStencilView* shadowMapDepthView;
+  ID3D11ShaderResourceView* shadowMapResourceView;
+
+  device_->CreateTexture2D(&shadowTextureDesc, NULL, &shadowMapTexture);
+  device_->CreateDepthStencilView(shadowMapTexture, &depthStencilDesc, &shadowMapDepthView);
+  device_->CreateShaderResourceView(shadowMapTexture, &shaderViewDesc, &shadowMapResourceView);
+
+  unsigned int shadowMapId = shadowMaps_.size();
+
+  DirectXShadowMap shadowMap;
+  shadowMap.depthView = shadowMapDepthView;
+  shadowMap.resourceView = shadowMapResourceView;
+  shadowMap.texture = shadowMapTexture;
+  shadowMaps_.push_back(shadowMap);
+
+  return shadowMapId;
 }
 
 void Direct3D11GraphicsInterface::bindShadowMap(unsigned int shadowMapId) {
-
+  DirectXShadowMap shadowMap  = shadowMaps_[shadowMapId];
+  deviceConnection_->OMSetRenderTargets(0, 0, shadowMap.depthView); 
+  deviceConnection_->ClearDepthStencilView(shadowMap.depthView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 }
 
 void Direct3D11GraphicsInterface::unBindShadowMap(unsigned int shadowMap) {
-
+  deviceConnection_->OMSetRenderTargets(1, &backBuffer_, depthBuffer_);
 }
 
 void Direct3D11GraphicsInterface::setShadowMap(unsigned int shadowMapId, CGparameter shadowMapSampler) {
-
+  DirectXShadowMap shadowMap  = shadowMaps_[shadowMapId];
+  cgD3D11SetTextureParameter(shadowMapSampler, shadowMap.texture);
+  cgSetSamplerState(shadowMapSampler);
 }
