@@ -51,6 +51,8 @@ public:
 
   virtual void bindShadowMap(unsigned int shadowMapId) = 0;
 
+  virtual void unBindShadowMap(unsigned int shadowMap) = 0;
+
   virtual unsigned int createShadowMap(const CSize& shadowMapSize) = 0;
 
   virtual void setShadowMap(unsigned int shadowMapId, CGparameter shadowMapSampler) = 0;
@@ -64,7 +66,6 @@ public:
 public:
 
   virtual bool getKeySate(char key) = 0;
-
 protected:
 
   bool windowClosed_;

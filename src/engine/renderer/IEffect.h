@@ -18,6 +18,8 @@ public:
 
   void load(const std::string& filePath);
 
+public:
+
   static void onError();
 
   static void handleError(CGcontext context, CGerror error, void *data);

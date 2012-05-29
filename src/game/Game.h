@@ -9,7 +9,6 @@
 #include "renderer/Renderer3d.h"
 #include "renderer/RendererShadow.h"
 #include "renderer/Camera.h"
-#include "renderer/Box.h"
 
 class Game {
   
@@ -18,8 +17,6 @@ public:
   void init();
   
   void mainLoop();
-  
-  void keyUp(char character);
   
 private:
   
@@ -30,7 +27,6 @@ private:
   Clock clock_;
   SceneContext sceneContext_;
   Properties properties_;
-  Box box_;
 };
 
 #endif

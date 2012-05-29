@@ -35,6 +35,8 @@ public:
 
   void bindShadowMap(unsigned int shadowMapId);
 
+  void unBindShadowMap(unsigned int shadowMap);
+
   unsigned int createShadowMap(const CSize& shadowMapSize);
 
   void setShadowMap(unsigned int shadowMapId, CGparameter shadowMapSampler);

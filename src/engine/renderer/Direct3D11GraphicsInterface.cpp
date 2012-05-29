@@ -265,6 +265,10 @@ void Direct3D11GraphicsInterface::bindShadowMap(unsigned int shadowMapId) {
 
 }
 
+void Direct3D11GraphicsInterface::unBindShadowMap(unsigned int shadowMap) {
+
+}
+
 void Direct3D11GraphicsInterface::setShadowMap(unsigned int shadowMapId, CGparameter shadowMapSampler) {
 
 }

@@ -73,6 +73,9 @@ void GraphicsInterface::bindShadowMap(unsigned int shadowMapId) {
   graphicsInterface_->bindShadowMap(shadowMapId);
 }
 
+void GraphicsInterface::unBindShadowMap(unsigned int shadowMap) {
+  return graphicsInterface_->unBindShadowMap(shadowMap);
+}
 
 unsigned int GraphicsInterface::createTexture(const char* filePath) {
   return graphicsInterface_->createTexture(filePath);
@@ -85,4 +88,6 @@ void GraphicsInterface::setTexture(int textureId, CGparameter parameter) {
 void GraphicsInterface::setShadowMap(unsigned int shadowMapId, CGparameter shadowMapSampler) {
   graphicsInterface_->setShadowMap(shadowMapId, shadowMapSampler);
 }
+
+
 

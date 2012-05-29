@@ -21,11 +21,3 @@ int App::run() {
 
   return GraphicsInterface::closeWindow();
 }
-
-void App::keyFunction(int character, int state) {
-  app_->keyUp(character);
-}
-
-void App::keyUp(char character) {
-  game_.keyUp(character);
-}

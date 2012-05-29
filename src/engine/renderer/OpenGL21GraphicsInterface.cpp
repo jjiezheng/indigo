@@ -231,6 +231,17 @@ void OpenGL21GraphicsInterface::bindShadowMap(unsigned int shadowMapId) {
   glCullFace(GL_FRONT);
 }
 
+void OpenGL21GraphicsInterface::unBindShadowMap(unsigned int shadowMap) {
+  glDisable(GL_POLYGON_OFFSET_FILL);
+  glCullFace(GL_BACK);
+  
+  glBindFramebuffer(GL_FRAMEBUFFER, 0); 
+  glBindRenderbuffer(GL_RENDERBUFFER, 0);
+  
+  glDisable(GL_DEPTH_TEST); 
+  glDisable(GL_CULL_FACE);
+}
+
 void OpenGL21GraphicsInterface::setTexture(int textureId, CGparameter parameter) {
 
 }

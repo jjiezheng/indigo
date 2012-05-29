@@ -16,6 +16,13 @@ public:
 public:
   
   inline float const * valuePtr() const;
+
+public:
+
+  static Color3 BLACK;
+  static Color3 RED;
+  static Color3 GREEN;
+  static Color3 BLUE;
   
 };
 

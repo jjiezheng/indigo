@@ -50,6 +50,8 @@ public:
 
   static void bindShadowMap(unsigned int shadowMapId);
 
+  static void unBindShadowMap(unsigned int shadowMap);
+
   static unsigned int createShadowMap(const CSize& shadowMapSize);
 
   static void setShadowMap(unsigned int shadowMapId, CGparameter shadowMapSampler);

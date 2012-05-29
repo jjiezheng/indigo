@@ -55,7 +55,7 @@ float4 ps(float3 normal			: TEXCOORD0,
 	}
 					
 	// shadow
-	/*{
+	{
 		float4 shadowCoord = shadowMapCoord;
     	shadowCoord.z += 0.0005f;
 
@@ -64,9 +64,9 @@ float4 ps(float3 normal			: TEXCOORD0,
 			float shadow = depth == 0 ? 0.5f : 1.0f;
       		finalColor = finalColor * shadow;
     	}
- 	}*/	
+ 	}
 	
-	return DiffuseColor;
+	return float4(finalColor, 1);
 }
 
 technique dx {

@@ -11,14 +11,6 @@ public:
   
 private:
   
-  static void keyFunction(int character, int down);
-  
-private:
-  
-  void keyUp(char character);
-  
-private:
-  
   static App* app_;
   Game game_;
   
