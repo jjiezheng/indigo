@@ -8,7 +8,6 @@ class DirectXShadowMap {
 public:
 
   ID3D11DepthStencilView* depthView;
-  ID3D11ShaderResourceView* resourceView;
   ID3D11Texture2D* texture;
 
 };

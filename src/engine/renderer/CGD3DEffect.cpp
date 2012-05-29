@@ -81,5 +81,7 @@ void CGD3DEffect::setTexture(unsigned int textureId, const char* uniformName) {
 }
 
 void CGD3DEffect::setShadowMap(unsigned int shadowMapId) {
-
+  CGparameter parameter = cgGetNamedEffectParameter(effect_, "ShadowMap");
+  if (!parameter) return;
+  GraphicsInterface::setShadowMap(shadowMapId, parameter);
 }

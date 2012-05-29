@@ -4,6 +4,8 @@
 #include "OpenGL.h"
 
 #include "Angles.h"
+#include "io/Log.h"
+
 
 Camera::Camera() 
   : forward_(Vector3::FORWARD)

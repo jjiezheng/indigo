@@ -8,9 +8,6 @@
 #include "GraphicsInterface.h"
 
 void Renderer3d::render(const Camera& camera, const World& world, const SceneContext& sceneContext) {
-  Color3 backgroundColor = sceneContext.backgroundColor();
-  GraphicsInterface::clearBuffer(backgroundColor);
-  
 //  world.skyBox().render(&camera, sceneContext);
   
   std::vector<Model>::const_iterator it = world.begin();
