@@ -40,6 +40,8 @@ void Material::bind(const IViewer* camera, const Matrix4x4& model, const Matrix3
   for (; mit != parameters_.end(); ++mit) {
     (*mit)->setEffect(effect_);
   }
+
+  effect_->commitParameters();
     
   /* shader_->setUniform(sceneContext.fogStart(), "fogStart");
   shader_->setUniform(sceneContext.fogEnd(), "fogEnd");

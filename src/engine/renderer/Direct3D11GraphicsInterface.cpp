@@ -95,7 +95,7 @@ void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, in
     }
   }
 
-  deviceConnection_->OMSetRenderTargets(1, &backBuffer_, depthBuffer_);
+  //deviceConnection_->OMSetRenderTargets(1, &backBuffer_, depthBuffer_);
 
   // viewport
   {
@@ -129,7 +129,6 @@ void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, in
 	  rasterDesc.SlopeScaledDepthBias = 0.0f;
 
 	  HRESULT result = device_->CreateRasterizerState(&rasterDesc, &rasterState_);
-  
     assert(result == S_OK);
   }
 }
@@ -174,7 +173,6 @@ void Direct3D11GraphicsInterface::drawVertexBuffer(int vertexBuffer, int vertexC
   UINT stride = sizeof(VertexDef);
   UINT offset = 0;
 
-  deviceConnection_->RSSetState(rasterState_);
   deviceConnection_->IASetVertexBuffers(0, 1, &buffer, &stride, &offset);
   deviceConnection_->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
   deviceConnection_->Draw(vertexCount, 0);
@@ -274,13 +272,16 @@ unsigned int Direct3D11GraphicsInterface::createShadowMap(const CSize& shadowMap
 
   //--
 
-  ID3D11Texture2D* shadowMapTexture;
-  ID3D11DepthStencilView* shadowMapDepthView;
+  HRESULT result;
 
   //--
 
-  HRESULT result;
+  ID3D11Texture2D* shadowMapTexture;
   result = device_->CreateTexture2D(&shadowTextureDesc, NULL, &shadowMapTexture);
+
+  //--
+
+  ID3D11DepthStencilView* shadowMapDepthView;
   result = device_->CreateDepthStencilView(shadowMapTexture, &depthStencilViewDesc, &shadowMapDepthView);
 
   //--
@@ -310,4 +311,8 @@ void Direct3D11GraphicsInterface::setShadowMap(unsigned int shadowMapId, CGparam
   ID3D11Resource* shadowMapTexture = shadowMap.texture;
   cgD3D11SetTextureParameter(shadowMapSampler, shadowMapTexture);
   cgSetSamplerState(shadowMapSampler);*/
+}
+
+void Direct3D11GraphicsInterface::resetGraphicsState() {
+  deviceConnection_->RSSetState(rasterState_);
 }

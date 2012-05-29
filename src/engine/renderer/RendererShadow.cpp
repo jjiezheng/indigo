@@ -16,8 +16,7 @@ void RendererShadow::init(const CSize &screenSize) {
 
 void RendererShadow::renderToShadowMap(IViewer* viewer, const World& world, SceneContext& sceneContext) {
   GraphicsInterface::bindShadowMap(shadowMap_);
-  GraphicsInterface::clearBuffer(Color3::BLACK);
-
+  
   std::vector<Model>::const_iterator mit = world.begin();
   for (; mit != world.end(); ++mit) {
     (*mit).render(viewer, sceneContext);

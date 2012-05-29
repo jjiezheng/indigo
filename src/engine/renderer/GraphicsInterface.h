@@ -46,6 +46,8 @@ public:
 
   static void setPass(CGpass pass);
 
+  static void resetGraphicsState();
+
 public:
 
   static void bindShadowMap(unsigned int shadowMapId);

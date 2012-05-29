@@ -251,3 +251,7 @@ void OpenGL21GraphicsInterface::setShadowMap(unsigned int shadowMapId, CGparamet
   cgGLSetTextureParameter(shadowMapSampler, shadowMap.shadowTextureId);
   cgSetSamplerState(shadowMapSampler);
 }
+
+void OpenGL21GraphicsInterface::resetGraphicsState() {
+
+}

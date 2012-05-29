@@ -37,6 +37,8 @@ public:
   void setTexture(unsigned int textureId, const char* uniformName);
 
   void setShadowMap(unsigned int shadowMapId);
+
+  void commitParameters();
   
 };
 

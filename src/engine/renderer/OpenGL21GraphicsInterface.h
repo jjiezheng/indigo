@@ -31,6 +31,8 @@ public:
 
   IEffect* createEffect();
 
+  void resetGraphicsState();
+
 public:
 
   void bindShadowMap(unsigned int shadowMapId);

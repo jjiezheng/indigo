@@ -52,6 +52,8 @@ public:
 
   virtual void setShadowMap(unsigned int shadowMapId) = 0;
 
+  virtual void commitParameters() = 0;
+
 protected:
 
   static CGcontext context_;

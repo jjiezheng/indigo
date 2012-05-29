@@ -31,6 +31,8 @@ public:
 
   void setPass(CGpass pass);
 
+  void resetGraphicsState();
+
 public:
 
   void bindShadowMap(unsigned int shadowMapId);

@@ -35,6 +35,8 @@ public:
 
   void setShadowMap(unsigned int shadowMapId);
 
+  void commitParameters();
+
 };
 
 

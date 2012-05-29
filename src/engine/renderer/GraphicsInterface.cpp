@@ -89,5 +89,9 @@ void GraphicsInterface::setShadowMap(unsigned int shadowMapId, CGparameter shado
   graphicsInterface_->setShadowMap(shadowMapId, shadowMapSampler);
 }
 
+void GraphicsInterface::resetGraphicsState() {
+  graphicsInterface_->resetGraphicsState();
+}
+
 
 
