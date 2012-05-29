@@ -11,9 +11,7 @@ Camera::Camera()
   , up_(Vector3::UP)
   , rotationX_(0.0f)
   , rotationY_(0.0f)
-  , rotationZ_(0.0f) {
-  
-}
+  , rotationZ_(0.0f) { }
 
 Camera* Camera::camera() {
   Camera* camera = new Camera();
@@ -21,8 +19,7 @@ Camera* Camera::camera() {
   return camera;
 }
 
-void Camera::init() {
-}
+void Camera::init() { }
 
 void Camera::update(float dt) {
   float speed = dt * 10;

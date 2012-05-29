@@ -1,15 +1,11 @@
 #ifndef DIRECT_3D_11_GRAPHICS_INTERFACE_H
 #define DIRECT_3D_11_GRAPHICS_INTERFACE_H
 
-#define DIRECTINPUT_VERSION 0x0800
-
 #include "IGraphicsInterface.h"
 
 #include <windows.h>
 #include <D3D11.h>
-#include <dinput.h>
 #include <vector>
-#include <deque>
 
 class IEffect;
 
@@ -66,9 +62,6 @@ private:
   ID3D11RenderTargetView* backBuffer_;
   ID3D11DepthStencilView* depthBuffer_;
   ID3D11RasterizerState* rasterState_;
-
-  LPDIRECTINPUT8 directInput_;
-  LPDIRECTINPUTDEVICE8 keyboardDevice_;
 
 private:
 

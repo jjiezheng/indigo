@@ -33,7 +33,7 @@ void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, in
     swapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;     // use 32-bit color
     swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;      // how swap chain is to be used
     swapChainDesc.OutputWindow = hWnd;                                // the window to be used
-    swapChainDesc.SampleDesc.Count = kMultiSamples;                               // how many multisamples
+    swapChainDesc.SampleDesc.Count = kMultiSamples;                   // how many multisamples
     swapChainDesc.Windowed = TRUE;                                    // windowed/full-screen mode 
 
     D3D_FEATURE_LEVEL featureLevels = D3D_FEATURE_LEVEL_10_0;
@@ -132,19 +132,10 @@ void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, in
   }
 }
 
-void Direct3D11GraphicsInterface::createInputContext(HWND hWnd) {
-  DirectInput8Create(GetModuleHandle(NULL), DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&directInput_, NULL);
-  directInput_->CreateDevice(GUID_SysKeyboard, &keyboardDevice_, NULL);
-  keyboardDevice_->SetDataFormat(&c_dfDIKeyboard);
-  keyboardDevice_->SetCooperativeLevel(hWnd, DISCL_BACKGROUND | DISCL_NONEXCLUSIVE);
-  keyboardDevice_->Acquire();
-}
-
 void Direct3D11GraphicsInterface::openWindow(int width, int height) {
   screenSize_ = CSize(width, height);
   HWND hWnd = WindowsUtils::createWindow(width, height);
   createGraphicsContext(hWnd, width, height);
-  createInputContext(hWnd);
 }
 
 void Direct3D11GraphicsInterface::swapBuffers() {
@@ -214,9 +205,7 @@ void Direct3D11GraphicsInterface::setPass(CGpass pass) {
 }
 
 bool Direct3D11GraphicsInterface::getKeySate(char key) {
-  bool keyBuffer[256];
-  keyboardDevice_->GetDeviceState(sizeof(keyBuffer), &keyBuffer);
-  return keyBuffer[key];
+  return WindowsUtils::getKeyState(key);
 }
 
 unsigned int Direct3D11GraphicsInterface::createTexture(const std::string& filePath) {
@@ -251,14 +240,14 @@ unsigned int Direct3D11GraphicsInterface::createTexture(const std::string& fileP
   return textureId;
 }
 
-unsigned int Direct3D11GraphicsInterface::createShadowMap(const CSize& shadowMapSize) {
-  return 0;
-}
-
 void Direct3D11GraphicsInterface::setTexture(int textureId, CGparameter parameter) {
   ID3D11Resource* textureResource = textures_[textureId];
   cgD3D11SetTextureParameter(parameter, textureResource);
   cgSetSamplerState(parameter);
+}
+
+unsigned int Direct3D11GraphicsInterface::createShadowMap(const CSize& shadowMapSize) {
+  return 0;
 }
 
 void Direct3D11GraphicsInterface::bindShadowMap(unsigned int shadowMapId) {
