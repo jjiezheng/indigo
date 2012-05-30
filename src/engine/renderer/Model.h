@@ -13,7 +13,7 @@ class Model {
   
 public:
   
-  void render(const IViewer* camera, const SceneContext& sceneContext) const;
+  void render(IViewer* camera, const SceneContext& sceneContext) const;
   
   void addMesh(const Mesh& mesh);
   

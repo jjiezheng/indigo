@@ -14,7 +14,7 @@ class Material {
   
 public:
   
-  void bind(const IViewer* camera, const Matrix4x4& model, const Matrix3x3& normalMatrix, const SceneContext& sceneContext) const;
+  void bind(IViewer* camera, const Matrix4x4& model, const Matrix3x3& normalMatrix, const SceneContext& sceneContext) const;
 
   void unbind() const;
 

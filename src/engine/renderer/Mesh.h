@@ -20,7 +20,7 @@ public:
   
 public:
   
-  void render(const IViewer* camera, const Matrix4x4& model, const Matrix3x3& normalMatrix, const SceneContext& sceneContext) const;
+  void render(IViewer* camera, const Matrix4x4& model, const Matrix3x3& normalMatrix, const SceneContext& sceneContext) const;
   
   void setMaterial(const Material& material);
   

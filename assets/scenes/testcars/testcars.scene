@@ -15,13 +15,22 @@
         "y" : 0.0,
         "z" : 0.0
       }
+    },
+    {
+      "mesh" : "actors/shuttle/shuttle.blend",
+      "material" : "actors/shuttle/shuttle.material",
+      "position" : {
+        "x" : 1.0,
+        "y" : 2.0,
+        "z" : -8.0
+      }
     }
   ],
   "lights" : [
     {
       "position" : {
         "x" : 0.0,
-        "y" : 25.0,
+        "y" : 2.0,
         "z" : 0.0
       },
       "orientation" : {

@@ -1,27 +1,3 @@
-float3 expand(float3 v) {
-  return (v - 0.5) * 2; // Expand a range-compressed vector
-}
-
-struct VOutput {
-	float4 position			: POSITION;
-	float2 texCoord			: TEXCOORD0;
-	float3 vPosition		: TEXCOORD1;
-	float3 normal			: TEXCOORD2;
-};
-
-VOutput vs(float4 position 		: POSITION,
-		   float4 normal 		: NORMAL,
-		   float2 texCoord 		: TEXCOORD0,
-		   uniform float4x4 worldViewProj,
-		   uniform float4x4 world) {
-	VOutput OUT;
-	OUT.position = mul(worldViewProj, position);
-	OUT.vPosition = mul(world, position).xyz;
-	OUT.texCoord = texCoord;
-	OUT.normal = normal.xyz;
- 	return OUT;
-}
-
 uniform float3 ambientColor;
 uniform float3 LightPosition;
 
@@ -38,6 +14,32 @@ sampler2D NormalMap = sampler_state {
 	WrapS = Repeat;
 	WrapT = Repeat;
 };
+
+uniform float4x4 WorldViewProj;
+uniform float4x4 World;
+uniform float4x4 NormalMatrix;
+
+float3 expand(float3 v) {
+  return (v - 0.5) * 2; // Expand a range-compressed vector
+}
+
+struct VOutput {
+	float4 position			: POSITION;
+	float2 texCoord			: TEXCOORD0;
+	float3 vPosition		: TEXCOORD1;
+	float3 normal			: TEXCOORD2;
+};
+
+VOutput vs(float4 position 		: POSITION,
+		   float4 normal 		: NORMAL,
+		   float2 texCoord 		: TEXCOORD0) {
+	VOutput OUT;
+	OUT.position = mul(WorldViewProj, position);
+	OUT.vPosition = mul(World, position).xyz;
+	OUT.texCoord = texCoord;
+	OUT.normal = normal.xyz;
+ 	return OUT;
+}
 
 float4 ps(float2 texCoord			: TEXCOORD0,
 		  float3 vPosition			: TEXCOORD1,
@@ -62,13 +64,11 @@ float4 ps(float2 texCoord			: TEXCOORD0,
 }
 	
 
-float4x4 WorldViewProj;
-float4x4 World;
-uniform float4x4 NormalMatrix;
+
 
 technique dx {
 	pass {
-		VertexProgram = compile vs_4_0 vs(WorldViewProj, World);
+		VertexProgram = compile vs_4_0 vs();
 		FragmentProgram = compile ps_4_0 ps();
 	}
 }

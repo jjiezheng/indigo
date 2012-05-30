@@ -7,10 +7,7 @@
 
 #include "GraphicsInterface.h"
 
-void Material::bind(const IViewer* camera, const Matrix4x4& model, const Matrix3x3& normalMatrix, const SceneContext& sceneContext) const {
-  GraphicsInterface::setPass(effect_->pass());
-  effect_->beginDraw();
-  
+void Material::bind(IViewer* camera, const Matrix4x4& model, const Matrix3x3& normalMatrix, const SceneContext& sceneContext) const {  
   Matrix4x4 modelViewProjection = camera->projection() * camera->viewTransform() * model;
   effect_->setUniform(modelViewProjection, "WorldViewProj");
   effect_->setUniform(model, "World");
@@ -41,13 +38,9 @@ void Material::bind(const IViewer* camera, const Matrix4x4& model, const Matrix3
     (*mit)->setEffect(effect_);
   }
 
-  effect_->commitParameters();
-    
-  /* shader_->setUniform(sceneContext.fogStart(), "fogStart");
-  shader_->setUniform(sceneContext.fogEnd(), "fogEnd");
-  shader_->setUniform(sceneContext.fogColor(), "fogColor");
-  shader_->setUniform(sceneContext.fogEnd(), "fogType");
-  shader_->setUniform(sceneContext.fogColor(), "fogFactor");*/
+  effect_->beginDraw();
+  GraphicsInterface::resetGraphicsState();
+  GraphicsInterface::setPass(effect_->pass());
 }
 
 void Material::unbind() const {

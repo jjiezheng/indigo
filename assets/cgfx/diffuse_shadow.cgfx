@@ -1,3 +1,20 @@
+uniform float4 DiffuseColor;
+uniform float3 AmbientColor;
+uniform float3 LightPosition;
+uniform float3 LightColor;
+
+uniform float4x4 World;
+uniform float4x4 WorldLight;
+uniform float4x4 WorldViewProj : ModelViewProjection;
+uniform float4x4 NormalMatrix;
+
+sampler2D ShadowMap = sampler_state {
+	MinFilter = LinearMipMapLinear;
+	MagFilter = Linear;
+	WrapS = Repeat;
+	WrapT = Repeat;
+};
+
 struct VOutput {
 	float4 position			: POSITION;
 	float3 normal			: TEXCOORD0;
@@ -6,33 +23,14 @@ struct VOutput {
 };
 
 VOutput vs(float4 position 		: POSITION,
-		   float4 normal 		: NORMAL,
-		   uniform float4x4 worldViewProj,
-		   uniform float4x4 world,
-		   uniform float4x4 worldLight) {
+		   float4 normal 		: NORMAL) {
 	VOutput OUT;
-	OUT.position = mul(worldViewProj, position);
-	OUT.vPosition = mul(world, position).xyz;
+	OUT.position = mul(WorldViewProj, position);
+	OUT.vPosition = mul(World, position).xyz;
 	OUT.normal = normal.xyz;// mul(NormalMatrix, normal).xyz;
-	OUT.shadowMapCoord = mul(worldLight, position);
+	OUT.shadowMapCoord = mul(WorldLight, position);
  	return OUT;
 }
-
-uniform float4 DiffuseColor;
-uniform float3 AmbientColor;
-uniform float3 LightPosition;
-uniform float3 LightColor;
-
-sampler2D ShadowMap = sampler_state {
-	MinFilter = Linear;
-	MagFilter = Linear;
-	WrapS = ClampToBorder;
-	WrapT = ClampToBorder;
-	CompareMode = CompareRToTexture;
-	CompareFunc = LEqual;
-	BorderColor = float4(1, 1, 1, 1);
-};
-
 
 float4 ps(float3 normal			: TEXCOORD0,
 		  float3 vPosition		: TEXCOORD1,
@@ -50,28 +48,23 @@ float4 ps(float3 normal			: TEXCOORD0,
 	}
 					
 	// shadow
-	/*{
+	{
 		float4 shadowCoord = shadowMapCoord;
     	shadowCoord.z += 0.0005f;
 
     	if (shadowCoord.w > 0.0f) {
-      		float depth = tex2Dproj(ShadowMap, shadowCoord).z;
+      		float depth = tex2Dproj(ShadowMap, shadowMapCoord).z;
 			float shadow = depth == 0 ? 0.5f : 1.0f;
       		finalColor = finalColor * shadow;
     	}
- 	}*/
+ 	}
 	
 	return float4(finalColor, 1);
 }
 
-float4x4 World;
-float4x4 WorldLight;
-float4x4 WorldViewProj : ModelViewProjection;
-uniform float4x4 NormalMatrix;
-
 technique dx {
 	pass {
-		VertexProgram = compile vs_4_0 vs(WorldViewProj, World, WorldLight);
+		VertexProgram = compile vs_4_0 vs();
 		FragmentProgram = compile ps_4_0 ps();
 	}
 }

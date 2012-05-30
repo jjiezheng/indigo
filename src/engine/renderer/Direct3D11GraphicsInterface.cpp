@@ -21,6 +21,8 @@
 
 #include "DirectXShadowMap.h"
 
+#include <comdef.h>
+
 static const int kMultiSamples = 4;
 
 void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, int height) {
@@ -95,7 +97,7 @@ void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, in
     }
   }
 
-  //deviceConnection_->OMSetRenderTargets(1, &backBuffer_, depthBuffer_);
+  deviceConnection_->OMSetRenderTargets(1, &backBuffer_, depthBuffer_);
 
   // viewport
   {
@@ -124,7 +126,7 @@ void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, in
 	  rasterDesc.DepthClipEnable = true;
 	  rasterDesc.FillMode = D3D11_FILL_SOLID;
 	  rasterDesc.FrontCounterClockwise = true;
-	  rasterDesc.MultisampleEnable = true;
+	  rasterDesc.MultisampleEnable = false;
 	  rasterDesc.ScissorEnable = false;
 	  rasterDesc.SlopeScaledDepthBias = 0.0f;
 
@@ -270,11 +272,7 @@ unsigned int Direct3D11GraphicsInterface::createShadowMap(const CSize& shadowMap
   depthStencilViewDesc.Format = DXGI_FORMAT_D32_FLOAT;
   depthStencilViewDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
 
-  //--
-
   HRESULT result;
-
-  //--
 
   ID3D11Texture2D* shadowMapTexture;
   result = device_->CreateTexture2D(&shadowTextureDesc, NULL, &shadowMapTexture);
@@ -307,10 +305,21 @@ void Direct3D11GraphicsInterface::unBindShadowMap(unsigned int shadowMap) {
 }
 
 void Direct3D11GraphicsInterface::setShadowMap(unsigned int shadowMapId, CGparameter shadowMapSampler) {
-  /*DirectXShadowMap shadowMap  = shadowMaps_[shadowMapId];
+  DirectXShadowMap shadowMap  = shadowMaps_[shadowMapId];
   ID3D11Resource* shadowMapTexture = shadowMap.texture;
-  cgD3D11SetTextureParameter(shadowMapSampler, shadowMapTexture);
-  cgSetSamplerState(shadowMapSampler);*/
+  
+  try {
+    cgD3D11SetTextureParameter(shadowMapSampler, shadowMapTexture);
+  }
+  catch( _com_error e )
+      {
+
+    const char * errorDesc = e.Description();
+    const char* source = e.Source();
+
+    int a = 1;
+  }
+  cgSetSamplerState(shadowMapSampler);
 }
 
 void Direct3D11GraphicsInterface::resetGraphicsState() {

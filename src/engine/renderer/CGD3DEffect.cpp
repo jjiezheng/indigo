@@ -16,16 +16,15 @@
 
 void CGD3DEffect::initCG(ID3D11Device* device) {
   context_ = cgCreateContext();
+
   cgSetErrorCallback(&IEffect::onError);
   cgD3D11SetDevice(context_, device);
   cgD3D11RegisterStates(context_);
-  cgSetParameterSettingMode(context_, CG_IMMEDIATE_PARAMETER_SETTING);
   cgD3D11SetManageTextureParameters(context_, CG_TRUE);
 }
 
 void CGD3DEffect::beginDraw() {
   cgSetPassState(pass_);
-  GraphicsInterface::resetGraphicsState();
 }
 
 void CGD3DEffect::endDraw() {
@@ -81,11 +80,7 @@ void CGD3DEffect::setTexture(unsigned int textureId, const char* uniformName) {
 }
 
 void CGD3DEffect::setShadowMap(unsigned int shadowMapId) {
-  /*CGparameter parameter = cgGetNamedEffectParameter(effect_, "ShadowMap");
+  CGparameter parameter = cgGetNamedEffectParameter(effect_, "ShadowMap");
   if (!parameter) return;
-  GraphicsInterface::setShadowMap(shadowMapId, parameter);*/
-}
-
-void CGD3DEffect::commitParameters() {
-  cgUpdatePassParameters(pass_);
+  GraphicsInterface::setShadowMap(shadowMapId, parameter);
 }

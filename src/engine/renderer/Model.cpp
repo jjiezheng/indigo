@@ -4,7 +4,7 @@
 
 #include "Material.h"
 
-void Model::render(const IViewer* camera, const SceneContext& sceneContext) const {
+void Model::render(IViewer* camera, const SceneContext& sceneContext) const {
   std::vector<Mesh>::const_iterator it = meshes_.begin();
   for (; it != meshes_.end(); ++it) {
     (*it).render(camera, localToWorld_, Matrix4x4::IDENTITY.mat3x3(), sceneContext);

@@ -26,15 +26,12 @@ void Game::init() {
 }
  
 void Game::mainLoop() {
-  Color3 backgroundColor = sceneContext_.backgroundColor();
-  GraphicsInterface::clearBuffer(backgroundColor);
-
   float dt = clock_.delta_time();
   camera_.update(dt);
   
   Light light = sceneContext_.lights().front();
   shadowRenderer_.renderToShadowMap(&light, world_, sceneContext_);
 
-  GraphicsInterface::clearBuffer(backgroundColor);
-  renderer_.render(camera_, world_, sceneContext_);
+  GraphicsInterface::clearBuffer(Color3(0, 0, 0));
+  renderer_.render(&camera_, world_, sceneContext_);
 }

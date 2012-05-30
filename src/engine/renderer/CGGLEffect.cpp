@@ -85,7 +85,3 @@ void CGGLEffect::setShadowMap(unsigned int shadowMapId) {
   if (!parameter) return;
   GraphicsInterface::setShadowMap(shadowMapId, parameter);
 }
-
-void CGGLEffect::commitParameters() {
-  cgUpdatePassParameters(pass_);
-}
