@@ -9,7 +9,7 @@ class Renderer3d {
   
 public:
   
-  void render(IViewer* viewer, const World& world, const SceneContext& sceneContext);
+  void render(IViewer* viewer, World& world, const SceneContext& sceneContext);
     
 };
 

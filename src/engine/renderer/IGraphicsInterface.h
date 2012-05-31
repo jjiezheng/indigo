@@ -51,19 +51,19 @@ public:
 
 public:
 
-  virtual void bindShadowMap(unsigned int shadowMapId) = 0;
+  virtual unsigned int loadTexture(const std::string& filePath) = 0;
 
-  virtual void unBindShadowMap(unsigned int shadowMap) = 0;
-
-  virtual unsigned int createShadowMap(const CSize& shadowMapSize) = 0;
-
-  virtual void setShadowMap(unsigned int shadowMapId, CGparameter shadowMapSampler) = 0;
-
-public:
-
-  virtual unsigned int createTexture(const std::string& filePath) = 0;
+  virtual unsigned int createTexture() = 0;
 
   virtual void setTexture(int textureId, CGparameter parameter) = 0;
+
+  virtual void setRenderTarget(unsigned int textureId) = 0;
+
+  virtual void resetRenderTarget() = 0;
+
+  virtual unsigned int createRenderTarget(unsigned int textureId) = 0;
+
+  virtual void clearRenderTarget(unsigned int renderTargetId, const Color3& color) = 0;
 
 public:
 

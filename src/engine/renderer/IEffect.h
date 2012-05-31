@@ -28,7 +28,7 @@ public:
 
   virtual void beginDraw() = 0;
 
-  virtual void endDraw() = 0;
+  virtual void resetStates() = 0;
 
   virtual CGpass pass() { return pass_; };
 
@@ -49,8 +49,6 @@ public:
   virtual void setUniform(float uniformData, const char* uniformName) const = 0;
 
   virtual void setTexture(unsigned int textureId, const char* uniformName) = 0;
-
-  virtual void setShadowMap(unsigned int shadowMapId) = 0;
 
 protected:
 

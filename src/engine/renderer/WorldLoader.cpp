@@ -31,6 +31,7 @@
 #include "Texture.h"
 
 #include "GraphicsInterface.h"
+#include "EffectCache.h"
 
 void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, SceneContext& sceneContext) {
   std::string fullFilePath = Path::pathForFile(filePath);
@@ -125,7 +126,7 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
 }
 
 void WorldLoader::loadSceneItem(const json::Object& objectItem, World& world) {
-  Model model;
+  Model* model = new Model();
 
   json::String meshFilePath = objectItem["mesh"];
   json::String materialFilePath = objectItem["material"];
@@ -143,10 +144,10 @@ void WorldLoader::loadSceneItem(const json::Object& objectItem, World& world) {
   
   Vector3 position(x, y, z);
   Matrix4x4 localToWorld = Matrix4x4::translation(position);
-  model.setLocalToWorld(localToWorld);
+  model->setLocalToWorld(localToWorld);
   
-  loadModel(&model, meshFilePath);
-  loadMaterial(&model, materialFilePath);
+  loadModel(model, meshFilePath);
+  loadMaterial(model, materialFilePath);
   world.addObject(model);
 }
 
@@ -265,8 +266,7 @@ void WorldLoader::loadMaterial(Model* model, const std::string& materialFilePath
 }
 
 void WorldLoader::loadEffect(Material& material, const std::string &shaderFilePath) { 
-  IEffect* effect = GraphicsInterface::createEffect();
   std::string fullEffectPath = Path::pathForFile(shaderFilePath);
-  effect->load(fullEffectPath);
-  material.setEffect(effect);
+  int effectId = EffectCache::instance()->loadEffect(fullEffectPath);
+  material.setEffect(effectId);
 }

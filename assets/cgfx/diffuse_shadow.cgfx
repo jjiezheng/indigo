@@ -9,10 +9,13 @@ uniform float4x4 WorldViewProj : ModelViewProjection;
 uniform float4x4 NormalMatrix;
 
 sampler2D ShadowMap = sampler_state {
-	MinFilter = LinearMipMapLinear;
+	MinFilter = Linear;
 	MagFilter = Linear;
-	WrapS = Repeat;
-	WrapT = Repeat;
+	WrapS = ClampToBorder;
+	WrapT = ClampToBorder;
+	CompareMode = CompareRToTexture;
+	CompareFunc = LEqual;
+	BorderColor = float4(1, 1, 1, 1);
 };
 
 struct VOutput {
@@ -48,16 +51,16 @@ float4 ps(float3 normal			: TEXCOORD0,
 	}
 					
 	// shadow
-	{
+	//{
 		float4 shadowCoord = shadowMapCoord;
     	shadowCoord.z += 0.0005f;
 
     	if (shadowCoord.w > 0.0f) {
-      		float depth = tex2Dproj(ShadowMap, shadowMapCoord).z;
-			float shadow = depth == 0 ? 0.5f : 1.0f;
-      		finalColor = finalColor * shadow;
+      		float depth = tex2Dproj(ShadowMap, shadowCoord).z;
+			float shadow = depth >= 0 ? 1.0f : 0.5f;
+      		finalColor = finalColor * depth;
     	}
- 	}
+ 	//}
 	
 	return float4(finalColor, 1);
 }

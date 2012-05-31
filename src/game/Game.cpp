@@ -30,8 +30,6 @@ void Game::mainLoop() {
   camera_.update(dt);
   
   Light light = sceneContext_.lights().front();
-  shadowRenderer_.renderToShadowMap(&light, world_, sceneContext_);
-
-  GraphicsInterface::clearBuffer(Color3(0, 0, 0));
+ // shadowRenderer_.renderToShadowMap(&light, world_, sceneContext_);
   renderer_.render(&camera_, world_, sceneContext_);
 }

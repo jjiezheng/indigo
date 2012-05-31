@@ -12,7 +12,7 @@ class World {
   
 public:
   
-  void addObject(const Model& model);
+  void addObject(Model* model);
   
   void setSkyBox(const SkyBox& skyBox);
   
@@ -20,12 +20,12 @@ public:
   
 public:
   
-  std::vector<Model>::const_iterator begin() const;
-  std::vector<Model>::const_iterator end() const;
+  std::vector<Model*>::iterator begin();
+  std::vector<Model*>::iterator end();
   
 private:
   
-  std::vector<Model> models_;
+  std::vector<Model*> models_;
   
   SkyBox skyBox_;
 };
@@ -38,15 +38,15 @@ inline void World::setSkyBox(const SkyBox &skyBox) {
   skyBox_ = skyBox;
 }
 
-inline void World::addObject(const Model& model) {
+inline void World::addObject(Model* model) {
   models_.push_back(model);
 }
 
-inline std::vector<Model>::const_iterator World::begin() const {
+inline std::vector<Model*>::iterator World::begin() {
   return models_.begin();
 }
 
-inline std::vector<Model>::const_iterator World::end() const {
+inline std::vector<Model*>::iterator World::end() {
   return models_.end();
 }
 

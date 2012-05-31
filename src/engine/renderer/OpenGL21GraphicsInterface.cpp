@@ -157,7 +157,7 @@ bool OpenGL21GraphicsInterface::getKeySate(char key) {
   return WindowsUtils::getKeyState(key);
 }
 
-unsigned int OpenGL21GraphicsInterface::createTexture(const std::string& filePath) {
+unsigned int OpenGL21GraphicsInterface::loadTexture(const std::string& filePath) {
   DDSImage image;
   image.load(filePath.c_str());
 
@@ -253,5 +253,25 @@ void OpenGL21GraphicsInterface::setShadowMap(unsigned int shadowMapId, CGparamet
 }
 
 void OpenGL21GraphicsInterface::resetGraphicsState() {
+
+}
+
+unsigned int OpenGL21GraphicsInterface::createTexture() {
+  return 0;
+}
+
+void OpenGL21GraphicsInterface::setRenderTarget(unsigned int textureId) {
+
+}
+
+unsigned int OpenGL21GraphicsInterface::createRenderTarget(unsigned int textureId) {
+  return 0;
+}
+
+void OpenGL21GraphicsInterface::clearRenderTarget(unsigned int renderTargetId, const Color3& color) {
+
+}
+
+void OpenGL21GraphicsInterface::resetRenderTarget() {
 
 }

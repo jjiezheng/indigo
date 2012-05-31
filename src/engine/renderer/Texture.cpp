@@ -5,5 +5,5 @@
 
 void Texture::init(const char* filePath) {
   std::string fullpath = Path::pathForFile(filePath);
-  textureId_ = GraphicsInterface::createTexture(fullpath.c_str());
+  textureId_ = GraphicsInterface::loadTexture(fullpath.c_str());
 }

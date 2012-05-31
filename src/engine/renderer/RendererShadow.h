@@ -5,6 +5,7 @@ class CSize;
 class World;
 class SceneContext;
 class IViewer;
+class IEffect;
 
 class RendererShadow {
   
@@ -12,11 +13,13 @@ public:
   
   void init(const CSize& screenSize);
   
-  void renderToShadowMap(IViewer* viewer, const World& world, SceneContext& sceneContext);
+  void renderToShadowMap(IViewer* viewer, World& world, SceneContext& sceneContext);
   
 private:
 
-  unsigned int shadowMap_;
+  IEffect* depthShader;
+  unsigned int shadowTexture_;
+  unsigned int renderTarget_;
 
 };
 

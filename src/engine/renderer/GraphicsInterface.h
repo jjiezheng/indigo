@@ -48,19 +48,19 @@ public:
 
   static void resetGraphicsState();
 
-public:
+  static void clearRenderTarget(unsigned int renderTargetId, const Color3& color);
 
-  static void bindShadowMap(unsigned int shadowMapId);
+  static void setRenderTarget(unsigned int textureId);
 
-  static void unBindShadowMap(unsigned int shadowMap);
+  static void resetRenderTarget();
 
-  static unsigned int createShadowMap(const CSize& shadowMapSize);
-
-  static void setShadowMap(unsigned int shadowMapId, CGparameter shadowMapSampler);
+  static unsigned int createRenderTarget(unsigned int textureId);
 
 public:
 
-  static unsigned int createTexture(const char* filePath);
+  static unsigned int loadTexture(const char* filePath);
+
+  static unsigned int createTexture();
 
   static void setTexture(int textureId, CGparameter parameter);
 

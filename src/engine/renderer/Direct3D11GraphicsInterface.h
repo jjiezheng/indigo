@@ -7,7 +7,7 @@
 #include <D3D11.h>
 #include <vector>
 
-#include "DirectXShadowMap.h"
+#include "DirectXTexture.h"
 
 class IEffect;
 
@@ -35,19 +35,19 @@ public:
 
 public:
 
-  void bindShadowMap(unsigned int shadowMapId);
+  unsigned int loadTexture(const std::string& filePath);
 
-  void unBindShadowMap(unsigned int shadowMap);
-
-  unsigned int createShadowMap(const CSize& shadowMapSize);
-
-  void setShadowMap(unsigned int shadowMapId, CGparameter shadowMapSampler);
-
-public:
-
-  unsigned int createTexture(const std::string& filePath);
+  unsigned int createTexture();
 
   void setTexture(int textureId, CGparameter parameter);
+
+  void setRenderTarget(unsigned int renderTargetId);
+
+  void resetRenderTarget();
+
+  unsigned int createRenderTarget(unsigned int textureId);
+
+  void clearRenderTarget(unsigned int renderTargetId, const Color3& color);
 
 public:
 
@@ -70,9 +70,8 @@ private:
 private:
 
   std::vector<ID3D11Buffer*> vertexBuffers_;
-  std::vector<ID3D11Resource*> textures_;
-
-  std::vector<DirectXShadowMap> shadowMaps_;
+  std::vector<DirectXTexture> textures_;
+  std::vector<ID3D11RenderTargetView*> renderTargets_;
 
 };
 

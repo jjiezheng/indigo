@@ -397,6 +397,14 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\src\engine\renderer\EffectCache.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\engine\renderer\EffectCache.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\src\engine\renderer\FloatMaterialParameter.h"
 					>
 				</File>
@@ -580,7 +588,7 @@
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\engine\renderer\DirectXShadowMap.h"
+						RelativePath="..\..\src\engine\renderer\DirectXTexture.h"
 						>
 					</File>
 				</Filter>

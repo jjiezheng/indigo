@@ -65,33 +65,34 @@ bool GraphicsInterface::getKeyState(char key) {
   return graphicsInterface_->getKeySate(key);
 }
 
-unsigned int GraphicsInterface::createShadowMap(const CSize& shadowMapSize) {
-  return graphicsInterface_->createShadowMap(shadowMapSize);
-}
-
-void GraphicsInterface::bindShadowMap(unsigned int shadowMapId) {
-  graphicsInterface_->bindShadowMap(shadowMapId);
-}
-
-void GraphicsInterface::unBindShadowMap(unsigned int shadowMap) {
-  return graphicsInterface_->unBindShadowMap(shadowMap);
-}
-
-unsigned int GraphicsInterface::createTexture(const char* filePath) {
-  return graphicsInterface_->createTexture(filePath);
+unsigned int GraphicsInterface::loadTexture(const char* filePath) {
+  return graphicsInterface_->loadTexture(filePath);
 }
 
 void GraphicsInterface::setTexture(int textureId, CGparameter parameter) {
   return graphicsInterface_->setTexture(textureId, parameter);
 }
 
-void GraphicsInterface::setShadowMap(unsigned int shadowMapId, CGparameter shadowMapSampler) {
-  graphicsInterface_->setShadowMap(shadowMapId, shadowMapSampler);
-}
-
 void GraphicsInterface::resetGraphicsState() {
   graphicsInterface_->resetGraphicsState();
 }
 
+unsigned int GraphicsInterface::createTexture() {
+  return graphicsInterface_->createTexture();
+}
 
+void GraphicsInterface::setRenderTarget(unsigned int textureId) {
+  return graphicsInterface_->setRenderTarget(textureId);
+}
 
+unsigned int GraphicsInterface::createRenderTarget(unsigned int textureId) {
+  return graphicsInterface_->createRenderTarget(textureId);
+}
+
+void GraphicsInterface::clearRenderTarget(unsigned int renderTargetId, const Color3& color) {
+  graphicsInterface_->clearRenderTarget(renderTargetId, color);
+}
+
+void GraphicsInterface::resetRenderTarget() {
+  graphicsInterface_->resetRenderTarget();
+}

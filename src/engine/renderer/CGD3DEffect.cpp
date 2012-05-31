@@ -27,7 +27,7 @@ void CGD3DEffect::beginDraw() {
   cgSetPassState(pass_);
 }
 
-void CGD3DEffect::endDraw() {
+void CGD3DEffect::resetStates() {
   cgResetPassState(pass_);
 }
 
@@ -77,10 +77,4 @@ void CGD3DEffect::setTexture(unsigned int textureId, const char* uniformName) {
   CGparameter parameter = cgGetNamedEffectParameter(effect_, uniformName);
   if (!parameter) return;
   GraphicsInterface::setTexture(textureId, parameter);
-}
-
-void CGD3DEffect::setShadowMap(unsigned int shadowMapId) {
-  CGparameter parameter = cgGetNamedEffectParameter(effect_, "ShadowMap");
-  if (!parameter) return;
-  GraphicsInterface::setShadowMap(shadowMapId, parameter);
 }

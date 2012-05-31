@@ -26,7 +26,7 @@ void CGGLEffect::beginDraw() {
   cgSetPassState(pass);
 }
 
-void CGGLEffect::endDraw() {
+void CGGLEffect::resetStates() {
   CGpass pass = cgGetFirstPass(technique_);
   cgResetPassState(pass);
 }
@@ -78,10 +78,4 @@ void CGGLEffect::setTexture(unsigned int textureId, const char* uniformName) {
   if (!parameter) return;
   cgGLSetTextureParameter(parameter, textureId);
   cgSetSamplerState(parameter);
-}
-
-void CGGLEffect::setShadowMap(unsigned int shadowMapId) {
-  CGparameter parameter = cgGetNamedEffectParameter(effect_, "ShadowMap");
-  if (!parameter) return;
-  GraphicsInterface::setShadowMap(shadowMapId, parameter);
 }

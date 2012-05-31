@@ -45,9 +45,19 @@ public:
 
 public:
 
-  unsigned int createTexture(const std::string& filePath);
+  unsigned int loadTexture(const std::string& filePath);
+
+  unsigned int createTexture();
 
   void setTexture(int textureId, CGparameter parameter);
+
+  void setRenderTarget(unsigned int textureId);
+
+  unsigned int createRenderTarget(unsigned int textureId);
+
+  void clearRenderTarget(unsigned int renderTargetId, const Color3& color);
+
+  void resetRenderTarget();
 
 public:
 
