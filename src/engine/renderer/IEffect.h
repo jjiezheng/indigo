@@ -30,6 +30,8 @@ public:
 
   virtual void resetStates() = 0;
 
+  virtual void updateParameters() = 0;
+
   virtual CGpass pass() { return pass_; };
 
 public:

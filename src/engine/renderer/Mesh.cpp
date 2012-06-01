@@ -9,9 +9,7 @@ void Mesh::init(VertexDef* vertexData, int numVertices) {
 }
 
 void Mesh::render() const {
-//  material_.bind(camera, model, normalMatrix, sceneContext, effect);
   GraphicsInterface::drawVertexBuffer(vertexBuffer_, numVertices_);
-//  material_.unbind(effect);
 }
 
 void Mesh::visit(stdext::hash_map<int, std::vector<Mesh*>>& meshes) {

@@ -35,21 +35,21 @@ void RendererShadow::renderToShadowMap(IViewer* viewer, World& world, SceneConte
     (*it)->visit(meshes);
   }
 
-  depthShader->beginDraw();
-
-  GraphicsInterface::setPass(depthShader->pass()); 
-  GraphicsInterface::resetGraphicsState();
-
   stdext::hash_map<int, std::vector<Mesh*>>::iterator i = meshes.begin();
   for (; i != meshes.end(); ++i) {
     std::vector<Mesh*> effectMeshes = (*i).second;
     for (std::vector<Mesh*>::iterator meshIt = effectMeshes.begin(); meshIt != effectMeshes.end(); ++meshIt) {
       (*meshIt)->material().bind(viewer, (*meshIt)->localToWorld(), Matrix4x4::IDENTITY.mat3x3(), sceneContext, depthShader);
+
+      depthShader->beginDraw();
+      GraphicsInterface::setPass(depthShader->pass()); 
+      GraphicsInterface::setRenderState();
       (*meshIt)->render();
+
+      depthShader->resetStates();
+
     }
   }
-
-  depthShader->resetStates();
 
   GraphicsInterface::resetRenderTarget();
   sceneContext.setShadowTexture(shadowTexture_);

@@ -79,3 +79,7 @@ void CGGLEffect::setTexture(unsigned int textureId, const char* uniformName) {
   cgGLSetTextureParameter(parameter, textureId);
   cgSetSamplerState(parameter);
 }
+
+void CGGLEffect::updateParameters() {
+
+}

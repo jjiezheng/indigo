@@ -78,3 +78,7 @@ void CGD3DEffect::setTexture(unsigned int textureId, const char* uniformName) {
   if (!parameter) return;
   GraphicsInterface::setTexture(textureId, parameter);
 }
+
+void CGD3DEffect::updateParameters() {
+  cgUpdatePassParameters(pass_);
+}

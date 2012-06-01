@@ -37,6 +37,3 @@ void Material::bind(IViewer* camera, const Matrix4x4& model, const Matrix3x3& no
     (*mit)->setEffect(effect);
   }
 }
-
-void Material::unbind(IEffect* effect) const {
-}

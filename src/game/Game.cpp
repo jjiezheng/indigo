@@ -10,6 +10,7 @@ void Game::init() {
   properties_.init();
   
   camera_.translateZ(5.0f);
+  camera_.translateX(-10);
   camera_.translateY(1.8f);
   
   shadowRenderer_.init(GraphicsInterface::screenSize()); 
@@ -30,6 +31,6 @@ void Game::mainLoop() {
   camera_.update(dt);
   
   Light light = sceneContext_.lights().front();
- // shadowRenderer_.renderToShadowMap(&light, world_, sceneContext_);
+  shadowRenderer_.renderToShadowMap(&light, world_, sceneContext_);
   renderer_.render(&camera_, world_, sceneContext_);
 }

@@ -17,6 +17,8 @@ public:
   void beginDraw();
 
   void resetStates();
+ 
+  void updateParameters();
 
 public:
 

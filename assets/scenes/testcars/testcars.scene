@@ -8,6 +8,24 @@
   },
   "objects" : [
     {
+      "mesh" : "actors/shuttle/shuttle.blend",
+      "material" : "actors/shuttle/shuttle.material",
+      "position" : {
+        "x" : 3.0,
+        "y" : 2.0,
+        "z" : -8.0
+      }
+    },
+    {
+      "mesh" : "actors/shuttle2/shuttle2.blend",
+      "material" : "actors/shuttle2/shuttle2.material",
+      "position" : {
+        "x" : -3.0,
+        "y" : 2.0,
+        "z" : -8.0
+      }
+    },
+    {
       "mesh" : "actors/floor/floor.blend",
       "material" : "actors/floor/floor.material",
       "position" : {
@@ -15,22 +33,13 @@
         "y" : 0.0,
         "z" : 0.0
       }
-    },
-    {
-      "mesh" : "actors/shuttle/shuttle.blend",
-      "material" : "actors/shuttle/shuttle.material",
-      "position" : {
-        "x" : 1.0,
-        "y" : 2.0,
-        "z" : -8.0
-      }
     }
   ],
   "lights" : [
     {
       "position" : {
         "x" : 0.0,
-        "y" : 2.0,
+        "y" : 4.0,
         "z" : 0.0
       },
       "orientation" : {

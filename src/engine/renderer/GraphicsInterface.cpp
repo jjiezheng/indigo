@@ -73,7 +73,7 @@ void GraphicsInterface::setTexture(int textureId, CGparameter parameter) {
   return graphicsInterface_->setTexture(textureId, parameter);
 }
 
-void GraphicsInterface::resetGraphicsState() {
+void GraphicsInterface::setRenderState() {
   graphicsInterface_->resetGraphicsState();
 }
 

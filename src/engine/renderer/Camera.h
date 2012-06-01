@@ -32,6 +32,8 @@ public:
 public:
   
   void translateY(float amount);
+
+  void translateX(float amount);
   
   void translateZ(float amount);
   
@@ -92,6 +94,10 @@ inline void Camera::translateY(float amount) {
 
 inline void Camera::translateZ(float amount) {
   position_.z += amount;
+}
+
+inline void Camera::translateX(float amount) {
+  position_.x += amount;
 }
 
 inline Vector4 Camera::position() const {

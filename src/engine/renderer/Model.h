@@ -17,8 +17,6 @@ public:
 
   void visit(stdext::hash_map<int, std::vector<Mesh*>>& meshes);
   
-  //void render(IViewer* camera, const SceneContext& sceneContext, IEffect* effect) const;
-  
   void addMesh(Mesh& mesh);
   
   void setMaterial(const Material& material);

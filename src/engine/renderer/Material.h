@@ -15,8 +15,6 @@ class Material {
 public:
   
   void bind(IViewer* camera, const Matrix4x4& model, const Matrix3x3& normalMatrix, const SceneContext& sceneContext, IEffect* effect) const;
-
-  void unbind(IEffect* effect) const;
   
   void setParameter(MaterialParameter* parameter);
   

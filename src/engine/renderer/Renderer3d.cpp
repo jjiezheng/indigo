@@ -29,17 +29,15 @@ void Renderer3d::render(IViewer* viewer, World& world, const SceneContext& scene
     unsigned int effectId = (*i).first;
     IEffect* effect = EffectCache::instance()->getEffect(effectId);
 
-    effect->beginDraw();
-
-    GraphicsInterface::setPass(effect->pass()); 
-    GraphicsInterface::resetGraphicsState();
-
     std::vector<Mesh*> effectMeshes = (*i).second;
     for (std::vector<Mesh*>::iterator meshIt = effectMeshes.begin(); meshIt != effectMeshes.end(); ++meshIt) {
       (*meshIt)->material().bind(viewer, (*meshIt)->localToWorld(), Matrix4x4::IDENTITY.mat3x3(), sceneContext, effect);
-      (*meshIt)->render();
-    }
 
-    effect->resetStates();
+      effect->beginDraw();
+      GraphicsInterface::setPass(effect->pass()); 
+      GraphicsInterface::setRenderState();
+      (*meshIt)->render();
+      effect->resetStates();
+    }
   }
 }

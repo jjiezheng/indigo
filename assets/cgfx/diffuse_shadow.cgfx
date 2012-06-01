@@ -55,11 +55,11 @@ float4 ps(float3 normal			: TEXCOORD0,
 		float4 shadowCoord = shadowMapCoord;
     	shadowCoord.z += 0.0005f;
 
-    	if (shadowCoord.w > 0.0f) {
-      		float depth = tex2Dproj(ShadowMap, shadowCoord).z;
-			float shadow = depth >= 0 ? 1.0f : 0.5f;
+    	//if (shadowCoord.w > 0.0f) {
+      		float depth = tex2Dproj(ShadowMap, shadowMapCoord).z;
+			//float shadow = depth >= 0 ? 1.0f : 0.5f;
       		finalColor = finalColor * depth;
-    	}
+    	//}
  	//}
 	
 	return float4(finalColor, 1);

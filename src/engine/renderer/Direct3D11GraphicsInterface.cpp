@@ -216,38 +216,19 @@ unsigned int Direct3D11GraphicsInterface::loadTexture(const std::string& filePat
   HRESULT result;
   D3DX11GetImageInfoFromFile(filePath.c_str(), NULL, &fileInfo, &result); 
 
-  D3DX11_IMAGE_LOAD_INFO loadInfo;
-  ZeroMemory(&loadInfo, sizeof(D3DX11_IMAGE_LOAD_INFO));
-  loadInfo.Width          = fileInfo.Width;
-  loadInfo.Height         = fileInfo.Height;
-  loadInfo.FirstMipLevel  = 0;
-  loadInfo.MipLevels      = fileInfo.MipLevels;
-  loadInfo.Usage          = D3D11_USAGE_DEFAULT;
-  loadInfo.BindFlags      = D3D11_BIND_SHADER_RESOURCE;
-  loadInfo.CpuAccessFlags = 0;
-  loadInfo.MiscFlags      = 0;
-  loadInfo.Format         = fileInfo.Format;    
-  loadInfo.Filter         = D3DX11_FILTER_NONE;
-  loadInfo.MipFilter      = D3DX11_FILTER_NONE;
-  loadInfo.pSrcInfo       = &fileInfo;
-
   ID3D11Resource* textureResource;
-  D3DX11CreateTextureFromFile(device_, filePath.c_str(), &loadInfo, NULL, &textureResource, &result);
+  D3DX11CreateTextureFromFile(device_, filePath.c_str(), NULL, NULL, &textureResource, &result);
   assert(result == S_OK);
 
   D3D11_SHADER_RESOURCE_VIEW_DESC resourceViewDesc;
   ZeroMemory(&resourceViewDesc, sizeof(D3D11_SHADER_RESOURCE_VIEW_DESC));
 
   resourceViewDesc.Format = DXGI_FORMAT_R32_FLOAT;
-  resourceViewDesc.ViewDimension = D3D10_SRV_DIMENSION_TEXTURE2D;
-  resourceViewDesc.Texture2D.MipLevels = loadInfo.MipLevels;
-  resourceViewDesc.Texture2D.MostDetailedMip = 0;
-
-  ID3D11ShaderResourceView* textureResourceView;
-  result = device_->CreateShaderResourceView(textureResource, &resourceViewDesc, &textureResourceView);
+  resourceViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+  resourceViewDesc.Texture2D.MipLevels = fileInfo.MipLevels;
+  resourceViewDesc.Texture2D.MostDetailedMip = fileInfo.MipLevels - 1;
 
   DirectXTexture texture;
-  texture.resourceView = textureResourceView;
   texture.textureData = textureResource;
   textures_.push_back(texture);
 
@@ -269,50 +250,41 @@ void Direct3D11GraphicsInterface::resetGraphicsState() {
 }
 
 unsigned int Direct3D11GraphicsInterface::createTexture() {
-  D3D11_TEXTURE2D_DESC shadowTextureDesc;
-  ZeroMemory(&shadowTextureDesc, sizeof(D3D11_TEXTURE2D_DESC));
+  D3D11_TEXTURE2D_DESC textureDesc;
+  ZeroMemory(&textureDesc, sizeof(D3D11_TEXTURE2D_DESC));
 
-  shadowTextureDesc.Width = screenSize_.width;
-  shadowTextureDesc.Height = screenSize_.height;
-  shadowTextureDesc.MipLevels = 1;
-  shadowTextureDesc.ArraySize = 1;
-  shadowTextureDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-  shadowTextureDesc.SampleDesc.Count = 1;
-  shadowTextureDesc.SampleDesc.Quality = 0;
-  shadowTextureDesc.Usage = D3D11_USAGE_DEFAULT;
-  shadowTextureDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET;
-  shadowTextureDesc.CPUAccessFlags = 0;
-  shadowTextureDesc.MiscFlags = 0;
+  textureDesc.Width = screenSize_.width;
+  textureDesc.Height = screenSize_.height;
+  textureDesc.MipLevels = 1;
+  textureDesc.ArraySize = 1;
+  textureDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+  textureDesc.SampleDesc.Count = 1;
+  textureDesc.SampleDesc.Quality = 0;
+  textureDesc.Usage = D3D11_USAGE_DEFAULT;
+  textureDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET;
+  textureDesc.CPUAccessFlags = 0;
+  textureDesc.MiscFlags = 0;
 
   HRESULT result;
 
-  ID3D11Texture2D* shadowMapTexture;
-  result = device_->CreateTexture2D(&shadowTextureDesc, NULL, &shadowMapTexture);
+  ID3D11Texture2D* texture;
+  result = device_->CreateTexture2D(&textureDesc, NULL, &texture);
 
   D3D11_SHADER_RESOURCE_VIEW_DESC resourceViewDesc;
   ZeroMemory(&resourceViewDesc, sizeof(D3D11_SHADER_RESOURCE_VIEW_DESC));
 
-  resourceViewDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-  resourceViewDesc.ViewDimension = D3D10_SRV_DIMENSION_TEXTURE2D;
-  resourceViewDesc.Texture2D.MipLevels = shadowTextureDesc.MipLevels;
-  resourceViewDesc.Texture2D.MostDetailedMip = 0;
-
-  ID3D11ShaderResourceView* textureResourceView;
-  result = device_->CreateShaderResourceView(shadowMapTexture, &resourceViewDesc, &textureResourceView);
-
   unsigned int textureId = textures_.size();
 
-  DirectXTexture texture;
-  texture.resourceView = textureResourceView;
-  texture.textureData = shadowMapTexture;
-  textures_.push_back(texture);
+  DirectXTexture textureContainer;
+  textureContainer.textureData = texture;
+  textures_.push_back(textureContainer);
 
   return textureId;
 }
 
 void Direct3D11GraphicsInterface::setRenderTarget(unsigned int renderTargetId) {
   ID3D11RenderTargetView* renderTarget = renderTargets_[renderTargetId];
-  deviceConnection_->OMSetRenderTargets(1, &renderTarget, 0);
+  deviceConnection_->OMSetRenderTargets(1, &renderTarget, depthBuffer_);
 }
 
 unsigned int Direct3D11GraphicsInterface::createRenderTarget(unsigned int textureId) {
@@ -327,6 +299,7 @@ unsigned int Direct3D11GraphicsInterface::createRenderTarget(unsigned int textur
 void Direct3D11GraphicsInterface::clearRenderTarget(unsigned int renderTargetId, const Color3& color) {
   D3DXCOLOR clearColor(color.r, color.g, color.b, 1.0f);
   ID3D11RenderTargetView* renderTarget = renderTargets_[renderTargetId];
+  deviceConnection_->ClearDepthStencilView(depthBuffer_, D3D11_CLEAR_DEPTH, 1.0f, 0);
   deviceConnection_->ClearRenderTargetView(renderTarget, clearColor);
 }
 
