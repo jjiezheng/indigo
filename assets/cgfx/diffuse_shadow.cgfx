@@ -9,8 +9,6 @@ uniform float4x4 WorldViewProj : ModelViewProjection;
 uniform float4x4 NormalMatrix;
 
 sampler2D ShadowMap = sampler_state {
-	MinFilter = Linear;
-	MagFilter = Linear;
 	WrapS = ClampToBorder;
 	WrapT = ClampToBorder;
 	CompareMode = CompareRToTexture;

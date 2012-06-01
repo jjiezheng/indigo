@@ -244,7 +244,6 @@ void Direct3D11GraphicsInterface::setTexture(int textureId, CGparameter paramete
   cgSetSamplerState(parameter);
 }
 
-
 void Direct3D11GraphicsInterface::resetGraphicsState() {
   deviceConnection_->RSSetState(rasterState_);
 }
@@ -258,7 +257,7 @@ unsigned int Direct3D11GraphicsInterface::createTexture() {
   textureDesc.MipLevels = 1;
   textureDesc.ArraySize = 1;
   textureDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-  textureDesc.SampleDesc.Count = 1;
+  textureDesc.SampleDesc.Count = kMultiSamples;
   textureDesc.SampleDesc.Quality = 0;
   textureDesc.Usage = D3D11_USAGE_DEFAULT;
   textureDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET;
@@ -270,15 +269,10 @@ unsigned int Direct3D11GraphicsInterface::createTexture() {
   ID3D11Texture2D* texture;
   result = device_->CreateTexture2D(&textureDesc, NULL, &texture);
 
-  D3D11_SHADER_RESOURCE_VIEW_DESC resourceViewDesc;
-  ZeroMemory(&resourceViewDesc, sizeof(D3D11_SHADER_RESOURCE_VIEW_DESC));
-
   unsigned int textureId = textures_.size();
-
   DirectXTexture textureContainer;
   textureContainer.textureData = texture;
   textures_.push_back(textureContainer);
-
   return textureId;
 }
 
@@ -299,8 +293,8 @@ unsigned int Direct3D11GraphicsInterface::createRenderTarget(unsigned int textur
 void Direct3D11GraphicsInterface::clearRenderTarget(unsigned int renderTargetId, const Color3& color) {
   D3DXCOLOR clearColor(color.r, color.g, color.b, 1.0f);
   ID3D11RenderTargetView* renderTarget = renderTargets_[renderTargetId];
-  deviceConnection_->ClearDepthStencilView(depthBuffer_, D3D11_CLEAR_DEPTH, 1.0f, 0);
   deviceConnection_->ClearRenderTargetView(renderTarget, clearColor);
+  deviceConnection_->ClearDepthStencilView(depthBuffer_, D3D11_CLEAR_DEPTH, 1.0f, 0);
 }
 
 void Direct3D11GraphicsInterface::resetRenderTarget() {
