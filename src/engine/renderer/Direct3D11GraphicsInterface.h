@@ -41,6 +41,8 @@ public:
 
   void setTexture(int textureId, CGparameter parameter);
 
+public:
+
   void setRenderTarget(unsigned int renderTargetId);
 
   void resetRenderTarget();

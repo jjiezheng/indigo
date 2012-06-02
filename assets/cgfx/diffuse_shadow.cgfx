@@ -34,6 +34,11 @@ VOutput vs(float4 position 		: POSITION,
  	return OUT;
 }
 
+VOutput vsgl(float4 position 		: ATTR0,
+		   	 float4 normal 			: ATTR2) {
+	return vs(position, normal);
+}
+
 float4 ps(float3 normal			: TEXCOORD0,
 		  float3 vPosition		: TEXCOORD1,
 		  float4 shadowMapCoord : TEXCOORD2) : COLOR {
@@ -78,16 +83,16 @@ float4 ps(float3 normal			: TEXCOORD0,
 	return float4(finalColor, 1);
 }
 
-technique latest {
-	pass {
-		VertexProgram = compile latest vs();
-		FragmentProgram = compile latest ps();
-	}
-}
-
 technique dx {
 	pass {
 		VertexProgram = compile vs_4_0 vs();
 		FragmentProgram = compile ps_4_0 ps();
+	}
+}
+
+technique latest {
+	pass {
+		VertexProgram = compile latest vs();
+		FragmentProgram = compile latest ps();
 	}
 }

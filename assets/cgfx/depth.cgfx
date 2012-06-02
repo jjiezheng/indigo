@@ -12,20 +12,24 @@ VOutput vs(float4 position : POSITION) {
         return OUT;
 }
 
+VOutput vsgl(float4 position : ATTR0) {
+  return vs(position);
+}
+
 float4 ps(float depth : TEXCOORD0) : COLOR {
    return float4(depth, depth, depth, 1.0f);
 }
 
-technique latest {
+technique dx {
   pass {
-    VertexProgram = compile latest vs();
-    FragmentProgram = compile latest ps();
+    VertexProgram = compile vs_4_0 vs();
+    FragmentProgram = compile ps_4_0 ps();
   }
 }
 
-technique dx {
-	pass {
-    VertexProgram = compile vs_4_0 vs();
-		FragmentProgram = compile ps_4_0 ps();
-	}
+technique latest {
+  pass {
+    VertexProgram = compile latest vsgl();
+    FragmentProgram = compile latest ps();
+  }
 }

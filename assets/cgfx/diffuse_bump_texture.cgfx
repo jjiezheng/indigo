@@ -67,17 +67,17 @@ float4 ps(float2 texCoord			: TEXCOORD0,
 					
 	return float4(finalColor, 1.0f);
 }
-	
-technique latest {
-	pass {
-		VertexProgram = compile latest vsgl();
-		FragmentProgram = compile latest ps();
-	}
-}
 
 technique dx {
 	pass {
 		VertexProgram = compile vs_4_0 vs();
 		FragmentProgram = compile ps_4_0 ps();
+	}
+}
+	
+technique latest {
+	pass {
+		VertexProgram = compile latest vsgl();
+		FragmentProgram = compile latest ps();
 	}
 }
