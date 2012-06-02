@@ -43,7 +43,7 @@ void RendererShadow::renderToShadowMap(IViewer* viewer, World& world, SceneConte
 
       depthShader->beginDraw();
       GraphicsInterface::setPass(depthShader->pass()); 
-      GraphicsInterface::setRenderState();
+      GraphicsInterface::setRenderState(false);
       (*meshIt)->render();
 
       depthShader->resetStates();

@@ -31,7 +31,7 @@ public:
 
   IEffect* createEffect();
 
-  void resetGraphicsState();
+  void resetGraphicsState(bool cullBack);
 
 public:
 

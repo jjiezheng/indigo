@@ -252,7 +252,7 @@ void OpenGL21GraphicsInterface::setShadowMap(unsigned int shadowMapId, CGparamet
   cgSetSamplerState(shadowMapSampler);
 }
 
-void OpenGL21GraphicsInterface::resetGraphicsState() {
+void OpenGL21GraphicsInterface::resetGraphicsState(bool cullBack) {
 
 }
 

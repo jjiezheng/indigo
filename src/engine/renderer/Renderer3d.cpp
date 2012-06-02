@@ -35,7 +35,7 @@ void Renderer3d::render(IViewer* viewer, World& world, const SceneContext& scene
 
       effect->beginDraw();
       GraphicsInterface::setPass(effect->pass()); 
-      GraphicsInterface::setRenderState();
+      GraphicsInterface::setRenderState(true);
       (*meshIt)->render();
       effect->resetStates();
     }

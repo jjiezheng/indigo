@@ -46,7 +46,7 @@ public:
 
   static void setPass(CGpass pass);
 
-  static void setRenderState();
+  static void setRenderState(bool cullBack);
 
   static void clearRenderTarget(unsigned int renderTargetId, const Color3& color);
 

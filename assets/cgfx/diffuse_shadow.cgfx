@@ -9,10 +9,10 @@ uniform float4x4 WorldViewProj : ModelViewProjection;
 uniform float4x4 NormalMatrix;
 
 sampler2D ShadowMap = sampler_state {
-	WrapS = ClampToBorder;
-	WrapT = ClampToBorder;
+	AddressU = ClampToBorder;
+	AddressV = ClampToBorder;
+	AddressW = ClampToBorder;
 	CompareMode = CompareRToTexture;
-	CompareFunc = LEqual;
 	BorderColor = float4(1, 1, 1, 1);
 };
 
@@ -49,16 +49,17 @@ float4 ps(float3 normal			: TEXCOORD0,
 	}
 					
 	// shadow
-	//{
-		float4 shadowCoord = shadowMapCoord;
+	{
+		float3 shadowCoord = shadowMapCoord.xyz / shadowMapCoord.w;
     	shadowCoord.z += 0.0005f;
 
-    	//if (shadowCoord.w > 0.0f) {
-      		float depth = tex2Dproj(ShadowMap, shadowMapCoord).z;
-			//float shadow = depth >= 0 ? 1.0f : 0.5f;
+    	float2 shadowMapUV = float2(shadowCoord.x, 1.0f - shadowCoord.y);
+
+    	if (shadowMapUV.y > 0.0f && shadowMapUV.y < 1.0f) {
+      		float depth = tex2D(ShadowMap, shadowMapUV);
       		finalColor = finalColor * depth;
-    	//}
- 	//}
+    	}
+ 	}
 	
 	return float4(finalColor, 1);
 }

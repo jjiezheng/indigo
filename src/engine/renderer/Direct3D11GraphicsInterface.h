@@ -31,7 +31,7 @@ public:
 
   void setPass(CGpass pass);
 
-  void resetGraphicsState();
+  void resetGraphicsState(bool cullBack);
 
 public:
 
@@ -65,7 +65,6 @@ private:
   ID3D11DeviceContext *deviceConnection_;
   ID3D11RenderTargetView* backBuffer_;
   ID3D11DepthStencilView* depthBuffer_;
-  ID3D11RasterizerState* rasterState_;
 
 private:
 

@@ -21,7 +21,7 @@
 
 #include <comdef.h>
 
-static const int kMultiSamples = 4;
+static const int kMultiSamples = 1;
 
 void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, int height) {
   // swap chain
@@ -111,26 +111,6 @@ void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, in
   }
 
   CGD3DEffect::initCG(device_);
-
-  // raster stage config (triangle winding)
-  {
-    D3D11_RASTERIZER_DESC rasterDesc;
-    ZeroMemory(&rasterDesc, sizeof(D3D11_RASTERIZER_DESC));
-
-	  rasterDesc.AntialiasedLineEnable = false;
-	  rasterDesc.CullMode = D3D11_CULL_BACK;
-	  rasterDesc.DepthBias = 0;
-	  rasterDesc.DepthBiasClamp = 0.0f;
-	  rasterDesc.DepthClipEnable = true;
-	  rasterDesc.FillMode = D3D11_FILL_SOLID;
-	  rasterDesc.FrontCounterClockwise = true;
-	  rasterDesc.MultisampleEnable = false;
-	  rasterDesc.ScissorEnable = false;
-	  rasterDesc.SlopeScaledDepthBias = 0.0f;
-
-	  HRESULT result = device_->CreateRasterizerState(&rasterDesc, &rasterState_);
-    assert(result == S_OK);
-  }
 }
 
 void Direct3D11GraphicsInterface::openWindow(int width, int height) {
@@ -240,12 +220,50 @@ unsigned int Direct3D11GraphicsInterface::loadTexture(const std::string& filePat
 void Direct3D11GraphicsInterface::setTexture(int textureId, CGparameter parameter) {
   DirectXTexture texutre = textures_[textureId];
   ID3D11Resource* textureResource = texutre.textureData;
+  //cgD3D11SetTextureParameter(parameter, textureResource);
+  //
+
+  /*D3D11_SAMPLER_DESC samplerDesc;
+  ZeroMemory(&samplerDesc, sizeof(D3D11_SAMPLER_DESC));
+
+  samplerDesc.ComparisonFunc = D3D11_COMPARISON_LESS;
+  samplerDesc.Filter = D3D11_FILTER_COMPARISON_MIN_LINEAR_MAG_MIP_POINT;
+  samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_BORDER;
+  samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_BORDER;
+  samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_BORDER;
+  samplerDesc.ComparisonFunc = D3D11_COMPARISON_LESS;
+
+  ID3D11SamplerState* samplerState;
+  HRESULT result = device_->CreateSamplerState(&samplerDesc, &samplerState);
+  assert(result == S_OK);
+
+  cgD3D11SetSamplerStateParameter(parameter, samplerState);*/
   cgD3D11SetTextureParameter(parameter, textureResource);
   cgSetSamplerState(parameter);
+
 }
 
-void Direct3D11GraphicsInterface::resetGraphicsState() {
-  deviceConnection_->RSSetState(rasterState_);
+void Direct3D11GraphicsInterface::resetGraphicsState(bool cullBack) {
+
+  D3D11_RASTERIZER_DESC rasterDesc;
+  ZeroMemory(&rasterDesc, sizeof(D3D11_RASTERIZER_DESC));
+
+  rasterDesc.AntialiasedLineEnable = false;
+  rasterDesc.CullMode = cullBack ? D3D11_CULL_BACK : D3D11_CULL_FRONT;
+  rasterDesc.DepthBias = 0;
+  rasterDesc.DepthBiasClamp = 0.0f;
+  rasterDesc.DepthClipEnable = true;
+  rasterDesc.FillMode = D3D11_FILL_SOLID;
+  rasterDesc.FrontCounterClockwise = true;
+  rasterDesc.MultisampleEnable = false;
+  rasterDesc.ScissorEnable = false;
+  rasterDesc.SlopeScaledDepthBias = 0.0f;
+
+  ID3D11RasterizerState* rasterState;
+  HRESULT result = device_->CreateRasterizerState(&rasterDesc, &rasterState);
+  assert(result == S_OK);
+
+  deviceConnection_->RSSetState(rasterState);
 }
 
 unsigned int Direct3D11GraphicsInterface::createTexture() {
@@ -256,7 +274,7 @@ unsigned int Direct3D11GraphicsInterface::createTexture() {
   textureDesc.Height = screenSize_.height;
   textureDesc.MipLevels = 1;
   textureDesc.ArraySize = 1;
-  textureDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+  textureDesc.Format = DXGI_FORMAT_R32_FLOAT;
   textureDesc.SampleDesc.Count = kMultiSamples;
   textureDesc.SampleDesc.Quality = 0;
   textureDesc.Usage = D3D11_USAGE_DEFAULT;
@@ -264,10 +282,9 @@ unsigned int Direct3D11GraphicsInterface::createTexture() {
   textureDesc.CPUAccessFlags = 0;
   textureDesc.MiscFlags = 0;
 
-  HRESULT result;
-
   ID3D11Texture2D* texture;
-  result = device_->CreateTexture2D(&textureDesc, NULL, &texture);
+  HRESULT result = device_->CreateTexture2D(&textureDesc, NULL, &texture);
+  assert(result == S_OK);
 
   unsigned int textureId = textures_.size();
   DirectXTexture textureContainer;

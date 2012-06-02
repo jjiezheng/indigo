@@ -47,7 +47,7 @@ public:
 
   virtual IEffect* createEffect() = 0;
 
-  virtual void resetGraphicsState() = 0;
+  virtual void resetGraphicsState(bool cullBack) = 0;
 
 public:
 

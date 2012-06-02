@@ -73,8 +73,8 @@ void GraphicsInterface::setTexture(int textureId, CGparameter parameter) {
   return graphicsInterface_->setTexture(textureId, parameter);
 }
 
-void GraphicsInterface::setRenderState() {
-  graphicsInterface_->resetGraphicsState();
+void GraphicsInterface::setRenderState(bool cullBack) {
+  graphicsInterface_->resetGraphicsState(cullBack);
 }
 
 unsigned int GraphicsInterface::createTexture() {
