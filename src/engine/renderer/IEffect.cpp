@@ -9,7 +9,8 @@ CGcontext IEffect::context_ = 0;
 void IEffect::load(const std::string& filePath) {
   cgSetErrorHandler(&IEffect::handleError, NULL);
 
-  effect_ = cgCreateEffectFromFile(context_, filePath.c_str(), NULL);
+  const char* args[] = {"-DDIRECTX=1", 0};
+  effect_ = cgCreateEffectFromFile(context_, filePath.c_str(), args);
   LOG(LOG_CHANNEL_SHADER, "opening cgfx file %s", filePath.c_str());
 
   if (!effect_) {
