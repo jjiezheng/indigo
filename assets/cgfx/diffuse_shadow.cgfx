@@ -13,6 +13,7 @@ sampler2D ShadowMap = sampler_state {
 	AddressV = ClampToBorder;
 	AddressW = ClampToBorder;
 	CompareMode = CompareRToTexture;
+	CompareFunc = LEqual;
 	BorderColor = float4(1, 1, 1, 1);
 };
 
@@ -61,11 +62,27 @@ float4 ps(float3 normal			: TEXCOORD0,
 #endif
 
  #ifdef OPENGL
-
+    	float depth = tex2Dproj(ShadowMap, shadowMapCoord);
+      	//finalColor = finalColor * depth;
+      	finalColor = finalColor * depth;
+    	/*float3 shadowCoord = shadowMapCoord.xyz / shadowMapCoord.w;
+    	shadowCoord.z += 0.0005f;
+    	float2 shadowMapUV = shadowCoord.xy;
+    	if (shadowMapUV.y > 0.0f && shadowMapUV.y < 1.0f) {
+      		float depth = tex2D(ShadowMap, shadowMapUV.xy);
+      		finalColor = finalColor * depth;
+    	}*/
  #endif
  	}
 	
 	return float4(finalColor, 1);
+}
+
+technique latest {
+	pass {
+		VertexProgram = compile latest vs();
+		FragmentProgram = compile latest ps();
+	}
 }
 
 technique dx {

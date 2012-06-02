@@ -41,14 +41,19 @@ VOutput vs(float4 position 		: POSITION,
  	return OUT;
 }
 
+VOutput vsgl( float4 position 		: ATTR0,
+		   	  float4 normal 		: ATTR2,
+		   	  float2 texCoord 		: ATTR8) {
+	return vs(position, normal, texCoord);
+}
+
 float4 ps(float2 texCoord			: TEXCOORD0,
 		  float3 vPosition			: TEXCOORD1,
 		  float3 normal 			: TEXCOORD2) : COLOR {
 	
 	float3 finalColor = float3(0, 0, 0);
 
-	float3 diffuseColor = tex2D(ColorMap, texCoord).rgb;
-					
+	float3 diffuseColor = tex2D(ColorMap, texCoord).rgb;					
 	normal += expand(tex2D(NormalMap, texCoord).rgb);
 					
 	// diffuse + ambient
@@ -63,8 +68,12 @@ float4 ps(float2 texCoord			: TEXCOORD0,
 	return float4(finalColor, 1.0f);
 }
 	
-
-
+technique latest {
+	pass {
+		VertexProgram = compile latest vsgl();
+		FragmentProgram = compile latest ps();
+	}
+}
 
 technique dx {
 	pass {

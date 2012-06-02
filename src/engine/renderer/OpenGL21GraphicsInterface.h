@@ -5,6 +5,7 @@
 
 #include <windows.h>
 
+#include "OpenGLRenderTarget.h"
 #include "OpenGLShadowMap.h"
 
 #include <vector>
@@ -35,19 +36,9 @@ public:
 
 public:
 
-  void bindShadowMap(unsigned int shadowMapId);
-
-  void unBindShadowMap(unsigned int shadowMap);
-
-  unsigned int createShadowMap(const CSize& shadowMapSize);
-
-  void setShadowMap(unsigned int shadowMapId, CGparameter shadowMapSampler);
-
-public:
-
   unsigned int loadTexture(const std::string& filePath);
 
-  unsigned int createTexture();
+  unsigned int createTexture(const CSize& dimensions);
 
   void setTexture(int textureId, CGparameter parameter);
 
@@ -73,6 +64,7 @@ private:
   HDC deviceContext_;
 
   std::vector<OpenGLShadowMap> shadowMaps_;
+  std::vector<OpenGLRenderTarget> renderTargets_;
 
 };
 

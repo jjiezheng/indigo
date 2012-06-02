@@ -220,27 +220,8 @@ unsigned int Direct3D11GraphicsInterface::loadTexture(const std::string& filePat
 void Direct3D11GraphicsInterface::setTexture(int textureId, CGparameter parameter) {
   DirectXTexture texutre = textures_[textureId];
   ID3D11Resource* textureResource = texutre.textureData;
-  //cgD3D11SetTextureParameter(parameter, textureResource);
-  //
-
-  /*D3D11_SAMPLER_DESC samplerDesc;
-  ZeroMemory(&samplerDesc, sizeof(D3D11_SAMPLER_DESC));
-
-  samplerDesc.ComparisonFunc = D3D11_COMPARISON_LESS;
-  samplerDesc.Filter = D3D11_FILTER_COMPARISON_MIN_LINEAR_MAG_MIP_POINT;
-  samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_BORDER;
-  samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_BORDER;
-  samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_BORDER;
-  samplerDesc.ComparisonFunc = D3D11_COMPARISON_LESS;
-
-  ID3D11SamplerState* samplerState;
-  HRESULT result = device_->CreateSamplerState(&samplerDesc, &samplerState);
-  assert(result == S_OK);
-
-  cgD3D11SetSamplerStateParameter(parameter, samplerState);*/
   cgD3D11SetTextureParameter(parameter, textureResource);
   cgSetSamplerState(parameter);
-
 }
 
 void Direct3D11GraphicsInterface::resetGraphicsState(bool cullBack) {
@@ -266,12 +247,12 @@ void Direct3D11GraphicsInterface::resetGraphicsState(bool cullBack) {
   deviceConnection_->RSSetState(rasterState);
 }
 
-unsigned int Direct3D11GraphicsInterface::createTexture() {
+unsigned int Direct3D11GraphicsInterface::createTexture(const CSize& dimensions) {
   D3D11_TEXTURE2D_DESC textureDesc;
   ZeroMemory(&textureDesc, sizeof(D3D11_TEXTURE2D_DESC));
 
-  textureDesc.Width = screenSize_.width;
-  textureDesc.Height = screenSize_.height;
+  textureDesc.Width = dimensions.width;
+  textureDesc.Height = dimensions.height;
   textureDesc.MipLevels = 1;
   textureDesc.ArraySize = 1;
   textureDesc.Format = DXGI_FORMAT_R32_FLOAT;

@@ -60,7 +60,7 @@ public:
 
   static unsigned int loadTexture(const char* filePath);
 
-  static unsigned int createTexture();
+  static unsigned int createTexture(const CSize& dimensions);
 
   static void setTexture(int textureId, CGparameter parameter);
 

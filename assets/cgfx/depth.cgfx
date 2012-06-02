@@ -16,6 +16,13 @@ float4 ps(float depth : TEXCOORD0) : COLOR {
    return float4(depth, depth, depth, 1.0f);
 }
 
+technique latest {
+  pass {
+    VertexProgram = compile latest vs();
+    FragmentProgram = compile latest ps();
+  }
+}
+
 technique dx {
 	pass {
     VertexProgram = compile vs_4_0 vs();

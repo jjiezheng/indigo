@@ -81,8 +81,7 @@ void CGGLEffect::setUniform(float uniformData, const char* uniformName) const {
 void CGGLEffect::setTexture(unsigned int textureId, const char* uniformName) {
   CGparameter parameter = cgGetNamedEffectParameter(effect_, uniformName);
   if (!parameter) return;
-  cgGLSetTextureParameter(parameter, textureId);
-  cgSetSamplerState(parameter);
+  GraphicsInterface::setTexture(textureId, parameter);
 }
 
 void CGGLEffect::updateParameters() {

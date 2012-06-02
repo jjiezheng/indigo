@@ -53,7 +53,7 @@ public:
 
   virtual unsigned int loadTexture(const std::string& filePath) = 0;
 
-  virtual unsigned int createTexture() = 0;
+  virtual unsigned int createTexture(const CSize& dimensions) = 0;
 
   virtual void setTexture(int textureId, CGparameter parameter) = 0;
 

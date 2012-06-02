@@ -6,6 +6,8 @@
 #include "VertexDefinition.h"
 
 #include "OpenGL.h"
+#include "OpenGLRenderTarget.h"
+#include "GLUtilities.h"
 #include "ShaderSemantics.h"
 
 #include <windows.h>
@@ -13,8 +15,6 @@
 
 #include <Cg/cg.h>
 #include <Cg/cgGL.h>
-
-#include "OpenGL.h"
 
 #include "io/DDSImage.h"
 
@@ -184,94 +184,81 @@ unsigned int OpenGL21GraphicsInterface::loadTexture(const std::string& filePath)
   return textureId;
 }
 
-unsigned int OpenGL21GraphicsInterface::createShadowMap(const CSize& shadowMapSize) {
-  GLuint frameBuffer;
+void OpenGL21GraphicsInterface::setTexture(int textureId, CGparameter parameter) {
+  cgGLSetTextureParameter(parameter, textureId);
+  cgSetSamplerState(parameter);
+}
+
+void OpenGL21GraphicsInterface::resetGraphicsState(bool cullBack) {
+  glEnable(GL_DEPTH_TEST);
+  glEnable(GL_CULL_FACE);
+
+  glPolygonOffset(2.5f, 10.0f);
+  glEnable(GL_POLYGON_OFFSET_FILL);
+ 
+  int faceToCull = cullBack ? GL_BACK : GL_FRONT;
+  glCullFace(faceToCull);
+}
+
+unsigned int OpenGL21GraphicsInterface::createTexture(const CSize& dimensions) {
+  GLuint texture;
+  glGenTextures(1, &texture);
+  glBindTexture(GL_TEXTURE_2D, texture);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, dimensions.width, dimensions.height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+  glBindTexture(GL_TEXTURE_2D, 0);
+  return texture;
+}
+
+void OpenGL21GraphicsInterface::setRenderTarget(unsigned int renderBuffer) {
+  OpenGLRenderTarget renderTarget = renderTargets_[renderBuffer];
+  glBindFramebuffer(GL_RENDERBUFFER, renderTarget.renderBuffer);
+  glBindFramebuffer(GL_FRAMEBUFFER, renderTarget.frameBuffer);
+}
+
+unsigned int OpenGL21GraphicsInterface::createRenderTarget(unsigned int textureId) {
+  GLuint frameBuffer = 0;
   glGenFramebuffers(1, &frameBuffer);
   glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
 
   glReadBuffer(GL_NONE);
   glDrawBuffer(GL_NONE);
 
-  GLuint renderBuffer;
+  GLuint renderBuffer = 0;
   glGenRenderbuffers(1, &renderBuffer);
+  GLUtilities::checkForError();
+
   glBindRenderbuffer(GL_RENDERBUFFER, renderBuffer);
-  glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, shadowMapSize.width, shadowMapSize.height);
-  
+  GLUtilities::checkForError();
+
+  glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, screenSize_.width, screenSize_.height);
+  GLUtilities::checkForError();
+
   glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, renderBuffer);
+  GLUtilities::checkForError();
 
-  GLuint shadowTexture;
-  glGenTextures(1, &shadowTexture);
-  glGenTextures(1, &shadowTexture);
-  glBindTexture(GL_TEXTURE_2D, shadowTexture);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, shadowMapSize.width, shadowMapSize.height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+  glBindTexture(GL_TEXTURE_2D, textureId);
+  glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, frameBuffer, 0);
+  GLUtilities::checkForError();
 
-  glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, shadowTexture, 0);
-
+  glBindFramebuffer(GL_RENDERBUFFER, 0);
   glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-  OpenGLShadowMap shadowMap(shadowTexture, frameBuffer, renderBuffer);
-  int shadowMapId = shadowMaps_.size();
-  shadowMaps_.push_back(shadowMap);
-
-  return shadowMapId;
-}
-
-void OpenGL21GraphicsInterface::bindShadowMap(unsigned int shadowMapId) {
-  OpenGLShadowMap shadowMap = shadowMaps_[shadowMapId];
-  glBindRenderbuffer(GL_RENDERBUFFER, shadowMap.renderBufferId);
-  glBindFramebuffer(GL_FRAMEBUFFER, shadowMap.frameBufferId);
-  
-  glEnable(GL_DEPTH_TEST);
-  glEnable(GL_CULL_FACE);
-
-  //glPolygonOffset(2.5f, 10.0f);
-  glEnable(GL_POLYGON_OFFSET_FILL);
-  
-  glClear(GL_DEPTH_BUFFER_BIT);  
-  glCullFace(GL_FRONT);
-}
-
-void OpenGL21GraphicsInterface::unBindShadowMap(unsigned int shadowMap) {
-  glDisable(GL_POLYGON_OFFSET_FILL);
-  glCullFace(GL_BACK);
-  
-  glBindFramebuffer(GL_FRAMEBUFFER, 0); 
-  glBindRenderbuffer(GL_RENDERBUFFER, 0);
-  
-  glDisable(GL_DEPTH_TEST); 
-  glDisable(GL_CULL_FACE);
-}
-
-void OpenGL21GraphicsInterface::setTexture(int textureId, CGparameter parameter) {
-
-}
-
-void OpenGL21GraphicsInterface::setShadowMap(unsigned int shadowMapId, CGparameter shadowMapSampler) {
-  OpenGLShadowMap shadowMap = shadowMaps_[shadowMapId];
-  cgGLSetTextureParameter(shadowMapSampler, shadowMap.shadowTextureId);
-  cgSetSamplerState(shadowMapSampler);
-}
-
-void OpenGL21GraphicsInterface::resetGraphicsState(bool cullBack) {
-
-}
-
-unsigned int OpenGL21GraphicsInterface::createTexture() {
-  return 0;
-}
-
-void OpenGL21GraphicsInterface::setRenderTarget(unsigned int textureId) {
-
-}
-
-unsigned int OpenGL21GraphicsInterface::createRenderTarget(unsigned int textureId) {
-  return 0;
+  unsigned int rendetTargetId = renderTargets_.size();
+  OpenGLRenderTarget renderTarget;
+  renderTarget.renderBuffer = renderBuffer;
+  renderTarget.frameBuffer = frameBuffer;
+  renderTargets_.push_back(renderTarget);
+  return rendetTargetId;
 }
 
 void OpenGL21GraphicsInterface::clearRenderTarget(unsigned int renderTargetId, const Color3& color) {
-
+  glClearColor(color.r, color.g, color.b, 1.0f);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void OpenGL21GraphicsInterface::resetRenderTarget() {
-
+  glCullFace(GL_BACK);
+  glDisable(GL_POLYGON_OFFSET_FILL);
+  glBindFramebuffer(GL_RENDERBUFFER, 0);
+  glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }

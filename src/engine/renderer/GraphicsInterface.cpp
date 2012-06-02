@@ -77,8 +77,8 @@ void GraphicsInterface::setRenderState(bool cullBack) {
   graphicsInterface_->resetGraphicsState(cullBack);
 }
 
-unsigned int GraphicsInterface::createTexture() {
-  return graphicsInterface_->createTexture();
+unsigned int GraphicsInterface::createTexture(const CSize& dimensions) {
+  return graphicsInterface_->createTexture(dimensions);
 }
 
 void GraphicsInterface::setRenderTarget(unsigned int textureId) {

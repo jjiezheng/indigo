@@ -16,7 +16,7 @@
 #include "maths/Matrix3x3.h"
 
 void RendererShadow::init(const CSize &screenSize) {
-  shadowTexture_ = GraphicsInterface::createTexture();
+  shadowTexture_ = GraphicsInterface::createTexture(screenSize);
   renderTarget_ = GraphicsInterface::createRenderTarget(shadowTexture_);
   
   depthShader = GraphicsInterface::createEffect();
@@ -47,7 +47,6 @@ void RendererShadow::renderToShadowMap(IViewer* viewer, World& world, SceneConte
       (*meshIt)->render();
 
       depthShader->resetStates();
-
     }
   }
 
