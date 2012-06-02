@@ -16,7 +16,9 @@ class IEffect {
 
 public:
 
-  void load(const std::string& filePath);
+  void load(const std::string& filePath, const char** args);
+
+  virtual void load(const std::string& filePath) = 0;
 
 public:
 

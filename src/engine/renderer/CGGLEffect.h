@@ -9,6 +9,8 @@ public:
 
   static void initCG();
 
+  void load(const std::string& filePath);
+
 public:
 
   void beginDraw();

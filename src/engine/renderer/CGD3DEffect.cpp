@@ -23,6 +23,11 @@ void CGD3DEffect::initCG(ID3D11Device* device) {
   cgD3D11SetManageTextureParameters(context_, CG_TRUE);
 }
 
+void CGD3DEffect::load(const std::string& filePath) {
+  const char* args[] = {"-DDIRECTX=1", 0};
+  IEffect::load(filePath, args);
+}
+
 void CGD3DEffect::beginDraw() {
   cgSetPassState(pass_);
 }

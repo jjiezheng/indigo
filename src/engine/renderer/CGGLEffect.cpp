@@ -21,6 +21,11 @@ void CGGLEffect::initCG() {
   cgGLSetManageTextureParameters(context_, GL_TRUE);
 }
 
+void CGGLEffect::load(const std::string& filePath) {
+  const char* args[] = {"-DOPENGL=1", 0};
+  IEffect::load(filePath, args);
+}
+
 void CGGLEffect::beginDraw() { 
   CGpass pass = cgGetFirstPass(technique_);
   cgSetPassState(pass);
