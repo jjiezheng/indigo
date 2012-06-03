@@ -12,17 +12,17 @@ void Material::bind(IViewer* camera, const Matrix4x4& model, const Matrix3x3& no
   effect->setUniform(modelViewProjection, "WorldViewProj");
   effect->setUniform(model, "World");
   effect->setUniform(normalMatrix, "NormalMatrix");
+ 
+  Light light = sceneContext.lights().front();
+  effect->setUniform(light.position(), "LightPosition");
+  effect->setUniform(light.color(), "LightColor");
 
   Matrix4x4 offsetMatrix(0.5f, 0.0f, 0.0f, 0.5f,
                          0.0f, 0.5f, 0.0f, 0.5f,
                          0.0f, 0.0f, 0.5f, 0.5f,
                          0.0f, 0.0f, 0.0f, 1.0f);
- 
-  Light light = sceneContext.lights().front();
-  effect->setUniform(light.position(), "LightPosition");
-  effect->setUniform(light.color(), "LightColor");
   
-  Matrix4x4 lightMatrix = offsetMatrix * camera->projection() * light.viewTransform() * model;
+  Matrix4x4 lightMatrix = offsetMatrix * light.projection() * light.viewTransform() * model;
   effect->setUniform(lightMatrix, "WorldLight");
 
   effect->setTexture(sceneContext.shadowTexture(), "ShadowMap");

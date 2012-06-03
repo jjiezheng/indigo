@@ -5,16 +5,17 @@ uniform float3 LightColor;
 
 uniform float4x4 World;
 uniform float4x4 WorldLight;
-uniform float4x4 WorldViewProj : ModelViewProjection;
+uniform float4x4 WorldViewProj;
 uniform float4x4 NormalMatrix;
 
 sampler2D ShadowMap = sampler_state {
+	/*MinFilter = Linear;
+	MagFilter = Linear;
 	AddressU = ClampToBorder;
 	AddressV = ClampToBorder;
-	AddressW = ClampToBorder;
 	CompareMode = CompareRToTexture;
 	CompareFunc = LEqual;
-	BorderColor = float4(1, 1, 1, 1);
+	BorderColor = float4(1, 1, 1, 1);*/
 };
 
 struct VOutput {
@@ -67,16 +68,9 @@ float4 ps(float3 normal			: TEXCOORD0,
 #endif
 
  #ifdef OPENGL
-    	float depth = tex2Dproj(ShadowMap, shadowMapCoord);
-      	//finalColor = finalColor * depth;
-      	finalColor = finalColor * depth;
-    	/*float3 shadowCoord = shadowMapCoord.xyz / shadowMapCoord.w;
-    	shadowCoord.z += 0.0005f;
-    	float2 shadowMapUV = shadowCoord.xy;
-    	if (shadowMapUV.y > 0.0f && shadowMapUV.y < 1.0f) {
-      		float depth = tex2D(ShadowMap, shadowMapUV.xy);
-      		finalColor = finalColor * depth;
-    	}*/
+    	float3 shadowCoord = shadowMapCoord.xyz / shadowMapCoord.w;
+		float4 depth = tex2D(ShadowMap, shadowCoord);
+	  	finalColor = finalColor * depth;
  #endif
  	}
 	
@@ -92,7 +86,7 @@ technique dx {
 
 technique latest {
 	pass {
-		VertexProgram = compile latest vs();
+		VertexProgram = compile latest vsgl();
 		FragmentProgram = compile latest ps();
 	}
 }
