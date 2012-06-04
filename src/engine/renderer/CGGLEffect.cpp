@@ -83,7 +83,3 @@ void CGGLEffect::setTexture(unsigned int textureId, const char* uniformName) {
   if (!parameter) return;
   GraphicsInterface::setTexture(textureId, parameter);
 }
-
-void CGGLEffect::updateParameters() {
-
-}

@@ -7,7 +7,10 @@
 
 #include "GraphicsInterface.h"
 
+#include "GLUtilities.h"
+
 void Material::bind(IViewer* camera, const Matrix4x4& model, const Matrix3x3& normalMatrix, const SceneContext& sceneContext, IEffect* effect) const {  
+  GLUtilities::checkForError();
   Matrix4x4 modelViewProjection = camera->projection() * camera->viewTransform() * model;
   effect->setUniform(modelViewProjection, "WorldViewProj");
   effect->setUniform(model, "World");

@@ -19,6 +19,7 @@ private:
 
   IEffect* depthShader;
   unsigned int shadowTexture_;
+  unsigned int shadowTexture2_;
   unsigned int renderTarget_;
 
 };

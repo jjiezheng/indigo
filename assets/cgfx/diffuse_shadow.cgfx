@@ -9,13 +9,13 @@ uniform float4x4 WorldViewProj;
 uniform float4x4 NormalMatrix;
 
 sampler2D ShadowMap = sampler_state {
-	/*MinFilter = Linear;
+	MinFilter = LinearMipMapLinear;
 	MagFilter = Linear;
 	AddressU = ClampToBorder;
 	AddressV = ClampToBorder;
 	CompareMode = CompareRToTexture;
 	CompareFunc = LEqual;
-	BorderColor = float4(1, 1, 1, 1);*/
+	BorderColor = float4(1, 1, 1, 1);
 };
 
 struct VOutput {
@@ -50,7 +50,7 @@ float4 ps(float3 normal			: TEXCOORD0,
 	{
 		float3 lightDirection = LightPosition - vPosition;
 		float diffuseStrength = max(0.0f, dot(normalize(normal), normalize(lightDirection)));
-
+		diffuseStrength *= 3.0f;
 		float3 diffuseAmount = lerp(DiffuseColor, LightColor, 0.5) * diffuseStrength;
 		finalColor += diffuseAmount + AmbientColor;
 	}
@@ -61,7 +61,7 @@ float4 ps(float3 normal			: TEXCOORD0,
 		float3 shadowCoord = shadowMapCoord.xyz / shadowMapCoord.w;
     	shadowCoord.z += 0.0005f;
     	float2 shadowMapUV = float2(shadowCoord.x, 1.0f - shadowCoord.y);
-    	if (shadowMapUV.y > 0.0f && shadowMapUV.y < 1.0f) {
+    	if (shadowMapCoord.w > 0.0f && shadowMapUV.y > 0.0f && shadowMapUV.y < 1.0f) {
       		float depth = tex2D(ShadowMap, shadowMapUV.xy);
       		finalColor = finalColor * depth;
     	}
@@ -69,8 +69,9 @@ float4 ps(float3 normal			: TEXCOORD0,
 
  #ifdef OPENGL
     	float3 shadowCoord = shadowMapCoord.xyz / shadowMapCoord.w;
-		float4 depth = tex2D(ShadowMap, shadowCoord);
-	  	finalColor = finalColor * depth;
+    	shadowCoord.z += 0.0005f;
+		float4 depth = tex2D(ShadowMap, shadowCoord.xy);
+	  	finalColor = depth;
  #endif
  	}
 	
@@ -86,7 +87,7 @@ technique dx {
 
 technique latest {
 	pass {
-		VertexProgram = compile latest vsgl();
-		FragmentProgram = compile latest ps();
+		VertexProgram = compile glslv vsgl();
+		FragmentProgram = compile glslf ps();
 	}
 }

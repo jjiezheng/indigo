@@ -1,7 +1,7 @@
 #ifndef IMAGE_H
 #define IMAGE_H
 
-#include <FreeImage.h>
+/*#include <FreeImage.h>
 
 #include "core/Standard.h"
 #include "renderer/OpenGL.h"
@@ -35,6 +35,6 @@ private:
   
   FIBITMAP* fib_;
   
-};
+};*/
 
 #endif

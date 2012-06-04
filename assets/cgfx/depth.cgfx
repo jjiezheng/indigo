@@ -29,7 +29,7 @@ technique dx {
 
 technique latest {
   pass {
-    VertexProgram = compile latest vsgl();
-    FragmentProgram = compile latest ps();
+    VertexProgram = compile glslv vsgl();
+    FragmentProgram = compile glslf ps();
   }
 }

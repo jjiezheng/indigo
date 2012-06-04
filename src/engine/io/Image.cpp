@@ -1,6 +1,6 @@
 #include "Image.h"
 
-#include "core/Standard.h"
+/*#include "core/Standard.h"
 #include "io/Path.h"
 
 Image::~Image() {
@@ -20,4 +20,4 @@ void Image::load(const std::string& filename) {
   height_ = FreeImage_GetHeight(fib_);
   data_ = FreeImage_GetBits(fib_);
   format_ = GL_BGRA;
-}
+}*/

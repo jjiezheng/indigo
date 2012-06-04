@@ -4,7 +4,9 @@
 #include "platform/PlatformDefs.h"
 
 #ifdef PLATFORM_WINDOWS
+
 #include "gl/glew.h"
+#include "gl/wglew.h"
 
 #pragma comment(lib,"opengl32.lib")
 //#include <GL/glfw.h>

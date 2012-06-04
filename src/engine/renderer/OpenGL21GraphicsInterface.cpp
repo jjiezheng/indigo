@@ -22,8 +22,9 @@
 #include "io/DDSImage.h"
 #include "io/DDSMipLevel.h"
 
-
 HDC OpenGL21GraphicsInterface::createGraphicsContext(HWND hWnd, int width, int height) {
+
+  // create base context
   static	PIXELFORMATDESCRIPTOR pixelFormatDescriptor =				// pfd Tells Windows How We Want Things To Be
   {
     sizeof(PIXELFORMATDESCRIPTOR),				// Size Of This Pixel Format Descriptor
@@ -47,14 +48,46 @@ HDC OpenGL21GraphicsInterface::createGraphicsContext(HWND hWnd, int width, int h
   };
 
   HDC deviceContext = GetDC(hWnd);
+
   int pixelFormat = ChoosePixelFormat(deviceContext, &pixelFormatDescriptor);
   SetPixelFormat(deviceContext, pixelFormat, &pixelFormatDescriptor);
 
-  HGLRC glResource = wglCreateContext(deviceContext);
 
-  wglMakeCurrent(deviceContext, glResource);
+  // setup opengl 3.x
+  HGLRC dummyRenderContext = wglCreateContext(deviceContext); 
+  wglMakeCurrent(deviceContext, dummyRenderContext);
 
-  glViewport(0, 0, width, height);
+  glewInit();
+
+  int major, minor;
+  GLUtilities::getGLVersion(&major, &minor);
+
+  LOG(LOG_CHANNEL_GRAPHICS_API, "Graphics device supports up to OpenGL %d.%d", major, minor);
+
+  int attribs[] = {
+    WGL_CONTEXT_MAJOR_VERSION_ARB, major,
+    WGL_CONTEXT_MINOR_VERSION_ARB, minor, 
+    WGL_CONTEXT_PROFILE_MASK_ARB, WGL_CONTEXT_COMPATIBILITY_PROFILE_BIT_ARB,
+    0
+  };
+
+  PFNWGLCREATECONTEXTATTRIBSARBPROC wglCreateContextAttribsARB = NULL;
+  wglCreateContextAttribsARB = (PFNWGLCREATECONTEXTATTRIBSARBPROC) wglGetProcAddress("wglCreateContextAttribsARB");
+  
+  HGLRC renderContext;
+  if(wglCreateContextAttribsARB != NULL) {
+    renderContext = wglCreateContextAttribsARB(deviceContext, 0, attribs);
+    if (!renderContext) {
+      LOG(LOG_CHANNEL_GRAPHICS_API, "Failed to create OpenGL Render Context");
+    }
+   }
+
+  wglMakeCurrent(NULL, NULL);
+  wglDeleteContext(dummyRenderContext);
+
+  wglMakeCurrent(deviceContext, renderContext);
+
+  GLUtilities::checkForError();
 
   return deviceContext;
 }
@@ -132,6 +165,8 @@ unsigned int OpenGL21GraphicsInterface::createVertexBuffer(VertexDef* vertexData
 
   delete[] uvs;
 
+  GLUtilities::checkForError();
+
   return vertexArray;
 }
 
@@ -147,6 +182,7 @@ IEffect* OpenGL21GraphicsInterface::createEffect() {
 void OpenGL21GraphicsInterface::clearBuffer(const Color3& color) {
   glClearColor(color.r, color.g, color.b, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  GLUtilities::checkForError();
 }
 
 void OpenGL21GraphicsInterface::setPass(CGpass pass) {
@@ -181,12 +217,16 @@ unsigned int OpenGL21GraphicsInterface::loadTexture(const std::string& filePath)
                            0, mipLevel->size, image.data + mipLevel->offset);
   }
 
+  GLUtilities::checkForError();
+
   return textureId;
 }
 
 void OpenGL21GraphicsInterface::setTexture(int textureId, CGparameter parameter) {
   cgGLSetTextureParameter(parameter, textureId);
+  GLUtilities::checkForError();
   cgSetSamplerState(parameter);
+  GLUtilities::checkForError();
 }
 
 void OpenGL21GraphicsInterface::resetGraphicsState(bool cullBack) {
@@ -198,67 +238,89 @@ void OpenGL21GraphicsInterface::resetGraphicsState(bool cullBack) {
  
   int faceToCull = cullBack ? GL_BACK : GL_FRONT;
   glCullFace(faceToCull);
+  GLUtilities::checkForError();
 }
 
 unsigned int OpenGL21GraphicsInterface::createTexture(const CSize& dimensions) {
   GLuint texture;
   glGenTextures(1, &texture);
   glBindTexture(GL_TEXTURE_2D, texture);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, dimensions.width, dimensions.height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, dimensions.width, dimensions.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
+  GLUtilities::checkForError();
   glBindTexture(GL_TEXTURE_2D, 0);
   return texture;
 }
 
 void OpenGL21GraphicsInterface::setRenderTarget(unsigned int renderBuffer) {
   OpenGLRenderTarget renderTarget = renderTargets_[renderBuffer];
-  glBindFramebuffer(GL_RENDERBUFFER, renderTarget.renderBuffer);
   glBindFramebuffer(GL_FRAMEBUFFER, renderTarget.frameBuffer);
+  GLUtilities::checkForError();
 }
 
 unsigned int OpenGL21GraphicsInterface::createRenderTarget(unsigned int textureId) {
   GLuint frameBuffer = 0;
   glGenFramebuffers(1, &frameBuffer);
   glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
-
-  glReadBuffer(GL_NONE);
-  glDrawBuffer(GL_NONE);
-
-  GLuint renderBuffer = 0;
-  glGenRenderbuffers(1, &renderBuffer);
   GLUtilities::checkForError();
 
-  glBindRenderbuffer(GL_RENDERBUFFER, renderBuffer);
+  //--
+
+  GLuint colorRenderBuffer = 0;
+  glGenRenderbuffers(1, &colorRenderBuffer);
+  glBindRenderbuffer(GL_RENDERBUFFER, colorRenderBuffer);
+  glRenderbufferStorage(GL_RENDERBUFFER, GL_RGBA8, screenSize_.width, screenSize_.height);
   GLUtilities::checkForError();
 
-  glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, screenSize_.width, screenSize_.height);
+  glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, colorRenderBuffer);
   GLUtilities::checkForError();
 
-  glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, renderBuffer);
-  GLUtilities::checkForError();
+  //--
+
+  /*GLuint depthRenderbuffer;
+  glGenRenderbuffers(1, &depthRenderbuffer);
+  glBindRenderbuffer(GL_RENDERBUFFER, depthRenderbuffer);
+  glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, screenSize_.width, screenSize_.height);
+  
+  glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthRenderbuffer);
+  GLUtilities::checkForError();*/
+
+  //--
+
+  GLUtilities::checkFramebufferStatus(GL_FRAMEBUFFER);
+
+  //--
 
   glBindTexture(GL_TEXTURE_2D, textureId);
-  glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, frameBuffer, 0);
+  glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureId, 0);
   GLUtilities::checkForError();
 
-  glBindFramebuffer(GL_RENDERBUFFER, 0);
+  //--
+
+  GLUtilities::checkFramebufferStatus(GL_FRAMEBUFFER);
+
   glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+  GLUtilities::checkForError();
 
   unsigned int rendetTargetId = renderTargets_.size();
   OpenGLRenderTarget renderTarget;
-  renderTarget.renderBuffer = renderBuffer;
+  renderTarget.renderBuffer = colorRenderBuffer;
   renderTarget.frameBuffer = frameBuffer;
   renderTargets_.push_back(renderTarget);
   return rendetTargetId;
 }
 
 void OpenGL21GraphicsInterface::clearRenderTarget(unsigned int renderTargetId, const Color3& color) {
+  OpenGLRenderTarget renderTarget = renderTargets_[renderTargetId];
+  glBindFramebuffer(GL_FRAMEBUFFER, renderTarget.frameBuffer);
   glClearColor(color.r, color.g, color.b, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  GLUtilities::checkForError();
 }
 
 void OpenGL21GraphicsInterface::resetRenderTarget() {
   glCullFace(GL_BACK);
   glDisable(GL_POLYGON_OFFSET_FILL);
-  glBindFramebuffer(GL_RENDERBUFFER, 0);
   glBindFramebuffer(GL_FRAMEBUFFER, 0);
+  GLUtilities::checkForError();
 }
