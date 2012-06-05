@@ -52,7 +52,6 @@ HDC OpenGL21GraphicsInterface::createGraphicsContext(HWND hWnd, int width, int h
   int pixelFormat = ChoosePixelFormat(deviceContext, &pixelFormatDescriptor);
   SetPixelFormat(deviceContext, pixelFormat, &pixelFormatDescriptor);
 
-
   // setup opengl 3.x
   HGLRC dummyRenderContext = wglCreateContext(deviceContext); 
   wglMakeCurrent(deviceContext, dummyRenderContext);
@@ -65,9 +64,9 @@ HDC OpenGL21GraphicsInterface::createGraphicsContext(HWND hWnd, int width, int h
   LOG(LOG_CHANNEL_GRAPHICS_API, "Graphics device supports up to OpenGL %d.%d", major, minor);
 
   int attribs[] = {
-    WGL_CONTEXT_MAJOR_VERSION_ARB, major,
-    WGL_CONTEXT_MINOR_VERSION_ARB, minor, 
-    WGL_CONTEXT_PROFILE_MASK_ARB, WGL_CONTEXT_COMPATIBILITY_PROFILE_BIT_ARB,
+    WGL_CONTEXT_MAJOR_VERSION_ARB, 2,
+    WGL_CONTEXT_MINOR_VERSION_ARB, 1, 
+    //WGL_CONTEXT_PROFILE_MASK_ARB, WGL_CONTEXT_COMPATIBILITY_PROFILE_BIT_ARB,
     0
   };
 
@@ -223,6 +222,7 @@ unsigned int OpenGL21GraphicsInterface::loadTexture(const std::string& filePath)
 }
 
 void OpenGL21GraphicsInterface::setTexture(int textureId, CGparameter parameter) {
+  glBindTexture(GL_TEXTURE_2D, textureId);
   cgGLSetTextureParameter(parameter, textureId);
   GLUtilities::checkForError();
   cgSetSamplerState(parameter);
@@ -268,7 +268,7 @@ unsigned int OpenGL21GraphicsInterface::createRenderTarget(unsigned int textureI
   GLuint colorRenderBuffer = 0;
   glGenRenderbuffers(1, &colorRenderBuffer);
   glBindRenderbuffer(GL_RENDERBUFFER, colorRenderBuffer);
-  glRenderbufferStorage(GL_RENDERBUFFER, GL_RGBA8, screenSize_.width, screenSize_.height);
+  glRenderbufferStorage(GL_RENDERBUFFER, GL_RGBA, screenSize_.width, screenSize_.height);
   GLUtilities::checkForError();
 
   glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, colorRenderBuffer);
@@ -290,7 +290,6 @@ unsigned int OpenGL21GraphicsInterface::createRenderTarget(unsigned int textureI
 
   //--
 
-  glBindTexture(GL_TEXTURE_2D, textureId);
   glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureId, 0);
   GLUtilities::checkForError();
 
@@ -321,6 +320,9 @@ void OpenGL21GraphicsInterface::clearRenderTarget(unsigned int renderTargetId, c
 void OpenGL21GraphicsInterface::resetRenderTarget() {
   glCullFace(GL_BACK);
   glDisable(GL_POLYGON_OFFSET_FILL);
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+  glEnable(GL_TEXTURE_2D);
   glBindFramebuffer(GL_FRAMEBUFFER, 0);
   GLUtilities::checkForError();
 }

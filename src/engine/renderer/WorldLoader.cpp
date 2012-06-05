@@ -168,20 +168,20 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
       def.vertex.x = vertex.x; 
       def.vertex.y = vertex.y; 
       def.vertex.z = vertex.z; 
-      LOG(LOG_CHANNEL_WORLDLOADER, "vert: %s", def.vertex.toString().c_str());
+      //LOG(LOG_CHANNEL_WORLDLOADER, "vert: %s", def.vertex.toString().c_str());
 
       aiVector3D normal = aiMesh->mNormals[vertexi];
       def.normal.x = normal.x; 
       def.normal.y = normal.y; 
       def.normal.z = normal.z; 
-      LOG(LOG_CHANNEL_WORLDLOADER, "norm: %s", def.normal.toString().c_str());
+      //LOG(LOG_CHANNEL_WORLDLOADER, "norm: %s", def.normal.toString().c_str());
 
       if (aiMesh->mTextureCoords[0]) {
         aiVector3D uv = aiMesh->mTextureCoords[0][vertexi];
         def.uv.x = uv.x; 
         def.uv.y = 1-uv.y; 
       }
-      LOG(LOG_CHANNEL_WORLDLOADER, "uv: %s", def.uv.toString().c_str());
+      //LOG(LOG_CHANNEL_WORLDLOADER, "uv: %s", def.uv.toString().c_str());
       defs[vertexi] = def;
     }
 

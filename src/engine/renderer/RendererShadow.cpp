@@ -15,13 +15,11 @@
 
 #include "maths/Matrix3x3.h"
 
-void RendererShadow::init(const CSize &screenSize) {
-  shadowTexture_ = GraphicsInterface::createTexture(screenSize);
-  std::string fullPath = Path::pathForFile("debug/mipmap_debug.dds");
-  renderTarget_ = GraphicsInterface::createRenderTarget(shadowTexture_);
-  
-  shadowTexture2_ = GraphicsInterface::loadTexture(fullPath.c_str());
+#include "ShaderSemantics.h"
 
+void RendererShadow::init(const CSize &screenSize) {
+  shadowTexture_ = GraphicsInterface::createTexture(CSize(1008, 730));
+  renderTarget_ = GraphicsInterface::createRenderTarget(shadowTexture_);
   depthShader = GraphicsInterface::createEffect();
   std::string effectPath = Path::pathForFile("cgfx/depth.cgfx");
   depthShader->load(effectPath);

@@ -68,8 +68,10 @@ public:
   }
 
   static void checkForError() {
+#ifdef ADEBUG
     checkForGLError();
     checkForCGError();
+#endif
   }
 
   static void checkForGLError() {

@@ -1,16 +1,9 @@
 float4 DiffuseColor : COLOR;
 
-float4x4 WorldViewProj : WorldViewProjection< string UIWidget="None"; >;
+float4x4 WorldViewProj;
 
-texture colorMap  <
-	string ResourceName = "";//Optional default file name
-	string UIName =  "ColorMap Texture";
-	string ResourceType = "2D";
->;
-
-sampler2D colorMapSampler = sampler_state {
-	Texture = <colorMap>;
-	MinFilter = LinearMipMapLinear;
+sampler2D ColorMap = sampler_state {
+	MinFilter = Linear;
 	MagFilter = Linear;
 	WrapS = Clamp;
 	WrapT = Clamp;
@@ -22,8 +15,7 @@ struct VOutput {
 };
 
 VOutput vs(float4 position : POSITION,
-           float2 texCoord : NORMAL) {
-
+           float2 texCoord : TEXCOORD0) {
 	VOutput OUT;
 	OUT.position = position;
 	OUT.texCoord = texCoord;
@@ -31,7 +23,7 @@ VOutput vs(float4 position : POSITION,
 }
 
 float4 ps(float2 texCoord  : TEXCOORD) : COLOR {
-  return tex2D(colorMapSampler, texCoord);
+  return tex2D(ColorMap, texCoord);
 } 
 
 technique gl {

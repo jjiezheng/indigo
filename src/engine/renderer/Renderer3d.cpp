@@ -13,7 +13,7 @@
 #include <hash_map>
 
 void Renderer3d::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
-  GraphicsInterface::clearBuffer(Color3::CORNFLOWERBLUE);
+  GraphicsInterface::clearBuffer(sceneContext.backgroundColor());
 //  world.skyBox().render(&camera, sceneContext);
   
   stdext::hash_map<int, std::vector<Mesh*>> effects;

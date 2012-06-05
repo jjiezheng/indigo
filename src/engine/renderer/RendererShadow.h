@@ -14,14 +14,14 @@ public:
   void init(const CSize& screenSize);
   
   void renderToShadowMap(IViewer* viewer, World& world, SceneContext& sceneContext);
+
+  void renderDebug();
   
 private:
 
   IEffect* depthShader;
   unsigned int shadowTexture_;
-  unsigned int shadowTexture2_;
   unsigned int renderTarget_;
-
 };
 
 #endif

@@ -9,7 +9,7 @@ uniform float4x4 WorldViewProj;
 uniform float4x4 NormalMatrix;
 
 sampler2D ShadowMap = sampler_state {
-	MinFilter = LinearMipMapLinear;
+	MinFilter = Linear;
 	MagFilter = Linear;
 	AddressU = ClampToBorder;
 	AddressV = ClampToBorder;
@@ -44,7 +44,7 @@ float4 ps(float3 normal			: TEXCOORD0,
 		  float3 vPosition		: TEXCOORD1,
 		  float4 shadowMapCoord : TEXCOORD2) : COLOR {
 	
-	float3 finalColor = float3(0, 0, 0);
+	float3 finalColor = float4(0, 0, 0, 1);
 	
 	// diffuse + ambient
 	{
@@ -70,12 +70,15 @@ float4 ps(float3 normal			: TEXCOORD0,
  #ifdef OPENGL
     	float3 shadowCoord = shadowMapCoord.xyz / shadowMapCoord.w;
     	shadowCoord.z += 0.0005f;
-		float4 depth = tex2D(ShadowMap, shadowCoord.xy);
-	  	finalColor = depth;
+    	float2 shadowMapUV = float2(shadowCoord.x, shadowCoord.y);
+    	if (shadowMapCoord.w > 0.0f && shadowMapUV.y > 0.0f && shadowMapUV.y < 1.0f) {
+      		float depth = tex2D(ShadowMap, shadowMapUV.xy);
+      		finalColor = finalColor * depth;
+    	}
  #endif
  	}
 	
-	return float4(finalColor, 1);
+	return float4(finalColor, 1.0f);
 }
 
 technique dx {
