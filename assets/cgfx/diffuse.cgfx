@@ -51,7 +51,6 @@ technique dx {
 
 technique gl {
 	pass {
-		CullFaceEnable = true;
 		VertexProgram = compile latest vsgl();
 		FragmentProgram = compile latest ps();
 	}

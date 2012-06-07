@@ -17,6 +17,15 @@
       }
     },
     {
+      "mesh" : "actors/outlander/outlander.dae",
+      "material" : "actors/outlander/outlander.material",
+      "position" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "z" : -3.0
+      }
+    },
+    {
       "mesh" : "actors/cube/cube.blend",
       "material" : "actors/cube/cube.material",
       "position" : {
