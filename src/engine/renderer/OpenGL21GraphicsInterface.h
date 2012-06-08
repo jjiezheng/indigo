@@ -44,7 +44,7 @@ public:
 
 public:
 
-  void setRenderTarget(unsigned int textureId);
+  void setRenderTarget(unsigned int* textureId, unsigned int renderTargetCount);
 
   unsigned int createRenderTarget(unsigned int textureId);
 

@@ -1,5 +1,5 @@
 {
-  "effect" : "cgfx/diffuse.cgfx",
+  "effect" : "cgfx/deferred_render_color_normal_depth.cgfx",
   "parameters" : {
     "AmbientColor" : {
       "r" : 0,

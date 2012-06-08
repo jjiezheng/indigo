@@ -1,0 +1,135 @@
+sampler2D ColorMap = sampler_state {
+	MinFilter = Linear;
+	MagFilter = Linear;
+	WrapS = Wrap;
+	WrapT = Wrap;
+};
+
+sampler2D NormalMap = sampler_state {
+	MinFilter = Point;
+	MagFilter = Point;
+	WrapS = Wrap;
+	WrapT = Wrap;
+};
+
+sampler2D DepthMap = sampler_state {
+	MinFilter = Point;
+	MagFilter = Point;
+	WrapS = Wrap;
+	WrapT = Wrap;
+};
+
+uniform float4x4 WorldViewProj;
+uniform float4x4 WorldView;
+
+struct VOutput {
+      float4 position 			: POSITION;
+      float4 screenPosition  	: TEXCOORD0;
+};
+
+VOutput vs(float4 position : POSITION) {
+        VOutput OUT;
+        OUT.position = mul(WorldViewProj, position);
+        OUT.screenPosition = mul(position, WorldView);
+        return OUT;
+}
+
+VOutput vsgl(float4 position : ATTR0) {
+  return vs(position);
+}
+
+float4 ps(float4 screenPosition	: TEXCOORD0) : COLOR {
+	screenPosition.xy /= screenPosition.w;
+
+	float2 texCoord = 0.5f * float2(screenPosition.x, -screenPosition.y) + 1;
+	texCoord -= HalfPixel;
+
+	float3 normal = 2.0f * tex2D(NormalMap, texCoord).xyz - 1.0f;
+	float depth = tex2D(DepthMap, texCoord);
+
+	float4 position;
+	position.xy = screenPosition.xy;
+	position.z = depth;
+	position.w = 1.0f;
+
+	position = mul(position, ViewProjInv);
+	position.w /= position.w;
+
+	/*float3 finalColor;
+
+	// diffuse + ambient
+	{
+		float3 lightDirection = LightPosition - position.xyz;
+		float diffuseStrength = max(0.0f, dot(normalize(normal), normalize(lightDirection)));
+		float3 diffuseAmount = lerp(DiffuseColor, LightColor, 0.5) * diffuseStrength;
+		finalColor += diffuseAmount + AmbientColor;
+	}*/
+
+	return float4(1.0f, 1.0f, 0.6f, 1.0f);
+}
+
+technique dx {
+  pass {
+    VertexProgram = compile vs_4_0 vs();
+    FragmentProgram = compile ps_4_0 ps();
+  }
+}
+
+technique latest {
+  pass {
+    VertexProgram = compile glslv vsgl();
+    FragmentProgram = compile glslf ps();
+  }
+}
+
+/*
+
+
+uniform float3 DiffuseColor;
+uniform float3 AmbientColor;
+
+uniform float3 LightPosition;
+uniform float3 LightColor;
+
+uniform float4x4 World;
+uniform float4x4 View;
+uniform float4x4 WorldView;
+uniform float4x4 WorldViewProj;
+uniform float4x4 ViewProjInv;
+uniform float2 HalfPixel;
+
+struct VOutput {
+	float4 position			: POSITION;
+	float4 screenPosition	: TEXCOORD0;
+};
+
+VOutput vs(float4 position 		: POSITION) {
+	float4 worldPosition = mul(position, World);
+	float4 viewPosition = mul(worldPosition, View);
+
+	VOutput OUT;
+	OUT.position = mul(position, WorldViewProj);
+	OUT.screenPosition = mul(position, WorldView);
+ 	return OUT;
+}
+
+VOutput vsgl(float4 position 		: ATTR0) {
+	return vs(position);
+}
+
+
+
+technique dx {
+	pass {
+		VertexProgram = compile vs_4_0 vs();
+		FragmentProgram = compile ps_4_0 ps();
+	}
+}
+	
+technique latest {
+	pass {
+		VertexProgram = compile latest vsgl();
+		FragmentProgram = compile latest ps();
+	}
+}
+*/

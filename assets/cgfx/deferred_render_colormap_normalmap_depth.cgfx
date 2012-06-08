@@ -1,0 +1,73 @@
+sampler2D ColorMap = sampler_state {
+	MinFilter = LinearMipMapLinear;
+	MagFilter = Linear;
+	WrapS = Repeat;
+	WrapT = Repeat;
+};
+
+sampler2D NormalMap = sampler_state {
+	MinFilter = LinearMipMapLinear;
+	MagFilter = Linear;
+	WrapS = Repeat;
+	WrapT = Repeat;
+};
+
+uniform float4x4 WorldViewProj;
+
+float3 expand(float3 v) {
+  return (v - 0.5) * 2; // Expand a range-compressed vector
+}
+
+struct VOutput {
+	float4 position			: POSITION;
+	float3 normal			: TEXCOORD0;
+	float2 texCoord			: TEXCOORD1;
+	float depth				: TEXCOORD2;
+};
+
+VOutput vs(float4 position 		: POSITION,
+		   float4 normal 		: NORMAL,
+		   float2 texCoord 		: TEXCOORD0) {
+	VOutput OUT;
+	OUT.position = mul(WorldViewProj, position);
+	OUT.texCoord = texCoord;
+	OUT.depth = OUT.position.z / OUT.position.w;
+	OUT.normal = normal.xyz;
+ 	return OUT;
+}
+
+VOutput vsgl( float4 position 		: ATTR0,
+		   	  float4 normal 		: ATTR2,
+		   	  float2 texCoord 		: ATTR8) {
+	return vs(position, normal, texCoord);
+}
+
+struct POutput {
+	float4 color 	: COLOR0;
+	float4 normal 	: COLOR1;
+	float4 depth 	: COLOR2;
+};
+
+POutput ps(float3 normal			: TEXCOORD0,
+		   float2 texCoord			: TEXCOORD1,
+		   float  depth 			: TEXCOORD2) {
+	POutput OUT;
+	OUT.color = tex2D(ColorMap, texCoord);					
+	OUT.normal = tex2D(NormalMap, texCoord);
+	OUT.depth = float4(depth, depth, depth, 1);
+	return OUT;
+}
+
+technique dx {
+	pass {
+		VertexProgram = compile vs_4_0 vs();
+		FragmentProgram = compile ps_4_0 ps();
+	}
+}
+	
+technique latest {
+	pass {
+		VertexProgram = compile latest vsgl();
+		FragmentProgram = compile latest ps();
+	}
+}

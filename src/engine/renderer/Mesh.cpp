@@ -3,7 +3,7 @@
 #include "GraphicsInterface.h"
 #include "Model.h"
 
-void Mesh::init(VertexDef* vertexData, int numVertices) {
+void Mesh::init(VertexDef* vertexData, unsigned int numVertices) {
   numVertices_ = numVertices;
   vertexBuffer_ = GraphicsInterface::createVertexBuffer(vertexData, numVertices);
 }

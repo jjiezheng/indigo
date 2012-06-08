@@ -57,7 +57,7 @@ public:
 
   virtual void setTexture(int textureId, CGparameter parameter) = 0;
 
-  virtual void setRenderTarget(unsigned int textureId) = 0;
+  virtual void setRenderTarget(unsigned int* textureId, unsigned int renderTargetCount) = 0;
 
   virtual void resetRenderTarget() = 0;
 

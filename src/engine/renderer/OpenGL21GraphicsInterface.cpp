@@ -251,10 +251,18 @@ unsigned int OpenGL21GraphicsInterface::createTexture(const CSize& dimensions) {
   return texture;
 }
 
-void OpenGL21GraphicsInterface::setRenderTarget(unsigned int renderBuffer) {
-  OpenGLRenderTarget renderTarget = renderTargets_[renderBuffer];
-  glBindFramebuffer(GL_FRAMEBUFFER, renderTarget.frameBuffer);
-  GLUtilities::checkForError();
+void OpenGL21GraphicsInterface::setRenderTarget(unsigned int* renderBuffers, unsigned int renderTargetCount) {
+  
+  unsigned int primartyRenderTargetId = renderBuffers[0];
+  OpenGLRenderTarget primaryRenderTarget = renderTargets_[primartyRenderTargetId];
+  glBindFramebuffer(GL_FRAMEBUFFER, primaryRenderTarget.frameBuffer);
+
+  for (unsigned int i = 0; i < renderTargetCount; i++) {
+    unsigned int renderBuffer = renderBuffers[i];
+    OpenGLRenderTarget renderTarget = renderTargets_[renderBuffer];
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_RENDERBUFFER, renderTarget.renderBuffer);
+    GLUtilities::checkForError();
+  }
 }
 
 unsigned int OpenGL21GraphicsInterface::createRenderTarget(unsigned int textureId) {

@@ -7,6 +7,7 @@
 #include "renderer/World.h"
 #include "renderer/SceneContext.h"
 #include "renderer/Renderer3d.h"
+#include "renderer/Renderer3dDeferred.h"
 #include "renderer/RendererShadow.h"
 #include "renderer/Camera.h"
 
@@ -22,7 +23,7 @@ private:
   
   Camera camera_;
   RendererShadow shadowRenderer_;
-  Renderer3d renderer_;
+  Renderer3dDeferred renderer_;
   World world_;  
   Clock clock_;
   SceneContext sceneContext_;

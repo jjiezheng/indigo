@@ -9,6 +9,7 @@
 #include "io/Log.h"
 #include "renderer/Color3.h"
 #include "VertexDefinition.h"
+#include "DirectxVertexDataFormatter.h"
 
 #include <Cg/cg.h>
 #include <Cg/cgD3D11.h>
@@ -125,6 +126,8 @@ void Direct3D11GraphicsInterface::swapBuffers() {
 }
 
 unsigned int Direct3D11GraphicsInterface::createVertexBuffer(VertexDef* vertexData, int numVertices) {
+  DirectXVertexDataFormatter().formatVertexData(vertexData, numVertices);
+  
   D3D11_BUFFER_DESC bufferDesc;
   ZeroMemory(&bufferDesc, sizeof(bufferDesc));
 
@@ -255,7 +258,7 @@ unsigned int Direct3D11GraphicsInterface::createTexture(const CSize& dimensions)
   textureDesc.Height = dimensions.height;
   textureDesc.MipLevels = 1;
   textureDesc.ArraySize = 1;
-  textureDesc.Format = DXGI_FORMAT_R32_FLOAT;
+  textureDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
   textureDesc.SampleDesc.Count = kMultiSamples;
   textureDesc.SampleDesc.Quality = 0;
   textureDesc.Usage = D3D11_USAGE_DEFAULT;
@@ -274,9 +277,16 @@ unsigned int Direct3D11GraphicsInterface::createTexture(const CSize& dimensions)
   return textureId;
 }
 
-void Direct3D11GraphicsInterface::setRenderTarget(unsigned int renderTargetId) {
-  ID3D11RenderTargetView* renderTarget = renderTargets_[renderTargetId];
-  deviceConnection_->OMSetRenderTargets(1, &renderTarget, depthBuffer_);
+void Direct3D11GraphicsInterface::setRenderTarget(unsigned int* renderTargetIds, unsigned int renderTargetCount) {
+  std::vector<ID3D11RenderTargetView*> renderTargetViews;
+
+  for (unsigned int i = 0; i < renderTargetCount; i++) {
+    unsigned int renderTargetId = renderTargetIds[i];
+    ID3D11RenderTargetView* renderTargetView = renderTargets_[renderTargetId];
+    renderTargetViews.push_back(renderTargetView);
+  }
+
+  deviceConnection_->OMSetRenderTargets(renderTargetViews.size(), &renderTargetViews[0], depthBuffer_);
 }
 
 unsigned int Direct3D11GraphicsInterface::createRenderTarget(unsigned int textureId) {

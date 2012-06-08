@@ -16,6 +16,10 @@ class IEffect {
 
 public:
 
+  static IEffect* effectFromFile(const std::string& relativeFilePath);
+
+public:
+
   void load(const std::string& filePath, const char** args);
 
   virtual void load(const std::string& filePath) = 0;

@@ -43,7 +43,7 @@ public:
 
 public:
 
-  void setRenderTarget(unsigned int renderTargetId);
+  void setRenderTarget(unsigned int* renderTargetId, unsigned int renderTargetCount);
 
   void resetRenderTarget();
 

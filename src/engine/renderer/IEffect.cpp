@@ -4,6 +4,9 @@
 #include "io/Log.h"
 #include <assert.h>
 
+#include "GraphicsInterface.h"
+#include "io/Path.h"
+
 CGcontext IEffect::context_ = 0;
 
 void IEffect::load(const std::string& filePath, const char** args) {
@@ -29,10 +32,22 @@ void IEffect::load(const std::string& filePath, const char** args) {
 
 void IEffect::onError() {
   CGerror error;
-  const char *string = cgGetLastErrorString(&error);
-  LOG(LOG_CHANNEL_SHADER, string);
+  const char *errorString = cgGetLastErrorString(&error);
+  LOG(LOG_CHANNEL_SHADER, errorString);
+
+  const char* errorListing = cgGetLastListing(context_);
+  if (errorListing) {
+    LOG(LOG_CHANNEL_SHADER, errorListing);
+  }
 }
 
 void IEffect::handleError(CGcontext context, CGerror error, void *data) {
   LOG(LOG_CHANNEL_SHADER, "%s", cgGetErrorString(error));
+}
+
+IEffect* IEffect::effectFromFile(const std::string& relativeFilePath) {
+  IEffect* effect = GraphicsInterface::createEffect();
+  std::string fullFilePath = Path::pathForFile(relativeFilePath);
+  effect->load(fullFilePath);
+  return effect;
 }

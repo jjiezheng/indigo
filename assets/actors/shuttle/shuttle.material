@@ -1,5 +1,5 @@
 {
-  "effect" : "cgfx/diffuse_bump_texture.cgfx",
+  "effect" : "cgfx/deferred_render_colormap_normalmap_depth.cgfx",
   "parameters" : { },
   "textures" : {
     "ColorMap" : "actors/shuttle/shuttle_diffuse.dds",

@@ -10,10 +10,18 @@
 #include "GLUtilities.h"
 
 void Material::bind(IViewer* camera, const Matrix4x4& model, const Matrix3x3& normalMatrix, const SceneContext& sceneContext, IEffect* effect) const {  
-  GLUtilities::checkForError();
-  Matrix4x4 modelViewProjection = camera->projection() * camera->viewTransform() * model;
-  effect->setUniform(modelViewProjection, "WorldViewProj");
   effect->setUniform(model, "World");
+  
+  Matrix4x4 worldView = camera->viewTransform() * model;
+  effect->setUniform(worldView, "WorldView");
+  
+  Matrix4x4 worldViewProjection = camera->projection() * worldView;
+  effect->setUniform(worldViewProjection, "WorldViewProj");
+
+  Matrix4x4 viewProjection = camera->projection() * camera->viewTransform();
+  effect->setUniform(viewProjection, "ViewProj");
+  effect->setUniform(viewProjection.inverse(), "ViewProjInv");
+  
   effect->setUniform(normalMatrix, "NormalMatrix");
  
   Light light = sceneContext.lights().front();

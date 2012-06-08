@@ -1,7 +1,10 @@
 #ifndef MESH_H
 #define MESH_H
 
+#include <hash_map>
+
 #include "core/Standard.h"
+#include "maths/Matrix4x4.h"
 
 #include "Color3.h"
 #include "Material.h"
@@ -13,14 +16,11 @@ class SceneContext;
 class VertexDef;
 class Model;
 
-#include "maths/Matrix4x4.h"
-#include <hash_map>
-
 class Mesh {
-  
+
 public:
   
-  void init(VertexDef* vertexData, int numVertices);
+  void init(VertexDef* vertexData, unsigned int numVertices);
   
 public:
 
@@ -28,7 +28,6 @@ public:
 
   void render() const;
   
-
   Material material() const;
 
   void setMaterial(const Material& material);
@@ -39,14 +38,9 @@ public:
   
 private:
   
-  int numVertices_;
+  unsigned int numVertices_;
 
-  int vertexBuffer_;
-
-  GLuint vertexArray;
-  GLuint vertexBuffer;
-  GLuint normalBuffer;  
-  GLuint uvBuffer;  
+  unsigned int vertexBuffer_;
     
   Material material_;
   Model* parent_;

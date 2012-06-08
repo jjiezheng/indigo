@@ -1,0 +1,49 @@
+sampler2D ColorMap = sampler_state {
+	MinFilter = Linear;
+	MagFilter = Linear;
+	WrapS = Wrap;
+	WrapT = Wrap;
+};
+
+sampler2D NormalMap = sampler_state {
+	MinFilter = Linear;
+	MagFilter = Linear;
+	WrapS = Wrap;
+	WrapT = Wrap;
+};
+
+struct VOutput {
+	float4 position			: POSITION;
+	float2 texCoord			: TEXCOORD0;
+};
+
+VOutput vs(float4 position 		: POSITION,
+		   float2 texCoord 		: TEXCOORD0) {
+	VOutput OUT;
+	OUT.position = position;
+	OUT.texCoord = texCoord;
+ 	return OUT;
+}
+
+VOutput vsgl(float4 position 		: ATTR0,
+		   	 float2 texCoord 		: ATTR8) {
+	return vs(position, texCoord);
+}
+
+float4 ps(float2 texCoord		: TEXCOORD0) : COLOR {
+	return tex2D(ColorMap, texCoord);
+}
+
+technique dx {
+	pass {
+		VertexProgram = compile vs_4_0 vs();
+		FragmentProgram = compile ps_4_0 ps();
+	}
+}
+	
+technique latest {
+	pass {
+		VertexProgram = compile latest vsgl();
+		FragmentProgram = compile latest ps();
+	}
+}

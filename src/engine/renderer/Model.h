@@ -15,6 +15,8 @@ class Model {
   
 public:
 
+  void render() const;
+
   void visit(stdext::hash_map<int, std::vector<Mesh*>>& meshes);
   
   void addMesh(Mesh& mesh);

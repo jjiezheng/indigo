@@ -11,14 +11,15 @@ void Game::init() {
   
   camera_.translateZ(5.0f);
   camera_.translateY(1.8f);
-  
+
+  renderer_.init(GraphicsInterface::screenSize());
   shadowRenderer_.init(GraphicsInterface::screenSize()); 
  
   Matrix4x4 projection = Matrix4x4::perspective(45.0f, GraphicsInterface::aspectRatio(), 1.0f, 200.0f);
   camera_.setProjection(projection);
 
   WorldLoader loader; 
-  loader.loadFromSceneFile("scenes/testcars/testcars.scene", world_, sceneContext_);
+  loader.loadFromSceneFile("scenes/deferred/deferred.scene", world_, sceneContext_);
 
   //sceneContext_.setFog(FOG_NONE, 0.66f, -10, -100, Color4(0.6f, 0.6f, 0.6f));
 }
@@ -28,6 +29,6 @@ void Game::mainLoop() {
   camera_.update(dt);
   
   Light light = sceneContext_.lights().front();
-  shadowRenderer_.renderToShadowMap(&light, world_, sceneContext_);
+  //shadowRenderer_.renderToShadowMap(&light, world_, sceneContext_);
   renderer_.render(&camera_, world_, sceneContext_);
 }
