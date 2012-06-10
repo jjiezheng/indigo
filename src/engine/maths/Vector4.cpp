@@ -37,12 +37,24 @@ Vector4 Vector4::operator + (const Vector4& other) const {
   return Vector4(other.x + x, other.y + y, other.z + z, other.w + w);
 }
 
+Vector4 Vector4::operator - (const Vector4& other) const {
+  return Vector4(x - other.x, y - other.y, z - other.z, w - other.w);
+}
+
 Vector4 Vector4::operator * (float scalar) const {
   return Vector4(x*scalar, y*scalar, z*scalar, w*scalar);
 }
 
 Vector4 Vector4::operator == (const Vector4& other) const {
   return Vector4(other.x == x, other.y == y, other.z == z, other.w == w);
+}
+
+float Vector4::distance(const Vector4& other) const {
+  return (*this - other).length();
+}
+
+float Vector4::length() const {
+  return sqrt(x * x + y * y + z * z);
 }
 
 Vector4 Vector4::rotateX(int degrees) {

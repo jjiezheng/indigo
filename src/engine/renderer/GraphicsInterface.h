@@ -50,6 +50,8 @@ public:
 
   static void clearRenderTarget(unsigned int renderTargetId, const Color3& color);
 
+  static void setRenderTarget(unsigned int renderTargetId);
+
   static void setRenderTarget(unsigned int* renderTargetId, unsigned int renderTargetCount);
 
   static void resetRenderTarget();

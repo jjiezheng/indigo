@@ -28,9 +28,11 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
   depthRenderTarget_ = GraphicsInterface::createRenderTarget(depthMapTexture_);
 
   lightMapTexture_ = GraphicsInterface::createTexture(screenSize);
-  pointLightRenderTarget_ = GraphicsInterface::createRenderTarget(lightMapTexture_);
+  lightMapRenderTarget_ = GraphicsInterface::createRenderTarget(lightMapTexture_);
 
   directionalLightEffect_ = IEffect::effectFromFile("cgfx/deferred_lighting_directional_light.cgfx");
+  pointLightEffect_ = IEffect::effectFromFile("cgfx/deferred_lighting_point_light.cgfx");
+
   pointLightModel_ = new Model();
   WorldLoader().loadModel(pointLightModel_, "debug/sphere.dae");
 
@@ -62,18 +64,24 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
 }
 
 void Renderer3dDeferred::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
+  clearBuffers();
   renderGeometry(viewer, world, sceneContext);
-  renderLights(viewer, world, sceneContext);
+  //renderDirectionalLights(viewer, world, sceneContext);
+  renderPointLights(viewer, world, sceneContext);
   renderFinal(viewer, world, sceneContext); 
+}
+
+void Renderer3dDeferred::clearBuffers() {
+  GraphicsInterface::clearBuffer(Color3::CORNFLOWERBLUE);
+  GraphicsInterface::clearRenderTarget(lightMapRenderTarget_, Color3::BLACK);
+  GraphicsInterface::clearRenderTarget(colorRenderTarget_, Color3::BLACK);
+  GraphicsInterface::clearRenderTarget(normalRenderTarget_, Color3::BLACK);
+  GraphicsInterface::clearRenderTarget(depthRenderTarget_, Color3::WHITE);
 }
 
 void Renderer3dDeferred::renderGeometry(IViewer* viewer, World& world, const SceneContext& sceneContext) {
   unsigned int renderTargets[] = {colorRenderTarget_, normalRenderTarget_, depthRenderTarget_};
   GraphicsInterface::setRenderTarget(renderTargets, 3);
-
-  GraphicsInterface::clearRenderTarget(colorRenderTarget_, Color3::BLACK);
-  GraphicsInterface::clearRenderTarget(normalRenderTarget_, Color3::BLACK);
-  GraphicsInterface::clearRenderTarget(depthRenderTarget_, Color3::WHITE);
 
   stdext::hash_map<int, std::vector<Mesh*>> effects;
 
@@ -103,13 +111,9 @@ void Renderer3dDeferred::renderGeometry(IViewer* viewer, World& world, const Sce
   GraphicsInterface::resetRenderTarget();
 }
 
-void Renderer3dDeferred::renderLights(IViewer* viewer, World& world, const SceneContext& sceneContext) {
-  GraphicsInterface::setRenderTarget(&pointLightRenderTarget_, 1);
-  GraphicsInterface::clearRenderTarget(pointLightRenderTarget_, Color3::BLACK);
-
-  //GraphicsInterface::resetRenderTarget();
- // GraphicsInterface::clearBuffer(Color3::RED);
-
+void Renderer3dDeferred::renderDirectionalLights(IViewer* viewer, World& world, const SceneContext& sceneContext) {
+  GraphicsInterface::setRenderTarget(lightMapRenderTarget_);
+  
   Matrix4x4 viewProjection = viewer->projection() * viewer->viewTransform();
 
   directionalLightEffect_->setTexture(normalMapTexture_, "NormalMap");
@@ -129,6 +133,44 @@ void Renderer3dDeferred::renderLights(IViewer* viewer, World& world, const Scene
     GraphicsInterface::setRenderState(true);
     GraphicsInterface::drawVertexBuffer(finalQuadVBOId_, 6);
     directionalLightEffect_->resetStates();
+  }
+
+  GraphicsInterface::resetRenderTarget();
+}
+
+void Renderer3dDeferred::renderPointLights(IViewer* viewer, World& world, const SceneContext& sceneContext) {
+  GraphicsInterface::setRenderTarget(lightMapRenderTarget_);
+
+  //GraphicsInterface::resetRenderTarget();
+  //GraphicsInterface::clearBuffer(Color3::MAGENTA);
+
+  pointLightEffect_->setUniform(halfPixel_, "HalfPixel");
+
+  pointLightEffect_->setTexture(normalMapTexture_, "NormalMap");
+  pointLightEffect_->setTexture(depthMapTexture_, "DepthMap");
+
+  std::vector<PointLight> pointLights = sceneContext.pointLights();
+
+  for (std::vector<PointLight>::iterator light = pointLights.begin(); light != pointLights.end(); ++light) {
+
+    Matrix4x4 worldViewProj = viewer->projection() * viewer->viewTransform() * (*light).transform();
+    pointLightEffect_->setUniform(worldViewProj, "WorldViewProj");
+
+    Matrix4x4 viewProjInv = (viewer->projection() * viewer->viewTransform()).inverse();
+    pointLightEffect_->setUniform(viewProjInv, "ViewProjInv");
+
+    pointLightEffect_->setUniform((*light).position(), "LightPosition");
+    pointLightEffect_->setUniform((*light).radius(), "LightRadius");
+    pointLightEffect_->setUniform((*light).color(), "LightColor");
+
+    float distanceToLightCenter = viewer->position().distance((*light).position());
+    bool cullBackFaces = distanceToLightCenter > (*light).radius();
+
+    pointLightEffect_->beginDraw();
+    GraphicsInterface::setPass(pointLightEffect_->pass()); 
+    GraphicsInterface::setRenderState(cullBackFaces);
+    pointLightModel_->render();
+    pointLightEffect_->resetStates();
   }
 
   GraphicsInterface::resetRenderTarget();

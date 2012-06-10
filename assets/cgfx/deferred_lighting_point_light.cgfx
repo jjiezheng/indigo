@@ -1,3 +1,5 @@
+#include "utils.cg"
+
 sampler2D NormalMap = sampler_state {
 	MinFilter = Point;
 	MagFilter = Point;
@@ -13,61 +15,56 @@ sampler2D DepthMap = sampler_state {
 };
 
 uniform float2 HalfPixel;
+
 uniform float4 LightPosition;
 uniform float3 LightColor;
+uniform float LightRadius;
 
-uniform float4x4 WorldViewProj;
-uniform float4x4 WorldView;
 uniform float4x4 ViewProjInv;
+uniform float4x4 WorldViewProj;
 
 struct VOutput {
       float4 position 			: POSITION;
-      float4 screenPosition  	: TEXCOORD0;
+      float4 screenPosition		: TEXCOORD0;
 };
 
 VOutput vs(float4 position : POSITION) {
-        VOutput OUT;
-        OUT.position = mul(WorldViewProj, position);
-        OUT.screenPosition = OUT.position;
-        return OUT;
+    VOutput OUT;
+    OUT.position = mul(WorldViewProj, position);
+    OUT.screenPosition = OUT.position;
+    return OUT;
 }
 
 VOutput vsgl(float4 position : ATTR0) {
   return vs(position);
 }
 
-float4 ps(float4 screenPosition	: TEXCOORD0) : COLOR {
-	// homoginize the screen position
-	screenPosition.xy /= screenPosition.w;
+float4 ps(float4 screenPosition : TEXCOORD0) : COLOR {
+	float3 screenPositionHom = screenPosition.xyz / screenPosition.w;
+	float2 texCoord = contract(screenPositionHom) - HalfPixel;
 
-	// convert screenPosition [-1,1] to texCoords [0,1]
-	float2 texCoord = 0.5f * (float2(screenPosition.x, -screenPosition.y) + 1);
-
-	// shift texCoords to center of screen pixel
-	texCoord -= HalfPixel;
-
-	// extract normal from Normal Map
-	float3 normal = 2.0f * tex2D(NormalMap, texCoord).xyz - 1.0f;
+	float4 normalData = tex2D(NormalMap, texCoord);
+	float3 normal = normalData.xyz;
 
 	float depth = tex2D(DepthMap, texCoord);
 
-	// setup the pixel position
-	float4 position;
-	position.xy = screenPosition.xy;
-	position.z = depth;	
-	position.w = 1.0f;	
+	float4 positionScreen;
+	positionScreen.xy = screenPositionHom.xy;
+	positionScreen.z = depth; 
+	positionScreen.w = 1.0f;
 
-	position = mul(position, ViewProjInv);
-	position /= position.w;
+	float4 positionRaw = mul(ViewProjInv, positionScreen);
+	float4 position = positionRaw / positionRaw.w;
 
-	float3 finalColor;	
+	float4 lightDirection = position - LightPosition;
 
-	// diffuse + ambient
-	{
-		float3 lightDirection = LightPosition - position;
-		float diffuseStrength = max(0.0f, dot(normalize(normal), normalize(lightDirection)));
-		finalColor = LightColor * diffuseStrength;
-	}
+	float3 finalColor;
+	float4 lightVector = -normalize(lightDirection);
+	float diffuseStrength = max(0.0f, dot(normalize(normal), lightVector));
+	finalColor = LightColor * diffuseStrength;
+
+	float attenuation = saturate(1.0f - length(lightVector) / LightRadius); 
+	finalColor *= attenuation;
 
 	return float4(finalColor, 1);
 }

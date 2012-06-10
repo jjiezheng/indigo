@@ -25,6 +25,7 @@ public:
   static Color3 GREEN;
   static Color3 BLUE;
   static Color3 GREY;
+  static Color3 MAGENTA;
   static Color3 CORNFLOWERBLUE;
   
 };

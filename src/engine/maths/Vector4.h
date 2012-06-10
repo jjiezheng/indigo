@@ -38,6 +38,12 @@ public:
   Vector4 rotateY(int degrees);
   
 public:
+
+  float distance(const Vector4& other) const;
+
+  float length() const;
+
+public:
   
   std::string toString() const;
   
@@ -50,6 +56,8 @@ public:
   inline float const * valuePtr() const;
   
   Vector4 operator + (const Vector4& other) const;
+
+  Vector4 operator - (const Vector4& other) const;
   
   Vector4 operator * (float scalar) const;
   

@@ -36,26 +36,36 @@
     }
   ],
   "lights" : [
-    {
+   {
+      "type" : "directional",
       "position" : {
         "x" : 0.0,
-        "y" : 0.0,
-        "z" : -2.0
+        "y" : 2.0,
+        "z" : 6.0
       },
-      "direction" : {
+       "direction" : {
         "x" : -0.5,
         "y" : -0.5,
         "z" : 0.0
-      },
-      "orientation" : {
-        "x" : 0,
-        "y" : 0,
-        "z" : 0
       },
       "color" : {
         "r" : 0.1,
         "g" : 0.1,
         "b" : 0.1
+      }
+    },
+    {
+     "type" : "point",
+     "radius" : 10.0,
+      "position" : {
+        "x" : 0.0,
+        "y" : 2.0,
+        "z" : -3.0
+      },
+      "color" : {
+        "r" : 0.0,
+        "g" : 1.0,
+        "b" : 0.0
       }
     }
   ]

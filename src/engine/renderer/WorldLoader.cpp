@@ -35,6 +35,7 @@
 #include "core/String.h"
 
 #include "DirectionalLight.h"
+#include "PointLight.h"
 
 void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, SceneContext& sceneContext) {
   std::string fullFilePath = Path::pathForFile(filePath);
@@ -115,7 +116,14 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
       sceneContext.addDirectionalLight(light);    
     }
 
-    /*if (lightType == "point") {
+    if (lightType == "point") {
+
+      PointLight light;
+
+      {
+        json::Number radius = (*lit)["radius"];
+        light.setRadius(radius);
+      }
       
       {
         json::Object positionObject = (*lit)["position"];
@@ -148,7 +156,9 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
 
         light.setColor(Color3(r, g, b));
       }
-    }*/
+
+      sceneContext.addPointLight(light); 
+    }
   }
 }
 

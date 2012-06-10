@@ -513,6 +513,14 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\src\engine\renderer\PointLight.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\engine\renderer\PointLight.h"
+					>
+				</File>
+				<File
 					RelativePath=".\RenderableList.h"
 					>
 				</File>

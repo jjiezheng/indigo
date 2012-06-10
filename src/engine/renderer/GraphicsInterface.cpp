@@ -81,6 +81,10 @@ unsigned int GraphicsInterface::createTexture(const CSize& dimensions) {
   return graphicsInterface_->createTexture(dimensions);
 }
 
+void GraphicsInterface::setRenderTarget(unsigned int renderTargetId) {
+  return graphicsInterface_->setRenderTarget(&renderTargetId, 1);
+}
+
 void GraphicsInterface::setRenderTarget(unsigned int* renderTargetId, unsigned int renderTargetCount) {
   return graphicsInterface_->setRenderTarget(renderTargetId, renderTargetCount);
 }

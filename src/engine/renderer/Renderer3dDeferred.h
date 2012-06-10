@@ -20,8 +20,10 @@ public:
 
 private:
 
+  void clearBuffers();
   void renderGeometry(IViewer* viewer, World& world, const SceneContext& sceneContext);
-  void renderLights(IViewer* viewer, World& world, const SceneContext& sceneContext);
+  void renderDirectionalLights(IViewer* viewer, World& world, const SceneContext& sceneContext);
+  void renderPointLights(IViewer* viewer, World& world, const SceneContext& sceneContext);
   void renderFinal(IViewer* viewer, World& world, const SceneContext& sceneContext);
 
 private:
@@ -40,9 +42,11 @@ private:
   unsigned int depthRenderTarget_;
 
   unsigned int lightMapTexture_;
-  unsigned int pointLightRenderTarget_;
+  unsigned int lightMapRenderTarget_;
 
   IEffect* directionalLightEffect_;
+
+  IEffect* pointLightEffect_;
   Model* pointLightModel_;
 
   IEffect* finalEffect_;
