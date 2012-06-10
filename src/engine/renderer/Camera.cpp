@@ -6,6 +6,8 @@
 #include "Angles.h"
 #include "io/Log.h"
 
+#include "platform/WindowsUtils.h"
+
 
 Camera::Camera() 
   : forward_(Vector3::FORWARD)
@@ -52,7 +54,7 @@ void Camera::update(float dt) {
   
   int x = 0;
   int y = 0;
-  //glfwGetMousePos(&x, &y);
+  WindowsUtils::getMousePosition(&x, &y);
   
   int xDelta = x - lastMouseX_;
   int yDelta = y - lastMouseY_;
