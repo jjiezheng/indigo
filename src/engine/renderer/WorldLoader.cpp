@@ -32,6 +32,9 @@
 
 #include "GraphicsInterface.h"
 #include "EffectCache.h"
+#include "core/String.h"
+
+#include "DirectionalLight.h"
 
 void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, SceneContext& sceneContext) {
   std::string fullFilePath = Path::pathForFile(filePath);
@@ -70,75 +73,82 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
   json::Array::iterator lit = lightsArray.begin();
 
   for (; lit != lightsArray.end(); ++lit) {
-    Light light;
-    
-    {
-      json::Object positionObject = (*lit)["position"];
+    json::String lightTypeString = (*lit)["type"];
+    String lightType = lightTypeString.Value();
+
+    if (lightType == "directional") {
+
+      DirectionalLight light;
       
-      json::Number xNumber = positionObject["x"];
-      float x = xNumber.Value();
+      {
+        json::Object directionObject = (*lit)["direction"];
+
+        json::Number xNumber = directionObject["x"];
+        float x = xNumber.Value();
+
+        json::Number yNumber = directionObject["y"];
+        float y = yNumber.Value();
+
+        json::Number zNumber = directionObject["z"];
+        float z = zNumber.Value();
+
+        Vector4 direction(x, y, z);
+
+        light.setDirection(direction);
+      }
+
+      {
+        json::Object colorObject = (*lit)["color"];
+        
+        json::Number rNumber = colorObject["r"];
+        float r = rNumber.Value();
+        
+        json::Number gNumber = colorObject["g"];
+        float g = gNumber.Value();
+
+        json::Number bNumber = colorObject["b"];
+        float b = bNumber.Value();      
+        
+        light.setColor(Color3(r, g, b));
+      }
       
-      json::Number yNumber = positionObject["y"];
-      float y = yNumber.Value();
-      
-      json::Number zNumber = positionObject["z"];
-      float z = zNumber.Value();
-      
-      Vector4 position(x, y, z);
-    
-      light.setPosition(position);
+      sceneContext.addDirectionalLight(light);    
     }
 
-    {
-      json::Object directionObject = (*lit)["direction"];
-
-      json::Number xNumber = directionObject["x"];
-      float x = xNumber.Value();
-
-      json::Number yNumber = directionObject["y"];
-      float y = yNumber.Value();
-
-      json::Number zNumber = directionObject["z"];
-      float z = zNumber.Value();
-
-      Vector4 direction(x, y, z);
-
-      light.setDirection(direction);
-    }
-    
-    {
-      json::Object rotationObject = (*lit)["orientation"];
+    /*if (lightType == "point") {
       
-      json::Number xNumber = rotationObject["x"];
-      float x = xNumber.Value();
-      
-      json::Number yNumber = rotationObject["y"];
-      float y = yNumber.Value();
-      Matrix4x4 rotationY = Matrix4x4::rotationY(y);
-      
-      json::Number zNumber = rotationObject["z"];
-      float z = zNumber.Value();      
-      
-      Matrix4x4 rotation = Matrix4x4::rotationZ(z) * Matrix4x4::rotationY(y) * Matrix4x4::rotationX(x);
-      light.setRotation(rotation);
-    }
+      {
+        json::Object positionObject = (*lit)["position"];
 
-     {
-      json::Object colorObject = (*lit)["color"];
-      
-      json::Number rNumber = colorObject["r"];
-      float r = rNumber.Value();
-      
-      json::Number gNumber = colorObject["g"];
-      float g = gNumber.Value();
+        json::Number xNumber = positionObject["x"];
+        float x = xNumber.Value();
 
-      json::Number bNumber = colorObject["b"];
-      float b = bNumber.Value();      
-      
-      light.setColor(Color3(r, g, b));
-    }
-    
-    sceneContext.addLight(light);    
+        json::Number yNumber = positionObject["y"];
+        float y = yNumber.Value();
+
+        json::Number zNumber = positionObject["z"];
+        float z = zNumber.Value();
+
+        Vector4 position(x, y, z);
+
+        light.setPosition(position);
+      }
+
+      {
+        json::Object colorObject = (*lit)["color"];
+
+        json::Number rNumber = colorObject["r"];
+        float r = rNumber.Value();
+
+        json::Number gNumber = colorObject["g"];
+        float g = gNumber.Value();
+
+        json::Number bNumber = colorObject["b"];
+        float b = bNumber.Value();      
+
+        light.setColor(Color3(r, g, b));
+      }
+    }*/
   }
 }
 

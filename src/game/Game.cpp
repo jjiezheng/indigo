@@ -28,7 +28,6 @@ void Game::mainLoop() {
   float dt = clock_.delta_time();
   camera_.update(dt);
   
-  Light light = sceneContext_.lights().front();
   //shadowRenderer_.renderToShadowMap(&light, world_, sceneContext_);
   renderer_.render(&camera_, world_, sceneContext_);
 }

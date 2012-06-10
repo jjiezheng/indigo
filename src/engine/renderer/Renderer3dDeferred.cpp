@@ -119,20 +119,10 @@ void Renderer3dDeferred::renderLights(IViewer* viewer, World& world, const Scene
   directionalLightEffect_->setUniform(viewProjection.inverse(), "ViewProjInv");
   directionalLightEffect_->setUniform(halfPixel_, "HalfPixel");
 
-  std::vector<Light> lights = sceneContext.lights();
-  for (std::vector<Light>::iterator light = lights.begin(); light != lights.end(); ++light) {
-    directionalLightEffect_->setUniform((*light).position(), "LightPosition");
+  std::vector<DirectionalLight> directionalLights = sceneContext.directionalLights();
+  for (std::vector<DirectionalLight>::iterator light = directionalLights.begin(); light != directionalLights.end(); ++light) {
     directionalLightEffect_->setUniform((*light).direction(), "LightDirection");
     directionalLightEffect_->setUniform((*light).color(), "LightColor");
-
-    Matrix4x4 world = (*light).transform();
-    directionalLightEffect_->setUniform(world, "World");
-
-    Matrix4x4 worldView = viewer->viewTransform() * world;
-    directionalLightEffect_->setUniform(worldView, "WorldView");
-
-    Matrix4x4 worldViewProjection = viewer->projection() * viewer->viewTransform() * world;
-    directionalLightEffect_->setUniform(worldViewProjection, "WorldViewProj");
 
     directionalLightEffect_->beginDraw();
     GraphicsInterface::setPass(directionalLightEffect_->pass()); 
