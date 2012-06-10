@@ -1,0 +1,12 @@
+#ifndef UTILS_H
+#define UTILS_H
+
+float3 expand(float3 vec) {
+	return 2.0f * vec - 1.0f;
+}
+
+float3 contract(float3 vec) {
+	return (0.5f * vec) + 1.0f; 
+}
+
+#endif

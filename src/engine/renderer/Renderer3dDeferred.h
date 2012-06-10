@@ -1,6 +1,8 @@
 #ifndef RENDERER3D_DEFERRED_H
 #define RENDERER3D_DEFERRED_H
 
+#include "maths/Vector2.h"
+
 class World;
 class SceneContext;
 class IViewer;
@@ -24,19 +26,23 @@ private:
 
 private:
 
-  unsigned int colorRenderTexture_;
+  Vector2 halfPixel_;
+
+private:
+
+  unsigned int colorMapTexture_;
   unsigned int colorRenderTarget_;
 
-  unsigned int normalRenderTexture_;
+  unsigned int normalMapTexture_;
   unsigned int normalRenderTarget_;
 
-  unsigned int depthRenderTexture_;
+  unsigned int depthMapTexture_;
   unsigned int depthRenderTarget_;
 
-  unsigned int pointLightTexture_;
+  unsigned int lightMapTexture_;
   unsigned int pointLightRenderTarget_;
 
-  IEffect* pointLightEffect_;
+  IEffect* directionalLightEffect_;
   Model* pointLightModel_;
 
   IEffect* finalEffect_;

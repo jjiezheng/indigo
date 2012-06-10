@@ -25,6 +25,8 @@ public:
   
   float aspectRatio() const;
 
+  float const * valuePtr() const;
+
 public:
 
   std::string toString() const;
@@ -34,6 +36,11 @@ public:
   float x, y;
       
 };
+
+inline float const * Vector2::valuePtr() const {
+  return &(x);
+}
+
 
 inline float Vector2::aspectRatio() const {
   return x / y;

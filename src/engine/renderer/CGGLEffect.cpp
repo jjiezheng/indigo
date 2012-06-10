@@ -11,6 +11,7 @@
 #include "maths/Matrix3x3.h"
 #include "maths/Vector4.h"
 #include "maths/Vector3.h"
+#include "maths/Vector2.h"
 #include "Color3.h"
 #include "GraphicsInterface.h"
 
@@ -40,6 +41,12 @@ void CGGLEffect::setUniform(const Color3& uniformData, const char* uniformName) 
   CGparameter parameter = cgGetNamedEffectParameter(effect_, uniformName);
   if (!parameter) return;
   cgGLSetParameter3fv(parameter, uniformData.valuePtr());
+}
+
+void CGGLEffect::setUniform(const Vector2& uniformData, const char* uniformName) const {
+  CGparameter parameter = cgGetNamedEffectParameter(effect_, uniformName);
+  if (!parameter) return;
+  cgGLSetParameter2fv(parameter, uniformData.valuePtr());
 }
 
 void CGGLEffect::setUniform(const Vector3& uniformData, const char* uniformName) const {

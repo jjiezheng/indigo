@@ -1,16 +1,18 @@
 sampler2D ColorMap = sampler_state {
 	MinFilter = Linear;
 	MagFilter = Linear;
-	WrapS = Wrap;
-	WrapT = Wrap;
+	WrapS = Clamp;
+	WrapT = Clamp;
 };
 
-sampler2D NormalMap = sampler_state {
+sampler2D LightMap = sampler_state {
 	MinFilter = Linear;
 	MagFilter = Linear;
-	WrapS = Wrap;
-	WrapT = Wrap;
+	WrapS = Clamp;
+	WrapT = Clamp;
 };
+
+uniform float2 HalfPixel;
 
 struct VOutput {
 	float4 position			: POSITION;
@@ -21,7 +23,7 @@ VOutput vs(float4 position 		: POSITION,
 		   float2 texCoord 		: TEXCOORD0) {
 	VOutput OUT;
 	OUT.position = position;
-	OUT.texCoord = texCoord;
+	OUT.texCoord = texCoord - HalfPixel;
  	return OUT;
 }
 
@@ -31,7 +33,10 @@ VOutput vsgl(float4 position 		: ATTR0,
 }
 
 float4 ps(float2 texCoord		: TEXCOORD0) : COLOR {
-	return tex2D(ColorMap, texCoord);
+	float4 color = tex2D(ColorMap, texCoord);
+	float4 light = tex2D(LightMap, texCoord);
+	float3 finalColor = color.rgb + light.rgb;
+	return float4(finalColor, 1.0f);
 }
 
 technique dx {

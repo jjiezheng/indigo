@@ -1,3 +1,5 @@
+#include "utils.cg"
+
 uniform float3 DiffuseColor;
 uniform float3 AmbientColor;
 
@@ -8,15 +10,15 @@ uniform float4x4 NormalMatrix;
 struct VOutput {
 	float4 position			: POSITION;
 	float3 normal			: TEXCOORD0;
-	float3 vPosition		: TEXCOORD1;
+	float depth				: TEXCOORD1;
 };
 
 VOutput vs(float4 position 		: POSITION,
 		   float4 normal 		: NORMAL) {
 	VOutput OUT;
 	OUT.position = mul(WorldViewProj, position);
-	OUT.vPosition = mul(World, position).xyz;
-	OUT.normal = normal.xyz;// mul(NormalMatrix, normal).xyz;
+	OUT.normal = normal.xyz;
+	OUT.depth = OUT.position.z / OUT.position.w;
  	return OUT;
 }
 
@@ -33,8 +35,7 @@ struct POutput {
 
 
 POutput ps(float3 normal			: TEXCOORD0,
-		   float2 texCoord			: TEXCOORD1,
-		   float  depth 			: TEXCOORD2) {
+		   float  depth 			: TEXCOORD1) {
 	POutput OUT;
 	OUT.color = float4(DiffuseColor, 1);					
 	OUT.normal = float4(normal, 1);

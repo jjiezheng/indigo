@@ -1,0 +1,70 @@
+#include "utils.cg"
+
+sampler2D NormalMap = sampler_state {
+	MinFilter = Point;
+	MagFilter = Point;
+	WrapS = Clamp;
+	WrapT = Clamp;
+};
+
+sampler2D DepthMap = sampler_state {
+	MinFilter = Point;
+	MagFilter = Point;
+	WrapS = Clamp;
+	WrapT = Clamp;
+};
+
+uniform float2 HalfPixel;
+
+uniform float4 LightDirection;
+uniform float3 LightColor;
+
+uniform float4x4 WorldViewProj;
+uniform float4x4 WorldView;
+uniform float4x4 ViewProjInv;
+
+struct VOutput {
+	float4 position 			: POSITION;
+	float2 texCoord				: TEXCOORD0;
+};
+
+VOutput vs(float4 position 	: POSITION,
+		   float4 texCoord 	: TEXCOORD0) {
+    VOutput OUT;
+    OUT.position = position;
+    OUT.texCoord = texCoord - HalfPixel;
+    return OUT;
+}
+
+VOutput vsgl(float4 position : ATTR0,
+			 float4 texCoord : ATTR8) {
+	return vs(position, texCoord);
+}
+
+float4 ps(float2 texCoord	: TEXCOORD0) : COLOR {
+	float4 normalData = tex2D(NormalMap, texCoord);
+	float3 normal = normalData.xyz;
+
+	float3 finalColor;	
+
+	// diffuse
+	float4 lightVector = -normalize(LightDirection);
+	float diffuseStrength = max(0.0f, dot(normalize(normal), lightVector));
+	finalColor = LightColor * diffuseStrength;
+
+	return float4(finalColor, 1);
+}
+
+technique dx {
+  pass {
+    VertexProgram = compile vs_4_0 vs();
+    FragmentProgram = compile ps_4_0 ps();
+  }
+}
+
+technique latest {
+  pass {
+    VertexProgram = compile glslv vsgl();
+    FragmentProgram = compile glslf ps();
+  }
+}

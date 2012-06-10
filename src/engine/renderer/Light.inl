@@ -17,3 +17,11 @@ inline void Light::setColor(const Color3& color) {
 inline Color3 Light::color() const {
   return color_;
 }
+
+inline Vector4 Light::direction() const {
+  return direction_;
+}
+
+inline void Light::setDirection(const Vector4& direction) {
+  direction_ = direction;
+}

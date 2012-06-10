@@ -46,6 +46,8 @@ public:
 
   virtual void setUniform(const Color3& uniformData, const char* uniformName) const = 0;
 
+  virtual void setUniform(const Vector2& uniformData, const char* uniformName) const = 0;
+
   virtual void setUniform(const Vector3& uniformData, const char* uniformName) const = 0;
 
   virtual void setUniform(const Vector4& uniformData, const char* uniformName) const = 0;
