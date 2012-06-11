@@ -56,15 +56,13 @@ float4 ps(float4 screenPosition : TEXCOORD0) : COLOR {
 	float4 positionRaw = mul(ViewProjInv, positionScreen);
 	float4 position = positionRaw / positionRaw.w;
 
-	float4 lightDirection = position - LightPosition;
+	float4 lightDirection = LightPosition - position;
 
-	float3 finalColor;
-	float4 lightVector = -normalize(lightDirection);
-	float diffuseStrength = max(0.0f, dot(normalize(normal), lightVector));
-	finalColor = LightColor * diffuseStrength;
+	float diffuseStrength = max(0.0f, dot(normalize(normal), normalize(lightDirection)));
+	float3 diffuseColor = LightColor * diffuseStrength;
 
-	float attenuation = saturate(1.0f - length(lightVector) / LightRadius); 
-	finalColor *= attenuation;
+	float attenuation = saturate(1.0f - length(lightDirection) / LightRadius); 
+	float3 finalColor = diffuseColor * attenuation;
 
 	return float4(finalColor, 1);
 }

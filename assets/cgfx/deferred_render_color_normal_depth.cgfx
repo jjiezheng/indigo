@@ -5,7 +5,7 @@ uniform float3 AmbientColor;
 
 uniform float4x4 WorldViewProj;
 uniform float4x4 World;
-uniform float4x4 NormalMatrix;
+uniform float3x3 NormalMatrix;
 
 struct VOutput {
 	float4 position			: POSITION;
@@ -17,7 +17,7 @@ VOutput vs(float4 position 		: POSITION,
 		   float4 normal 		: NORMAL) {
 	VOutput OUT;
 	OUT.position = mul(WorldViewProj, position);
-	OUT.normal = normal.xyz;
+	OUT.normal = mul(NormalMatrix, normal.xyz);
 	OUT.depth = OUT.position.z / OUT.position.w;
  	return OUT;
 }

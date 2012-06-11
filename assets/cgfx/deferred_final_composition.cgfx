@@ -35,8 +35,8 @@ VOutput vsgl(float4 position 		: ATTR0,
 float4 ps(float2 texCoord		: TEXCOORD0) : COLOR {
 	float4 color = tex2D(ColorMap, texCoord);
 	float4 light = tex2D(LightMap, texCoord);
-	float3 finalColor = color.rgb + light.rgb;
-	return float4(finalColor, 1.0f);
+	float4 finalColor = color * light;
+	return float4(finalColor.rgb, 1.0f);
 }
 
 technique dx {
