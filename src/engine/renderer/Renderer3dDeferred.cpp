@@ -168,7 +168,7 @@ void Renderer3dDeferred::renderPointLights(IViewer* viewer, World& world, const 
 
     pointLightEffect_->beginDraw();
     GraphicsInterface::setPass(pointLightEffect_->pass()); 
-    GraphicsInterface::setRenderState(cullBackFaces);
+    GraphicsInterface::setRenderState(true);
     pointLightModel_->render();
     pointLightEffect_->resetStates();
   }

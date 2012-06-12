@@ -43,6 +43,11 @@ void IEffect::onError() {
 
 void IEffect::handleError(CGcontext context, CGerror error, void *data) {
   LOG(LOG_CHANNEL_SHADER, "%s", cgGetErrorString(error));
+
+  const char* errorListing = cgGetLastListing(context_);
+  if (errorListing) {
+    LOG(LOG_CHANNEL_SHADER, errorListing);
+  }
 }
 
 IEffect* IEffect::effectFromFile(const std::string& relativeFilePath) {
