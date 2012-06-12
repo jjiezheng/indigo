@@ -49,6 +49,8 @@ public:
 
   virtual void resetGraphicsState(bool cullBack) = 0;
 
+  virtual void setBlendState(bool alphaBlend) = 0;
+
 public:
 
   virtual unsigned int loadTexture(const std::string& filePath) = 0;

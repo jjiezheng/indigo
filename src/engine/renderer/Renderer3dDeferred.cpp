@@ -66,7 +66,7 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
 void Renderer3dDeferred::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
   clearBuffers();
   renderGeometry(viewer, world, sceneContext);
-  //renderDirectionalLights(viewer, world, sceneContext);
+  renderDirectionalLights(viewer, world, sceneContext);
   renderPointLights(viewer, world, sceneContext);
   renderFinal(viewer, world, sceneContext); 
 }
@@ -116,12 +116,12 @@ void Renderer3dDeferred::renderDirectionalLights(IViewer* viewer, World& world, 
   
   Matrix4x4 viewProjection = viewer->projection() * viewer->viewTransform();
 
+  directionalLightEffect_->setUniform(halfPixel_, "HalfPixel");
+
   directionalLightEffect_->setTexture(normalMapTexture_, "NormalMap");
-  //directionalLightEffect_->setTexture(depthMapTexture_, "DepthMap");
 
   directionalLightEffect_->setUniform(viewProjection, "ViewProj");
   directionalLightEffect_->setUniform(viewProjection.inverse(), "ViewProjInv");
-  directionalLightEffect_->setUniform(halfPixel_, "HalfPixel");
 
   std::vector<DirectionalLight> directionalLights = sceneContext.directionalLights();
   for (std::vector<DirectionalLight>::iterator light = directionalLights.begin(); light != directionalLights.end(); ++light) {
@@ -131,19 +131,17 @@ void Renderer3dDeferred::renderDirectionalLights(IViewer* viewer, World& world, 
     directionalLightEffect_->beginDraw();
     GraphicsInterface::setPass(directionalLightEffect_->pass()); 
     GraphicsInterface::setRenderState(true);
+    GraphicsInterface::setBlendState(true);
     GraphicsInterface::drawVertexBuffer(finalQuadVBOId_, 6);
     directionalLightEffect_->resetStates();
   }
 
+  GraphicsInterface::setBlendState(false);
   GraphicsInterface::resetRenderTarget();
 }
 
 void Renderer3dDeferred::renderPointLights(IViewer* viewer, World& world, const SceneContext& sceneContext) {
   GraphicsInterface::setRenderTarget(lightMapRenderTarget_);
-
-  //GraphicsInterface::resetRenderTarget();
-  //GraphicsInterface::clearBuffer(Color3::MAGENTA);
-
   pointLightEffect_->setUniform(halfPixel_, "HalfPixel");
 
   pointLightEffect_->setTexture(normalMapTexture_, "NormalMap");
@@ -168,8 +166,9 @@ void Renderer3dDeferred::renderPointLights(IViewer* viewer, World& world, const 
 
     pointLightEffect_->beginDraw();
     GraphicsInterface::setPass(pointLightEffect_->pass()); 
-    GraphicsInterface::setRenderState(true);
+    GraphicsInterface::setRenderState(cullBackFaces);
     pointLightModel_->render();
+    GraphicsInterface::setRenderState(true);
     pointLightEffect_->resetStates();
   }
 

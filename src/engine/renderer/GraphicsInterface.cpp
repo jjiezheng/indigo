@@ -100,3 +100,7 @@ void GraphicsInterface::clearRenderTarget(unsigned int renderTargetId, const Col
 void GraphicsInterface::resetRenderTarget() {
   graphicsInterface_->resetRenderTarget();
 }
+
+void GraphicsInterface::setBlendState(bool alphaBlend) {
+  graphicsInterface_->setBlendState(alphaBlend);
+}

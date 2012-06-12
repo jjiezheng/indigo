@@ -33,6 +33,8 @@ public:
 
   void resetGraphicsState(bool cullBack);
 
+  void setBlendState(bool alphaBlend);
+
 public:
 
   unsigned int loadTexture(const std::string& filePath);

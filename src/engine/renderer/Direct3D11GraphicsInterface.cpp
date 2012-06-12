@@ -228,26 +228,27 @@ void Direct3D11GraphicsInterface::setTexture(int textureId, CGparameter paramete
 }
 
 void Direct3D11GraphicsInterface::resetGraphicsState(bool cullBack) {
+  {
+    D3D11_RASTERIZER_DESC rasterDesc;
+    ZeroMemory(&rasterDesc, sizeof(D3D11_RASTERIZER_DESC));
 
-  D3D11_RASTERIZER_DESC rasterDesc;
-  ZeroMemory(&rasterDesc, sizeof(D3D11_RASTERIZER_DESC));
+    rasterDesc.AntialiasedLineEnable = false;
+    rasterDesc.CullMode = cullBack ? D3D11_CULL_BACK : D3D11_CULL_FRONT;
+    rasterDesc.DepthBias = 0;
+    rasterDesc.DepthBiasClamp = 0.0f;
+    rasterDesc.DepthClipEnable = true;
+    rasterDesc.FillMode = D3D11_FILL_SOLID;
+    rasterDesc.FrontCounterClockwise = true;
+    rasterDesc.MultisampleEnable = false;
+    rasterDesc.ScissorEnable = false;
+    rasterDesc.SlopeScaledDepthBias = 0.0f;
 
-  rasterDesc.AntialiasedLineEnable = false;
-  rasterDesc.CullMode = cullBack ? D3D11_CULL_BACK : D3D11_CULL_FRONT;
-  rasterDesc.DepthBias = 0;
-  rasterDesc.DepthBiasClamp = 0.0f;
-  rasterDesc.DepthClipEnable = true;
-  rasterDesc.FillMode = D3D11_FILL_SOLID;
-  rasterDesc.FrontCounterClockwise = true;
-  rasterDesc.MultisampleEnable = false;
-  rasterDesc.ScissorEnable = false;
-  rasterDesc.SlopeScaledDepthBias = 0.0f;
+    ID3D11RasterizerState* rasterState;
+    HRESULT result = device_->CreateRasterizerState(&rasterDesc, &rasterState);
+    assert(result == S_OK);
 
-  ID3D11RasterizerState* rasterState;
-  HRESULT result = device_->CreateRasterizerState(&rasterDesc, &rasterState);
-  assert(result == S_OK);
-
-  deviceConnection_->RSSetState(rasterState);
+    deviceConnection_->RSSetState(rasterState);
+  }
 }
 
 unsigned int Direct3D11GraphicsInterface::createTexture(const CSize& dimensions) {
@@ -307,4 +308,26 @@ void Direct3D11GraphicsInterface::clearRenderTarget(unsigned int renderTargetId,
 
 void Direct3D11GraphicsInterface::resetRenderTarget() {
   deviceConnection_->OMSetRenderTargets(1, &backBuffer_, depthBuffer_);
+}
+
+void Direct3D11GraphicsInterface::setBlendState(bool alphaBlend) {
+  D3D11_BLEND_DESC blendDesc;
+  ZeroMemory(&blendDesc, sizeof(D3D11_BLEND_DESC));
+
+  blendDesc.RenderTarget[0].BlendEnable = alphaBlend;
+  blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;
+  blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;
+  blendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+  
+  blendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+  blendDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ONE;
+  blendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+  
+  blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+  ID3D11BlendState* blendState;
+  HRESULT result = device_->CreateBlendState(&blendDesc, &blendState);
+  assert(result == S_OK);
+
+  deviceConnection_->OMSetBlendState(blendState, 0, 0xffffff);
 }

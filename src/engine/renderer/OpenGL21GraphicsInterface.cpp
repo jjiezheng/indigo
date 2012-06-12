@@ -334,3 +334,7 @@ void OpenGL21GraphicsInterface::resetRenderTarget() {
   glBindFramebuffer(GL_FRAMEBUFFER, 0);
   GLUtilities::checkForError();
 }
+
+void OpenGL21GraphicsInterface::setBlendState(bool alphaBlend) {
+
+}

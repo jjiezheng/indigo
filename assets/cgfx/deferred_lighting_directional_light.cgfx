@@ -45,11 +45,11 @@ float4 ps(float2 texCoord	: TEXCOORD0) : COLOR {
 	float4 normalData = tex2D(NormalMap, texCoord);
 	float3 normal = normalData.xyz;
 
-	float3 finalColor;	
+	float3 finalColor;
 
 	// diffuse
-	float4 lightVector = -normalize(LightDirection);
-	float diffuseStrength = max(0.0f, dot(normalize(normal), lightVector));
+	float4 lightVector = -LightDirection;
+	float diffuseStrength = max(0.0f, dot(normalize(normal), normalize(lightVector)));
 	finalColor = LightColor * diffuseStrength;
 
 	return float4(finalColor, 1);
