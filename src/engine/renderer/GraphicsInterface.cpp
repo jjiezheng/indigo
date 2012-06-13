@@ -81,12 +81,12 @@ unsigned int GraphicsInterface::createTexture(const CSize& dimensions) {
   return graphicsInterface_->createTexture(dimensions);
 }
 
-void GraphicsInterface::setRenderTarget(unsigned int renderTargetId) {
-  return graphicsInterface_->setRenderTarget(&renderTargetId, 1);
+void GraphicsInterface::setRenderTarget(unsigned int renderTargetId, bool useDepthBuffer) {
+  return graphicsInterface_->setRenderTarget(&renderTargetId, 1, useDepthBuffer);
 }
 
-void GraphicsInterface::setRenderTarget(unsigned int* renderTargetId, unsigned int renderTargetCount) {
-  return graphicsInterface_->setRenderTarget(renderTargetId, renderTargetCount);
+void GraphicsInterface::setRenderTarget(unsigned int* renderTargetId, unsigned int renderTargetCount, bool useDepthBuffer) {
+  return graphicsInterface_->setRenderTarget(renderTargetId, renderTargetCount, useDepthBuffer);
 }
 
 unsigned int GraphicsInterface::createRenderTarget(unsigned int textureId) {
@@ -99,8 +99,4 @@ void GraphicsInterface::clearRenderTarget(unsigned int renderTargetId, const Col
 
 void GraphicsInterface::resetRenderTarget() {
   graphicsInterface_->resetRenderTarget();
-}
-
-void GraphicsInterface::setBlendState(bool alphaBlend) {
-  graphicsInterface_->setBlendState(alphaBlend);
 }

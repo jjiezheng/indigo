@@ -34,8 +34,6 @@ public:
 
   void resetGraphicsState(bool cullBack);
 
-  void setBlendState(bool alphaBlend);
-
 public:
 
   unsigned int loadTexture(const std::string& filePath);
@@ -46,7 +44,7 @@ public:
 
 public:
 
-  void setRenderTarget(unsigned int* textureId, unsigned int renderTargetCount);
+  void setRenderTarget(unsigned int* textureId, unsigned int renderTargetCount, bool useDepthBuffer);
 
   unsigned int createRenderTarget(unsigned int textureId);
 

@@ -49,8 +49,6 @@ public:
 
   virtual void resetGraphicsState(bool cullBack) = 0;
 
-  virtual void setBlendState(bool alphaBlend) = 0;
-
 public:
 
   virtual unsigned int loadTexture(const std::string& filePath) = 0;
@@ -59,7 +57,9 @@ public:
 
   virtual void setTexture(int textureId, CGparameter parameter) = 0;
 
-  virtual void setRenderTarget(unsigned int* textureId, unsigned int renderTargetCount) = 0;
+public:
+
+  virtual void setRenderTarget(unsigned int* textureId, unsigned int renderTargetCount, bool useDepthBuffer) = 0;
 
   virtual void resetRenderTarget() = 0;
 
@@ -70,6 +70,7 @@ public:
 public:
 
   virtual bool getKeySate(char key) = 0;
+
 protected:
 
   bool windowClosed_;

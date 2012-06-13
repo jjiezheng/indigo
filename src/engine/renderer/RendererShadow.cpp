@@ -26,7 +26,7 @@ void RendererShadow::init(const CSize &screenSize) {
 } 
 
 void RendererShadow::renderToShadowMap(IViewer* viewer, World& world, SceneContext& sceneContext) {
-  GraphicsInterface::setRenderTarget(&renderTarget_, 1);
+  GraphicsInterface::setRenderTarget(&renderTarget_, 1, true);
   GraphicsInterface::clearRenderTarget(renderTarget_, Color3::WHITE);
 
   stdext::hash_map<int, std::vector<Mesh*>> meshes;

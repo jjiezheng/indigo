@@ -278,7 +278,7 @@ unsigned int Direct3D11GraphicsInterface::createTexture(const CSize& dimensions)
   return textureId;
 }
 
-void Direct3D11GraphicsInterface::setRenderTarget(unsigned int* renderTargetIds, unsigned int renderTargetCount) {
+void Direct3D11GraphicsInterface::setRenderTarget(unsigned int* renderTargetIds, unsigned int renderTargetCount, bool useDepthBuffer) {
   std::vector<ID3D11RenderTargetView*> renderTargetViews;
 
   for (unsigned int i = 0; i < renderTargetCount; i++) {
@@ -286,8 +286,9 @@ void Direct3D11GraphicsInterface::setRenderTarget(unsigned int* renderTargetIds,
     ID3D11RenderTargetView* renderTargetView = renderTargets_[renderTargetId];
     renderTargetViews.push_back(renderTargetView);
   }
-
-  deviceConnection_->OMSetRenderTargets(renderTargetViews.size(), &renderTargetViews[0], depthBuffer_);
+  
+  ID3D11DepthStencilView* depthBuffer = useDepthBuffer ? depthBuffer_ : NULL;
+  deviceConnection_->OMSetRenderTargets(renderTargetViews.size(), &renderTargetViews[0], depthBuffer);
 }
 
 unsigned int Direct3D11GraphicsInterface::createRenderTarget(unsigned int textureId) {
@@ -308,28 +309,4 @@ void Direct3D11GraphicsInterface::clearRenderTarget(unsigned int renderTargetId,
 
 void Direct3D11GraphicsInterface::resetRenderTarget() {
   deviceConnection_->OMSetRenderTargets(1, &backBuffer_, depthBuffer_);
-}
-
-void Direct3D11GraphicsInterface::setBlendState(bool alphaBlend) {
-  D3D11_BLEND_DESC blendDesc;
-  ZeroMemory(&blendDesc, sizeof(D3D11_BLEND_DESC));
-
-  for (int i = 0; i < 6; i++) {
-    blendDesc.RenderTarget[i].BlendEnable = alphaBlend;
-    blendDesc.RenderTarget[i].SrcBlend = D3D11_BLEND_ONE;
-    blendDesc.RenderTarget[i].DestBlend = D3D11_BLEND_ONE;
-    blendDesc.RenderTarget[i].BlendOp = D3D11_BLEND_OP_ADD;
-    
-    blendDesc.RenderTarget[i].SrcBlendAlpha = D3D11_BLEND_ONE;
-    blendDesc.RenderTarget[i].DestBlendAlpha = D3D11_BLEND_ONE;
-    blendDesc.RenderTarget[i].BlendOpAlpha = D3D11_BLEND_OP_ADD;
-    
-    blendDesc.RenderTarget[i].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
-  }
-
-  ID3D11BlendState* blendState;
-  HRESULT result = device_->CreateBlendState(&blendDesc, &blendState);
-  assert(result == S_OK);
-
-  deviceConnection_->OMSetBlendState(blendState, 0, 0xffffff);
 }

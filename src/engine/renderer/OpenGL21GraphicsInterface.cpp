@@ -251,7 +251,7 @@ unsigned int OpenGL21GraphicsInterface::createTexture(const CSize& dimensions) {
   return texture;
 }
 
-void OpenGL21GraphicsInterface::setRenderTarget(unsigned int* renderBuffers, unsigned int renderTargetCount) {
+void OpenGL21GraphicsInterface::setRenderTarget(unsigned int* renderBuffers, unsigned int renderTargetCount, bool useDepthBuffer) {
   
   unsigned int primartyRenderTargetId = renderBuffers[0];
   OpenGLRenderTarget primaryRenderTarget = renderTargets_[primartyRenderTargetId];
@@ -333,8 +333,4 @@ void OpenGL21GraphicsInterface::resetRenderTarget() {
   glEnable(GL_TEXTURE_2D);
   glBindFramebuffer(GL_FRAMEBUFFER, 0);
   GLUtilities::checkForError();
-}
-
-void OpenGL21GraphicsInterface::setBlendState(bool alphaBlend) {
-
 }

@@ -69,6 +69,9 @@ float4 ps(float4 screenPosition : TEXCOORD0) : COLOR {
 
 technique dx {
   pass {
+  	BlendEnable = true;
+  	SrcBlend = One;
+  	DestBlend = One;
     VertexProgram = compile vs_4_0 vs();
     FragmentProgram = compile ps_4_0 ps();
   }
@@ -76,6 +79,9 @@ technique dx {
 
 technique latest {
   pass {
+  	BlendEnable = true;
+  	SrcBlend = One;
+  	DestBlend = One;
     VertexProgram = compile glslv vsgl();
     FragmentProgram = compile glslf ps();
   }

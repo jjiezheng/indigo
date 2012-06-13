@@ -48,13 +48,13 @@ public:
 
   static void setRenderState(bool cullBack);
 
-  static void setBlendState(bool alphaBlend);
+public:
 
   static void clearRenderTarget(unsigned int renderTargetId, const Color3& color);
 
-  static void setRenderTarget(unsigned int renderTargetId);
+  static void setRenderTarget(unsigned int renderTargetId, bool useDepthBuffer);
 
-  static void setRenderTarget(unsigned int* renderTargetId, unsigned int renderTargetCount);
+  static void setRenderTarget(unsigned int* renderTargetId, unsigned int renderTargetCount, bool useDepthBuffer);
 
   static void resetRenderTarget();
 
