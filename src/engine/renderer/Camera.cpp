@@ -110,3 +110,8 @@ Matrix4x4 Camera::transform() const {
 Matrix4x4 Camera::viewTransform() const {
   return transform().inverse();
 }
+
+void Camera::setPerspective(float fov, float aspectRatio, float nearDistance, float farDistance) {
+  nearDistance_ = nearDistance;
+  projection_ = Matrix4x4::perspective(fov, aspectRatio, nearDistance, farDistance);
+}

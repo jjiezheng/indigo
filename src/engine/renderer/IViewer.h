@@ -15,6 +15,11 @@ public:
   virtual Matrix4x4 transform() const = 0;
   
   virtual Vector4 position() const = 0;
+
+public:
+
+  virtual float nearDistance() const = 0;
+
   
 };
 

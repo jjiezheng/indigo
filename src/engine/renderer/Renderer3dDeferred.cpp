@@ -157,7 +157,7 @@ void Renderer3dDeferred::renderPointLights(IViewer* viewer, World& world, const 
     pointLightEffect_->setUniform((*light).color(), "LightColor");
 
     float distanceToLightCenter = viewer->position().distance((*light).position());
-    bool cullBackFaces = distanceToLightCenter >= (*light).radius();
+    bool cullBackFaces = distanceToLightCenter >= (*light).radius() + viewer->nearDistance();
 
     pointLightEffect_->beginDraw();
     GraphicsInterface::setPass(pointLightEffect_->pass()); 

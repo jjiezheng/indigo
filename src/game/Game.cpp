@@ -14,9 +14,8 @@ void Game::init() {
 
   renderer_.init(GraphicsInterface::screenSize());
   shadowRenderer_.init(GraphicsInterface::screenSize()); 
- 
-  Matrix4x4 projection = Matrix4x4::perspective(45.0f, GraphicsInterface::aspectRatio(), 1.0f, 200.0f);
-  camera_.setProjection(projection);
+
+  camera_.setPerspective(45.0f, GraphicsInterface::aspectRatio(), 1.0f, 200.0f);
 
   WorldLoader loader; 
   loader.loadFromSceneFile("scenes/testcars/testcars.scene", world_, sceneContext_);

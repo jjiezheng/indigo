@@ -50,10 +50,14 @@ public:
   Matrix4x4 viewTransform() const;
   
 public:
-  
-  void setProjection(const Matrix4x4& projection);
+
+  void setPerspective(float fov, float aspectRatio, float nearDistance, float farDistance);
   
   Matrix4x4 projection() const;
+
+public:
+
+  float nearDistance() const;
     
 private:
     
@@ -69,6 +73,8 @@ private:
   Vector3 right_;
   Vector3 up_;
   Matrix4x4 projection_;
+
+  float nearDistance_;
   
   Vector4 position_;
   
@@ -79,10 +85,6 @@ private:
   int lastMouseX_;
   int lastMouseY_;
 };
-
-inline void Camera::setProjection(const Matrix4x4& projection) {
-  projection_ = projection;
-}
 
 inline Matrix4x4 Camera::projection() const {
   return projection_;
@@ -102,6 +104,10 @@ inline void Camera::translateX(float amount) {
 
 inline Vector4 Camera::position() const {
   return position_;
+}
+
+inline float Camera::nearDistance() const {
+  return nearDistance_;
 }
 
 #endif
