@@ -115,26 +115,22 @@ void Renderer3dDeferred::renderDirectionalLights(IViewer* viewer, World& world, 
   GraphicsInterface::setRenderTarget(lightMapRenderTarget_);
 
   GraphicsInterface::resetRenderTarget();
-  GraphicsInterface::clearBuffer(Color3::BLACK);
-  
-  Matrix4x4 viewProjection = viewer->projection() * viewer->viewTransform();
-
-  directionalLightEffect_->setUniform(halfPixel_, "HalfPixel");
-
-  directionalLightEffect_->setTexture(normalMapTexture_, "NormalMap");
-
-  directionalLightEffect_->setUniform(viewProjection, "ViewProj");
-  directionalLightEffect_->setUniform(viewProjection.inverse(), "ViewProjInv");
+  GraphicsInterface::clearBuffer(Color3::CORNFLOWERBLUE);
 
   std::vector<DirectionalLight> directionalLights = sceneContext.directionalLights();
   for (std::vector<DirectionalLight>::iterator light = directionalLights.begin(); light != directionalLights.end(); ++light) {
+    directionalLightEffect_->setTexture(normalMapTexture_, "NormalMap");
+    
+    Matrix4x4 viewProjection = viewer->projection() * viewer->viewTransform();
+    directionalLightEffect_->setUniform(viewProjection, "ViewProj");
+    directionalLightEffect_->setUniform(viewProjection.inverse(), "ViewProjInv");
+    directionalLightEffect_->setUniform(halfPixel_, "HalfPixel");
     directionalLightEffect_->setUniform((*light).direction(), "LightDirection");
     directionalLightEffect_->setUniform((*light).color(), "LightColor");
 
     directionalLightEffect_->beginDraw();
     GraphicsInterface::setPass(directionalLightEffect_->pass()); 
     GraphicsInterface::setRenderState(true);
-    GraphicsInterface::setBlendState(true);
     GraphicsInterface::drawVertexBuffer(finalQuadVBOId_, 6);
     directionalLightEffect_->resetStates();
   }

@@ -314,8 +314,8 @@ void Direct3D11GraphicsInterface::setBlendState(bool alphaBlend) {
   D3D11_BLEND_DESC blendDesc;
   ZeroMemory(&blendDesc, sizeof(D3D11_BLEND_DESC));
 
-  for (int i = 0; i < 4; i++) {
-    blendDesc.RenderTarget[i].BlendEnable = FALSE;
+  for (int i = 0; i < 6; i++) {
+    blendDesc.RenderTarget[i].BlendEnable = alphaBlend;
     blendDesc.RenderTarget[i].SrcBlend = D3D11_BLEND_ONE;
     blendDesc.RenderTarget[i].DestBlend = D3D11_BLEND_ONE;
     blendDesc.RenderTarget[i].BlendOp = D3D11_BLEND_OP_ADD;
