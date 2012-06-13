@@ -314,16 +314,18 @@ void Direct3D11GraphicsInterface::setBlendState(bool alphaBlend) {
   D3D11_BLEND_DESC blendDesc;
   ZeroMemory(&blendDesc, sizeof(D3D11_BLEND_DESC));
 
-  blendDesc.RenderTarget[0].BlendEnable = alphaBlend;
-  blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;
-  blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;
-  blendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
-  
-  blendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
-  blendDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ONE;
-  blendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
-  
-  blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+  for (int i = 0; i < 4; i++) {
+    blendDesc.RenderTarget[i].BlendEnable = FALSE;
+    blendDesc.RenderTarget[i].SrcBlend = D3D11_BLEND_ONE;
+    blendDesc.RenderTarget[i].DestBlend = D3D11_BLEND_ONE;
+    blendDesc.RenderTarget[i].BlendOp = D3D11_BLEND_OP_ADD;
+    
+    blendDesc.RenderTarget[i].SrcBlendAlpha = D3D11_BLEND_ONE;
+    blendDesc.RenderTarget[i].DestBlendAlpha = D3D11_BLEND_ONE;
+    blendDesc.RenderTarget[i].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+    
+    blendDesc.RenderTarget[i].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+  }
 
   ID3D11BlendState* blendState;
   HRESULT result = device_->CreateBlendState(&blendDesc, &blendState);

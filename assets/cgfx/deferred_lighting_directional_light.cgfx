@@ -52,7 +52,7 @@ float4 ps(float2 texCoord	: TEXCOORD0) : COLOR {
 	float diffuseStrength = max(0.0f, dot(normalize(normal), normalize(lightVector)));
 	finalColor = LightColor * diffuseStrength;
 
-	return float4(finalColor, 1);
+	return float4(finalColor, 0.5f);
 }
 
 technique dx {

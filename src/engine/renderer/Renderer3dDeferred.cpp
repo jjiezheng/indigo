@@ -67,8 +67,8 @@ void Renderer3dDeferred::render(IViewer* viewer, World& world, const SceneContex
   clearBuffers();
   renderGeometry(viewer, world, sceneContext);
   renderDirectionalLights(viewer, world, sceneContext);
-  renderPointLights(viewer, world, sceneContext);
-  renderFinal(viewer, world, sceneContext); 
+  //renderPointLights(viewer, world, sceneContext);
+  //renderFinal(viewer, world, sceneContext); 
 }
 
 void Renderer3dDeferred::clearBuffers() {
@@ -113,6 +113,9 @@ void Renderer3dDeferred::renderGeometry(IViewer* viewer, World& world, const Sce
 
 void Renderer3dDeferred::renderDirectionalLights(IViewer* viewer, World& world, const SceneContext& sceneContext) {
   GraphicsInterface::setRenderTarget(lightMapRenderTarget_);
+
+  GraphicsInterface::resetRenderTarget();
+  GraphicsInterface::clearBuffer(Color3::BLACK);
   
   Matrix4x4 viewProjection = viewer->projection() * viewer->viewTransform();
 

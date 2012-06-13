@@ -9,7 +9,7 @@
 void Game::init() {
   properties_.init();
   
-  camera_.translateZ(15.0f);
+  camera_.translateZ(3.0f);
   camera_.translateY(1.8f);
 
   renderer_.init(GraphicsInterface::screenSize());
