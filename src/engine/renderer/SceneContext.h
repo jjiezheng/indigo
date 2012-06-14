@@ -1,6 +1,8 @@
 #ifndef SCENE_CONTEXT_H
 #define SCENE_CONTEXT_H
 
+#include <vector>
+
 #include "DirectionalLight.h"
 #include "PointLight.h"
 #include "Color4.h"
@@ -31,9 +33,9 @@ public:
   
 public:
     
-  void setShadowTexture(GLuint shadowTexture);
+  void setShadowTexture(unsigned int shadowTexture);
   
-  GLuint shadowTexture() const;
+  unsigned int shadowTexture() const;
   
 public:
   
@@ -56,7 +58,7 @@ private:
   std::vector<DirectionalLight> directionalLights_;
   std::vector<PointLight> pointLights_;
   
-  GLuint shadowTexture_;
+  unsigned int shadowTexture_;
   float fogStart_;
   float fogEnd_;
   FogType fogType_;
@@ -94,11 +96,11 @@ inline float SceneContext::fogEnd() const {
   return fogEnd_;
 }
 
-inline void SceneContext::setShadowTexture(GLuint shadowTexture) {
+inline void SceneContext::setShadowTexture(unsigned int shadowTexture) {
   shadowTexture_ = shadowTexture;
 }
 
-inline GLuint SceneContext::shadowTexture() const {
+inline unsigned int SceneContext::shadowTexture() const {
   return shadowTexture_;
 }
 

@@ -533,14 +533,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\engine\renderer\Renderer3dDeferred.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\engine\renderer\Renderer3dDeferred.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\src\engine\renderer\RendererShadow.cpp"
 					>
 				</File>
@@ -656,14 +648,78 @@
 						>
 					</File>
 					<File
-						RelativePath="..\..\src\engine\renderer\OpenGLShadowMap.h"
-						>
-					</File>
-					<File
 						RelativePath=".\OpenGLShadowMap.h"
 						>
 					</File>
+					<File
+						RelativePath="..\..\src\engine\renderer\OpenGLShadowMap.h"
+						>
+					</File>
 				</Filter>
+				<Filter
+					Name="Deferred"
+					>
+					<File
+						RelativePath="..\..\src\engine\renderer\DeferredClearBuffersPass.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\engine\renderer\DeferredClearBuffersPass.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\engine\renderer\DeferredDirectionalLightsPass.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\engine\renderer\DeferredDirectionalLightsPass.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\engine\renderer\DeferredFinalPass.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\engine\renderer\DeferredFinalPass.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\engine\renderer\DeferredGeometryPass.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\engine\renderer\DeferredGeometryPass.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\engine\renderer\DeferredPointLightsPass.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\engine\renderer\DeferredPointLightsPass.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\engine\renderer\IDeferredPass.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\engine\renderer\Renderer3dDeferred.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\src\engine\renderer\Renderer3dDeferred.h"
+						>
+					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="memory"
+				>
+				<File
+					RelativePath="..\..\src\engine\renderer\Allocation.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 	</Files>

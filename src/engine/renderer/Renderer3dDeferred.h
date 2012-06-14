@@ -1,34 +1,25 @@
 #ifndef RENDERER3D_DEFERRED_H
 #define RENDERER3D_DEFERRED_H
 
-#include "maths/Vector2.h"
+#include <vector>
 
 class World;
 class SceneContext;
 class IViewer;
 class CSize;
-class IEffect;
-class Model;
+class IDeferredPass;
 
 class Renderer3dDeferred {
+
+public:
+
+  ~Renderer3dDeferred();
 
 public:
 
   void init(const CSize& screenSize);
 
   void render(IViewer* viewer, World& world, const SceneContext& sceneContext);
-
-private:
-
-  void clearBuffers();
-  void renderGeometry(IViewer* viewer, World& world, const SceneContext& sceneContext);
-  void renderDirectionalLights(IViewer* viewer, World& world, const SceneContext& sceneContext);
-  void renderPointLights(IViewer* viewer, World& world, const SceneContext& sceneContext);
-  void renderFinal(IViewer* viewer, World& world, const SceneContext& sceneContext);
-
-private:
-
-  Vector2 halfPixel_;
 
 private:
 
@@ -42,15 +33,9 @@ private:
   unsigned int depthRenderTarget_;
 
   unsigned int lightMapTexture_;
-  unsigned int lightMapRenderTarget_;
+  unsigned int lightRenderTarget_;
 
-  IEffect* directionalLightEffect_;
-
-  IEffect* pointLightEffect_;
-  Model* pointLightModel_;
-
-  IEffect* finalEffect_;
-  unsigned int finalQuadVBOId_;
+  std::vector<IDeferredPass*> passes_;
 };
 
 #endif

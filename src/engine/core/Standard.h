@@ -15,7 +15,6 @@
 #include "Accessors.h"
 #include "Types.h"
 
-#define SAFE_DELETE(o) { delete (o); (o) = NULL; }
-#define SAFE_FREE(o) { free (o); (o) = NULL; }
+#include "memory/Allocation.h"
 
 #endif
