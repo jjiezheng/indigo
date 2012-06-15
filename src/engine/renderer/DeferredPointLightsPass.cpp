@@ -27,7 +27,6 @@ void DeferredPointLightsPass::render(IViewer* viewer, World& world, const SceneC
   std::vector<PointLight> pointLights = sceneContext.pointLights();
 
   for (std::vector<PointLight>::iterator light = pointLights.begin(); light != pointLights.end(); ++light) {
-
     Matrix4x4 worldViewProj = viewer->projection() * viewer->viewTransform() * (*light).transform();
     pointLightEffect_->setUniform(worldViewProj, "WorldViewProj");
 

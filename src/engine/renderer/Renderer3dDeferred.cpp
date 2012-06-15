@@ -8,6 +8,7 @@
 #include "DeferredDirectionalLightsPass.h"
 #include "DeferredPointLightsPass.h"
 #include "DeferredFinalPass.h"
+#include "DeferredSpotLightsPass.h"
 
 #include "GraphicsInterface.h"
 #include "Color3.h"
@@ -44,6 +45,9 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
 
   IDeferredPass* pointLightingPass = new DeferredPointLightsPass(lightRenderTarget_, normalMapTexture_, depthMapTexture_, halfPixel);
   passes_.push_back(pointLightingPass);
+
+  IDeferredPass* spotLightingPass = new DeferredSpotLightsPass(lightRenderTarget_, normalMapTexture_, depthMapTexture_, halfPixel);
+  passes_.push_back(spotLightingPass);
 
   IDeferredPass* finalPass = new DeferredFinalPass(colorMapTexture_, lightMapTexture_, halfPixel);
   passes_.push_back(finalPass);

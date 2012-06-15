@@ -13,6 +13,10 @@ class Renderer3dDeferred {
 
 public:
 
+  static Renderer3dDeferred* renderer();
+
+public:
+
   ~Renderer3dDeferred();
 
 public:

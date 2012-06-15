@@ -5,6 +5,8 @@
 
 #include "DirectionalLight.h"
 #include "PointLight.h"
+#include "SpotLight.h"
+
 #include "Color4.h"
 #include "FogTypes.h"
 
@@ -29,8 +31,13 @@ public:
   void addPointLight(const PointLight& light);
 
   std::vector<PointLight> pointLights() const;
-
   
+public:
+
+  void addSpotLight(const SpotLight& light);
+
+  std::vector<SpotLight> spotLights() const;
+
 public:
     
   void setShadowTexture(unsigned int shadowTexture);
@@ -57,6 +64,7 @@ private:
   
   std::vector<DirectionalLight> directionalLights_;
   std::vector<PointLight> pointLights_;
+  std::vector<SpotLight> spotLights_;
   
   unsigned int shadowTexture_;
   float fogStart_;
@@ -118,6 +126,14 @@ inline void SceneContext::addPointLight(const PointLight& light) {
 
 inline std::vector<PointLight> SceneContext::pointLights() const {
   return pointLights_;
+}
+
+inline void SceneContext::addSpotLight(const SpotLight& light) {
+  spotLights_.push_back(light);
+}
+
+inline std::vector<SpotLight> SceneContext::spotLights() const {
+  return spotLights_;
 }
 
 inline Color3 SceneContext::backgroundColor() const {

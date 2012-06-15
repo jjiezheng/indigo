@@ -7,21 +7,9 @@ sampler2D NormalMap = sampler_state {
 	WrapT = Clamp;
 };
 
-sampler2D DepthMap = sampler_state {
-	MinFilter = Point;
-	MagFilter = Point;
-	WrapS = Clamp;
-	WrapT = Clamp;
-};
-
 uniform float2 HalfPixel;
-
 uniform float4 LightDirection;
 uniform float3 LightColor;
-
-uniform float4x4 WorldViewProj;
-uniform float4x4 WorldView;
-uniform float4x4 ViewProjInv;
 
 struct VOutput {
 	float4 position 			: POSITION;

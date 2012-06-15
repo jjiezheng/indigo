@@ -36,6 +36,7 @@
 
 #include "DirectionalLight.h"
 #include "PointLight.h"
+#include "SpotLight.h"
 
 void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, SceneContext& sceneContext) {
   std::string fullFilePath = Path::pathForFile(filePath);
@@ -158,6 +159,50 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
       }
 
       sceneContext.addPointLight(light); 
+    }
+
+    if (lightType == "spot") {
+
+      SpotLight light;
+
+      {
+        json::Number angle = (*lit)["angle"];
+        light.setAngle(angle);
+      }
+      
+      {
+        json::Object positionObject = (*lit)["position"];
+
+        json::Number xNumber = positionObject["x"];
+        float x = xNumber.Value();
+
+        json::Number yNumber = positionObject["y"];
+        float y = yNumber.Value();
+
+        json::Number zNumber = positionObject["z"];
+        float z = zNumber.Value();
+
+        Vector4 position(x, y, z);
+
+        light.setPosition(position);
+      }
+
+      {
+        json::Object colorObject = (*lit)["color"];
+
+        json::Number rNumber = colorObject["r"];
+        float r = rNumber.Value();
+
+        json::Number gNumber = colorObject["g"];
+        float g = gNumber.Value();
+
+        json::Number bNumber = colorObject["b"];
+        float b = bNumber.Value();      
+
+        light.setColor(Color3(r, g, b));
+      }
+
+      sceneContext.addSpotLight(light); 
     }
   }
 }

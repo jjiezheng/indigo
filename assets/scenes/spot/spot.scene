@@ -1,0 +1,41 @@
+
+{
+  "skybox" : "skyboxes/mountains/mountains.png",
+  "backgroundColor" : {
+    "r" : 0.0,
+    "g" : 0.0,
+    "b" : 0.0
+  },
+  "objects" : [
+    {
+      "mesh" : "actors/floor/floor.blend",
+      "material" : "actors/floor/floor.material",
+      "position" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "z" : 0.0
+      }
+    }
+  ],
+  "lights" : [
+    {
+      "type" : "spot",
+      "angle" : 45,
+      "position" : {
+        "x" : 0,
+        "y" : 5,
+        "z" : 0
+      },
+      "color" : {
+        "r" : 0.0,
+        "g" : 1.0,
+        "b" : 0.0
+      },
+      "direction" : {
+        "x" : 0,
+        "y" : -1.0,
+        "z" : 0
+      }
+    }
+  ]
+}
