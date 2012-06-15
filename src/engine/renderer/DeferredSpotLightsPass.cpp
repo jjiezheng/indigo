@@ -51,6 +51,16 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
   std::vector<SpotLight> spotLights = sceneContext.spotLights();
 
   for (std::vector<SpotLight>::iterator light = spotLights.begin(); light != spotLights.end(); ++light) {
+    
+    Matrix4x4 viewProjection = viewer->projection() * viewer->viewTransform();
+    effect_->setUniform(viewProjection, "ViewProj");
+    effect_->setUniform(viewProjection.inverse(), "ViewProjInv");
+    effect_->setUniform(halfPixel_, "HalfPixel");
+    effect_->setUniform((*light).position(), "LightPosition");
+    effect_->setUniform((*light).direction(), "LightDirection");
+    effect_->setUniform((*light).color(), "LightColor");
+    effect_->setUniform((*light).angle(), "LightAngle");
+
     Matrix4x4 worldViewProj = viewer->projection() * viewer->viewTransform() * (*light).transform();
     effect_->setUniform(worldViewProj, "WorldViewProj");
 

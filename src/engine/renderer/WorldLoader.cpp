@@ -188,6 +188,23 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
       }
 
       {
+        json::Object directionObject = (*lit)["direction"];
+
+        json::Number xNumber = directionObject["x"];
+        float x = xNumber.Value();
+
+        json::Number yNumber = directionObject["y"];
+        float y = yNumber.Value();
+
+        json::Number zNumber = directionObject["z"];
+        float z = zNumber.Value();
+
+        Vector4 direction(x, y, z);
+
+        light.setDirection(direction);
+      }
+
+      {
         json::Object colorObject = (*lit)["color"];
 
         json::Number rNumber = colorObject["r"];

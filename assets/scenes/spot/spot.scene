@@ -8,6 +8,15 @@
   },
   "objects" : [
     {
+      "mesh" : "actors/cube/cube.blend",
+      "material" : "actors/cube/cube.material",
+      "position" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "z" : 0.0
+      }
+    },
+    {
       "mesh" : "actors/floor/floor.blend",
       "material" : "actors/floor/floor.material",
       "position" : {
@@ -20,7 +29,7 @@
   "lights" : [
     {
       "type" : "spot",
-      "angle" : 45,
+      "angle" : 0.5,
       "position" : {
         "x" : 0,
         "y" : 5,
