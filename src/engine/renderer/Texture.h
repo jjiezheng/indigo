@@ -1,9 +1,6 @@
 #ifndef TEXTURE_H
 #define TEXTURE_H
 
-#include "renderer/OpenGL.h"
-#include "core/Standard.h"
-
 class Texture {
   
 public:
@@ -12,15 +9,14 @@ public:
   
 public:
   
-  GLuint textureId() const;
+  unsigned int textureId() const;
     
 private:
   
-  GLuint textureId_;
+  unsigned int textureId_;
 };
 
-inline
-GLuint Texture::textureId() const {
+inline unsigned int Texture::textureId() const {
   return textureId_;
 }
 

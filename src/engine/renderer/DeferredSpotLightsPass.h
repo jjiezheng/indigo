@@ -6,6 +6,7 @@
 #include "IDeferredPass.h"
 
 class IEffect;
+class Model;
 
 class DeferredSpotLightsPass : public IDeferredPass {
 
@@ -34,7 +35,7 @@ private:
 
   Vector2 halfPixel_;
 
-  unsigned int quadVbo_;
+  Model* spotLightModel_;
 
 };
 

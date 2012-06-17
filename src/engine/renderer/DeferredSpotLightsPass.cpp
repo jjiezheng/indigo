@@ -13,48 +13,30 @@
 
 #include "VertexDefinition.h"
 
+#include "Model.h"
+#include "WorldLoader.h"
+
 void DeferredSpotLightsPass::init() {
   effect_ = IEffect::effectFromFile("cgfx/deferred_lighting_spot_light.cgfx");
 
-  VertexDef quadVertices[6];
-  quadVertices[0].vertex = Vector3(-1.0f, -1.0f, 0.0f);
-  quadVertices[1].vertex = Vector3(1.0f, 1.0f, 0.0f);
-  quadVertices[2].vertex = Vector3(-1.0f, 1.0f, 0.0f);
-  quadVertices[3].vertex = Vector3(-1.0f, -1.0f, 0.0f);
-  quadVertices[4].vertex = Vector3(1.0f, -1.0f, 0.0f);
-  quadVertices[5].vertex = Vector3(1.0f, 1.0f, 0.0f);
-
-  quadVertices[0].normal = Vector3(0.0f, 0.0f, 1.0f);
-  quadVertices[1].normal = Vector3(0.0f, 0.0f, 1.0f);
-  quadVertices[2].normal = Vector3(0.0f, 0.0f, 1.0f);
-  quadVertices[3].normal = Vector3(0.0f, 0.0f, 1.0f);
-  quadVertices[4].normal = Vector3(0.0f, 0.0f, 1.0f);
-  quadVertices[5].normal = Vector3(0.0f, 0.0f, 1.0f);
-
-  quadVertices[0].uv = Vector2(0.0f, 0.0f);
-  quadVertices[1].uv = Vector2(1.0f, 1.0f);
-  quadVertices[2].uv = Vector2(0.0f, 1.0f);
-  quadVertices[3].uv = Vector2(0.0f, 0.0f);
-  quadVertices[4].uv = Vector2(1.0f, 0.0f);
-  quadVertices[5].uv = Vector2(1.0f, 1.0f);
-
-  quadVbo_ = GraphicsInterface::createVertexBuffer(quadVertices, 6);
+  spotLightModel_ = new Model();
+  WorldLoader().loadModel(spotLightModel_, "debug/cone.dae");
 }
 
 void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
   GraphicsInterface::setRenderTarget(lightMapRenderTarget_, false);
   effect_->setUniform(halfPixel_, "HalfPixel");
 
-  //effect_->setTexture(normalMapTexture_, "NormalMap");
-  //effect_->setTexture(depthMapTexture_, "DepthMap");
+  effect_->setTexture(normalMapTexture_, "NormalMap");
+  effect_->setTexture(depthMapTexture_, "DepthMap");
 
   std::vector<SpotLight> spotLights = sceneContext.spotLights();
 
-  for (std::vector<SpotLight>::iterator light = spotLights.begin(); light != spotLights.end(); ++light) {
-    
+  for (std::vector<SpotLight>::iterator light = spotLights.begin(); light != spotLights.end(); ++light) {    
     Matrix4x4 viewProjection = viewer->projection() * viewer->viewTransform();
     effect_->setUniform(viewProjection, "ViewProj");
     effect_->setUniform(viewProjection.inverse(), "ViewProjInv");
+
     effect_->setUniform(halfPixel_, "HalfPixel");
     effect_->setUniform((*light).position(), "LightPosition");
     effect_->setUniform((*light).direction(), "LightDirection");
@@ -67,7 +49,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
     effect_->beginDraw();
     GraphicsInterface::setPass(effect_->pass()); 
     GraphicsInterface::setRenderState(true);
-    GraphicsInterface::drawVertexBuffer(quadVbo_, 6);
+    spotLightModel_->render();
     effect_->resetStates();
   }
 

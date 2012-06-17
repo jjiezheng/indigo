@@ -23,6 +23,10 @@ public:
 
 public:
 
+  Matrix4x4 rotation() const;
+
+public:
+
   void setColor(const Color3& color);
 
   Color3 color() const;

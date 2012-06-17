@@ -10,39 +10,34 @@ class Matrix3x3;
 class Matrix4x4 {
   
 public:
-  
-  static
-  Matrix4x4 rotationX(int degrees);
-  
-  static
-  Matrix4x4 rotationX(float radians);
-    
-  static
-  Matrix4x4 rotationY(int degrees);
-  
-  static
-  Matrix4x4 rotationY(float radians);
 
-  static
-  Matrix4x4 rotationZ(int degrees);
+  static Matrix4x4 rotation(const Vector4& axis, float angleRadians);
   
-  static
-  Matrix4x4 rotationZ(float radians);  
+  static Matrix4x4 rotationX(int degrees);
   
-  static 
-  Matrix4x4 translation(const Vector4& v);
+  static Matrix4x4 rotationX(float radians);
+    
+  static Matrix4x4 rotationY(int degrees);
   
-  static
-  Matrix4x4 scale(const Vector4& v);
+  static Matrix4x4 rotationY(float radians);
+
+  static Matrix4x4 rotationZ(int degrees);
   
-  static
-  Matrix4x4 scale(float scale);
+  static Matrix4x4 rotationZ(float radians);  
+
+public:
   
-  static
-  Matrix4x4 perspective(float fov, float aspect, float znear, float zfar);
+  static Matrix4x4 translation(const Vector4& v);
   
-  static
-  Matrix4x4 orthographic(float left, float right, float bottom, float top, float near, float far);
+  static Matrix4x4 scale(const Vector4& v);
+  
+  static Matrix4x4 scale(float scale);
+  
+public:
+
+  static Matrix4x4 perspective(float fov, float aspect, float znear, float zfar);
+  
+  static Matrix4x4 orthographic(float left, float right, float bottom, float top, float near, float far);
   
 public:
   
@@ -62,6 +57,8 @@ public:
             float m21, float m22, float m23, float m24,
             float m31, float m32, float m33, float m34,
             float m41, float m42, float m43, float m44);
+
+  Matrix4x4(const Matrix3x3& m);
   
 public:
   
@@ -75,8 +72,7 @@ public:
   
 public:
   
-  static
-  Matrix4x4 IDENTITY;
+  static Matrix4x4 IDENTITY;
     
 private:
   

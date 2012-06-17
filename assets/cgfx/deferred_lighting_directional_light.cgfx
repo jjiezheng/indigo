@@ -25,7 +25,7 @@ VOutput vs(float4 position 	: POSITION,
 }
 
 VOutput vsgl(float4 position : ATTR0,
-			 float4 texCoord : ATTR8) {
+			       float4 texCoord : ATTR8) {
 	return vs(position, texCoord);
 }
 

@@ -28,8 +28,21 @@
   ],
   "lights" : [
     {
+      "type" : "directional",
+       "direction" : {
+        "x" : -0.5,
+        "y" : -0.5,
+        "z" : -0.5
+      },
+      "color" : {
+        "r" : 1.0,
+        "g" : 1.0,
+        "b" : 1.0
+      }
+    },
+    {
       "type" : "spot",
-      "angle" : 0.5,
+      "angle" : 0.9,
       "position" : {
         "x" : 0,
         "y" : 5,

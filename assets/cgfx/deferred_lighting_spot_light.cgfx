@@ -31,8 +31,8 @@ struct VOutput {
 
 VOutput vs(float4 position : POSITION) {
     VOutput OUT;
-    OUT.position = position;
-    OUT.screenPosition = position;
+    OUT.position = mul(WorldViewProj, position);
+    OUT.screenPosition = OUT.position;
     return OUT;
 }
 
@@ -57,29 +57,26 @@ float4 ps(float4 screenPosition : TEXCOORD0) : COLOR {
 	float4 positionRaw = mul(ViewProjInv, positionScreen);
 	float4 position = positionRaw / positionRaw.w;
 
-	float4 lightVector = -(LightPosition - position);
+	float4 directionToLight = LightPosition - position;
+	float4 directionOfLight = -LightDirection;
+	float lightDirectionDot = dot(normalize(directionOfLight), normalize(directionToLight));
 
-	float dotToLight = dot(normalize(LightDirection), normalize(lightVector));
-	// issue is here -->
-	float diffuseStrength = acos(dotToLight) < LightAngle;// ? 1.0f : 0.0f;
-	float3 diffuseColor = LightColor * diffuseStrength;
+	float lightAngleCos = cos(LightAngle);
 
-	float3 finalColor = diffuseColor;
+	float4 finalColor;
+	if (lightDirectionDot > lightAngleCos) {
+		float diffuseStrength = max(0.0f, dot(normalize(normal), normalize(directionOfLight)));
+		float3 diffuseColor = LightColor * diffuseStrength;
+		finalColor.rgb = LightColor * diffuseStrength;
+		finalColor.a = diffuseStrength;
+	}
 
-	return float4(diffuseStrength, diffuseStrength, diffuseStrength, 1.0f);
-
-/*	float diffuseStrength = max(0.0f, dot(normalize(normal), normalize(lightDirection)));
-	float3 diffuseColor = LightColor * diffuseStrength;
-
-	float attenuation = saturate(1.0f - length(lightDirection) / LightRadius); 
-	float3 finalColor = diffuseColor * attenuation;*/
-
-	// /return float4(1.0f, 0.0f, 0.0f, 1);
-}
+	return finalColor;
+} 
 
 technique dx {
   pass {
-  	BlendEnable = false;
+  	BlendEnable = true;
   	SrcBlend = One;
   	DestBlend = One;
     VertexProgram = compile vs_4_0 vs();
@@ -89,7 +86,7 @@ technique dx {
 
 technique latest {
   pass {
-  	BlendEnable = false;
+  	BlendEnable = true;
   	SrcBlend = One;
   	DestBlend = One;
     VertexProgram = compile glslv vsgl();

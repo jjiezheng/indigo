@@ -19,17 +19,17 @@ public:
   
 public:
   
-  static
-  Vector4 IDENTITY;
+  static Vector4 IDENTITY;
   
-  static
-  Vector4 FORWARD;
+  static Vector4 FORWARD;
   
-  static
-  Vector4 RIGHT;
+  static Vector4 RIGHT;
   
-  static
-  Vector4 UP;
+  static Vector4 UP;
+
+public:
+
+  Vector3 vec3() const;
   
 public:
   
@@ -42,6 +42,16 @@ public:
   float distance(const Vector4& other) const;
 
   float length() const;
+
+  Vector4 normalize() const;
+
+public:
+
+  Vector4 cross(const Vector4& other) const;
+
+  float dot(const Vector4& other) const;
+
+  float angle(const Vector4& other) const;
 
 public:
   
@@ -61,7 +71,11 @@ public:
   
   Vector4 operator * (float scalar) const;
   
-  Vector4 operator == (const Vector4& other) const;
+  bool operator == (const Vector4& other) const;
+
+  bool operator != (const Vector4& other) const;
+
+  Vector4 operator -() const;
   
 };
 

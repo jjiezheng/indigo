@@ -1,7 +1,5 @@
 #ifndef SKYBOX_H
 #define SKYBOX_H
-
-#include "OpenGL.h"
 #include <string>
 
 class IViewer;
@@ -18,14 +16,14 @@ public:
   
 private:
   
-  void loadCubeSide(const std::string& filename, GLint direction);
+  void loadCubeSide(const std::string& filename, int direction);
   
 private:
   
   IEffect* effect_;
-  GLuint vertexArray;
-  GLuint vertexBuffer;
-  GLuint cubeTexture_;
+  unsigned int vertexArray;
+  unsigned int vertexBuffer;
+  unsigned int cubeTexture_;
     
 };
 

@@ -1,6 +1,10 @@
 #ifndef MATERIAL_H
 #define MATERIAL_H
 
+#include <string>
+#include <vector>
+#include <map>
+
 #include "MaterialParameter.h"
 #include "Texture.h"
 

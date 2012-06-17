@@ -1,13 +1,11 @@
 #include "Camera.h"
 
-#include "GraphicsInterface.h"
-#include "OpenGL.h"
-
-#include "Angles.h"
+#include "maths/Angles.h"
+#include "platform/WindowsUtils.h"
 #include "io/Log.h"
 
-#include "platform/WindowsUtils.h"
-
+#include "GraphicsInterface.h"
+#include "OpenGL.h"
 
 Camera::Camera() 
   : forward_(Vector3::FORWARD)
