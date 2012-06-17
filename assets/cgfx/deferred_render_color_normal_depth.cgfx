@@ -31,7 +31,7 @@ VOutput vsgl(float4 position 		: ATTR0,
 struct POutput {
 	float4 color 	: COLOR0;
 	float4 normal 	: COLOR1;
-	float depth 	: COLOR2;
+	float4 depth 	: COLOR2;
 };
 
 
@@ -40,7 +40,8 @@ POutput ps(float3 normal			: TEXCOORD0,
 	POutput OUT;
 	OUT.color = float4(DiffuseColor, 1);					
 	OUT.normal = float4(normal, 1);
-	OUT.depth = depth.x / depth.y; // z / w
+	float depthHom = depth.x / depth.y; // z / w
+	OUT.depth = float4(depthHom, depthHom, depthHom, 1);
 	return OUT;
 }
 

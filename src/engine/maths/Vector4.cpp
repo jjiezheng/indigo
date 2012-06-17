@@ -1,10 +1,9 @@
 #include "Vector4.h"
 
 #include "Matrix4x4.h"
-
+#include "Trigonometry.h"
 #include "Vector3.h"
 
-#include <math.h>
 #include <sstream>
 
 Vector4 Vector4::IDENTITY = Vector4(0, 0, 0, 1);
@@ -104,5 +103,5 @@ Vector3 Vector4::vec3() const {
 
 Vector4 Vector4::normalize() const {
   float length = this->length();
-  return Vector4(x / length, y / length, z / length, w / length);
+  return Vector4(x / length, y / length, z / length, 1.0f);
 }

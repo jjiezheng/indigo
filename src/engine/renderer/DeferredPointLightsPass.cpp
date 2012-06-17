@@ -22,7 +22,7 @@ void DeferredPointLightsPass::render(IViewer* viewer, World& world, const SceneC
   pointLightEffect_->setUniform(halfPixel_, "HalfPixel");
 
   pointLightEffect_->setTexture(normalMapTexture_, "NormalMap");
-  //pointLightEffect_->setTexture(depthMapTexture_, "DepthMap");
+  pointLightEffect_->setTexture(depthMapTexture_, "DepthMap");
 
   std::vector<PointLight> pointLights = sceneContext.pointLights();
 

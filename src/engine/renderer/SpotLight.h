@@ -10,10 +10,19 @@ class SpotLight {
 
 public:
 
+  SpotLight() { };
+
+public:
+
   void setAngle(float angle);
 
   float angle() const;
 
+public:
+
+  void setLength(float length);
+
+  float length() const;
 
 public:
 
@@ -23,7 +32,7 @@ public:
 
 public:
 
-  Matrix4x4 rotation() const;
+  Matrix4x4 rotation();
 
 public:
 
@@ -39,16 +48,26 @@ public:
 
 public:
 
-  Matrix4x4 transform() const;
+  Matrix4x4 transform();
 
 private:
 
   Vector4 direction_;
-  Color3 color_;
   Vector4 position_;
+  Color3 color_;
   float angle_;
+  float radius_;
+  float length_;
 
 };
+
+inline void SpotLight::setLength(float length) {
+  length_ = length;
+}
+
+inline float SpotLight::length() const {
+  return length_;
+}
 
 inline void SpotLight::setAngle(float angle) {
   angle_ = angle;
@@ -73,7 +92,6 @@ inline Vector4 SpotLight::direction() const {
 inline void SpotLight::setDirection(const Vector4& direction) {
   direction_ = direction;
 }
-
 
 inline void SpotLight::setPosition(const Vector4& position) {
   position_ = position;

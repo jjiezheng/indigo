@@ -38,6 +38,8 @@
 #include "PointLight.h"
 #include "SpotLight.h"
 
+#include "maths/Angles.h"
+
 void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, SceneContext& sceneContext) {
   std::string fullFilePath = Path::pathForFile(filePath);
   std::ifstream levelFile(fullFilePath.c_str(), std::ifstream::in);
@@ -163,11 +165,16 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
 
     if (lightType == "spot") {
 
-      SpotLight light;
+      SpotLight* light = new SpotLight();
 
       {
         json::Number angle = (*lit)["angle"];
-        light.setAngle(angle);
+        light->setAngle(toRadians(angle));
+      }
+
+      {
+        json::Number length = (*lit)["length"];
+        light->setLength(length);
       }
       
       {
@@ -184,7 +191,7 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
 
         Vector4 position(x, y, z);
 
-        light.setPosition(position);
+        light->setPosition(position);
       }
 
       {
@@ -201,7 +208,7 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
 
         Vector4 direction(x, y, z);
 
-        light.setDirection(direction);
+        light->setDirection(direction);
       }
 
       {
@@ -216,7 +223,7 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
         json::Number bNumber = colorObject["b"];
         float b = bNumber.Value();      
 
-        light.setColor(Color3(r, g, b));
+        light->setColor(Color3(r, g, b));
       }
 
       sceneContext.addSpotLight(light); 

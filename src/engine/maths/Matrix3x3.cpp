@@ -1,8 +1,6 @@
 #include "Matrix3x3.h"
 
-#define _USE_MATH_DEFINES
-#include <math.h>
-
+#include "Trigonometry.h"
 #include "Vector3.h"
 #include "Angles.h"
 
@@ -11,12 +9,12 @@ Matrix3x3 Matrix3x3::IDENTITY = Matrix3x3(1.0f, 0.0f, 0.0f,
                                           0.0f, 0.0f, 1.0f);
 
 Matrix3x3 Matrix3x3::rotation(const Vector3& axis, float angleRadians) {
+  float angle = -angleRadians;
   return Matrix3x3(
-    (axis.x * axis.x) * (1 - cos(angleRadians)) + cos(angleRadians)         , axis.x * axis.y * (1 - cos(angleRadians)) + axis.z * sin(angleRadians), (axis.x * axis.z) * (1 - cos(angleRadians)) - axis.y * sin(angleRadians),
-    (axis.x * axis.y) * (1 - cos(angleRadians)) - axis.z * sin(angleRadians), axis.y * axis.y * (1 - cos(angleRadians)) + cos(angleRadians)         , (axis.y * axis.z) * (1 - cos(angleRadians)) + axis.x * sin(angleRadians),
-    (axis.x * axis.z) * (1 - cos(angleRadians)) + axis.y * sin(angleRadians), axis.y * axis.z * (1 - cos(angleRadians)) - axis.x * sin(angleRadians), (axis.z * axis.z) * (1 - cos(angleRadians)) + cos(angleRadians));
+    (axis.x * axis.x) * (1 - cos(angle)) + cos(angle)         , axis.x * axis.y * (1 - cos(angle)) + axis.z * sin(angle), (axis.x * axis.z) * (1 - cos(angle)) - axis.y * sin(angle),
+    (axis.x * axis.y) * (1 - cos(angle)) - axis.z * sin(angle), axis.y * axis.y * (1 - cos(angle)) + cos(angle)         , (axis.y * axis.z) * (1 - cos(angle)) + axis.x * sin(angle),
+    (axis.x * axis.z) * (1 - cos(angle)) + axis.y * sin(angle), axis.y * axis.z * (1 - cos(angle)) - axis.x * sin(angle), (axis.z * axis.z) * (1 - cos(angle)) + cos(angle));
 }
-
 
 Matrix3x3 Matrix3x3::rotationX(int degrees) {
   return Matrix3x3::rotationX(toRadians(degrees));

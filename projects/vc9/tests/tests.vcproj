@@ -289,11 +289,11 @@
 			Name="tests"
 			>
 			<File
-				RelativePath=".\Matrix4x4_Test.cpp"
+				RelativePath="..\..\..\tests\Matrix4x4_Test.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Vector4_Test.cpp"
+				RelativePath="..\..\..\tests\Vector4_Test.cpp"
 				>
 			</File>
 		</Filter>

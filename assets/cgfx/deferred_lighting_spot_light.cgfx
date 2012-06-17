@@ -54,19 +54,16 @@ float4 ps(float4 screenPosition : TEXCOORD0) : COLOR {
 	positionScreen.z = depth; 
 	positionScreen.w = 1.0f;
 
-	float4 positionRaw = mul(ViewProjInv, positionScreen);
-	float4 position = positionRaw / positionRaw.w;
+	float4 positionWorldRaw = mul(ViewProjInv, positionScreen);
+	float4 positionWorld = positionWorldRaw / positionWorldRaw.w;
 
-	float4 directionToLight = LightPosition - position;
-	float4 directionOfLight = -LightDirection;
-	float lightDirectionDot = dot(normalize(directionOfLight), normalize(directionToLight));
-
-	float lightAngleCos = cos(LightAngle);
+	float3 directionToLight = LightPosition - positionWorld;
+	float3 directionOfLight = -LightDirection;
+	float lightDirectionDot = max(0.0f, dot(normalize(directionOfLight), normalize(directionToLight)));
 
 	float4 finalColor;
-	if (lightDirectionDot > lightAngleCos) {
+	if (lightDirectionDot > LightAngle) {
 		float diffuseStrength = max(0.0f, dot(normalize(normal), normalize(directionOfLight)));
-		float3 diffuseColor = LightColor * diffuseStrength;
 		finalColor.rgb = LightColor * diffuseStrength;
 		finalColor.a = diffuseStrength;
 	}

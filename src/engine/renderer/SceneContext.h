@@ -34,9 +34,9 @@ public:
   
 public:
 
-  void addSpotLight(const SpotLight& light);
+  void addSpotLight(SpotLight* light);
 
-  std::vector<SpotLight> spotLights() const;
+  std::vector<SpotLight*> spotLights() const;
 
 public:
     
@@ -64,7 +64,7 @@ private:
   
   std::vector<DirectionalLight> directionalLights_;
   std::vector<PointLight> pointLights_;
-  std::vector<SpotLight> spotLights_;
+  std::vector<SpotLight*> spotLights_;
   
   unsigned int shadowTexture_;
   float fogStart_;
@@ -128,11 +128,11 @@ inline std::vector<PointLight> SceneContext::pointLights() const {
   return pointLights_;
 }
 
-inline void SceneContext::addSpotLight(const SpotLight& light) {
+inline void SceneContext::addSpotLight(SpotLight* light) {
   spotLights_.push_back(light);
 }
 
-inline std::vector<SpotLight> SceneContext::spotLights() const {
+inline std::vector<SpotLight*> SceneContext::spotLights() const {
   return spotLights_;
 }
 
