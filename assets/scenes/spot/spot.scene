@@ -42,7 +42,7 @@
     },
     {
       "type" : "spot",
-      "innerangle" : 30,
+      "innerangle" : 45,
       "outerangle" : 60,
       "decay" : 0.2,
       "length" : 30,

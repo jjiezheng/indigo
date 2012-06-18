@@ -71,7 +71,7 @@ float4 ps(float4 screenPosition : TEXCOORD0) : COLOR {
 	if (lightDirectionDot > lightOuterCos) {
 		float diffuseStrength = max(0.0f, dot(normalize(normal), normalize(directionOfLight)));
 		float attenuation = LightDecay;
-		finalColor.rgb = LightColor * diffuseStrength * pow(lightDirectionDot, 8);
+		finalColor.rgb = LightColor * diffuseStrength * smoothstep(lightOuterCos, lightInnerCos, lightDirectionDot);
 		finalColor.a = diffuseStrength;	
 	}
 
