@@ -14,9 +14,21 @@ public:
 
 public:
 
-  void setAngle(float angle);
+  void setDecay(float angle);
 
-  float angle() const;
+  float decay() const;
+
+public:
+
+  void setInnerAngle(float angle);
+
+  float innerAngle() const;
+
+public:
+
+  void setOuterAngle(float angle);
+
+  float outerAngle() const;
 
 public:
 
@@ -55,11 +67,20 @@ private:
   Vector4 direction_;
   Vector4 position_;
   Color3 color_;
-  float angle_;
+  float innerAngle_;
+  float outerAngle_;
   float radius_;
   float length_;
+  float decay_;
 
 };
+inline void SpotLight::setDecay(float decay) {
+  decay_ = decay;
+}
+
+inline float SpotLight::decay() const {
+  return decay_;
+}
 
 inline void SpotLight::setLength(float length) {
   length_ = length;
@@ -69,12 +90,20 @@ inline float SpotLight::length() const {
   return length_;
 }
 
-inline void SpotLight::setAngle(float angle) {
-  angle_ = angle;
+inline void SpotLight::setInnerAngle(float innerAngle) {
+  innerAngle_ = innerAngle;
 }
 
-inline float SpotLight::angle() const {
-  return angle_;
+inline float SpotLight::innerAngle() const {
+  return innerAngle_;
+}
+
+inline float SpotLight::outerAngle() const {
+  return outerAngle_;
+}
+
+inline void SpotLight::setOuterAngle(float outerAngle) {
+  outerAngle_ = outerAngle;
 }
 
 inline void SpotLight::setColor(const Color3& color) {

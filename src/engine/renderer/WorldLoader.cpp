@@ -168,8 +168,18 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
       SpotLight* light = new SpotLight();
 
       {
-        json::Number angle = (*lit)["angle"];
-        light->setAngle(toRadians(angle));
+        json::Number outerAngle = (*lit)["outerangle"];
+        light->setOuterAngle(toRadians(outerAngle));
+      }
+
+      {
+        json::Number innerAngle = (*lit)["innerangle"];
+        light->setInnerAngle(toRadians(innerAngle));
+      }
+
+      {
+        json::Number decay = (*lit)["decay"];
+        light->setDecay(decay);
       }
 
       {

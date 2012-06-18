@@ -42,8 +42,10 @@
     },
     {
       "type" : "spot",
-      "angle" : 50,
-      "length" : 200,
+      "innerangle" : 30,
+      "outerangle" : 60,
+      "decay" : 0.2,
+      "length" : 30,
       "position" : {
         "x" : 0,
         "y" : 3,
@@ -55,8 +57,8 @@
         "b" : 0.0
       },
       "direction" : {
-        "x" : -0.1,
-        "y" : -0.9,
+        "x" : -0.5,
+        "y" : -0.5,
         "z" : 0.0
       }
     }
