@@ -53,7 +53,7 @@ IEffect* GraphicsInterface::createEffect() {
   return graphicsInterface_->createEffect();
 }
 
-void GraphicsInterface::clearBuffer(const Color3& clearColor) {
+void GraphicsInterface::clearBuffer(const Color4& clearColor) {
   graphicsInterface_->clearBuffer(clearColor);
 }
 
@@ -93,7 +93,7 @@ unsigned int GraphicsInterface::createRenderTarget(unsigned int textureId) {
   return graphicsInterface_->createRenderTarget(textureId);
 }
 
-void GraphicsInterface::clearRenderTarget(unsigned int renderTargetId, const Color3& color) {
+void GraphicsInterface::clearRenderTarget(unsigned int renderTargetId, const Color4& color) {
   graphicsInterface_->clearRenderTarget(renderTargetId, color);
 }
 

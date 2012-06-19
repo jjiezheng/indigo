@@ -3,6 +3,8 @@
 
 #include "Standard.h"
 
+#include <windows.h>
+
 class Platform;
 
 class Clock {
@@ -10,16 +12,27 @@ class Clock {
 public:
   
   Clock() 
-    : last_update_(0)
+    : lastDeltaTime_(0)
+    , lastTime_(0)
   {
     
   }
+
+  void init();
   
   float delta_time();
+
+  int fps() const;
+
+  int averageFPS();
   
 private:
   
-  long last_update_;
+  float lastDeltaTime_;
+  double lastTime_;
+	double resolution_;
+
+  std::vector<int> fpsHistory_;
   
 };
 

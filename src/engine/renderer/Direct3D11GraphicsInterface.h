@@ -27,7 +27,7 @@ public:
 
   IEffect* createEffect();
 
-  void clearBuffer(const Color3& color);
+  void clearBuffer(const Color4& color);
 
   void setPass(CGpass pass);
 
@@ -49,7 +49,7 @@ public:
 
   unsigned int createRenderTarget(unsigned int textureId);
 
-  void clearRenderTarget(unsigned int renderTargetId, const Color3& color);
+  void clearRenderTarget(unsigned int renderTargetId, const Color4& color);
 
 public:
 

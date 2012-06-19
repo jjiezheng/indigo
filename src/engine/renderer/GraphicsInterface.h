@@ -8,7 +8,7 @@
 
 class IGraphicsInterface;
 class IEffect;
-class Color3;
+class Color4;
 class VertexDef;
 class DDSImage;
 
@@ -24,7 +24,7 @@ public:
 
   static void swapBuffers();
 
-  static void clearBuffer(const Color3& clearColor);
+  static void clearBuffer(const Color4& clearColor);
 
   static float aspectRatio();
   
@@ -50,7 +50,7 @@ public:
 
 public:
 
-  static void clearRenderTarget(unsigned int renderTargetId, const Color3& color);
+  static void clearRenderTarget(unsigned int renderTargetId, const Color4& color);
 
   static void setRenderTarget(unsigned int renderTargetId, bool useDepthBuffer);
 

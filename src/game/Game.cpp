@@ -7,6 +7,7 @@
 #include "renderer/GraphicsInterface.h"
 
 void Game::init() {
+  clock_.init();
   properties_.init();
   
   camera_.translateZ(3.0f);
@@ -25,6 +26,8 @@ void Game::init() {
  
 void Game::mainLoop() {
   float dt = clock_.delta_time();
+  int fps = clock_.averageFPS();
+//  LOG(LOG_CHANNEL_TEMP, "%d", fps);
   camera_.update(dt);
   
   //shadowRenderer_.renderToShadowMap(&light, world_, sceneContext_);

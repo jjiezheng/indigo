@@ -119,6 +119,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
+				AdditionalIncludeDirectories="../../../src/engine;../../../libs"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -137,7 +138,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="dxguid.lib dinput8.lib d3d11.lib d3dx10.lib d3dx11.lib cg.lib cgGL.lib cgD3D11.lib GLFW.lib OpenGL32.lib glu32.lib assimp.lib FreeImage.lib glew32.lib"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories="../../../libs/glew/lib;../../../libs/glfw/lib;../../../libs/assimp/lib;../../../libs/freeimage"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -164,6 +167,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				CommandLine="copy $(ProjectDir)..\..\..\libs\freeimage\FreeImage.dll $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)..\..\..\libs\glew\bin\glew32.dll $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)..\..\..\libs\devil\lib\DevIL.dll $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)..\..\..\libs\devil\lib\ILU.dll $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)..\..\..\libs\msvcr\*.dll $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)..\..\..\libs\assimp\dll\Assimp32.dll $(TargetDir)&#x0D;&#x0A;copy &quot;C:\Program Files (x86)\NVIDIA Corporation\Cg\bin\cg.dll&quot; $(TargetDir)&#x0D;&#x0A;copy &quot;C:\Program Files (x86)\NVIDIA Corporation\Cg\bin\cgGL.dll&quot; $(TargetDir)&#x0D;&#x0A;copy &quot;C:\Program Files (x86)\NVIDIA Corporation\Cg\bin\cgD3D11.dll&quot; $(TargetDir)&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>

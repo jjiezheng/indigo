@@ -6,26 +6,24 @@
 
 #include <windows.h>
 
+void Clock::init() {
+	__int64 frequency;
+	QueryPerformanceFrequency((LARGE_INTEGER *)&frequency);
+	resolution_ = 1.0 / (double)frequency;
+}
+
 float Clock::delta_time() {
-   LARGE_INTEGER frequency;
-   LARGE_INTEGER t1;
-   
-   QueryPerformanceFrequency(&frequency);
-   QueryPerformanceCounter(&t1);
+  double dt;
+  __int64 currentTime;
 
-   float timeNowf = (t1.QuadPart * 1000.0f) / frequency.QuadPart;
-   long timeNow = (long)timeNowf;
-   long dt = timeNow - last_update_;
+  QueryPerformanceCounter((LARGE_INTEGER*)&currentTime);
+  dt = (double)(currentTime - lastTime_);
+  lastTime_ = currentTime;
 
-   if (!last_update_) {
-     dt = 0;
-   }
+  float deltaTime = dt * resolution_;
+  lastDeltaTime_ = deltaTime;
 
-   last_update_ = timeNow;
-
-   float finalDt = dt / 1000.0f;
-
-   return finalDt;
+  return deltaTime;
 }
 
 #endif
@@ -44,16 +42,37 @@ float Clock::delta_time() {
   
   long timeNow = (now.tv_sec * 1000000) + now.tv_usec;
  
-  long dt = timeNow - last_update_;
+  long dt = timeNow - lastUpdate_;
   
-  if (!last_update_) {
+  if (!lastUpdate_) {
     dt = 0;
   }
   
-  last_update_ = timeNow;
+  lastDeltaTime_ = timeNow / 1000000.0f;
   
-  return dt / 1000000.0f;
+  return lastDeltaTime_;
 }
 
-
 #endif
+
+int Clock::averageFPS() {
+  fpsHistory_.push_back(fps());
+
+  static int kAvgFPSElements = 10;
+  if (fpsHistory_.size() > kAvgFPSElements) {
+    fpsHistory_.erase(fpsHistory_.begin());
+  }
+
+  int totalFps = 0;
+  for (std::vector<int>::iterator i = fpsHistory_.begin(); i != fpsHistory_.end(); ++i) {
+    totalFps += (*i);
+  }
+
+  int avgFps = totalFps / fpsHistory_.size();
+	return avgFps;
+}
+
+int Clock::fps() const {
+  int fps = (int)(1.0f / lastDeltaTime_);
+  return fps;
+}

@@ -46,9 +46,9 @@ public:
   
 public:
   
-  Color3 backgroundColor() const;
+  Color4 backgroundColor() const;
   
-  void setBackgroundColor(const Color3& color);
+  void setBackgroundColor(const Color4& color);
   
 public:
   
@@ -72,7 +72,7 @@ private:
   FogType fogType_;
   float fogFactor_;
   Color4 fogColor_;
-  Color3 backgroundColor_;
+  Color4 backgroundColor_;
     
 };
 
@@ -136,11 +136,11 @@ inline std::vector<SpotLight*> SceneContext::spotLights() const {
   return spotLights_;
 }
 
-inline Color3 SceneContext::backgroundColor() const {
+inline Color4 SceneContext::backgroundColor() const {
   return backgroundColor_;
 }
 
-inline void SceneContext::setBackgroundColor(const Color3 &backgroundColor) {
+inline void SceneContext::setBackgroundColor(const Color4 &backgroundColor) {
   backgroundColor_ = backgroundColor;
 }
 

@@ -47,15 +47,6 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
     effect_->setUniform((*light)->outerAngle() / 2.0f, "LightOuterAngle");
     effect_->setUniform((*light)->decay(), "LightDecay");
 
-    Vector4 direction = (*light)->direction();
-
-    static float bla = 0.0f;
-    bla += 0.01f;
-    direction.x = cos(bla);
-    direction.y = sin(bla);
-
-    (*light)->setDirection(direction);
-
     Matrix4x4 worldViewProj = viewer->projection() * viewer->viewTransform() * (*light)->transform();
     effect_->setUniform(worldViewProj, "WorldViewProj");
 

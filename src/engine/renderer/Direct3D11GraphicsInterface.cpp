@@ -7,7 +7,7 @@
 #include "platform/WindowsUtils.h"
 #include "renderer/CGD3DEffect.h"
 #include "io/Log.h"
-#include "renderer/Color3.h"
+#include "renderer/Color4.h"
 #include "VertexDefinition.h"
 #include "DirectxVertexDataFormatter.h"
 
@@ -165,8 +165,8 @@ IEffect* Direct3D11GraphicsInterface::createEffect() {
   return new CGD3DEffect();
 }
 
-void Direct3D11GraphicsInterface::clearBuffer(const Color3& color) {
-  D3DXCOLOR clearColor(color.r, color.g, color.b, 1.0f);
+void Direct3D11GraphicsInterface::clearBuffer(const Color4& color) {
+  D3DXCOLOR clearColor(color.r, color.g, color.b, color.a);
   deviceConnection_->ClearRenderTargetView(backBuffer_, clearColor);
   deviceConnection_->ClearDepthStencilView(depthBuffer_, D3D11_CLEAR_DEPTH, 1.0f, 0);
 }
@@ -300,8 +300,8 @@ unsigned int Direct3D11GraphicsInterface::createRenderTarget(unsigned int textur
   return renderTargetId;
 }
 
-void Direct3D11GraphicsInterface::clearRenderTarget(unsigned int renderTargetId, const Color3& color) {
-  D3DXCOLOR clearColor(color.r, color.g, color.b, 1.0f);
+void Direct3D11GraphicsInterface::clearRenderTarget(unsigned int renderTargetId, const Color4& color) {
+  D3DXCOLOR clearColor(color.r, color.g, color.b, color.a);
   ID3D11RenderTargetView* renderTarget = renderTargets_[renderTargetId];
   deviceConnection_->ClearRenderTargetView(renderTarget, clearColor);
   deviceConnection_->ClearDepthStencilView(depthBuffer_, D3D11_CLEAR_DEPTH, 1.0f, 0);

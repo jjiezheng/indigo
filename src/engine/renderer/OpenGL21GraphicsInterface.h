@@ -24,7 +24,7 @@ public:
 
   void drawVertexBuffer(int vertexBuffer, int vertexCount);
 
-  void clearBuffer(const Color3& color);
+  void clearBuffer(const Color4& color);
 
 public:
 
@@ -48,7 +48,7 @@ public:
 
   unsigned int createRenderTarget(unsigned int textureId);
 
-  void clearRenderTarget(unsigned int renderTargetId, const Color3& color);
+  void clearRenderTarget(unsigned int renderTargetId, const Color4& color);
 
   void resetRenderTarget();
 

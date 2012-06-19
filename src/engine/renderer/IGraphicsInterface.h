@@ -8,7 +8,7 @@
 #include "core/Size.h"
 
 class IEffect;
-class Color3;
+class Color4;
 class VertexDef;
 class DDSImage;
 class CSize;
@@ -39,7 +39,7 @@ public:
 
   virtual void drawVertexBuffer(int vertexBuffer, int vertexCount) = 0;
 
-  virtual void clearBuffer(const Color3& color) = 0;
+  virtual void clearBuffer(const Color4& color) = 0;
 
 public:
 
@@ -65,7 +65,7 @@ public:
 
   virtual unsigned int createRenderTarget(unsigned int textureId) = 0;
 
-  virtual void clearRenderTarget(unsigned int renderTargetId, const Color3& color) = 0;
+  virtual void clearRenderTarget(unsigned int renderTargetId, const Color4& color) = 0;
 
 public:
 

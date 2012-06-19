@@ -63,7 +63,7 @@ float4 ps(float4 screenPosition : TEXCOORD0) : COLOR {
 	float3 directionOfLight = -LightDirection;
 	float lightDirectionDot = max(0.0f, dot(normalize(directionOfLight), normalize(directionToLight)));
 
-	float4 finalColor;
+	float4 finalColor = float4(0, 0, 0, 0);
 
 	float lightOuterCos = cos(LightOuterAngle);
 	float lightInnerCos = cos(LightInnerAngle);

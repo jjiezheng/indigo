@@ -63,7 +63,7 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
   json::Number blueNumber = backgroundColor["b"];
   float b = blueNumber.Value();
 
-  Color3 backgroundColor3(r, g, b);
+  Color4 backgroundColor3(r, g, b, 1);
   sceneContext.setBackgroundColor(backgroundColor3);
   
   json::Array objectsArray = sceneObject["objects"];

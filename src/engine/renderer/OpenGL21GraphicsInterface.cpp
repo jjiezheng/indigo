@@ -2,7 +2,7 @@
 
 #include "CGGLEffect.h"
 #include "io/Log.h"
-#include "Color3.h"
+#include "Color4.h"
 #include "VertexDefinition.h"
 
 #include "OpenGL.h"
@@ -178,7 +178,7 @@ IEffect* OpenGL21GraphicsInterface::createEffect() {
   return new CGGLEffect();
 }
 
-void OpenGL21GraphicsInterface::clearBuffer(const Color3& color) {
+void OpenGL21GraphicsInterface::clearBuffer(const Color4& color) {
   glClearColor(color.r, color.g, color.b, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   GLUtilities::checkForError();
@@ -317,7 +317,7 @@ unsigned int OpenGL21GraphicsInterface::createRenderTarget(unsigned int textureI
   return rendetTargetId;
 }
 
-void OpenGL21GraphicsInterface::clearRenderTarget(unsigned int renderTargetId, const Color3& color) {
+void OpenGL21GraphicsInterface::clearRenderTarget(unsigned int renderTargetId, const Color4& color) {
   OpenGLRenderTarget renderTarget = renderTargets_[renderTargetId];
   glBindFramebuffer(GL_FRAMEBUFFER, renderTarget.frameBuffer);
   glClearColor(color.r, color.g, color.b, 1.0f);

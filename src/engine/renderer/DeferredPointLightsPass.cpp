@@ -49,5 +49,4 @@ void DeferredPointLightsPass::render(IViewer* viewer, World& world, const SceneC
   }
 
   GraphicsInterface::resetRenderTarget();
-
 }

@@ -7,6 +7,7 @@ const char* LOG_CHANNEL_IMAGELOAD = "IMAGELOAD";
 const char* LOG_CHANNEL_IO = "IO";
 const char* LOG_CHANNEL_GL_UTILS = "GL_UTILS";
 const char* LOG_CHANNEL_GRAPHICS_API = "GRAPHICS API";
+const char* LOG_CHANNEL_TEMP = "TEMP";
 
 #include <stdio.h>
 #include <stdarg.h>

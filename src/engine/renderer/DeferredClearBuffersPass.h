@@ -7,11 +7,12 @@ class DeferredClearBuffersPass : public IDeferredPass {
 
 public:
 
-  DeferredClearBuffersPass(unsigned int colorRenderTarget, unsigned int depthRenderTarget, unsigned int lightRenderTarget, unsigned int normalRenderTarget)
+  DeferredClearBuffersPass(unsigned int colorRenderTarget, unsigned int depthRenderTarget, unsigned int lightRenderTarget, unsigned int normalRenderTarget, unsigned int finalRenderTarget)
     : colorRenderTarget_(colorRenderTarget)
     , depthRenderTarget_(depthRenderTarget)
     , lightRenderTarget_(lightRenderTarget)
-    , normalRenderTarget_(normalRenderTarget) { }
+    , normalRenderTarget_(normalRenderTarget)
+    , finalRenderTarget_(finalRenderTarget) { }
 
 public:
 
@@ -25,6 +26,7 @@ private:
   unsigned int depthRenderTarget_;
   unsigned int lightRenderTarget_;
   unsigned int normalRenderTarget_;
+  unsigned int finalRenderTarget_;
 
 };
 

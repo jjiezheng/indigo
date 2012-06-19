@@ -11,8 +11,9 @@ class DeferredFinalPass : public IDeferredPass {
 
 public:
 
-  DeferredFinalPass(unsigned int colorMapTexture, unsigned int lightMapTexture, const Vector2& halfPixel)
-    : colorMapTexture_(colorMapTexture)
+  DeferredFinalPass(unsigned int finalRenderTarget, unsigned int colorMapTexture, unsigned int lightMapTexture, const Vector2& halfPixel)
+    : finalRenderTarget_(finalRenderTarget)
+    , colorMapTexture_(colorMapTexture)
     , lightMapTexture_(lightMapTexture)
     , halfPixel_(halfPixel) { }
 
@@ -27,6 +28,7 @@ private:
   IEffect* finalEffect_;
   unsigned int quadVbo_;
 
+  unsigned int finalRenderTarget_;
   unsigned int colorMapTexture_;
   unsigned int lightMapTexture_;
 
