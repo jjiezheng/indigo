@@ -6,12 +6,9 @@
 
 #include "GraphicsInterface.h"
 #include "SceneContext.h"
-
 #include "SpotLight.h"
 
 #include "IViewer.h"
-
-#include "VertexDefinition.h"
 
 #include "Model.h"
 #include "WorldLoader.h"

@@ -1,14 +1,17 @@
-#define FXAA_PC 1
-#define FXAA_HLSL_3 1
-#define FXAA_QUALITY__PRESET 15
-#include "fxaa.cg"
-
-sampler2D FinalMap = sampler_state {
-	MinFilter = Linear;
-	MagFilter = Linear;
+sampler2D NormalMap = sampler_state {
+	MinFilter = Point;
+	MagFilter = Point;
 	WrapS = Clamp;
 	WrapT = Clamp;
 };
+
+sampler2D DepthMap = sampler_state {
+	MinFilter = Point;
+	MagFilter = Point;
+	WrapS = Clamp;
+	WrapT = Clamp;
+};
+
 
 uniform float2 HalfPixel;
 uniform float4 ScreenSizeInv;
@@ -32,11 +35,7 @@ VOutput vsgl(float4 position 		: ATTR0,
 }
 
 float4 ps(float2 texCoord : TEXCOORD0) : COLOR {
-	return FxaaPixelShader(
-		texCoord, float4(0), FinalMap, FinalMap, FinalMap, ScreenSizeInv, 
-		float4(0), float4(0), float4(0), 
-		1.0f, 0.063f, 0.0312f, 2.0f, 
-		float(0), float(0), float4(0));
+	return float(1, 1, 1, 1);
 }
 
 technique dx {

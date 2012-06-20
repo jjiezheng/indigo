@@ -39,6 +39,9 @@ private:
   unsigned int lightMapTexture_;
   unsigned int lightRenderTarget_;
 
+  unsigned int shadowMapTexture_;
+  unsigned int shadowRenderTarget_;
+
   unsigned int finalMapTexture_;
   unsigned int finalRenderTarget_;
 

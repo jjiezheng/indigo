@@ -10,9 +10,9 @@
 #include "DeferredFinalPass.h"
 #include "DeferredSpotLightsPass.h"
 #include "DeferredFXAAPass.h"
+#include "DeferredShadowPass.h"
 
 #include "GraphicsInterface.h"
-#include "Color3.h"
 
 Renderer3dDeferred::~Renderer3dDeferred() {
   for (std::vector<IDeferredPass*>::iterator i = passes_.begin(); i != passes_.end(); ++i) {
@@ -33,6 +33,9 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
   lightMapTexture_ = GraphicsInterface::createTexture(screenSize);
   lightRenderTarget_ = GraphicsInterface::createRenderTarget(lightMapTexture_);
 
+  shadowMapTexture_ = GraphicsInterface::createTexture(screenSize);
+  shadowRenderTarget_ = GraphicsInterface::createRenderTarget(shadowMapTexture_);
+
   finalMapTexture_ = GraphicsInterface::createTexture(screenSize);
   finalRenderTarget_ = GraphicsInterface::createRenderTarget(finalMapTexture_);
 
@@ -52,6 +55,9 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
 
   IDeferredPass* spotLightingPass = new DeferredSpotLightsPass(lightRenderTarget_, normalMapTexture_, depthMapTexture_, halfPixel);
   passes_.push_back(spotLightingPass);
+
+  //IDeferredPass* shadowPass = new DeferredShadowPass(shadowRenderTarget_, colorRenderTarget_, depthRenderTarget_);
+  //passes_.push_back(shadowPass);
 
   IDeferredPass* finalPass = new DeferredFinalPass(finalRenderTarget_, colorMapTexture_, lightMapTexture_, halfPixel);
   passes_.push_back(finalPass);
