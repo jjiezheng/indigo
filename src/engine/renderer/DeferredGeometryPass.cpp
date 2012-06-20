@@ -10,6 +10,7 @@
 #include "maths/Matrix3x3.h"
 
 #include "IEffect.h" 
+#include "IViewer.h"
 
 void DeferredGeometryPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
   unsigned int renderTargets[] = {colorRenderTarget_, normalRenderTarget_, depthRenderTarget_};
@@ -30,7 +31,7 @@ void DeferredGeometryPass::render(IViewer* viewer, World& world, const SceneCont
 
     std::vector<Mesh*> effectMeshes = (*i).second;
     for (std::vector<Mesh*>::iterator meshIt = effectMeshes.begin(); meshIt != effectMeshes.end(); ++meshIt) {
-      (*meshIt)->material().bind(viewer, (*meshIt)->localToWorld(), Matrix4x4::IDENTITY.mat3x3(), sceneContext, effect);
+      (*meshIt)->material().bind(viewer->projection(), viewer->viewTransform(), (*meshIt)->localToWorld(), Matrix4x4::IDENTITY.mat3x3(), sceneContext, effect);
 
       effect->beginDraw();
       GraphicsInterface::setPass(effect->pass()); 

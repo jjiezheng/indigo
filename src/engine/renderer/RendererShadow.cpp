@@ -17,6 +17,8 @@
 
 #include "ShaderSemantics.h"
 
+#include "IViewer.h"
+
 void RendererShadow::init(const CSize &screenSize) {
   shadowTexture_ = GraphicsInterface::createTexture(CSize(1008, 730));
   renderTarget_ = GraphicsInterface::createRenderTarget(shadowTexture_);
@@ -40,7 +42,7 @@ void RendererShadow::renderToShadowMap(IViewer* viewer, World& world, SceneConte
   for (; i != meshes.end(); ++i) {
     std::vector<Mesh*> effectMeshes = (*i).second;
     for (std::vector<Mesh*>::iterator meshIt = effectMeshes.begin(); meshIt != effectMeshes.end(); ++meshIt) {
-      (*meshIt)->material().bind(viewer, (*meshIt)->localToWorld(), Matrix4x4::IDENTITY.mat3x3(), sceneContext, depthShader);
+      (*meshIt)->material().bind(viewer->projection(), viewer->viewTransform(), (*meshIt)->localToWorld(), Matrix4x4::IDENTITY.mat3x3(), sceneContext, depthShader);
 
       depthShader->beginDraw();
       GraphicsInterface::setPass(depthShader->pass()); 

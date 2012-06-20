@@ -100,6 +100,28 @@
       }
     },
     {
+      "type" : "spot",
+      "innerangle" : 45,
+      "outerangle" : 60,
+      "decay" : 0.2,
+      "length" : 30,
+      "position" : {
+        "x" : 0,
+        "y" : 3,
+        "z" : 0
+      },
+      "color" : {
+        "r" : 0.0,
+        "g" : 1.0,
+        "b" : 0.0
+      },
+      "direction" : {
+        "x" : -0.5,
+        "y" : -0.5,
+        "z" : 0.0
+      }
+    },
+    {
      "type" : "point",
      "radius" : 25.0,
       "position" : {

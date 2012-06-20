@@ -1,0 +1,38 @@
+uniform float4x4 WorldViewProj;
+
+struct VOutput {
+	float4 position			: POSITION;
+	float2 depth			: TEXCOORD0;
+};
+
+VOutput vs(float4 position : POSITION) {
+	VOutput OUT;
+	OUT.position = mul(WorldViewProj, position);
+	OUT.depth.x = OUT.position.z;
+	OUT.depth.y = OUT.position.w;
+ 	return OUT;
+}
+
+VOutput vsgl(float4 position : ATTR0) {
+	return vs(position);
+}
+
+float4 ps(float3 normal			: TEXCOORD0,
+		  float2 depth 			: TEXCOORD1) : COLOR {
+	float depthHom = depth.x / depth.y; // z / w
+	return float4(depth.x , depth.x , depth.x , 1);
+}
+
+technique dx {
+	pass {
+		VertexProgram = compile vs_4_0 vs();
+		FragmentProgram = compile ps_4_0 ps();
+	}
+}
+
+technique gl {
+	pass {
+		VertexProgram = compile latest vsgl();
+		FragmentProgram = compile latest ps();
+	}
+}

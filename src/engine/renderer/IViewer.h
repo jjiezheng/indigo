@@ -19,7 +19,6 @@ public:
 public:
 
   virtual float nearDistance() const = 0;
-
   
 };
 

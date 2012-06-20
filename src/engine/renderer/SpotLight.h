@@ -44,7 +44,7 @@ public:
 
 public:
 
-  Matrix4x4 rotation();
+  Matrix4x4 rotation() const;
 
 public:
 
@@ -54,13 +54,19 @@ public:
 
 public:
 
+   Matrix4x4 projection() const;
+
+   Matrix4x4 viewTransform() const;
+
+public:
+
   void setPosition(const Vector4& position);
 
   Vector4 position() const;
 
 public:
 
-  Matrix4x4 transform();
+  Matrix4x4 transform() const;
 
 private:
 

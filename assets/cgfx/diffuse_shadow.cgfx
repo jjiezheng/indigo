@@ -18,6 +18,16 @@ sampler2D ShadowMap = sampler_state {
 	BorderColor = float4(1, 1, 1, 1);
 };
 
+sampler2D ColorMap = sampler_state {
+	MinFilter = Linear;
+	MagFilter = Linear;
+	AddressU = ClampToBorder;
+	AddressV = ClampToBorder;
+	CompareMode = CompareRToTexture;
+	CompareFunc = LEqual;
+	BorderColor = float4(1, 1, 1, 1);
+};
+
 struct VOutput {
 	float4 position			: POSITION;
 	float3 normal			: TEXCOORD0;

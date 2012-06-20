@@ -7,19 +7,19 @@
 #include "GraphicsInterface.h"
 #include "maths/Matrix3x3.h"
 
-void Material::bind(IViewer* camera, const Matrix4x4& model, const Matrix3x3& normalMatrix, const SceneContext& sceneContext, IEffect* effect) const {  
+void Material::bind(const Matrix4x4& projection, const Matrix4x4& view, const Matrix4x4& model, const Matrix3x3& normalMatrix, const SceneContext& sceneContext, IEffect* effect) const {  
   effect->setUniform(model, "World");
   
-  Matrix4x4 worldView = camera->viewTransform() * model;
+  Matrix4x4 worldView = view * model;
   effect->setUniform(worldView, "WorldView");
 
-  Matrix4x4 normMatrix = camera->viewTransform().inverse();
+  Matrix4x4 normMatrix = view.inverse();
   effect->setUniform(normMatrix.mat3x3(), "NormalMatrix");
   
-  Matrix4x4 worldViewProjection = camera->projection() * worldView;
+  Matrix4x4 worldViewProjection = projection * worldView;
   effect->setUniform(worldViewProjection, "WorldViewProj");
 
-  Matrix4x4 viewProjection = camera->projection() * camera->viewTransform();
+  Matrix4x4 viewProjection = projection * view;
   effect->setUniform(viewProjection, "ViewProj");
   effect->setUniform(viewProjection.inverse().transpose(), "ViewProjInv");
  
