@@ -15,6 +15,8 @@
 
 #include "maths/Matrix3x3.h"
 
+#include "IViewer.h"
+
 void DeferredShadowPass::init() {
   effect_ = IEffect::effectFromFile("cgfx/deferred_shadow_map.cgfx");
   shadowMapEffect_ = IEffect::effectFromFile("cgfx/deferred_depth.cgfx");
@@ -23,6 +25,8 @@ void DeferredShadowPass::init() {
 
 void DeferredShadowPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
   GraphicsInterface::setRenderTarget(shadowRenderTarget_, true);
+  GraphicsInterface::resetRenderTarget();
+  GraphicsInterface::clearBuffer(Color4::WHITE);
 
   stdext::hash_map<int, std::vector<Mesh*>> meshes;
  
@@ -41,7 +45,7 @@ void DeferredShadowPass::render(IViewer* viewer, World& world, const SceneContex
 
         shadowMapEffect_->beginDraw();
         GraphicsInterface::setPass(shadowMapEffect_->pass()); 
-        GraphicsInterface::setRenderState(false);
+        GraphicsInterface::setRenderState(true);
         (*meshIt)->render();
 
         shadowMapEffect_->resetStates();

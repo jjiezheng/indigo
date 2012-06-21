@@ -44,6 +44,10 @@ public:
 
 public:
 
+  void setOrientation(const Matrix4x4& orientation);
+
+public:
+
   Matrix4x4 rotation() const;
 
 public:
@@ -70,6 +74,7 @@ public:
 
 private:
 
+  Matrix4x4 orientation_;
   Vector4 direction_;
   Vector4 position_;
   Color3 color_;
@@ -80,6 +85,7 @@ private:
   float decay_;
 
 };
+
 inline void SpotLight::setDecay(float decay) {
   decay_ = decay;
 }
@@ -134,6 +140,10 @@ inline void SpotLight::setPosition(const Vector4& position) {
 
 inline Vector4 SpotLight::position() const {
   return position_;
+}
+
+inline void SpotLight::setOrientation(const Matrix4x4& orientation) {
+  orientation_ = orientation;
 }
 
 #endif

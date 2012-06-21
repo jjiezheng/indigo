@@ -6,12 +6,14 @@
 
 Matrix4x4 SpotLight::transform() const {
   float xzScale = tan(outerAngle_ / 2.0f) * length_ * 2;
-  return Matrix4x4::translation(position_) * rotation() * Matrix4x4::scale(Vector4(xzScale, length_, xzScale));
+  return Matrix4x4::translation(position_) * rotation() * orientation_ * Matrix4x4::scale(Vector4(xzScale, length_, xzScale));
 }
 
 Matrix4x4 SpotLight::rotation() const {
-  Vector4 direction = direction_.normalize(); 
-  Vector4 origin = -Vector4::UP;
+  Vector4 direction = direction_.normalize();
+
+  // this is all out of whack, it needs to face forwards first, then be orientated, I think the rotation rotating in the wrong direction too
+  Vector4 origin = Vector4(0, -1.0, 0.0, 1);
   Vector4 axisRaw = origin.cross(direction);
   Vector4 axis = axisRaw.normalize();
   float angle = origin.angle(direction);
