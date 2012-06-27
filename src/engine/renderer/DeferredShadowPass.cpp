@@ -37,10 +37,6 @@ void DeferredShadowPass::render(IViewer* viewer, World& world, const SceneContex
 
   std::vector<SpotLight*> spotLights = sceneContext.spotLights();
   for (std::vector<SpotLight*>::iterator light = spotLights.begin(); light != spotLights.end(); ++light) {   
-    
-    // debug
-    (*light)->update();
-
     stdext::hash_map<int, std::vector<Mesh*>>::iterator i = meshes.begin();
     for (; i != meshes.end(); ++i) {
       std::vector<Mesh*> effectMeshes = (*i).second;
