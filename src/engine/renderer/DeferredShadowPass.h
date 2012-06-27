@@ -10,10 +10,10 @@ class DeferredShadowPass : public IDeferredPass {
 
 public:
 
-  DeferredShadowPass(unsigned int shadowRenderTarget, unsigned int colorMapTexture, unsigned int depthMapTexture, const Vector2& halfPixel)
-    : shadowRenderTarget_(shadowRenderTarget)
-    , colorMapTexture_(colorMapTexture)
-    , depthMapTexture_(depthMapTexture)
+  DeferredShadowPass(unsigned int shadowMapTexture, unsigned int shadowRenderTarget, unsigned int lightRenderTarget, const Vector2& halfPixel)
+    : shadowMapTexture_(shadowMapTexture)
+    , shadowRenderTarget_(shadowRenderTarget)
+    , lightRenderTarget_(lightRenderTarget)
     , halfPixel_(halfPixel) { }
 
 public:
@@ -24,13 +24,14 @@ public:
 
 private:
 
-  unsigned int colorMapTexture_;
-  unsigned int depthMapTexture_;
+  unsigned int lightRenderTarget_;
+
+  unsigned int shadowMapTexture_;
   unsigned int shadowRenderTarget_;
 
   unsigned int quadVbo_;
 
-  IEffect* effect_;
+  IEffect* shadowLightEffect_;;
   IEffect* shadowMapEffect_;
 
   Vector2 halfPixel_;

@@ -13,5 +13,29 @@ TEST(Matrix4x4Test, RotationArbitraryAxis) {
   result.x = (int)result.x;
   result.y = (int)result.y;
   result.z = (int)result.z;
-  EXPECT_EQ(result, -Vector4::FORWARD);
+  EXPECT_EQ(result, Vector4::FORWARD);
+}
+
+TEST(Matrix4x4Test, RotatingXAxis) {
+  Vector4 result = Matrix4x4::rotationX(-90) * Vector4::FORWARD;
+  result.x = (int)result.x;
+  result.y = (int)result.y;
+  result.z = (int)result.z;
+  EXPECT_EQ(result, -Vector4::UP);
+}
+
+TEST(Matrix4x4Test, RotatingYAxis) {
+  Vector4 result = Matrix4x4::rotationY(-90) * Vector4::FORWARD;
+  result.x = (int)result.x;
+  result.y = (int)result.y;
+  result.z = (int)result.z;
+  EXPECT_EQ(result, Vector4::RIGHT);
+}
+
+TEST(Matrix4x4Test, RotatingZAxis) {
+  Vector4 result = Matrix4x4::rotationZ(-90) * Vector4::UP;
+  result.x = (int)result.x;
+  result.y = (int)result.y;
+  result.z = (int)result.z;
+  EXPECT_EQ(result, Vector4::RIGHT);
 }

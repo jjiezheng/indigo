@@ -41,7 +41,7 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
 
   Vector2 halfPixel(0.5f / screenSize.width, 0.5f / screenSize.height);
 
-  /*IDeferredPass* clearBuffersPass = new DeferredClearBuffersPass(colorRenderTarget_, depthRenderTarget_, lightRenderTarget_, normalRenderTarget_, shadowRenderTarget_, finalRenderTarget_);
+  IDeferredPass* clearBuffersPass = new DeferredClearBuffersPass(colorRenderTarget_, depthRenderTarget_, lightRenderTarget_, normalRenderTarget_, shadowRenderTarget_, finalRenderTarget_);
   passes_.push_back(clearBuffersPass);
 
   IDeferredPass* geometryPass = new DeferredGeometryPass(colorRenderTarget_, normalRenderTarget_, depthRenderTarget_);
@@ -54,16 +54,16 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
   passes_.push_back(pointLightingPass);
 
   IDeferredPass* spotLightingPass = new DeferredSpotLightsPass(lightRenderTarget_, normalMapTexture_, depthMapTexture_, halfPixel);
-  passes_.push_back(spotLightingPass);*/
+  passes_.push_back(spotLightingPass);
 
-  IDeferredPass* shadowPass = new DeferredShadowPass(shadowRenderTarget_, colorRenderTarget_, depthRenderTarget_, halfPixel);
+  IDeferredPass* shadowPass = new DeferredShadowPass(shadowMapTexture_, shadowRenderTarget_, lightRenderTarget_, halfPixel);
   passes_.push_back(shadowPass);
 
-  /*IDeferredPass* finalPass = new DeferredFinalPass(finalRenderTarget_, colorMapTexture_, lightMapTexture_, halfPixel);
-  passes_.push_back(finalPass);*/
+  IDeferredPass* finalPass = new DeferredFinalPass(finalRenderTarget_, colorMapTexture_, lightMapTexture_, halfPixel);
+  passes_.push_back(finalPass);
 
-  /*IDeferredPass* fxaaPass = new DeferredFXAAPass(finalMapTexture_, halfPixel);
-  passes_.push_back(fxaaPass);*/
+  IDeferredPass* fxaaPass = new DeferredFXAAPass(finalMapTexture_, halfPixel);
+  passes_.push_back(fxaaPass);
 
   for (std::vector<IDeferredPass*>::iterator i = passes_.begin(); i != passes_.end(); ++i) {
     (*i)->init();

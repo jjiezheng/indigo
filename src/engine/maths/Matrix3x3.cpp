@@ -9,7 +9,7 @@ Matrix3x3 Matrix3x3::IDENTITY = Matrix3x3(1.0f, 0.0f, 0.0f,
                                           0.0f, 0.0f, 1.0f);
 
 Matrix3x3 Matrix3x3::rotation(const Vector3& axis, float angleRadians) {
-  float angle = angleRadians;
+  float angle = -angleRadians;
   return Matrix3x3(
     (axis.x * axis.x) * (1 - cos(angle)) + cos(angle)         , axis.x * axis.y * (1 - cos(angle)) + axis.z * sin(angle), (axis.x * axis.z) * (1 - cos(angle)) - axis.y * sin(angle),
     (axis.x * axis.y) * (1 - cos(angle)) - axis.z * sin(angle), axis.y * axis.y * (1 - cos(angle)) + cos(angle)         , (axis.y * axis.z) * (1 - cos(angle)) + axis.x * sin(angle),
