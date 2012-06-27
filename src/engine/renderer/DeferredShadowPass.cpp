@@ -19,15 +19,13 @@
 
 void DeferredShadowPass::init() {
   shadowMapEffect_ = IEffect::effectFromFile("cgfx/deferred_depth.cgfx");
-  shadowLightEffect_ = IEffect::effectFromFile("cgfx/deferred_shadow_light.cgfx");
+  shadowLightEffect_ = IEffect::effectFromFile("cgfx/deferred_lighting_shadow_light.cgfx");
   quadVbo_ = Geometry::screenPlane();
 }
 
 void DeferredShadowPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
   {
     GraphicsInterface::setRenderTarget(shadowRenderTarget_, true);
-    //GraphicsInterface::resetRenderTarget();
-    //GraphicsInterface::clearBuffer(Color4::BLUE);
 
     stdext::hash_map<int, std::vector<Mesh*>> meshes;
    
@@ -40,7 +38,6 @@ void DeferredShadowPass::render(IViewer* viewer, World& world, const SceneContex
 
     std::vector<SpotLight*> spotLights = sceneContext.spotLights();
     for (std::vector<SpotLight*>::iterator light = spotLights.begin(); light != spotLights.end(); ++light) {   
-      (*light)->update();
       stdext::hash_map<int, std::vector<Mesh*>>::iterator i = meshes.begin();
       for (; i != meshes.end(); ++i) {
         std::vector<Mesh*> effectMeshes = (*i).second;
@@ -63,16 +60,28 @@ void DeferredShadowPass::render(IViewer* viewer, World& world, const SceneContex
 
   {
     GraphicsInterface::setRenderTarget(lightRenderTarget_, false);
+    GraphicsInterface::resetRenderTarget();
+    GraphicsInterface::clearBuffer(Color4::BLUE);
 
-    shadowLightEffect_->beginDraw();
+    std::vector<SpotLight*> spotLights = sceneContext.spotLights();
+    for (std::vector<SpotLight*>::iterator light = spotLights.begin(); light != spotLights.end(); ++light) {   
+      shadowLightEffect_->beginDraw();
 
-    shadowLightEffect_->setUniform(halfPixel_, "HalfPixel");
-    shadowLightEffect_->setTexture(shadowMapTexture_, "ShadowMap");
+      Matrix4x4 viewProj = (*light)->projection() * (*light)->viewTransform();
+      shadowLightEffect_->setUniform(viewProj, "WorldLight");
 
-    GraphicsInterface::setPass(shadowLightEffect_->pass()); 
-    GraphicsInterface::setRenderState(true);
-    GraphicsInterface::drawVertexBuffer(quadVbo_, 6);
-    shadowLightEffect_->resetStates();
+
+      shadowLightEffect_->setUniform(viewProj.inverse(), "ViewProjInv");
+
+      shadowLightEffect_->setUniform(halfPixel_, "HalfPixel");
+      shadowLightEffect_->setTexture(shadowMapTexture_, "ShadowMap");
+      shadowLightEffect_->setTexture(depthMapTexture_, "DepthMap");
+
+      GraphicsInterface::setPass(shadowLightEffect_->pass()); 
+      GraphicsInterface::setRenderState(true);
+      GraphicsInterface::drawVertexBuffer(quadVbo_, 6);
+      shadowLightEffect_->resetStates();
+    }
 
     GraphicsInterface::resetRenderTarget();
   }
