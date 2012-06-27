@@ -72,6 +72,10 @@ public:
 
   Matrix4x4 transform() const;
 
+public:
+
+  void update();
+
 private:
 
   Matrix4x4 orientation_;

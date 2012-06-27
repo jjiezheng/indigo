@@ -8,7 +8,7 @@
 
 Matrix4x4 SpotLight::transform() const {
   float xzScale = tan(outerAngle_ / 2.0f) * length_ * 2;
-  return Matrix4x4::translation(position_) * rotation() * orientation_ * Matrix4x4::scale(Vector4(xzScale, length_, xzScale));
+  return Matrix4x4::translation(position_) * Matrix4x4::scale(Vector4(xzScale, length_, xzScale));
 }
 
 Matrix4x4 SpotLight::rotation() const {
@@ -27,5 +27,16 @@ Matrix4x4 SpotLight::projection() const {
 }
 
 Matrix4x4 SpotLight::viewTransform() const {
-  return transform().inverse();
+  Matrix4x4 transform = Matrix4x4::translation(position_) * orientation_ * rotation();
+  return transform.inverse();
+}
+
+void SpotLight::update() {  
+  if (GraphicsInterface::getKeyState('Q')) {
+    position_ = position_ + Vector4::UP * 0.1f;
+  }
+
+  if (GraphicsInterface::getKeyState('E')) {
+     position_ = position_ - Vector4::UP * 0.1f;
+  }
 }
