@@ -56,6 +56,11 @@ float4 ps(float4 screenPosition : TEXCOORD0) : COLOR {
   float2 shadowMapUV = float2(shadowCoord.x, 1.0f - shadowCoord.y);
   float shadowDepth = tex2D(ShadowMap, shadowMapUV.xy);
 
+  float shadowModifier = 1.0f;
+  if (shadowDepth < positionWorld.z) {
+    shadowModifier = 0;
+  }
+
   return float4(shadowDepth, shadowDepth, shadowDepth, 1.0f);
 } 
 

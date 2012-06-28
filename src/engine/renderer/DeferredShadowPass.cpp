@@ -25,6 +25,8 @@ void DeferredShadowPass::init() {
 
 void DeferredShadowPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
   {
+    // the depth buffer is being used here, it needs to be cleared 
+    GraphicsInterface::clearBuffer(Color4::WHITE);
     GraphicsInterface::setRenderTarget(shadowRenderTarget_, true);
 
     stdext::hash_map<int, std::vector<Mesh*>> meshes;
@@ -60,12 +62,10 @@ void DeferredShadowPass::render(IViewer* viewer, World& world, const SceneContex
     }
 
     GraphicsInterface::resetRenderTarget();
-
-    // the depth render is upside down when it is passed to the shadow shader
-
   }
 
-  /*{
+  {
+    GraphicsInterface::clearBuffer(Color4::WHITE);
     GraphicsInterface::setRenderTarget(lightRenderTarget_, false);
 
     std::vector<SpotLight*> spotLights = sceneContext.spotLights();
@@ -91,5 +91,5 @@ void DeferredShadowPass::render(IViewer* viewer, World& world, const SceneContex
     }
 
     GraphicsInterface::resetRenderTarget();
-  }*/
+  }
 }
