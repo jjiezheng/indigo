@@ -38,10 +38,15 @@ void DeferredShadowPass::render(IViewer* viewer, World& world, const SceneContex
 
     std::vector<SpotLight*> spotLights = sceneContext.spotLights();
     for (std::vector<SpotLight*>::iterator light = spotLights.begin(); light != spotLights.end(); ++light) {   
+
       stdext::hash_map<int, std::vector<Mesh*>>::iterator i = meshes.begin();
+
       for (; i != meshes.end(); ++i) {
+
         std::vector<Mesh*> effectMeshes = (*i).second;
+
         for (std::vector<Mesh*>::iterator meshIt = effectMeshes.begin(); meshIt != effectMeshes.end(); ++meshIt) {
+
           (*meshIt)->material().bind((*light)->projection(), (*light)->viewTransform(), (*meshIt)->localToWorld(), Matrix4x4::IDENTITY.mat3x3(), sceneContext, shadowMapEffect_);
 
           shadowMapEffect_->beginDraw();
@@ -56,24 +61,29 @@ void DeferredShadowPass::render(IViewer* viewer, World& world, const SceneContex
       GraphicsInterface::resetRenderTarget();
     }
 
+    // the depth render is upside down when it is passed to the shadow shader
+
   }
 
   {
     GraphicsInterface::setRenderTarget(lightRenderTarget_, false);
+
     GraphicsInterface::resetRenderTarget();
-    GraphicsInterface::clearBuffer(Color4::BLUE);
+    GraphicsInterface::clearBuffer(Color4::WHITE);
 
     std::vector<SpotLight*> spotLights = sceneContext.spotLights();
     for (std::vector<SpotLight*>::iterator light = spotLights.begin(); light != spotLights.end(); ++light) {   
       shadowLightEffect_->beginDraw();
 
-      Matrix4x4 viewProj = (*light)->projection() * (*light)->viewTransform();
-      shadowLightEffect_->setUniform(viewProj, "WorldLight");
+      Matrix4x4 worldLight = (*light)->projection() * (*light)->viewTransform();
+      shadowLightEffect_->setUniform(worldLight, "LightViewProj");
 
-
-      shadowLightEffect_->setUniform(viewProj.inverse(), "ViewProjInv");
+      Matrix4x4 viewProj = viewer->projection() * viewer->viewTransform();
+      Matrix4x4 viewProjInv = viewProj.inverse();
+      shadowLightEffect_->setUniform(viewProjInv, "CameraViewProjInv");
 
       shadowLightEffect_->setUniform(halfPixel_, "HalfPixel");
+
       shadowLightEffect_->setTexture(shadowMapTexture_, "ShadowMap");
       shadowLightEffect_->setTexture(depthMapTexture_, "DepthMap");
 

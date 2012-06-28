@@ -19,7 +19,7 @@ VOutput vsgl(float4 position : ATTR0) {
 
 float4 ps(float2 depth 			: TEXCOORD0) : COLOR {
 	float depthHom = depth.x / depth.y; // z / w
-	return float4(depthHom, depthHom, depthHom , 1);
+	return float4(depthHom, depthHom, depthHom, 1);
 }
 
 technique dx {

@@ -14,12 +14,9 @@ sampler2D DepthMap = sampler_state {
   WrapT = Clamp;
 };
 
-
 uniform float2 HalfPixel;
-
-uniform float4x4 WorldLight;
-uniform float4x4 WorldViewProj;
-uniform float4x4 ViewProjInv;
+uniform float4x4 LightViewProj;
+uniform float4x4 CameraViewProjInv;
 
 struct VOutput {
       float4 position       : POSITION;
@@ -48,24 +45,18 @@ float4 ps(float4 screenPosition : TEXCOORD0) : COLOR {
   positionScreen.z = depth; 
   positionScreen.w = 1.0f;
 
-  float4 positionWorldRaw = mul(ViewProjInv, positionScreen);
+  float4 positionWorldRaw = mul(CameraViewProjInv, positionScreen);
   float4 positionWorld = positionWorldRaw / positionWorldRaw.w;
 
-  float4 shadowMapCoordRaw = mul(WorldLight, positionWorld);
+  //--
 
+  float4 shadowMapCoordRaw = mul(LightViewProj, positionWorld);
   float3 shadowCoord = shadowMapCoordRaw.xyz / shadowMapCoordRaw.w;
-  shadowCoord.z += 0.0005f;
 
   float2 shadowMapUV = float2(shadowCoord.x, 1.0f - shadowCoord.y);
+  float shadowDepth = tex2D(ShadowMap, shadowMapUV.xy);
 
-  float shadowContribution = 0.2f;
-
-  if (shadowMapCoordRaw.w > 0.0f && shadowMapUV.y > 0.0f && shadowMapUV.y < 1.0f) {
-      float shadow = tex2D(ShadowMap, shadowMapUV.xy);
-      shadowContribution = shadowContribution * shadow;
-  }
-
-  return float4(shadowContribution, shadowContribution, shadowContribution, 1);
+  return float4(shadowDepth, shadowDepth, shadowDepth, 1.0f);
 } 
 
 technique dx {
