@@ -57,19 +57,16 @@ void DeferredShadowPass::render(IViewer* viewer, World& world, const SceneContex
           shadowMapEffect_->resetStates();
         }
       }
-
-      GraphicsInterface::resetRenderTarget();
     }
+
+    GraphicsInterface::resetRenderTarget();
 
     // the depth render is upside down when it is passed to the shadow shader
 
   }
 
-  {
+  /*{
     GraphicsInterface::setRenderTarget(lightRenderTarget_, false);
-
-    GraphicsInterface::resetRenderTarget();
-    GraphicsInterface::clearBuffer(Color4::WHITE);
 
     std::vector<SpotLight*> spotLights = sceneContext.spotLights();
     for (std::vector<SpotLight*>::iterator light = spotLights.begin(); light != spotLights.end(); ++light) {   
@@ -89,10 +86,10 @@ void DeferredShadowPass::render(IViewer* viewer, World& world, const SceneContex
 
       GraphicsInterface::setPass(shadowLightEffect_->pass()); 
       GraphicsInterface::setRenderState(true);
-      GraphicsInterface::drawVertexBuffer(quadVbo_, 6);
+      GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
       shadowLightEffect_->resetStates();
     }
 
     GraphicsInterface::resetRenderTarget();
-  }
+  }*/
 }

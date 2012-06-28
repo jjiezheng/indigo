@@ -13,7 +13,7 @@ Matrix4x4 SpotLight::transform() const {
 
 Matrix4x4 SpotLight::rotation() const {
   Vector4 direction = direction_.normalize();
-  Vector4 origin = -Vector4::UP;
+  Vector4 origin = Vector4::FORWARD;
   Vector4 axisRaw = origin.cross(direction);
   Vector4 axis = axisRaw.normalize();
   float angle = origin.angle(direction);
@@ -27,7 +27,7 @@ Matrix4x4 SpotLight::projection() const {
 
 Matrix4x4 SpotLight::viewTransform() const {
   // rotate 90 degrees aroudn X because the default spot light position is down, unlike camera position which is forward
-  Matrix4x4 transform = Matrix4x4::translation(position_) * rotation() * orientation_ * Matrix4x4::rotationX(-90);
+  Matrix4x4 transform = Matrix4x4::translation(position_) * rotation() * orientation_;// * Matrix4x4::rotationX(-90);
   Matrix4x4 viewTransform = transform.inverse();
   return viewTransform;
 }
