@@ -21,7 +21,7 @@ float shadow(sampler2D shadowMap, float4 positionWorld, float4x4 lightViewProj, 
 
 	float shadowDepth = tex2D(shadowMap, shadowCoord);
 	//shadowMapCoordHom.z += 0.0005f;
-	shadowDepth -= 0.005f;
+	//shadowDepth -= 0.005f;
 
 	float shadowModifier = 1.0f;
 

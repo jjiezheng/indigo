@@ -97,7 +97,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
     /*float distanceToLightCenter = viewer->position().distance((*light)->position());
     bool cullBackFaces = distanceToLightCenter >= (*light).radius() + viewer->nearDistance();
 */
-    GraphicsInterface::setRenderState(true);
+    GraphicsInterface::setRenderState(false);
     spotLightModel_->render();
     lightEffect_->resetStates();
 
