@@ -14,6 +14,13 @@ sampler2D DepthMap = sampler_state {
 	WrapT = Clamp;
 };
 
+sampler2D ShadowMap = sampler_state {
+  MinFilter = Point;
+  MagFilter = Point;
+  WrapS = Clamp;
+  WrapT = Clamp;
+};
+
 uniform float2 HalfPixel;
 
 uniform float4 LightDirection;
@@ -24,6 +31,7 @@ uniform float LightOuterAngle;
 uniform float LightDecay;
 
 uniform float4x4 ViewProjInv;
+uniform float4x4 LightViewProj;
 uniform float4x4 WorldViewProj;
 
 struct VOutput {
@@ -59,6 +67,7 @@ float4 ps(float4 screenPosition : TEXCOORD0) : COLOR {
 	float4 positionWorldRaw = mul(ViewProjInv, positionScreen);
 	float4 positionWorld = positionWorldRaw / positionWorldRaw.w;
 
+	// spot light
 	float3 directionToLight = LightPosition - positionWorld;
 	float3 directionOfLight = -LightDirection;
 	float lightDirectionDot = max(0.0f, dot(normalize(directionOfLight), normalize(directionToLight)));
@@ -81,7 +90,10 @@ float4 ps(float4 screenPosition : TEXCOORD0) : COLOR {
 		finalColor.a = diffuseStrength;
 	}
 
-	return finalColor;
+	// shadows
+	float shadowModifier = shadow(ShadowMap, positionWorld, LightViewProj, HalfPixel);
+
+	return finalColor * shadowModifier;
 } 
 
 technique dx {

@@ -14,4 +14,21 @@ float3 contract(float3 vec) {
 	return 0.5f * shifted;
 }
 
+float shadow(sampler2D shadowMap, float4 positionWorld, float4x4 lightViewProj, float2 halfPixel) {
+	float4 shadowMapCoordRaw = mul(lightViewProj, positionWorld);
+	float3 shadowMapCoordHom = shadowMapCoordRaw.xyz / shadowMapCoordRaw.w;
+	float2 shadowCoord = contract(shadowMapCoordHom) - halfPixel;
+
+	float shadowDepth = tex2D(shadowMap, shadowCoord);
+	//shadowMapCoordHom.z += 0.0005f;
+	shadowDepth -= 0.005f;
+
+	float shadowModifier = 1.0f;
+
+	if (shadowDepth < shadowMapCoordHom.z) {
+		shadowModifier = 0;
+	}
+
+	return shadowModifier;
+}
 #endif

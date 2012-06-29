@@ -12,10 +12,12 @@ class DeferredSpotLightsPass : public IDeferredPass {
 
 public:
 
-  DeferredSpotLightsPass(unsigned int lightMapRenderTarget, unsigned int normalMapTexture, unsigned int depthMapTexture, const Vector2& halfPixel)
+  DeferredSpotLightsPass(unsigned int lightMapRenderTarget, unsigned int normalMapTexture, unsigned int depthMapTexture, unsigned int shadowMapTexture, unsigned int shadowMapRenderTarget, const Vector2& halfPixel)
     : lightMapRenderTarget_(lightMapRenderTarget)
     , normalMapTexture_(normalMapTexture)
     , depthMapTexture_(depthMapTexture)
+    , shadowMapTexture_(shadowMapTexture)
+    , shadowMapRenderTarget_(shadowMapRenderTarget)
     , halfPixel_(halfPixel) { }
 
 public:
@@ -26,12 +28,15 @@ public:
 
 private:
 
-  IEffect* effect_;
+  IEffect* lightEffect_;
+  IEffect* shadowMapEffect_;
 
   unsigned int lightMapRenderTarget_;
+  unsigned int shadowMapRenderTarget_;
   
   unsigned int normalMapTexture_;
   unsigned int depthMapTexture_;
+  unsigned int shadowMapTexture_;
 
   Vector2 halfPixel_;
 

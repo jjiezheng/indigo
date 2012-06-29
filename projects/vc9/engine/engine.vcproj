@@ -510,14 +510,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\engine\renderer\DeferredShadowPass.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\engine\renderer\DeferredShadowPass.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\..\src\engine\renderer\DeferredSpotLightsPass.cpp"
 					>
 				</File>
