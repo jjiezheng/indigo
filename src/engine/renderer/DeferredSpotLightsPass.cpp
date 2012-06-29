@@ -26,6 +26,10 @@ void DeferredSpotLightsPass::init() {
 
   spotLightModel_ = new Model();
   WorldLoader().loadModel(spotLightModel_, "debug/cone.dae");
+
+  CSize screenSize = GraphicsInterface::screenSize(); 
+  shadowMapTexture_ = GraphicsInterface::createTexture(screenSize);
+  shadowMapRenderTarget_ = GraphicsInterface::createRenderTarget(shadowMapTexture_);
 }
 
 void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
@@ -37,35 +41,37 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
   }
 
   std::vector<SpotLight*> spotLights = sceneContext.spotLights();
-  for (std::vector<SpotLight*>::iterator light = spotLights.begin(); light != spotLights.end(); ++light) {    
-
-    GraphicsInterface::clearBuffer(Color4::WHITE);
-    GraphicsInterface::setRenderTarget(shadowMapRenderTarget_, true);
+  for (std::vector<SpotLight*>::iterator light = spotLights.begin(); light != spotLights.end(); ++light) {
 
     // create shadowmap
-    stdext::hash_map<int, std::vector<Mesh*>>::iterator i = meshes.begin();
-    for (; i != meshes.end(); ++i) {
-      std::vector<Mesh*> effectMeshes = (*i).second;
-      for (std::vector<Mesh*>::iterator meshIt = effectMeshes.begin(); meshIt != effectMeshes.end(); ++meshIt) {
-        (*meshIt)->material().bind((*light)->projection(), (*light)->viewTransform(), (*meshIt)->localToWorld(), Matrix4x4::IDENTITY.mat3x3(), sceneContext, shadowMapEffect_);
-        shadowMapEffect_->beginDraw();
-        GraphicsInterface::setPass(shadowMapEffect_->pass()); 
-        GraphicsInterface::setRenderState(false);
-        (*meshIt)->render();
-        shadowMapEffect_->resetStates();
+    if ((*light)->castsShadows()) {
+      GraphicsInterface::clearBuffer(Color4::WHITE);
+      GraphicsInterface::setRenderTarget((*light)->shadowMapRenderTarget(), true);
+      GraphicsInterface::clearRenderTarget((*light)->shadowMapRenderTarget(), Color4::WHITE);
+
+      stdext::hash_map<int, std::vector<Mesh*>>::iterator i = meshes.begin();
+      for (; i != meshes.end(); ++i) {
+        std::vector<Mesh*> effectMeshes = (*i).second;
+        for (std::vector<Mesh*>::iterator meshIt = effectMeshes.begin(); meshIt != effectMeshes.end(); ++meshIt) {
+          (*meshIt)->material().bind((*light)->projection(), (*light)->viewTransform(), (*meshIt)->localToWorld(), Matrix4x4::IDENTITY.mat3x3(), sceneContext, shadowMapEffect_);
+          shadowMapEffect_->beginDraw();
+          GraphicsInterface::setPass(shadowMapEffect_->pass()); 
+          GraphicsInterface::setRenderState(false);
+          (*meshIt)->render();
+          shadowMapEffect_->resetStates();
+        }
       }
+
+      GraphicsInterface::resetRenderTarget();
     }
 
-    GraphicsInterface::resetRenderTarget();
-
     // run lighting
-
     GraphicsInterface::setRenderTarget(lightMapRenderTarget_, false);
     lightEffect_->setUniform(halfPixel_, "HalfPixel");
 
     lightEffect_->setTexture(normalMapTexture_, "NormalMap");
     lightEffect_->setTexture(depthMapTexture_, "DepthMap");
-    lightEffect_->setTexture(shadowMapTexture_, "ShadowMap");
+    lightEffect_->setTexture((*light)->shadowMapTexture(), "ShadowMap");
 
     Matrix4x4 viewProjection = viewer->projection() * viewer->viewTransform();
     lightEffect_->setUniform(viewProjection, "ViewProj");
@@ -87,6 +93,10 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
 
     lightEffect_->beginDraw();
     GraphicsInterface::setPass(lightEffect_->pass()); 
+
+    /*float distanceToLightCenter = viewer->position().distance((*light)->position());
+    bool cullBackFaces = distanceToLightCenter >= (*light).radius() + viewer->nearDistance();
+*/
     GraphicsInterface::setRenderState(true);
     spotLightModel_->render();
     lightEffect_->resetStates();

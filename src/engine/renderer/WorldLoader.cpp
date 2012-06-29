@@ -253,6 +253,21 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
         light->setColor(Color3(r, g, b));
       }
 
+      {
+        json::Boolean castsShadowsBoolean = (*lit)["castsshadows"];
+        bool castsShadows = castsShadowsBoolean.Value();
+
+        if (castsShadows) {
+          light->setCastsShadows(castsShadows);
+          
+          unsigned int shadowMapTexture = GraphicsInterface::createTexture(GraphicsInterface::screenSize());
+          light->setShadowMapTexture(shadowMapTexture);
+
+          unsigned int shadowMapRendeTarget = GraphicsInterface::createRenderTarget(shadowMapTexture);
+          light->setShadowMapRenderTarget(shadowMapRendeTarget);
+        }
+      }
+
       sceneContext.addSpotLight(light); 
     }
   }

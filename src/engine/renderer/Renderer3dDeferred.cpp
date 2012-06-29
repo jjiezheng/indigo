@@ -33,15 +33,12 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
   lightMapTexture_ = GraphicsInterface::createTexture(screenSize);
   lightRenderTarget_ = GraphicsInterface::createRenderTarget(lightMapTexture_);
 
-  shadowMapTexture_ = GraphicsInterface::createTexture(screenSize);
-  shadowRenderTarget_ = GraphicsInterface::createRenderTarget(shadowMapTexture_);
-
   finalMapTexture_ = GraphicsInterface::createTexture(screenSize);
   finalRenderTarget_ = GraphicsInterface::createRenderTarget(finalMapTexture_);
 
   Vector2 halfPixel(0.5f / screenSize.width, 0.5f / screenSize.height);
 
-  IDeferredPass* clearBuffersPass = new DeferredClearBuffersPass(colorRenderTarget_, depthRenderTarget_, lightRenderTarget_, normalRenderTarget_, shadowRenderTarget_, finalRenderTarget_);
+  IDeferredPass* clearBuffersPass = new DeferredClearBuffersPass(colorRenderTarget_, depthRenderTarget_, lightRenderTarget_, normalRenderTarget_, finalRenderTarget_);
   passes_.push_back(clearBuffersPass);
 
   IDeferredPass* geometryPass = new DeferredGeometryPass(colorRenderTarget_, normalRenderTarget_, depthRenderTarget_);
@@ -50,10 +47,10 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
   IDeferredPass* directionalLightingPass = new DeferredDirectionalLightsPass(lightRenderTarget_, normalMapTexture_, halfPixel);
   passes_.push_back(directionalLightingPass);
 
-  IDeferredPass* pointLightingPass = new DeferredPointLightsPass(lightRenderTarget_, normalMapTexture_, depthMapTexture_, shadowMapTexture_, halfPixel);
+  IDeferredPass* pointLightingPass = new DeferredPointLightsPass(lightRenderTarget_, normalMapTexture_, depthMapTexture_, halfPixel);
   passes_.push_back(pointLightingPass);
 
-  IDeferredPass* spotLightingPass = new DeferredSpotLightsPass(lightRenderTarget_, normalMapTexture_, depthMapTexture_, shadowMapTexture_, shadowRenderTarget_, halfPixel);
+  IDeferredPass* spotLightingPass = new DeferredSpotLightsPass(lightRenderTarget_, normalMapTexture_, depthMapTexture_, halfPixel);
   passes_.push_back(spotLightingPass);
 
   IDeferredPass* finalPass = new DeferredFinalPass(finalRenderTarget_, colorMapTexture_, lightMapTexture_, halfPixel);

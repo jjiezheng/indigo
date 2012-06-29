@@ -64,9 +64,27 @@ public:
 
 public:
 
+  void setCastsShadows(bool castsShadows);
+
+  bool castsShadows() const;
+
+public:
+
   void setPosition(const Vector4& position);
 
   Vector4 position() const;
+
+public:
+
+  void setShadowMapRenderTarget(unsigned int shadowMapRenderTarget);
+
+  unsigned int shadowMapRenderTarget() const;
+
+public:
+
+  void setShadowMapTexture(unsigned int shadowMapTexture);
+
+  unsigned int shadowMapTexture() const;
 
 public:
 
@@ -87,6 +105,11 @@ private:
   float radius_;
   float length_;
   float decay_;
+
+  bool castsShadows_;
+
+  unsigned int shadowMapRenderTarget_;
+  unsigned int shadowMapTexture_;
 
 };
 
@@ -148,6 +171,30 @@ inline Vector4 SpotLight::position() const {
 
 inline void SpotLight::setOrientation(const Matrix4x4& orientation) {
   orientation_ = orientation;
+}
+
+inline void SpotLight::setShadowMapTexture(unsigned int shadowMapTexture) {
+  shadowMapTexture_ = shadowMapTexture;
+}
+
+inline unsigned int SpotLight::shadowMapTexture() const {
+  return shadowMapTexture_;
+}
+
+inline unsigned int SpotLight::shadowMapRenderTarget() const {
+  return shadowMapRenderTarget_;
+}
+
+inline void SpotLight::setShadowMapRenderTarget(unsigned int shadowMapRenderTarget) {
+  shadowMapRenderTarget_ = shadowMapRenderTarget;
+}
+
+inline void SpotLight::setCastsShadows(bool castsShadows) {
+  castsShadows_ = castsShadows;
+}
+
+inline bool SpotLight::castsShadows() const {
+  return castsShadows_;
 }
 
 #endif

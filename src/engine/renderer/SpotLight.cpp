@@ -7,7 +7,7 @@
 #include "maths/Angles.h"
 
 Matrix4x4 SpotLight::transform() const {
-  float xzScale = tan(outerAngle_ / 2.0f) * length_ * 2;
+  float xzScale = tan(outerAngle_ / 2.0f) * length_ * 1;
   return Matrix4x4::translation(position_) * rotation() * Matrix4x4::scale(Vector4(xzScale, length_, xzScale));
 }
 
