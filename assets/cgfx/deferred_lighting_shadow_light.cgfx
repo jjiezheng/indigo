@@ -51,22 +51,22 @@ float4 ps(float4 screenPosition : TEXCOORD0) : COLOR {
   //--
 
   float4 shadowMapCoordRaw = mul(LightViewProj, positionWorld);
-  float3 shadowCoord = shadowMapCoordRaw.xyz / shadowMapCoordRaw.w;
+  float3 shadowMapCoordHom = shadowMapCoordRaw.xyz / shadowMapCoordRaw.w;
+  float2 shadowCoord = contract(shadowMapCoordHom) - HalfPixel;
 
-  float2 shadowMapUV = float2(shadowCoord.x, 1.0f - shadowCoord.y);
-  float shadowDepth = tex2D(ShadowMap, shadowMapUV.xy);
+  float shadowDepth = tex2D(ShadowMap, shadowCoord.xy);
 
   float shadowModifier = 1.0f;
-  if (shadowDepth < positionWorld.z) {
+  if (shadowDepth > positionWorld.z) {
     shadowModifier = 0;
   }
 
-  return float4(shadowDepth, shadowDepth, shadowDepth, 1.0f);
+  return float4(shadowModifier, shadowModifier, shadowModifier, 1.0f);
 } 
 
 technique dx {
   pass {
-    BlendEnable = false;
+    BlendEnable = true;
     SrcBlend = One;
     DestBlend = One;
     VertexProgram = compile vs_4_0 vs();

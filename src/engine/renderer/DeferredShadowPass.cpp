@@ -53,7 +53,7 @@ void DeferredShadowPass::render(IViewer* viewer, World& world, const SceneContex
 
           shadowMapEffect_->beginDraw();
           GraphicsInterface::setPass(shadowMapEffect_->pass()); 
-          GraphicsInterface::setRenderState(true);
+          GraphicsInterface::setRenderState(false);
           (*meshIt)->render();
 
           shadowMapEffect_->resetStates();
