@@ -14,21 +14,26 @@ float3 contract(float3 vec) {
 	return 0.5f * shifted;
 }
 
-float shadow(sampler2D shadowMap, float4 positionWorld, float4x4 lightViewProj, float2 halfPixel) {
-	float4 shadowMapCoordRaw = mul(lightViewProj, positionWorld);
-	float3 shadowMapCoordHom = shadowMapCoordRaw.xyz / shadowMapCoordRaw.w;
-	float2 shadowCoord = contract(shadowMapCoordHom) - halfPixel;
+float ChebyshevUpperBound(float2 moments, float depth) {  
+	float mean = moments.x;
+	float meanSqr = moments.y;
+	float Ex_2 = mean * mean; 
+	float E_x2 = meanSqr;
+	float shadowBias = 0.0f;
+	float variance = min(max(E_x2 - Ex_2, 0.0f) + shadowBias, 1.0f);
+	float m_d = (depth - mean);
+	float p = variance / (variance + m_d * m_d);
+	return max(p, depth <= mean);
+}  
 
-	float shadowDepth = tex2D(shadowMap, shadowCoord);
-	//shadowMapCoordHom.z += 0.0005f;
-	//shadowDepth -= 0.005f;
+float shadow(sampler2D shadowMap, float2 shadowCoord, float depth) {
+	float2 moments = tex2D(shadowMap, shadowCoord).xy;
 
-	float shadowModifier = 1.0f;
-
-	if (shadowDepth < shadowMapCoordHom.z) {
-		shadowModifier = 0;
+	if (depth < moments.x) {
+		return 1.0f;
 	}
 
-	return shadowModifier;
+	return ChebyshevUpperBound(moments, depth);
 }
+
 #endif

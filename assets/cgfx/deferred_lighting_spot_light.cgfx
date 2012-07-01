@@ -90,15 +90,20 @@ float4 ps(float4 screenPosition : TEXCOORD0) : COLOR {
 		finalColor.a = diffuseStrength;
 	}
 
+
+	float4 shadowMapCoordRaw = mul(LightViewProj, positionWorldRaw);
+	float3 shadowMapCoordHom = shadowMapCoordRaw.xyz / shadowMapCoordRaw.w;
+	float2 shadowCoord = contract(shadowMapCoordHom) - HalfPixel;
+
 	// shadows
-	float shadowModifier = shadow(ShadowMap, positionWorld, LightViewProj, HalfPixel);
+	float shadowModifier = shadow(ShadowMap, shadowCoord, shadowMapCoordHom.z);
 
 	return finalColor * shadowModifier;
 } 
 
 technique dx {
   pass {
-  	BlendEnable = true;
+  	BlendEnable = false;
   	SrcBlend = One;
   	DestBlend = One;
     VertexProgram = compile vs_4_0 vs();

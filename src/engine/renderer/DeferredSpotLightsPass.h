@@ -28,6 +28,7 @@ private:
 
   IEffect* lightEffect_;
   IEffect* shadowMapEffect_;
+  IEffect* gaussianBlurEffect_;
 
   unsigned int lightMapRenderTarget_;
   
@@ -36,6 +37,8 @@ private:
 
   unsigned int shadowMapRenderTarget_;
   unsigned int shadowMapTexture_;
+
+  unsigned int quadVbo_;
 
   Vector2 halfPixel_;
 

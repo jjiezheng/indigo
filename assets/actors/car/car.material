@@ -1,12 +1,8 @@
 {
-  "effect" : "cgfx/deferred_render_color_normal_depth.cgfx",
-  "parameters" : { 
-    "diffuseColor" : {
-      "r" : 0.6,
-      "g" : 0.6,
-      "b" : 0.6,
-      "type" : "color3"
-    }
-  },
-  "textures" : { }
+  "effect" : "cgfx/deferred_render_colormap_normalmap_depth.cgfx",
+  "parameters" : { },
+  "textures" : {
+    "ColorMap" : "actors/car/car_1_diffuse.dds",
+    "NormalMap" : "actors/car/car_1_normal.dds"
+  }
 }
