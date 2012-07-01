@@ -10,7 +10,8 @@ class SpotLight {
 
 public:
 
-  SpotLight() { };
+  SpotLight()
+    : castsShadows_(false) { };
 
 public:
 

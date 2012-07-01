@@ -58,4 +58,6 @@ void GaussianBlur::render(unsigned int sourceTexture) {
 
     GraphicsInterface::resetRenderTarget();
   }
+
+  GraphicsInterface::generateMipMaps(gaussianHorizontalMapTexture_);
 }

@@ -14,12 +14,26 @@ float3 contract(float3 vec) {
 	return 0.5f * shifted;
 }
 
+float VSM_FILTER( float2 moments, float fragDepth ) 
+{ 
+   float lit = (float)0.0f;
+   float E_x2 = moments.y; 
+   float Ex_2 = moments.x * moments.x; 
+   float variance = E_x2 - Ex_2;     
+   float mD = moments.x - fragDepth; 
+   float mD_2 = mD * mD; 
+   float p = variance / (variance + mD_2); 
+   lit = max( p, fragDepth <= moments.x ); 
+           
+   return lit;  //lit.x == VSM calculation 
+} 
+
 float ChebyshevUpperBound(float2 moments, float depth) {  
 	float mean = moments.x;
 	float meanSqr = moments.y;
 	float Ex_2 = mean * mean; 
 	float E_x2 = meanSqr;
-	float shadowBias = 0.0005f;
+	float shadowBias = 0.0f;
 	float variance = min(max(E_x2 - Ex_2, 0.0f) + shadowBias, 1.0f);
 	float m_d = (depth - mean);
 	float p = variance / (variance + m_d * m_d);
@@ -33,7 +47,7 @@ float shadow(sampler2D shadowMap, float2 shadowCoord, float depth) {
 		return 1.0f;
 	}
 
-	return ChebyshevUpperBound(moments, depth);
+	return VSM_FILTER(moments, depth);
 }
 
 #endif

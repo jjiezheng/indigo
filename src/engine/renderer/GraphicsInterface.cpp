@@ -100,3 +100,7 @@ void GraphicsInterface::clearRenderTarget(unsigned int renderTargetId, const Col
 void GraphicsInterface::resetRenderTarget() {
   graphicsInterface_->resetRenderTarget();
 }
+
+void GraphicsInterface::generateMipMaps(unsigned int textureId) {
+  graphicsInterface_->generateMipMaps(textureId);
+}

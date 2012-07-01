@@ -57,6 +57,8 @@ public:
 
   virtual void setTexture(int textureId, CGparameter parameter) = 0;
 
+  virtual void generateMipMaps(unsigned int textureId) = 0;
+
 public:
 
   virtual void setRenderTarget(unsigned int* textureId, unsigned int renderTargetCount, bool useDepthBuffer) = 0;

@@ -68,6 +68,8 @@ public:
 
   static void setTexture(int textureId, CGparameter parameter);
 
+  static void generateMipMaps(unsigned int textureId);
+
 public:
 
   static bool getKeyState(char key);

@@ -71,6 +71,8 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
       lightEffect_->setTexture(depthMapTexture_, "DepthMap");
       lightEffect_->setTexture(gaussianBlur_.outputTexture(), "ShadowMap");
 
+      lightEffect_->setUniform((*light)->castsShadows(), "ShadowsEnabled");
+
       Matrix4x4 viewProjection = viewer->projection() * viewer->viewTransform();
       lightEffect_->setUniform(viewProjection, "ViewProj");
       lightEffect_->setUniform(viewProjection.inverse(), "ViewProjInv");

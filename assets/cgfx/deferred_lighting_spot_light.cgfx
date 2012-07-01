@@ -1,25 +1,27 @@
 #include "utils.cg"
 
 sampler2D NormalMap = sampler_state {
-	MinFilter = Point;
-	MagFilter = Point;
+	MinFilter = LinearMipMapLinear;
+	MagFilter = LinearMipMapLinear;
 	WrapS = Clamp;
 	WrapT = Clamp;
 };
 
 sampler2D DepthMap = sampler_state {
-	MinFilter = Point;
-	MagFilter = Point;
+	MinFilter = LinearMipMapLinear;
+	MagFilter = LinearMipMapLinear;
 	WrapS = Clamp;
 	WrapT = Clamp;
 };
 
 sampler2D ShadowMap = sampler_state {
-  MinFilter = Point;
-  MagFilter = Point;
+  MinFilter = LinearMipMapLinear;
+  MagFilter = LinearMipMapLinear;
   WrapS = Clamp;
   WrapT = Clamp;
 };
+
+uniform bool ShadowsEnabled;
 
 uniform float2 HalfPixel;
 
@@ -90,15 +92,18 @@ float4 ps(float4 screenPosition : TEXCOORD0) : COLOR {
 		finalColor.a = diffuseStrength;
 	}
 
-
+	// shadows
 	float4 shadowMapCoordRaw = mul(LightViewProj, positionWorldRaw);
 	float3 shadowMapCoordHom = shadowMapCoordRaw.xyz / shadowMapCoordRaw.w;
 	float2 shadowCoord = contract(shadowMapCoordHom) - HalfPixel;
 
-	// shadows
-	float shadowModifier = shadow(ShadowMap, shadowCoord, shadowMapCoordHom.z);
+	float shadowContribution = 1.0f;
 
-	return finalColor * shadowModifier;
+	if (ShadowsEnabled) {
+		shadowContribution = shadow(ShadowMap, shadowCoord, shadowMapCoordHom.z);
+	}
+
+	return finalColor * shadowContribution;
 } 
 
 technique dx {

@@ -41,6 +41,8 @@ public:
 
   void setTexture(int textureId, CGparameter parameter);
 
+  void generateMipMaps(unsigned int textureId);
+
 public:
 
   void setRenderTarget(unsigned int* renderTargetId, unsigned int renderTargetCount, bool useDepthBuffer);
