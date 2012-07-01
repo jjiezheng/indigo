@@ -27,7 +27,12 @@ void IEffect::load(const std::string& filePath, const char** args) {
   assert(cgValidateTechnique(technique_));
   LOG(LOG_CHANNEL_SHADER, "Selected %s technique", cgGetTechniqueName(technique_));
 
-  pass_ = cgGetFirstPass(technique_);
+  CGpass pass = cgGetFirstPass(technique_);
+  while (pass) {
+    passes_.push_back(pass);
+    pass = cgGetNextPass(pass);
+  }
+  LOG(LOG_CHANNEL_SHADER, "Found %d passes", passes_.size());
 }
 
 void IEffect::onError() {
@@ -55,4 +60,19 @@ IEffect* IEffect::effectFromFile(const std::string& relativeFilePath) {
   std::string fullFilePath = Path::pathForFile(relativeFilePath);
   effect->load(fullFilePath);
   return effect;
+}
+
+void IEffect::activatePass(unsigned int passId) {
+  activePassId_ = passId;
+}
+
+void IEffect::beginDraw() {
+  CGpass pass = passes_[activePassId_];
+  GraphicsInterface::setPass(pass);
+  cgSetPassState(pass);
+}
+
+void IEffect::resetStates() {
+  CGpass pass = passes_[activePassId_];
+  cgResetPassState(pass);
 }

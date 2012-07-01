@@ -33,8 +33,7 @@ void DeferredGeometryPass::render(IViewer* viewer, World& world, const SceneCont
     for (std::vector<Mesh*>::iterator meshIt = effectMeshes.begin(); meshIt != effectMeshes.end(); ++meshIt) {
       (*meshIt)->material().bind(viewer->projection(), viewer->viewTransform(), (*meshIt)->localToWorld(), Matrix4x4::IDENTITY.mat3x3(), sceneContext, effect);
 
-      effect->beginDraw();
-      GraphicsInterface::setPass(effect->pass()); 
+      effect->beginDraw(); 
       GraphicsInterface::setRenderState(true);
       (*meshIt)->render();
       effect->resetStates();

@@ -530,6 +530,18 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="Effects"
+				>
+				<File
+					RelativePath="..\..\..\src\engine\renderer\GaussianBlur.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\renderer\GaussianBlur.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="config"

@@ -2,6 +2,7 @@
 #define IEFFECT_H
 
 #include <string>
+#include <vector>
 #include <CG/cg.h>
 
 class Matrix4x4;
@@ -13,6 +14,11 @@ class Vector3;
 class Vector4;
 
 class IEffect {
+
+public:
+
+  IEffect()
+    : activePassId_(0) { };
 
 public:
 
@@ -32,11 +38,11 @@ public:
 
 public:
 
-  virtual void beginDraw() = 0;
+  void beginDraw();
 
-  virtual void resetStates() = 0;
+  void resetStates();
 
-  virtual CGpass pass() { return pass_; };
+  void activatePass(unsigned int passId);
 
 public:
 
@@ -58,13 +64,22 @@ public:
 
   virtual void setTexture(unsigned int textureId, const char* uniformName) = 0;
 
+public:
+
+  unsigned int numPasses() const;
+
 protected:
 
   static CGcontext context_;
   CGeffect effect_;
-  CGpass pass_;
+  std::vector<CGpass> passes_;
   CGtechnique technique_;
+  unsigned int activePassId_;
 };
+
+inline unsigned int IEffect::numPasses() const {
+  return passes_.size();
+}
 
 
 #endif

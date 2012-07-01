@@ -29,14 +29,6 @@ void CGD3DEffect::load(const std::string& filePath) {
   IEffect::load(filePath, args);
 }
 
-void CGD3DEffect::beginDraw() {
-  cgSetPassState(pass_);
-}
-
-void CGD3DEffect::resetStates() {
-  cgResetPassState(pass_);
-}
-
 void CGD3DEffect::setUniform(const Color3& uniformData, const char* uniformName) const {
   CGparameter parameter = cgGetNamedEffectParameter(effect_, uniformName);
   if (!parameter) return;

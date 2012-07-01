@@ -5,6 +5,8 @@
 
 #include "IDeferredPass.h"
 
+#include "GaussianBlur.h"
+
 class IEffect;
 class Model;
 
@@ -28,17 +30,13 @@ private:
 
   IEffect* lightEffect_;
   IEffect* shadowMapEffect_;
-  IEffect* gaussianBlurEffect_;
 
   unsigned int lightMapRenderTarget_;
   
   unsigned int normalMapTexture_;
   unsigned int depthMapTexture_;
 
-  unsigned int shadowMapRenderTarget_;
-  unsigned int shadowMapTexture_;
-
-  unsigned int quadVbo_;
+  GaussianBlur gaussianBlur_;
 
   Vector2 halfPixel_;
 

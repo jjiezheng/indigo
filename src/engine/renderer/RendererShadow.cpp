@@ -45,7 +45,6 @@ void RendererShadow::renderToShadowMap(IViewer* viewer, World& world, SceneConte
       (*meshIt)->material().bind(viewer->projection(), viewer->viewTransform(), (*meshIt)->localToWorld(), Matrix4x4::IDENTITY.mat3x3(), sceneContext, depthShader);
 
       depthShader->beginDraw();
-      GraphicsInterface::setPass(depthShader->pass()); 
       GraphicsInterface::setRenderState(false);
       (*meshIt)->render();
 

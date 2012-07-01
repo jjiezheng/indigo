@@ -34,7 +34,6 @@ void Renderer3d::render(IViewer* viewer, World& world, const SceneContext& scene
       (*meshIt)->material().bind(viewer->projection(), viewer->viewTransform(), (*meshIt)->localToWorld(), Matrix4x4::IDENTITY.mat3x3(), sceneContext, effect);
 
       effect->beginDraw();
-      GraphicsInterface::setPass(effect->pass()); 
       GraphicsInterface::setRenderState(true);
       (*meshIt)->render();
       effect->resetStates();

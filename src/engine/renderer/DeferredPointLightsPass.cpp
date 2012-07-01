@@ -41,7 +41,6 @@ void DeferredPointLightsPass::render(IViewer* viewer, World& world, const SceneC
     bool cullBackFaces = distanceToLightCenter >= (*light).radius() + viewer->nearDistance();
 
     pointLightEffect_->beginDraw();
-    GraphicsInterface::setPass(pointLightEffect_->pass()); 
     GraphicsInterface::setRenderState(cullBackFaces);
     pointLightModel_->render();
     GraphicsInterface::setRenderState(true);

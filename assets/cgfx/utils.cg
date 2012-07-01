@@ -19,7 +19,7 @@ float ChebyshevUpperBound(float2 moments, float depth) {
 	float meanSqr = moments.y;
 	float Ex_2 = mean * mean; 
 	float E_x2 = meanSqr;
-	float shadowBias = 0.0f;
+	float shadowBias = 0.0005f;
 	float variance = min(max(E_x2 - Ex_2, 0.0f) + shadowBias, 1.0f);
 	float m_d = (depth - mean);
 	float p = variance / (variance + m_d * m_d);

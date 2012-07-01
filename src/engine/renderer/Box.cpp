@@ -37,7 +37,6 @@ void Box::init() {
 
 void Box::render() {
   effect_->beginDraw();
-  GraphicsInterface::setPass(effect_->pass());
   GraphicsInterface::drawVertexBuffer(vertexBuffer, VERTEX_COUNT);
   effect_->resetStates(); 
 }

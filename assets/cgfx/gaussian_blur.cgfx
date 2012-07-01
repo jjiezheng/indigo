@@ -5,7 +5,8 @@ sampler2D SourceMap = sampler_state {
 	WrapT = Clamp;
 };
 
-uniform float2 HalfPixel;
+float SceneHeight;
+float SceneWidth;
 
 struct VOutput {
 	float4 position 			: POSITION;
@@ -16,30 +17,98 @@ VOutput vs(float4 position 	: POSITION,
 		   float2 texCoord 	: TEXCOORD0) {
     VOutput OUT;
     OUT.position = position;
-    OUT.texCoord = texCoord;// - HalfPixel;
+    OUT.texCoord = texCoord;
     return OUT;
 }
 
-
-VOutput vsgl(float4 position 	: POSITION,
-		   	 float4 texCoord 	: TEXCOORD0) {
-	return vs(position, texCoord);
+float4 gauss3x3_rows_PS(float2 texCoord : TEXCOORD0) : COLOR {
+	float tapUV = 1.0f / SceneWidth;
+	float4 total = tex2D(SourceMap, texCoord);
+	total += 0.3 * tex2D(SourceMap, texCoord + float2(tapUV, 0));
+	total += 0.3 * tex2D(SourceMap, texCoord + float2(-tapUV, 0));
+	return total / 1.6f;	
+}
+float4 gauss3x3_cols_PS(float2 texCoord : TEXCOORD0) : COLOR {
+	float tapUV = 1.0f / SceneHeight;
+	float4 total   = tex2D(SourceMap, texCoord);
+	total += 0.3 * tex2D(SourceMap, texCoord + float2(0, tapUV));
+	total += 0.3 * tex2D(SourceMap, texCoord + float2(0, -tapUV));
+	return total / 1.6f;	
 }
 
-float4 ps(float2 texCoord : TEXCOORD0) : COLOR {
-	return tex2D(SourceMap, texCoord);
+float4 gauss5x5_rows_PS(float2 texCoord : TEXCOORD0) : COLOR {
+	float tapUV = 1.0f / SceneHeight;
+	float4 total = tex2D(SourceMap, texCoord);
+	total += 0.641 * tex2D(SourceMap, texCoord + float2(tapUV, 0));
+	total += 0.641 * tex2D(SourceMap, texCoord + float2(-tapUV, 0));
+	total += 0.368 * tex2D(SourceMap, texCoord + float2(2*tapUV, 0));
+	total += 0.368 * tex2D(SourceMap, texCoord + float2(-2*tapUV, 0));
+	return total / 3.018f;
 }
 
-technique dx {
-	pass {
+float4 gauss5x5_cols_PS(float2 texCoord : TEXCOORD0) : COLOR {
+	float tapUV = 1.0f / SceneHeight;
+	float4 total = tex2D(SourceMap, texCoord);
+	total += 0.641 * tex2D(SourceMap, texCoord + float2(0, tapUV));
+	total += 0.641 * tex2D(SourceMap, texCoord + float2(0, -tapUV));
+	total += 0.368 * tex2D(SourceMap, texCoord + float2(0, 2*tapUV));
+	total += 0.368 * tex2D(SourceMap, texCoord + float2(0, -2*tapUV));
+	return total / 3.018f;
+}
+
+float4 gauss7x7_rows_PS(float2 texCoord : TEXCOORD0) : COLOR {
+	float tapUV = 1.0f / SceneHeight;
+	float4 total = tex2D(SourceMap, texCoord);
+	total += 0.895 * tex2D(SourceMap, texCoord + float2(tapUV, 0));
+	total += 0.895 * tex2D(SourceMap, texCoord + float2(-tapUV, 0));
+	total += 0.641 * tex2D(SourceMap, texCoord + float2(2*tapUV, 0));
+	total += 0.641 * tex2D(SourceMap, texCoord + float2(-2*tapUV, 0));
+	total += 0.368 * tex2D(SourceMap, texCoord + float2(3*tapUV, 0));
+	total += 0.368 * tex2D(SourceMap, texCoord + float2(-3*tapUV, 0));
+	return total / 4.808f;
+}
+
+float4 gauss7x7_cols_PS(float2 texCoord : TEXCOORD0) : COLOR {
+	float tapUV = 1.0f / SceneHeight;
+	float4 total = tex2D(SourceMap, texCoord);
+	total += 0.895 * tex2D(SourceMap, texCoord + float2(0, tapUV));
+	total += 0.895 * tex2D(SourceMap, texCoord + float2(0, -tapUV));
+	total += 0.641 * tex2D(SourceMap, texCoord + float2(0, 2*tapUV));
+	total += 0.641 * tex2D(SourceMap, texCoord + float2(0, -2*tapUV));
+	total += 0.368 * tex2D(SourceMap, texCoord + float2(0, 3*tapUV));
+	total += 0.368 * tex2D(SourceMap, texCoord + float2(0, -3*tapUV));
+	return total / 4.808f;
+}
+
+/*technique GaussianBlur3x3 {
+    pass rows {
+    	VertexProgram = compile vs_4_0 vs();
+    	FragmentProgram = compile ps_4_0 gauss3x3_rows_PS();
+    }
+    pass cols {
+    	VertexProgram = compile vs_4_0 vs();
+		FragmentProgram = compile ps_4_0 gauss3x3_cols_PS();    	
+    }
+}
+
+technique GaussianBlur5x5 {
+	pass rows {
 		VertexProgram = compile vs_4_0 vs();
-		FragmentProgram = compile ps_4_0 ps();
+		FragmentProgram = compile ps_4_0 gauss5x5_rows_PS();
+	}
+	pass cols {
+		VertexProgram = compile vs_4_0 vs();
+		FragmentProgram = compile ps_4_0 gauss5x5_cols_PS();  
 	}
 }
-
-technique gl {
-	pass {
-		VertexProgram = compile latest vsgl();
-		FragmentProgram = compile latest ps();
+*/
+technique GaussianBlur7x7 {
+	pass rows {
+		VertexProgram = compile vs_4_0 vs();
+		FragmentProgram = compile ps_4_0 gauss7x7_rows_PS();
+	}
+	pass cols {
+		VertexProgram = compile vs_4_0 vs();
+		FragmentProgram = compile ps_4_0 gauss7x7_cols_PS();  
 	}
 }

@@ -24,7 +24,6 @@ void DeferredFXAAPass::render(IViewer* viewer, World& world, const SceneContext&
   screenSizeInv.y = 1.0f / screenSize.height;
   finalEffect_->setUniform(screenSizeInv, "ScreenSizeInv");
 
-  GraphicsInterface::setPass(finalEffect_->pass()); 
   GraphicsInterface::setRenderState(true);
   GraphicsInterface::drawVertexBuffer(quadVbo_, 6);
   finalEffect_->resetStates();

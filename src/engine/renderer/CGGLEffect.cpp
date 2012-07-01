@@ -27,16 +27,6 @@ void CGGLEffect::load(const std::string& filePath) {
   IEffect::load(filePath, args);
 }
 
-void CGGLEffect::beginDraw() { 
-  CGpass pass = cgGetFirstPass(technique_);
-  cgSetPassState(pass);
-}
-
-void CGGLEffect::resetStates() {
-  CGpass pass = cgGetFirstPass(technique_);
-  cgResetPassState(pass);
-}
-
 void CGGLEffect::setUniform(const Color3& uniformData, const char* uniformName) const {
   CGparameter parameter = cgGetNamedEffectParameter(effect_, uniformName);
   if (!parameter) return;

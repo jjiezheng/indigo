@@ -20,8 +20,7 @@ void DeferredFinalPass::render(IViewer* viewer, World& world, const SceneContext
   finalEffect_->beginDraw();
   finalEffect_->setTexture(colorMapTexture_, "ColorMap");
   finalEffect_->setTexture(lightMapTexture_, "LightMap");
-  finalEffect_->setUniform(halfPixel_, "HalfPixel");
-  GraphicsInterface::setPass(finalEffect_->pass()); 
+  finalEffect_->setUniform(halfPixel_, "HalfPixel"); 
   GraphicsInterface::setRenderState(true);
   GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
   finalEffect_->resetStates();
