@@ -15,10 +15,10 @@ sampler2D DepthMap = sampler_state {
 };
 
 sampler2D ShadowMap = sampler_state {
-  MinFilter = LinearMipMapLinear;
-  MagFilter = LinearMipMapLinear;
-  WrapS = Clamp;
-  WrapT = Clamp;
+	MinFilter = LinearMipMapLinear;
+	MagFilter = LinearMipMapLinear;
+	WrapS = Clamp;
+	WrapT = Clamp;
 };
 
 uniform bool ShadowsEnabled;
@@ -54,7 +54,7 @@ VOutput vsgl(float4 position : ATTR0) {
 
 float4 ps(float4 screenPosition : TEXCOORD0) : COLOR {
 	float3 screenPositionHom = screenPosition.xyz / screenPosition.w;
-	float2 texCoord = contract(screenPositionHom) - HalfPixel;
+	float2 texCoord = contract(screenPositionHom);// - HalfPixel;
 
 	float4 normalData = tex2D(NormalMap, texCoord);
 	float3 normal = normalData.xyz;
@@ -67,10 +67,10 @@ float4 ps(float4 screenPosition : TEXCOORD0) : COLOR {
 	positionScreen.w = 1.0f;
 
 	float4 positionWorldRaw = mul(ViewProjInv, positionScreen);
-	float4 positionWorld = positionWorldRaw / positionWorldRaw.w;
+	float4 positionWorld = float4(positionWorldRaw.xyz / positionWorldRaw.w, 1.0f);
 
 	// spot light
-	float3 directionToLight = LightPosition - positionWorld;
+	/*float3 directionToLight = LightPosition - positionWorld;
 	float3 directionOfLight = -LightDirection;
 	float lightDirectionDot = max(0.0f, dot(normalize(directionOfLight), normalize(directionToLight)));
 
@@ -90,25 +90,30 @@ float4 ps(float4 screenPosition : TEXCOORD0) : COLOR {
 		float diffuseStrength = max(0.0f, dot(normalize(normal), normalize(directionOfLight)));
 		finalColor.rgb = LightColor * diffuseStrength;
 		finalColor.a = diffuseStrength;
-	}
+	}*/
 
+
+	//------------------------------------------------------------
 	// shadows
-	float4 shadowMapCoordRaw = mul(LightViewProj, positionWorldRaw);
+	//------------------------------------------------------------
+	float4 shadowMapCoordRaw = mul(LightViewProj, positionWorld);
 	float3 shadowMapCoordHom = shadowMapCoordRaw.xyz / shadowMapCoordRaw.w;
 	float2 shadowCoord = contract(shadowMapCoordHom) - HalfPixel;
 
 	float shadowContribution = 1.0f;
 
 	if (ShadowsEnabled) {
-		shadowContribution = shadow(ShadowMap, shadowCoord, shadowMapCoordHom.z);
+		shadowContribution = shadow(ShadowMap, shadowCoord, shadowMapCoordRaw.z);
 	}
 
-	return finalColor * shadowContribution;
+	float2 moments = tex2D(ShadowMap, shadowCoord).xy;
+	//shadowMapCoordRaw.z suddently jumps to 0.4 around the same time the depth value hits o.6
+	return float4(moments.x, texCoord.x, texCoord.y, 1.0f);// finalColor * shadowContribution;// float4(moments.x, moments.x, moments.x, 1.0f);//finalColor * shadowContribution;
 } 
 
 technique dx {
   pass {
-  	BlendEnable = false;
+  	BlendEnable = true;
   	SrcBlend = One;
   	DestBlend = One;
     VertexProgram = compile vs_4_0 vs();

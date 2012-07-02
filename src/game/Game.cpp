@@ -10,9 +10,9 @@ void Game::init() {
   clock_.init();
   properties_.init();
   
-  camera_.translateX(-2.0f);
-  camera_.translateZ(20.0f);
-  camera_.translateY(2.8f);
+ // camera_.translateX(-2.0f);
+  camera_.translateZ(6.0f);
+  //camera_.translateY(2.8f);
 
   renderer_.init(GraphicsInterface::screenSize());
   shadowRenderer_.init(GraphicsInterface::screenSize()); 

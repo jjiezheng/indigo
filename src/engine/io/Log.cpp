@@ -25,7 +25,7 @@ void DLOG(const char* channel, const char* fmt, ...)
   int     n;
 
   va_start(args, fmt);
-  n = _vsnprintf(p, sizeof buf - 3, fmt, args); // buf-3 is room for CR/LF/NUL
+  n = vsnprintf(p, sizeof buf - 3, fmt, args); // buf-3 is room for CR/LF/NUL
   va_end(args);
 
   p += (n < 0) ? sizeof buf - 3 : n;
