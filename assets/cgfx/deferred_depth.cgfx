@@ -13,24 +13,14 @@ VOutput vs(float4 position : POSITION) {
  	return OUT;
 }
 
-VOutput vsgl(float4 position : ATTR0) {
-	return vs(position);
-}
-
 float4 ps(float2 depth 			: TEXCOORD0) : COLOR {
-	return float4(depth.x, depth.x*depth.x, 0.0f, 1.0f);
+	float depthHom = depth.x / depth.y;
+	return float4(depthHom, depthHom, depthHom, 1.0f);
 }
 
 technique dx {
 	pass {
 		VertexProgram = compile vs_4_0 vs();
 		FragmentProgram = compile ps_4_0 ps();
-	}
-}
-
-technique gl {
-	pass {
-		VertexProgram = compile latest vsgl();
-		FragmentProgram = compile latest ps();
 	}
 }

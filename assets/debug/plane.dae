@@ -5,8 +5,8 @@
       <author>Blender User</author>
       <authoring_tool>Blender 2.63.0 r46461:46487M</authoring_tool>
     </contributor>
-    <created>2012-07-02T15:19:05</created>
-    <modified>2012-07-02T15:19:05</modified>
+    <created>2012-07-03T17:24:26</created>
+    <modified>2012-07-03T17:24:26</modified>
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
@@ -24,9 +24,9 @@
           </technique_common>
         </source>
         <source id="Plane-mesh-normals">
-          <float_array id="Plane-mesh-normals-array" count="3">0 0 1</float_array>
+          <float_array id="Plane-mesh-normals-array" count="6">0 0 1 0 0 1</float_array>
           <technique_common>
-            <accessor source="#Plane-mesh-normals-array" count="1" stride="3">
+            <accessor source="#Plane-mesh-normals-array" count="2" stride="3">
               <param name="X" type="float"/>
               <param name="Y" type="float"/>
               <param name="Z" type="float"/>
@@ -36,11 +36,11 @@
         <vertices id="Plane-mesh-vertices">
           <input semantic="POSITION" source="#Plane-mesh-positions"/>
         </vertices>
-        <polylist count="1">
+        <polylist count="2">
           <input semantic="VERTEX" source="#Plane-mesh-vertices" offset="0"/>
           <input semantic="NORMAL" source="#Plane-mesh-normals" offset="1"/>
-          <vcount>4 </vcount>
-          <p>1 0 0 0 2 0 3 0</p>
+          <vcount>3 3 </vcount>
+          <p>2 0 3 0 1 0 0 1 2 1 1 1</p>
         </polylist>
       </mesh>
       <extra><technique profile="MAYA"><double_sided>1</double_sided></technique></extra>
@@ -49,11 +49,11 @@
   <library_visual_scenes>
     <visual_scene id="Scene" name="Scene">
       <node id="Plane" type="NODE">
-        <translate sid="location">0 0 0</translate>
+        <translate sid="location">0 1 0</translate>
         <rotate sid="rotationZ">0 0 1 0</rotate>
         <rotate sid="rotationY">0 1 0 0</rotate>
-        <rotate sid="rotationX">1 0 0 0</rotate>
-        <scale sid="scale">2 2 2</scale>
+        <rotate sid="rotationX">1 0 0 -90.00001</rotate>
+        <scale sid="scale">10 10 10</scale>
         <instance_geometry url="#Plane-mesh"/>
       </node>
     </visual_scene>

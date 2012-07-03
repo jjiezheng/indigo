@@ -15,6 +15,8 @@
 #include "maths/Trigonometry.h"
 #include "maths/Matrix3x3.h"
 
+unsigned int quadvbo;
+
 void DeferredSpotLightsPass::init() {
   shadowMapEffect_ = IEffect::effectFromFile("cgfx/deferred_depth.cgfx");
   lightEffect_ = IEffect::effectFromFile("cgfx/deferred_lighting_spot_light.cgfx");
@@ -24,6 +26,8 @@ void DeferredSpotLightsPass::init() {
 
   CSize screenSize = GraphicsInterface::screenSize(); 
   gaussianBlur_.init(screenSize);
+
+  quadvbo = Geometry::screenPlane();
 }
 
 void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
@@ -37,7 +41,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
   std::vector<SpotLight*> spotLights = sceneContext.spotLights();
   for (std::vector<SpotLight*>::iterator light = spotLights.begin(); light != spotLights.end(); ++light) {
 
-    if ((*light)->castsShadows()) {
+   if ((*light)->castsShadows()) {
       // create shadowmap
       GraphicsInterface::clearBuffer(Color4::WHITE);
       GraphicsInterface::setRenderTarget((*light)->shadowMapRenderTarget(), true);
@@ -66,9 +70,9 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
       GraphicsInterface::setRenderTarget(lightMapRenderTarget_, false);
       lightEffect_->setUniform(halfPixel_, "HalfPixel");
 
-      //lightEffect_->setTexture(normalMapTexture_, "NormalMap");
+  //    lightEffect_->setTexture(normalMapTexture_, "NormalMap");
       lightEffect_->setTexture(depthMapTexture_, "DepthMap");
-      lightEffect_->setTexture((*light)->shadowMapTexture(), "ShadowMap");
+//      lightEffect_->setTexture((*light)->shadowMapTexture(), "ShadowMap");
 
       lightEffect_->setUniform((*light)->castsShadows(), "ShadowsEnabled");
 

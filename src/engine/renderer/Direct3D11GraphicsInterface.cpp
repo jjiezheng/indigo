@@ -257,7 +257,7 @@ unsigned int Direct3D11GraphicsInterface::createTexture(const CSize& dimensions)
 
   textureDesc.Width = dimensions.width;
   textureDesc.Height = dimensions.height;
-  textureDesc.MipLevels = 10;
+  textureDesc.MipLevels = 1;
   textureDesc.ArraySize = 1;
   textureDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
   textureDesc.SampleDesc.Count = kMultiSamples;

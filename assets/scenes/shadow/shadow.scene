@@ -45,7 +45,7 @@
       "innerangle" : 45,
       "outerangle" : 60,
       "decay" : 0.2,
-      "length" : 5,
+      "length" : 20,
       "castsshadows" : true,
       "position" : {
         "x" : 0,

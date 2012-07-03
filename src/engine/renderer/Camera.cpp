@@ -13,7 +13,8 @@ Camera::Camera()
   , up_(Vector3::UP)
   , rotationX_(0.0f)
   , rotationY_(0.0f)
-  , rotationZ_(0.0f) { }
+  , rotationZ_(0.0f)
+  , position_(Vector3::IDENTITY) { }
 
 Camera* Camera::camera() {
   Camera* camera = new Camera();

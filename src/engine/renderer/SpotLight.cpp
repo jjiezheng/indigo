@@ -7,8 +7,8 @@
 #include "maths/Angles.h"
 
 Matrix4x4 SpotLight::transform() const {
-  float xzScale = tan(outerAngle_ / 2.0f) * length_ * 2;
-  return Matrix4x4::translation(position_) * rotation() * Matrix4x4::scale(Vector4(xzScale, length_, xzScale));
+  float xzScale = tan(outerAngle_ / 2.0f) * (length_ * 6);
+  return Matrix4x4::translation(position_) ;// * Matrix4x4::scale(Vector4(6, 6, 6));
 }
 
 Matrix4x4 SpotLight::rotation() const {
@@ -26,10 +26,7 @@ Matrix4x4 SpotLight::projection() const {
 }
 
 Matrix4x4 SpotLight::viewTransform() const {
-  // rotate 90 degrees aroudn X because the default spot light position is down, unlike camera position which is forward
-  Matrix4x4 transform = Matrix4x4::translation(position_) * rotation() * orientation_;// * Matrix4x4::rotationX(-90);
-  Matrix4x4 viewTransform = transform.inverse();
-  return viewTransform;
+  return Matrix4x4::translation(position_).inverse();
 }
 
 void SpotLight::update() {  
