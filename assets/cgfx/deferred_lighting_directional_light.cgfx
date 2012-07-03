@@ -52,13 +52,3 @@ technique dx {
     FragmentProgram = compile ps_4_0 ps();
   }
 }
-
-technique latest {
-  pass {
-  	BlendEnable = true;
-  	SrcBlend = One;
-  	DestBlend = One;
-    VertexProgram = compile glslv vsgl();
-    FragmentProgram = compile glslf ps();
-  }
-}

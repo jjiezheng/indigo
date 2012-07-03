@@ -17,7 +17,6 @@ void DeferredFinalPass::init() {
 void DeferredFinalPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
   GraphicsInterface::setRenderTarget(finalRenderTarget_, false);
   GraphicsInterface::clearRenderTarget(finalRenderTarget_, sceneContext.backgroundColor());
-  GraphicsInterface::resetRenderTarget();
   finalEffect_->beginDraw();
   finalEffect_->setTexture(colorMapTexture_, "ColorMap");
   finalEffect_->setTexture(lightMapTexture_, "LightMap");

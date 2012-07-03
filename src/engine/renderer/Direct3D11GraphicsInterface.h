@@ -37,7 +37,7 @@ public:
 
   unsigned int loadTexture(const std::string& filePath);
 
-  unsigned int createTexture(const CSize& dimensions);
+  unsigned int createTexture(const CSize& dimensions, unsigned int mipLevels);
 
   void setTexture(int textureId, CGparameter parameter);
 

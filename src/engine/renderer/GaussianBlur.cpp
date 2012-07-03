@@ -17,7 +17,8 @@ void GaussianBlur::init(const CSize& bufferSize) {
 
   quadVbo_ = Geometry::screenPlane();
 
-  gaussianBlurEffect_ = IEffect::effectFromFile("cgfx/gaussian_blur.cgfx");
+  gaussianBlurHorizontalEffect_ = IEffect::effectFromFile("cgfx/gaussian_blur_horizontal.cgfx");
+  gaussianBluVerticalEffect_ = IEffect::effectFromFile("cgfx/gaussian_blur_vertical.cgfx");
 }
 
 void GaussianBlur::render(unsigned int sourceTexture) {
@@ -25,17 +26,16 @@ void GaussianBlur::render(unsigned int sourceTexture) {
     GraphicsInterface::setRenderTarget(gaussianVerticalRenderTarget_, false);
     GraphicsInterface::clearRenderTarget(gaussianVerticalRenderTarget_, Color4::WHITE);
 
-    gaussianBlurEffect_->setTexture(sourceTexture, "SourceMap");
+    gaussianBlurHorizontalEffect_->setTexture(sourceTexture, "SourceMap");
 
     CSize screenSize = GraphicsInterface::screenSize(); 
-    gaussianBlurEffect_->setUniform(bufferSize_.width, "SceneWith");
-    gaussianBlurEffect_->setUniform(bufferSize_.height, "SceneHeight");
+    gaussianBlurHorizontalEffect_->setUniform(bufferSize_.width, "SceneWith");
+    gaussianBlurHorizontalEffect_->setUniform(bufferSize_.height, "SceneHeight");
 
-    gaussianBlurEffect_->activatePass(0);
-    gaussianBlurEffect_->beginDraw();
+    gaussianBlurHorizontalEffect_->beginDraw();
     GraphicsInterface::setRenderState(true);
     GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);         
-    gaussianBlurEffect_->resetStates(); 
+    gaussianBlurHorizontalEffect_->resetStates(); 
 
     GraphicsInterface::resetRenderTarget();
   }
@@ -44,17 +44,16 @@ void GaussianBlur::render(unsigned int sourceTexture) {
     GraphicsInterface::setRenderTarget(gaussianHorizontalRenderTarget_, false);
     GraphicsInterface::clearRenderTarget(gaussianHorizontalRenderTarget_, Color4::WHITE);
 
-    gaussianBlurEffect_->setTexture(gaussianVerticalMapTexture_, "SourceMap");
+    gaussianBluVerticalEffect_->setTexture(gaussianVerticalMapTexture_, "SourceMap");
 
     CSize screenSize = GraphicsInterface::screenSize(); 
-    gaussianBlurEffect_->setUniform(bufferSize_.width, "SceneWith");
-    gaussianBlurEffect_->setUniform(bufferSize_.height, "SceneHeight");
+    gaussianBluVerticalEffect_->setUniform(bufferSize_.width, "SceneWith");
+    gaussianBluVerticalEffect_->setUniform(bufferSize_.height, "SceneHeight");
 
-    gaussianBlurEffect_->activatePass(0);
-    gaussianBlurEffect_->beginDraw();
+    gaussianBluVerticalEffect_->beginDraw();
     GraphicsInterface::setRenderState(true);
     GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);         
-    gaussianBlurEffect_->resetStates(); 
+    gaussianBluVerticalEffect_->resetStates(); 
 
     GraphicsInterface::resetRenderTarget();
   }

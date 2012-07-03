@@ -78,7 +78,11 @@ void GraphicsInterface::setRenderState(bool cullBack) {
 }
 
 unsigned int GraphicsInterface::createTexture(const CSize& dimensions) {
-  return graphicsInterface_->createTexture(dimensions);
+  return graphicsInterface_->createTexture(dimensions, 1);
+}
+
+unsigned int GraphicsInterface::createTexture(const CSize& dimensions, unsigned int mipLevels) {
+  return graphicsInterface_->createTexture(dimensions, mipLevels);
 }
 
 void GraphicsInterface::setRenderTarget(unsigned int renderTargetId, bool useDepthBuffer) {

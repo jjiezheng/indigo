@@ -6,9 +6,11 @@
 
 #include "maths/Angles.h"
 
+#include "io/Log.h"
+
 Matrix4x4 SpotLight::transform() const {
-  float xzScale = tan(outerAngle_ / 2.0f) * (length_ * 6);
-  return Matrix4x4::translation(position_) ;// * Matrix4x4::scale(Vector4(6, 6, 6));
+  float xzScale = tan(outerAngle_ / 2.0f) * (length_ * 2);
+  return Matrix4x4::translation(position_) * rotation() * Matrix4x4::scale(Vector4(xzScale, xzScale, length_));
 }
 
 Matrix4x4 SpotLight::rotation() const {
@@ -26,15 +28,10 @@ Matrix4x4 SpotLight::projection() const {
 }
 
 Matrix4x4 SpotLight::viewTransform() const {
-  return Matrix4x4::translation(position_).inverse();
+  Matrix4x4 transform = Matrix4x4::translation(position_) * rotation();
+  return transform.inverse();
 }
 
-void SpotLight::update() {  
-  /*if (GraphicsInterface::getKeyState('Q')) {
-    position_ = position_ + Vector4::UP * 0.1f;
-  }
-
-  if (GraphicsInterface::getKeyState('E')) {
-     position_ = position_ - Vector4::UP * 0.1f;
-  }*/
+void SpotLight::update() { 
+ 
 }

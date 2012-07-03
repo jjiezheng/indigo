@@ -26,7 +26,8 @@ private:
 
   unsigned int quadVbo_;
 
-  IEffect* gaussianBlurEffect_;
+  IEffect* gaussianBlurHorizontalEffect_;
+  IEffect* gaussianBluVerticalEffect_;
 
   CSize bufferSize_;
 

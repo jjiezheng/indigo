@@ -66,6 +66,8 @@ public:
 
   static unsigned int createTexture(const CSize& dimensions);
 
+  static unsigned int GraphicsInterface::createTexture(const CSize& dimensions, unsigned int mipLevels);
+
   static void setTexture(int textureId, CGparameter parameter);
 
   static void generateMipMaps(unsigned int textureId);

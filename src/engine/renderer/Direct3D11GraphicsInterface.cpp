@@ -251,13 +251,13 @@ void Direct3D11GraphicsInterface::resetGraphicsState(bool cullBack) {
   }
 }
 
-unsigned int Direct3D11GraphicsInterface::createTexture(const CSize& dimensions) {
+unsigned int Direct3D11GraphicsInterface::createTexture(const CSize& dimensions, unsigned int mipLevels) {
   D3D11_TEXTURE2D_DESC textureDesc;
   ZeroMemory(&textureDesc, sizeof(D3D11_TEXTURE2D_DESC));
 
   textureDesc.Width = dimensions.width;
   textureDesc.Height = dimensions.height;
-  textureDesc.MipLevels = 1;
+  textureDesc.MipLevels = mipLevels;
   textureDesc.ArraySize = 1;
   textureDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
   textureDesc.SampleDesc.Count = kMultiSamples;
@@ -312,6 +312,5 @@ void Direct3D11GraphicsInterface::resetRenderTarget() {
 }
 
 void Direct3D11GraphicsInterface::generateMipMaps(unsigned int textureId) {
- // DirectXTexture texture = textures_[textureId];
-  //deviceConnection_->GenerateMips(texture.textureData);
+
 }

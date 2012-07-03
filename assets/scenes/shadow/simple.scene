@@ -8,8 +8,8 @@
   },
   "objects" : [
     {
-      "mesh" : "actors/floor/floor.blend",
-      "material" : "actors/floor/floor.material",
+      "mesh" : "actors/plane/plane.blend",
+      "material" : "actors/plane/plane.material",
       "position" : {
         "x" : 0.0,
         "y" : 0.0,
@@ -17,12 +17,12 @@
       }
     },
     {
-      "mesh" : "actors/cube/cube.blend",
-      "material" : "actors/cube/cube.material",
+      "mesh" : "actors/plane/plane2.blend",
+      "material" : "actors/plane/plane2.material",
       "position" : {
         "x" : 0.0,
         "y" : 0.0,
-        "z" : 0.0
+        "z" : 2.0
       }
     }
   ],
@@ -48,9 +48,9 @@
       "length" : 20,
       "castsshadows" : true,
       "position" : {
-        "x" : 5,
-        "y" : 5,
-        "z" : 0
+        "x" : 0,
+        "y" : 0,
+        "z" : 6
       },
       "orientation" : {
         "x" : 0,
@@ -63,9 +63,9 @@
         "b" : 1.0
       },
       "direction" : {
-        "x" : -1.0,
-        "y" : -1.0,
-        "z" : 0.0
+        "x" : 0.0,
+        "y" : 0.0,
+        "z" : -1.0
       }
     }
   ]

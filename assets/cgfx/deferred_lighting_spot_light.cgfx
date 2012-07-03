@@ -56,6 +56,9 @@ float4 ps(float4 screenPosition : TEXCOORD0) : COLOR {
 	// world position
 	//------------------------------------------------------------
 
+	float4 normalData = tex2D(NormalMap, texCoord);
+	float3 normal = normalData.xyz;
+
 	float depth = tex2D(DepthMap, texCoord);
 
 	float4 positionScreen;
@@ -71,9 +74,6 @@ float4 ps(float4 screenPosition : TEXCOORD0) : COLOR {
 	//------------------------------------------------------------
 	// spot light
 	//------------------------------------------------------------
-	float4 normalData = tex2D(NormalMap, texCoord);
-	float3 normal = normalData.xyz;
-
 	float3 directionToLight = LightPosition - positionWorld;
 	float3 directionOfLight = -LightDirection;
 	float lightDirectionDot = max(0.0f, dot(normalize(directionOfLight), normalize(directionToLight)));
@@ -88,11 +88,11 @@ float4 ps(float4 screenPosition : TEXCOORD0) : COLOR {
 		finalColor.a = 1.0f;//diffuseStrength;	
 	}
 
-	/*if (lightDirectionDot > lightInnerCos) {
+	if (lightDirectionDot > lightInnerCos) {
 		float diffuseStrength = max(0.0f, dot(normalize(normal), normalize(directionOfLight)));
 		finalColor.rgb = LightColor * diffuseStrength;
 		finalColor.a = diffuseStrength;
-	}*/
+	}
 
 
 	//------------------------------------------------------------
@@ -106,10 +106,10 @@ float4 ps(float4 screenPosition : TEXCOORD0) : COLOR {
 
 	float shadowLightContribution = 1.0f;
 	if (moments.x < pixelWorldPositionFromLightHom.z) {
-		shadowLightContribution = 0.5f;
+		shadowLightContribution = VSM_FILTER(moments, pixelWorldPositionFromLightHom.z);
 	}
 
-	return float4(lightDirectionDot, lightDirectionDot, lightDirectionDot, 1.0f);// * shadowLightContribution;
+	return finalColor * shadowLightContribution;
 } 
 
 technique dx {
