@@ -48,9 +48,9 @@
       "length" : 20,
       "castsshadows" : true,
       "position" : {
-        "x" : 5,
-        "y" : 5,
-        "z" : 0
+        "x" : 0,
+        "y" : 2,
+        "z" : 5
       },
       "orientation" : {
         "x" : 0,
@@ -64,7 +64,7 @@
       },
       "direction" : {
         "x" : 0.0,
-        "y" : 0.0,
+        "y" : -0.1,
         "z" : -1.0
       }
     }

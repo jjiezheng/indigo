@@ -114,7 +114,7 @@ float4 ps(float4 screenPosition : TEXCOORD0) : COLOR {
 
 technique dx {
   pass {
-  	BlendEnable = true;
+  	BlendEnable = false;
   	SrcBlend = One;
   	DestBlend = One;
     VertexProgram = compile vs_4_0 vs();
