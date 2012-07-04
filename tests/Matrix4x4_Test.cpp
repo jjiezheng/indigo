@@ -41,12 +41,9 @@ TEST(Matrix4x4Test, RotatingZAxis) {
 }
 
 TEST(Matrix4x4Test, LookAt) {
-  Matrix4x4 result = Matrix4x4::lookAt(Vector4::IDENTITY, Vector4::FORWARD, Vector4::UP);
+  Matrix4x4 result = Matrix4x4::lookAt(Vector4(-1, 0, 1, 1), Vector4::IDENTITY, Vector4::UP);
+  Vector4 origin = Vector4::IDENTITY;
+  Vector4 direction = result * origin;
+  EXPECT_EQ(floorf(direction.z), -1.0f);
 
-  Vector4 left = Vector4::FORWARD;
-  Vector4 bla = result * left;
-
-  std::clog << result.toString() << std::endl;
-  int a = 1;
-  a = 2;
 }
