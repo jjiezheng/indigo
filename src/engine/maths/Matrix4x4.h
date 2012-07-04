@@ -35,6 +35,8 @@ public:
   
 public:
 
+  static Matrix4x4 lookAt(const Vector4& eye, const Vector4& target, const Vector4& up);
+
   static Matrix4x4 perspective(float fov, float aspect, float znear, float zfar);
   
   static Matrix4x4 orthographic(float left, float right, float bottom, float top, float near, float far);
@@ -52,6 +54,8 @@ public:
 public:
   
   Matrix4x4();
+
+  Matrix4x4(const Vector4& m1, const Vector4& m2, const Vector4& m3, const Vector4& m4);
   
   Matrix4x4(float m11, float m12, float m13, float m14,
             float m21, float m22, float m23, float m24,

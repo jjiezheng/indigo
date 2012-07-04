@@ -28,6 +28,7 @@ Matrix4x4 SpotLight::projection() const {
 }
 
 Matrix4x4 SpotLight::viewTransform() const {
+  Matrix4x4 lookAt = Matrix4x4::lookAt(position_, position_ + direction_, Vector4::UP);
   Matrix4x4 transform = Matrix4x4::translation(position_) * rotation();
   return transform.inverse();
 }
