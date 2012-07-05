@@ -10,7 +10,7 @@ void Game::init() {
   clock_.init();
   properties_.init();
   
-  camera_.translateZ(6.0f);
+  camera_.translateZ(0.0f);
   
   renderer_.init(GraphicsInterface::screenSize());
   shadowRenderer_.init(GraphicsInterface::screenSize()); 
