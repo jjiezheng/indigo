@@ -8,8 +8,8 @@ void GraphicsInterface::init(GraphicsAPIType graphicsAPIType) {
   graphicsInterface_ = IGraphicsInterface::createInterface(graphicsAPIType);
 }
 
-bool GraphicsInterface::openWindow(int width, int height) {
-  graphicsInterface_->openWindow(width, height);
+bool GraphicsInterface::openWindow(int width, int height, unsigned int multiSamples) {
+  graphicsInterface_->openWindow(width, height, 4);
   return true;
 }
 
@@ -78,7 +78,7 @@ void GraphicsInterface::setRenderState(bool cullBack) {
 }
 
 unsigned int GraphicsInterface::createTexture(const CSize& dimensions) {
-  return graphicsInterface_->createTexture(dimensions, 1);
+  return createTexture(dimensions, 1);
 }
 
 unsigned int GraphicsInterface::createTexture(const CSize& dimensions, unsigned int mipLevels) {

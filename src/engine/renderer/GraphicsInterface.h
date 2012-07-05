@@ -18,7 +18,7 @@ public:
 
   static void init(GraphicsAPIType graphicsAPIType);
 
-  static bool openWindow(int width, int height);
+  static bool openWindow(int width, int height, unsigned int multiSamples);
 
   static int closeWindow();
 
@@ -66,7 +66,7 @@ public:
 
   static unsigned int createTexture(const CSize& dimensions);
 
-  static unsigned int GraphicsInterface::createTexture(const CSize& dimensions, unsigned int mipLevels);
+  static unsigned int createTexture(const CSize& dimensions, unsigned int mipLevels);
 
   static void setTexture(int textureId, CGparameter parameter);
 

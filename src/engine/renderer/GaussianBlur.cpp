@@ -6,13 +6,15 @@
 #include "Color4.h"
 #include "IEffect.h"
 
+static int kMipLevels = 10;
+
 void GaussianBlur::init(const CSize& bufferSize) {
   bufferSize_ = bufferSize;
 
   gaussianVerticalMapTexture_ = GraphicsInterface::createTexture(bufferSize);
   gaussianVerticalRenderTarget_ = GraphicsInterface::createRenderTarget(gaussianVerticalMapTexture_);
 
-  gaussianHorizontalMapTexture_ = GraphicsInterface::createTexture(bufferSize);
+  gaussianHorizontalMapTexture_ = GraphicsInterface::createTexture(bufferSize, kMipLevels);
   gaussianHorizontalRenderTarget_ = GraphicsInterface::createRenderTarget(gaussianHorizontalMapTexture_);
 
   quadVbo_ = Geometry::screenPlane();

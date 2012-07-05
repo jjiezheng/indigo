@@ -14,7 +14,7 @@ class OpenGL21GraphicsInterface : public IGraphicsInterface {
 
 public:
 
-  void openWindow(int width, int height);
+  void openWindow(int width, int height, unsigned int multiSamples);
 
 public:
 
@@ -61,7 +61,7 @@ public:
 private:
 
 
-  HDC createGraphicsContext(HWND hWnd, int width, int height);
+  HDC createGraphicsContext(HWND hWnd, int width, int height, unsigned int multiSamples);
 
 private:
 

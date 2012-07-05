@@ -15,7 +15,7 @@ class Direct3D11GraphicsInterface : public IGraphicsInterface {
 
 public:
 
-  void openWindow(int width, int height);
+  void openWindow(int width, int height, unsigned int multiSamples);
 
 public:
 
@@ -59,7 +59,7 @@ public:
 
 private:
 
-  void createGraphicsContext(HWND hWnd, int width, int height);
+  void createGraphicsContext(HWND hWnd, int width, int height, unsigned int multiSamples);
   void createInputContext(HWND hWnd);
 
 private:
@@ -75,6 +75,7 @@ private:
   std::vector<ID3D11Buffer*> vertexBuffers_;
   std::vector<DirectXTexture> textures_;
   std::vector<ID3D11RenderTargetView*> renderTargets_;
+  unsigned int multiSamples_;
 
 };
 

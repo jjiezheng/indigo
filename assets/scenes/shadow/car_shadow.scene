@@ -17,8 +17,8 @@
       }
     },
     {
-      "mesh" : "actors/cube/cube.blend",
-      "material" : "actors/cube/cube.material",
+      "mesh" : "actors/car/car.dae",
+      "material" : "actors/car/car.material",
       "position" : {
         "x" : 0.0,
         "y" : 0.0,
@@ -48,9 +48,9 @@
       "length" : 20,
       "castsshadows" : true,
       "position" : {
-        "x" : 15,
-        "y" : 15,
-        "z" : 0
+        "x" : 50,
+        "y" : 50,
+        "z" : 50
       },
       "orientation" : {
         "x" : 0,

@@ -21,56 +21,8 @@ VOutput vs(float4 position 	: POSITION,
     return OUT;
 }
 
-float4 gauss3x3_rows_PS(float2 texCoord : TEXCOORD0) : COLOR {
-	float tapUV = 1.0f / SceneWidth;
-	float4 total = tex2D(SourceMap, texCoord);
-	total += 0.3 * tex2D(SourceMap, texCoord + float2(tapUV, 0));
-	total += 0.3 * tex2D(SourceMap, texCoord + float2(-tapUV, 0));
-	return total / 1.6f;	
-}
-
-float4 gauss3x3_cols_PS(float2 texCoord : TEXCOORD0) : COLOR {
-	float tapUV = 1.0f / SceneHeight;
-	float4 total   = tex2D(SourceMap, texCoord);
-	total += 0.3 * tex2D(SourceMap, texCoord + float2(0, tapUV));
-	total += 0.3 * tex2D(SourceMap, texCoord + float2(0, -tapUV));
-	return total / 1.6f;	
-}
-
-float4 gauss5x5_rows_PS(float2 texCoord : TEXCOORD0) : COLOR {
-	float tapUV = 1.0f / SceneHeight;
-	float4 total = tex2D(SourceMap, texCoord);
-	total += 0.641 * tex2D(SourceMap, texCoord + float2(tapUV, 0));
-	total += 0.641 * tex2D(SourceMap, texCoord + float2(-tapUV, 0));
-	total += 0.368 * tex2D(SourceMap, texCoord + float2(2*tapUV, 0));
-	total += 0.368 * tex2D(SourceMap, texCoord + float2(-2*tapUV, 0));
-	return total / 3.018f;
-}
-
-float4 gauss5x5_cols_PS(float2 texCoord : TEXCOORD0) : COLOR {
-	float tapUV = 1.0f / SceneHeight;
-	float4 total = tex2D(SourceMap, texCoord);
-	total += 0.641 * tex2D(SourceMap, texCoord + float2(0, tapUV));
-	total += 0.641 * tex2D(SourceMap, texCoord + float2(0, -tapUV));
-	total += 0.368 * tex2D(SourceMap, texCoord + float2(0, 2*tapUV));
-	total += 0.368 * tex2D(SourceMap, texCoord + float2(0, -2*tapUV));
-	return total / 3.018f;
-}
-
-float4 gauss7x7_rows_PS(float2 texCoord : TEXCOORD0) : COLOR {
-	float tapUV = 1.0f / SceneHeight;
-	float4 total = tex2D(SourceMap, texCoord);
-	total += 0.895 * tex2D(SourceMap, texCoord + float2(tapUV, 0));
-	total += 0.895 * tex2D(SourceMap, texCoord + float2(-tapUV, 0));
-	total += 0.641 * tex2D(SourceMap, texCoord + float2(2*tapUV, 0));
-	total += 0.641 * tex2D(SourceMap, texCoord + float2(-2*tapUV, 0));
-	total += 0.368 * tex2D(SourceMap, texCoord + float2(3*tapUV, 0));
-	total += 0.368 * tex2D(SourceMap, texCoord + float2(-3*tapUV, 0));
-	return total / 4.808f;
-}
-
 float4 gauss7x7_cols_PS(float2 texCoord : TEXCOORD0) : COLOR {
-	float tapUV = 1.0f / SceneHeight;
+	float tapUV = 1.0f / 2000.0f;
 	float4 total = tex2D(SourceMap, texCoord);
 	total += 0.895 * tex2D(SourceMap, texCoord + float2(0, tapUV));
 	total += 0.895 * tex2D(SourceMap, texCoord + float2(0, -tapUV));
@@ -81,35 +33,9 @@ float4 gauss7x7_cols_PS(float2 texCoord : TEXCOORD0) : COLOR {
 	return total / 4.808f;
 }
 
-/*technique GaussianBlur3x3 {
-    pass rows {
-    	VertexProgram = compile vs_4_0 vs();
-    	FragmentProgram = compile ps_4_0 gauss3x3_rows_PS();
-    }
-    pass cols {
-    	VertexProgram = compile vs_4_0 vs();
-		FragmentProgram = compile ps_4_0 gauss3x3_cols_PS();    	
-    }
-}
-
-technique GaussianBlur5x5 {
-	pass rows {
-		VertexProgram = compile vs_4_0 vs();
-		FragmentProgram = compile ps_4_0 gauss5x5_rows_PS();
-	}
-	pass cols {
-		VertexProgram = compile vs_4_0 vs();
-		FragmentProgram = compile ps_4_0 gauss5x5_cols_PS();  
-	}
-}
-*/
 technique GaussianBlur7x7 {
 	pass cols {
 		VertexProgram = compile vs_4_0 vs();
 		FragmentProgram = compile ps_4_0 gauss7x7_cols_PS();  
-	}
-	pass rows {
-		VertexProgram = compile vs_4_0 vs();
-		FragmentProgram = compile ps_4_0 gauss7x7_rows_PS();
 	}
 }

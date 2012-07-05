@@ -22,9 +22,8 @@
 
 #include <comdef.h>
 
-static const int kMultiSamples = 1;
-
-void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, int height) {
+void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, int height, unsigned int multiSamples) {
+  multiSamples_ = multiSamples;
   // swap chain
   {
     DXGI_SWAP_CHAIN_DESC swapChainDesc;
@@ -36,7 +35,7 @@ void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, in
     swapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;     // use 32-bit color
     swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;      // how swap chain is to be used
     swapChainDesc.OutputWindow = hWnd;                                // the window to be used
-    swapChainDesc.SampleDesc.Count = kMultiSamples;                   // how many multisamples
+    swapChainDesc.SampleDesc.Count = multiSamples;                   // how many multisamples
     swapChainDesc.Windowed = TRUE;                                    // windowed/full-screen mode 
 
     D3D_FEATURE_LEVEL featureLevels = D3D_FEATURE_LEVEL_10_0;
@@ -70,8 +69,8 @@ void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, in
     depthDesc.MipLevels = 1;
     depthDesc.ArraySize = 1;
     depthDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
-    depthDesc.SampleDesc.Count = kMultiSamples;
-    depthDesc.SampleDesc.Quality = 0;
+    depthDesc.SampleDesc.Count = multiSamples;
+    depthDesc.SampleDesc.Quality = D3D11_STANDARD_MULTISAMPLE_PATTERN;
     depthDesc.Usage = D3D11_USAGE_DEFAULT;
     depthDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
     depthDesc.CPUAccessFlags = 0;
@@ -114,10 +113,10 @@ void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, in
   CGD3DEffect::initCG(device_);
 }
 
-void Direct3D11GraphicsInterface::openWindow(int width, int height) {
+void Direct3D11GraphicsInterface::openWindow(int width, int height, unsigned int multiSamples) {
   screenSize_ = CSize(width, height);
   HWND hWnd = WindowsUtils::createWindow(width, height);
-  createGraphicsContext(hWnd, width, height);
+  createGraphicsContext(hWnd, width, height, multiSamples);
 }
 
 void Direct3D11GraphicsInterface::swapBuffers() {
@@ -260,12 +259,12 @@ unsigned int Direct3D11GraphicsInterface::createTexture(const CSize& dimensions,
   textureDesc.MipLevels = mipLevels;
   textureDesc.ArraySize = 1;
   textureDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-  textureDesc.SampleDesc.Count = kMultiSamples;
-  textureDesc.SampleDesc.Quality = 0;
+  textureDesc.SampleDesc.Count = multiSamples_;
+  textureDesc.SampleDesc.Quality = D3D11_STANDARD_MULTISAMPLE_PATTERN;
   textureDesc.Usage = D3D11_USAGE_DEFAULT;
   textureDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET;
   textureDesc.CPUAccessFlags = 0;
-  textureDesc.MiscFlags = 0;
+  textureDesc.MiscFlags = D3D11_RESOURCE_MISC_GENERATE_MIPS;
 
   ID3D11Texture2D* texture;
   HRESULT result = device_->CreateTexture2D(&textureDesc, NULL, &texture);
@@ -274,6 +273,7 @@ unsigned int Direct3D11GraphicsInterface::createTexture(const CSize& dimensions,
   unsigned int textureId = textures_.size();
   DirectXTexture textureContainer;
   textureContainer.textureData = texture;
+  textureContainer.mipLevels = mipLevels;
   textures_.push_back(textureContainer);
   return textureId;
 }
@@ -312,5 +312,19 @@ void Direct3D11GraphicsInterface::resetRenderTarget() {
 }
 
 void Direct3D11GraphicsInterface::generateMipMaps(unsigned int textureId) {
+  DirectXTexture texture = textures_[textureId];
 
+  D3D11_SHADER_RESOURCE_VIEW_DESC resourceViewDesc;
+  ZeroMemory(&resourceViewDesc, sizeof(D3D11_SHADER_RESOURCE_VIEW_DESC));
+
+  resourceViewDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+  resourceViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+  resourceViewDesc.Texture2D.MipLevels = texture.mipLevels;
+  resourceViewDesc.Texture2D.MostDetailedMip = 0;
+
+  ID3D11ShaderResourceView* resourceView;
+  HRESULT result = device_->CreateShaderResourceView(texture.textureData, &resourceViewDesc, &resourceView);
+  assert(result == S_OK);
+
+  deviceConnection_->GenerateMips(resourceView);
 }

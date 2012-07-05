@@ -13,7 +13,7 @@ float3 contract(float3 vec) {
 	return 0.5f * (flipY(vec) + float3(1.0f, 1.0f, 0.0f));
 }
 
-float VSM_FILTER( float2 moments, float fragDepth ) 
+float VSM_FILTER(float2 moments, float fragDepth) 
 { 
    float lit = (float)0.0f;
    float E_x2 = moments.y; 
@@ -24,7 +24,7 @@ float VSM_FILTER( float2 moments, float fragDepth )
    float p = variance / (variance + mD_2); 
    lit = max( p, fragDepth <= moments.x ); 
            
-   return lit;  //lit.x == VSM calculation 
+   return lit; 
 } 
 
 float ChebyshevUpperBound(float2 moments, float depth) {  
@@ -39,14 +39,17 @@ float ChebyshevUpperBound(float2 moments, float depth) {
 	return max(p, depth <= mean);
 }  
 
-float shadow(sampler2D shadowMap, float2 shadowCoord, float depth) {
-	float2 moments = tex2D(shadowMap, shadowCoord).xy;
+float ChebyshevUpperBound2(float2 Moments, float t)  
+{  
 
-	if (depth < moments.x) {
-		return 1.0f;
-	}
-
-	return 0.5f;//VSM_FILTER(moments, depth);
-}
+	float g_MinVariance = 0.0f;
+   float p = (t <= Moments.x);
+   float Variance = Moments.y - (Moments.x * Moments.x);  
+  Variance = max(Variance, g_MinVariance);  
+  // Compute probabilistic upper bound.  
+   float d = t - Moments.x;  
+  float p_max = Variance / (Variance + d * d);  
+  return max(p, p_max);  
+}  
 
 #endif

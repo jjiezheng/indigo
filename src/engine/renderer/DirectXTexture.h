@@ -7,8 +7,8 @@ class DirectXTexture {
 
 public:
 
-//  ID3D11ShaderResourceView* resourceView;
   ID3D11Resource* textureData;
+  unsigned int mipLevels;
 
 };
 

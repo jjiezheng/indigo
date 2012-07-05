@@ -29,7 +29,7 @@ public:
 
 public:
 
-  virtual void openWindow(int width, int height) = 0;
+  virtual void openWindow(int width, int height, unsigned int multiSamples) = 0;
 
 public:
 

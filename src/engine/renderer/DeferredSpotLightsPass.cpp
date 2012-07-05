@@ -15,8 +15,6 @@
 #include "maths/Trigonometry.h"
 #include "maths/Matrix3x3.h"
 
-unsigned int quadvbo;
-
 void DeferredSpotLightsPass::init() {
   shadowMapEffect_ = IEffect::effectFromFile("cgfx/deferred_depth.cgfx");
   lightEffect_ = IEffect::effectFromFile("cgfx/deferred_lighting_spot_light.cgfx");
@@ -26,8 +24,6 @@ void DeferredSpotLightsPass::init() {
 
   CSize screenSize = GraphicsInterface::screenSize(); 
   gaussianBlur_.init(screenSize);
-
-  quadvbo = Geometry::screenPlane();
 }
 
 void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {

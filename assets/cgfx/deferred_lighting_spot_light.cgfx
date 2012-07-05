@@ -15,8 +15,8 @@ sampler2D DepthMap = sampler_state {
 };
 
 sampler2D ShadowMap = sampler_state {
-	MinFilter = Point;
-	MagFilter = Point;
+	MinFilter = LinearMipMapLinear;
+	MagFilter = LinearMipMapLinear;
 	WrapS = Clamp;
 	WrapT = Clamp;
 };
@@ -59,7 +59,7 @@ float4 ps(float4 screenPosition : TEXCOORD0) : COLOR {
 	float4 normalData = tex2D(NormalMap, texCoord);
 	float3 normal = normalData.xyz;
 
-	float depth = tex2D(DepthMap, texCoord);
+	float3 depth = tex2D(DepthMap, texCoord);
 
 	float4 positionScreen;
 	positionScreen.xy = screenPositionHom.xy;
@@ -84,8 +84,8 @@ float4 ps(float4 screenPosition : TEXCOORD0) : COLOR {
 	if (lightDirectionDot > lightOuterCos) {
 		float diffuseStrength = max(0.0f, dot(normalize(normal), normalize(directionOfLight)));
 		float attenuation = LightDecay;
-		finalColor.rgb = LightColor * diffuseStrength;// * smoothstep(lightOuterCos, lightInnerCos, lightDirectionDot);
-		finalColor.a = 1.0f;//diffuseStrength;	
+		finalColor.rgb = LightColor * diffuseStrength * smoothstep(lightOuterCos, lightInnerCos, lightDirectionDot);
+		finalColor.a = diffuseStrength;	
 	}
 
 	if (lightDirectionDot > lightInnerCos) {
@@ -102,11 +102,12 @@ float4 ps(float4 screenPosition : TEXCOORD0) : COLOR {
 	float3 pixelWorldPositionFromLightHom = pixelWorldPositionFromLight / pixelWorldPositionFromLight.w;
 
 	float2 shadowCoord = contract(pixelWorldPositionFromLightHom);
-	float2 moments = tex2D(ShadowMap, shadowCoord).xy;
+	float3 moments = tex2D(ShadowMap, shadowCoord);
 
 	float shadowLightContribution = 1.0f;
-	if (moments.x < pixelWorldPositionFromLightHom.z) {
-		shadowLightContribution = VSM_FILTER(moments, pixelWorldPositionFromLightHom.z);
+	float shadowDepthHom = moments.x / moments.z;
+	if (shadowDepthHom < pixelWorldPositionFromLightHom.z) {
+		shadowLightContribution = ChebyshevUpperBound2(moments, pixelWorldPositionFromLight.z);
 	}
 
 	return finalColor * shadowLightContribution;

@@ -10,7 +10,7 @@ void Game::init() {
   clock_.init();
   properties_.init();
   
-  camera_.translateZ(0.0f);
+  camera_.translateY(1.0f);
   
   renderer_.init(GraphicsInterface::screenSize());
   shadowRenderer_.init(GraphicsInterface::screenSize()); 
@@ -18,7 +18,7 @@ void Game::init() {
   camera_.setPerspective(45.0f, GraphicsInterface::aspectRatio(), 1.0f, 200.0f);
 
   WorldLoader loader; 
-  loader.loadFromSceneFile("scenes/shadow/shadow.scene", world_, sceneContext_);
+  loader.loadFromSceneFile("scenes/shadow/car_shadow.scene", world_, sceneContext_);
 
   //sceneContext_.setFog(FOG_NONE, 0.66f, -10, -100, Color4(0.6f, 0.6f, 0.6f));
 }

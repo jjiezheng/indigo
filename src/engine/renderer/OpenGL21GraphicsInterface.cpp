@@ -22,7 +22,7 @@
 #include "io/DDSImage.h"
 #include "io/DDSMipLevel.h"
 
-HDC OpenGL21GraphicsInterface::createGraphicsContext(HWND hWnd, int width, int height) {
+HDC OpenGL21GraphicsInterface::createGraphicsContext(HWND hWnd, int width, int height, unsigned int multiSamples) {
 
   // create base context
   static	PIXELFORMATDESCRIPTOR pixelFormatDescriptor =				// pfd Tells Windows How We Want Things To Be
@@ -91,10 +91,10 @@ HDC OpenGL21GraphicsInterface::createGraphicsContext(HWND hWnd, int width, int h
   return deviceContext;
 }
 
-void OpenGL21GraphicsInterface::openWindow(int width, int height) {
+void OpenGL21GraphicsInterface::openWindow(int width, int height, unsigned int multiSamples) {
   screenSize_ = CSize(width, height);
   HWND hWnd = WindowsUtils::createWindow(width, height);
-  deviceContext_ = createGraphicsContext(hWnd, width, height);
+  deviceContext_ = createGraphicsContext(hWnd, width, height, multiSamples);
   glewInit();
   CGGLEffect::initCG();
 }
