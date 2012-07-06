@@ -107,7 +107,7 @@ float4 ps(float4 screenPosition : TEXCOORD0) : COLOR {
 	float shadowLightContribution = 1.0f;
 	float shadowDepthHom = moments.x / moments.z;
 	if (shadowDepthHom < pixelWorldPositionFromLightHom.z) {
-		shadowLightContribution = ChebyshevUpperBound2(moments, pixelWorldPositionFromLight.z);
+		shadowLightContribution = 0.5f;// ChebyshevUpperBound2(moments, pixelWorldPositionFromLight.z);
 	}
 
 	return finalColor * shadowLightContribution;

@@ -31,11 +31,12 @@ void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, in
 
     swapChainDesc.BufferCount = 1;   
     swapChainDesc.BufferDesc.Width = width;
-    swapChainDesc.BufferDesc.Height = height;       
+    swapChainDesc.BufferDesc.Height = height;
     swapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;     // use 32-bit color
     swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;      // how swap chain is to be used
     swapChainDesc.OutputWindow = hWnd;                                // the window to be used
     swapChainDesc.SampleDesc.Count = multiSamples;                   // how many multisamples
+    swapChainDesc.SampleDesc.Quality = D3D11_STANDARD_MULTISAMPLE_PATTERN;
     swapChainDesc.Windowed = TRUE;                                    // windowed/full-screen mode 
 
     D3D_FEATURE_LEVEL featureLevels = D3D_FEATURE_LEVEL_10_0;
@@ -202,14 +203,6 @@ unsigned int Direct3D11GraphicsInterface::loadTexture(const std::string& filePat
   D3DX11CreateTextureFromFile(device_, filePath.c_str(), NULL, NULL, &textureResource, &result);
   assert(result == S_OK);
 
-  D3D11_SHADER_RESOURCE_VIEW_DESC resourceViewDesc;
-  ZeroMemory(&resourceViewDesc, sizeof(D3D11_SHADER_RESOURCE_VIEW_DESC));
-
-  resourceViewDesc.Format = DXGI_FORMAT_R32_FLOAT;
-  resourceViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
-  resourceViewDesc.Texture2D.MipLevels = fileInfo.MipLevels;
-  resourceViewDesc.Texture2D.MostDetailedMip = fileInfo.MipLevels - 1;
-
   DirectXTexture texture;
   texture.textureData = textureResource;
   textures_.push_back(texture);
@@ -318,7 +311,7 @@ void Direct3D11GraphicsInterface::generateMipMaps(unsigned int textureId) {
   ZeroMemory(&resourceViewDesc, sizeof(D3D11_SHADER_RESOURCE_VIEW_DESC));
 
   resourceViewDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-  resourceViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+  resourceViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2DMS;
   resourceViewDesc.Texture2D.MipLevels = texture.mipLevels;
   resourceViewDesc.Texture2D.MostDetailedMip = 0;
 

@@ -6,7 +6,7 @@
 #include "Color4.h"
 #include "IEffect.h"
 
-static int kMipLevels = 10;
+static int kMipLevels = 1;
 
 void GaussianBlur::init(const CSize& bufferSize) {
   bufferSize_ = bufferSize;
