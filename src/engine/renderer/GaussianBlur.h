@@ -34,7 +34,7 @@ private:
 };
 
 inline unsigned int GaussianBlur::outputTexture() const {
-  return gaussianHorizontalMapTexture_;
+  return gaussianVerticalMapTexture_;
 }
 
 #endif

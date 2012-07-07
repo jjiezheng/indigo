@@ -8,17 +8,17 @@ sampler2D NormalMap = sampler_state {
 };
 
 sampler2D DepthMap = sampler_state {
-	MinFilter = Point;
-	MagFilter = Point;
-	WrapS = Clamp;
-	WrapT = Clamp;
+	MinFilter = Linear;
+	MagFilter = Linear;
+	WrapS = Linear;
+	WrapT = Linear;
 };
 
 sampler2D ShadowMap = sampler_state {
 	MinFilter = LinearMipMapLinear;
 	MagFilter = LinearMipMapLinear;
-	WrapS = Clamp;
-	WrapT = Clamp;
+	WrapS = Linear;
+	WrapT = Linear;
 };
 
 uniform bool ShadowsEnabled;
@@ -105,9 +105,10 @@ float4 ps(float4 screenPosition : TEXCOORD0) : COLOR {
 	float3 moments = tex2D(ShadowMap, shadowCoord);
 
 	float shadowLightContribution = 1.0f;
-	float shadowDepthHom = moments.x / moments.z;
-	if (shadowDepthHom < pixelWorldPositionFromLightHom.z) {
-		shadowLightContribution = ChebyshevUpperBound2(moments, pixelWorldPositionFromLight.z);
+
+	if (moments.x < pixelWorldPositionFromLightHom.z) {
+		shadowLightContribution = ChebyshevUpperBound(moments.xy, pixelWorldPositionFromLightHom.z, 0);
+		shadowLightContribution = ReduceLightBleeding(shadowLightContribution, 0.9);
 	}
 
 	return finalColor * shadowLightContribution;

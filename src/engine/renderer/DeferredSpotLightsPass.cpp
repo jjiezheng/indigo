@@ -36,8 +36,9 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
 
   std::vector<SpotLight*> spotLights = sceneContext.spotLights();
   for (std::vector<SpotLight*>::iterator light = spotLights.begin(); light != spotLights.end(); ++light) {
-  (*light)->update();
+
    if ((*light)->castsShadows()) {
+     (*light)->update();
       // create shadowmap
       GraphicsInterface::clearBuffer(Color4::WHITE);
       GraphicsInterface::setRenderTarget((*light)->shadowMapRenderTarget(), true);
@@ -68,7 +69,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
 
       lightEffect_->setTexture(normalMapTexture_, "NormalMap");
       lightEffect_->setTexture(depthMapTexture_, "DepthMap");
-      lightEffect_->setTexture((*light)->shadowMapTexture(), "ShadowMap");
+      lightEffect_->setTexture(gaussianBlur_.outputTexture(), "ShadowMap");
 
       lightEffect_->setUniform((*light)->castsShadows(), "ShadowsEnabled");
 

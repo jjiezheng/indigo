@@ -14,7 +14,7 @@ void GaussianBlur::init(const CSize& bufferSize) {
   gaussianVerticalMapTexture_ = GraphicsInterface::createTexture(bufferSize);
   gaussianVerticalRenderTarget_ = GraphicsInterface::createRenderTarget(gaussianVerticalMapTexture_);
 
-  gaussianHorizontalMapTexture_ = GraphicsInterface::createTexture(bufferSize, kMipLevels);
+  gaussianHorizontalMapTexture_ = GraphicsInterface::createTexture(bufferSize);
   gaussianHorizontalRenderTarget_ = GraphicsInterface::createRenderTarget(gaussianHorizontalMapTexture_);
 
   quadVbo_ = Geometry::screenPlane();
@@ -24,15 +24,16 @@ void GaussianBlur::init(const CSize& bufferSize) {
 }
 
 void GaussianBlur::render(unsigned int sourceTexture) {
+
   {
-    GraphicsInterface::setRenderTarget(gaussianVerticalRenderTarget_, false);
-    GraphicsInterface::clearRenderTarget(gaussianVerticalRenderTarget_, Color4::WHITE);
+    GraphicsInterface::setRenderTarget(gaussianHorizontalRenderTarget_, false);
+    GraphicsInterface::clearRenderTarget(gaussianHorizontalRenderTarget_, Color4::WHITE);
+    //GraphicsInterface::resetRenderTarget();
 
     gaussianBlurHorizontalEffect_->setTexture(sourceTexture, "SourceMap");
 
     CSize screenSize = GraphicsInterface::screenSize(); 
-    gaussianBlurHorizontalEffect_->setUniform(bufferSize_.width, "SceneWith");
-    gaussianBlurHorizontalEffect_->setUniform(bufferSize_.height, "SceneHeight");
+    gaussianBlurHorizontalEffect_->setUniform(bufferSize_.width, "SceneWidth");
 
     gaussianBlurHorizontalEffect_->beginDraw();
     GraphicsInterface::setRenderState(true);
@@ -43,13 +44,13 @@ void GaussianBlur::render(unsigned int sourceTexture) {
   }
 
   {
-    GraphicsInterface::setRenderTarget(gaussianHorizontalRenderTarget_, false);
-    GraphicsInterface::clearRenderTarget(gaussianHorizontalRenderTarget_, Color4::WHITE);
+    GraphicsInterface::setRenderTarget(gaussianVerticalRenderTarget_, false);
+    GraphicsInterface::clearRenderTarget(gaussianVerticalRenderTarget_, Color4::WHITE);
+    //GraphicsInterface::resetRenderTarget();
 
-    gaussianBluVerticalEffect_->setTexture(gaussianVerticalMapTexture_, "SourceMap");
+    gaussianBluVerticalEffect_->setTexture(gaussianHorizontalMapTexture_, "SourceMap");
 
     CSize screenSize = GraphicsInterface::screenSize(); 
-    gaussianBluVerticalEffect_->setUniform(bufferSize_.width, "SceneWith");
     gaussianBluVerticalEffect_->setUniform(bufferSize_.height, "SceneHeight");
 
     gaussianBluVerticalEffect_->beginDraw();
@@ -60,5 +61,5 @@ void GaussianBlur::render(unsigned int sourceTexture) {
     GraphicsInterface::resetRenderTarget();
   }
 
-  GraphicsInterface::generateMipMaps(gaussianHorizontalMapTexture_);
+  GraphicsInterface::generateMipMaps(gaussianVerticalMapTexture_);
 }

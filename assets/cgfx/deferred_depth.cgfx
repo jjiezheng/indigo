@@ -14,7 +14,8 @@ VOutput vs(float4 position : POSITION) {
 }
 
 float4 ps(float2 depth 			: TEXCOORD0) : COLOR {
-	return float4(depth.x/depth.y, depth.x * depth.x, depth.y, 1.0f);
+	float depthHom = depth.x / depth.y;
+	return float4(depthHom, depthHom * depthHom, 0.0f, 1.0f);
 }
 
 technique dx {

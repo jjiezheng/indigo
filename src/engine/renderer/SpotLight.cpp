@@ -28,11 +28,15 @@ Matrix4x4 SpotLight::projection() const {
 }
 
 Matrix4x4 SpotLight::viewTransform() const {
-  Matrix4x4 bla = Matrix4x4::translation(position_).inverse();
   Matrix4x4 lookAt = Matrix4x4::lookAt(position_, position_ + direction_, Vector4::UP);
   return lookAt;
 }
 
-void SpotLight::update() { 
- 
+void SpotLight::update() {
+  static float bla = 0.0f;
+  bla += 0.1f;
+
+  position_ = position_ + Vector4(cosf(bla), 0, 0, 1);
+  //Matrix4x4 rotation = Matrix4x4::rotationY(2);
+  //direction_ = rotation * direction_;
 }

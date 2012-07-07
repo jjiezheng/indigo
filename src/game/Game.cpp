@@ -16,7 +16,7 @@ void Game::init() {
   renderer_.init(GraphicsInterface::screenSize());
 
   WorldLoader loader; 
-  loader.loadFromSceneFile("scenes/shadow/car_shadow.scene", world_, sceneContext_);
+  loader.loadFromSceneFile("scenes/shadow/shadow.scene", world_, sceneContext_);
 
   //sceneContext_.setFog(FOG_NONE, 0.66f, -10, -100, Color4(0.6f, 0.6f, 0.6f));
 }

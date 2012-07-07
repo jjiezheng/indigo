@@ -8,7 +8,7 @@ int App::run() {
   app_ = this;
 
   GraphicsInterface::init(GRAPHICSAPI_D3D11);
-  GraphicsInterface::openWindow(1024, 768, 4);
+  GraphicsInterface::openWindow(1024, 768, 1);
 
   game_.init();
 

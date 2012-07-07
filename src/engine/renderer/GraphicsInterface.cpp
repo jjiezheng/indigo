@@ -9,7 +9,7 @@ void GraphicsInterface::init(GraphicsAPIType graphicsAPIType) {
 }
 
 bool GraphicsInterface::openWindow(int width, int height, unsigned int multiSamples) {
-  graphicsInterface_->openWindow(width, height, 4);
+  graphicsInterface_->openWindow(width, height, multiSamples);
   return true;
 }
 
