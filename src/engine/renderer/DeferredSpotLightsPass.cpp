@@ -38,7 +38,6 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
   for (std::vector<SpotLight*>::iterator light = spotLights.begin(); light != spotLights.end(); ++light) {
 
    if ((*light)->castsShadows()) {
-     (*light)->update();
       // create shadowmap
       GraphicsInterface::clearBuffer(Color4::WHITE);
       GraphicsInterface::setRenderTarget((*light)->shadowMapRenderTarget(), true);
@@ -51,7 +50,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
           (*meshIt)->material().bind((*light)->projection(), (*light)->viewTransform(), (*meshIt)->localToWorld(), Matrix4x4::IDENTITY.mat3x3(), sceneContext, shadowMapEffect_);
          
           shadowMapEffect_->beginDraw();
-          GraphicsInterface::setRenderState(false);
+          GraphicsInterface::setRenderState(true);
           (*meshIt)->render();
           shadowMapEffect_->resetStates();
         }
