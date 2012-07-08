@@ -23,11 +23,6 @@ VOutput vs(float4 position 	: POSITION,
     return OUT;
 }
 
-VOutput vsgl(float4 position : ATTR0,
-			       float4 texCoord : ATTR8) {
-	return vs(position, texCoord);
-}
-
 float4 ps(float2 texCoord	: TEXCOORD0) : COLOR {
   float4 normalData = tex2D(NormalMap, texCoord);
   float3 normal = normalData.xyz;

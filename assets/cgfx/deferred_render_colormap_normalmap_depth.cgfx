@@ -34,12 +34,6 @@ VOutput vs(float4 position 		: POSITION,
  	return OUT;
 }
 
-VOutput vsgl( float4 position 		: ATTR0,
-		   	  float4 normal 		: ATTR2,
-		   	  float2 texCoord 		: ATTR8) {
-	return vs(position, normal, texCoord);
-}
-
 struct POutput {
 	float4 color 	: COLOR0;
 	float4 normal 	: COLOR1;
@@ -60,12 +54,5 @@ technique dx {
 	pass {
 		VertexProgram = compile vs_4_0 vs();
 		FragmentProgram = compile ps_4_0 ps();
-	}
-}
-	
-technique latest {
-	pass {
-		VertexProgram = compile latest vsgl();
-		FragmentProgram = compile latest ps();
 	}
 }

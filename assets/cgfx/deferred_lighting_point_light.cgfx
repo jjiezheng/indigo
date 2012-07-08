@@ -33,10 +33,6 @@ VOutput vs(float4 position : POSITION) {
     return OUT;
 }
 
-VOutput vsgl(float4 position : ATTR0) {
-  return vs(position);
-}
-
 float4 ps(float4 screenPosition : TEXCOORD0) : COLOR {
 	float3 screenPositionHom = screenPosition.xyz / screenPosition.w;
 	float2 texCoord = contract(screenPositionHom);
