@@ -7,11 +7,10 @@ class App {
   
 public:
   
-  int run();
+  int run(const char* sceneFile);
   
 private:
   
-  static App* app_;
   Game game_;
   
 };

@@ -6,7 +6,7 @@
 
 #include "renderer/GraphicsInterface.h"
 
-void Game::init() {
+void Game::init(const char* sceneFile) {
   clock_.init();
   properties_.init();
   
@@ -16,7 +16,7 @@ void Game::init() {
   renderer_.init(GraphicsInterface::screenSize());
 
   WorldLoader loader; 
-  loader.loadFromSceneFile("scenes/shadow/shadow.scene", world_, sceneContext_);
+  loader.loadFromSceneFile(sceneFile, world_, sceneContext_);
 
   //sceneContext_.setFog(FOG_NONE, 0.66f, -10, -100, Color4(0.6f, 0.6f, 0.6f));
 }

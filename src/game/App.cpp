@@ -2,15 +2,11 @@
 
 #include "renderer/GraphicsInterface.h"
 
-App* App::app_ = NULL;
-
-int App::run() {
-  app_ = this;
-
+int App::run(const char* sceneFile) {
   GraphicsInterface::init(GRAPHICSAPI_D3D11);
   GraphicsInterface::openWindow(1024, 768, 1);
 
-  game_.init();
+  game_.init(sceneFile);
 
   bool quit = false;  
   while (!quit) {

@@ -1,18 +1,16 @@
 sampler2D ColorMap = sampler_state {
-	MinFilter = Linear;
-	MagFilter = Linear;
+	MinFilter = Point;
+	MagFilter = Point;
 	WrapS = Clamp;
 	WrapT = Clamp;
 };
 
 sampler2D LightMap = sampler_state {
-	MinFilter = Linear;
-	MagFilter = Linear;
+	MinFilter = Point;
+	MagFilter = Point;
 	WrapS = Clamp;
 	WrapT = Clamp;
 };
-
-uniform float2 HalfPixel;
 
 struct VOutput {
 	float4 position			: POSITION;
@@ -23,7 +21,7 @@ VOutput vs(float4 position 		: POSITION,
 		   float2 texCoord 		: TEXCOORD0) {
 	VOutput OUT;
 	OUT.position = position;
-	OUT.texCoord = texCoord - HalfPixel;
+	OUT.texCoord = texCoord;
  	return OUT;
 }
 
@@ -43,12 +41,5 @@ technique dx {
 	pass {
 		VertexProgram = compile vs_4_0 vs();
 		FragmentProgram = compile ps_4_0 ps();
-	}
-}
-	
-technique latest {
-	pass {
-		VertexProgram = compile latest vsgl();
-		FragmentProgram = compile latest ps();
 	}
 }

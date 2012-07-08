@@ -19,7 +19,6 @@ void DeferredPointLightsPass::init() {
 
 void DeferredPointLightsPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
   GraphicsInterface::setRenderTarget(lightMapRenderTarget_, false);
-  pointLightEffect_->setUniform(halfPixel_, "HalfPixel");
 
   pointLightEffect_->setTexture(normalMapTexture_, "NormalMap");
   pointLightEffect_->setTexture(depthMapTexture_, "DepthMap");

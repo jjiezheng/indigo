@@ -4,9 +4,12 @@
 #define MAIN_FUNCTION 
 #ifdef _WIN32
 #include <windows.h>
-int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+#include <TCHAR.H>
+int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
+  return main(__argc, __argv);
+}
 #else
-int main()
+
 #endif
 
 #endif

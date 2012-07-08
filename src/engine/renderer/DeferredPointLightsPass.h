@@ -12,11 +12,10 @@ class DeferredPointLightsPass : public IDeferredPass {
 
 public:
 
-  DeferredPointLightsPass(unsigned int lightMapRenderTarget, unsigned int normalMapTexture, unsigned int depthMapTexture, const Vector2& halfPixel)
+  DeferredPointLightsPass(unsigned int lightMapRenderTarget, unsigned int normalMapTexture, unsigned int depthMapTexture)
     : lightMapRenderTarget_(lightMapRenderTarget)
     , normalMapTexture_(normalMapTexture)
-    , depthMapTexture_(depthMapTexture)
-    , halfPixel_(halfPixel) { }
+    , depthMapTexture_(depthMapTexture) { }
 
 public:
 
@@ -35,8 +34,6 @@ private:
 
   IEffect* pointLightEffect_;
   Model* pointLightModel_;
-
-  Vector2 halfPixel_;
 
 };
 

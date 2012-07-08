@@ -7,7 +7,6 @@ sampler2D NormalMap = sampler_state {
 	WrapT = Clamp;
 };
 
-uniform float2 HalfPixel;
 uniform float4 LightDirection;
 uniform float3 LightColor;
 
@@ -20,7 +19,7 @@ VOutput vs(float4 position 	: POSITION,
 		   float4 texCoord 	: TEXCOORD0) {
     VOutput OUT;
     OUT.position = position;
-    OUT.texCoord = texCoord - HalfPixel;
+    OUT.texCoord = texCoord;
     return OUT;
 }
 

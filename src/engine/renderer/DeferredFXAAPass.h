@@ -10,10 +10,9 @@ class DeferredFXAAPass : public IDeferredPass {
 
 public:
 
-  DeferredFXAAPass(unsigned int fxaaRenderTarget, unsigned int compositionRenderTexture, const Vector2& halfPixel) 
+  DeferredFXAAPass(unsigned int fxaaRenderTarget, unsigned int compositionRenderTexture) 
     : fxaaRenderTarget_(fxaaRenderTarget) 
-    , compositionRenderTexture_(compositionRenderTexture)
-    , halfPixel_(halfPixel) { } 
+    , compositionRenderTexture_(compositionRenderTexture) { } 
 
 public:
 
@@ -28,7 +27,6 @@ private:
   unsigned int compositionRenderTexture_;
 
   IEffect* fxaaEffect_;
-  Vector2 halfPixel_;
 
 };
 

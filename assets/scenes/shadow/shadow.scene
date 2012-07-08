@@ -29,7 +29,7 @@
       "mesh" : "actors/monkey/monkey.blend",
       "material" : "actors/monkey/monkey.material",
       "position" : {
-        "x" : -4.0,
+        "x" : -2.0,
         "y" : 0.0,
         "z" : -4.0
       }
@@ -48,8 +48,8 @@
 
     {
       "type" : "spot",
-      "innerangle" : 45,
-      "outerangle" : 70,
+      "innerangle" : 60,
+      "outerangle" : 80,
       "decay" : 0.2,
       "length" : 20,
       "castsshadows" : true,

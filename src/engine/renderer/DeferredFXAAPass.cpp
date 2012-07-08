@@ -17,7 +17,6 @@ void DeferredFXAAPass::render(IViewer* viewer, World& world, const SceneContext&
   fxaaEffect_->beginDraw();
 
   fxaaEffect_->setTexture(compositionRenderTexture_, "FinalMap");
-  fxaaEffect_->setUniform(halfPixel_, "HalfPixel");
 
   CSize screenSize = GraphicsInterface::screenSize();
   Vector2 screenSizeInv;

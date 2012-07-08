@@ -14,11 +14,10 @@ class DeferredSpotLightsPass : public IDeferredPass {
 
 public:
 
-  DeferredSpotLightsPass(unsigned int lightMapRenderTarget, unsigned int normalMapTexture, unsigned int depthMapTexture, const Vector2& halfPixel)
+  DeferredSpotLightsPass(unsigned int lightMapRenderTarget, unsigned int normalMapTexture, unsigned int depthMapTexture)
     : lightMapRenderTarget_(lightMapRenderTarget)
     , normalMapTexture_(normalMapTexture)
-    , depthMapTexture_(depthMapTexture)
-    , halfPixel_(halfPixel) { }
+    , depthMapTexture_(depthMapTexture) { }
 
 public:
 
@@ -37,8 +36,6 @@ private:
   unsigned int depthMapTexture_;
 
   GaussianBlur gaussianBlur_;
-
-  Vector2 halfPixel_;
 
   Model* spotLightModel_;
 

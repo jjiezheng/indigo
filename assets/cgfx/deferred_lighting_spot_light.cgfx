@@ -23,11 +23,10 @@ sampler2D ShadowMap = sampler_state {
 
 uniform bool ShadowsEnabled;
 
-uniform float2 HalfPixel;
-
 uniform float4 LightDirection;
 uniform float4 LightPosition;
 uniform float3 LightColor;
+
 uniform float LightInnerAngle;
 uniform float LightOuterAngle;
 uniform float LightDecay;

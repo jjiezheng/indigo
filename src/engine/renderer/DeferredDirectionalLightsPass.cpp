@@ -26,7 +26,6 @@ void DeferredDirectionalLightsPass::render(IViewer* viewer, World& world, const 
     Matrix4x4 viewProjection = viewer->projection() * viewer->viewTransform();
     directionalLightEffect_->setUniform(viewProjection, "ViewProj");
     directionalLightEffect_->setUniform(viewProjection.inverse(), "ViewProjInv");
-    directionalLightEffect_->setUniform(halfPixel_, "HalfPixel");
     directionalLightEffect_->setUniform((*light).direction(), "LightDirection");
     directionalLightEffect_->setUniform((*light).color(), "LightColor");
 

@@ -34,8 +34,7 @@ void GaussianBlur::render(unsigned int sourceTexture) {
   {
     GraphicsInterface::setRenderTarget(gaussianHorizontalRenderTarget_, false);
     GraphicsInterface::clearRenderTarget(gaussianHorizontalRenderTarget_, Color4::WHITE);
-    //GraphicsInterface::resetRenderTarget();
-
+    
     gaussianBlurHorizontalEffect_->setTexture(sourceTexture, "SourceMap");
 
     CSize screenSize = GraphicsInterface::screenSize(); 

@@ -65,7 +65,6 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
     // run lighting
     {
       GraphicsInterface::setRenderTarget(lightMapRenderTarget_, false);
-      lightEffect_->setUniform(halfPixel_, "HalfPixel");
 
       lightEffect_->setTexture(normalMapTexture_, "NormalMap");
       lightEffect_->setTexture(depthMapTexture_, "DepthMap");
@@ -83,7 +82,6 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
       Matrix4x4 lightViewProj = (*light)->projection() * (*light)->viewTransform();
       lightEffect_->setUniform(lightViewProj, "LightViewProj");
 
-      lightEffect_->setUniform(halfPixel_, "HalfPixel");
       lightEffect_->setUniform((*light)->position(), "LightPosition");
       lightEffect_->setUniform((*light)->direction(), "LightDirection");
       lightEffect_->setUniform((*light)->color(), "LightColor");

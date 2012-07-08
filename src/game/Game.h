@@ -13,7 +13,7 @@ class Game {
   
 public:
   
-  void init();
+  void init(const char* sceneFile);
   
   void mainLoop();
   

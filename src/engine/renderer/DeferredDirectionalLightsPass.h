@@ -1,8 +1,6 @@
 #ifndef DEFERRED_DIRECTIONAL_LIGHTS_PASS_H
 #define DEFERRED_DIRECTIONAL_LIGHTS_PASS_H
 
-#include "maths/Vector2.h"
-
 #include "IDeferredPass.h"
 
 class IEffect;
@@ -11,10 +9,9 @@ class DeferredDirectionalLightsPass : public IDeferredPass {
 
 public:
 
-  DeferredDirectionalLightsPass(unsigned int lightMapRenderTarget, unsigned int normalMapTexture, const Vector2& halfPixel)
+  DeferredDirectionalLightsPass(unsigned int lightMapRenderTarget, unsigned int normalMapTexture)
     : lightMapRenderTarget_(lightMapRenderTarget)
-    , normalMapTexture_(normalMapTexture)
-    , halfPixel_(halfPixel) { }
+    , normalMapTexture_(normalMapTexture) { }
 
 public:
 
@@ -31,8 +28,6 @@ private:
   unsigned int quadVbo_;
 
   IEffect* directionalLightEffect_;
-
-  Vector2 halfPixel_;
 
 };
 

@@ -14,8 +14,6 @@ sampler2D DepthMap = sampler_state {
 	WrapT = Clamp;
 };
 
-uniform float2 HalfPixel;
-
 uniform float4 LightPosition;
 uniform float3 LightColor;
 uniform float LightRadius;
@@ -41,7 +39,7 @@ VOutput vsgl(float4 position : ATTR0) {
 
 float4 ps(float4 screenPosition : TEXCOORD0) : COLOR {
 	float3 screenPositionHom = screenPosition.xyz / screenPosition.w;
-	float2 texCoord = contract(screenPositionHom) - HalfPixel;
+	float2 texCoord = contract(screenPositionHom);
 
 	float4 normalData = tex2D(NormalMap, texCoord);
 	float3 normal = normalData.xyz;
@@ -74,15 +72,5 @@ technique dx {
   	DestBlend = One;
     VertexProgram = compile vs_4_0 vs();
     FragmentProgram = compile ps_4_0 ps();
-  }
-}
-
-technique latest {
-  pass {
-  	BlendEnable = true;
-  	SrcBlend = One;
-  	DestBlend = One;
-    VertexProgram = compile glslv vsgl();
-    FragmentProgram = compile glslf ps();
   }
 }

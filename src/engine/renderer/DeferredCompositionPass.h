@@ -11,11 +11,10 @@ class DeferredCompositionPass : public IDeferredPass {
 
 public:
 
-  DeferredCompositionPass(unsigned int finalRenderTarget, unsigned int colorMapTexture, unsigned int lightMapTexture, const Vector2& halfPixel)
+  DeferredCompositionPass(unsigned int finalRenderTarget, unsigned int colorMapTexture, unsigned int lightMapTexture)
     : finalRenderTarget_(finalRenderTarget)
     , colorMapTexture_(colorMapTexture)
-    , lightMapTexture_(lightMapTexture)
-    , halfPixel_(halfPixel) { }
+    , lightMapTexture_(lightMapTexture) { }
 
 public:
 
@@ -31,8 +30,6 @@ private:
   unsigned int finalRenderTarget_;
   unsigned int colorMapTexture_;
   unsigned int lightMapTexture_;
-
-  Vector2 halfPixel_;
 
 };
 
