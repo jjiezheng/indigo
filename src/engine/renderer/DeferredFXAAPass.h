@@ -10,8 +10,9 @@ class DeferredFXAAPass : public IDeferredPass {
 
 public:
 
-  DeferredFXAAPass(unsigned int finalRenderTexture, const Vector2& halfPixel) 
-    : finalRenderTexture_(finalRenderTexture)
+  DeferredFXAAPass(unsigned int fxaaRenderTarget, unsigned int compositionRenderTexture, const Vector2& halfPixel) 
+    : fxaaRenderTarget_(fxaaRenderTarget) 
+    , compositionRenderTexture_(compositionRenderTexture)
     , halfPixel_(halfPixel) { } 
 
 public:
@@ -23,9 +24,10 @@ public:
 private:
 
   unsigned int quadVbo_;
-  unsigned int finalRenderTexture_;
+  unsigned int fxaaRenderTarget_;
+  unsigned int compositionRenderTexture_;
 
-  IEffect* finalEffect_;
+  IEffect* fxaaEffect_;
   Vector2 halfPixel_;
 
 };

@@ -9,12 +9,12 @@ public:
 
   DeferredClearBuffersPass(
     unsigned int colorRenderTarget, unsigned int depthRenderTarget, unsigned int lightRenderTarget, 
-    unsigned int normalRenderTarget, unsigned int finalRenderTarget)
+    unsigned int normalRenderTarget, unsigned int compositionRenderTarget)
     : colorRenderTarget_(colorRenderTarget)
     , depthRenderTarget_(depthRenderTarget)
     , lightRenderTarget_(lightRenderTarget)
     , normalRenderTarget_(normalRenderTarget)
-    , finalRenderTarget_(finalRenderTarget) { }
+    , compositionRenderTarget_(compositionRenderTarget) { }
 
 public:
 
@@ -28,7 +28,7 @@ private:
   unsigned int depthRenderTarget_;
   unsigned int lightRenderTarget_;
   unsigned int normalRenderTarget_;
-  unsigned int finalRenderTarget_;
+  unsigned int compositionRenderTarget_;
 
 };
 

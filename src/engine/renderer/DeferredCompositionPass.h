@@ -1,5 +1,5 @@
-#ifndef DEFERRED_FINAL_PASS_H
-#define DEFERRED_FINAL_PASS_H
+#ifndef DEFERRED_COMPOSITION_PASS_H
+#define DEFERRED_COMPOSITION_PASS_H
 
 #include "maths/Vector2.h"
 
@@ -7,11 +7,11 @@
 
 class IEffect;
 
-class DeferredFinalPass : public IDeferredPass {
+class DeferredCompositionPass : public IDeferredPass {
 
 public:
 
-  DeferredFinalPass(unsigned int finalRenderTarget, unsigned int colorMapTexture, unsigned int lightMapTexture, const Vector2& halfPixel)
+  DeferredCompositionPass(unsigned int finalRenderTarget, unsigned int colorMapTexture, unsigned int lightMapTexture, const Vector2& halfPixel)
     : finalRenderTarget_(finalRenderTarget)
     , colorMapTexture_(colorMapTexture)
     , lightMapTexture_(lightMapTexture)

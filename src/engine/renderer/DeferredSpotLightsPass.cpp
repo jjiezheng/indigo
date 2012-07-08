@@ -23,7 +23,7 @@ void DeferredSpotLightsPass::init() {
   WorldLoader().loadModel(spotLightModel_, "debug/cone.dae");
 
   CSize screenSize = GraphicsInterface::screenSize(); 
-  gaussianBlur_.init(screenSize);
+  gaussianBlur_.init(screenSize, 16);
 }
 
 void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {

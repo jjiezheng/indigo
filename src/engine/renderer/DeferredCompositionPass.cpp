@@ -1,4 +1,4 @@
-#include "DeferredFinalPass.h"
+#include "DeferredCompositionPass.h"
 
 #include "IEffect.h"
 
@@ -9,15 +9,15 @@
 
 #include "Geometry.h"
 
-void DeferredFinalPass::init() {
+void DeferredCompositionPass::init() {
   finalEffect_ = IEffect::effectFromFile("cgfx/deferred_final_composition.cgfx");
   quadVbo_ = Geometry::screenPlane();
 }
 
-void DeferredFinalPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
+void DeferredCompositionPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
   GraphicsInterface::setRenderTarget(finalRenderTarget_, false);
   GraphicsInterface::clearRenderTarget(finalRenderTarget_, sceneContext.backgroundColor());
-  GraphicsInterface::resetRenderTarget();
+  //GraphicsInterface::resetRenderTarget();
   finalEffect_->beginDraw();
   finalEffect_->setTexture(colorMapTexture_, "ColorMap");
   finalEffect_->setTexture(lightMapTexture_, "LightMap");

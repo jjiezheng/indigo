@@ -39,8 +39,14 @@ private:
   unsigned int lightMapTexture_;
   unsigned int lightRenderTarget_;
 
-  unsigned int finalMapTexture_;
-  unsigned int finalRenderTarget_;
+  unsigned int compositionMapTexture_;
+  unsigned int compositionRenderTarget_;
+
+  unsigned int fxaaMapTexture_;
+  unsigned int fxaaRenderTarget_;
+
+  unsigned int fullScreenBlurTexture_;
+  unsigned int fullScreenBlurRenderTarget_;
 
   std::vector<IDeferredPass*> passes_;
 };

@@ -17,8 +17,8 @@ sampler2D DepthMap = sampler_state {
 sampler2D ShadowMap = sampler_state {
 	MinFilter = LinearMipMapLinear;
 	MagFilter = LinearMipMapLinear;
-	WrapS = Linear;
-	WrapT = Linear;
+	WrapS = Clamp;
+	WrapT = Clamp;
 };
 
 uniform bool ShadowsEnabled;
@@ -106,7 +106,7 @@ float4 ps(float4 screenPosition : TEXCOORD0) : COLOR {
 
 	float shadowLightContribution = 1.0f;
 
-	if (moments.x < pixelWorldPositionFromLightHom.z) {
+	if (moments.x < pixelWorldPositionFromLightHom.z && shadowCoord.x > 0.0f && shadowCoord.x < 1.0f) {
 		shadowLightContribution = ChebyshevUpperBound(moments.xy, pixelWorldPositionFromLightHom.z, 0);
 		shadowLightContribution = ReduceLightBleeding(shadowLightContribution, 0.9);
 	}

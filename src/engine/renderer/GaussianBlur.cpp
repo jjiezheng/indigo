@@ -5,22 +5,28 @@
 
 #include "Color4.h"
 #include "IEffect.h"
+#include "core/String.h"
 
 static int kMipLevels = 1;
 
-void GaussianBlur::init(const CSize& bufferSize) {
+void GaussianBlur::init(const CSize& bufferSize, int tapSize) {
   bufferSize_ = bufferSize;
 
-  gaussianVerticalMapTexture_ = GraphicsInterface::createTexture(bufferSize);
-  gaussianVerticalRenderTarget_ = GraphicsInterface::createRenderTarget(gaussianVerticalMapTexture_);
+  if (!outputRenderTarget_) {
+    outputRenderTexture_ = GraphicsInterface::createTexture(bufferSize);
+    outputRenderTarget_ = GraphicsInterface::createRenderTarget(outputRenderTexture_);
+  }
 
   gaussianHorizontalMapTexture_ = GraphicsInterface::createTexture(bufferSize);
   gaussianHorizontalRenderTarget_ = GraphicsInterface::createRenderTarget(gaussianHorizontalMapTexture_);
 
   quadVbo_ = Geometry::screenPlane();
 
-  gaussianBlurHorizontalEffect_ = IEffect::effectFromFile("cgfx/gaussian_blur_horizontal.cgfx");
-  gaussianBluVerticalEffect_ = IEffect::effectFromFile("cgfx/gaussian_blur_vertical.cgfx");
+  String horizontalFilename = String::withFormat("cgfx/gaussian_blur_horizontal_%d_tap.cgfx", tapSize);
+  gaussianBlurHorizontalEffect_ = IEffect::effectFromFile(horizontalFilename.c_str());
+
+  String verticalFilename = String::withFormat("cgfx/gaussian_blur_vertical_%d_tap.cgfx", tapSize);
+  gaussianBluVerticalEffect_ = IEffect::effectFromFile(verticalFilename.c_str());
 }
 
 void GaussianBlur::render(unsigned int sourceTexture) {
@@ -44,8 +50,8 @@ void GaussianBlur::render(unsigned int sourceTexture) {
   }
 
   {
-    GraphicsInterface::setRenderTarget(gaussianVerticalRenderTarget_, false);
-    GraphicsInterface::clearRenderTarget(gaussianVerticalRenderTarget_, Color4::WHITE);
+    GraphicsInterface::setRenderTarget(outputRenderTarget_, false);
+    GraphicsInterface::clearRenderTarget(outputRenderTarget_, Color4::WHITE);
     //GraphicsInterface::resetRenderTarget();
 
     gaussianBluVerticalEffect_->setTexture(gaussianHorizontalMapTexture_, "SourceMap");
@@ -61,5 +67,5 @@ void GaussianBlur::render(unsigned int sourceTexture) {
     GraphicsInterface::resetRenderTarget();
   }
 
-  GraphicsInterface::generateMipMaps(gaussianVerticalMapTexture_);
+  GraphicsInterface::generateMipMaps(outputRenderTarget_);
 }

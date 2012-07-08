@@ -7,8 +7,8 @@ sampler2D SourceMap = sampler_state {
 
 float SceneWidth;
 
-const float offsets[8] = {1, 2, 3, 4, 5, 6, 7, 8};
-const float weights[8] = float[] (0.2659615203, 0.2129653370, 0.1093400498, 0.0359939777, 0.0075973240, 0.0010281860, 0.0000892202, 0.0000049640);
+const float offsets[4] = {1, 2, 3, 4};
+const float weights[4] = float[] (0.7978845608, 0.1079819330, 0.0002676605, 0.0000000122);
 
 struct VOutput {
 	float4 position 			: POSITION;
@@ -31,7 +31,7 @@ float4 ps(float2 centerTap : TEXCOORD0) : COLOR {
 
 	float texelSize = 1.0f / SceneWidth;
 
-	for (int i = 1; i < 8; i++) {
+	for (int i = 1; i < 4; i++) {
 		float2 offset = float2(1, 0) * offsets[i] * texelSize;
 
 		float2 rightTap = centerTap + offset;

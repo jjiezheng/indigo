@@ -24,7 +24,7 @@ Matrix4x4 SpotLight::rotation() const {
 }
 
 Matrix4x4 SpotLight::projection() const {
-  return Matrix4x4::perspective(45.0f, GraphicsInterface::aspectRatio(), 1.0f, 200.0f);
+  return Matrix4x4::perspective(toDegrees(outerAngle_), GraphicsInterface::aspectRatio(), 1.0f, 200.0f);
 }
 
 Matrix4x4 SpotLight::viewTransform() const {
@@ -33,10 +33,10 @@ Matrix4x4 SpotLight::viewTransform() const {
 }
 
 void SpotLight::update() {
-  static float bla = 0.0f;
+  /*static float bla = 0.0f;
   bla += 0.1f;
 
   position_ = position_ + Vector4(cosf(bla), 0, 0, 1);
-  //Matrix4x4 rotation = Matrix4x4::rotationY(2);
-  //direction_ = rotation * direction_;
+  Matrix4x4 rotation = Matrix4x4::rotationY(toRadians(cosf(bla * 1.5) * 5));
+  direction_ = rotation * direction_;*/
 }

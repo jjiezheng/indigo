@@ -10,5 +10,5 @@ void DeferredClearBuffersPass::render(IViewer* viewer, World& world, const Scene
   GraphicsInterface::clearRenderTarget(colorRenderTarget_, sceneContext.backgroundColor());
   GraphicsInterface::clearRenderTarget(normalRenderTarget_, Color4::WHITE);
   GraphicsInterface::clearRenderTarget(depthRenderTarget_, Color4::WHITE);
-  GraphicsInterface::clearRenderTarget(finalRenderTarget_, Color4::TRANSPAREN);
+  GraphicsInterface::clearRenderTarget(compositionRenderTarget_, Color4::TRANSPAREN);
 }

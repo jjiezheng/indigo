@@ -7,24 +7,27 @@
 #include "Geometry.h"
 
 void DeferredFXAAPass::init() {
-  finalEffect_ = IEffect::effectFromFile("cgfx/deferred_fxaa.cgfx");
+  fxaaEffect_ = IEffect::effectFromFile("cgfx/deferred_fxaa.cgfx");
   quadVbo_ = Geometry::screenPlane();
 }
 
 void DeferredFXAAPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
-  GraphicsInterface::clearBuffer(sceneContext.backgroundColor());
-  finalEffect_->beginDraw();
+  GraphicsInterface::setRenderTarget(fxaaRenderTarget_, false);
 
-  finalEffect_->setTexture(finalRenderTexture_, "FinalMap");
-  finalEffect_->setUniform(halfPixel_, "HalfPixel");
+  fxaaEffect_->beginDraw();
+
+  fxaaEffect_->setTexture(compositionRenderTexture_, "FinalMap");
+  fxaaEffect_->setUniform(halfPixel_, "HalfPixel");
 
   CSize screenSize = GraphicsInterface::screenSize();
   Vector2 screenSizeInv;
   screenSizeInv.x = 1.0f / screenSize.width;
   screenSizeInv.y = 1.0f / screenSize.height;
-  finalEffect_->setUniform(screenSizeInv, "ScreenSizeInv");
+  fxaaEffect_->setUniform(screenSizeInv, "ScreenSizeInv");
 
   GraphicsInterface::setRenderState(true);
-  GraphicsInterface::drawVertexBuffer(quadVbo_, 6);
-  finalEffect_->resetStates();
+  GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
+  fxaaEffect_->resetStates();
+
+  GraphicsInterface::resetRenderTarget();
 }

@@ -45,23 +45,11 @@
     }
   ],
   "lights" : [
-    {
-      "type" : "directional",
-       "direction" : {
-        "x" : -0.5,
-        "y" : -0.5,
-        "z" : -0.5
-      },
-      "color" : {
-        "r" : 0.8,
-        "g" : 0.8,
-        "b" : 0.8
-      }
-    },
+
     {
       "type" : "spot",
       "innerangle" : 45,
-      "outerangle" : 80,
+      "outerangle" : 70,
       "decay" : 0.2,
       "length" : 20,
       "castsshadows" : true,

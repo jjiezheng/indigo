@@ -9,17 +9,25 @@ class GaussianBlur {
 
 public:
 
-  void init(const CSize& bufferSize);
+  GaussianBlur()
+    : outputRenderTarget_(0) { }
+
+public:
+
+  void init(const CSize& bufferSize, int tapSize);
 
   void render(unsigned int sourceTexture);
 
   unsigned int outputTexture() const;
 
+public:
+
+  void setRenderTarget(unsigned int renderTarget);
+
 private:
 
-  
-  unsigned int gaussianVerticalRenderTarget_;
-  unsigned int gaussianVerticalMapTexture_;
+  unsigned int outputRenderTarget_;
+  unsigned int outputRenderTexture_;
 
   unsigned int gaussianHorizontalRenderTarget_;
   unsigned int gaussianHorizontalMapTexture_;
@@ -34,7 +42,11 @@ private:
 };
 
 inline unsigned int GaussianBlur::outputTexture() const {
-  return gaussianVerticalMapTexture_;
+  return outputRenderTexture_;
+}
+
+inline void GaussianBlur::setRenderTarget(unsigned int renderTarget) {
+  outputRenderTarget_ = renderTarget;
 }
 
 #endif

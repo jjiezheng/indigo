@@ -1,0 +1,31 @@
+
+sampler2D TextureMap = sampler_state {
+	MinFilter = Linear;
+	MagFilter = Linear;
+	WrapS = Clamp;
+	WrapT = Clamp;
+};
+
+struct VOutput {
+	float4 position			: POSITION;
+	float2 texCoord			: TEXCOORD0;
+};
+
+VOutput vs(float4 position 		: POSITION,
+		   float2 texCoord 		: TEXCOORD0) {
+	VOutput OUT;
+	OUT.position = position;
+	OUT.texCoord = texCoord;
+ 	return OUT;
+}
+
+float4 ps(float2 texCoord : TEXCOORD0) : COLOR {
+	return tex2D(TextureMap, texCoord);
+}
+
+technique dx {
+	pass {
+		VertexProgram = compile vs_4_0 vs();
+		FragmentProgram = compile ps_4_0 ps();
+	}
+}
