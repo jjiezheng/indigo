@@ -1,8 +1,6 @@
 #ifndef DEFERRED_COMPOSITION_PASS_H
 #define DEFERRED_COMPOSITION_PASS_H
 
-#include "maths/Vector2.h"
-
 #include "IDeferredPass.h"
 
 class IEffect;

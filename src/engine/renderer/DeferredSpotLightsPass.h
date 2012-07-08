@@ -1,8 +1,6 @@
 #ifndef DEFERRED_SPOT_LIGHTS_PASS_H
 #define DEFERRED_SPOT_LIGHTS_PASS_H
 
-#include "maths/Vector2.h"
-
 #include "IDeferredPass.h"
 
 #include "GaussianBlur.h"

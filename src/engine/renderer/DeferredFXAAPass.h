@@ -2,7 +2,6 @@
 #define DEFERRED_FXAA_PASS
 
 #include "IDeferredPass.h"
-#include "maths/Vector2.h"
 
 class IEffect;
 

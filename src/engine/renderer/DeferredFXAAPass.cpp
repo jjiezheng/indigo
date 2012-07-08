@@ -6,6 +6,8 @@
 #include "SceneContext.h"
 #include "Geometry.h"
 
+#include "maths/Vector2.h"
+
 void DeferredFXAAPass::init() {
   fxaaEffect_ = IEffect::effectFromFile("cgfx/deferred_fxaa.cgfx");
   quadVbo_ = Geometry::screenPlane();
