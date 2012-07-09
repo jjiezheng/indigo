@@ -74,6 +74,10 @@ public:
 
 public:
 
+  static IGraphicsInterface* rawInterface();
+
+public:
+
   static bool getKeyState(char key);
 
 private:
@@ -81,5 +85,9 @@ private:
   static IGraphicsInterface* graphicsInterface_;
 
 };
+
+inline IGraphicsInterface* GraphicsInterface::rawInterface() {
+  return graphicsInterface_;
+}
 
 #endif

@@ -70,7 +70,7 @@ unsigned int GraphicsInterface::loadTexture(const char* filePath) {
 }
 
 void GraphicsInterface::setTexture(int textureId, CGparameter parameter) {
-  return graphicsInterface_->setTexture(textureId, parameter);
+
 }
 
 void GraphicsInterface::setRenderState(bool cullBack) {

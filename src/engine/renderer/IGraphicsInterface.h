@@ -55,8 +55,6 @@ public:
 
   virtual unsigned int createTexture(const CSize& dimensions, unsigned int mipLevels) = 0;
 
-  virtual void setTexture(int textureId, CGparameter parameter) = 0;
-
   virtual void generateMipMaps(unsigned int textureId) = 0;
 
 public:

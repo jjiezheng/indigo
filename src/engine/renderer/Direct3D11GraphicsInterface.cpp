@@ -2,6 +2,7 @@
 
 #include <D3DX10.h>
 #include <D3DX11.h>
+#include <d3dx11effect.h>
 #include <assert.h>
 
 #include "platform/WindowsUtils.h"
@@ -111,7 +112,7 @@ void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, in
     deviceConnection_->RSSetViewports(1, &viewport);
   }
 
-  D3DEffect::setDevice(device_);
+  D3DEffect::setDevice(device_, deviceConnection_);
 }
 
 void Direct3D11GraphicsInterface::openWindow(int width, int height, unsigned int multiSamples) {
@@ -212,11 +213,9 @@ unsigned int Direct3D11GraphicsInterface::loadTexture(const std::string& filePat
   return textureId;
 }
 
-void Direct3D11GraphicsInterface::setTexture(int textureId, CGparameter parameter) {
-  DirectXTexture texutre = textures_[textureId];
-  ID3D11Resource* textureResource = texutre.textureData;
-  cgD3D11SetTextureParameter(parameter, textureResource);
-  cgSetSamplerState(parameter);
+void Direct3D11GraphicsInterface::setTexture(int textureId, ID3DX11EffectVariable* variable) {
+  DirectXTexture texture = textures_[textureId];
+  variable->AsShaderResource()->SetResource(texture.resourceView);
 }
 
 void Direct3D11GraphicsInterface::resetGraphicsState(bool cullBack) {
@@ -263,10 +262,24 @@ unsigned int Direct3D11GraphicsInterface::createTexture(const CSize& dimensions,
   HRESULT result = device_->CreateTexture2D(&textureDesc, NULL, &texture);
   assert(result == S_OK);
 
+  D3D11_SHADER_RESOURCE_VIEW_DESC resourceViewDesc;
+  ZeroMemory(&resourceViewDesc, sizeof(D3D11_SHADER_RESOURCE_VIEW_DESC));
+
+  resourceViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2DMS;
+  resourceViewDesc.Texture2D.MostDetailedMip = 0;
+	resourceViewDesc.Texture2D.MipLevels = mipLevels;
+  resourceViewDesc.Format = textureDesc.Format;
+
+
+  ID3D11ShaderResourceView* resourceView;
+  result = device_->CreateShaderResourceView(texture, &resourceViewDesc, &resourceView);
+  assert(result == S_OK);
+
   unsigned int textureId = textures_.size();
   DirectXTexture textureContainer;
   textureContainer.textureData = texture;
   textureContainer.mipLevels = mipLevels;
+  textureContainer.resourceView = resourceView;
   textures_.push_back(textureContainer);
   return textureId;
 }

@@ -1,12 +1,12 @@
 #include "utils.cg"
 
-cbuffer Uniforms : register(b0) {
-	float3 DiffuseColor;
-	float3 AmbientColor;
-	float3x3 NormalMatrix;
-	float4x4 WorldViewProj;
-	float4x4 World;
-}
+
+uniform	float3 DiffuseColor;
+uniform	float3 AmbientColor;
+uniform	float3x3 NormalMatrix;
+uniform	float4x4 WorldViewProj;
+uniform	float4x4 World;
+
 
 struct VOutput {
 	float4 position			: POSITION;
@@ -30,7 +30,8 @@ struct POutput {
 	float4 depth 	: SV_TARGET2;
 };
 
-POutput ps(float3 normal			: TEXCOORD0,
+POutput ps(float4 position			: POSITION,
+		   float3 normal			: TEXCOORD0,
 		   float2 depth 			: TEXCOORD1) {
 	POutput OUT;
 	OUT.color = float4(DiffuseColor, 1);					
@@ -38,4 +39,11 @@ POutput ps(float3 normal			: TEXCOORD0,
 	float depthHom = depth.x / depth.y; // z / w
 	OUT.depth = float4(depthHom, depthHom, depthHom, 1);
 	return OUT;
+}
+
+technique11 Test {
+	pass P0 {
+		SetVertexShader(CompileShader(vs_4_0, vs()));
+		SetPixelShader(CompileShader(ps_4_0, ps()));
+	}
 }

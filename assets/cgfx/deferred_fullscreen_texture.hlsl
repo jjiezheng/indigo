@@ -1,12 +1,9 @@
+SamplerState TextureMap;
+
 struct VOutput {
 	float4 position			: POSITION;
 	float2 texCoord			: TEXCOORD0;
 };
-
-float4 ps(float4 position 		: POSITION,
-		  float2 texCoord 		: TEXCOORD0) : SV_TARGET0 {
-	return float4(0, 0, 0, 1);// Texture.Sample(TextureSampler, texCoord);
-}
 
 VOutput vs(float4 position 		: POSITION,
 		   float2 texCoord 		: TEXCOORD0) {
@@ -14,6 +11,10 @@ VOutput vs(float4 position 		: POSITION,
 	OUT.position = position;
 	OUT.texCoord = texCoord;
  	return OUT;
+}
+
+float4 ps(float2 texCoord : TEXCOORD0) : COLOR {
+	return tex2D(TextureMap, texCoord);
 }
 
 technique11 Test {

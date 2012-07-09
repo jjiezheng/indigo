@@ -10,6 +10,7 @@
 #include "DirectXTexture.h"
 
 class IEffect;
+struct ID3DX11EffectVariable;
 
 class Direct3D11GraphicsInterface : public IGraphicsInterface {
 
@@ -39,7 +40,7 @@ public:
 
   unsigned int createTexture(const CSize& dimensions, unsigned int mipLevels);
 
-  void setTexture(int textureId, CGparameter parameter);
+  void setTexture(int textureId, ID3DX11EffectVariable* variable);
 
   void generateMipMaps(unsigned int textureId);
 

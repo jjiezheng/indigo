@@ -68,7 +68,7 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
   IDeferredPass* fullScreenBlurPass = new DeferredFullScreenBlurPass(fxaaMapTexture_, fullScreenBlurRenderTarget_);
   passes_.push_back(fullScreenBlurPass);*/
 
-  IDeferredPass* presentPass = new DeferredPresentPass(compositionMapTexture_);
+  IDeferredPass* presentPass = new DeferredPresentPass(colorMapTexture_);
   passes_.push_back(presentPass);
 
   for (std::vector<IDeferredPass*>::iterator i = passes_.begin(); i != passes_.end(); ++i) {

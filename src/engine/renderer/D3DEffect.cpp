@@ -10,7 +10,20 @@
 
 #include "io/Log.h"
 
+#include "Color3.h"
+
+#include "maths/Vector2.h"
+#include "maths/Vector3.h"
+#include "maths/Vector4.h"
+#include "maths/Matrix3x3.h"
+#include "maths/Matrix4x4.h"
+
+#include "GraphicsInterface.h"
+
+#include "Direct3D11GraphicsInterface.h"
+
 ID3D11Device* D3DEffect::device_ = NULL;
+ID3D11DeviceContext* D3DEffect::context_ = NULL;
 
 void D3DEffect::load(const std::string& filePath) {
   ID3D10Blob* effect = NULL;
@@ -42,41 +55,69 @@ void D3DEffect::load(const std::string& filePath) {
 }
 
 void D3DEffect::beginDraw() {
-
+  pass_->Apply(0, context_);
 }
 
 void D3DEffect::setUniform(const Matrix3x3& uniformData, const char* uniformName) const {
-
+  ID3DX11EffectVariable* variable = effect_->GetVariableByName(uniformName);
+  if (variable->IsValid()) {
+    variable->AsMatrix()->SetMatrix(uniformData.valuePtr());
+  }
 }
 
 void D3DEffect::setUniform(const Matrix4x4& uniformData, const char* uniformName) const {
-
+  ID3DX11EffectVariable* variable = effect_->GetVariableByName(uniformName);
+  if (variable->IsValid()) {
+    variable->AsMatrix()->SetMatrix(uniformData.valuePtr());
+  }
 }
 
 void D3DEffect::setUniform(const Color3& uniformData, const char* uniformName) const {
-
+  ID3DX11EffectVariable* variable = effect_->GetVariableByName(uniformName);
+  if (variable->IsValid()) {
+    variable->AsVector()->SetFloatVector(uniformData.valuePtr());
+  }
 }
 
 void D3DEffect::setUniform(const Vector2& uniformData, const char* uniformName) const {
-
+  ID3DX11EffectVariable* variable = effect_->GetVariableByName(uniformName);
+  if (variable->IsValid()) {
+    variable->AsVector()->SetFloatVector(uniformData.valuePtr());
+  }
 }
 
 void D3DEffect::setUniform(const Vector3& uniformData, const char* uniformName) const {
-
+  ID3DX11EffectVariable* variable = effect_->GetVariableByName(uniformName);
+  if (variable->IsValid()) {
+    variable->AsVector()->SetFloatVector(uniformData.valuePtr());
+  }
 }
 
 void D3DEffect::setUniform(const Vector4& uniformData, const char* uniformName) const {
-
+  ID3DX11EffectVariable* variable = effect_->GetVariableByName(uniformName);
+  if (variable->IsValid()) {
+    variable->AsVector()->SetFloatVector(uniformData.valuePtr());
+  }
 }
 
 void D3DEffect::setUniform(int uniformData, const char* uniformName) const {
-
+  ID3DX11EffectVariable* variable = effect_->GetVariableByName(uniformName);
+  if (variable->IsValid()) {
+    variable->AsScalar()->SetInt(uniformData);
+  }
 }
 
 void D3DEffect::setUniform(float uniformData, const char* uniformName) const {
-
+  ID3DX11EffectVariable* variable = effect_->GetVariableByName(uniformName);
+  if (variable->IsValid()) {
+    variable->AsScalar()->SetFloat(uniformData);
+  }
 }
 
 void D3DEffect::setTexture(unsigned int textureId, const char* uniformName) {
-
+  Direct3D11GraphicsInterface* graphicsInterface = static_cast<Direct3D11GraphicsInterface*>(GraphicsInterface::rawInterface());
+  ID3DX11EffectVariable* variable = effect_->GetVariableByName(uniformName);
+  if (variable->IsValid()) {
+    graphicsInterface->setTexture(textureId, variable);
+  }
 }

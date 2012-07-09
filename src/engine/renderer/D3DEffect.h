@@ -4,6 +4,7 @@
 #include "IEffect.h"
 
 struct ID3D11Device;
+struct ID3D11DeviceContext;
 struct ID3DX11Effect;
 struct ID3DX11EffectPass;
 
@@ -11,7 +12,7 @@ class D3DEffect : public IEffect {
 
 public:
 
-  static void setDevice(ID3D11Device* device);
+  static void setDevice(ID3D11Device* device, ID3D11DeviceContext* context);
 
 public:
 
@@ -44,14 +45,16 @@ public:
 private:
 
   static ID3D11Device* device_;
+  static ID3D11DeviceContext* context_;
 
   ID3DX11Effect* effect_;
   ID3DX11EffectPass* pass_;
 
 };
 
-inline void D3DEffect::setDevice(ID3D11Device* device) {
+inline void D3DEffect::setDevice(ID3D11Device* device, ID3D11DeviceContext* context) {
   device_ = device;
+  context_ = context;
 }
 
 #endif
