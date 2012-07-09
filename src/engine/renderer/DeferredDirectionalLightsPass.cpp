@@ -12,7 +12,7 @@
 #include "Geometry.h"
 
 void DeferredDirectionalLightsPass::init() {
-  directionalLightEffect_ = IEffect::effectFromFile("cgfx/deferred_lighting_directional_light.cgfx");
+  directionalLightEffect_ = IEffect::effectFromFile("cgfx/deferred_lighting_directional_light.hlsl");
   quadVbo_ = Geometry::screenPlane();
 }
 

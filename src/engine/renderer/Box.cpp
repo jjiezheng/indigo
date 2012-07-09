@@ -31,7 +31,7 @@ void Box::init() {
 
 /*  vertexBuffer = GraphicsInterface::createVertexBuffer(vertices, NULL, NULL, VERTEX_LENGTH);
   effect_ = GraphicsInterface::createEffect();
-  std::string fullEffectPath = Path::pathForFile("cgfx/simple.cgfx");
+  std::string fullEffectPath = Path::pathForFile("cgfx/simple.hlsl");
   effect_->load(fullEffectPath);*/
 }
 

@@ -9,7 +9,7 @@
 #include "maths/Vector2.h"
 
 void DeferredFXAAPass::init() {
-  fxaaEffect_ = IEffect::effectFromFile("cgfx/deferred_fxaa.cgfx");
+  fxaaEffect_ = IEffect::effectFromFile("cgfx/deferred_fxaa.hlsl");
   quadVbo_ = Geometry::screenPlane();
 }
 

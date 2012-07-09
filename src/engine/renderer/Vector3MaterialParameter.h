@@ -15,6 +15,8 @@ public:
   Vector3MaterialParameter(const std::string& name, const Vector3& value);
   
   void setEffect(const IEffect* effect);
+
+  unsigned int size() const { return sizeof(Vector3); };
   
 private:
   

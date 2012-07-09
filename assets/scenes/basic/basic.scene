@@ -30,34 +30,6 @@
         "g" : 1.0,
         "b" : 1.0
       }
-    },
-    {
-      "type" : "spot",
-      "innerangle" : 45,
-      "outerangle" : 60,
-      "decay" : 0.2,
-      "length" : 6,
-      "castsshadows" : true,
-      "position" : {
-        "x" : 0,
-        "y" : 4,
-        "z" : 0
-      },
-      "orientation" : {
-        "x" : 0,
-        "y" : 0,
-        "z" : 0
-      },
-      "color" : {
-        "r" : 1.0,
-        "g" : 1.0,
-        "b" : 1.0
-      },
-      "direction" : {
-        "x" : 0.0,
-        "y" : -1.0,
-        "z" : 0.0
-      }
     }
   ]
 }

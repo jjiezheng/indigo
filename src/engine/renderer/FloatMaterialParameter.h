@@ -14,6 +14,8 @@ public:
   FloatMaterialParameter(const std::string& name, float value);
   
   void setEffect(const IEffect* effect);
+
+  unsigned int size() const { return sizeof(float); };
   
 private:
   

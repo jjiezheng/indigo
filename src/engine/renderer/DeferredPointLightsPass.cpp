@@ -11,7 +11,7 @@
 #include "IViewer.h"
 
 void DeferredPointLightsPass::init() {
-  pointLightEffect_ = IEffect::effectFromFile("cgfx/deferred_lighting_point_light.cgfx");
+  pointLightEffect_ = IEffect::effectFromFile("cgfx/deferred_lighting_point_light.hlsl");
 
   pointLightModel_ = new Model();
   WorldLoader().loadModel(pointLightModel_, "debug/sphere.dae");

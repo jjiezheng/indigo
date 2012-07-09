@@ -23,7 +23,7 @@ void RendererShadow::init(const CSize &screenSize) {
   shadowTexture_ = GraphicsInterface::createTexture(CSize(1008, 730));
   renderTarget_ = GraphicsInterface::createRenderTarget(shadowTexture_);
   depthShader = GraphicsInterface::createEffect();
-  std::string effectPath = Path::pathForFile("cgfx/depth.cgfx");
+  std::string effectPath = Path::pathForFile("cgfx/depth.hlsl");
   depthShader->load(effectPath);
 } 
 

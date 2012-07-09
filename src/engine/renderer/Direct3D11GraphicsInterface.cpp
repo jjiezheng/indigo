@@ -5,7 +5,7 @@
 #include <assert.h>
 
 #include "platform/WindowsUtils.h"
-#include "renderer/CGD3DEffect.h"
+#include "renderer/D3DEffect.h"
 #include "io/Log.h"
 #include "renderer/Color4.h"
 #include "VertexDefinition.h"
@@ -111,7 +111,7 @@ void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, in
     deviceConnection_->RSSetViewports(1, &viewport);
   }
 
-  CGD3DEffect::initCG(device_);
+  D3DEffect::setDevice(device_);
 }
 
 void Direct3D11GraphicsInterface::openWindow(int width, int height, unsigned int multiSamples) {
@@ -162,7 +162,7 @@ void Direct3D11GraphicsInterface::drawVertexBuffer(int vertexBuffer, int vertexC
 }
 
 IEffect* Direct3D11GraphicsInterface::createEffect() {
-  return new CGD3DEffect();
+  return new D3DEffect();
 }
 
 void Direct3D11GraphicsInterface::clearBuffer(const Color4& color) {

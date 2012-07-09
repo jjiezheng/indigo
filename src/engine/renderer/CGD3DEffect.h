@@ -4,6 +4,8 @@
 #include "IEffect.h"
 #include <CG/cgD3D11.h>
 
+struct ID3D11Device;
+
 class CGD3DEffect : public IEffect {
 
 public:
@@ -39,6 +41,10 @@ public:
   void setUniform(float uniformData, const char* uniformName) const;
 
   void setTexture(unsigned int textureId, const char* uniformName);
+
+private:
+
+  static ID3D11Device *device_;
   
 };
 

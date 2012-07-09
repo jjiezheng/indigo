@@ -10,7 +10,7 @@
 #include "Geometry.h"
 
 void DeferredCompositionPass::init() {
-  finalEffect_ = IEffect::effectFromFile("cgfx/deferred_final_composition.cgfx");
+  finalEffect_ = IEffect::effectFromFile("cgfx/deferred_final_composition.hlsl");
   quadVbo_ = Geometry::screenPlane();
 }
 

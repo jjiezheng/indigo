@@ -16,8 +16,8 @@
 #include "maths/Matrix3x3.h"
 
 void DeferredSpotLightsPass::init() {
-  shadowMapEffect_ = IEffect::effectFromFile("cgfx/deferred_depth.cgfx");
-  lightEffect_ = IEffect::effectFromFile("cgfx/deferred_lighting_spot_light.cgfx");
+  shadowMapEffect_ = IEffect::effectFromFile("cgfx/deferred_depth.hlsl");
+  lightEffect_ = IEffect::effectFromFile("cgfx/deferred_lighting_spot_light.hlsl");
 
   spotLightModel_ = new Model();
   WorldLoader().loadModel(spotLightModel_, "debug/cone.dae");

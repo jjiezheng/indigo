@@ -13,14 +13,6 @@ public:
 
 public:
 
-  void beginDraw();
-
-  void resetStates();
-
-  void updateParameters();
-
-public:
-
   void setUniform(const Matrix3x3& uniformData, const char* uniformName) const;
 
   void setUniform(const Matrix4x4& uniformData, const char* uniformName) const;

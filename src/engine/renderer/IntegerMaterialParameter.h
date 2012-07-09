@@ -14,6 +14,8 @@ public:
   IntegerMaterialParameter(const std::string& name, int value);
   
   void setEffect(const IEffect* effect);
+
+  unsigned int size() const { return sizeof(int); };
   
 private:
   

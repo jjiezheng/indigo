@@ -38,11 +38,11 @@ public:
 
 public:
 
-  void beginDraw();
+  virtual void beginDraw();
 
-  void resetStates();
+  virtual void resetStates();
 
-  void activatePass(unsigned int passId);
+  virtual void activatePass(unsigned int passId);
 
 public:
 
