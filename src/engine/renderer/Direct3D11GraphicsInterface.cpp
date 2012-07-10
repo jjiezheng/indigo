@@ -172,20 +172,8 @@ void Direct3D11GraphicsInterface::clearBuffer(const Color4& color) {
   deviceConnection_->ClearDepthStencilView(depthBuffer_, D3D11_CLEAR_DEPTH, 1.0f, 0);
 }
 
-void Direct3D11GraphicsInterface::setPass(CGpass pass) {
-  ID3D10Blob * pVSBuf = cgD3D11GetIASignatureByPass(pass);
-
-  D3D11_INPUT_ELEMENT_DESC ied[] = {
-    {"POSITION",    0, DXGI_FORMAT_R32G32B32_FLOAT, 0,  0, D3D11_INPUT_PER_VERTEX_DATA, 0},
-    {"NORMAL",      0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0},
-    {"TEXCOORD",    0, DXGI_FORMAT_R32G32_FLOAT,    0, 24, D3D11_INPUT_PER_VERTEX_DATA, 0}
-  };
-    
-  ID3D11InputLayout *layout;
-  HRESULT result = device_->CreateInputLayout(ied, 3, pVSBuf->GetBufferPointer(), pVSBuf->GetBufferSize(), &layout); 
-  assert(result == S_OK);
-  
-  deviceConnection_->IASetInputLayout(layout);
+void Direct3D11GraphicsInterface::setPass(CGpass pass) {  
+  //deviceConnection_->IASetInputLayout(layout);
 }
 
 bool Direct3D11GraphicsInterface::getKeySate(char key) {
