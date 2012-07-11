@@ -13,6 +13,7 @@ void DeferredPresentPass::init() {
 }
 
 void DeferredPresentPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
+  GraphicsInterface::resetRenderTarget();
   GraphicsInterface::clearBuffer(sceneContext.backgroundColor());
   effect_->beginDraw();
   effect_->setTexture(fullScreenTexture_, "Texture");

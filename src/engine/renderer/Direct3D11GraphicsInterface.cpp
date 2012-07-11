@@ -203,8 +203,9 @@ unsigned int Direct3D11GraphicsInterface::loadTexture(const std::string& filePat
 
 void Direct3D11GraphicsInterface::setTexture(int textureId, ID3DX11EffectVariable* variable) {
   DirectXTexture texture = textures_[textureId];
-
-  variable->AsShaderResource()->SetResource(texture.resourceView);
+  ID3DX11EffectShaderResourceVariable* resource = variable->AsShaderResource();
+  HRESULT result = resource->SetResource(texture.resourceView);
+  assert(result == S_OK);
 }
 
 void Direct3D11GraphicsInterface::resetGraphicsState(bool cullBack) {
