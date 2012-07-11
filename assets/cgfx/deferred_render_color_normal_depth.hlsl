@@ -1,15 +1,13 @@
 #include "utils.cg"
 
-
 uniform	float3 DiffuseColor;
 uniform	float3 AmbientColor;
 uniform	float3x3 NormalMatrix;
 uniform	float4x4 WorldViewProj;
 uniform	float4x4 World;
 
-
 struct VOutput {
-	float4 position			: POSITION;
+	float4 position			: SV_POSITION;
 	float3 normal			: TEXCOORD0;
 	float2 depth			: TEXCOORD1;
 };
@@ -30,7 +28,7 @@ struct POutput {
 	float4 depth 	: SV_TARGET2;
 };
 
-POutput ps(float4 position			: POSITION,
+POutput ps(float4 position			: SV_POSITION,
 		   float3 normal			: TEXCOORD0,
 		   float2 depth 			: TEXCOORD1) {
 	POutput OUT;

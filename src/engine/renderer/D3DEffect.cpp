@@ -52,14 +52,12 @@ void D3DEffect::load(const std::string& filePath) {
 
   pass_ = technique->GetPassByIndex(0);
   assert(pass_ && pass_->IsValid());
-}
 
-void D3DEffect::beginDraw() {
-  pass_->Apply(0, context_);
-
+  D3DX11_PASS_SHADER_DESC effectDesc;
+  pass_->GetVertexShaderDesc(&effectDesc);
   
-
-  /*ID3D10Blob * pVSBuf = cgD3D11GetIASignatureByPass(pass);
+  D3DX11_EFFECT_SHADER_DESC shaderDesc;
+  effectDesc.pShaderVariable->GetShaderDesc(effectDesc.ShaderIndex, &shaderDesc);
 
   D3D11_INPUT_ELEMENT_DESC ied[] = {
     {"POSITION",    0, DXGI_FORMAT_R32G32B32_FLOAT, 0,  0, D3D11_INPUT_PER_VERTEX_DATA, 0},
@@ -67,9 +65,14 @@ void D3DEffect::beginDraw() {
     {"TEXCOORD",    0, DXGI_FORMAT_R32G32_FLOAT,    0, 24, D3D11_INPUT_PER_VERTEX_DATA, 0}
   };
     
-  ID3D11InputLayout *layout;
-  HRESULT result = device_->CreateInputLayout(ied, 3, pVSBuf->GetBufferPointer(), pVSBuf->GetBufferSize(), &layout); 
-  assert(result == S_OK);*/
+  
+  HRESULT result = device_->CreateInputLayout(ied, 3, shaderDesc.pBytecode, shaderDesc.BytecodeLength, &layout_); 
+  assert(result == S_OK);
+}
+
+void D3DEffect::beginDraw() {
+  pass_->Apply(0, context_);
+  context_->IASetInputLayout(layout_);
 }
 
 void D3DEffect::setUniform(const Matrix3x3& uniformData, const char* uniformName) const {

@@ -7,6 +7,7 @@ struct ID3D11Device;
 struct ID3D11DeviceContext;
 struct ID3DX11Effect;
 struct ID3DX11EffectPass;
+struct ID3D11InputLayout;
 
 class D3DEffect : public IEffect {
 
@@ -49,6 +50,7 @@ private:
 
   ID3DX11Effect* effect_;
   ID3DX11EffectPass* pass_;
+  ID3D11InputLayout* layout_;
 
 };
 

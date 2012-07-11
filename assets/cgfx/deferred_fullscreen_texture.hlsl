@@ -2,7 +2,7 @@ Texture2D Texture;
 SamplerState TextureSampler;
 
 struct VOutput {
-	float4 position			: POSITION;
+	float4 position			: SV_POSITION;
 	float2 texCoord			: TEXCOORD0;
 };
 
@@ -14,7 +14,7 @@ VOutput vs(float4 position 		: POSITION,
  	return OUT;
 }
 
-float4 ps(float4 position 		: POSITION,
+float4 ps(float4 position : SV_POSITION,
 		  float2 texCoord : TEXCOORD0) : SV_TARGET0 {
 	return Texture.Sample(TextureSampler, texCoord);
 }

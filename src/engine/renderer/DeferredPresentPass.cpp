@@ -15,6 +15,6 @@ void DeferredPresentPass::init() {
 void DeferredPresentPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
   GraphicsInterface::clearBuffer(sceneContext.backgroundColor());
   effect_->beginDraw();
-  effect_->setTexture(fullScreenTexture_, "TextureMap");
+  effect_->setTexture(fullScreenTexture_, "Texture");
   GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
 }

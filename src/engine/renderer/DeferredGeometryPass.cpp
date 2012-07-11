@@ -14,9 +14,9 @@
 
 void DeferredGeometryPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
   GraphicsInterface::setRenderState(true);
+
   unsigned int renderTargets[] = {colorRenderTarget_, normalRenderTarget_, depthRenderTarget_};
   GraphicsInterface::setRenderTarget(renderTargets, 3, true);
-  GraphicsInterface::resetRenderTarget();
 
   stdext::hash_map<int, std::vector<Mesh*>> effects;
 
@@ -36,6 +36,7 @@ void DeferredGeometryPass::render(IViewer* viewer, World& world, const SceneCont
       (*meshIt)->material().bind(viewer->projection(), viewer->viewTransform(), (*meshIt)->localToWorld(), Matrix4x4::IDENTITY.mat3x3(), sceneContext, effect);
 
       effect->beginDraw();
+
       (*meshIt)->render();
     }
   }
