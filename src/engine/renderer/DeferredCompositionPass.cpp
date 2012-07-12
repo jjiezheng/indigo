@@ -20,5 +20,6 @@ void DeferredCompositionPass::render(IViewer* viewer, World& world, const SceneC
   finalEffect_->setTexture(colorMapTexture_, "ColorMap");
   finalEffect_->setTexture(lightMapTexture_, "LightMap");
   finalEffect_->beginDraw();
+  GraphicsInterface::setRenderState(true);
   GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
 }

@@ -53,22 +53,22 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
   IDeferredPass* directionalLightingPass = new DeferredDirectionalLightsPass(lightRenderTarget_, normalMapTexture_);
   passes_.push_back(directionalLightingPass);
 
-  /*IDeferredPass* pointLightingPass = new DeferredPointLightsPass(lightRenderTarget_, normalMapTexture_, depthMapTexture_);
+  IDeferredPass* pointLightingPass = new DeferredPointLightsPass(lightRenderTarget_, normalMapTexture_, depthMapTexture_);
   passes_.push_back(pointLightingPass);
 
   IDeferredPass* spotLightingPass = new DeferredSpotLightsPass(lightRenderTarget_, normalMapTexture_, depthMapTexture_);
-  passes_.push_back(spotLightingPass);*/
+  passes_.push_back(spotLightingPass);
 
   IDeferredPass* compositionPass = new DeferredCompositionPass(compositionRenderTarget_, colorMapTexture_, lightMapTexture_);
   passes_.push_back(compositionPass);
 
-  /*IDeferredPass* fxaaPass = new DeferredFXAAPass(fxaaRenderTarget_, compositionMapTexture_);
-  passes_.push_back(fxaaPass);*/
+  IDeferredPass* fxaaPass = new DeferredFXAAPass(fxaaRenderTarget_, compositionMapTexture_);
+  passes_.push_back(fxaaPass);
 
   IDeferredPass* fullScreenBlurPass = new DeferredFullScreenBlurPass(fxaaMapTexture_, fullScreenBlurRenderTarget_);
   passes_.push_back(fullScreenBlurPass);
 
-  IDeferredPass* presentPass = new DeferredPresentPass(compositionMapTexture_);
+  IDeferredPass* presentPass = new DeferredPresentPass(fullScreenBlurTexture_);
   passes_.push_back(presentPass);
 
   for (std::vector<IDeferredPass*>::iterator i = passes_.begin(); i != passes_.end(); ++i) {

@@ -3,8 +3,8 @@ SamplerState SourceMapSamplerState;
 
 float SceneWidth;
 
-const float offsets[8] = {1, 2, 3, 4, 5, 6, 7, 8};
-const float weights[8] = float[] (0.2659615203, 0.2129653370, 0.1093400498, 0.0359939777, 0.0075973240, 0.0010281860, 0.0000892202, 0.0000049640);
+float offsets[8] = {1, 2, 3, 4, 5, 6, 7, 8};
+float weights[8] = {0.2659615203, 0.2129653370, 0.1093400498, 0.0359939777, 0.0075973240, 0.0010281860, 0.0000892202, 0.0000049640};
 
 struct VOutput {
 	float4 position 			: SV_POSITION;

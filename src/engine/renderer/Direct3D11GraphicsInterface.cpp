@@ -188,17 +188,31 @@ unsigned int Direct3D11GraphicsInterface::loadTexture(const std::string& filePat
   HRESULT result;
   D3DX11GetImageInfoFromFile(filePath.c_str(), NULL, &fileInfo, &result); 
 
-  ID3D11Resource* textureResource;
-  D3DX11CreateTextureFromFile(device_, filePath.c_str(), NULL, NULL, &textureResource, &result);
+  ID3D11Resource* texture;
+  D3DX11CreateTextureFromFile(device_, filePath.c_str(), NULL, NULL, &texture, &result);
   assert(result == S_OK);
 
-  DirectXTexture texture;
-  texture.textureData = textureResource;
-  textures_.push_back(texture);
+  D3D11_SHADER_RESOURCE_VIEW_DESC resourceViewDesc;
+  ZeroMemory(&resourceViewDesc, sizeof(D3D11_SHADER_RESOURCE_VIEW_DESC));
 
-  int textureId = textures_.size();
-  textures_.push_back(texture);
+  resourceViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2DMS;
+  resourceViewDesc.Texture2D.MostDetailedMip = 0;
+	resourceViewDesc.Texture2D.MipLevels = fileInfo.MipLevels;
+  resourceViewDesc.Format = fileInfo.Format;
+
+
+  ID3D11ShaderResourceView* resourceView;
+  result = device_->CreateShaderResourceView(texture, &resourceViewDesc, &resourceView);
+  assert(result == S_OK);
+
+  unsigned int textureId = textures_.size();
+  DirectXTexture textureContainer;
+  textureContainer.textureData = texture;
+  textureContainer.mipLevels = fileInfo.MipLevels;
+  textureContainer.resourceView = resourceView;
+  textures_.push_back(textureContainer);
   return textureId;
+
 }
 
 void Direct3D11GraphicsInterface::setTexture(int textureId, ID3DX11EffectVariable* variable) {

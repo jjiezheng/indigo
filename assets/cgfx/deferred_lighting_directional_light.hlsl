@@ -1,4 +1,5 @@
 #include "utils.cg"
+#include "blend_states.hlsl"
 
 Texture2D NormalMap;
 SamplerState NormalSamplerState;
@@ -38,5 +39,6 @@ technique11 Main {
   pass P0 {
     SetVertexShader(CompileShader(vs_4_0, vs()));
     SetPixelShader(CompileShader(ps_4_0, ps()));
+    SetBlendState(SrcAlphaBlendingAdd, float4(0.0f, 0.0f, 0.0f, 0.0f), 0xFFFFFFFF);
   }
 }

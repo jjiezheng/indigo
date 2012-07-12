@@ -30,8 +30,7 @@ void DeferredDirectionalLightsPass::render(IViewer* viewer, World& world, const 
     directionalLightEffect_->setUniform((*light).color(), "LightColor");
 
     directionalLightEffect_->beginDraw();
+    GraphicsInterface::setRenderState(true);
     GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
   }
-
-  GraphicsInterface::resetRenderTarget();
 }

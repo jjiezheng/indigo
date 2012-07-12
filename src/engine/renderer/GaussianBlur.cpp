@@ -30,6 +30,7 @@ void GaussianBlur::init(const CSize& bufferSize, int tapSize) {
 }
 
 void GaussianBlur::render(unsigned int sourceTexture) {
+  GraphicsInterface::setRenderState(true);
 
   {
     GraphicsInterface::setRenderTarget(gaussianHorizontalRenderTarget_, false);

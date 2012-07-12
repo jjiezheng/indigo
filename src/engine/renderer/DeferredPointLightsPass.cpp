@@ -42,9 +42,5 @@ void DeferredPointLightsPass::render(IViewer* viewer, World& world, const SceneC
     pointLightEffect_->beginDraw();
     GraphicsInterface::setRenderState(cullBackFaces);
     pointLightModel_->render();
-    GraphicsInterface::setRenderState(true);
-    pointLightEffect_->resetStates();
   }
-
-  GraphicsInterface::resetRenderTarget();
 }

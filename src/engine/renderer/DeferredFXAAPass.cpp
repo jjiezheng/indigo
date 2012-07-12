@@ -16,8 +16,6 @@ void DeferredFXAAPass::init() {
 void DeferredFXAAPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
   GraphicsInterface::setRenderTarget(fxaaRenderTarget_, false);
 
-  fxaaEffect_->beginDraw();
-
   fxaaEffect_->setTexture(compositionRenderTexture_, "FinalMap");
 
   CSize screenSize = GraphicsInterface::screenSize();
@@ -26,9 +24,7 @@ void DeferredFXAAPass::render(IViewer* viewer, World& world, const SceneContext&
   screenSizeInv.y = 1.0f / screenSize.height;
   fxaaEffect_->setUniform(screenSizeInv, "ScreenSizeInv");
 
+  fxaaEffect_->beginDraw();
   GraphicsInterface::setRenderState(true);
   GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
-  fxaaEffect_->resetStates();
-
-  GraphicsInterface::resetRenderTarget();
 }

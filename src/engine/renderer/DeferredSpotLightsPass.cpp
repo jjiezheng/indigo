@@ -39,7 +39,6 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
 
    if ((*light)->castsShadows()) {
       // create shadowmap
-      GraphicsInterface::clearBuffer(Color4::WHITE);
       GraphicsInterface::setRenderTarget((*light)->shadowMapRenderTarget(), true);
       GraphicsInterface::clearRenderTarget((*light)->shadowMapRenderTarget(), Color4::WHITE);
 
@@ -52,11 +51,8 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
           shadowMapEffect_->beginDraw();
           GraphicsInterface::setRenderState(true);
           (*meshIt)->render();
-          shadowMapEffect_->resetStates();
         }
       }
-
-      GraphicsInterface::resetRenderTarget();
 
       gaussianBlur_.render((*light)->shadowMapTexture());
     }
@@ -89,11 +85,8 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
       lightEffect_->setUniform((*light)->decay(), "LightDecay");
 
       lightEffect_->beginDraw();
-      GraphicsInterface::setRenderState(false);
+      GraphicsInterface::setRenderState(true);
       spotLightModel_->render();
-      lightEffect_->resetStates();
-
-      GraphicsInterface::resetRenderTarget();
     }
   }
 }

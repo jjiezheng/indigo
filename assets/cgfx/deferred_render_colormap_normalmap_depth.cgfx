@@ -1,23 +1,15 @@
 #include "utils.cg"
 
-sampler2D ColorMap = sampler_state {
-	MinFilter = LinearMipMapLinear;
-	MagFilter = Linear;
-	WrapS = Repeat;
-	WrapT = Repeat;
-};
+Texture2D ColorMap;
+SamplerState ColorMapSamplerState;
 
-sampler2D NormalMap = sampler_state {
-	MinFilter = LinearMipMapLinear;
-	MagFilter = Linear;
-	WrapS = Repeat;
-	WrapT = Repeat;
-};
+Texture2D NormalMap;
+SamplerState NormalMapSamplerState;
 
 uniform float4x4 WorldViewProj;
 
 struct VOutput {
-	float4 position			: POSITION;
+	float4 position			: SV_POSITION;
 	float3 normal			: TEXCOORD0;
 	float2 texCoord			: TEXCOORD1;
 	float depth				: TEXCOORD2;
@@ -35,24 +27,25 @@ VOutput vs(float4 position 		: POSITION,
 }
 
 struct POutput {
-	float4 color 	: COLOR0;
-	float4 normal 	: COLOR1;
-	float4 depth 	: COLOR2;
+	float4 color 	: SV_TARGET0;
+	float4 normal 	: SV_TARGET1;
+	float4 depth 	: SV_TARGET2;
 };
 
-POutput ps(float3 normal			: TEXCOORD0,
+POutput ps(float4 position			: SV_POSITION,
+		   float3 normal			: TEXCOORD0,
 		   float2 texCoord			: TEXCOORD1,
 		   float  depth 			: TEXCOORD2) {
 	POutput OUT;
-	OUT.color = tex2D(ColorMap, texCoord);					
-	OUT.normal = tex2D(NormalMap, texCoord);
+	OUT.color = ColorMap.Sample(ColorMapSamplerState, texCoord);					
+	OUT.normal = ColorMap.Sample(NormalMapSamplerState, texCoord);
 	OUT.depth = float4(depth, depth, depth, 1);
 	return OUT;
 }
 
-technique dx {
-	pass {
-		VertexProgram = compile vs_4_0 vs();
-		FragmentProgram = compile ps_4_0 ps();
+technique11 Main {
+	pass P0 {
+		SetVertexShader(CompileShader(vs_4_0, vs()));
+		SetPixelShader(CompileShader(ps_4_0, ps()));
 	}
 }

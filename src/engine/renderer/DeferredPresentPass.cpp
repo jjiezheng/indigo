@@ -17,5 +17,6 @@ void DeferredPresentPass::render(IViewer* viewer, World& world, const SceneConte
   GraphicsInterface::clearBuffer(sceneContext.backgroundColor());
   effect_->beginDraw();
   effect_->setTexture(fullScreenTexture_, "Texture");
+  GraphicsInterface::setRenderState(true);
   GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
 }
