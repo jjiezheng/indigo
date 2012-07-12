@@ -85,7 +85,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
       lightEffect_->setUniform((*light)->decay(), "LightDecay");
 
       lightEffect_->beginDraw();
-      GraphicsInterface::setRenderState(true);
+      GraphicsInterface::setRenderState(false);
       spotLightModel_->render();
     }
   }

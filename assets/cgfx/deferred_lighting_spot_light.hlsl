@@ -97,10 +97,10 @@ float4 ps(float4 position 		: SV_POSITION,
 
 	if (moments.x < pixelWorldPositionFromLightHom.z && shadowCoord.x > 0.0f && shadowCoord.x < 1.0f) {
 		shadowLightContribution = ChebyshevUpperBound(moments.xy, pixelWorldPositionFromLightHom.z, 0.000005f);
-		shadowLightContribution = ReduceLightBleeding(shadowLightContribution, 0.9);
+		shadowLightContribution = ReduceLightBleeding(shadowLightContribution, 0.9f);
 	}
 
-	return finalColor * shadowLightContribution;
+	return float4(finalColor.rgb * shadowLightContribution, finalColor.a);
 } 
 
 technique11 Main {
