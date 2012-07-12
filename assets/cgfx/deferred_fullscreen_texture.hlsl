@@ -19,7 +19,7 @@ float4 ps(float4 position : SV_POSITION,
 	return Texture.Sample(TextureSampler, texCoord);
 }
 
-technique11 Test {
+technique11 Main {
 	pass P0 {
 		SetVertexShader(CompileShader(vs_4_0, vs()));
 		SetPixelShader(CompileShader(ps_4_0, ps()));

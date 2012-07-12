@@ -16,13 +16,9 @@ void DeferredCompositionPass::init() {
 
 void DeferredCompositionPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
   GraphicsInterface::setRenderTarget(finalRenderTarget_, false);
-  GraphicsInterface::clearRenderTarget(finalRenderTarget_, sceneContext.backgroundColor());
   
-  finalEffect_->beginDraw();
   finalEffect_->setTexture(colorMapTexture_, "ColorMap");
   finalEffect_->setTexture(lightMapTexture_, "LightMap");
-  GraphicsInterface::setRenderState(true);
+  finalEffect_->beginDraw();
   GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
-  finalEffect_->resetStates();
-  GraphicsInterface::resetRenderTarget();
 }
