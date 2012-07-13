@@ -1,4 +1,3 @@
-
 sampler2D TextureMap = sampler_state {
 	MinFilter = Linear;
 	MagFilter = Linear;

@@ -1,11 +1,14 @@
-#include "utils.cg"
-#include "blend_states.hlsl"
+#include "standard.hlsl"
 
 Texture2D NormalMap;
-SamplerState NormalMapSamplerState;
+SamplerState NormalMapSamplerState {
+	Filter = MIN_MAG_MIP_LINEAR;
+};
 
 Texture2D DepthMap;
-SamplerState DepthMapSamplerState;
+SamplerState DepthMapSamplerState {
+	Filter = MIN_MAG_MIP_LINEAR;
+};
 
 uniform float4 LightPosition;
 uniform float3 LightColor;
@@ -59,6 +62,6 @@ technique11 Main {
 	pass P0 {
 		SetVertexShader(CompileShader(vs_4_0, vs()));
 		SetPixelShader(CompileShader(ps_4_0, ps()));
-		SetBlendState(SrcAlphaBlendingAdd, float4(0.0f, 0.0f, 0.0f, 0.0f), 0xFFFFFFFF);
+		SetBlendState(Add, float4(0.0f, 0.0f, 0.0f, 0.0f), 0xFFFFFFFF);
 	}
 }

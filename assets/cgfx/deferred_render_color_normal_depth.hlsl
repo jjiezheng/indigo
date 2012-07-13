@@ -1,4 +1,4 @@
-#include "utils.cg"
+#include "standard.hlsl"
 
 uniform	float3 DiffuseColor;
 uniform	float3 AmbientColor;
@@ -43,5 +43,6 @@ technique11 Test {
 	pass P0 {
 		SetVertexShader(CompileShader(vs_4_0, vs()));
 		SetPixelShader(CompileShader(ps_4_0, ps()));
+		SetBlendState(NoBlend, float4(0.0f, 0.0f, 0.0f, 0.0f), 0xFFFFFFFF);
 	}
 }

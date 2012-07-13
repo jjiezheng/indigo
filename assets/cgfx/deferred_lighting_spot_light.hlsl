@@ -1,5 +1,4 @@
-#include "utils.cg"
-#include "blend_states.hlsl"
+#include "standard.hlsl"
 
 Texture2D NormalMap;
 SamplerState NormalMapSamplerState;
@@ -58,7 +57,7 @@ float4 ps(float4 position 		: SV_POSITION,
 	float4 positionWorldRaw = mul(ViewProjInv, positionScreen);
 	float4 positionWorld = positionWorldRaw / positionWorldRaw.w;
 
-	float4 finalColor = float4(0, 0, 0, 1.0f);
+	float4 finalColor = float4(0, 0, 0, 0.0f);
 
 	//------------------------------------------------------------
 	// spot light
@@ -107,6 +106,6 @@ technique11 Main {
 	pass P0 {
 		SetVertexShader(CompileShader(vs_4_0, vs()));
 		SetPixelShader(CompileShader(ps_4_0, ps()));
-		SetBlendState(SrcAlphaBlendingAdd, float4(0.0f, 0.0f, 0.0f, 0.0f), 0xFFFFFFFF);
+		SetBlendState(Add, float4(0.0f, 0.0f, 0.0f, 0.0f), 0xFFFFFFFF);
 	}
 }
