@@ -13,6 +13,7 @@
 #include "DeferredShadowPass.h"
 #include "DeferredFullScreenBlurPass.h"
 #include "DeferredPresentPass.h"
+#include "DeferredSSAOPass.h"
 
 #include "GraphicsInterface.h"
 
@@ -41,6 +42,9 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
   fxaaMapTexture_ = GraphicsInterface::createTexture(screenSize);
   fxaaRenderTarget_ = GraphicsInterface::createRenderTarget(fxaaMapTexture_);
 
+  ssaoMapTexture_ = GraphicsInterface::createTexture(screenSize);
+  ssaoRenderTarget_ = GraphicsInterface::createRenderTarget(ssaoMapTexture_);
+
   fullScreenBlurTexture_ = GraphicsInterface::createTexture(screenSize);
   fullScreenBlurRenderTarget_ = GraphicsInterface::createRenderTarget(fullScreenBlurTexture_);
 
@@ -61,6 +65,9 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
 
   IDeferredPass* compositionPass = new DeferredCompositionPass(compositionRenderTarget_, colorMapTexture_, lightMapTexture_);
   passes_.push_back(compositionPass);
+
+  IDeferredPass* ssaoPass = new DeferredSSAOPass(ssaoRenderTarget_, normalMapTexture_, depthMapTexture_);
+  passes_.push_back(ssaoPass);
 
   IDeferredPass* fxaaPass = new DeferredFXAAPass(fxaaRenderTarget_, compositionMapTexture_);
   passes_.push_back(fxaaPass);

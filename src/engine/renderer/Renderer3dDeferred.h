@@ -45,6 +45,9 @@ private:
   unsigned int fxaaMapTexture_;
   unsigned int fxaaRenderTarget_;
 
+  unsigned int ssaoMapTexture_;
+  unsigned int ssaoRenderTarget_;
+
   unsigned int fullScreenBlurTexture_;
   unsigned int fullScreenBlurRenderTarget_;
 
