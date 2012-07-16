@@ -9,8 +9,9 @@ class DeferredSSAOPass : public IDeferredPass {
 
 public:
 
-  DeferredSSAOPass(unsigned int ssaoRenderTarget, unsigned int normalMapTexture, unsigned int depthMapTexture)
+  DeferredSSAOPass(unsigned int ssaoRenderTarget, unsigned int colorMapTexture, unsigned int normalMapTexture, unsigned int depthMapTexture)
     : ssaoRenderTarget_(ssaoRenderTarget)
+    , colorMapTexture_(colorMapTexture)
     , normalMapTexture_(normalMapTexture)
     , depthMapTexture_(depthMapTexture) { }
 
@@ -27,7 +28,7 @@ private:
   unsigned int quadVbo_;
 
   unsigned int ssaoRenderTarget_;
-  
+  unsigned int colorMapTexture_;
   unsigned int normalMapTexture_;
   unsigned int depthMapTexture_;
 

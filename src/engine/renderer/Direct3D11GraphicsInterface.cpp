@@ -338,3 +338,7 @@ void Direct3D11GraphicsInterface::generateMipMaps(unsigned int textureId) {
 
   deviceConnection_->GenerateMips(resourceView);
 }
+
+void Direct3D11GraphicsInterface::fillTexture(unsigned int textureId, void* data, unsigned int dataSize) {
+  DirectXTexture texture = textures_[textureId];
+}

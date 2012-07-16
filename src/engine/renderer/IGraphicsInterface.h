@@ -57,6 +57,8 @@ public:
 
   virtual void generateMipMaps(unsigned int textureId) = 0;
 
+  virtual void fillTexture(unsigned int textureId, void* data, unsigned int dataSize) = 0;
+
 public:
 
   virtual void setRenderTarget(unsigned int* textureId, unsigned int renderTargetCount, bool useDepthBuffer) = 0;
@@ -70,7 +72,7 @@ public:
 public:
 
   virtual bool getKeySate(char key) = 0;
-
+  
 protected:
 
   bool windowClosed_;

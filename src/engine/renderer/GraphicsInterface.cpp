@@ -108,3 +108,7 @@ void GraphicsInterface::resetRenderTarget() {
 void GraphicsInterface::generateMipMaps(unsigned int textureId) {
   graphicsInterface_->generateMipMaps(textureId);
 }
+
+void GraphicsInterface::fillTexture(unsigned int textureId, void* data, unsigned int dataSize) {
+  graphicsInterface_->fillTexture(textureId, data, dataSize);
+}

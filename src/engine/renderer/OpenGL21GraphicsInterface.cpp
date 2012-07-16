@@ -338,3 +338,7 @@ void OpenGL21GraphicsInterface::resetRenderTarget() {
 void OpenGL21GraphicsInterface::generateMipMaps(unsigned int textureId) {
 
 }
+
+void OpenGL21GraphicsInterface::fillTexture(unsigned int textureId, void* data, unsigned int dataSize) {
+
+}
