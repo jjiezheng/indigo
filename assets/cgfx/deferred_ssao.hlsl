@@ -1,5 +1,12 @@
 #include "standard.hlsl"
 
+uniform float2 NoiseScale;
+
+Texture2D NoiseMap;
+SamplerState NoiseMapSamplerState {
+	Filter = MIN_MAG_MIP_LINEAR;
+};
+
 Texture2D ColorMap;
 SamplerState ColorMapSamplerState {
 	Filter = MIN_MAG_MIP_LINEAR;
@@ -45,15 +52,9 @@ float4 ps(float4 position 		: SV_POSITION,
 	positionScreen.z = depth; 
 	positionScreen.w = 1.0f;
 
-	
 
-	vec3 rvec = texture(RANDOM, TEXCOORD * NOISE_SCALE).xyz * 2.0 - 1.0;
-
-	vec3 tangent = normalize(rvec - normal * dot(rvec, normal));
-	vec3 bitangent = cross(normal, tangent);
-
-	mat3 tbn = mat3(tangent, bitangent, normal);
-
+	float4 randomNoiseData = NoiseMap.Sample(NoiseMapSamplerState, texCoord);
+	return randomNoiseData;
 }
 
 

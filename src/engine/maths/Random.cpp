@@ -7,6 +7,6 @@ void Random::seed() {
   srand(time(NULL));
 }
 
-int Random::random(int low, int high) {
-  return rand() % low + high;
+float Random::random(float low, float high) {
+  return 1; //rand() % high + low;
 }

@@ -32,6 +32,8 @@ private:
   unsigned int normalMapTexture_;
   unsigned int depthMapTexture_;
 
+  unsigned int noiseTexture_;
+
 };
 
 #endif

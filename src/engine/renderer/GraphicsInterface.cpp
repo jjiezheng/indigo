@@ -82,7 +82,11 @@ unsigned int GraphicsInterface::createTexture(const CSize& dimensions) {
 }
 
 unsigned int GraphicsInterface::createTexture(const CSize& dimensions, unsigned int mipLevels) {
-  return graphicsInterface_->createTexture(dimensions, mipLevels);
+  return createTexture(dimensions, mipLevels, NULL, 0);
+}
+
+unsigned int GraphicsInterface::createTexture(const CSize& dimensions, unsigned int mipLevels, void* textureData, unsigned int textureLineSize) {
+  return graphicsInterface_->createTexture(dimensions, mipLevels, textureData, textureLineSize);
 }
 
 void GraphicsInterface::setRenderTarget(unsigned int renderTargetId, bool useDepthBuffer) {

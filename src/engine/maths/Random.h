@@ -7,7 +7,7 @@ public:
 
   static void seed();
 
-  static int random(int low, int high);
+  static float random(float low, float high);
 
 };
 

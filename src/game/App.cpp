@@ -6,7 +6,7 @@
 int App::run(const char* sceneFile) {
   Random::seed();
   GraphicsInterface::init(GRAPHICSAPI_D3D11);
-  GraphicsInterface::openWindow(1024, 768, 4);
+  GraphicsInterface::openWindow(1024, 768, 1);
 
   game_.init(sceneFile);
 

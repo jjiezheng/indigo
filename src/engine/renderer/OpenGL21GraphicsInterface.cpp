@@ -241,7 +241,7 @@ void OpenGL21GraphicsInterface::resetGraphicsState(bool cullBack) {
   GLUtilities::checkForError();
 }
 
-unsigned int OpenGL21GraphicsInterface::createTexture(const CSize& dimensions, unsigned int mipLevels) {
+unsigned int OpenGL21GraphicsInterface::createTexture(const CSize& dimensions, unsigned int mipLevels, void* textureData, unsigned int textureLineSize) {
   GLuint texture;
   glGenTextures(1, &texture);
   glBindTexture(GL_TEXTURE_2D, texture);
