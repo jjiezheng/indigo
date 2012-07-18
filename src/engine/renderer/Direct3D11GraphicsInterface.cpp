@@ -322,7 +322,7 @@ unsigned int Direct3D11GraphicsInterface::createTexture(const CSize& dimensions,
     assert(result == S_OK);
   }
   else {
-    HRESULT result = device_->CreateTexture2D(&textureDesc, NULL, &texture);
+    HRESULT result = device_->CreateTexture2D(&textureDesc, &data, &texture);
     assert(result == S_OK);
   }
 

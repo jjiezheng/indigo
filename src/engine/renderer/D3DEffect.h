@@ -37,6 +37,8 @@ public:
 
   void setUniform(const Vector4& uniformData, const char* uniformName) const;
 
+  void setUniform(const Vector4* uniformData, unsigned int uniformDataCount, const char* uniformName) const;
+
   void setUniform(int uniformData, const char* uniformName) const;
 
   void setUniform(float uniformData, const char* uniformName) const;

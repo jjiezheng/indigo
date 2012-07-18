@@ -51,6 +51,10 @@ void CGGLEffect::setUniform(const Vector4& uniformData, const char* uniformName)
   cgGLSetParameter4fv(parameter, uniformData.valuePtr()); 
 }
 
+void CGGLEffect::setUniform(const Vector4* uniformData, unsigned int uniformDataSize, const char* uniformName) const {
+
+}
+
 void CGGLEffect::setUniform(const Matrix3x3& uniformData, const char* uniformName) const {
   CGparameter parameter = cgGetNamedEffectParameter(effect_, uniformName);
   if (!parameter) return;

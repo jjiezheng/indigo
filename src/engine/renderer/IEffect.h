@@ -58,6 +58,8 @@ public:
 
   virtual void setUniform(const Vector4& uniformData, const char* uniformName) const = 0;
 
+  virtual void setUniform(const Vector4* uniformData, unsigned int uniformDataSize, const char* uniformName) const = 0;
+
   virtual void setUniform(int uniformData, const char* uniformName) const = 0;
 
   virtual void setUniform(float uniformData, const char* uniformName) const = 0;

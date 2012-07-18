@@ -117,6 +117,13 @@ void D3DEffect::setUniform(const Vector4& uniformData, const char* uniformName) 
   }
 }
 
+void D3DEffect::setUniform(const Vector4* uniformData, unsigned int uniformDataCount, const char* uniformName) const {
+  ID3DX11EffectVariable* variable = effect_->GetVariableByName(uniformName);
+  if (variable->IsValid()) {
+    variable->AsVector()->SetFloatVectorArray((float*)uniformData, 0, uniformDataCount);
+  }
+}
+
 void D3DEffect::setUniform(int uniformData, const char* uniformName) const {
   ID3DX11EffectVariable* variable = effect_->GetVariableByName(uniformName);
   if (variable->IsValid()) {
