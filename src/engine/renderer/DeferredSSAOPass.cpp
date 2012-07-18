@@ -42,8 +42,8 @@ void DeferredSSAOPass::init() {
   const unsigned int noiseSize = kNoisePixelLine * kNoisePixelLine;
   Vector4 noise[noiseSize];
   for (unsigned i = 0; i < noiseSize; ++i) {
-    float x = Random::random(-1.0f, 1.0f);
-    float y = Random::random(-1.0f, 1.0f);
+    float x = 1.0f;// Random::random(-1.0f, 1.0f);
+    float y = 0.0f;// Random::random(-1.0f, 1.0f);
     Vector4 noiseV(x, y, 0.0f, 1.0f);
 	  Vector4 noiseN = noiseV.normalize();
     noise[i] = noiseN;
@@ -55,7 +55,7 @@ void DeferredSSAOPass::init() {
   Vector2 noiseScale = Vector2(GraphicsInterface::screenWidth() / kKernelSize, GraphicsInterface::screenHeight() / kNoisePixelLine);
   ssaoEffect_->setUniform(noiseScale, "NoiseScale");
 
-  ssaoEffect_->setUniform(0.5f, "Radius");
+  ssaoEffect_->setUniform(0.1f, "Radius");
 }
 
 void DeferredSSAOPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {

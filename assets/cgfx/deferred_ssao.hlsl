@@ -68,7 +68,7 @@ float4 ps(float4 position 		: SV_POSITION,
 	float3 zVector = normalize(normal);
 	float3 zComplimentVector = normalize(randomNoise);
 
-	float3 yVector = normalize(zVector - (zComplimentVector * dot(zVector, zComplimentVector)));
+	float3 yVector = normalize(zVector - zComplimentVector * dot(zVector, zComplimentVector));
 	float3 xVector = cross(zVector, yVector);
 
 	float3x3 tbn;
@@ -82,13 +82,14 @@ float4 ps(float4 position 		: SV_POSITION,
 		float3 sample = mul(tbn, SampleKernel[i].xyz);
 		sample = sample * Radius + positionWorld;
 			
-		//	project sample position:
-		float4 offset = float4(sample, 1.0);
-		offset = mul(Projection, positionWorld);
+		//	project sample position
+		float4 offset = float4(sample, 1.0f);
+		offset = mul(ViewProjInv, offset);
 		offset.xy /= offset.w;
 		offset.xy = offset.xy * 0.5 + 0.5;
+		offset.w = 1.0f;
 
-		// get sample depth:
+		// get sample depth
 		float sampleDepth = DepthMap.Sample(DepthMapSamplerState, offset.xy);
 
 		//	range check & accumulate:
@@ -101,7 +102,7 @@ float4 ps(float4 position 		: SV_POSITION,
 
 	occlusion = 1.0 - (occlusion / SampleKernelSize);
 
-	return float4(occlusion, occlusion, occlusion, 1.0f);
+	return float4(yVector, 1.0f);
 }
 
 
