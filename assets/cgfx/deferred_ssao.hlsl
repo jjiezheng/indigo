@@ -62,15 +62,26 @@ float4 ps(float4 position 		: SV_POSITION,
 	float4 positionWorld = positionWorldRaw / positionWorldRaw.w;
 
 	float4 randomNoiseData = NoiseMap.Sample(NoiseMapSamplerState, texCoord * NoiseScale);
-	float3 randomNoise = contract(randomNoiseData);
+	float3 randomNoise = randomNoiseData.xyz;
 
 	// construct a basis from the normal and noise value
+	//float3 zVector = normalize(normal);
+
+
+
 	float3 zVector = normalize(normal);
-	float3 zComplimentVector = normalize(randomNoise);
+	float3 xVector = cross(zVector, float3(0, 1, 0));
+	float3 yVector = cross(xVector, zVector);
 
-	float3 yVector = normalize(zVector - zComplimentVector * dot(zVector, zComplimentVector));
-	float3 xVector = cross(zVector, yVector);
+	float3x3 normalBasis = float3x3(xVector, yVector, zVector);
 
+
+
+	return float4(yVector, 1);
+
+	//float3 yVector = normalize(zVector - zComplimentVector * dot(zVector, zComplimentVector));
+//	float3 xVector = cross(zVector, yVector);
+/*
 	float3x3 tbn;
 	tbn[0] = xVector;
 	tbn[1] = yVector;
@@ -102,7 +113,7 @@ float4 ps(float4 position 		: SV_POSITION,
 
 	occlusion = 1.0 - (occlusion / SampleKernelSize);
 
-	return float4(yVector, 1.0f);
+	return float4(yVector, 1.0f);*/
 }
 
 

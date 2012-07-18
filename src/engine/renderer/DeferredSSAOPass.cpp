@@ -42,9 +42,9 @@ void DeferredSSAOPass::init() {
   const unsigned int noiseSize = kNoisePixelLine * kNoisePixelLine;
   Vector4 noise[noiseSize];
   for (unsigned i = 0; i < noiseSize; ++i) {
-    float x = 1.0f;// Random::random(-1.0f, 1.0f);
+    float x = 0.0f;// Random::random(-1.0f, 1.0f);
     float y = 0.0f;// Random::random(-1.0f, 1.0f);
-    Vector4 noiseV(x, y, 0.0f, 1.0f);
+    Vector4 noiseV(x, y, 1.0f, 0.0f);
 	  Vector4 noiseN = noiseV.normalize();
     noise[i] = noiseN;
   }
