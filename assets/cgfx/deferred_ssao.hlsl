@@ -8,6 +8,8 @@ uniform float Radius;
 Texture2D NoiseMap;
 SamplerState NoiseMapSamplerState {
 	Filter = MIN_MAG_MIP_LINEAR;
+	AddressU = Wrap;
+    AddressV = Wrap;
 };
 
 Texture2D ColorMap;
@@ -62,13 +64,17 @@ float4 ps(float4 position 		: SV_POSITION,
 	float4 randomNoiseData = NoiseMap.Sample(NoiseMapSamplerState, texCoord * NoiseScale);
 	float3 randomNoise = contract(randomNoiseData);
 
-	float3 tangent = normalize(randomNoise - normal * dot(randomNoise, normal));
-	float3 bitangent = cross(normal, tangent);
+	// construct a basis from the normal and noise value
+	float3 zVector = normalize(normal);
+	float3 zComplimentVector = normalize(randomNoise);
+
+	float3 yVector = normalize(zVector - (zComplimentVector * dot(zVector, zComplimentVector)));
+	float3 xVector = cross(zVector, yVector);
 
 	float3x3 tbn;
-	tbn[0] = tangent;
-	tbn[1] = bitangent;
-	tbn[2] = normal;
+	tbn[0] = xVector;
+	tbn[1] = yVector;
+	tbn[2] = zVector;
 
 	float occlusion = 0.0;
 	for (int i = 0; i < SampleKernelSize; ++i) {
@@ -82,13 +88,18 @@ float4 ps(float4 position 		: SV_POSITION,
 		offset.xy /= offset.w;
 		offset.xy = offset.xy * 0.5 + 0.5;
 
-		//	get sample depth:
-		float sample_depth = DepthMap.Sample(DepthMapSamplerState, texCoord);
+		// get sample depth:
+		float sampleDepth = DepthMap.Sample(DepthMapSamplerState, offset.xy);
 
 		//	range check & accumulate:
-		float range_check = abs(positionWorld.z - sample_depth) < Radius ? 1.0 : 0.0;
-		occlusion += (sample_depth <= sample.z ? 1.0 : 0.0) * range_check;
+		float range = abs(positionWorld.z - sampleDepth);
+		if (range < Radius) {
+			float occlusionSample = sampleDepth <= sample.z ? 1.0 : 0.0;
+			occlusion += occlusionSample; 
+		}
 	} 
+
+	occlusion = 1.0 - (occlusion / SampleKernelSize);
 
 	return float4(occlusion, occlusion, occlusion, 1.0f);
 }
