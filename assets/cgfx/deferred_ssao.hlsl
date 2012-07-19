@@ -84,7 +84,7 @@ float4 ps(float4 position 		: SV_POSITION,
 
 	float occlusion = 0.0f;
 
-	float radius = 0.5f;
+	float radius = 0.9f;
 
 	for (int i = 0; i < 16; i++) {
 		float3 ray = reflect(samples[i].xyz, randomNormal) * radius;
@@ -100,7 +100,7 @@ float4 ps(float4 position 		: SV_POSITION,
 		float sampleDepth = DepthMap.Sample(DepthMapSamplerState, sampleTexCoord);
 
 		if (sampleDepth != 1.0f) {
-			occlusion += 0.8f;
+			occlusion += 0.6f;
 		}
 
 	}
