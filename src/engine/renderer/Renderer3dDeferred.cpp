@@ -45,6 +45,9 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
   ssaoMapTexture_ = GraphicsInterface::createTexture(screenSize);
   ssaoRenderTarget_ = GraphicsInterface::createRenderTarget(ssaoMapTexture_);
 
+  ssaoCombineMapTexture_ = GraphicsInterface::createTexture(screenSize);
+  ssaoCombineRenderTarget_ = GraphicsInterface::createRenderTarget(ssaoCombineMapTexture_);
+
   fullScreenBlurTexture_ = GraphicsInterface::createTexture(screenSize);
   fullScreenBlurRenderTarget_ = GraphicsInterface::createRenderTarget(fullScreenBlurTexture_);
 
@@ -69,14 +72,17 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
   IDeferredPass* ssaoPass = new DeferredSSAOPass(ssaoRenderTarget_, colorMapTexture_, normalMapTexture_, depthMapTexture_);
   passes_.push_back(ssaoPass);
 
-  //IDeferredPass* fxaaPass = new DeferredFXAAPass(fxaaRenderTarget_, ssaoMapTexture_);
-  //passes_.push_back(fxaaPass);
+  IDeferredPass* ssaoCompositionPass = new DeferredCompositionPass(ssaoCombineRenderTarget_, compositionMapTexture_, ssaoMapTexture_);
+  passes_.push_back(ssaoCompositionPass);
+
+  IDeferredPass* fxaaPass = new DeferredFXAAPass(fxaaRenderTarget_, ssaoCombineMapTexture_);
+  passes_.push_back(fxaaPass);
 
   /*IDeferredPass* fullScreenBlurPass = new DeferredFullScreenBlurPass(fxaaMapTexture_, fullScreenBlurRenderTarget_);
   passes_.push_back(fullScreenBlurPass);*/
 
-  //IDeferredPass* presentPass = new DeferredPresentPass(ssaoMapTexture_);
-  //passes_.push_back(presentPass);
+  IDeferredPass* presentPass = new DeferredPresentPass(ssaoMapTexture_);
+  passes_.push_back(presentPass);
 
   for (std::vector<IDeferredPass*>::iterator i = passes_.begin(); i != passes_.end(); ++i) {
     (*i)->init();

@@ -36,11 +36,16 @@ void DeferredSSAOPass::init() {
   ssaoEffect_->setUniform(noiseScale, "NoiseScale");
 
   ssaoEffect_->setUniform(0.1f, "Radius");
+
+  ssaoRenderTexture_ = GraphicsInterface::createTexture(GraphicsInterface::screenSize());
+  ssaoRenderTarget_ = GraphicsInterface::createRenderTarget(ssaoRenderTexture_);
+
+  blur_.init(GraphicsInterface::screenSize(), 4);
+  blur_.setRenderTarget(outputRenderTarget_);
 }
 
 void DeferredSSAOPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
   GraphicsInterface::setRenderTarget(ssaoRenderTarget_, false);
-  GraphicsInterface::resetRenderTarget();
 
   ssaoEffect_->setUniform(viewer->projection(), "Projection");
 
@@ -55,4 +60,6 @@ void DeferredSSAOPass::render(IViewer* viewer, World& world, const SceneContext&
   ssaoEffect_->beginDraw();
   GraphicsInterface::setRenderState(true);
   GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
+
+  blur_.render(ssaoRenderTexture_);
 }
