@@ -49,6 +49,8 @@ void DeferredSSAOPass::render(IViewer* viewer, World& world, const SceneContext&
 
   ssaoEffect_->setUniform(viewer->projection(), "Projection");
 
+  ssaoEffect_->setUniform(viewer->projection().inverse(), "ProjInv");
+
   Matrix4x4 viewProjection = viewer->projection() * viewer->viewTransform();
   ssaoEffect_->setUniform(viewProjection, "ViewProj");
   ssaoEffect_->setUniform(viewProjection.inverse(), "ViewProjInv");

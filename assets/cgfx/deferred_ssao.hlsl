@@ -46,6 +46,7 @@ SamplerState DepthMapSamplerState {
 
 uniform float4x4 Projection;
 uniform float4x4 WorldViewProj;
+uniform float4x4 ProjInv;
 uniform float4x4 ViewProj;
 uniform float4x4 ViewProjInv;
 
@@ -76,6 +77,8 @@ float4 ps(float4 position 		: SV_POSITION,
 	positionScreen.z = depth; 
 	positionScreen.w = 1.0f;
 
+	float4 positionView = mul(ProjInv, positionScreen);
+
 	// SSAO
 	float3 randomNormal = NoiseMap.Sample(NoiseMapSamplerState, texCoord * NoiseScale);
 
@@ -90,24 +93,14 @@ float4 ps(float4 position 		: SV_POSITION,
 			ray += normal * radius;
 		}
 
-		float4 sample = float4(positionScreen.xyz, 1.0f);
+		float4 sample = float4(positionView.xyz + ray, 1.0f);
 		float4 screenSpaceCoord = mul(sample, Projection);
 		float2 sampleTexCoord = contract(screenSpaceCoord);
 
-		if (sampleTexCoord.x > 0.0f && sampleTexCoord.x < 1.0f && sampleTexCoord.y > 0.0f && sampleTexCoord.y < 1.0f) {
+		float sampleDepth = DepthMap.Sample(DepthMapSamplerState, sampleTexCoord);
 
-			float sampleDepth = DepthMap.Sample(DepthMapSamplerState, sampleTexCoord);
-
-			return float4(sampleDepth, sampleDepth, sampleDepth, 1);
-
-			if (sampleDepth <= depth) {
-				occlusion += 0.4f;
-			}
-
-			/*if (sampleDepth != 1.0f) {
-				//occlusion += 20 * max(sampleDepth - depth, 0.0f);
-				occlusion += 1.0f;
-			}*/
+		if (sampleDepth != 1.0f) {
+			occlusion += 0.8f;
 		}
 
 	}
