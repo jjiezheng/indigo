@@ -1,9 +1,27 @@
 #include "standard.hlsl"
 
 uniform float2 NoiseScale;
-uniform int SampleKernelSize;
-uniform float4 SampleKernel[8];
 uniform float Radius;
+
+float4 samples[16] =
+	{
+		float4(0.355512, 	-0.709318, 	-0.102371,	0.0 ),
+		float4(0.534186, 	0.71511, 	-0.115167,	0.0 ),
+		float4(-0.87866, 	0.157139, 	-0.115167,	0.0 ),
+		float4(0.140679, 	-0.475516, 	-0.0639818,	0.0 ),
+		float4(-0.0796121, 	0.158842, 	-0.677075,	0.0 ),
+		float4(-0.0759516, 	-0.101676, 	-0.483625,	0.0 ),
+		float4(0.12493, 	-0.0223423,	-0.483625,	0.0 ),
+		float4(-0.0720074, 	0.243395, 	-0.967251,	0.0 ),
+		float4(-0.207641, 	0.414286, 	0.187755,	0.0 ),
+		float4(-0.277332, 	-0.371262, 	0.187755,	0.0 ),
+		float4(0.63864, 	-0.114214, 	0.262857,	0.0 ),
+		float4(-0.184051, 	0.622119, 	0.262857,	0.0 ),
+		float4(0.110007, 	-0.219486, 	0.435574,	0.0 ),
+		float4(0.235085, 	0.314707, 	0.696918,	0.0 ),
+		float4(-0.290012, 	0.0518654, 	0.522688,	0.0 ),
+		float4(0.0975089, 	-0.329594, 	0.609803,	0.0 )
+	};
 
 Texture2D NoiseMap;
 SamplerState NoiseMapSamplerState {
@@ -12,23 +30,23 @@ SamplerState NoiseMapSamplerState {
     AddressV = Wrap;
 };
 
-Texture2D ColorMap;
-SamplerState ColorMapSamplerState {
-	Filter = MIN_MAG_MIP_LINEAR;
-};
-
 Texture2D NormalMap;
 SamplerState NormalMapSamplerState {
 	Filter = MIN_MAG_MIP_LINEAR;
+	AddressU = Clamp;
+    AddressV = Clamp;
 };
 
 Texture2D DepthMap;
 SamplerState DepthMapSamplerState {
 	Filter = MIN_MAG_MIP_LINEAR;
+	AddressU = Clamp;
+    AddressV = Clamp;
 };
 
 uniform float4x4 Projection;
 uniform float4x4 WorldViewProj;
+uniform float4x4 ViewProj;
 uniform float4x4 ViewProjInv;
 
 struct VOutput {
@@ -58,62 +76,35 @@ float4 ps(float4 position 		: SV_POSITION,
 	positionScreen.z = depth; 
 	positionScreen.w = 1.0f;
 
-	float4 positionWorldRaw = mul(ViewProjInv, positionScreen);
-	float4 positionWorld = positionWorldRaw / positionWorldRaw.w;
+	// SSAO
+	float3 randomNormal = NoiseMap.Sample(NoiseMapSamplerState, texCoord * NoiseScale);
 
-	float4 randomNoiseData = NoiseMap.Sample(NoiseMapSamplerState, texCoord * NoiseScale);
-	float3 randomNoise = randomNoiseData.xyz;
+	float occlusion = 0.0f;
 
-	// construct a basis from the normal and noise value
-	//float3 zVector = normalize(normal);
+	float radius = 0.5f;
 
+	for (int i = 0; i < 16; i++) {
+		float3 ray = reflect(samples[i].xyz, randomNormal) * radius;
 
+		if (dot(ray, normal) < 0) ray += normal * radius;
 
-	float3 zVector = normalize(normal);
-	float3 xVector = cross(zVector, float3(0, 1, 0));
-	float3 yVector = cross(xVector, zVector);
+		float4 sample = float4(positionScreen.xyz + ray, 1.0f);
 
-	float3x3 normalBasis = float3x3(xVector, yVector, zVector);
+		float4 screenSpaceCoord = mul(sample, Projection);
 
+		float2 sampleTexCoord = contract(screenSpaceCoord);
 
+		float sampleDepth = DepthMap.Sample(DepthMapSamplerState, sampleTexCoord);
 
-	return float4(yVector, 1);
-
-	//float3 yVector = normalize(zVector - zComplimentVector * dot(zVector, zComplimentVector));
-//	float3 xVector = cross(zVector, yVector);
-/*
-	float3x3 tbn;
-	tbn[0] = xVector;
-	tbn[1] = yVector;
-	tbn[2] = zVector;
-
-	float occlusion = 0.0;
-	for (int i = 0; i < SampleKernelSize; ++i) {
-		//	get sample position:
-		float3 sample = mul(tbn, SampleKernel[i].xyz);
-		sample = sample * Radius + positionWorld;
-			
-		//	project sample position
-		float4 offset = float4(sample, 1.0f);
-		offset = mul(ViewProjInv, offset);
-		offset.xy /= offset.w;
-		offset.xy = offset.xy * 0.5 + 0.5;
-		offset.w = 1.0f;
-
-		// get sample depth
-		float sampleDepth = DepthMap.Sample(DepthMapSamplerState, offset.xy);
-
-		//	range check & accumulate:
-		float range = abs(positionWorld.z - sampleDepth);
-		if (range < Radius) {
-			float occlusionSample = sampleDepth <= sample.z ? 1.0 : 0.0;
-			occlusion += occlusionSample; 
+		if (sampleDepth != 1.0f) {
+			occlusion += 0.4f;
 		}
-	} 
 
-	occlusion = 1.0 - (occlusion / SampleKernelSize);
+	}
 
-	return float4(yVector, 1.0f);*/
+	occlusion = 1.0f - (occlusion / 16.0f);
+
+	return float4(occlusion, occlusion, occlusion, 1.0f);
 }
 
 
