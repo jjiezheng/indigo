@@ -2,7 +2,7 @@
 #define DEFERRED_SSAO_PASS_H
 
 #include "IDeferredPass.h"
-#include "GaussianBlur.h"
+#include "AverageBlur.h"
 
 class IEffect;
 
@@ -38,7 +38,7 @@ private:
   unsigned int ssaoRenderTexture_;
   unsigned int ssaoRenderTarget_;
 
-  GaussianBlur blur_;
+  AverageBlur blur_;
 
 };
 
