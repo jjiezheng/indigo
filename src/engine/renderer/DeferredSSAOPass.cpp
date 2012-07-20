@@ -22,9 +22,9 @@ void DeferredSSAOPass::init() {
   const unsigned int noiseSize = kNoisePixelLine * kNoisePixelLine;
   Vector4 noise[noiseSize];
   for (unsigned i = 0; i < noiseSize; ++i) {
-    float x = Random::random(-1.0f, 1.0f);
-    float y = Random::random(-1.0f, 1.0f);
-    Vector4 noiseV(x, y, 1.0f, 0.0f);
+    float x = 1.0f;//Random::random(-1.0f, 1.0f);
+    float y = 0.0f;//Random::random(-1.0f, 1.0f);
+    Vector4 noiseV(x, y, 0.0f, 0.0f);
 	  Vector4 noiseN = noiseV.normalize();
     noise[i] = noiseN;
   }
@@ -32,7 +32,7 @@ void DeferredSSAOPass::init() {
   unsigned int noiseTexture = GraphicsInterface::createTexture(CSize(kNoisePixelLine, kNoisePixelLine), 1, &noise, sizeof(Vector4) * kNoisePixelLine);
   ssaoEffect_->setTexture(noiseTexture, "NoiseMap");
 
-  Vector2 noiseScale = Vector2(GraphicsInterface::screenWidth() / kKernelSize, GraphicsInterface::screenHeight() / kNoisePixelLine);
+  Vector2 noiseScale = Vector2(GraphicsInterface::screenWidth() / kNoisePixelLine, GraphicsInterface::screenHeight() / kNoisePixelLine);
   ssaoEffect_->setUniform(noiseScale, "NoiseScale");
 
   ssaoEffect_->setUniform(0.1f, "Radius");
@@ -45,11 +45,13 @@ void DeferredSSAOPass::init() {
 }
 
 void DeferredSSAOPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
-  GraphicsInterface::setRenderTarget(ssaoRenderTarget_, false);
+  GraphicsInterface::setRenderTarget(outputRenderTarget_, false);
 
   ssaoEffect_->setUniform(viewer->projection(), "Projection");
 
   ssaoEffect_->setUniform(viewer->projection().inverse(), "ProjInv");
+
+  ssaoEffect_->setUniform(viewer->viewTransform().inverse(), "ViewInv");
 
   Matrix4x4 viewProjection = viewer->projection() * viewer->viewTransform();
   ssaoEffect_->setUniform(viewProjection, "ViewProj");
@@ -63,5 +65,5 @@ void DeferredSSAOPass::render(IViewer* viewer, World& world, const SceneContext&
   GraphicsInterface::setRenderState(true);
   GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
 
-  blur_.render(ssaoRenderTexture_);
+  //blur_.render(ssaoRenderTexture_);
 }
