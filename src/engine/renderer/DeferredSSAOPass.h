@@ -3,6 +3,7 @@
 
 #include "IDeferredPass.h"
 #include "AverageBlur.h"
+#include "GaussianBlur.h"
 
 class IEffect;
 

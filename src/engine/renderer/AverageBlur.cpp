@@ -25,15 +25,13 @@ void AverageBlur::render(unsigned int sourceTexture) {
   {
     GraphicsInterface::setRenderTarget(outputRenderTarget_, false);
     GraphicsInterface::clearRenderTarget(outputRenderTarget_, Color4::WHITE);
+    GraphicsInterface::resetRenderTarget();
 
     effect_->setTexture(sourceTexture, "SourceMap");
-
-    Vector2 texelSize = Vector2(1.0f / GraphicsInterface::screenWidth(), 1.0f / GraphicsInterface::screenHeight());
-    effect_->setUniform(texelSize, "TexelSize");
 
     effect_->beginDraw();
     GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);         
   }
 
-  GraphicsInterface::generateMipMaps(outputRenderTarget_);
+  //GraphicsInterface::generateMipMaps(outputRenderTarget_);
 }

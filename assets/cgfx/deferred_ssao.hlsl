@@ -5,7 +5,6 @@ uniform float Radius;
 
 float4 samples[16] =
 	{
-		float4(1.0, 	1.0, 	-0.0,	0.0 ),
 		float4(0.355512, 	-0.709318, 	-0.0,	0.0 ),
 		float4(0.534186, 	0.71511, 	-0.0,	0.0 ),
 		float4(-0.87866, 	0.157139, 	-0.0,	0.0 ),
@@ -20,7 +19,8 @@ float4 samples[16] =
 		float4(-0.184051, 	0.622119, 	0.0,	0.0 ),
 		float4(0.110007, 	-0.219486, 	0.0,	0.0 ),
 		float4(0.235085, 	0.314707, 	0.0,	0.0 ),
-		float4(-0.290012, 	0.0518654, 	0.0,	0.0 )
+		float4(-0.290012, 	0.0518654, 	0.0,	0.0 ),
+		float4(0.534186, 	0.71511, 	-0.0,	0.0 )
 	};
 
 Texture2D NoiseMap;
@@ -83,15 +83,14 @@ float4 ps(float4 position 		: SV_POSITION,
 	randomNormal = normalize(randomNormal);
 
 	float occlusion = 0.0f;
-	float radius = 1.0f;
+	float radius = 0.5f;
 
 	float3 tangent = normalize(randomNormal - (normal * dot(randomNormal, normal)));
 	float3 bitangent = cross(normal, tangent);
-	float3x3 tbn = float3x3(tangent, bitangent, normal);
+	float3x3 tbn = float3x3(bitangent, tangent, normal);
 
 	// right up to here
-
-	for (int i = 0; i < 16; i++) {
+	for (int i = 0; i < 16; i++) {	
 		float3 sample = mul(tbn, samples[i].xyz);
 		sample = (sample * radius) + positionView;
 
@@ -103,18 +102,17 @@ float4 ps(float4 position 		: SV_POSITION,
 
 		float sampleDepth = DepthMap.Sample(DepthMapSamplerState, offset);
 
-		return float4(sampleDepth, sampleDepth, sampleDepth, 1.0f);
+		//return float4(sampleDepth, sampleDepth, sampleDepth, 1.0f);
 
 		float depthDifference = abs(positionView.z - sampleDepth);
-		if (depthDifference < radius && sampleDepth > sample.z) {
-			occlusion += 1.0f;
+		if (sampleDepth < depth) {
+			occlusion += 0.8f;
 		}
 	}
 
 	occlusion = 1.0f - (occlusion / 16.0f);
 
-	return float4(bitangent, 1.0f);
-
+	return float4(occlusion, occlusion, occlusion, 1.0f);
 }
 
 
