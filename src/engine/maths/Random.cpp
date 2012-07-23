@@ -9,5 +9,5 @@ void Random::seed() {
 
 float Random::random(float low, float high) {
   float r = (float)rand()/(float)RAND_MAX;
-  return r;
+  return r - abs(low);
 }

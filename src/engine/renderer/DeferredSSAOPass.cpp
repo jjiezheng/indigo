@@ -12,12 +12,31 @@
 #include "maths/Random.h"
 #include "maths/Interpolation.h"
 
-static const int kKernelSize = 8;
+static const int kKernelSize = 16;
 static const int kNoisePixelLine = 4;
 
 void DeferredSSAOPass::init() {
-  ssaoEffect_ = IEffect::effectFromFile("cgfx/deferred_ssao.hlsl");
+  ssaoEffect_ = IEffect::effectFromFile("cgfx/deferred_ssao_crysis.hlsl");
   quadVbo_ = Geometry::screenPlane();
+
+  // generate samples
+
+  Vector4 kernel[kKernelSize];
+  for (unsigned i = 0; i < kKernelSize; ++i) {
+    float x = Random::random(-1.0f, 1.0f);
+    float y = Random::random(-1.0f, 1.0f);
+    float z = Random::random(-1.0f, 1.0f);
+    Vector4 kernelV(x, y, z, 0.0f);
+    Vector4 kernelN = kernelV.normalize();
+    kernel[i] = kernelN;
+
+    /*float scale = float(i) / float(kKernelSize);
+	  scale = lerp(0.1f, 1.0f, scale * scale);
+	  kernel[i] = kernel[i] * scale;*/
+  }
+
+  ssaoEffect_->setUniform(kernel, kKernelSize * sizeof(Vector4), "Kernel");
+  ssaoEffect_->setUniform(kKernelSize, "KernelSize");
 
   // generate noise texture
   
@@ -26,7 +45,8 @@ void DeferredSSAOPass::init() {
   for (unsigned i = 0; i < noiseSize; ++i) {
     float x = Random::random(-1.0f, 1.0f);
     float y = Random::random(-1.0f, 1.0f);
-    Vector4 noiseV(x, y, 0.0f, 0.0f);
+    float z = 0.0f;//Random::random(-1.0f, 1.0f);
+    Vector4 noiseV(x, y, z, 0.0f);
 	  Vector4 noiseN = noiseV.normalize();
     noise[i] = noiseN;
   }
@@ -51,9 +71,7 @@ void DeferredSSAOPass::render(IViewer* viewer, World& world, const SceneContext&
   GraphicsInterface::clearRenderTarget(ssaoRenderTarget_, Color4::BLACK);
 
   ssaoEffect_->setUniform(viewer->projection(), "Projection");
-
   ssaoEffect_->setUniform(viewer->projection().inverse(), "ProjInv");
-
   ssaoEffect_->setUniform(viewer->viewTransform().inverse(), "ViewInv");
 
   Matrix4x4 viewProjection = viewer->projection() * viewer->viewTransform();
@@ -68,5 +86,5 @@ void DeferredSSAOPass::render(IViewer* viewer, World& world, const SceneContext&
   GraphicsInterface::setRenderState(true);
   GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
 
-  blur_.render(ssaoRenderTarget_);
+  blur_.render(ssaoRenderTexture_);
 }
