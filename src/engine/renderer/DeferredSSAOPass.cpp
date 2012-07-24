@@ -12,6 +12,8 @@
 #include "maths/Random.h"
 #include "maths/Interpolation.h"
 
+#include "io/Log.h"
+
 static const int kKernelSize = 16;
 static const int kNoisePixelLine = 4;
 
@@ -25,14 +27,14 @@ void DeferredSSAOPass::init() {
   for (unsigned i = 0; i < kKernelSize; ++i) {
     float x = Random::random(-1.0f, 1.0f);
     float y = Random::random(-1.0f, 1.0f);
-    float z = Random::random(-1.0f, 1.0f);
+    float z = Random::random(0.0f, 1.0f);
     Vector4 kernelV(x, y, z, 0.0f);
     Vector4 kernelN = kernelV.normalize();
     kernel[i] = kernelN;
 
-    /*float scale = float(i) / float(kKernelSize);
+    float scale = float(i) / float(kKernelSize);
 	  scale = lerp(0.1f, 1.0f, scale * scale);
-	  kernel[i] = kernel[i] * scale;*/
+	  kernel[i] = kernel[i] * scale;
   }
 
   ssaoEffect_->setUniform(kernel, kKernelSize * sizeof(Vector4), "Kernel");
@@ -45,8 +47,7 @@ void DeferredSSAOPass::init() {
   for (unsigned i = 0; i < noiseSize; ++i) {
     float x = Random::random(-1.0f, 1.0f);
     float y = Random::random(-1.0f, 1.0f);
-    float z = 0.0f;//Random::random(-1.0f, 1.0f);
-    Vector4 noiseV(x, y, z, 0.0f);
+    Vector4 noiseV(x, y, 0.0f, 0.0f);
 	  Vector4 noiseN = noiseV.normalize();
     noise[i] = noiseN;
   }

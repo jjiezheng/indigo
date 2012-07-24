@@ -2,8 +2,7 @@
 
 uniform float2 NoiseScale;
 uniform float Radius;
-
-uniform int KernelSize;
+uniform float KernelSize;
 uniform float4 Kernel[16];
 
 Texture2D NoiseMap;
@@ -19,11 +18,9 @@ Texture2D DepthMap;
 SamplerState DepthMapSamplerState;
 
 uniform float4x4 Projection;
-uniform float4x4 WorldViewProj;
 uniform float4x4 ProjInv;
 uniform float4x4 ViewInv;
 uniform float4x4 ViewProj;
-uniform float4x4 ViewProjInv;
 
 struct VOutput {
       float4 position 		: SV_POSITION;
@@ -54,15 +51,20 @@ float4 ps(float4 position 		: SV_POSITION,
 	float4 positionViewRaw = mul(ProjInv, positionScreen);
 	float4 positionView = positionViewRaw / positionViewRaw.w;
 
-	float4 randomNormal = NoiseMap.Sample(NoiseMapSamplerState, texCoord * NoiseScale);
+	// random normal isnt coming out random anymore
 
-	float radius = 0.06f;
-	float occlusionContribution = 0.8f;
+	float3 randomNormal = NoiseMap.Sample(NoiseMapSamplerState, texCoord * NoiseScale);
 
+	float radius = 0.5f;
+	float occlusionContribution = 2.0f;
 	float occlusion = 0.0f;
 
+	float3 tangent = normalize(randomNormal - normal * dot(randomNormal, normal));
+	float3 bitangent = cross(normal, tangent);
+	float3x3 tbn = float3x3(tangent, bitangent, normal);
+
 	for (int i = 0; i < KernelSize; i++) {
-		float3 sample = reflect(Kernel[i].xyz, randomNormal) * radius;
+		float3 sample = mul(Kernel[i].xyz, tbn) * radius;
 
 		float4 viewSample = positionView + float4(sample, 1.0f);
 
@@ -73,15 +75,16 @@ float4 ps(float4 position 		: SV_POSITION,
 		offset.y = 1.0f - offset.y;
 
 		float sampleDepth = DepthMap.Sample(DepthMapSamplerState, offset);
-		float depthDifference = abs(sampleDepth - depth);
 
-		if (depthDifference < radius && sampleDepth <= depth) {
-			occlusion += occlusionContribution;
+		if (sampleDepth < 1.0f) {
+			float depthDifference = max(depth - sampleDepth, 0.0f);
+			if (depthDifference < radius && depth <= sampleDepth) {
+				occlusion += occlusionContribution;
+			}	
 		}
-		
 	}
 
-	float occlusionOutput = 1.0f - (occlusion / KernelSize);
+	float occlusionOutput = occlusion / KernelSize;
 
 	return float4(occlusionOutput, occlusionOutput, occlusionOutput, 1.0f);
 }

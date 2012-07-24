@@ -8,6 +8,8 @@ void Random::seed() {
 }
 
 float Random::random(float low, float high) {
-  float r = (float)rand()/(float)RAND_MAX;
-  return r - abs(low);
+  float interval = high - low;
+  float random = (float)rand() / (float)RAND_MAX;
+  float final = interval * random + low;
+  return final;
 }
