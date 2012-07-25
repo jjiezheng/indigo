@@ -2,12 +2,10 @@
 
 Texture2D ColorMap;
 SamplerState ColorMapSamplerState {
-	Filter = MIN_MAG_MIP_LINEAR;
 };
 
 Texture2D NormalMap;
 SamplerState NormalMapSamplerState {
-	Filter = MIN_MAG_MIP_LINEAR;
 };
 
 uniform float4x4 WorldViewProj;
@@ -42,7 +40,7 @@ POutput ps(float4 position			: SV_POSITION,
 		   float  depth 			: TEXCOORD2) {
 	POutput OUT;
 	OUT.color = ColorMap.Sample(ColorMapSamplerState, texCoord);					
-	OUT.normal = ColorMap.Sample(NormalMapSamplerState, texCoord);
+	OUT.normal = NormalMap.Sample(NormalMapSamplerState, texCoord);
 	OUT.depth = float4(depth, depth, depth, 1);
 	return OUT;
 }

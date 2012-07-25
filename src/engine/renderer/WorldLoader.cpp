@@ -305,6 +305,7 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
   std::string fullPath = Path::pathForFile(modelFilePath);
   LOG(LOG_CHANNEL_WORLDLOADER, "Loading model %s", fullPath.c_str());
   const aiScene* scene = importer.ReadFile(fullPath.c_str(), aiProcess_PreTransformVertices  );
+  LOG(LOG_CHANNEL_WORLDLOADER, "Submesh count: %d", scene->mNumMeshes);
   
   for (unsigned int i = 0; i < scene->mNumMeshes; i++) {
     aiMesh* aiMesh = scene->mMeshes[i];

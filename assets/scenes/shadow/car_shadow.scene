@@ -17,7 +17,7 @@
       }
     },
     {
-      "mesh" : "actors/car/car.dae",
+      "mesh" : "actors/car/car.blend",
       "material" : "actors/car/car.material",
       "position" : {
         "x" : 0.0,
