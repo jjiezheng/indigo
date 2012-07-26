@@ -11,6 +11,8 @@ SamplerState ShadowMapSamplerState;
 
 uniform bool ShadowsEnabled;
 
+uniform float4 ViewPosition;
+
 uniform float4 LightDirection;
 uniform float4 LightPosition;
 uniform float3 LightColor;
@@ -62,6 +64,8 @@ float4 ps(float4 position 		: SV_POSITION,
 	//------------------------------------------------------------
 	// spot light
 	//------------------------------------------------------------
+
+	// diffuse
 	float3 directionToLight = LightPosition - positionWorld;
 	float3 directionOfLight = -LightDirection;
 	float lightDirectionDot = max(0.0f, dot(normalize(directionOfLight), normalize(directionToLight)));
@@ -69,19 +73,30 @@ float4 ps(float4 position 		: SV_POSITION,
 	float lightOuterCos = cos(LightOuterAngle);
 	float lightInnerCos = cos(LightInnerAngle);
 
+	float diffuseStrength = 0.0f;
+
 	if (lightDirectionDot > lightOuterCos) {
-		float diffuseStrength = max(0.0f, dot(normalize(normal), normalize(directionOfLight)));
+		diffuseStrength = max(0.0f, dot(normalize(normal), normalize(directionOfLight)));
 		float attenuation = LightDecay;
 		finalColor.rgb = LightColor * diffuseStrength * smoothstep(lightOuterCos, lightInnerCos, lightDirectionDot);
 		finalColor.a = diffuseStrength;	
 	}
 
 	if (lightDirectionDot > lightInnerCos) {
-		float diffuseStrength = max(0.0f, dot(normalize(normal), normalize(directionOfLight)));
+		diffuseStrength = max(0.0f, dot(normalize(normal), normalize(directionOfLight)));
 		finalColor.rgb = LightColor * diffuseStrength;
 		finalColor.a = diffuseStrength;
 	}
 
+	float4 viewDirection = ViewPosition - positionWorld;
+	float4 lightDirection = LightPosition - positionWorld;
+
+	// specular
+	float3 halfVector = normalize(viewDirection.xyz + lightDirection.xyz);
+	float halfDotNormal = max(0.0f, dot(halfVector, normal));
+	float specularContribution = saturate(pow(halfDotNormal, 0.2));
+	float SpecularPower = 1;
+	finalColor.rgb += specularContribution * float4(1, 1, 1, 1) * SpecularPower * diffuseStrength;
 
 	//------------------------------------------------------------
 	// shadows
@@ -95,11 +110,13 @@ float4 ps(float4 position 		: SV_POSITION,
 	float shadowLightContribution = 1.0f;
 
 	if (moments.x < pixelWorldPositionFromLightHom.z && shadowCoord.x > 0.0f && shadowCoord.x < 1.0f) {
-		shadowLightContribution = ChebyshevUpperBound(moments.xy, pixelWorldPositionFromLightHom.z, 0.000005f);
+		shadowLightContribution = ChebyshevUpperBound(moments.xy, pixelWorldPositionFromLightHom.z, 0.0000005f);
 		shadowLightContribution = ReduceLightBleeding(shadowLightContribution, 0.9f);
 	}
 
-	return float4(finalColor.rgb * shadowLightContribution, finalColor.a);
+	finalColor.rgb *= shadowLightContribution;
+
+	return finalColor;
 } 
 
 technique11 Main {

@@ -1,10 +1,14 @@
 #include "utils.cg"
 
 Texture2D ColorMap;
-SamplerState ColorMapSamplerState;
+SamplerState ColorMapSamplerState {
+	Filter = MIN_MAG_MIP_LINEAR;
+};
 
 Texture2D NormalMap;
-SamplerState NormalMapSamplerState;
+SamplerState NormalMapSamplerState  {
+	Filter = MIN_MAG_MIP_LINEAR;
+};
 
 uniform float4x4 WorldViewProj;
 

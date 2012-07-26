@@ -34,5 +34,5 @@ void AverageBlur::render(unsigned int sourceTexture) {
     GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);         
   }
 
-  GraphicsInterface::generateMipMaps(outputRenderTarget_);
+  //GraphicsInterface::generateMipMaps(outputRenderTexture_);
 }
