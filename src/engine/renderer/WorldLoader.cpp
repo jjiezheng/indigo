@@ -276,8 +276,7 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
 void WorldLoader::loadSceneItem(const json::Object& objectItem, World& world) {
   Model* model = new Model();
 
-  json::String meshFilePath = objectItem["mesh"];
-  json::String materialFilePath = objectItem["material"];
+  json::String modelFilePath = objectItem["model"];
   
   json::Object positionObject = objectItem["position"];
   
@@ -294,64 +293,80 @@ void WorldLoader::loadSceneItem(const json::Object& objectItem, World& world) {
   Matrix4x4 localToWorld = Matrix4x4::translation(position);
   model->setLocalToWorld(localToWorld);
   
-  loadModel(model, meshFilePath);
-  loadMaterial(model, materialFilePath);
+  loadModel(model, modelFilePath);
+
+  //loadMaterial(model, materialFilePath);
   world.addObject(model);
 }
 
 void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
-  Assimp::Importer importer;
-  
-  std::string fullPath = Path::pathForFile(modelFilePath);
-  LOG(LOG_CHANNEL_WORLDLOADER, "Loading model %s", fullPath.c_str());
-  const aiScene* scene = importer.ReadFile(fullPath.c_str(), aiProcess_PreTransformVertices  );
-  LOG(LOG_CHANNEL_WORLDLOADER, "Submesh count: %d", scene->mNumMeshes);
-  
-  for (unsigned int i = 0; i < scene->mNumMeshes; i++) {
-    aiMesh* aiMesh = scene->mMeshes[i];
-    VertexDef* defs = new VertexDef[aiMesh->mNumVertices];
-    for (unsigned int vertexi = 0; vertexi < aiMesh->mNumVertices; vertexi++) {
-      VertexDef def;
+  std::string fullFilePath = Path::pathForFile(modelFilePath);
+  std::ifstream modelFile(fullFilePath.c_str(), std::ifstream::in);
+  json::Object modelObject;
+  json::Reader::Read(modelObject, modelFile);
 
-      aiVector3D vertex = aiMesh->mVertices[vertexi];
-      def.vertex.x = vertex.x; 
-      def.vertex.y = vertex.y; 
-      def.vertex.z = vertex.z; 
-      //LOG(LOG_CHANNEL_WORLDLOADER, "vert: %s", def.vertex.toString().c_str());
+  std::vector<Material> materials;
 
-      aiVector3D normal = aiMesh->mNormals[vertexi];
-      def.normal.x = normal.x; 
-      def.normal.y = normal.y; 
-      def.normal.z = normal.z; 
-      //LOG(LOG_CHANNEL_WORLDLOADER, "norm: %s", def.normal.toString().c_str());
-
-      if (aiMesh->mTextureCoords[0]) {
-        aiVector3D uv = aiMesh->mTextureCoords[0][vertexi];
-        def.uv.x = uv.x; 
-        def.uv.y = uv.y; 
-      }
-      //LOG(LOG_CHANNEL_WORLDLOADER, "uv: %s", def.uv.toString().c_str());
-      defs[vertexi] = def;
+   {
+    json::Array materialsArray = modelObject["materials"];
+    json::Array::const_iterator mit = materialsArray.begin();
+    for (; mit != materialsArray.end(); ++mit) {
+      Material material = loadMaterial(model, (*mit));
+      materials.push_back(material);
     }
-
-    Mesh mesh;
-    mesh.init(defs, aiMesh->mNumVertices);
-    model->addMesh(mesh);
-    
   }
+
+  json::String assetFilePath = modelObject["mesh"];
   
-  importer.FreeScene();
+  {  
+    std::string fullAssetFilePath = Path::pathForFile(assetFilePath);
+    LOG(LOG_CHANNEL_WORLDLOADER, "Loading model %s", fullAssetFilePath.c_str());
+
+    Assimp::Importer importer;
+    const aiScene* scene = importer.ReadFile(fullAssetFilePath.c_str(), aiProcess_PreTransformVertices  );
+    LOG(LOG_CHANNEL_WORLDLOADER, "Submesh count: %d", scene->mNumMeshes);
+    
+    for (unsigned int i = 0; i < scene->mNumMeshes; i++) {
+      aiMesh* aiMesh = scene->mMeshes[i];
+      VertexDef* defs = new VertexDef[aiMesh->mNumVertices];
+
+      for (unsigned int vertexi = 0; vertexi < aiMesh->mNumVertices; vertexi++) {
+        VertexDef def;
+
+        aiVector3D vertex = aiMesh->mVertices[vertexi];
+        def.vertex.x = vertex.x; 
+        def.vertex.y = vertex.y; 
+        def.vertex.z = vertex.z; 
+        //LOG(LOG_CHANNEL_WORLDLOADER, "vert: %s", def.vertex.toString().c_str());
+
+        aiVector3D normal = aiMesh->mNormals[vertexi];
+        def.normal.x = normal.x; 
+        def.normal.y = normal.y; 
+        def.normal.z = normal.z; 
+        //LOG(LOG_CHANNEL_WORLDLOADER, "norm: %s", def.normal.toString().c_str());
+
+        if (aiMesh->mTextureCoords[0]) {
+          aiVector3D uv = aiMesh->mTextureCoords[0][vertexi];
+          def.uv.x = uv.x; 
+          def.uv.y = uv.y; 
+        }
+        //LOG(LOG_CHANNEL_WORLDLOADER, "uv: %s", def.uv.toString().c_str());
+        defs[vertexi] = def;
+      }
+
+      Mesh mesh;
+      Material material = materials[i];
+      mesh.init(defs, aiMesh->mNumVertices);
+      mesh.setMaterial(material);
+      model->addMesh(mesh);
+      
+    }
+    
+    importer.FreeScene();
+  }
 }
 
-void WorldLoader::loadMaterial(Model* model, const std::string& materialFilePath) {
-  std::string fullMaterialFilePath = Path::pathForFile(materialFilePath);
-  
-  LOG(LOG_CHANNEL_WORLDLOADER, "Loading material %s", fullMaterialFilePath.c_str());
-  
-  std::ifstream materialFile(fullMaterialFilePath.c_str(), std::ifstream::in);
-  
-  json::Object materialObject; 
-  json::Reader::Read(materialObject, materialFile); 
+Material WorldLoader::loadMaterial(Model* model, const json::Object& materialObject) {
  
   json::String effectFilePath = materialObject["effect"];
  
@@ -410,8 +425,8 @@ void WorldLoader::loadMaterial(Model* model, const std::string& materialFilePath
     texture.init(textureFile.c_str());
     material.addTexture(textureType, texture);
   }
-  
-  model->setMaterial(material);
+
+  return material;
 }
 
 void WorldLoader::loadEffect(Material& material, const std::string &shaderFilePath) { 

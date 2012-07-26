@@ -21,7 +21,7 @@ public:
   
   void addMesh(Mesh& mesh);
   
-  void setMaterial(const Material& material);
+  void setMaterial(unsigned int meshIndex, const Material& material);
   
   void setLocalToWorld(const Matrix4x4& localToWorld);
 
@@ -30,6 +30,7 @@ public:
 private:
   
   std::vector<Mesh> meshes_;
+  std::vector<Material> materials_;
   Matrix4x4 localToWorld_;
     
 };
@@ -37,6 +38,10 @@ private:
 inline void Model::addMesh(Mesh& mesh) {
   mesh.setParent(this);
   meshes_.push_back(mesh);
+}
+
+inline void Model::setMaterial(unsigned int meshIndex, const Material& material) {
+  meshes_[meshIndex].setMaterial(material);
 }
 
 inline void Model::setLocalToWorld(const Matrix4x4& localToWorld) {

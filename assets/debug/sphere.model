@@ -1,0 +1,11 @@
+{
+	"mesh" : "debug/sphere.dae",
+	"materials" : 
+	[
+		{
+		  "effect" : "cgfx/deferred_render_color_normal_depth.hlsl",
+		  "parameters" : { },
+		  "textures" : { }
+		}
+	]
+}

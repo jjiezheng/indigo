@@ -1,8 +1,0 @@
-{
-  "effect" : "cgfx/deferred_render_colormap_normalmap_depth.hlsl",
-  "parameters" : { },
-  "textures" : {
-    "ColorMap" : "actors/car/car_1_diffuse.dds",
-    "NormalMap" : "actors/car/car_1_normal.dds"
-  }
-}

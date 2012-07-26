@@ -8,8 +8,7 @@
   },
   "objects" : [
     {
-      "mesh" : "actors/floor/floor.blend",
-      "material" : "actors/floor/floor.material",
+      "model" : "actors/floor/floor.model",
       "position" : {
         "x" : 0.0,
         "y" : 0.0,
@@ -17,8 +16,7 @@
       }
     },
     {
-      "mesh" : "actors/car/car.blend",
-      "material" : "actors/car/car.material",
+      "model" : "actors/car/car.model",
       "position" : {
         "x" : 0.0,
         "y" : -0.4,

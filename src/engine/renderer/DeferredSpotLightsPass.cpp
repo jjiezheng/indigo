@@ -20,7 +20,7 @@ void DeferredSpotLightsPass::init() {
   lightEffect_ = IEffect::effectFromFile("cgfx/deferred_lighting_spot_light.hlsl");
 
   spotLightModel_ = new Model();
-  WorldLoader().loadModel(spotLightModel_, "debug/cone.dae");
+  WorldLoader().loadModel(spotLightModel_, "debug/cone.model");
 
   CSize screenSize = GraphicsInterface::screenSize(); 
   gaussianBlur_.init(screenSize, 16);

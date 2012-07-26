@@ -3,10 +3,11 @@
 
 #include "json/elements.h"
 
+#include "Material.h"
+
 class Model;
 class World;
 class SceneContext;
-class Material;
 
 class WorldLoader {
   
@@ -18,7 +19,7 @@ public:
 private:
   
   void loadSceneItem(const json::Object& objectItem, World& world);
-  void loadMaterial(Model* model, const std::string& materialFilePath);
+  Material loadMaterial(Model* model, const json::Object& materialItem);
   void loadEffect(Material& material, const std::string& shaderFilePath);
   
 };
