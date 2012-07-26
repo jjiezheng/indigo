@@ -8,6 +8,14 @@
   },
   "objects" : [
     {
+      "model" : "actors/cube/cube.model",
+      "position" : {
+        "x" : 10.0,
+        "y" : 0.0,
+        "z" : 0.0
+      }
+    },
+    {
       "model" : "actors/floor/floor.model",
       "position" : {
         "x" : 0.0,

@@ -1,5 +1,5 @@
 {
-	"mesh" : "actors/car/car.blend",
+	"mesh" : "actors/car/car.dae",
 	"materials" : 
 	[
 		{

@@ -10,11 +10,14 @@ SamplerState NormalMapSamplerState {
 
 uniform float4x4 WorldViewProj;
 
+uniform float SpecularPower;
+uniform float SpecularIntensity;
+
 struct VOutput {
 	float4 position			: SV_POSITION;
 	float3 normal			: TEXCOORD0;
 	float2 texCoord			: TEXCOORD1;
-	float depth				: TEXCOORD2;
+	float2 depth			: TEXCOORD2;
 };
 
 VOutput vs(float4 position 		: POSITION,
@@ -23,9 +26,10 @@ VOutput vs(float4 position 		: POSITION,
 	VOutput OUT;
 	OUT.position = mul(WorldViewProj, position);
 	OUT.texCoord = texCoord;
-	OUT.depth = OUT.position.z / OUT.position.w;
 	OUT.normal = normal.xyz;
- 	return OUT;
+	OUT.depth.x = OUT.position.z;
+	OUT.depth.y = OUT.position.w;
+	return OUT;
 }
 
 struct POutput {
@@ -37,11 +41,15 @@ struct POutput {
 POutput ps(float4 position			: SV_POSITION,
 		   float3 normal			: TEXCOORD0,
 		   float2 texCoord			: TEXCOORD1,
-		   float  depth 			: TEXCOORD2) {
+		   float2  depth 			: TEXCOORD2) {
 	POutput OUT;
+	
 	OUT.color = ColorMap.Sample(ColorMapSamplerState, texCoord);					
 	OUT.normal = NormalMap.Sample(NormalMapSamplerState, texCoord);
-	OUT.depth = float4(depth, depth, depth, 1);
+
+	float depthHom = depth.x / depth.y; // z / w
+	OUT.depth = float4(depthHom, SpecularPower, SpecularIntensity, 1);
+
 	return OUT;
 }
 

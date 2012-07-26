@@ -2,9 +2,14 @@
 
 uniform	float3 DiffuseColor;
 uniform	float3 AmbientColor;
+
+uniform float SpecularPower;
+uniform float SpecularIntensity;
+
 uniform	float3x3 NormalMatrix;
 uniform	float4x4 WorldViewProj;
 uniform	float4x4 World;
+
 
 struct VOutput {
 	float4 position			: SV_POSITION;
@@ -32,10 +37,13 @@ POutput ps(float4 position			: SV_POSITION,
 		   float3 normal			: TEXCOORD0,
 		   float2 depth 			: TEXCOORD1) {
 	POutput OUT;
+	
 	OUT.color = float4(DiffuseColor, 1);					
 	OUT.normal = float4(normal, 1);
+
 	float depthHom = depth.x / depth.y; // z / w
-	OUT.depth = float4(depthHom, depthHom, depthHom, 1);
+	OUT.depth = float4(depthHom, SpecularPower, SpecularIntensity, 1);
+	
 	return OUT;
 }
 

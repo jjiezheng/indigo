@@ -1,0 +1,20 @@
+{
+  "mesh" : "actors/cube/cube.dae",
+  "materials" : 
+  [
+    {
+      "effect" : "cgfx/deferred_render_color_normal_depth.hlsl",
+      "parameters" : {
+        "SpecularPower" : {
+          "value" : 1.0,
+          "type" : "float"
+        },
+        "SpecularIntensity" : {
+          "value" : 1.0,
+          "type" : "float"
+        }
+      },
+      "textures" : { }
+    }
+  ]
+}
