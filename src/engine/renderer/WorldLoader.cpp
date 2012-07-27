@@ -96,7 +96,7 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
         json::Number zNumber = directionObject["z"];
         float z = zNumber.Value();
 
-        Vector4 direction(x, y, z);
+        Vector4 direction(x, y, z, 1.0f);
 
         light.setDirection(direction);
       }
@@ -140,7 +140,7 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
         json::Number zNumber = positionObject["z"];
         float z = zNumber.Value();
 
-        Vector4 position(x, y, z);
+        Vector4 position(x, y, z, 0.0f);
 
         light.setPosition(position);
       }
@@ -199,7 +199,7 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
         json::Number zNumber = positionObject["z"];
         float z = zNumber.Value();
 
-        Vector4 position(x, y, z);
+        Vector4 position(x, y, z, 0.0f);
 
         light->setPosition(position);
       }
@@ -233,7 +233,7 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
         json::Number zNumber = directionObject["z"];
         float z = zNumber.Value();
 
-        Vector4 direction(x, y, z);
+        Vector4 direction(x, y, z, 1.0f);
 
         light->setDirection(direction);
       }

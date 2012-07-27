@@ -57,7 +57,7 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
   IDeferredPass* geometryPass = new DeferredGeometryPass(colorRenderTarget_, normalRenderTarget_, depthRenderTarget_);
   passes_.push_back(geometryPass);
 
-  IDeferredPass* directionalLightingPass = new DeferredDirectionalLightsPass(lightRenderTarget_, colorMapTexture_, normalMapTexture_);
+  IDeferredPass* directionalLightingPass = new DeferredDirectionalLightsPass(lightRenderTarget_, colorMapTexture_, normalMapTexture_, depthMapTexture_);
   passes_.push_back(directionalLightingPass);
 
   /*IDeferredPass* pointLightingPass = new DeferredPointLightsPass(lightRenderTarget_, normalMapTexture_, depthMapTexture_);

@@ -1,5 +1,5 @@
 {
-  "mesh" : "actors/cube/cube.blend",
+  "mesh" : "actors/sphere/sphere.blend",
   "materials" : 
   [
     {
@@ -10,7 +10,7 @@
           "type" : "float"
         },
         "SpecularIntensity" : {
-          "value" : 0.5,
+          "value" : 0.8,
           "type" : "float"
         }
       },

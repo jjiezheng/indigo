@@ -11,11 +11,6 @@ Vector4 Vector4::FORWARD = Vector4(0, 0, -1, 1);
 Vector4 Vector4::RIGHT = Vector4(1, 0, 0, 1);
 Vector4 Vector4::UP = Vector4(0, 1, 0, 1);
 
-Vector4::Vector4(float x_, float y_, float z_) 
-  : x(x_), y(y_), z(z_), w(1) {
-  
-}
-
 
 Vector4::Vector4(float x_, float y_, float z_, float w_) 
   : x(x_), y(y_), z(z_), w(w_) {
@@ -23,7 +18,7 @@ Vector4::Vector4(float x_, float y_, float z_, float w_)
 }
 
 Vector4::Vector4()
-  : x(0), y(0), z(0), w(1) {
+  : x(0), y(0), z(0), w(0) {
   
 }
 
@@ -40,8 +35,8 @@ Vector4 Vector4::operator - (const Vector4& other) const {
   return Vector4(x - other.x, y - other.y, z - other.z, w - other.w);
 }
 
-Vector4 Vector4::operator-() const {
-  return Vector4(-x, -y, -z);
+Vector4 Vector4::operator - () const {
+  return Vector4(-x, -y, -z, -w);
 }
 
 Vector4 Vector4::operator * (float scalar) const {
@@ -85,7 +80,8 @@ Vector4 Vector4::cross(const Vector4& other) const {
   return Vector4(
     y * other.z - z * other.y,
     z * other.x - x * other.z,
-    x * other.y - y * other.x);
+    x * other.y - y * other.x,
+    0.0f);
 }
 
 float Vector4::dot( const Vector4& other ) const {

@@ -13,8 +13,6 @@ public:
   
   Vector4(const Vector3& v);
   
-  Vector4(float x_, float y_, float z_);
-  
   Vector4(float x_, float y_, float z_, float w_);
   
 public:

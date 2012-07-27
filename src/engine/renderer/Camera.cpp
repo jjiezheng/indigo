@@ -14,7 +14,7 @@ Camera::Camera()
   , rotationX_(0.0f)
   , rotationY_(0.0f)
   , rotationZ_(0.0f)
-  , position_(Vector3::IDENTITY) { }
+  , position_(Vector4::IDENTITY) { }
 
 Camera* Camera::camera() {
   Camera* camera = new Camera();

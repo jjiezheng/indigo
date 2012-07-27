@@ -22,7 +22,7 @@ struct VOutput {
 };
 
 VOutput vs(float4 position 	: POSITION,
-		       float4 texCoord 	: TEXCOORD0) {
+		       float2 texCoord 	: TEXCOORD0) {
     VOutput OUT;
     OUT.position = position;
     OUT.texCoord = texCoord;
@@ -35,8 +35,13 @@ float4 ps(float4 position : SV_POSITION,
   float3 normal = normalData.xyz;
 
   float3 depthSpec = DepthMap.Sample(DepthMapSamplerState, texCoord);
-  float depth = depthSpec.x;
-  float specularPower = depthSpec.y * 255;
+  float depth = depthSpec.r;
+
+  if (depth == 1.0f) {
+    return float4(0, 0, 0, 0);
+  }
+
+  float specularPower = depthSpec.y;// * 255;
   float specularIntensity = depthSpec.z;
 
   float4 positionScreen;
@@ -50,15 +55,28 @@ float4 ps(float4 position : SV_POSITION,
 
   float4 lightVector = -LightDirection;
 
+  // pulled from http://en.wikipedia.org/wiki/Blinn%E2%80%93Phong_shading_model
+  float distance = length(LightDirection);
+  distance = distance * distance;
+
   // diffuse
   float diffuseStrength = max(0.0f, dot(normalize(normal), normalize(lightVector)));
-  float3 diffuseContribution = LightColor * diffuseStrength;
+  float3 diffuseContribution = LightColor * diffuseStrength / distance;
 
   //specular
-  float3 reflectionVector = normalize(reflect(lightVector, normal));
+  float specularContribution = 0;
+  if (diffuseStrength > 0) {
+    float3 viewDirectionRaw = ViewPosition - positionWorld;
+    float3 viewDirection = normalize(viewDirectionRaw);
 
-  float3 viewDirection = normalize(ViewPosition - positionWorld).xyz;
-  float specularContribution = specularIntensity * pow(saturate(dot(reflectionVector, viewDirection)), specularPower);
+    float3 halfVectorRaw = lightVector + viewDirection;
+    float3 halfVector = normalize(halfVectorRaw);
+
+    float i = pow(saturate(dot(normalize(normal), halfVector)), specularPower);
+    //return float4(dot(normal, halfVector), dot(normalize(normal), halfVector), dot(normal, halfVector), 0);
+
+    specularContribution = i * specularIntensity / distance;
+  }
 
   return float4(diffuseContribution, specularContribution);
 }

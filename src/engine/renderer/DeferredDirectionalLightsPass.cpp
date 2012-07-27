@@ -28,6 +28,7 @@ void DeferredDirectionalLightsPass::render(IViewer* viewer, World& world, const 
 
   std::vector<DirectionalLight> directionalLights = sceneContext.directionalLights();
   for (std::vector<DirectionalLight>::iterator light = directionalLights.begin(); light != directionalLights.end(); ++light) {
+    directionalLightEffect_->setTexture(depthMapTexture_, "DepthMap");
     directionalLightEffect_->setTexture(normalMapTexture_, "NormalMap");
     
     Matrix4x4 viewProjection = viewer->projection() * viewer->viewTransform();

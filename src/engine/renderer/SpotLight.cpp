@@ -10,7 +10,7 @@
 
 Matrix4x4 SpotLight::transform() const {
   float xzScale = tan(outerAngle_ / 2.0f) * (length_ * 2);
-  return Matrix4x4::translation(position_) * rotation() * Matrix4x4::scale(Vector4(xzScale, xzScale, length_));
+  return Matrix4x4::translation(position_) * rotation() * Matrix4x4::scale(Vector4(xzScale, xzScale, length_, 1.0f));
 }
 
 Matrix4x4 SpotLight::rotation() const {

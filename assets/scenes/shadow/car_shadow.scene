@@ -16,6 +16,14 @@
       }
     },
     {
+      "model" : "actors/sphere/sphere.model",
+      "position" : {
+        "x" : 15.0,
+        "y" : 0.0,
+        "z" : 0.0
+      }
+    },
+    {
       "model" : "actors/floor/floor.model",
       "position" : {
         "x" : 0.0,

@@ -4,7 +4,16 @@
 	[
 		{
 		  "effect" : "cgfx/deferred_render_color_normal_depth.hlsl",
-		  "parameters" : { },
+		  "parameters" : {
+		    "SpecularPower" : {
+		      "value" : 80,
+		      "type" : "float"
+		    },
+		    "SpecularIntensity" : {
+		      "value" : 0.8,
+		      "type" : "float"
+		    }
+		  },
 		  "textures" : {
 		    "ColorMap" : "actors/car/car_hull_diffuse.png",
 		    "NormalMap" : "actors/car/car_hull_normal.dds"
@@ -12,7 +21,9 @@
 		},
 		{
 		  "effect" : "cgfx/deferred_render_color_normal_depth.hlsl",
-		  "parameters" : { },
+		  "parameters" : {
+
+		  },
 		  "textures" : {
 		    "ColorMap" : "actors/car/car_frame_diffuse.png",
 		    "NormalMap" : "actors/car/car_frame_normal.dds"

@@ -41,11 +41,11 @@ struct POutput {
 POutput ps(float4 position			: SV_POSITION,
 		   float3 normal			: TEXCOORD0,
 		   float2 texCoord			: TEXCOORD1,
-		   float2  depth 			: TEXCOORD2) {
+		   float2 depth 			: TEXCOORD2) {
 	POutput OUT;
 	
 	OUT.color = ColorMap.Sample(ColorMapSamplerState, texCoord);					
-	OUT.normal = NormalMap.Sample(NormalMapSamplerState, texCoord);
+	OUT.normal = float4(normal, 1.0f);// NormalMap.Sample(NormalMapSamplerState, texCoord);
 
 	float depthHom = depth.x / depth.y; // z / w
 	OUT.depth = float4(depthHom, SpecularPower, SpecularIntensity, 1);

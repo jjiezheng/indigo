@@ -9,9 +9,10 @@ class DeferredDirectionalLightsPass : public IDeferredPass {
 
 public:
 
-  DeferredDirectionalLightsPass(unsigned int lightMapRenderTarget, unsigned int colorMapTexture, unsigned int normalMapTexture)
+  DeferredDirectionalLightsPass(unsigned int lightMapRenderTarget, unsigned int colorMapTexture, unsigned int normalMapTexture, unsigned int depthMapTexture)
     : lightMapRenderTarget_(lightMapRenderTarget)
     , colorMapTexture_(colorMapTexture)
+    , depthMapTexture_(depthMapTexture)
     , normalMapTexture_(normalMapTexture) { }
 
 public:
@@ -25,6 +26,7 @@ private:
   unsigned int lightMapRenderTarget_;
   
   unsigned int colorMapTexture_;
+  unsigned int depthMapTexture_;
   unsigned int normalMapTexture_;
 
   unsigned int quadVbo_;
