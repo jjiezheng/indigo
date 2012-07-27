@@ -5,6 +5,14 @@ SamplerState NormalSamplerState {
   Filter = MIN_MAG_MIP_LINEAR;
 };
 
+Texture2D DepthMap;
+SamplerState DepthMapSamplerState {
+  Filter = MIN_MAG_MIP_LINEAR;
+};
+
+uniform float4x4 ViewProjInv;
+
+uniform float4 ViewPosition;
 uniform float4 LightDirection;
 uniform float3 LightColor;
 
@@ -26,14 +34,33 @@ float4 ps(float4 position : SV_POSITION,
   float4 normalData = NormalMap.Sample(NormalSamplerState, texCoord);
   float3 normal = normalData.xyz;
 
-  float3 finalColor;
+  float3 depthSpec = DepthMap.Sample(DepthMapSamplerState, texCoord);
+  float depth = depthSpec.x;
+  float specularPower = depthSpec.y * 255;
+  float specularIntensity = depthSpec.z;
+
+  float4 positionScreen;
+  positionScreen.xy = (texCoord.xy * 2.0f) - 1.0f;
+  positionScreen.y = -positionScreen.y;
+  positionScreen.z = depth; 
+  positionScreen.w = 1.0f;
+
+  float4 positionWorldRaw = mul(ViewProjInv, positionScreen);
+  float4 positionWorld = positionWorldRaw / positionWorldRaw.w;
+
+  float4 lightVector = -LightDirection;
 
   // diffuse
-  float4 lightVector = -LightDirection;
   float diffuseStrength = max(0.0f, dot(normalize(normal), normalize(lightVector)));
-  finalColor = LightColor * diffuseStrength;
+  float3 diffuseContribution = LightColor * diffuseStrength;
 
-  return float4(finalColor, diffuseStrength);
+  //specular
+  float3 reflectionVector = normalize(reflect(lightVector, normal));
+
+  float3 viewDirection = normalize(ViewPosition - positionWorld).xyz;
+  float specularContribution = specularIntensity * pow(saturate(dot(reflectionVector, viewDirection)), specularPower);
+
+  return float4(diffuseContribution, specularContribution);
 }
 
 technique11 Main {

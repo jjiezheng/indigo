@@ -57,17 +57,14 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
   IDeferredPass* geometryPass = new DeferredGeometryPass(colorRenderTarget_, normalRenderTarget_, depthRenderTarget_);
   passes_.push_back(geometryPass);
 
-  /*IDeferredPass* directionalLightingPass = new DeferredDirectionalLightsPass(lightRenderTarget_, normalMapTexture_);
+  IDeferredPass* directionalLightingPass = new DeferredDirectionalLightsPass(lightRenderTarget_, colorMapTexture_, normalMapTexture_);
   passes_.push_back(directionalLightingPass);
 
-  IDeferredPass* pointLightingPass = new DeferredPointLightsPass(lightRenderTarget_, normalMapTexture_, depthMapTexture_);
+  /*IDeferredPass* pointLightingPass = new DeferredPointLightsPass(lightRenderTarget_, normalMapTexture_, depthMapTexture_);
   passes_.push_back(pointLightingPass);*/
 
-  IDeferredPass* spotLightingPass = new DeferredSpotLightsPass(lightRenderTarget_, normalMapTexture_, depthMapTexture_);
-  passes_.push_back(spotLightingPass);
-
-  IDeferredPass* compositionPass = new DeferredCompositionPass(compositionRenderTarget_, colorMapTexture_, lightMapTexture_);
-  passes_.push_back(compositionPass);
+  /*IDeferredPass* spotLightingPass = new DeferredSpotLightsPass(lightRenderTarget_, colorMapTexture_, normalMapTexture_, depthMapTexture_);
+  passes_.push_back(spotLightingPass);*/
 
   /*IDeferredPass* ssaoPass = new DeferredSSAOPass(ssaoRenderTarget_, colorMapTexture_, normalMapTexture_, depthMapTexture_);
   passes_.push_back(ssaoPass);
@@ -81,8 +78,8 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
   /*IDeferredPass* fullScreenBlurPass = new DeferredFullScreenBlurPass(fxaaMapTexture_, fullScreenBlurRenderTarget_);
   passes_.push_back(fullScreenBlurPass);*/
 
-  IDeferredPass* presentPass = new DeferredPresentPass(compositionMapTexture_);
-  passes_.push_back(presentPass);
+  //IDeferredPass* presentPass = new DeferredPresentPass(compositionMapTexture_);
+  //passes_.push_back(presentPass);
 
   for (std::vector<IDeferredPass*>::iterator i = passes_.begin(); i != passes_.end(); ++i) {
     (*i)->init();

@@ -24,6 +24,12 @@ void DeferredSpotLightsPass::init() {
 
   CSize screenSize = GraphicsInterface::screenSize(); 
   gaussianBlur_.init(screenSize, 16);
+
+  spotLightRenderTexture_ = GraphicsInterface::createTexture(screenSize);
+  spotLightRenderTarget_ = GraphicsInterface::createRenderTarget(spotLightRenderTexture_);
+
+  accumulationEffect_ = IEffect::effectFromFile("cgfx/deferred_final_composition.hlsl");
+  quadVbo_ = Geometry::screenPlane();
 }
 
 void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
@@ -36,9 +42,8 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
 
   std::vector<SpotLight*> spotLights = sceneContext.spotLights();
   for (std::vector<SpotLight*>::iterator light = spotLights.begin(); light != spotLights.end(); ++light) {
-
-   if ((*light)->castsShadows()) {
-      // create shadowmap
+    // create shadowmap
+    if ((*light)->castsShadows()) {
       GraphicsInterface::setRenderTarget((*light)->shadowMapRenderTarget(), true);
       GraphicsInterface::clearRenderTarget((*light)->shadowMapRenderTarget(), Color4::WHITE);
 
@@ -57,9 +62,9 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
       gaussianBlur_.render((*light)->shadowMapTexture());
     }
 
-    // run lighting
+    // render lighting
     {
-      GraphicsInterface::setRenderTarget(lightMapRenderTarget_, false);
+      GraphicsInterface::setRenderTarget(spotLightRenderTarget_, false);
 
       lightEffect_->setTexture(normalMapTexture_, "NormalMap");
       lightEffect_->setTexture(depthMapTexture_, "DepthMap");
@@ -89,6 +94,18 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
       lightEffect_->beginDraw();
       GraphicsInterface::setRenderState(false);
       spotLightModel_->render();
+    }
+
+    // accumulate into lightmap
+    {
+      GraphicsInterface::setRenderTarget(lightMapRenderTarget_, false);
+      GraphicsInterface::clearRenderTarget(lightMapRenderTarget_, Color4::BLACK);
+      GraphicsInterface::resetRenderTarget();
+      accumulationEffect_->setTexture(spotLightRenderTexture_, "LightSourceMap");
+      accumulationEffect_->setTexture(colorMapTexture_, "ColorMap");
+      accumulationEffect_->beginDraw();
+      GraphicsInterface::setRenderState(true);
+      GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
     }
   }
 }

@@ -79,31 +79,21 @@ float4 ps(float4 position 		: SV_POSITION,
 	if (lightDirectionDot > lightOuterCos) {
 		diffuseStrength = max(0.0f, dot(normalize(normal), normalize(directionOfLight)));
 		float attenuation = LightDecay;
-		finalColor.rgb = diffuseStrength * smoothstep(lightOuterCos, lightInnerCos, lightDirectionDot);
-		//finalColor.a = diffuseStrength;	
+		finalColor.rgb = diffuseStrength * smoothstep(lightOuterCos, lightInnerCos, lightDirectionDot);	
 	}
 
 	if (lightDirectionDot > lightInnerCos) {
 		diffuseStrength = max(0.0f, dot(normalize(normal), normalize(directionOfLight)));
 		finalColor.rgb = diffuseStrength;
-		//finalColor.a = diffuseStrength;
 	}
 	
 	//specular
-
 	float3 lightDirection = normalize(LightPosition - positionWorld).xyz;
 	float3 reflectionVector = normalize(reflect(lightDirection, normal));
 
 	float3 viewDirection = normalize(ViewPosition - positionWorld).xyz;
 	float specularContribution = specularIntensity * pow(saturate(dot(reflectionVector, viewDirection)), specularPower);
 	finalColor.a = specularContribution;
-
-	// specular
-	/*float3 halfVector = normalize(viewDirection.xyz + lightDirection.xyz);
-	float halfDotNormal = max(0.0f, dot(halfVector, normal));
-	float specularContribution = saturate(pow(halfDotNormal, 0.2));
-	float SpecularPower = 1;
-	finalColor.rgb += specularContribution * float4(1, 1, 1, 1) * SpecularPower * diffuseStrength;*/
 
 	//------------------------------------------------------------
 	// shadows

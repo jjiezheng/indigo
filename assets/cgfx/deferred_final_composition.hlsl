@@ -5,8 +5,8 @@ SamplerState ColorMapSamplerState {
 	Filter = MIN_MAG_MIP_LINEAR;
 };
 
-Texture2D LightMap;
-SamplerState LightMapSamplerState {
+Texture2D LightSourceMap;
+SamplerState LightSourceMapSamplerState {
 	Filter = MIN_MAG_MIP_LINEAR;
 };
 
@@ -26,7 +26,7 @@ VOutput vs(float4 position 		: POSITION,
 float4 ps(float4 position	: SV_POSITION,
 		  float2 texCoord	: TEXCOORD0) : SV_TARGET0 {
 	float4 color = ColorMap.Sample(ColorMapSamplerState, texCoord);
-	float4 light = LightMap.Sample(LightMapSamplerState, texCoord);
+	float4 light = LightSourceMap.Sample(LightSourceMapSamplerState, texCoord);
 	float4 diffuse = float4(light.rgb, 1.0f);
 	float specular = light.a;
 	float4 finalColor = color * diffuse + specular;

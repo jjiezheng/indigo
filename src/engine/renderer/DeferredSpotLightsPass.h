@@ -12,8 +12,9 @@ class DeferredSpotLightsPass : public IDeferredPass {
 
 public:
 
-  DeferredSpotLightsPass(unsigned int lightMapRenderTarget, unsigned int normalMapTexture, unsigned int depthMapTexture)
+  DeferredSpotLightsPass(unsigned int lightMapRenderTarget, unsigned int colorMapTexture, unsigned int normalMapTexture, unsigned int depthMapTexture)
     : lightMapRenderTarget_(lightMapRenderTarget)
+    , colorMapTexture_(colorMapTexture)
     , normalMapTexture_(normalMapTexture)
     , depthMapTexture_(depthMapTexture) { }
 
@@ -29,9 +30,16 @@ private:
   IEffect* shadowMapEffect_;
 
   unsigned int lightMapRenderTarget_;
+
+  unsigned int spotLightRenderTarget_;
+  unsigned int spotLightRenderTexture_;
   
+  unsigned int colorMapTexture_;
   unsigned int normalMapTexture_;
   unsigned int depthMapTexture_;
+
+  IEffect* accumulationEffect_;
+  unsigned int quadVbo_;
 
   GaussianBlur gaussianBlur_;
 
