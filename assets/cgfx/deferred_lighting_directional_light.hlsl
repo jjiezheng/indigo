@@ -73,8 +73,6 @@ float4 ps(float4 position : SV_POSITION,
     float3 halfVector = normalize(halfVectorRaw);
 
     float i = pow(saturate(dot(normalize(normal), halfVector)), specularPower);
-    //return float4(dot(normal, halfVector), dot(normalize(normal), halfVector), dot(normal, halfVector), 0);
-
     specularContribution = i * specularIntensity / distance;
   }
 
