@@ -55,7 +55,7 @@ float4 ps(float4 position : SV_POSITION,
 
   float4 lightVector = -LightDirection;
 
-  // pulled from http://en.wikipedia.org/wiki/Blinn%E2%80%93Phong_shading_model
+  // Blinn+Phong from http://en.wikipedia.org/wiki/Blinn%E2%80%93Phong_shading_model
   float distance = length(LightDirection);
   distance = distance * distance;
 
@@ -72,7 +72,7 @@ float4 ps(float4 position : SV_POSITION,
     float3 halfVectorRaw = lightVector + viewDirection;
     float3 halfVector = normalize(halfVectorRaw);
 
-    float i = pow(saturate(dot(normalize(normal), halfVector)), specularPower);
+    float i = pow(saturate(dot(normal, halfVector)), specularPower);
     specularContribution = i * specularIntensity / distance;
   }
 

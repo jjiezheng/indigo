@@ -50,36 +50,44 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
 
   fullScreenBlurTexture_ = GraphicsInterface::createTexture(screenSize);
   fullScreenBlurRenderTarget_ = GraphicsInterface::createRenderTarget(fullScreenBlurTexture_);
+  
+  {
+    IDeferredPass* clearBuffersPass = new DeferredClearBuffersPass(colorRenderTarget_, depthRenderTarget_, lightRenderTarget_, normalRenderTarget_, compositionRenderTarget_);
+    passes_.push_back(clearBuffersPass);
 
-  IDeferredPass* clearBuffersPass = new DeferredClearBuffersPass(colorRenderTarget_, depthRenderTarget_, lightRenderTarget_, normalRenderTarget_, compositionRenderTarget_);
-  passes_.push_back(clearBuffersPass);
+    IDeferredPass* geometryPass = new DeferredGeometryPass(colorRenderTarget_, normalRenderTarget_, depthRenderTarget_);
+    passes_.push_back(geometryPass);
+  }
+  
+  {
+    IDeferredPass* directionalLightingPass = new DeferredDirectionalLightsPass(lightRenderTarget_, colorMapTexture_, normalMapTexture_, depthMapTexture_);
+    passes_.push_back(directionalLightingPass);
 
-  IDeferredPass* geometryPass = new DeferredGeometryPass(colorRenderTarget_, normalRenderTarget_, depthRenderTarget_);
-  passes_.push_back(geometryPass);
+    /*IDeferredPass* pointLightingPass = new DeferredPointLightsPass(lightRenderTarget_, normalMapTexture_, depthMapTexture_);
+    passes_.push_back(pointLightingPass);*/
 
-  IDeferredPass* directionalLightingPass = new DeferredDirectionalLightsPass(lightRenderTarget_, colorMapTexture_, normalMapTexture_, depthMapTexture_);
-  passes_.push_back(directionalLightingPass);
+    IDeferredPass* spotLightingPass = new DeferredSpotLightsPass(lightRenderTarget_, colorMapTexture_, normalMapTexture_, depthMapTexture_);
+    passes_.push_back(spotLightingPass);
+  }
 
-  /*IDeferredPass* pointLightingPass = new DeferredPointLightsPass(lightRenderTarget_, normalMapTexture_, depthMapTexture_);
-  passes_.push_back(pointLightingPass);*/
+  {
+    //IDeferredPass* ssaoPass = new DeferredSSAOPass(ssaoRenderTarget_, colorMapTexture_, normalMapTexture_, depthMapTexture_);
+    //passes_.push_back(ssaoPass);
 
-  /*IDeferredPass* spotLightingPass = new DeferredSpotLightsPass(lightRenderTarget_, colorMapTexture_, normalMapTexture_, depthMapTexture_);
-  passes_.push_back(spotLightingPass);*/
+    /*IDeferredPass* ssaoCompositionPass = new DeferredCompositionPass(ssaoCombineRenderTarget_, compositionMapTexture_, ssaoMapTexture_);
+    passes_.push_back(ssaoCompositionPass);
 
-  /*IDeferredPass* ssaoPass = new DeferredSSAOPass(ssaoRenderTarget_, colorMapTexture_, normalMapTexture_, depthMapTexture_);
-  passes_.push_back(ssaoPass);
+    IDeferredPass* fxaaPass = new DeferredFXAAPass(fxaaRenderTarget_, ssaoCombineMapTexture_);
+    passes_.push_back(fxaaPass);*/
 
-  IDeferredPass* ssaoCompositionPass = new DeferredCompositionPass(ssaoCombineRenderTarget_, compositionMapTexture_, ssaoMapTexture_);
-  passes_.push_back(ssaoCompositionPass);
+    /*IDeferredPass* fullScreenBlurPass = new DeferredFullScreenBlurPass(fxaaMapTexture_, fullScreenBlurRenderTarget_);
+    passes_.push_back(fullScreenBlurPass);*/
+  }
 
-  IDeferredPass* fxaaPass = new DeferredFXAAPass(fxaaRenderTarget_, ssaoCombineMapTexture_);
-  passes_.push_back(fxaaPass);*/
-
-  /*IDeferredPass* fullScreenBlurPass = new DeferredFullScreenBlurPass(fxaaMapTexture_, fullScreenBlurRenderTarget_);
-  passes_.push_back(fullScreenBlurPass);*/
-
-  //IDeferredPass* presentPass = new DeferredPresentPass(compositionMapTexture_);
-  //passes_.push_back(presentPass);
+  {
+    IDeferredPass* presentPass = new DeferredPresentPass(lightMapTexture_);
+    passes_.push_back(presentPass);
+  }
 
   for (std::vector<IDeferredPass*>::iterator i = passes_.begin(); i != passes_.end(); ++i) {
     (*i)->init();

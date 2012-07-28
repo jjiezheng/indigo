@@ -6,7 +6,7 @@
 
 void DeferredClearBuffersPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
   GraphicsInterface::resetRenderTarget();
-  GraphicsInterface::clearBuffer(Color4::CORNFLOWERBLUE);
+  GraphicsInterface::clearBuffer(Color4::BLACK);
   GraphicsInterface::clearRenderTarget(lightRenderTarget_, Color4::BLACK);
   GraphicsInterface::clearRenderTarget(colorRenderTarget_, sceneContext.backgroundColor());
   GraphicsInterface::clearRenderTarget(normalRenderTarget_, Color4::WHITE);

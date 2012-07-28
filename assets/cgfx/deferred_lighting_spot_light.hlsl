@@ -45,15 +45,22 @@ float4 ps(float4 position 		: SV_POSITION,
 	//------------------------------------------------------------
 
 	float4 normalData = NormalMap.Sample(NormalMapSamplerState, texCoord);
-	float3 normal = normalData.xyz;
+	float3 normal = normalize(normalData.xyz);
 
-	float3 depthSpec = DepthMap.Sample(DepthMapSamplerState, texCoord);
+	float4 depthSpec = DepthMap.Sample(DepthMapSamplerState, texCoord);
 	float depth = depthSpec.x;
-	float specularPower = depthSpec.y * 255;
+
+	if (depth == 1.0f) {
+    	return float4(0, 0, 0, 0);
+  	}
+
+  	float diffusePower = depthSpec.w * 255;
+	float specularPower = depthSpec.y;
 	float specularIntensity = depthSpec.z;
 
 	float4 positionScreen;
 	positionScreen.xy = screenPositionHom.xy;
+	//positionScreen.y = -positionScreen.y;
 	positionScreen.z = depth; 
 	positionScreen.w = 1.0f;
 
@@ -68,6 +75,10 @@ float4 ps(float4 position 		: SV_POSITION,
 
 	// diffuse
 	float3 directionToLight = LightPosition - positionWorld;
+
+	float distance = length(LightDirection);
+  	distance = distance * distance;
+
 	float3 directionOfLight = -LightDirection;
 	float lightDirectionDot = max(0.0f, dot(normalize(directionOfLight), normalize(directionToLight)));
 
@@ -77,23 +88,30 @@ float4 ps(float4 position 		: SV_POSITION,
 	float diffuseStrength = 0.0f;
 
 	if (lightDirectionDot > lightOuterCos) {
-		diffuseStrength = max(0.0f, dot(normalize(normal), normalize(directionOfLight)));
-		float attenuation = LightDecay;
-		finalColor.rgb = diffuseStrength * smoothstep(lightOuterCos, lightInnerCos, lightDirectionDot);	
+		diffuseStrength = max(0.0f, saturate(dot(normal, normalize(directionOfLight))));
+		diffuseStrength *= smoothstep(lightOuterCos, lightInnerCos, lightDirectionDot);	
 	}
 
 	if (lightDirectionDot > lightInnerCos) {
-		diffuseStrength = max(0.0f, dot(normalize(normal), normalize(directionOfLight)));
-		finalColor.rgb = diffuseStrength;
+		diffuseStrength = max(0.0f, saturate(dot(normal, normalize(directionOfLight))));
+	}
+
+	float3 diffuseContribution = LightColor * diffusePower * diffuseStrength / distance;
+
+	//specular
+	float specularContribution = 0;
+	if (diffuseStrength > 0) {
+		float3 viewDirectionRaw = ViewPosition - positionWorld;
+		float3 viewDirection = normalize(viewDirectionRaw);
+
+		float3 lightVector = -LightDirection;
+		float3 halfVectorRaw = lightVector + viewDirection;
+		float3 halfVector = normalize(halfVectorRaw);
+
+		float i = pow(saturate(dot(normal, halfVector)), specularPower);
+		specularContribution = i * specularIntensity / distance;
 	}
 	
-	//specular
-	float3 lightDirection = normalize(LightPosition - positionWorld).xyz;
-	float3 reflectionVector = normalize(reflect(lightDirection, normal));
-
-	float3 viewDirection = normalize(ViewPosition - positionWorld).xyz;
-	float specularContribution = specularIntensity * pow(saturate(dot(reflectionVector, viewDirection)), specularPower);
-	finalColor.a = specularContribution;
 
 	//------------------------------------------------------------
 	// shadows
@@ -111,9 +129,9 @@ float4 ps(float4 position 		: SV_POSITION,
 		shadowLightContribution = ReduceLightBleeding(shadowLightContribution, 0.9f);
 	}
 
-	//finalColor.rgb *= shadowLightContribution;
+	diffuseContribution *= shadowLightContribution;
 
-	return finalColor;
+	return float4(diffuseContribution, specularContribution);
 } 
 
 technique11 Main {

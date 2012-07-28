@@ -1,15 +1,14 @@
 #include "utils.cg"
 
 Texture2D ColorMap;
-SamplerState ColorMapSamplerState {
-};
+SamplerState ColorMapSamplerState { };
 
 Texture2D NormalMap;
-SamplerState NormalMapSamplerState {
-};
+SamplerState NormalMapSamplerState { };
 
 uniform float4x4 WorldViewProj;
 
+uniform float DiffusePower;
 uniform float SpecularPower;
 uniform float SpecularIntensity;
 
@@ -45,10 +44,10 @@ POutput ps(float4 position			: SV_POSITION,
 	POutput OUT;
 	
 	OUT.color = ColorMap.Sample(ColorMapSamplerState, texCoord);					
-	OUT.normal = float4(normal, 1.0f);// NormalMap.Sample(NormalMapSamplerState, texCoord);
+	OUT.normal = float4(normalize(normal), 1.0f);// NormalMap.Sample(NormalMapSamplerState, texCoord);
 
 	float depthHom = depth.x / depth.y; // z / w
-	OUT.depth = float4(depthHom, SpecularPower, SpecularIntensity, 1);
+	OUT.depth = float4(depthHom, SpecularPower, SpecularIntensity, DiffusePower);
 
 	return OUT;
 }

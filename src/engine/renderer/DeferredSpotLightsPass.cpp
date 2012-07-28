@@ -28,7 +28,7 @@ void DeferredSpotLightsPass::init() {
   spotLightRenderTexture_ = GraphicsInterface::createTexture(screenSize);
   spotLightRenderTarget_ = GraphicsInterface::createRenderTarget(spotLightRenderTexture_);
 
-  accumulationEffect_ = IEffect::effectFromFile("cgfx/deferred_final_composition.hlsl");
+  accumulationEffect_ = IEffect::effectFromFile("cgfx/deferred_light_composition.hlsl");
   quadVbo_ = Geometry::screenPlane();
 }
 
@@ -100,7 +100,6 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
     {
       GraphicsInterface::setRenderTarget(lightMapRenderTarget_, false);
       GraphicsInterface::clearRenderTarget(lightMapRenderTarget_, Color4::BLACK);
-      GraphicsInterface::resetRenderTarget();
       accumulationEffect_->setTexture(spotLightRenderTexture_, "LightSourceMap");
       accumulationEffect_->setTexture(colorMapTexture_, "ColorMap");
       accumulationEffect_->beginDraw();

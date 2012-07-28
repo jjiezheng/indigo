@@ -19,7 +19,7 @@ void DeferredDirectionalLightsPass::init() {
   directionalLightRenderTexture_ = GraphicsInterface::createTexture(screenSize);
   directionalLightRenderTarget_ = GraphicsInterface::createRenderTarget(directionalLightRenderTexture_);
 
-  accumulationEffect_ = IEffect::effectFromFile("cgfx/deferred_final_composition.hlsl");
+  accumulationEffect_ = IEffect::effectFromFile("cgfx/deferred_light_composition.hlsl");
   quadVbo_ = Geometry::screenPlane();
 }
 
@@ -47,7 +47,6 @@ void DeferredDirectionalLightsPass::render(IViewer* viewer, World& world, const 
   {
     GraphicsInterface::setRenderTarget(lightMapRenderTarget_, false);
     GraphicsInterface::clearRenderTarget(lightMapRenderTarget_, Color4::WHITE);
-    GraphicsInterface::resetRenderTarget();
     accumulationEffect_->setTexture(directionalLightRenderTexture_, "LightSourceMap");
     accumulationEffect_->setTexture(colorMapTexture_, "ColorMap");
     accumulationEffect_->beginDraw();

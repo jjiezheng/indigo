@@ -12,6 +12,10 @@
         "SpecularIntensity" : {
           "value" : 0.5,
           "type" : "float"
+        },
+        "DiffusePower" : {
+          "value" : 0.01,
+          "type" : "float"
         }
       },
       "textures" : { }

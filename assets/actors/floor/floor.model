@@ -16,6 +16,18 @@
           "g" : 0.6,
           "b" : 0.6,
           "type" : "color3"
+        },
+        "DiffusePower" : {
+          "value" : 0.01,
+          "type" : "float"
+        },
+        "SpecularPower" : {
+          "value" : 0,
+          "type" : "float"
+        },
+        "SpecularIntensity" : {
+          "value" : 0,
+          "type" : "float"
         }
       },
       "textures" : { }

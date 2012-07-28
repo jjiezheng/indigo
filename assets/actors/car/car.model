@@ -12,7 +12,11 @@
 		    "SpecularIntensity" : {
 		      "value" : 0.8,
 		      "type" : "float"
-		    }
+		    },
+			"DiffusePower" : {
+	          "value" : 0.01,
+	          "type" : "float"
+	        }
 		  },
 		  "textures" : {
 		    "ColorMap" : "actors/car/car_hull_diffuse.png",

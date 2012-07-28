@@ -3,6 +3,7 @@
 uniform	float3 DiffuseColor;
 uniform	float3 AmbientColor;
 
+uniform float DiffusePower;
 uniform float SpecularPower;
 uniform float SpecularIntensity;
 
@@ -42,7 +43,7 @@ POutput ps(float4 position			: SV_POSITION,
 	OUT.normal = float4(normal, 1);
 
 	float depthHom = depth.x / depth.y; // z / w
-	OUT.depth = float4(depthHom, SpecularPower, SpecularIntensity, 1);
+	OUT.depth = float4(depthHom, SpecularPower, SpecularIntensity, DiffusePower);
 	
 	return OUT;
 }
