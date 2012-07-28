@@ -8,6 +8,8 @@ SamplerState NormalMapSamplerState { };
 
 uniform float4x4 WorldViewProj;
 
+uniform float4 DiffuseColor;
+
 uniform float DiffusePower;
 uniform float SpecularPower;
 uniform float SpecularIntensity;
@@ -43,7 +45,8 @@ POutput ps(float4 position			: SV_POSITION,
 		   float2 depth 			: TEXCOORD2) {
 	POutput OUT;
 	
-	OUT.color = ColorMap.Sample(ColorMapSamplerState, texCoord);					
+	OUT.color = ColorMap.Sample(ColorMapSamplerState, texCoord);				
+	OUT.color = float4(OUT.color.a, OUT.color.a, OUT.color.a, OUT.color.a);	
 	OUT.normal = float4(normalize(normal), 1.0f);// NormalMap.Sample(NormalMapSamplerState, texCoord);
 
 	float depthHom = depth.x / depth.y; // z / w

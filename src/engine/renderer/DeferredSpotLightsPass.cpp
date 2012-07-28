@@ -99,7 +99,6 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
     // accumulate into lightmap
     {
       GraphicsInterface::setRenderTarget(lightMapRenderTarget_, false);
-      GraphicsInterface::clearRenderTarget(lightMapRenderTarget_, Color4::BLACK);
       accumulationEffect_->setTexture(spotLightRenderTexture_, "LightSourceMap");
       accumulationEffect_->setTexture(colorMapTexture_, "ColorMap");
       accumulationEffect_->beginDraw();

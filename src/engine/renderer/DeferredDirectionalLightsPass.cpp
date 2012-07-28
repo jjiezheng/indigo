@@ -46,7 +46,6 @@ void DeferredDirectionalLightsPass::render(IViewer* viewer, World& world, const 
   // accumulate into lightmap
   {
     GraphicsInterface::setRenderTarget(lightMapRenderTarget_, false);
-    GraphicsInterface::clearRenderTarget(lightMapRenderTarget_, Color4::WHITE);
     accumulationEffect_->setTexture(directionalLightRenderTexture_, "LightSourceMap");
     accumulationEffect_->setTexture(colorMapTexture_, "ColorMap");
     accumulationEffect_->beginDraw();
