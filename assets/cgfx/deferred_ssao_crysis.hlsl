@@ -40,7 +40,7 @@ float4 ps(float4 position 		: SV_POSITION,
 	float4 normalData = NormalMap.Sample(NormalMapSamplerState, texCoord);
 	float3 normal = normalize(normalData.xyz);
 
-	float depth = DepthMap.Sample(DepthMapSamplerState, texCoord);
+	float depth = DepthMap.Sample(DepthMapSamplerState, texCoord).r;
 
 	float4 positionScreen;
 	positionScreen.xy = (texCoord.xy * 2.0f) - 1.0f;
@@ -49,9 +49,7 @@ float4 ps(float4 position 		: SV_POSITION,
 	positionScreen.w = 1.0f;
 
 	float4 positionViewRaw = mul(ProjInv, positionScreen);
-	float4 positionView = positionViewRaw;// / positionViewRaw.w;
-
-	//return positionView;
+	float4 positionView = positionViewRaw / positionViewRaw.w;
 
 	// random normal isnt coming out random anymore
 
@@ -64,15 +62,13 @@ float4 ps(float4 position 		: SV_POSITION,
 
 	float normalsDot = dot(randomNormal, normal);
 
-	float3 tangentRaw = randomNormal - normal * normalsDot;
+	float3 tangentRaw = randomNormal - (normal * normalsDot);
 	float3 tangent = normalize(tangentRaw);
 	float3 bitangent = cross(normal, tangent);
 	float3x3 tbn = float3x3(tangent, bitangent, normal);
 
-	//return float4(positionView.xyz, 1.0f);
-
 	for (int i = 0; i < KernelSize; i++) {
-		float3 sample = mul(Kernel[i].xyz, tbn) * radius;
+		float3 sample = mul(tbn, Kernel[i].xyz) * radius;
 
 		float4 viewSample = positionView + float4(sample, 1.0f);
 
@@ -82,10 +78,10 @@ float4 ps(float4 position 		: SV_POSITION,
 		offset.xy = (offset.xy * 0.5) + 0.5;
 		offset.y = 1.0f - offset.y;
 
-		float sampleDepth = DepthMap.Sample(DepthMapSamplerState, offset);
+		float sampleDepth = DepthMap.Sample(DepthMapSamplerState, offset).r;
 
 		if (sampleDepth < 1.0f) {
-			float depthDifference = max(depth - sampleDepth, 0.0f);
+			float depthDifference = max(abs(depth - sampleDepth), 0.0f);
 			if (depthDifference < radius && depth <= sampleDepth) {
 				occlusion += occlusionContribution;
 			}	

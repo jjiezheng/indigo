@@ -48,9 +48,6 @@ private:
   unsigned int ssaoMapTexture_;
   unsigned int ssaoRenderTarget_;
 
-  unsigned int ssaoCombineMapTexture_;
-  unsigned int ssaoCombineRenderTarget_;
-
   unsigned int fullScreenBlurTexture_;
   unsigned int fullScreenBlurRenderTarget_;
 

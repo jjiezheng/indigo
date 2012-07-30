@@ -11,11 +11,12 @@ class DeferredSSAOPass : public IDeferredPass {
 
 public:
 
-  DeferredSSAOPass(unsigned int ssaoRenderTarget, unsigned int colorMapTexture, unsigned int normalMapTexture, unsigned int depthMapTexture)
+  DeferredSSAOPass(unsigned int ssaoRenderTarget, unsigned int colorMapTexture, unsigned int normalMapTexture, unsigned int depthMapTexture, unsigned int lightMapTexture)
     : outputRenderTarget_(ssaoRenderTarget)
     , colorMapTexture_(colorMapTexture)
     , normalMapTexture_(normalMapTexture)
-    , depthMapTexture_(depthMapTexture) { }
+    , depthMapTexture_(depthMapTexture) 
+    , lightMapTexture_(lightMapTexture) { }
 
 public:
 
@@ -26,6 +27,7 @@ public:
 private:
 
   IEffect* ssaoEffect_;
+  IEffect* combineEffect_;
 
   unsigned int quadVbo_;
 
@@ -33,6 +35,7 @@ private:
   unsigned int colorMapTexture_;
   unsigned int normalMapTexture_;
   unsigned int depthMapTexture_;
+  unsigned int lightMapTexture_;
 
   unsigned int noiseTexture_;
 
