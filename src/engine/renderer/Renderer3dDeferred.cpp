@@ -71,8 +71,8 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
   }
 
   {
-    //IDeferredPass* ssaoPass = new DeferredSSAOPass(ssaoRenderTarget_, colorMapTexture_, normalMapTexture_, depthMapTexture_);
-    //passes_.push_back(ssaoPass);
+    IDeferredPass* ssaoPass = new DeferredSSAOPass(ssaoRenderTarget_, colorMapTexture_, normalMapTexture_, depthMapTexture_);
+    passes_.push_back(ssaoPass);
 
     /*IDeferredPass* ssaoCompositionPass = new DeferredCompositionPass(ssaoCombineRenderTarget_, compositionMapTexture_, ssaoMapTexture_);
     passes_.push_back(ssaoCompositionPass);
@@ -85,7 +85,7 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
   }
 
   {
-    IDeferredPass* presentPass = new DeferredPresentPass(lightMapTexture_);
+    IDeferredPass* presentPass = new DeferredPresentPass(ssaoMapTexture_);
     passes_.push_back(presentPass);
   }
 

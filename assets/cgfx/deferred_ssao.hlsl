@@ -46,12 +46,13 @@ VOutput vs(float4 position 	: POSITION,
 float4 ps(float4 position 		: SV_POSITION,
 		  float4 texCoord 		: TEXCOORD0) : SV_TARGET0 {
 	float4 normalData = NormalMap.Sample(NormalMapSamplerState, texCoord);
-	float3 normal = normalData.xyz;
+	float3 normal = normalize(normalData.xyz);
 
 	float depth = DepthMap.Sample(DepthMapSamplerState, texCoord);
 
 	float4 positionScreen;
 	positionScreen.xy = (texCoord.xy * 2.0f) - 1.0f;
+	positionScreen.y = -positionScreen.y;
 	positionScreen.z = depth; 
 	positionScreen.w = 1.0f;
 
@@ -60,6 +61,8 @@ float4 ps(float4 position 		: SV_POSITION,
 
 	float4 positionWorldRaw = mul(ViewProjInv, positionScreen);
 	float4 positionWorld = positionWorldRaw / positionWorldRaw.w;	
+
+	return positionWorld;
 
 	// SSAO
 	float3 randomNormal = NoiseMap.Sample(NoiseMapSamplerState, texCoord * NoiseScale);

@@ -38,7 +38,7 @@ VOutput vs(float4 position 	: POSITION,
 float4 ps(float4 position 		: SV_POSITION,
 		  float2 texCoord 		: TEXCOORD0) : SV_TARGET0 {
 	float4 normalData = NormalMap.Sample(NormalMapSamplerState, texCoord);
-	float3 normal = normalData.xyz;
+	float3 normal = normalize(normalData.xyz);
 
 	float depth = DepthMap.Sample(DepthMapSamplerState, texCoord);
 
@@ -49,19 +49,27 @@ float4 ps(float4 position 		: SV_POSITION,
 	positionScreen.w = 1.0f;
 
 	float4 positionViewRaw = mul(ProjInv, positionScreen);
-	float4 positionView = positionViewRaw / positionViewRaw.w;
+	float4 positionView = positionViewRaw;// / positionViewRaw.w;
+
+	//return positionView;
 
 	// random normal isnt coming out random anymore
 
 	float3 randomNormal = NoiseMap.Sample(NoiseMapSamplerState, texCoord * NoiseScale);
+	randomNormal = normalize(randomNormal);
 
 	float radius = 0.5f;
 	float occlusionContribution = 2.0f;
 	float occlusion = 0.0f;
 
-	float3 tangent = normalize(randomNormal - normal * dot(randomNormal, normal));
+	float normalsDot = dot(randomNormal, normal);
+
+	float3 tangentRaw = randomNormal - normal * normalsDot;
+	float3 tangent = normalize(tangentRaw);
 	float3 bitangent = cross(normal, tangent);
 	float3x3 tbn = float3x3(tangent, bitangent, normal);
+
+	//return float4(positionView.xyz, 1.0f);
 
 	for (int i = 0; i < KernelSize; i++) {
 		float3 sample = mul(Kernel[i].xyz, tbn) * radius;
