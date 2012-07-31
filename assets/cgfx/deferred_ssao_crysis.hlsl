@@ -1,8 +1,8 @@
 #include "standard.hlsl"
 
-uniform float2 NoiseScale;
 uniform float Radius;
 uniform float KernelSize;
+uniform float2 NoiseScale;
 uniform float4 Kernel[16];
 
 Texture2D NoiseMap;
@@ -19,8 +19,6 @@ SamplerState DepthMapSamplerState;
 
 uniform float4x4 Projection;
 uniform float4x4 ProjInv;
-uniform float4x4 ViewInv;
-uniform float4x4 ViewProj;
 
 struct VOutput {
       float4 position 		: SV_POSITION;
@@ -38,14 +36,14 @@ VOutput vs(float4 position 	: POSITION,
 float4 ps(float4 position 		: SV_POSITION,
 		  float2 texCoord 		: TEXCOORD0) : SV_TARGET0 {
 	float4 normalData = NormalMap.Sample(NormalMapSamplerState, texCoord);
-	float3 normal = normalize(normalData.xyz);
+	float3 normal = normalData.xyz;
 
 	float depth = DepthMap.Sample(DepthMapSamplerState, texCoord).r;
 
 	float4 positionScreen;
-	positionScreen.xy = (texCoord.xy * 2.0f) - 1.0f;
-	positionScreen.y = -positionScreen.y;
-	positionScreen.z = depth; 
+	positionScreen.xy = texCoord.x * 2.0f - 1.0f;
+	positionScreen.y = (1.0f - texCoord.y) * 2.0f - 1.0f;
+	positionScreen.z = depth;
 	positionScreen.w = 1.0f;
 
 	float4 positionViewRaw = mul(ProjInv, positionScreen);
@@ -60,17 +58,16 @@ float4 ps(float4 position 		: SV_POSITION,
 	float occlusionContribution = 2.0f;
 	float occlusion = 0.0f;
 
-	float normalsDot = dot(randomNormal, normal);
+	float normalsDot = dot(randomNormal, normalize(normal));
 
-	float3 tangentRaw = randomNormal - (normal * normalsDot);
+	float3 tangentRaw = randomNormal - (normalize(normal) * normalsDot);
 	float3 tangent = normalize(tangentRaw);
-	float3 bitangent = cross(normal, tangent);
+	float3 bitangent = cross(normalize(normal), tangent);
 	float3x3 tbn = float3x3(tangent, bitangent, normal);
 
 	for (int i = 0; i < KernelSize; i++) {
 		float3 sample = mul(tbn, Kernel[i].xyz) * radius;
-
-		float4 viewSample = positionView + float4(sample, 1.0f);
+		float4 viewSample = float4(positionView.xyz + sample, 1.0f);
 
 		float4 offset = mul(Projection, viewSample);
 		offset /= offset.w;
@@ -80,16 +77,12 @@ float4 ps(float4 position 		: SV_POSITION,
 
 		float sampleDepth = DepthMap.Sample(DepthMapSamplerState, offset).r;
 
-		if (sampleDepth < 1.0f) {
-			float depthDifference = max(abs(depth - sampleDepth), 0.0f);
-			if (depthDifference < radius && depth <= sampleDepth) {
-				occlusion += occlusionContribution;
-			}	
-		}
+		if (depth <= sampleDepth) {
+			occlusion += occlusionContribution;
+		}	
 	}
 
 	float occlusionOutput = occlusion / KernelSize;
-
 	return float4(occlusionOutput, occlusionOutput, occlusionOutput, 1.0f);
 }
 
