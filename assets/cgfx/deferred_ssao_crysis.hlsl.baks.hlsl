@@ -38,11 +38,11 @@ float4 ps(float4 position 		: SV_POSITION,
 	float4 normalData = NormalMap.Sample(NormalMapSamplerState, texCoord);
 	float3 normal = normalData.xyz;
 
-	float depth = DepthMap.Sample(DepthMapSamplerState, texCoord).r;
+	float depth = DepthMap.Sample(DepthMapSamplerState, texCoord).g;
 
 	float4 positionScreen;
-	positionScreen.xy = texCoord.x * 2.0f - 1.0f;
-	positionScreen.y = -positionScreen.y;
+	positionScreen.x = texCoord.x * 2.0f - 1.0f;
+	positionScreen.y = -(texCoord.y * 2.0f - 1.0f);
 	positionScreen.z = depth;
 	positionScreen.w = 1.0f;
 
@@ -54,37 +54,38 @@ float4 ps(float4 position 		: SV_POSITION,
 	float3 randomNormal = NoiseMap.Sample(NoiseMapSamplerState, texCoord * NoiseScale);
 	randomNormal = normalize(randomNormal);
 
-	float radius = 0.5f;
-	float occlusionContribution = 2.0f;
+	float radius = 2.1f;
+	float occlusionContribution = 1.0f;
 	float occlusion = 0.0f;
 
 	float normalsDot = dot(randomNormal, normalize(normal));
 
 	float3 tangentRaw = randomNormal - (normalize(normal) * normalsDot);
-	float3 tangent = normalize(tangentRaw);
+	float3 tangent = tangentRaw;
 	float3 bitangent = cross(normalize(normal), tangent);
 	float3x3 tbn = float3x3(tangent, bitangent, normal);
 
 	for (int i = 0; i < KernelSize; i++) {
-		float3 sample = mul(tbn, Kernel[i].xyz) * radius;
-		float4 viewSample = float4(positionView.xyz + sample, 1.0f);
+		float3 sample = mul(tbn, Kernel[i].xyz);
+		sample = sample * radius + positionView.xyz;
 
-		float4 offset = mul(Projection, viewSample);
-		offset /= offset.w;
-
-		offset.xy = (offset.xy * 0.5) + 0.5;
+		float4 offset = mul(Projection, float4(sample, 1.0f));
+		offset.xy /= offset.w;
+		offset.xy = offset.xy * 0.5 + 0.5;
 		offset.y = 1.0f - offset.y;
 
-		float sampleDepth = DepthMap.Sample(DepthMapSamplerState, offset).r;
+		float sampleDepth = DepthMap.Sample(DepthMapSamplerState, offset).y;
 
-		if (depth <= sampleDepth) {
-			occlusion += occlusionContribution;
+		//return float4(depth, sampleDepth, sample.z, 1.0f);
+
+		if (sampleDepth <= sample.z) {
+			occlusion += 1.0;
 		}	
 
-		break;
+		//break;
 	}
 
-	float occlusionOutput = occlusion / KernelSize;
+	float occlusionOutput = (occlusion / KernelSize);
 	return float4(occlusionOutput, occlusionOutput, occlusionOutput, 1.0f);
 }
 

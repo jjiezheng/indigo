@@ -19,7 +19,7 @@ static const int kNoisePixelLine = 4;
 
 void DeferredSSAOPass::init() {
   combineEffect_ = IEffect::effectFromFile("cgfx/deferred_ssao_combine.hlsl");
-  ssaoEffect_ = IEffect::effectFromFile("cgfx/deferred_ssao_crysis.hlsl");
+  ssaoEffect_ = IEffect::effectFromFile("cgfx/deferred_ssao_gdev.hlsl");
   quadVbo_ = Geometry::screenPlane();
 
   // generate samples
@@ -32,6 +32,8 @@ void DeferredSSAOPass::init() {
     Vector4 kernelV(x, y, z, 0.0f);
     Vector4 kernelN = kernelV.normalize();
     kernel[i] = kernelN;
+
+    kernel[i] = kernel[i] * Random::random(0.0f, 1.0f);
 
     float scale = float(i) / float(kKernelSize);
 	  scale = lerp(0.1f, 1.0f, scale * scale);

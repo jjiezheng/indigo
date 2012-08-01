@@ -33,59 +33,61 @@ VOutput vs(float4 position 	: POSITION,
     return OUT;
 }
 
+float ambientOcclusion(float2 texCoord, float2 uv, float3 position, float3 normal) {
+	float intensity = 1;
+	float bias = 1;
+
+	float3 diff = getPosition(texCoord + uv) - position;
+	float3 diffN = normalize(diff);
+	float distance = length(diff) * g_scale;
+	return max(0.0, dot(normal, diffN) - bias) * (1.0 / (1.0 + distance)) * intensity;
+}
+
 float4 ps(float4 position 		: SV_POSITION,
 		  float2 texCoord 		: TEXCOORD0) : SV_TARGET0 {
 	float4 normalData = NormalMap.Sample(NormalMapSamplerState, texCoord);
 	float3 normal = normalData.xyz;
 
-	float depth = DepthMap.Sample(DepthMapSamplerState, texCoord).r;
+	float depth = DepthMap.Sample(DepthMapSamplerState, texCoord).g;
 
 	float4 positionScreen;
 	positionScreen.xy = texCoord.x * 2.0f - 1.0f;
-	positionScreen.y = -positionScreen.y;
+	positionScreen.y = (1.0f - texCoord.y) * 2.0f - 1.0f;
 	positionScreen.z = depth;
 	positionScreen.w = 1.0f;
 
 	float4 positionViewRaw = mul(ProjInv, positionScreen);
 	float4 positionView = positionViewRaw / positionViewRaw.w;
 
-	// random normal isnt coming out random anymore
-
 	float3 randomNormal = NoiseMap.Sample(NoiseMapSamplerState, texCoord * NoiseScale);
 	randomNormal = normalize(randomNormal);
 
-	float radius = 0.5f;
-	float occlusionContribution = 2.0f;
+	const float2 vec[4] = { 
+		float2( 1,  0),
+		float2(-1,  0),
+        float2( 0,  1),
+        float2( 0, -1)
+	};
+
 	float occlusion = 0.0f;
+	float radius = 5.0f / positionView.z;
 
-	float normalsDot = dot(randomNormal, normalize(normal));
+	int iterations = 4;
 
-	float3 tangentRaw = randomNormal - (normalize(normal) * normalsDot);
-	float3 tangent = normalize(tangentRaw);
-	float3 bitangent = cross(normalize(normal), tangent);
-	float3x3 tbn = float3x3(tangent, bitangent, normal);
+	for (int i = 0; i < iterations; ++i) {
+		float2 coord1 = reflect(vec[i], randomNormal) * radius;
+		float2 coord2 = float2(coord1.x * 0.707 - coord1.y * 0.707, coord1.x = 0.707 + coord1.y * 0.707);
 
-	for (int i = 0; i < KernelSize; i++) {
-		float3 sample = mul(tbn, Kernel[i].xyz) * radius;
-		float4 viewSample = float4(positionView.xyz + sample, 1.0f);
+		occlusion += ambientOcclusion(texCoord, coord1 * 0.25, positionView, normal);
+		occlusion += ambientOcclusion(texCoord, coord2 * 0.50, positionView, normal);
 
-		float4 offset = mul(Projection, viewSample);
-		offset /= offset.w;
-
-		offset.xy = (offset.xy * 0.5) + 0.5;
-		offset.y = 1.0f - offset.y;
-
-		float sampleDepth = DepthMap.Sample(DepthMapSamplerState, offset).r;
-
-		if (depth <= sampleDepth) {
-			occlusion += occlusionContribution;
-		}	
-
-		break;
+		occlusion += ambientOcclusion(texCoord, coord1 * 0.25, positionView, normal);
+		occlusion += ambientOcclusion(texCoord, coord2 * 0.00, positionView, normal);
 	}
 
-	float occlusionOutput = occlusion / KernelSize;
-	return float4(occlusionOutput, occlusionOutput, occlusionOutput, 1.0f);
+	occlusion /= (float)iterations * 4.0;
+
+	return float4(occlusion, occlusion, occlusion, 1.0f);
 }
 
 
