@@ -19,7 +19,7 @@ static const int kNoisePixelLine = 4;
 
 void DeferredSSAOPass::init() {
   combineEffect_ = IEffect::effectFromFile("cgfx/deferred_ssao_combine.hlsl");
-  ssaoEffect_ = IEffect::effectFromFile("cgfx/deferred_ssao_gdev.hlsl");
+  ssaoEffect_ = IEffect::effectFromFile("cgfx/deferred_ssao_crysis.hlsl");
   quadVbo_ = Geometry::screenPlane();
 
   // generate samples

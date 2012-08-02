@@ -41,7 +41,7 @@ float4 ps(float4 position 		: SV_POSITION,
 	float depth = DepthMap.Sample(DepthMapSamplerState, texCoord).r;
 
 	float4 positionScreen;
-	positionScreen.xy = texCoord.x * 2.0f - 1.0f;
+	positionScreen.xy = texCoord.xy * 2.0f - 1.0f;
 	positionScreen.y = -positionScreen.y;
 	positionScreen.z = depth;
 	positionScreen.w = 1.0f;
@@ -66,7 +66,7 @@ float4 ps(float4 position 		: SV_POSITION,
 	float3x3 tbn = float3x3(tangent, bitangent, normal);
 
 	for (int i = 0; i < KernelSize; i++) {
-		float3 sample = mul(tbn, Kernel[i].xyz) * radius;
+		float3 sample = mul(tbn, Kernel[i].xyz);// * radius;
 		float4 viewSample = float4(positionView.xyz + sample, 1.0f);
 
 		float4 offset = mul(Projection, viewSample);
@@ -77,11 +77,9 @@ float4 ps(float4 position 		: SV_POSITION,
 
 		float sampleDepth = DepthMap.Sample(DepthMapSamplerState, offset).r;
 
-		if (depth <= sampleDepth) {
+		if (depth <= sampleDepth && sampleDepth < 1.0f && depth < 1.0f && depth > 0.0f && sampleDepth > 0.0f) {
 			occlusion += occlusionContribution;
 		}	
-
-		break;
 	}
 
 	float occlusionOutput = occlusion / KernelSize;

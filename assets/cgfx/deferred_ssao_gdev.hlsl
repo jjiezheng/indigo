@@ -48,16 +48,16 @@ float4 positionViewSpace(float2 texCoord, float4x4 inverseProjection) {
 }
 
 float ambientOcclusion(float2 texCoord, float2 uv, float3 position, float3 normal) {
-	float intensity = 1.1;
+	float intensity = 2;
 	float bias = 0.002;
-	float scale = 1.0;
+	float scale = 2.0;
 
 	float3 diff = positionViewSpace(texCoord + uv, ProjInv) - position;
 	float3 diffN = normalize(diff);
 
 	float distance = length(diff) * scale;
 
-	float occlusion = max(0.0, dot(normal, diffN));// * (1.0 / (1.0 + distance));
+	float occlusion = max(0.0, dot(normal, diffN)) * (1.0f / (1.0f + distance)) * intensity;
 
 	return occlusion;
 }
@@ -65,7 +65,7 @@ float ambientOcclusion(float2 texCoord, float2 uv, float3 position, float3 norma
 float4 ps(float4 position 		: SV_POSITION,
 		  float2 texCoord 		: TEXCOORD0) : SV_TARGET0 {
 	float4 normalData = NormalMap.Sample(NormalMapSamplerState, texCoord);
-	float3 normal = normalData.xyz;
+	float3 normal = normalize(normalData.xyz);
 
 	float4 positionView = positionViewSpace(texCoord, ProjInv);
 
@@ -80,22 +80,26 @@ float4 ps(float4 position 		: SV_POSITION,
 	};
 
 	float occlusion = 0.0f;
-	float radius = 0.5f / positionView.z;
+	float radius = 0.05f / positionView.z;
 
 	int iterations = 4;
 
+	float depth = DepthMap.Sample(DepthMapSamplerState, texCoord).r;
+
 	for (int i = 0; i < iterations; ++i) {
-		float2 coord1 = reflect(vec[i], randomNormal) * radius;
-		float2 coord2 = float2(coord1.x * 0.707 - coord1.y * 0.707, coord1.x * 0.707 + coord1.y * 0.707);
+		if (depth < 1.0f) {
+			float2 coord1 = reflect(vec[i], randomNormal) * radius;
 
-		occlusion += ambientOcclusion(texCoord, coord1 * 0.25, positionView, normal);
-		//occlusion += ambientOcclusion(texCoord, coord2 * 0.50, positionView, normal);
+			float2 coord2 = float2(coord1.x * 0.707 - coord1.y * 0.707, coord1.x * 0.707 + coord1.y * 0.707);
 
-		//occlusion += ambientOcclusion(texCoord, coord1 * 0.75, positionView, normal);
-		//occlusion += ambientOcclusion(texCoord, coord2 * 0.00, positionView, normal);
+			occlusion += ambientOcclusion(texCoord, coord1 * 0.25, positionView, normal);
+			occlusion += ambientOcclusion(texCoord, coord2 * 0.50, positionView, normal);
+			occlusion += ambientOcclusion(texCoord, coord1 * 0.75, positionView, normal);
+			occlusion += ambientOcclusion(texCoord, coord2, positionView, normal);
+		}
 	}
 
-	occlusion /= (float)iterations;
+	occlusion /= (float)iterations * 4;
 
 	occlusion = 1.0f - (occlusion * 1);
 
