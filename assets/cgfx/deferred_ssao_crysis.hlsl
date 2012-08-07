@@ -74,12 +74,17 @@ float4 ps(float4 position 		: SV_POSITION,
 
 		float sampleDepth = DepthMap.Sample(DepthMapSamplerState, offset).r;
 
-		if (sampleDepth < depth) {
-			occlusion += occlusionContribution;
-		}	
+		float depthDifference = abs(sampleDepth - depth);
+
+		if (depthDifference < radius) {
+			if (sampleDepth < depth) {
+				occlusion += occlusionContribution;
+			}	
+		}
 	}
 
-	float occlusionOutput = 1.0f - (occlusion / KernelSize);
+	float strength = 1.5f;
+	float occlusionOutput = (1.0f - (occlusion / KernelSize)) * strength;
 	return float4(occlusionOutput, occlusionOutput, occlusionOutput, 1.0f);
 }
 
