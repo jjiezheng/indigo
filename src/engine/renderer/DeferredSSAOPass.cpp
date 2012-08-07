@@ -14,7 +14,7 @@
 
 #include "io/Log.h"
 
-static const int kKernelSize = 16;
+static const int kKernelSize = 32;
 static const int kNoisePixelLine = 4;
 
 void DeferredSSAOPass::init() {
@@ -50,7 +50,9 @@ void DeferredSSAOPass::init() {
   for (unsigned i = 0; i < noiseSize; ++i) {
     float x = Random::random(-1.0f, 1.0f);
     float y = Random::random(-1.0f, 1.0f);
-    Vector4 noiseV(x, y, 0.0f, 0.0f);
+    float z = Random::random(-1.0f, 1.0f);
+    Vector4 noiseV(x, y, z, 0.0f);
+    LOG(LOG_CHANNEL_SHADER, "%s", noiseV.toString().c_str()); 
 	  Vector4 noiseN = noiseV.normalize();
     noise[i] = noiseN;
   }
@@ -67,13 +69,13 @@ void DeferredSSAOPass::init() {
   ssaoRenderTarget_ = GraphicsInterface::createRenderTarget(ssaoRenderTexture_);
 
   blur_.init(GraphicsInterface::screenSize());
-  //blur_.setRenderTarget(outputRenderTarget_);
+  blur_.setRenderTarget(outputRenderTarget_);
 }
 
 void DeferredSSAOPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
   {
-    GraphicsInterface::setRenderTarget(outputRenderTarget_, false);
-    GraphicsInterface::clearRenderTarget(outputRenderTarget_, Color4::BLACK);
+    GraphicsInterface::setRenderTarget(ssaoRenderTarget_, false);
+    GraphicsInterface::clearRenderTarget(ssaoRenderTarget_, Color4::BLACK);
 
     ssaoEffect_->setUniform(viewer->projection(), "Projection");
     ssaoEffect_->setUniform(viewer->projection().inverse(), "ProjInv");
@@ -97,6 +99,6 @@ void DeferredSSAOPass::render(IViewer* viewer, World& world, const SceneContext&
     combineEffect_->beginDraw();
     
     GraphicsInterface::setRenderState(true);
-   // GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
+    //GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
   }
 }

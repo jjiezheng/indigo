@@ -3,7 +3,7 @@
 uniform float Radius;
 uniform float KernelSize;
 uniform float2 NoiseScale;
-uniform float4 Kernel[16];
+uniform float4 Kernel[32];
 
 Texture2D NoiseMap;
 SamplerState NoiseMapSamplerState {
@@ -49,24 +49,21 @@ float4 ps(float4 position 		: SV_POSITION,
 	float4 positionViewRaw = mul(ProjInv, positionScreen);
 	float4 positionView = positionViewRaw / positionViewRaw.w;
 
-	// random normal isnt coming out random anymore
-
 	float3 randomNormal = NoiseMap.Sample(NoiseMapSamplerState, texCoord * NoiseScale);
 	randomNormal = normalize(randomNormal);
 
-	float radius = 0.1f;
-	float occlusionContribution = 0.5f;
+	float radius = 0.4f;
+	float occlusionContribution = 0.8f;
 	float occlusion = 0.0f;
 
 	float normalsDot = dot(randomNormal, normalize(normal));
 
-	float3 tangentRaw = randomNormal - (normalize(normal) * normalsDot);
-	float3 tangent = normalize(tangentRaw);
+	float3 tangent = randomNormal - (normalize(normal) * normalsDot);
 	float3 bitangent = cross(normalize(normal), tangent);
 	float3x3 tbn = float3x3(tangent, bitangent, normal);
 
 	for (int i = 0; i < KernelSize; i++) {
-		float3 sample = mul(tbn, Kernel[i].xyz);// * radius;
+		float3 sample = mul(tbn, Kernel[i].xyz) * radius;
 		float4 viewSample = float4(positionView.xyz + sample, 1.0f);
 
 		float4 offset = mul(Projection, viewSample);
