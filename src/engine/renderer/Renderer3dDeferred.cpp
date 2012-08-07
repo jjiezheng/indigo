@@ -79,7 +79,7 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
   }
 
   {
-    IDeferredPass* presentPass = new DeferredPresentPass(fxaaMapTexture_);
+    IDeferredPass* presentPass = new DeferredPresentPass(ssaoMapTexture_);
     passes_.push_back(presentPass);
   }
 

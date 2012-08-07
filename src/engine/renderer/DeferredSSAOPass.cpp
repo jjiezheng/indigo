@@ -36,8 +36,8 @@ void DeferredSSAOPass::init() {
     kernel[i] = kernel[i] * Random::random(0.0f, 1.0f);
 
     float scale = float(i) / float(kKernelSize);
-	scale = lerp(0.1f, 1.0f, scale * scale);
-	kernel[i] = kernel[i] * scale;
+	  scale = lerp(0.1f, 1.0f, scale * scale);
+	  kernel[i] = kernel[i] * scale;
   }
 
   ssaoEffect_->setUniform(kernel, kKernelSize * sizeof(Vector4), "Kernel");
@@ -51,7 +51,7 @@ void DeferredSSAOPass::init() {
     float x = Random::random(-1.0f, 1.0f);
     float y = Random::random(-1.0f, 1.0f);
     Vector4 noiseV(x, y, 0.0f, 0.0f);
-	Vector4 noiseN = noiseV.normalize();
+	  Vector4 noiseN = noiseV.normalize();
     noise[i] = noiseN;
   }
 
@@ -72,8 +72,8 @@ void DeferredSSAOPass::init() {
 
 void DeferredSSAOPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
   {
-    GraphicsInterface::setRenderTarget(ssaoRenderTarget_, false);
-    GraphicsInterface::clearRenderTarget(ssaoRenderTarget_, Color4::BLACK);
+    GraphicsInterface::setRenderTarget(outputRenderTarget_, false);
+    GraphicsInterface::clearRenderTarget(outputRenderTarget_, Color4::BLACK);
 
     ssaoEffect_->setUniform(viewer->projection(), "Projection");
     ssaoEffect_->setUniform(viewer->projection().inverse(), "ProjInv");
@@ -97,6 +97,6 @@ void DeferredSSAOPass::render(IViewer* viewer, World& world, const SceneContext&
     combineEffect_->beginDraw();
     
     GraphicsInterface::setRenderState(true);
-    GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
+   // GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
   }
 }

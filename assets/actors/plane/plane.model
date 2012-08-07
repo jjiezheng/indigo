@@ -1,0 +1,24 @@
+{
+  "mesh" : "actors/plane/plane.blend",
+  "materials" : 
+  [
+    {
+      "effect" : "cgfx/deferred_render_color_normal_depth.hlsl",
+      "parameters" : {
+        "SpecularPower" : {
+          "value" : 80,
+          "type" : "float"
+        },
+        "SpecularIntensity" : {
+          "value" : 0.5,
+          "type" : "float"
+        },
+        "DiffusePower" : {
+          "value" : 0.01,
+          "type" : "float"
+        }
+      },
+      "textures" : { }
+    }
+  ]
+}
