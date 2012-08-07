@@ -1,0 +1,9 @@
+Checking C:\Users\NK\Development\game\src\engine\core\String.cpp...
+Checking C:\Users\NK\Development\game\src\engine\core\String.cpp: _WIN32...
+Checking usage of global functions..
+C:\Users\NK\Development\game\src\engine\core\String.cpp(148): style,unusedFunction,The function 'concat' is never used
+C:\Users\NK\Development\game\src\engine\core\String.cpp(140): style,unusedFunction,The function 'contains' is never used
+C:\Users\NK\Development\game\src\engine\core\String.cpp(29): style,unusedFunction,The function 'removePathExtension' is never used
+C:\Users\NK\Development\game\src\engine\core\String.cpp(93): style,unusedFunction,The function 'startsWith' is never used
+C:\Users\NK\Development\game\src\engine\core\String.cpp(144): style,unusedFunction,The function 'toFloat' is never used
+<error id="missingInclude" severity="style" msg="Cppcheck cannot find all the include files (use --check-config for details)"/>

@@ -3,7 +3,7 @@
 uniform float Radius;
 uniform float KernelSize;
 uniform float2 NoiseScale;
-uniform float4 Kernel[32];
+uniform float4 Kernel[16];
 
 Texture2D NoiseMap;
 SamplerState NoiseMapSamplerState {
@@ -15,10 +15,15 @@ Texture2D NormalMap;
 SamplerState NormalMapSamplerState;
 
 Texture2D DepthMap;
-SamplerState DepthMapSamplerState;
+SamplerState DepthMapSamplerState {
+	Filter = MIN_MAG_MIP_LINEAR;
+};
 
 uniform float4x4 Projection;
 uniform float4x4 ProjInv;
+
+uniform float4x4 ViewProjInv;
+uniform float4x4 View;
 
 struct VOutput {
       float4 position 		: SV_POSITION;
@@ -40,20 +45,23 @@ float4 ps(float4 position 		: SV_POSITION,
 
 	float depth = DepthMap.Sample(DepthMapSamplerState, texCoord).r;
 
-	float4 positionScreen;
+	float4 positionScreen = float4(0, 0, 0, 1);
 	positionScreen.xy = texCoord.xy * 2.0f - 1.0f;
 	positionScreen.y = -positionScreen.y;
 	positionScreen.z = depth;
 	positionScreen.w = 1.0f;
 
-	float4 positionViewRaw = mul(ProjInv, positionScreen);
+	float4 positionWorldRaw = mul(ViewProjInv, positionScreen);
+	float4 positionWorld = positionWorldRaw / positionWorldRaw.w;
+
+	float4 positionViewRaw = mul(View, positionWorld);
 	float4 positionView = positionViewRaw / positionViewRaw.w;
 
 	float3 randomNormal = NoiseMap.Sample(NoiseMapSamplerState, texCoord * NoiseScale);
 	randomNormal = normalize(randomNormal);
 
-	float radius = 0.4f;
-	float occlusionContribution = 0.8f;
+	float radius = 0.01f;
+	float occlusionContribution = 1.0f;
 	float occlusion = 0.0f;
 
 	float normalsDot = dot(randomNormal, normalize(normal));
@@ -74,17 +82,12 @@ float4 ps(float4 position 		: SV_POSITION,
 
 		float sampleDepth = DepthMap.Sample(DepthMapSamplerState, offset).r;
 
-		float depthDifference = abs(sampleDepth - depth);
-
-		if (depthDifference < radius) {
-			if (sampleDepth < depth) {
-				occlusion += occlusionContribution;
-			}	
-		}
+		if (sampleDepth <= depth) {
+			occlusion += occlusionContribution;
+		}	
 	}
 
-	float strength = 1.5f;
-	float occlusionOutput = (1.0f - (occlusion / KernelSize)) * strength;
+	float occlusionOutput = 1.0f - (occlusion / KernelSize);
 	return float4(occlusionOutput, occlusionOutput, occlusionOutput, 1.0f);
 }
 

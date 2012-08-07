@@ -1,0 +1,4 @@
+Checking C:\Users\NK\Development\game\src\engine\renderer\EffectCache.cpp...
+Checking usage of global functions..
+C:\Users\NK\Development\game\src\engine\renderer\EffectCache.cpp(27): style,unusedFunction,The function 'getEffect' is never used
+<error id="missingInclude" severity="style" msg="Cppcheck cannot find all the include files (use --check-config for details)"/>

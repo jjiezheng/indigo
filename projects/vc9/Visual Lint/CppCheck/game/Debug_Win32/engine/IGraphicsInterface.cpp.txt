@@ -1,0 +1,4 @@
+Checking C:\Users\NK\Development\game\src\engine\renderer\IGraphicsInterface.cpp...
+C:\Users\NK\Development\game\src\engine\renderer\Direct3D11GraphicsInterface.h(15): style,noConstructor,The class 'Direct3D11GraphicsInterface 'does not have a constructor but it has attributes. The attributes are not initialized which may cause bugs or undefined behavior.
+Checking usage of global functions..
+<error id="missingInclude" severity="style" msg="Cppcheck cannot find all the include files (use --check-config for details)"/>

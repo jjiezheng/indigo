@@ -1,0 +1,5 @@
+Checking C:\Users\NK\Development\game\src\engine\renderer\Box.cpp...
+C:\Users\NK\Development\game\src\engine\renderer\Box.cpp(13): style,unreadVariable,Variable 'vertices' is assigned a value that is never used
+C:\Users\NK\Development\game\src\engine\renderer\Box.h(9): style,noConstructor,The class 'Box 'does not have a constructor but it has attributes. The attributes are not initialized which may cause bugs or undefined behavior.
+Checking usage of global functions..
+<error id="missingInclude" severity="style" msg="Cppcheck cannot find all the include files (use --check-config for details)"/>

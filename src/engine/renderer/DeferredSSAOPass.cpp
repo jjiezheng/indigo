@@ -14,7 +14,7 @@
 
 #include "io/Log.h"
 
-static const int kKernelSize = 32;
+static const int kKernelSize = 16;
 static const int kNoisePixelLine = 4;
 
 void DeferredSSAOPass::init() {
@@ -79,6 +79,11 @@ void DeferredSSAOPass::render(IViewer* viewer, World& world, const SceneContext&
 
     ssaoEffect_->setUniform(viewer->projection(), "Projection");
     ssaoEffect_->setUniform(viewer->projection().inverse(), "ProjInv");
+
+	Matrix4x4 viewProjection = viewer->projection() * viewer->viewTransform();
+	ssaoEffect_->setUniform(viewProjection, "ViewProj");
+	ssaoEffect_->setUniform(viewer->viewTransform(), "View");
+	ssaoEffect_->setUniform(viewProjection.inverse(), "ViewProjInv");
 
     ssaoEffect_->setTexture(normalMapTexture_, "NormalMap");
     ssaoEffect_->setTexture(depthMapTexture_, "DepthMap");

@@ -1,0 +1,9 @@
+Checking C:\Users\NK\Development\game\src\engine\renderer\Camera.cpp...
+C:\Users\NK\Development\game\src\engine\renderer\Camera.cpp(10): warning,uninitMemberVar,Member variable 'Camera::nearDistance_' is not initialized in the constructor.
+C:\Users\NK\Development\game\src\engine\renderer\Camera.cpp(10): warning,uninitMemberVar,Member variable 'Camera::lastMouseX_' is not initialized in the constructor.
+C:\Users\NK\Development\game\src\engine\renderer\Camera.cpp(10): warning,uninitMemberVar,Member variable 'Camera::lastMouseY_' is not initialized in the constructor.
+Checking C:\Users\NK\Development\game\src\engine\renderer\Camera.cpp: PLATFORM_MAC...
+Checking C:\Users\NK\Development\game\src\engine\renderer\Camera.cpp: PLATFORM_WINDOWS...
+Checking usage of global functions..
+C:\Users\NK\Development\game\src\engine\renderer\Camera.cpp(109): style,unusedFunction,The function 'viewTransform' is never used
+<error id="missingInclude" severity="style" msg="Cppcheck cannot find all the include files (use --check-config for details)"/>
