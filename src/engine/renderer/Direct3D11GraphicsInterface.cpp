@@ -12,9 +12,6 @@
 #include "VertexDefinition.h"
 #include "DirectxVertexDataFormatter.h"
 
-#include <Cg/cg.h>
-#include <Cg/cgD3D11.h>
-
 #include "ShaderSemantics.h"
 
 #include "io/dds.h"
@@ -168,10 +165,6 @@ void Direct3D11GraphicsInterface::clearBuffer(const Color4& color) {
   D3DXCOLOR clearColor(color.r, color.g, color.b, color.a);
   deviceConnection_->ClearRenderTargetView(backBuffer_, clearColor);
   deviceConnection_->ClearDepthStencilView(depthBuffer_, D3D11_CLEAR_DEPTH, 1.0f, 0);
-}
-
-void Direct3D11GraphicsInterface::setPass(CGpass pass) {  
-  //deviceConnection_->IASetInputLayout(layout);
 }
 
 bool Direct3D11GraphicsInterface::getKeySate(char key) {

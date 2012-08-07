@@ -10,6 +10,8 @@
 
 #include <vector>
 
+#include <CG/cg.h>
+
 class OpenGL21GraphicsInterface : public IGraphicsInterface {
 
 public:

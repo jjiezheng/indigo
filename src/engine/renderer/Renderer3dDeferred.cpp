@@ -71,15 +71,15 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
     IDeferredPass* ssaoPass = new DeferredSSAOPass(ssaoRenderTarget_, colorMapTexture_, normalMapTexture_, depthMapTexture_, lightMapTexture_);
     passes_.push_back(ssaoPass);
 
-    /*IDeferredPass* fxaaPass = new DeferredFXAAPass(fxaaRenderTarget_, ssaoCombineMapTexture_);
-    passes_.push_back(fxaaPass);*/
+    IDeferredPass* fxaaPass = new DeferredFXAAPass(fxaaRenderTarget_, ssaoMapTexture_);
+    passes_.push_back(fxaaPass);
 
     /*IDeferredPass* fullScreenBlurPass = new DeferredFullScreenBlurPass(fxaaMapTexture_, fullScreenBlurRenderTarget_);
     passes_.push_back(fullScreenBlurPass);*/
   }
 
   {
-    IDeferredPass* presentPass = new DeferredPresentPass(ssaoMapTexture_);
+    IDeferredPass* presentPass = new DeferredPresentPass(fxaaMapTexture_);
     passes_.push_back(presentPass);
   }
 

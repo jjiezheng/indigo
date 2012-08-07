@@ -3,7 +3,6 @@
 
 #include <string>
 #include <vector>
-#include <CG/cg.h>
 
 class Matrix4x4;
 class Matrix3x3;
@@ -17,11 +16,6 @@ class IEffect {
 
 public:
 
-  IEffect()
-    : activePassId_(0) { };
-
-public:
-
   static IEffect* effectFromFile(const std::string& relativeFilePath);
 
 public:
@@ -32,17 +26,9 @@ public:
 
 public:
 
-  static void onError();
-
-  static void handleError(CGcontext context, CGerror error, void *data);
-
-public:
-
   virtual void beginDraw();
 
   virtual void resetStates();
-
-  virtual void activatePass(unsigned int passId);
 
 public:
 
@@ -66,22 +52,6 @@ public:
 
   virtual void setTexture(unsigned int textureId, const char* uniformName) = 0;
 
-public:
-
-  unsigned int numPasses() const;
-
-protected:
-
-  static CGcontext context_;
-  CGeffect effect_;
-  std::vector<CGpass> passes_;
-  CGtechnique technique_;
-  unsigned int activePassId_;
 };
-
-inline unsigned int IEffect::numPasses() const {
-  return passes_.size();
-}
-
 
 #endif

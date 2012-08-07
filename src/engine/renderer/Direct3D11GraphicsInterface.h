@@ -30,8 +30,6 @@ public:
 
   void clearBuffer(const Color4& color);
 
-  void setPass(CGpass pass);
-
   void resetGraphicsState(bool cullBack);
 
 public:

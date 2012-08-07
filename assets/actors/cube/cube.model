@@ -1,5 +1,5 @@
 {
-  "mesh" : "actors/cube/cube.blend",
+  "mesh" : "actors/cube/cube.dae",
   "materials" : 
   [
     {

@@ -199,10 +199,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\engine\renderer\FloatMaterialParameter.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\engine\renderer\FogTypes.h"
 				>
 			</File>
@@ -212,10 +208,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\engine\renderer\Geometry.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\engine\renderer\GLUtilities.h"
 				>
 			</File>
 			<File
@@ -247,10 +239,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\engine\renderer\IntegerMaterialParameter.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\engine\renderer\IViewer.h"
 				>
 			</File>
@@ -272,10 +260,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\engine\renderer\Material.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\engine\renderer\MaterialParameter.h"
 				>
 			</File>
 			<File
@@ -367,10 +351,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\engine\renderer\Vector3MaterialParameter.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\engine\renderer\VertexDefinition.h"
 				>
 			</File>
@@ -394,27 +374,11 @@
 				Name="D3D11"
 				>
 				<File
-					RelativePath="..\..\..\src\engine\renderer\CGD3DEffect.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\engine\renderer\CGD3DEffect.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\..\src\engine\renderer\D3DEffect.cpp"
 					>
 				</File>
 				<File
 					RelativePath="..\..\..\src\engine\renderer\D3DEffect.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\engine\renderer\D3DShader.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\engine\renderer\D3DShader.h"
 					>
 				</File>
 				<File
@@ -459,6 +423,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\src\engine\renderer\CGGLEffect.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\renderer\GLUtilities.h"
 					>
 				</File>
 				<File
@@ -599,6 +567,34 @@
 				</File>
 				<File
 					RelativePath="..\..\..\src\engine\renderer\GaussianBlur.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="CG"
+				>
+				<File
+					RelativePath="..\..\..\src\engine\renderer\CGUtilities.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="MaterialParameters"
+				>
+				<File
+					RelativePath="..\..\..\src\engine\renderer\FloatMaterialParameter.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\renderer\IntegerMaterialParameter.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\renderer\MaterialParameter.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\renderer\Vector3MaterialParameter.h"
 					>
 				</File>
 			</Filter>

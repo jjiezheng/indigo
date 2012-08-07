@@ -36,8 +36,8 @@ void DeferredSSAOPass::init() {
     kernel[i] = kernel[i] * Random::random(0.0f, 1.0f);
 
     float scale = float(i) / float(kKernelSize);
-	  scale = lerp(0.1f, 1.0f, scale * scale);
-	  kernel[i] = kernel[i] * scale;
+	scale = lerp(0.1f, 1.0f, scale * scale);
+	kernel[i] = kernel[i] * scale;
   }
 
   ssaoEffect_->setUniform(kernel, kKernelSize * sizeof(Vector4), "Kernel");
@@ -51,14 +51,14 @@ void DeferredSSAOPass::init() {
     float x = Random::random(-1.0f, 1.0f);
     float y = Random::random(-1.0f, 1.0f);
     Vector4 noiseV(x, y, 0.0f, 0.0f);
-	  Vector4 noiseN = noiseV.normalize();
+	Vector4 noiseN = noiseV.normalize();
     noise[i] = noiseN;
   }
 
   unsigned int noiseTexture = GraphicsInterface::createTexture(CSize(kNoisePixelLine, kNoisePixelLine), 1, &noise, sizeof(Vector4) * kNoisePixelLine);
   ssaoEffect_->setTexture(noiseTexture, "NoiseMap");
 
-  Vector2 noiseScale = Vector2(GraphicsInterface::screenWidth() / kNoisePixelLine, GraphicsInterface::screenHeight() / kNoisePixelLine);
+  Vector2 noiseScale = Vector2(GraphicsInterface::screenWidth() / float(kNoisePixelLine), GraphicsInterface::screenHeight() / float(kNoisePixelLine));
   ssaoEffect_->setUniform(noiseScale, "NoiseScale");
 
   ssaoEffect_->setUniform(0.1f, "Radius");
@@ -67,12 +67,13 @@ void DeferredSSAOPass::init() {
   ssaoRenderTarget_ = GraphicsInterface::createRenderTarget(ssaoRenderTexture_);
 
   blur_.init(GraphicsInterface::screenSize());
+  //blur_.setRenderTarget(outputRenderTarget_);
 }
 
 void DeferredSSAOPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
   {
-    GraphicsInterface::setRenderTarget(outputRenderTarget_, false);
-    GraphicsInterface::clearRenderTarget(outputRenderTarget_, Color4::BLACK);
+    GraphicsInterface::setRenderTarget(ssaoRenderTarget_, false);
+    GraphicsInterface::clearRenderTarget(ssaoRenderTarget_, Color4::BLACK);
 
     ssaoEffect_->setUniform(viewer->projection(), "Projection");
     ssaoEffect_->setUniform(viewer->projection().inverse(), "ProjInv");
@@ -85,10 +86,10 @@ void DeferredSSAOPass::render(IViewer* viewer, World& world, const SceneContext&
     GraphicsInterface::setRenderState(true);
     GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
 
-    //blur_.render(ssaoRenderTexture_);
+    blur_.render(ssaoRenderTexture_);
   }
   
-  /*{
+  {
     GraphicsInterface::setRenderTarget(outputRenderTarget_, false);
     
     combineEffect_->setTexture(lightMapTexture_, "ColorMap");
@@ -97,5 +98,5 @@ void DeferredSSAOPass::render(IViewer* viewer, World& world, const SceneContext&
     
     GraphicsInterface::setRenderState(true);
     GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
-  }*/
+  }
 }

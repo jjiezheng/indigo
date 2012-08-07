@@ -15,16 +15,37 @@
 #include "Color3.h"
 #include "GraphicsInterface.h"
 
+CGcontext CGGLEffect::context_ = 0;
+
+void CGGLEffect::onError() {
+	CGerror error;
+	const char *errorString = cgGetLastErrorString(&error);
+	LOG(LOG_CHANNEL_SHADER, errorString);
+
+	const char* errorListing = cgGetLastListing(context_);
+	if (errorListing) {
+		LOG(LOG_CHANNEL_SHADER, errorListing);
+	}
+}
+
+void CGGLEffect::handleError(CGcontext context, CGerror error, void *data) {
+	LOG(LOG_CHANNEL_SHADER, "%s", cgGetErrorString(error));
+
+	const char* errorListing = cgGetLastListing(context_);
+	if (errorListing) {
+		LOG(LOG_CHANNEL_SHADER, errorListing);
+	}
+}
+
 void CGGLEffect::initCG() {
   context_ = cgCreateContext();
-  cgSetErrorCallback(&IEffect::onError);
+  cgSetErrorCallback(&CGGLEffect::onError);
   cgGLRegisterStates(context_);
   cgGLSetManageTextureParameters(context_, GL_TRUE);
 }
 
 void CGGLEffect::load(const std::string& filePath) {
   const char* args[] = {"-DOPENGL=1", 0};
-  IEffect::load(filePath, args);
 }
 
 void CGGLEffect::setUniform(const Color3& uniformData, const char* uniformName) const {
@@ -82,5 +103,5 @@ void CGGLEffect::setUniform(float uniformData, const char* uniformName) const {
 void CGGLEffect::setTexture(unsigned int textureId, const char* uniformName) {
   CGparameter parameter = cgGetNamedEffectParameter(effect_, uniformName);
   if (!parameter) return;
-  GraphicsInterface::setTexture(textureId, parameter);
+  //GraphicsInterface::setTexture(textureId, parameter);
 }

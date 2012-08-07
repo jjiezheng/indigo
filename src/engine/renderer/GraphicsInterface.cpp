@@ -57,20 +57,12 @@ void GraphicsInterface::clearBuffer(const Color4& clearColor) {
   graphicsInterface_->clearBuffer(clearColor);
 }
 
-void GraphicsInterface::setPass(CGpass pass) {
-  graphicsInterface_->setPass(pass);
-}
-
 bool GraphicsInterface::getKeyState(char key) {
   return graphicsInterface_->getKeySate(key);
 }
 
 unsigned int GraphicsInterface::loadTexture(const char* filePath) {
   return graphicsInterface_->loadTexture(filePath);
-}
-
-void GraphicsInterface::setTexture(int textureId, CGparameter parameter) {
-
 }
 
 void GraphicsInterface::setRenderState(bool cullBack) {

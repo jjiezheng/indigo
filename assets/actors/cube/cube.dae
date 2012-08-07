@@ -5,8 +5,8 @@
       <author>Blender User</author>
       <authoring_tool>Blender 2.63.0 r46461:46487M</authoring_tool>
     </contributor>
-    <created>2012-07-03T19:14:54</created>
-    <modified>2012-07-03T19:14:54</modified>
+    <created>2012-08-06T22:48:19</created>
+    <modified>2012-08-06T22:48:19</modified>
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
@@ -88,10 +88,10 @@
   <library_visual_scenes>
     <visual_scene id="Scene" name="Scene">
       <node id="Cube" type="NODE">
-        <translate sid="location">0 0 1</translate>
+        <translate sid="location">0 1 0</translate>
         <rotate sid="rotationZ">0 0 1 0</rotate>
         <rotate sid="rotationY">0 1 0 0</rotate>
-        <rotate sid="rotationX">1 0 0 0</rotate>
+        <rotate sid="rotationX">1 0 0 -90</rotate>
         <scale sid="scale">1 1 1</scale>
         <instance_geometry url="#Cube-mesh">
           <bind_material>

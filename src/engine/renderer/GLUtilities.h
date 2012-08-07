@@ -4,7 +4,6 @@
 #include "OpenGL.h"
 #include <assert.h> 
 #include "io/Log.h"
-#include "CG/cg.h"
 
 class GLUtilities {
   
@@ -83,15 +82,6 @@ public:
     }
 
     assert(error == GL_NO_ERROR);
-  }
-
-  static void checkForCGError() {
-    CGerror error;
-    const char* errorString = cgGetLastErrorString(&error);
-    if (errorString) {
-      LOG(LOG_CHANNEL_GL_UTILS, "CG Error: %s", errorString);
-    }
-    assert(error == CG_NO_ERROR);
   }
 
   static void getGLVersion(int* major, int* minor) {

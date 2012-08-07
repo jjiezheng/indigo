@@ -2,7 +2,6 @@
 #define IGRAPHICS_INTERFACE_H
 
 #include <string>
-#include <Cg/cg.h>
 
 #include "GraphicsAPIType.h"
 #include "core/Size.h"
@@ -42,8 +41,6 @@ public:
   virtual void clearBuffer(const Color4& color) = 0;
 
 public:
-
-  virtual void setPass(CGpass pass) = 0;
 
   virtual IEffect* createEffect() = 0;
 

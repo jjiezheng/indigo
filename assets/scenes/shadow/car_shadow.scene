@@ -7,18 +7,11 @@
     "b" : 1.0
   },
   "objects" : [
+
     {
       "model" : "actors/cube/cube.model",
       "position" : {
-        "x" : 10.0,
-        "y" : 0.0,
-        "z" : 0.0
-      }
-    },
-    {
-      "model" : "actors/sphere/sphere.model",
-      "position" : {
-        "x" : 15.0,
+        "x" : 0.0,
         "y" : 0.0,
         "z" : 0.0
       }
@@ -35,7 +28,7 @@
       "model" : "actors/car/car.model",
       "position" : {
         "x" : 0.0,
-        "y" : -0.4,
+        "y" : -0.1,
         "z" : -6.0
       }
     }
@@ -49,9 +42,9 @@
       "length" : 20,
       "castsshadows" : true,
       "position" : {
-        "x" : 40,
-        "y" : 40,
-        "z" : 40
+        "x" : 20,
+        "y" : 20,
+        "z" : 20
       },
       "orientation" : {
         "x" : 0,
