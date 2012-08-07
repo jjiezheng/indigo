@@ -82,7 +82,8 @@ bool WindowsUtils::pumpMessages() {
 
     if (msg.message == WM_KEYDOWN) {
       char wParam = MapVirtualKey((UINT) msg.wParam, 2) & 0x0000FFFF;
-      keyStates_[wParam] = true;
+      int keyStateIndex = (int)wParam;
+      keyStates_[keyStateIndex] = true;
       if (wParam == 27) { // escape
         PostQuitMessage(0);
       }

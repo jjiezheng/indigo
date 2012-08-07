@@ -356,7 +356,10 @@ void Direct3D11GraphicsInterface::setRenderTarget(unsigned int* renderTargetIds,
 unsigned int Direct3D11GraphicsInterface::createRenderTarget(unsigned int textureId) {
   DirectXTexture texture = textures_[textureId];
   ID3D11RenderTargetView* renderTarget;
+
   HRESULT result = device_->CreateRenderTargetView(texture.textureData, NULL, &renderTarget);
+  assert(result == S_OK);
+
   unsigned int renderTargetId = renderTargets_.size();
   renderTargets_.push_back(renderTarget);
   return renderTargetId;
@@ -392,5 +395,4 @@ void Direct3D11GraphicsInterface::generateMipMaps(unsigned int textureId) {
 }
 
 void Direct3D11GraphicsInterface::fillTexture(unsigned int textureId, void* data, unsigned int dataSize) {
-  DirectXTexture texture = textures_[textureId];
 }

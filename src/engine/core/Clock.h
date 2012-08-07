@@ -14,6 +14,7 @@ public:
   Clock() 
     : lastDeltaTime_(0)
     , lastTime_(0)
+    , resolution_(0)
   {
     
   }

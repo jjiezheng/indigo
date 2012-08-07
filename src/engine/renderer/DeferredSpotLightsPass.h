@@ -16,7 +16,14 @@ public:
     : lightMapRenderTarget_(lightMapRenderTarget)
     , colorMapTexture_(colorMapTexture)
     , normalMapTexture_(normalMapTexture)
-    , depthMapTexture_(depthMapTexture) { }
+    , depthMapTexture_(depthMapTexture) 
+    , spotLightRenderTarget_(0)
+    , spotLightRenderTexture_(0)
+    , quadVbo_(0)
+    , spotLightModel_(0)
+    , lightEffect_(0)
+    , shadowMapEffect_(0)
+    , accumulationEffect_(0) { }
 
 public:
 
@@ -26,24 +33,24 @@ public:
 
 private:
 
-  IEffect* lightEffect_;
-  IEffect* shadowMapEffect_;
-
   unsigned int lightMapRenderTarget_;
 
-  unsigned int spotLightRenderTarget_;
-  unsigned int spotLightRenderTexture_;
-  
   unsigned int colorMapTexture_;
   unsigned int normalMapTexture_;
   unsigned int depthMapTexture_;
 
-  IEffect* accumulationEffect_;
+  unsigned int spotLightRenderTarget_;
+  unsigned int spotLightRenderTexture_;
+
   unsigned int quadVbo_;
 
   GaussianBlur gaussianBlur_;
 
   Model* spotLightModel_;
+
+  IEffect* lightEffect_;
+  IEffect* shadowMapEffect_;
+  IEffect* accumulationEffect_;
 
 };
 

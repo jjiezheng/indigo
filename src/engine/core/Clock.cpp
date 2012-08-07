@@ -41,12 +41,6 @@ float Clock::delta_time() {
   }
   
   long timeNow = (now.tv_sec * 1000000) + now.tv_usec;
- 
-  long dt = timeNow - lastUpdate_;
-  
-  if (!lastUpdate_) {
-    dt = 0;
-  }
   
   lastDeltaTime_ = timeNow / 1000000.0f;
   

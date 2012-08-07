@@ -14,9 +14,11 @@ public:
   
   String();
   
-  String(const std::string& string);
+  String(const std::string& string)
+    : string_(string) { };
   
-  String(const char* string);
+  String(const char* string)
+    : string_(string) { };
   
 public:
   

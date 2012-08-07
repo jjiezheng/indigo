@@ -17,6 +17,26 @@ public:
 
 public:
 
+  Renderer3dDeferred() 
+    : colorMapTexture_(0)
+    , colorRenderTarget_(0)
+    , normalMapTexture_(0)
+    , normalRenderTarget_(0)
+    , depthMapTexture_(0)
+    , depthRenderTarget_(0)
+    , lightMapTexture_(0)
+    , lightRenderTarget_(0)
+    , compositionMapTexture_(0)
+    , compositionRenderTarget_(0)
+    , fxaaMapTexture_(0)
+    , fxaaRenderTarget_(0)
+    , ssaoMapTexture_(0)
+    , ssaoRenderTarget_(0)
+    , fullScreenBlurTexture_(0)
+    , fullScreenBlurRenderTarget_(0) { };
+
+public:
+
   ~Renderer3dDeferred();
 
 public:

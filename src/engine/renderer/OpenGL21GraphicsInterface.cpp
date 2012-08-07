@@ -63,18 +63,18 @@ HDC OpenGL21GraphicsInterface::createGraphicsContext(HWND hWnd, int width, int h
 
   LOG(LOG_CHANNEL_GRAPHICS_API, "Graphics device supports up to OpenGL %d.%d", major, minor);
 
-  int attribs[] = {
-    WGL_CONTEXT_MAJOR_VERSION_ARB, 2,
-    WGL_CONTEXT_MINOR_VERSION_ARB, 1, 
-    //WGL_CONTEXT_PROFILE_MASK_ARB, WGL_CONTEXT_COMPATIBILITY_PROFILE_BIT_ARB,
-    0
-  };
-
   PFNWGLCREATECONTEXTATTRIBSARBPROC wglCreateContextAttribsARB = NULL;
   wglCreateContextAttribsARB = (PFNWGLCREATECONTEXTATTRIBSARBPROC) wglGetProcAddress("wglCreateContextAttribsARB");
   
   HGLRC renderContext;
   if(wglCreateContextAttribsARB != NULL) {
+    int attribs[] = {
+      WGL_CONTEXT_MAJOR_VERSION_ARB, 2,
+      WGL_CONTEXT_MINOR_VERSION_ARB, 1, 
+      //WGL_CONTEXT_PROFILE_MASK_ARB, WGL_CONTEXT_COMPATIBILITY_PROFILE_BIT_ARB,
+      0
+    };
+
     renderContext = wglCreateContextAttribsARB(deviceContext, 0, attribs);
     if (!renderContext) {
       LOG(LOG_CHANNEL_GRAPHICS_API, "Failed to create OpenGL Render Context");

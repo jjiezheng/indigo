@@ -16,6 +16,11 @@ class OpenGL21GraphicsInterface : public IGraphicsInterface {
 
 public:
 
+  OpenGL21GraphicsInterface()
+    : deviceContext_(0) { };
+
+public:
+
   void openWindow(int width, int height, unsigned int multiSamples);
 
 public:
@@ -63,7 +68,6 @@ public:
   bool getKeySate(char key);
 
 private:
-
 
   HDC createGraphicsContext(HWND hWnd, int width, int height, unsigned int multiSamples);
 

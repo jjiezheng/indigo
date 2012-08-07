@@ -5,18 +5,6 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-String::String() { 
-  
-};
-
-String::String(const std::string& string) : string_(string) {
-  
-}
-
-String::String(const char* string) {
-  string_ = std::string(string);
-}
-
 String String::withFormat(const char* format, ...) {
   va_list args;
   va_start(args, format);
@@ -46,7 +34,7 @@ String String::removePathExtension() const {
 String String::lastPathComponent() const {
   String posixPath = this->replace("\\", "/");
   std::vector<String> components = posixPath.split('/');
-  if (components.size()) {
+  if (!components.empty()) {
     return components[components.size() - 1];
   }
   return "";

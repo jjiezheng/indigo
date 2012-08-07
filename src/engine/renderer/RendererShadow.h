@@ -10,6 +10,13 @@ class IEffect;
 class RendererShadow {
   
 public:
+
+  RendererShadow() 
+    : depthShader(0)
+    , shadowTexture_(0)
+    , renderTarget_(0) { };
+
+public:
   
   void init(const CSize& screenSize);
   

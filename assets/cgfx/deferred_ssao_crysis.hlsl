@@ -69,7 +69,7 @@ float4 ps(float4 position 		: SV_POSITION,
 		float4 offset = mul(Projection, viewSample);
 		offset /= offset.w;
 
-		offset.xy = (offset.xy * 0.5) + 0.5;
+		offset = (offset * 0.5) + 0.5;
 		offset.y = 1.0f - offset.y;
 
 		float sampleDepth = DepthMap.Sample(DepthMapSamplerState, offset).r;

@@ -40,6 +40,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/analyse"
 				Optimization="0"
 				AdditionalIncludeDirectories="../../../src/engine;../../../libs"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
