@@ -1,9 +1,0 @@
-Checking C:\Users\NK\Development\game\src\engine\renderer\GaussianBlur.cpp...
-C:\Users\NK\Development\game\src\engine\renderer\GaussianBlur.h(12): warning,uninitMemberVar,Member variable 'GaussianBlur::outputRenderTexture_' is not initialized in the constructor.
-C:\Users\NK\Development\game\src\engine\renderer\GaussianBlur.h(12): warning,uninitMemberVar,Member variable 'GaussianBlur::gaussianHorizontalRenderTarget_' is not initialized in the constructor.
-C:\Users\NK\Development\game\src\engine\renderer\GaussianBlur.h(12): warning,uninitMemberVar,Member variable 'GaussianBlur::gaussianHorizontalMapTexture_' is not initialized in the constructor.
-C:\Users\NK\Development\game\src\engine\renderer\GaussianBlur.h(12): warning,uninitMemberVar,Member variable 'GaussianBlur::quadVbo_' is not initialized in the constructor.
-C:\Users\NK\Development\game\src\engine\renderer\GaussianBlur.h(12): warning,uninitMemberVar,Member variable 'GaussianBlur::gaussianBlurHorizontalEffect_' is not initialized in the constructor.
-C:\Users\NK\Development\game\src\engine\renderer\GaussianBlur.h(12): warning,uninitMemberVar,Member variable 'GaussianBlur::gaussianBluVerticalEffect_' is not initialized in the constructor.
-Checking usage of global functions..
-<error id="missingInclude" severity="style" msg="Cppcheck cannot find all the include files (use --check-config for details)"/>

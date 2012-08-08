@@ -1,6 +1,0 @@
-Checking C:\Users\NK\Development\game\src\engine\renderer\AverageBlur.cpp...
-C:\Users\NK\Development\game\src\engine\renderer\AverageBlur.h(12): warning,uninitMemberVar,Member variable 'AverageBlur::outputRenderTexture_' is not initialized in the constructor.
-C:\Users\NK\Development\game\src\engine\renderer\AverageBlur.h(12): warning,uninitMemberVar,Member variable 'AverageBlur::quadVbo_' is not initialized in the constructor.
-C:\Users\NK\Development\game\src\engine\renderer\AverageBlur.h(12): warning,uninitMemberVar,Member variable 'AverageBlur::effect_' is not initialized in the constructor.
-Checking usage of global functions..
-<error id="missingInclude" severity="style" msg="Cppcheck cannot find all the include files (use --check-config for details)"/>

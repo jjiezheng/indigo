@@ -1,5 +1,0 @@
-Checking C:\Users\NK\Development\game\src\engine\platform\WindowsUtils.cpp...
-C:\Users\NK\Development\game\src\engine\platform\WindowsUtils.cpp(94): warning,charArrayIndex,Using signed char type as array index. If the value can be greater than 127 there will be a buffer overflow (because of sign extension).
-C:\Users\NK\Development\game\src\engine\platform\WindowsUtils.cpp(56): style,unreadVariable,Variable 'lpCmdLine' is assigned a value that is never used
-Checking usage of global functions..
-<error id="missingInclude" severity="style" msg="Cppcheck cannot find all the include files (use --check-config for details)"/>

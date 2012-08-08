@@ -1,7 +1,0 @@
-Checking C:\Users\NK\Development\game\src\engine\maths\Vector4.cpp...
-Checking usage of global functions..
-C:\Users\NK\Development\game\src\engine\maths\Vector4.cpp(91): style,unusedFunction,The function 'angle' is never used
-C:\Users\NK\Development\game\src\engine\maths\Vector4.cpp(79): style,unusedFunction,The function 'cross' is never used
-C:\Users\NK\Development\game\src\engine\maths\Vector4.cpp(55): style,unusedFunction,The function 'distance' is never used
-C:\Users\NK\Development\game\src\engine\maths\Vector4.cpp(100): style,unusedFunction,The function 'normalize' is never used
-C:\Users\NK\Development\game\src\engine\maths\Vector4.cpp(96): style,unusedFunction,The function 'vec3' is never used

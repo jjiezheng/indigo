@@ -19,25 +19,26 @@ static const int kNoisePixelLine = 4;
 
 void DeferredSSAOPass::init() {
   combineEffect_ = IEffect::effectFromFile("cgfx/deferred_ssao_combine.hlsl");
-  ssaoEffect_ = IEffect::effectFromFile("cgfx/deferred_ssao_crysis.hlsl");
+  ssaoEffect_ = IEffect::effectFromFile("cgfx/deferred_ssao_homebrew.hlsl");
   quadVbo_ = Geometry::screenPlane();
 
   // generate samples
 
   Vector4 kernel[kKernelSize];
-  for (unsigned i = 0; i < kKernelSize; ++i) {
+  for (unsigned i = 0; i < kKernelSize; i++) {
     float x = Random::random(-1.0f, 1.0f);
     float y = Random::random(-1.0f, 1.0f);
     float z = Random::random(0.0f, 1.0f);
     Vector4 kernelV(x, y, z, 0.0f);
-    Vector4 kernelN = kernelV.normalize();
-    kernel[i] = kernelN;
+    LOG(LOG_CHANNEL_SHADER, "%s", kernelV.toString().c_str()); 
+    //Vector4 kernelN = kernelV.normalize();
+    kernel[i] = kernelV;
 
-    kernel[i] = kernel[i] * Random::random(0.0f, 1.0f);
+    //kernel[i] = kernel[i] * Random::random(0.0f, 1.0f);
 
-    float scale = float(i) / float(kKernelSize);
-	  scale = lerp(0.1f, 1.0f, scale * scale);
-	  kernel[i] = kernel[i] * scale;
+    //float scale = float(i) / float(kKernelSize);
+	  //scale = lerp(0.1f, 1.0f, scale * scale);
+	 // kernel[i] = kernel[i] * scale;
   }
 
   ssaoEffect_->setUniform(kernel, kKernelSize * sizeof(Vector4), "Kernel");
@@ -52,7 +53,6 @@ void DeferredSSAOPass::init() {
     float y = Random::random(-1.0f, 1.0f);
     float z = Random::random(-1.0f, 1.0f);
     Vector4 noiseV(x, y, z, 0.0f);
-    LOG(LOG_CHANNEL_SHADER, "%s", noiseV.toString().c_str()); 
 	  Vector4 noiseN = noiseV.normalize();
     noise[i] = noiseN;
   }
@@ -74,8 +74,8 @@ void DeferredSSAOPass::init() {
 
 void DeferredSSAOPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
   {
-    GraphicsInterface::setRenderTarget(ssaoRenderTarget_, false);
-    GraphicsInterface::clearRenderTarget(ssaoRenderTarget_, Color4::BLACK);
+    GraphicsInterface::setRenderTarget(outputRenderTarget_, false);
+    GraphicsInterface::clearRenderTarget(outputRenderTarget_, Color4::BLACK);
 
     ssaoEffect_->setUniform(viewer->projection(), "Projection");
     ssaoEffect_->setUniform(viewer->projection().inverse(), "ProjInv");
@@ -93,7 +93,7 @@ void DeferredSSAOPass::render(IViewer* viewer, World& world, const SceneContext&
     GraphicsInterface::setRenderState(true);
     GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
 
-    blur_.render(ssaoRenderTexture_);
+    //blur_.render(ssaoRenderTexture_);
   }
   
   {

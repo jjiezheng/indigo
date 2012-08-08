@@ -72,7 +72,7 @@ Vector4 Vector4::rotateY(int degrees) {
 
 std::string Vector4::toString() const {
   std::stringstream ss;
-  ss << x << " " << y << " " << z << " " << w;
+  ss << "{" << x << ", " << y << ", " << z << ", " << w << "}";
   return ss.str();
 }
 

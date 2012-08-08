@@ -1,7 +1,0 @@
-Checking C:\Users\NK\Development\game\src\engine\renderer\Mesh.cpp...
-C:\Users\NK\Development\game\src\engine\renderer\Texture.h(4): style,noConstructor,The class 'Texture 'does not have a constructor but it has attributes. The attributes are not initialized which may cause bugs or undefined behavior.
-C:\Users\NK\Development\game\src\engine\renderer\Material.h(17): style,noConstructor,The class 'Material 'does not have a constructor but it has attributes. The attributes are not initialized which may cause bugs or undefined behavior.
-C:\Users\NK\Development\game\src\engine\renderer\Mesh.h(19): style,noConstructor,The class 'Mesh 'does not have a constructor but it has attributes. The attributes are not initialized which may cause bugs or undefined behavior.
-Checking usage of global functions..
-C:\Users\NK\Development\game\src\engine\renderer\Mesh.cpp(11): style,unusedFunction,The function 'render' is never used
-<error id="missingInclude" severity="style" msg="Cppcheck cannot find all the include files (use --check-config for details)"/>
