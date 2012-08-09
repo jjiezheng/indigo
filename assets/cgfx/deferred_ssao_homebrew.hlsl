@@ -49,6 +49,11 @@ float4 ps(float4 position 		: SV_POSITION,
 	float3 normal = normalize(normalData.xyz);
 
 	float depth = DepthMap.Sample(DepthMapSamplerState, texCoord).r;
+	float depthHigh = DepthMap.Sample(DepthMapSamplerState, texCoord).g;
+
+	if (depth == 1.0f || depth == 0.0f) {
+		return float4(0, 0, 0, 1);
+	}
 
 	float4 positionScreen = float4(0, 0, 0, 1);
 	positionScreen.xy = texCoord.xy * 2.0f - 1.0f;
@@ -59,55 +64,49 @@ float4 ps(float4 position 		: SV_POSITION,
 	float4 positionViewRaw = mul(ProjInv, positionScreen);
 	float4 positionView = positionViewRaw / positionViewRaw.w;
 
-	float3 forward = normal;
-	float3 up = float3(0.0f, 1.0f, 0.0f);
+	float3 bitangent = float3(0.0f, 1.0f, 0.0f);
 
-	if (dot(forward, up) == 1) {
-		up = float3(0, 0, -1);
+	if (dot(normal, bitangent) == 1) {
+		bitangent = float3(0, 0, -1);
 	} 
 
-	float3 right = cross(up, forward);
-	up = cross(forward, right);
+	float3 tangent = cross(bitangent, normal);
+	bitangent = cross(normal, tangent);
 
-	float3x3 normalBasis = float3x3(right, up, forward);
+	float3x3 normalBasis = float3x3(tangent, bitangent, normal);
 
 	float occlusionContribution = 0;
 
 	int sampleSize = 1;
 
 	float3 samples[] = {
-		{0, 1, -1}
+		{0, -0.01, 0.01}
 	};
 
 	float radius = 1;
 
 	for (int i = 0; i < sampleSize; i++) {
-		float3 sample = samples[i] * radius;
-
+		float3 sample = samples[i].xyz;
 		float3 sampleAtNormalBasis = mul(sample, normalBasis);
-
-		return float4(sampleAtNormalBasis, 1.0f);
 		float3 sampleAtViewPosition = positionView + sampleAtNormalBasis;
 
-		float4 sampleScreenRaw = mul(Projection, positionView);
+		float4 sampleScreenRaw = mul(Projection, sampleAtViewPosition);
 		float4 sampleScreen = sampleScreenRaw / sampleScreenRaw.w;
 
 		float4 sampleTexCoord = float4(0, 0, 0, 1);
 		sampleTexCoord.xy = (sampleScreen.xy * 0.5f) + 0.5f;
 		sampleTexCoord.y = 1.0f - sampleTexCoord.y;
 
-		float sampleDepth = DepthMap.Sample(DepthMapSamplerState, sampleTexCoord).r;
+		float sampleDepthHigh = DepthMap.Sample(DepthMapSamplerState, sampleTexCoord).g;
 
-		// the depths are coming out the same
-		//return float4(depth, sampleDepth, depth - sampleDepth, 1.0f);
+		return float4(sampleDepthHigh, depthHigh, depthHigh - sampleDepthHigh, 1.0f);
 
-		if (depth - sampleDepth > 0) {
+		if (depthHigh - sampleDepthHigh > 0) {
 			occlusionContribution += 1;
 		}
 	}
 
-	float occlusion = 1.0f - (occlusionContribution / KernelSize);
-
+	float occlusion = 1.0f - (occlusionContribution / sampleSize);
 	return float4(occlusion, occlusion, occlusion, 1.0f);
 }
 
