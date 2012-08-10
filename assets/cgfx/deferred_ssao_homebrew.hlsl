@@ -90,18 +90,26 @@ float4 ps(float4 position 		: SV_POSITION,
 		float3 sampleAtNormalBasis = mul(sample, normalBasis);
 		float3 sampleAtViewPosition = positionView + sampleAtNormalBasis;
 
+		return float4(sampleAtViewPosition.xy, positionView.xy);
+
 		float4 sampleScreenRaw = mul(Projection, sampleAtViewPosition);
 		float4 sampleScreen = sampleScreenRaw / sampleScreenRaw.w;
+
+		//return float4(positionScreen.xy, sampleScreen.xy);
 
 		float4 sampleTexCoord = float4(0, 0, 0, 1);
 		sampleTexCoord.xy = (sampleScreen.xy * 0.5f) + 0.5f;
 		sampleTexCoord.y = 1.0f - sampleTexCoord.y;
 
+		return float4(texCoord.xy, sampleTexCoord.xy);
+
+		// texture coords x value are wrong one side of the cube and right the other
+
 		float sampleDepthHigh = DepthMap.Sample(DepthMapSamplerState, sampleTexCoord).g;
 
-		return float4(sampleDepthHigh, depthHigh, depthHigh - sampleDepthHigh, 1.0f);
+		//return float4(sampleDepthHigh, depthHigh, depthHigh - sampleDepthHigh, 1.0f);
 
-		if (depthHigh - sampleDepthHigh > 0) {
+		if (sampleDepthHigh < depthHigh) {
 			occlusionContribution += 1;
 		}
 	}
