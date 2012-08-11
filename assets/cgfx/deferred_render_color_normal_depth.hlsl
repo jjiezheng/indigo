@@ -43,7 +43,8 @@ POutput ps(float4 position			: SV_POSITION,
 	OUT.normal = float4(normal, 1);
 
 	float depthHom = depth.x / depth.y; // z / w
-	OUT.depth = float4(depthHom, depth.x, SpecularIntensity, DiffusePower);
+	float depthNorm = position.z / 200;// far clip distance
+	OUT.depth = float4(depthHom, depth.x, depthNorm, DiffusePower);
 	
 	return OUT;
 }

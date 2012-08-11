@@ -16,7 +16,7 @@ SamplerState NormalMapSamplerState;
 
 Texture2D DepthMap;
 SamplerState DepthMapSamplerState {
-	Filter = MIN_MAG_MIP_LINEAR;
+
 };
 
 uniform float4x4 Projection;
@@ -38,22 +38,12 @@ VOutput vs(float4 position 	: POSITION,
     return OUT;
 }
 
-bool cmpa(float3 v1, float3 v2) {
-	float3 result = v1 && v2;
-	return result.x && result.y && result.z;
-}
-
 float4 ps(float4 position 		: SV_POSITION,
 		  float2 texCoord 		: TEXCOORD0) : SV_TARGET0 {
 	float4 normalData = NormalMap.Sample(NormalMapSamplerState, texCoord);
 	float3 normal = normalize(normalData.xyz);
 
 	float depth = DepthMap.Sample(DepthMapSamplerState, texCoord).r;
-	float depthHigh = DepthMap.Sample(DepthMapSamplerState, texCoord).g;
-
-	if (depth == 1.0f || depth == 0.0f) {
-		return float4(0, 0, 0, 1);
-	}
 
 	float4 positionScreen = float4(0, 0, 0, 1);
 	positionScreen.xy = texCoord.xy * 2.0f - 1.0f;
@@ -64,57 +54,38 @@ float4 ps(float4 position 		: SV_POSITION,
 	float4 positionViewRaw = mul(ProjInv, positionScreen);
 	float4 positionView = positionViewRaw / positionViewRaw.w;
 
-	float3 bitangent = float3(0.0f, 1.0f, 0.0f);
-
-	if (dot(normal, bitangent) == 1) {
-		bitangent = float3(0, 0, -1);
-	} 
-
-	float3 tangent = cross(bitangent, normal);
-	bitangent = cross(normal, tangent);
-
+	float2 noiseTexCoords = texCoord * NoiseScale;
+	float3 rvec = NoiseMap.Sample(NoiseMapSamplerState, noiseTexCoords).rgb * 2.0 - 1.0;
+	float3 tangent = normalize(rvec - normal * dot(rvec, normal));
+	float3 bitangent = cross(tangent, normal);
 	float3x3 normalBasis = float3x3(tangent, bitangent, normal);
 
 	float occlusionContribution = 0;
 
-	int sampleSize = 1;
+	float radius = 0.1;
 
-	float3 samples[] = {
-		{0, -0.01, 0.01}
-	};
+	for (int i = 0; i < KernelSize; i++) {
+		float3 sample = Kernel[i].xyz;
 
-	float radius = 1;
-
-	for (int i = 0; i < sampleSize; i++) {
-		float3 sample = samples[i].xyz;
-		float3 sampleAtNormalBasis = mul(sample, normalBasis);
+		float3 sampleAtNormalBasis = mul(sample, normalBasis) * radius;
 		float3 sampleAtViewPosition = positionView + sampleAtNormalBasis;
-
-		return float4(sampleAtViewPosition.xy, positionView.xy);
 
 		float4 sampleScreenRaw = mul(Projection, sampleAtViewPosition);
 		float4 sampleScreen = sampleScreenRaw / sampleScreenRaw.w;
-
-		//return float4(positionScreen.xy, sampleScreen.xy);
 
 		float4 sampleTexCoord = float4(0, 0, 0, 1);
 		sampleTexCoord.xy = (sampleScreen.xy * 0.5f) + 0.5f;
 		sampleTexCoord.y = 1.0f - sampleTexCoord.y;
 
-		return float4(texCoord.xy, sampleTexCoord.xy);
+		float sampleDepth = DepthMap.Sample(DepthMapSamplerState, sampleTexCoord).r;
 
-		// texture coords x value are wrong one side of the cube and right the other
+		//return float4(sampleAtViewPosition.z, -(sampleDepth*199), depth, 1.0f);
 
-		float sampleDepthHigh = DepthMap.Sample(DepthMapSamplerState, sampleTexCoord).g;
-
-		//return float4(sampleDepthHigh, depthHigh, depthHigh - sampleDepthHigh, 1.0f);
-
-		if (sampleDepthHigh < depthHigh) {
-			occlusionContribution += 1;
-		}
+		float rangeCheck = abs(depth - sampleDepth) < radius;
+		occlusionContribution += rangeCheck * -(sampleDepth*199) < sampleAtViewPosition.z ? 1.0f : 0.0f;
 	}
 
-	float occlusion = 1.0f - (occlusionContribution / sampleSize);
+	float occlusion =  (occlusionContribution / KernelSize);
 	return float4(occlusion, occlusion, occlusion, 1.0f);
 }
 

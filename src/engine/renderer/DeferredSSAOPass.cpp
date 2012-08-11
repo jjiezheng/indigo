@@ -31,14 +31,14 @@ void DeferredSSAOPass::init() {
     float z = Random::random(0.0f, 1.0f);
     Vector4 kernelV(x, y, z, 0.0f);
     LOG(LOG_CHANNEL_SHADER, "%s", kernelV.toString().c_str()); 
-    //Vector4 kernelN = kernelV.normalize();
+    Vector4 kernelN = kernelV.normalize();
     kernel[i] = kernelV;
 
-    //kernel[i] = kernel[i] * Random::random(0.0f, 1.0f);
+    kernel[i] = kernel[i] * Random::random(0.0f, 1.0f);
 
-    //float scale = float(i) / float(kKernelSize);
-	  //scale = lerp(0.1f, 1.0f, scale * scale);
-	 // kernel[i] = kernel[i] * scale;
+	float scale = float(i) / float(kKernelSize);
+	scale = lerp(0.1f, 1.0f, scale * scale);
+	kernel[i] = kernel[i] * scale;
   }
 
   ssaoEffect_->setUniform(kernel, kKernelSize * sizeof(Vector4), "Kernel");
@@ -51,7 +51,7 @@ void DeferredSSAOPass::init() {
   for (unsigned i = 0; i < noiseSize; ++i) {
     float x = Random::random(-1.0f, 1.0f);
     float y = Random::random(-1.0f, 1.0f);
-    float z = Random::random(-1.0f, 1.0f);
+    float z = 0;
     Vector4 noiseV(x, y, z, 0.0f);
 	  Vector4 noiseN = noiseV.normalize();
     noise[i] = noiseN;

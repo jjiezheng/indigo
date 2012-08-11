@@ -8,15 +8,15 @@
   },
   "objects" : [
     {
-      "model" : "actors/cube/cube.model",
+      "model" : "actors/flatplane/flatplane.model",
       "position" : {
         "x" : 0.0,
         "y" : 0.0,
         "z" : 0.0
       }
     },
-    {
-      "model" : "actors/floor/floor.model",
+     {
+      "model" : "actors/car/car.model",
       "position" : {
         "x" : 0.0,
         "y" : 0.0,
