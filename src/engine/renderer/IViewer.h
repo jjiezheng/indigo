@@ -16,6 +16,10 @@ public:
   
   virtual Vector4 position() const = 0;
 
+  virtual float fov() const = 0;
+
+  virtual float aspectRatio() const = 0;
+
 public:
 
   virtual float nearDistance() const = 0;

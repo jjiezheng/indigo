@@ -7,6 +7,7 @@
 
 #include "Color4.h"
 
+#include "maths/Trigonometry.h"
 #include "maths/Vector2.h"
 #include "maths/Vector4.h"
 #include "maths/Random.h"
@@ -88,6 +89,9 @@ void DeferredSSAOPass::render(IViewer* viewer, World& world, const SceneContext&
     ssaoEffect_->setTexture(normalMapTexture_, "NormalMap");
     ssaoEffect_->setTexture(depthMapTexture_, "DepthMap");
     ssaoEffect_->setTexture(colorMapTexture_, "ColorMap");
+
+	ssaoEffect_->setUniform(tanf(viewer->fov() * 0.5), "TanHalfFOV");
+	ssaoEffect_->setUniform(viewer->aspectRatio(), "AspectRatio");
 
     ssaoEffect_->beginDraw();
     GraphicsInterface::setRenderState(true);

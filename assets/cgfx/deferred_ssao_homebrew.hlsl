@@ -25,9 +25,13 @@ uniform float4x4 ProjInv;
 uniform float4x4 ViewProjInv;
 uniform float4x4 View;
 
+uniform float TanHalfFOV;
+uniform float AspectRatio;
+
 struct VOutput {
       float4 position 		: SV_POSITION;
       float2 texCoord		: TEXCOORD0;
+      float3 viewRay		: TEXCOORD1;
 };
 
 VOutput vs(float4 position 	: POSITION,
@@ -35,40 +39,51 @@ VOutput vs(float4 position 	: POSITION,
     VOutput OUT;
     OUT.position = position;
     OUT.texCoord = texCoord;
+    OUT.viewRay = float3(position.x * TanHalfFOV * AspectRatio, position.y * TanHalfFOV, 1.0f);
     return OUT;
 }
 
 float4 ps(float4 position 		: SV_POSITION,
-		  float2 texCoord 		: TEXCOORD0) : SV_TARGET0 {
+		  float2 texCoord 		: TEXCOORD0,
+		  float3 viewRay 		: TEXCOORD1) : SV_TARGET0 {
 	float4 normalData = NormalMap.Sample(NormalMapSamplerState, texCoord);
 	float3 normal = normalize(normalData.xyz);
 
-	float depth = DepthMap.Sample(DepthMapSamplerState, texCoord).r;
+	float3 depth = DepthMap.Sample(DepthMapSamplerState, texCoord);
 
 	float4 positionScreen = float4(0, 0, 0, 1);
 	positionScreen.xy = texCoord.xy * 2.0f - 1.0f;
 	positionScreen.y = -positionScreen.y;
-	positionScreen.z = depth;
+	positionScreen.z = depth.x;
 	positionScreen.w = 1.0f;
 
 	float4 positionViewRaw = mul(ProjInv, positionScreen);
 	float4 positionView = positionViewRaw / positionViewRaw.w;
 
-	float2 noiseTexCoords = texCoord * NoiseScale;
-	float3 rvec = NoiseMap.Sample(NoiseMapSamplerState, noiseTexCoords).rgb * 2.0 - 1.0;
-	float3 tangent = normalize(rvec - normal * dot(rvec, normal));
-	float3 bitangent = cross(tangent, normal);
+	float3 bitangent = float3(0.0f, 1.0f, 0.0f);
+
+	if (dot(normal, bitangent) == 1) {
+		bitangent = float3(0, 0, -1);
+	} 
+
+	float3 tangent = cross(bitangent, normal);
+	bitangent = cross(normal, tangent);
+
 	float3x3 normalBasis = float3x3(tangent, bitangent, normal);
 
 	float occlusionContribution = 0;
 
-	float radius = 0.1;
+	float radius = 1.0;
 
-	for (int i = 0; i < KernelSize; i++) {
-		float3 sample = Kernel[i].xyz;
+	float4 samples[] = {{0, -0.01, 0.0, 1}};
+
+	for (int i = 0; i < 1; i++) {
+		float3 sample = samples[i].xyz;
 
 		float3 sampleAtNormalBasis = mul(sample, normalBasis) * radius;
 		float3 sampleAtViewPosition = positionView + sampleAtNormalBasis;
+
+		//return float4(positionView.xy, sampleAtViewPosition.xy);
 
 		float4 sampleScreenRaw = mul(Projection, sampleAtViewPosition);
 		float4 sampleScreen = sampleScreenRaw / sampleScreenRaw.w;
@@ -77,15 +92,25 @@ float4 ps(float4 position 		: SV_POSITION,
 		sampleTexCoord.xy = (sampleScreen.xy * 0.5f) + 0.5f;
 		sampleTexCoord.y = 1.0f - sampleTexCoord.y;
 
-		float sampleDepth = DepthMap.Sample(DepthMapSamplerState, sampleTexCoord).r;
+		float sampleDepth = DepthMap.Sample(DepthMapSamplerState, sampleTexCoord).y;
 
-		//return float4(sampleAtViewPosition.z, -(sampleDepth*199), depth, 1.0f);
+		//return float4(sampleAtViewPosition.z, sampleAtViewPosition.z, sampleAtViewPosition.z, 1.0f);
 
-		float rangeCheck = abs(depth - sampleDepth) < radius;
-		occlusionContribution += rangeCheck * -(sampleDepth*199) < sampleAtViewPosition.z ? 1.0f : 0.0f;
+		float sampleAtViewPositionZ = (-sampleAtViewPosition.z - 1.0f) / (200.0f - 1.0f);
+
+		// these dpeths come out less than each other, regardless that they are sitting on the sample plane, this is wrong
+
+		//return float4(sample, 1.0f);
+
+		return float4(sampleDepth, sampleAtViewPositionZ, 0.0f, 1.0f);
+
+		occlusionContribution += sampleDepth < sampleAtViewPositionZ ? 1.0f : 0.0f;
+
+		//float rangeCheck = abs(depth - sampleDepth) < radius;
+		//occlusionContribution += rangeCheck * sampleDepth < sampleAtViewPositionZ ? 1.0f : 0.0f;
 	}
 
-	float occlusion =  (occlusionContribution / KernelSize);
+	float occlusion =  1.0f - (occlusionContribution / 1);
 	return float4(occlusion, occlusion, occlusion, 1.0f);
 }
 

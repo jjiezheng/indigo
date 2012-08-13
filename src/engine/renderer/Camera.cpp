@@ -111,6 +111,8 @@ Matrix4x4 Camera::viewTransform() const {
 }
 
 void Camera::setPerspective(float fov, float aspectRatio, float nearDistance, float farDistance) {
-  nearDistance_ = nearDistance;
-  projection_ = Matrix4x4::perspective(fov, aspectRatio, nearDistance, farDistance);
+	fov_ = fov;
+	aspectRatio_ = aspectRatio;
+	nearDistance_ = nearDistance;
+	projection_ = Matrix4x4::perspective(fov, aspectRatio, nearDistance, farDistance);
 }
