@@ -9,13 +9,17 @@ uniform float SpecularIntensity;
 
 uniform	float3x3 NormalMatrix;
 uniform	float4x4 WorldViewProj;
+uniform	float4x4 WorldView;
 uniform	float4x4 World;
+
+uniform float Far = 200.0f;
+uniform float Near = 1.0f;
 
 
 struct VOutput {
 	float4 position			: SV_POSITION;
 	float3 normal			: TEXCOORD0;
-	float2 depth			: TEXCOORD1;
+	float3 depth			: TEXCOORD1;
 };
 
 VOutput vs(float4 position 		: POSITION,
@@ -25,6 +29,10 @@ VOutput vs(float4 position 		: POSITION,
 	OUT.normal = normal.xyz;
 	OUT.depth.x = OUT.position.z;
 	OUT.depth.y = OUT.position.w;
+
+	float4 positionView = mul(WorldView, position);
+ 	OUT.depth.z = positionView.z;
+ 	
  	return OUT;
 }
 
@@ -36,19 +44,15 @@ struct POutput {
 
 POutput ps(float4 position			: SV_POSITION,
 		   float3 normal			: TEXCOORD0,
-		   float2 depth 			: TEXCOORD1) {
+		   float3 depth 			: TEXCOORD1) {
 	POutput OUT;
 	
 	OUT.color = float4(DiffuseColor, 1);					
 	OUT.normal = float4(normal, 1);
 
-	float depthHom = depth.x / depth.y; // z / w
-
-	float far = 200.0f;
-	float near = 1.0f;
-
-	float depthLinear = (depth.x - near) / (far - near);
-	OUT.depth = float4(depthHom, depthLinear, depth.x, DiffusePower);
+	float depthNDC = depth.x / depth.y; // z / w
+	float depthLinear = (-depth.z - Near) / (Far - Near);
+	OUT.depth = float4(depthNDC, depthLinear, 0, DiffusePower);
 	
 	return OUT;
 }

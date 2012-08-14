@@ -81,17 +81,20 @@ void DeferredSSAOPass::render(IViewer* viewer, World& world, const SceneContext&
     ssaoEffect_->setUniform(viewer->projection(), "Projection");
     ssaoEffect_->setUniform(viewer->projection().inverse(), "ProjInv");
 
-	Matrix4x4 viewProjection = viewer->projection() * viewer->viewTransform();
-	ssaoEffect_->setUniform(viewProjection, "ViewProj");
-	ssaoEffect_->setUniform(viewer->viewTransform(), "View");
-	ssaoEffect_->setUniform(viewProjection.inverse(), "ViewProjInv");
+	  Matrix4x4 viewProjection = viewer->projection() * viewer->viewTransform();
+	  ssaoEffect_->setUniform(viewProjection, "ViewProj");
+	  ssaoEffect_->setUniform(viewer->viewTransform(), "View");
+	  ssaoEffect_->setUniform(viewProjection.inverse(), "ViewProjInv");
+
+    ssaoEffect_->setUniform(1.0f, "Near");
+    ssaoEffect_->setUniform(200.0f, "Far");
 
     ssaoEffect_->setTexture(normalMapTexture_, "NormalMap");
     ssaoEffect_->setTexture(depthMapTexture_, "DepthMap");
     ssaoEffect_->setTexture(colorMapTexture_, "ColorMap");
 
-	ssaoEffect_->setUniform(tanf(viewer->fov() * 0.5), "TanHalfFOV");
-	ssaoEffect_->setUniform(viewer->aspectRatio(), "AspectRatio");
+	  ssaoEffect_->setUniform(tanf(viewer->fov() * 0.5), "TanHalfFOV");
+	  ssaoEffect_->setUniform(viewer->aspectRatio(), "AspectRatio");
 
     ssaoEffect_->beginDraw();
     GraphicsInterface::setRenderState(true);
