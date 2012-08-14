@@ -15,7 +15,6 @@ uniform	float4x4 World;
 uniform float Far = 200.0f;
 uniform float Near = 1.0f;
 
-
 struct VOutput {
 	float4 position			: SV_POSITION;
 	float3 normal			: TEXCOORD0;
@@ -26,7 +25,7 @@ VOutput vs(float4 position 		: POSITION,
 		   float4 normal 		: NORMAL) {
 	VOutput OUT;
 	OUT.position = mul(WorldViewProj, position);
-	OUT.normal = normal.xyz;
+	OUT.normal = mul(NormalMatrix, normal.xyz);
 	OUT.depth.x = OUT.position.z;
 	OUT.depth.y = OUT.position.w;
 

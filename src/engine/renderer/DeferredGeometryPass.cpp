@@ -36,9 +36,8 @@ void DeferredGeometryPass::render(IViewer* viewer, World& world, const SceneCont
       Matrix4x4 projection = viewer->projection();
       Matrix4x4 viewTransform = viewer->viewTransform();
       Matrix4x4 localToWorld = (*meshIt)->localToWorld();
-      Matrix3x3 normalMatrix = Matrix4x4::IDENTITY.mat3x3();
       Material material = (*meshIt)->material();
-      material.bind(projection, viewTransform, localToWorld, normalMatrix, sceneContext, effect);
+      material.bind(projection, viewTransform, localToWorld, sceneContext, effect);
       effect->beginDraw();
       (*meshIt)->render();
     }

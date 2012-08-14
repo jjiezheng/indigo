@@ -42,7 +42,7 @@ void RendererShadow::renderToShadowMap(IViewer* viewer, World& world, SceneConte
   for (; i != meshes.end(); ++i) {
     std::vector<Mesh*> effectMeshes = (*i).second;
     for (std::vector<Mesh*>::iterator meshIt = effectMeshes.begin(); meshIt != effectMeshes.end(); ++meshIt) {
-      (*meshIt)->material().bind(viewer->projection(), viewer->viewTransform(), (*meshIt)->localToWorld(), Matrix4x4::IDENTITY.mat3x3(), sceneContext, depthShader);
+      //(*meshIt)->material().bind(viewer->projection(), viewer->viewTransform(), (*meshIt)->localToWorld(), Matrix4x4::IDENTITY.mat3x3(), sceneContext, depthShader);
 
       depthShader->beginDraw();
       GraphicsInterface::setRenderState(false);

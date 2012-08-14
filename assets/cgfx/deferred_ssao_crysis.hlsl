@@ -88,7 +88,6 @@ float4 ps(float4 position 		: SV_POSITION,
 		float sampleDepth = DepthMap.Sample(DepthMapSamplerState, samplePos.xy).r * 100;
 
 		float rangeIsInvalid = saturate(depthMeters - sampleDepth);
-
 		occlusionContribution += lerp(sampleDepth > samplePos.z, 0.5, rangeIsInvalid);
 	}
 

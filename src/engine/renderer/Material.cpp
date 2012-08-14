@@ -9,7 +9,7 @@
 
 #include "io/Log.h"
 
-void Material::bind(const Matrix4x4& projection, const Matrix4x4& view, const Matrix4x4& model, const Matrix3x3& normalMatrix, const SceneContext& sceneContext, IEffect* effect) const {  
+void Material::bind(const Matrix4x4& projection, const Matrix4x4& view, const Matrix4x4& model, const SceneContext& sceneContext, IEffect* effect) const {  
   effect->setUniform(model, "World");
   
   Matrix4x4 worldView = view * model;
@@ -21,8 +21,8 @@ void Material::bind(const Matrix4x4& projection, const Matrix4x4& view, const Ma
   Matrix4x4 viewProjection = projection * view;
   effect->setUniform(viewProjection, "ViewProj");
 
-  Matrix4x4 normMatrix = view.inverse();
-  effect->setUniform(normMatrix.mat3x3(), "NormalMatrix");
+  Matrix4x4 normalMatrix = worldView.mat3x3().inverseTranspose();
+  effect->setUniform(normalMatrix, "NormalMatrix");
  
   std::map<std::string, Texture>::const_iterator tit = textures_.begin(); 
   for (; tit != textures_.end(); ++tit) {

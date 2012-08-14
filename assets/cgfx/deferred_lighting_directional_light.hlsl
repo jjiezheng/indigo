@@ -32,7 +32,7 @@ VOutput vs(float4 position 	: POSITION,
 float4 ps(float4 position : SV_POSITION,
           float2 texCoord	: TEXCOORD0) : SV_TARGET0 {
   float4 normalData = NormalMap.Sample(NormalSamplerState, texCoord);
-  float3 normal = normalData.xyz;
+  float3 normal = normalize(normalData.xyz);
 
   float3 depthSpec = DepthMap.Sample(DepthMapSamplerState, texCoord);
   float depth = depthSpec.r;

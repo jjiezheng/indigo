@@ -24,6 +24,10 @@ public:
 public:
 
   static Matrix3x3 scale(const Vector3& scale);
+
+public:
+
+  Matrix3x3 inverseTranspose() const;
   
 public:
   

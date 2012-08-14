@@ -18,9 +18,7 @@ Texture2D NormalMap;
 SamplerState NormalMapSamplerState;
 
 Texture2D DepthMap;
-SamplerState DepthMapSamplerState {
-
-};
+SamplerState DepthMapSamplerState;
 
 uniform float4x4 Projection;
 uniform float4x4 ProjInv;
@@ -28,13 +26,9 @@ uniform float4x4 ProjInv;
 uniform float4x4 ViewProjInv;
 uniform float4x4 View;
 
-uniform float TanHalfFOV;
-uniform float AspectRatio;
-
 struct VOutput {
       float4 position 		: SV_POSITION;
       float2 texCoord		: TEXCOORD0;
-      float3 viewRay		: TEXCOORD1;
 };
 
 VOutput vs(float4 position 	: POSITION,
@@ -42,13 +36,11 @@ VOutput vs(float4 position 	: POSITION,
     VOutput OUT;
     OUT.position = position;
     OUT.texCoord = texCoord;
-    OUT.viewRay = float3(position.x * TanHalfFOV * AspectRatio, position.y * TanHalfFOV, 1.0f);
     return OUT;
 }
 
 float4 ps(float4 position 		: SV_POSITION,
-		  float2 texCoord 		: TEXCOORD0,
-		  float3 viewRay 		: TEXCOORD1) : SV_TARGET0 {
+		  float2 texCoord 		: TEXCOORD0) : SV_TARGET0 {
 	float4 normalData = NormalMap.Sample(NormalMapSamplerState, texCoord);
 	float3 normal = normalize(normalData.xyz);
 
@@ -64,19 +56,17 @@ float4 ps(float4 position 		: SV_POSITION,
 	float4 positionView = positionViewRaw / positionViewRaw.w;
 
 	float2 noiseTexCoords = texCoord * NoiseScale;
-	float3 rvec = NoiseMap.Sample(NoiseMapSamplerState, noiseTexCoords).rgb * 2.0 - 1.0;
+	float3 rvec = NoiseMap.Sample(NoiseMapSamplerState, noiseTexCoords).rgb ;
 	float3 tangent = normalize(rvec - normal * dot(rvec, normal));
 	float3 bitangent = cross(tangent, normal);
 	float3x3 normalBasis = float3x3(tangent, bitangent, normal);
 
 	float occlusionContribution = 0;
 
-	float radius = 0.2;
-
 	for (int i = 0; i < KernelSize; i++) {
-		float3 sample = Kernel[i].xyz;
+		float3 sample = Kernel[i].xyz * Radius;
 
-		float3 sampleAtNormalBasis = mul(sample, normalBasis) * radius;
+		float3 sampleAtNormalBasis = mul(sample, normalBasis);
 		float3 sampleAtViewPosition = positionView + sampleAtNormalBasis;
 		float sampleAtViewPositionZ = (-sampleAtViewPosition.z - Near) / (Far - Near);
 
@@ -89,12 +79,10 @@ float4 ps(float4 position 		: SV_POSITION,
 
 		float sampleDepth = DepthMap.Sample(DepthMapSamplerState, sampleTexCoord).y;
 
-		//return float4(sampleDepth * 10, sampleAtViewPositionZ * 10, 0, 1);
-
-		//return float4(sampleDepth, depth.y, sampleAtViewPositionZ, sampleAtViewPositionZ < sampleDepth);
-
-		float rangeCheck = abs(depth.y - sampleDepth) < radius;
-		occlusionContribution += rangeCheck * sampleDepth < sampleAtViewPositionZ ? 1.0f : 0.0f;
+		float rangeIsInvalid = abs(depth.y - sampleDepth);
+		if (depth.x < 1.0f) {
+			occlusionContribution += lerp(sampleDepth < sampleAtViewPositionZ, 0.5, rangeIsInvalid);
+		}
 	}
 
 	float occlusion = 1.0f - (occlusionContribution / KernelSize);

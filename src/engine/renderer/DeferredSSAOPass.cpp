@@ -64,27 +64,27 @@ void DeferredSSAOPass::init() {
   Vector2 noiseScale = Vector2(GraphicsInterface::screenWidth() / float(kNoisePixelLine), GraphicsInterface::screenHeight() / float(kNoisePixelLine));
   ssaoEffect_->setUniform(noiseScale, "NoiseScale");
 
-  ssaoEffect_->setUniform(0.1f, "Radius");
+  ssaoEffect_->setUniform(0.3f, "Radius");
 
   ssaoRenderTexture_ = GraphicsInterface::createTexture(GraphicsInterface::screenSize());
   ssaoRenderTarget_ = GraphicsInterface::createRenderTarget(ssaoRenderTexture_);
 
   blur_.init(GraphicsInterface::screenSize());
-  blur_.setRenderTarget(outputRenderTarget_);
+  //blur_.setRenderTarget(outputRenderTarget_);
 }
 
 void DeferredSSAOPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
   {
-    GraphicsInterface::setRenderTarget(outputRenderTarget_, false);
-    GraphicsInterface::clearRenderTarget(outputRenderTarget_, Color4::BLACK);
+    GraphicsInterface::setRenderTarget(ssaoRenderTarget_, false);
+    GraphicsInterface::clearRenderTarget(ssaoRenderTarget_, Color4::BLACK);
 
     ssaoEffect_->setUniform(viewer->projection(), "Projection");
     ssaoEffect_->setUniform(viewer->projection().inverse(), "ProjInv");
 
-	  Matrix4x4 viewProjection = viewer->projection() * viewer->viewTransform();
-	  ssaoEffect_->setUniform(viewProjection, "ViewProj");
-	  ssaoEffect_->setUniform(viewer->viewTransform(), "View");
-	  ssaoEffect_->setUniform(viewProjection.inverse(), "ViewProjInv");
+	Matrix4x4 viewProjection = viewer->projection() * viewer->viewTransform();
+	ssaoEffect_->setUniform(viewProjection, "ViewProj");
+	ssaoEffect_->setUniform(viewer->viewTransform(), "View");
+	ssaoEffect_->setUniform(viewProjection.inverse(), "ViewProjInv");
 
     ssaoEffect_->setUniform(1.0f, "Near");
     ssaoEffect_->setUniform(200.0f, "Far");
@@ -93,14 +93,11 @@ void DeferredSSAOPass::render(IViewer* viewer, World& world, const SceneContext&
     ssaoEffect_->setTexture(depthMapTexture_, "DepthMap");
     ssaoEffect_->setTexture(colorMapTexture_, "ColorMap");
 
-	  ssaoEffect_->setUniform(tanf(viewer->fov() * 0.5), "TanHalfFOV");
-	  ssaoEffect_->setUniform(viewer->aspectRatio(), "AspectRatio");
-
     ssaoEffect_->beginDraw();
     GraphicsInterface::setRenderState(true);
     GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
 
-    //blur_.render(ssaoRenderTexture_);
+    blur_.render(ssaoRenderTexture_);
   }
   
   {
@@ -111,6 +108,6 @@ void DeferredSSAOPass::render(IViewer* viewer, World& world, const SceneContext&
     combineEffect_->beginDraw();
     
     GraphicsInterface::setRenderState(true);
-    //GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
+    GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
   }
 }

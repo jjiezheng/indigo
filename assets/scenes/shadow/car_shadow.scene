@@ -8,14 +8,6 @@
   },
   "objects" : [
     {
-      "model" : "actors/flatplane/flatplane.model",
-      "position" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "z" : 0.0
-      }
-    },
-    {
       "model" : "actors/cube/cube.model",
       "position" : {
         "x" : 0.0,
@@ -26,31 +18,16 @@
   ],
   "lights" : [
     {
-      "type" : "spot",
-      "innerangle" : 45,
-      "outerangle" : 60,
-      "decay" : 0.2,
-      "length" : 20,
-      "castsshadows" : true,
-      "position" : {
-        "x" : 20,
-        "y" : 20,
-        "z" : 20
-      },
-      "orientation" : {
-        "x" : 0,
-        "y" : 0,
-        "z" : 0
+      "type" : "directional",
+       "direction" : {
+        "x" : -0.5,
+        "y" : -0.5,
+        "z" : -0.5
       },
       "color" : {
-        "r" : 1.0,
+        "r" : 0.0,
         "g" : 1.0,
         "b" : 1.0
-      },
-      "direction" : {
-        "x" : -1.0,
-        "y" : -1.0,
-        "z" : -1.0
       }
     }
   ]
