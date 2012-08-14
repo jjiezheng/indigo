@@ -60,6 +60,12 @@ float4 ps(float4 position 		: SV_POSITION,
 	float4 positionViewRaw = mul(ProjInv, positionScreen);
 	float4 positionView = positionViewRaw / positionViewRaw.w;
 
+	return float4(depth.z, positionView.z, 0, 1);
+
+	float4 linearPositionDepth = (-positionView.z - 1.0f) / (200.0f - 1.0f); 
+
+	return float4(depth.x, positionView.z, depth.z, 1);
+
 	float3 bitangent = float3(0.0f, 1.0f, 0.0f);
 
 	if (dot(normal, bitangent) == 1) {
@@ -75,13 +81,14 @@ float4 ps(float4 position 		: SV_POSITION,
 
 	float radius = 1.0;
 
-	float4 samples[] = {{0, -0.01, 0.0, 1}};
+	float4 samples[] = {{0, -0.0, 0.0, 1}};
 
 	for (int i = 0; i < 1; i++) {
 		float3 sample = samples[i].xyz;
 
 		float3 sampleAtNormalBasis = mul(sample, normalBasis) * radius;
 		float3 sampleAtViewPosition = positionView + sampleAtNormalBasis;
+		float sampleAtViewPositionZ = (-sampleAtViewPosition.z - 1.0f) / (200.0f - 1.0f);
 
 		//return float4(positionView.xy, sampleAtViewPosition.xy);
 
@@ -94,17 +101,21 @@ float4 ps(float4 position 		: SV_POSITION,
 
 		float sampleDepth = DepthMap.Sample(DepthMapSamplerState, sampleTexCoord).y;
 
+		
+
+		//float sampleAtViewPositionZ = (-sampleAtViewPosition.z - 1.0f) / (200.0f - 1.0f);
+
 		//return float4(sampleAtViewPosition.z, sampleAtViewPosition.z, sampleAtViewPosition.z, 1.0f);
 
-		float sampleAtViewPositionZ = (-sampleAtViewPosition.z - 1.0f) / (200.0f - 1.0f);
+		
 
 		// these dpeths come out less than each other, regardless that they are sitting on the sample plane, this is wrong
 
 		//return float4(sample, 1.0f);
 
-		return float4(sampleDepth, sampleAtViewPositionZ, 0.0f, 1.0f);
+		//return float4(sampleDepth, sampleAtViewPositionZ, 0.0f, 1.0f);
 
-		occlusionContribution += sampleDepth < sampleAtViewPositionZ ? 1.0f : 0.0f;
+		//occlusionContribution += sampleDepth < sampleAtViewPositionZ ? 1.0f : 0.0f;
 
 		//float rangeCheck = abs(depth - sampleDepth) < radius;
 		//occlusionContribution += rangeCheck * sampleDepth < sampleAtViewPositionZ ? 1.0f : 0.0f;
