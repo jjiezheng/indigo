@@ -25,13 +25,13 @@ VOutput vs(float4 position 		: POSITION,
 		   float4 normal 		: NORMAL) {
 	VOutput OUT;
 	OUT.position = mul(WorldViewProj, position);
-	OUT.normal = mul(NormalMatrix, normal.xyz);
+	OUT.normal = mul(WorldView, normal.xyz);
 	OUT.depth.x = OUT.position.z;
 	OUT.depth.y = OUT.position.w;
 
 	float4 positionView = mul(WorldView, position);
  	OUT.depth.z = positionView.z;
- 	
+
  	return OUT;
 }
 
@@ -52,7 +52,7 @@ POutput ps(float4 position			: SV_POSITION,
 	float depthNDC = depth.x / depth.y; // z / w
 	float depthLinear = (-depth.z - Near) / (Far - Near);
 	OUT.depth = float4(depthNDC, depthLinear, 0, DiffusePower);
-	
+
 	return OUT;
 }
 

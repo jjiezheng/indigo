@@ -18,9 +18,9 @@
             "type" : "float"
         },
         "DiffuseColor" : {
-          "r" : 1,
-          "g" : 0,
-          "b" : 0,
+          "r" : 0.6,
+          "g" : 0.6,
+          "b" : 0.6,
           "type" : "color3"
         }
       },

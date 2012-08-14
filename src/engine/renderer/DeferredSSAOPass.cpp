@@ -75,8 +75,8 @@ void DeferredSSAOPass::init() {
 
 void DeferredSSAOPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
   {
-    GraphicsInterface::setRenderTarget(ssaoRenderTarget_, false);
-    GraphicsInterface::clearRenderTarget(ssaoRenderTarget_, Color4::BLACK);
+    GraphicsInterface::setRenderTarget(outputRenderTarget_, false);
+    GraphicsInterface::clearRenderTarget(outputRenderTarget_, Color4::BLACK);
 
     ssaoEffect_->setUniform(viewer->projection(), "Projection");
     ssaoEffect_->setUniform(viewer->projection().inverse(), "ProjInv");
@@ -97,7 +97,7 @@ void DeferredSSAOPass::render(IViewer* viewer, World& world, const SceneContext&
     GraphicsInterface::setRenderState(true);
     GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
 
-    blur_.render(ssaoRenderTexture_);
+    //blur_.render(ssaoRenderTexture_);
   }
   
   {
@@ -108,6 +108,6 @@ void DeferredSSAOPass::render(IViewer* viewer, World& world, const SceneContext&
     combineEffect_->beginDraw();
     
     GraphicsInterface::setRenderState(true);
-    GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
+    //GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
   }
 }

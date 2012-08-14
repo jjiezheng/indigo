@@ -28,7 +28,7 @@ float4 ps(float4 position	: SV_POSITION,
 	float3 diffuseColor = ColorMap.Sample(ColorMapSamplerState, texCoord).rgb;
 	float4 diffuseLight = LightSourceMap.Sample(LightSourceMapSamplerState, texCoord);
 	float3 finalColor = diffuseColor * diffuseLight.rgb + diffuseLight.a;
-	return diffuseLight;
+	return float4(finalColor, 1.0f);
 }
 
 technique11 Main {
