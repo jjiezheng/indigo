@@ -10,7 +10,9 @@ SamplerState DepthMapSamplerState {
   Filter = MIN_MAG_MIP_LINEAR;
 };
 
+uniform float4x4 View;
 uniform float4x4 ViewProjInv;
+uniform float4x4 NormalMatrix;
 
 uniform float4 ViewPosition;
 uniform float4 LightDirection;
@@ -31,29 +33,17 @@ VOutput vs(float4 position 	: POSITION,
 
 float4 ps(float4 position : SV_POSITION,
           float2 texCoord	: TEXCOORD0) : SV_TARGET0 {
-  float4 normalData = NormalMap.Sample(NormalSamplerState, texCoord);
-  float3 normal = normalize(normalData.xyz);
-
   float3 depthSpec = DepthMap.Sample(DepthMapSamplerState, texCoord);
-  float depth = depthSpec.r;
 
-  if (depth == 1.0f) {
+  if (depthSpec.r == 1.0f) {
     return float4(0, 0, 0, 0);
   }
 
-  float specularPower = depthSpec.y;// * 255;
-  float specularIntensity = depthSpec.z;
-
-  float4 positionScreen;
-  positionScreen.xy = (texCoord.xy * 2.0f) - 1.0f;
-  positionScreen.y = -positionScreen.y;
-  positionScreen.z = depth; 
-  positionScreen.w = 1.0f;
-
-  float4 positionWorldRaw = mul(ViewProjInv, positionScreen);
-  float4 positionWorld = positionWorldRaw / positionWorldRaw.w;
+  float4 normalData = NormalMap.Sample(NormalSamplerState, texCoord);
+  float3 normal = normalize(normalData.xyz);
 
   float4 lightVector = -LightDirection;
+  lightVector = normalize(mul(NormalMatrix, lightVector));
 
   // Blinn+Phong from http://en.wikipedia.org/wiki/Blinn%E2%80%93Phong_shading_model
   float distance = length(LightDirection);
@@ -64,6 +54,24 @@ float4 ps(float4 position : SV_POSITION,
   float3 diffuseContribution = LightColor * diffuseStrength / distance;
 
   //specular
+  float specularPower = depthSpec.y;// * 255;
+  float specularIntensity = depthSpec.z;
+
+  float depth = depthSpec.r;
+
+  if (depth == 1.0f) {
+    return float4(0, 0, 0, 0);
+  }
+
+  float4 positionScreen;
+  positionScreen.xy = (texCoord.xy * 2.0f) - 1.0f;
+  positionScreen.y = -positionScreen.y;
+  positionScreen.z = depth; 
+  positionScreen.w = 1.0f;
+
+  float4 positionWorldRaw = mul(ViewProjInv, positionScreen);
+  float4 positionWorld = positionWorldRaw / positionWorldRaw.w;
+
   float specularContribution = 0;
   if (diffuseStrength > 0) {
     float3 viewDirectionRaw = ViewPosition - positionWorld;
