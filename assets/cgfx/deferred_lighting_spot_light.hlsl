@@ -19,9 +19,11 @@ uniform float LightInnerAngle;
 uniform float LightOuterAngle;
 uniform float LightDecay;
 
-uniform float4x4 ViewProjInv;
+uniform float4x4 View;
+uniform float4x4 ProjInv;
 uniform float4x4 LightViewProj;
 uniform float4x4 WorldViewProj;
+uniform float4x4 NormalMatrix;
 
 struct VOutput {
       float4 position 			: SV_POSITION;
@@ -64,8 +66,8 @@ float4 ps(float4 position 		: SV_POSITION,
 	positionScreen.z = depth; 
 	positionScreen.w = 1.0f;
 
-	float4 positionWorldRaw = mul(ViewProjInv, positionScreen);
-	float4 positionWorld = positionWorldRaw / positionWorldRaw.w;
+	float4 positionViewRaw = mul(ProjInv, positionScreen);
+	float4 positionView = positionViewRaw / positionViewRaw.w;
 
 	float4 finalColor = float4(0, 0, 0, 0.0f);
 
@@ -73,14 +75,20 @@ float4 ps(float4 position 		: SV_POSITION,
 	// spot light
 	//------------------------------------------------------------
 
+	float4 lightPosition = mul(View, LightPosition);
+
+	return View;
+
 	// diffuse
-	float3 directionToLight = LightPosition - positionWorld;
+	float4 directionToLight = lightPosition - positionView;
 
 	float distance = length(LightDirection);
   	distance = distance * distance;
 
-	float3 directionOfLight = -LightDirection;
-	float lightDirectionDot = max(0.0f, dot(normalize(directionOfLight), normalize(directionToLight)));
+  	float4 lightVector = -LightDirection;
+  	//lightVector = lightVector;//mul(NormalMatrix, lightVector);
+
+	float lightDirectionDot = max(0.0f, dot(normalize(lightVector), normalize(directionToLight)));
 
 	float lightOuterCos = cos(LightOuterAngle);
 	float lightInnerCos = cos(LightInnerAngle);
@@ -88,19 +96,19 @@ float4 ps(float4 position 		: SV_POSITION,
 	float diffuseStrength = 0.0f;
 
 	if (lightDirectionDot > lightOuterCos) {
-		diffuseStrength = max(0.0f, saturate(dot(normal, normalize(directionOfLight))));
+		diffuseStrength = max(0.0f, saturate(dot(normal, normalize(lightVector))));
 		diffuseStrength *= smoothstep(lightOuterCos, lightInnerCos, lightDirectionDot);	
 	}
 
 	if (lightDirectionDot > lightInnerCos) {
-		diffuseStrength = max(0.0f, saturate(dot(normal, normalize(directionOfLight))));
+		diffuseStrength = max(0.0f, saturate(dot(normal, normalize(lightVector))));
 	}
 
 	float3 diffuseContribution = LightColor * diffusePower * diffuseStrength / distance;
 
 	//specular
 	float specularContribution = 0;
-	if (diffuseStrength > 0) {
+	/*if (diffuseStrength > 0) {
 		float3 viewDirectionRaw = ViewPosition - positionWorld;
 		float3 viewDirection = normalize(viewDirectionRaw);
 
@@ -110,13 +118,13 @@ float4 ps(float4 position 		: SV_POSITION,
 
 		float i = pow(saturate(dot(normal, halfVector)), specularPower);
 		specularContribution = i * specularIntensity / distance;
-	}
+	}*/
 	
 
 	//------------------------------------------------------------
 	// shadows
 	//------------------------------------------------------------
-	float4 pixelWorldPositionFromLight = mul(LightViewProj, positionWorld);
+	/*float4 pixelWorldPositionFromLight = mul(LightViewProj, positionWorld);
 	float3 pixelWorldPositionFromLightHom = pixelWorldPositionFromLight / pixelWorldPositionFromLight.w;
 
 	float2 shadowCoord = contract(pixelWorldPositionFromLightHom);
@@ -127,11 +135,11 @@ float4 ps(float4 position 		: SV_POSITION,
 	if (moments.x < pixelWorldPositionFromLightHom.z && shadowCoord.x > 0.0f && shadowCoord.x < 1.0f) {
 		shadowLightContribution = ChebyshevUpperBound(moments.xy, pixelWorldPositionFromLightHom.z, 0.0000005f);
 		shadowLightContribution = ReduceLightBleeding(shadowLightContribution, 0.9f);
-	}
+	}*/
 
-	diffuseContribution *= shadowLightContribution;
+	//diffuseContribution *= shadowLightContribution;
 
-	return float4(diffuseContribution, specularContribution);
+	return float4(diffuseContribution, 0);
 } 
 
 technique11 Main {

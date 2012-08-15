@@ -33,6 +33,8 @@ void DeferredSpotLightsPass::init() {
 }
 
 void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
+  GraphicsInterface::setRenderTarget(spotLightRenderTarget_, false);
+  GraphicsInterface::clearRenderTarget(spotLightRenderTarget_, Color4::BLACK);
 
   stdext::hash_map<int, std::vector<Mesh*>> meshes;
   std::vector<Model*>::iterator it = world.begin();
@@ -43,7 +45,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
   std::vector<SpotLight*> spotLights = sceneContext.spotLights();
   for (std::vector<SpotLight*>::iterator light = spotLights.begin(); light != spotLights.end(); ++light) {
     // create shadowmap
-    if ((*light)->castsShadows()) {
+    /*if ((*light)->castsShadows()) {
       GraphicsInterface::setRenderTarget((*light)->shadowMapRenderTarget(), true);
       GraphicsInterface::clearRenderTarget((*light)->shadowMapRenderTarget(), Color4::WHITE);
 
@@ -60,7 +62,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
       }
 
       gaussianBlur_.render((*light)->shadowMapTexture());
-    }
+    }*/
 
     // render lighting
     {
@@ -73,8 +75,14 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
       lightEffect_->setUniform((*light)->castsShadows(), "ShadowsEnabled");
 
       Matrix4x4 viewProjection = viewer->projection() * viewer->viewTransform();
+      lightEffect_->setUniform(viewer->viewTransform(), "View");
       lightEffect_->setUniform(viewProjection, "ViewProj");
       lightEffect_->setUniform(viewProjection.inverse(), "ViewProjInv");
+
+      lightEffect_->setUniform(viewer->projection().inverse(), "ProjInv");
+
+      Matrix4x4 normalMatrix = viewer->viewTransform().mat3x3().inverseTranspose();
+      lightEffect_->setUniform(normalMatrix, "NormalMatrix");
 
       lightEffect_->setUniform(viewer->position(), "ViewPosition");
 
