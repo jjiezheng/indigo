@@ -19,6 +19,7 @@ public:
 
 public:
 
+  static Color4 NOTHING;
   static Color4 BLACK;
   static Color4 WHITE;
   static Color4 RED;

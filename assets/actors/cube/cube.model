@@ -14,7 +14,7 @@
           "type" : "float"
         },
         "DiffusePower" : {
-            "value" : 0.03,
+            "value" : 3.0,
             "type" : "float"
         },
         "DiffuseColor" : {

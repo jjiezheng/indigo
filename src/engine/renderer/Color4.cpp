@@ -1,5 +1,6 @@
 #include "Color4.h"
 
+Color4 Color4::NOTHING            =  Color4(0, 0, 0, 0);
 Color4 Color4::BLACK            =  Color4(0, 0, 0, 1);
 Color4 Color4::WHITE            =  Color4(1, 1, 1, 1);
 Color4 Color4::RED              =  Color4(1, 0, 0, 1);

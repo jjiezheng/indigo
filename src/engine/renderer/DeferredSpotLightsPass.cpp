@@ -34,7 +34,7 @@ void DeferredSpotLightsPass::init() {
 
 void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
   GraphicsInterface::setRenderTarget(spotLightRenderTarget_, false);
-  GraphicsInterface::clearRenderTarget(spotLightRenderTarget_, Color4::BLACK);
+  GraphicsInterface::clearRenderTarget(spotLightRenderTarget_, Color4::NOTHING);
 
   stdext::hash_map<int, std::vector<Mesh*>> meshes;
   std::vector<Model*>::iterator it = world.begin();
@@ -45,7 +45,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
   std::vector<SpotLight*> spotLights = sceneContext.spotLights();
   for (std::vector<SpotLight*>::iterator light = spotLights.begin(); light != spotLights.end(); ++light) {
     // create shadowmap
-    /*if ((*light)->castsShadows()) {
+    if ((*light)->castsShadows()) {
       GraphicsInterface::setRenderTarget((*light)->shadowMapRenderTarget(), true);
       GraphicsInterface::clearRenderTarget((*light)->shadowMapRenderTarget(), Color4::WHITE);
 
@@ -62,7 +62,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
       }
 
       gaussianBlur_.render((*light)->shadowMapTexture());
-    }*/
+    }
 
     // render lighting
     {
