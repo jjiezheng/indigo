@@ -68,7 +68,7 @@ void DeferredSSAOPass::init() {
 
   ssaoRenderTexture_ = GraphicsInterface::createTexture(GraphicsInterface::screenSize());
   ssaoRenderTarget_ = GraphicsInterface::createRenderTarget(ssaoRenderTexture_);
-
+  
   blur_.init(GraphicsInterface::screenSize());
   //blur_.setRenderTarget(outputRenderTarget_);
 }

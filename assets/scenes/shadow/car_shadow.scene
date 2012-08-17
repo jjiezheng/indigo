@@ -22,41 +22,34 @@
         "y" : 0.0,
         "z" : 0.0
       }
-    },
-    {
-      "model" : "actors/car/car.model",
-      "position" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "z" : 0.0
-      }
     }
   ],
   "lights" : [
     {
       "type" : "directional",
        "direction" : {
-        "x" : -0.5,
-        "y" : -0.5,
-        "z" : -0.5
+        "x" : -0.0,
+        "y" : -0.1,
+        "z" : -0.0
       },
       "color" : {
-        "r" : 1.5,
-        "g" : 1.5,
-        "b" : 1.5
+        "r" : 1.0,
+        "g" : 1.0,
+        "b" : 1.0
       }
     },
     {
       "type" : "spot",
-      "innerangle" : 20,
-      "outerangle" : 60,
+      "innerangle" : 40,
+      "outerangle" : 50,
       "decay" : 0.2,
-      "length" : 100,
+      "length" : 2,
+      "intensity" : 1.0,
       "castsshadows" : true,
       "position" : {
-        "x" : 10,
-        "y" : 10,
-        "z" : 10
+        "x" : 0,
+        "y" : 4,
+        "z" : 0
       },
       "orientation" : {
         "x" : 0,
@@ -69,9 +62,9 @@
         "b" : 1.0
       },
       "direction" : {
-        "x" : -1.0,
+        "x" : -0.0,
         "y" : -1.0,
-        "z" : -1.0
+        "z" : -0.0
       }
     }
   ]

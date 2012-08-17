@@ -14,13 +14,13 @@
           "type" : "float"
         },
         "DiffusePower" : {
-            "value" : 3.0,
+            "value" : 1.0,
             "type" : "float"
         },
         "DiffuseColor" : {
-          "r" : 0.6,
-          "g" : 0.6,
-          "b" : 0.6,
+          "r" : 1.0,
+          "g" : 1.0,
+          "b" : 1.0,
           "type" : "color3"
         }
       },

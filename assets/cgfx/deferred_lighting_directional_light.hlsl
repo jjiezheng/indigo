@@ -42,16 +42,15 @@ float4 ps(float4 position : SV_POSITION,
   float4 normalData = NormalMap.Sample(NormalSamplerState, texCoord);
   float3 normal = normalize(normalData.xyz);
 
-  float4 lightVector = -LightDirection;
+  float3 lightVector = -LightDirection.xyz;
   lightVector = normalize(mul(NormalMatrix, lightVector));
 
   // Blinn+Phong from http://en.wikipedia.org/wiki/Blinn%E2%80%93Phong_shading_model
-  float distance = length(LightDirection);
-  distance = distance * distance;
 
   // diffuse
   float diffuseStrength = max(0.0f, dot(normalize(normal), normalize(lightVector)));
-  float3 diffuseContribution = LightColor * diffuseStrength / distance;
+
+  float3 diffuseContribution = LightColor * diffuseStrength;
 
   //specular
   float specularPower = depthSpec.y;// * 255;
@@ -81,7 +80,7 @@ float4 ps(float4 position : SV_POSITION,
     float3 halfVector = normalize(halfVectorRaw);
 
     float i = pow(saturate(dot(normal, halfVector)), specularPower);
-    specularContribution = i * specularIntensity / distance;
+    specularContribution = i * specularIntensity;
   }
 
   return float4(diffuseContribution, specularContribution);

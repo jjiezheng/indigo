@@ -12,13 +12,13 @@
           "type" : "color3"
         },
         "DiffuseColor" : {
-          "r" : 0.3,
-          "g" : 0.3,
-          "b" : 0.3,
+          "r" : 1.0,
+          "g" : 1.0,
+          "b" : 1.0,
           "type" : "color3"
         },
         "DiffusePower" : {
-          "value" : 10.01,
+          "value" : 1,
           "type" : "float"
         },
         "SpecularPower" : {

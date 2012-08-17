@@ -58,7 +58,7 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
   
   {
     IDeferredPass* directionalLightingPass = new DeferredDirectionalLightsPass(lightRenderTarget_, colorMapTexture_, normalMapTexture_, depthMapTexture_);
-    passes_.push_back(directionalLightingPass);
+    //passes_.push_back(directionalLightingPass);
 
     /*IDeferredPass* pointLightingPass = new DeferredPointLightsPass(lightRenderTarget_, normalMapTexture_, depthMapTexture_);
     passes_.push_back(pointLightingPass);*/
@@ -69,7 +69,7 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
 
   {
     IDeferredPass* ssaoPass = new DeferredSSAOPass(ssaoRenderTarget_, colorMapTexture_, normalMapTexture_, depthMapTexture_, lightMapTexture_);
-    passes_.push_back(ssaoPass);
+    //passes_.push_back(ssaoPass);
 
     /*IDeferredPass* fxaaPass = new DeferredFXAAPass(fxaaRenderTarget_, ssaoMapTexture_);
     passes_.push_back(fxaaPass);*/
@@ -79,7 +79,7 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
   }
 
   {
-    IDeferredPass* presentPass = new DeferredPresentPass(ssaoMapTexture_);
+    IDeferredPass* presentPass = new DeferredPresentPass(lightMapTexture_);
     passes_.push_back(presentPass);
   }
 
