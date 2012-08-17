@@ -7,14 +7,7 @@
     "b" : 1.0
   },
   "objects" : [
-    {
-      "model" : "actors/cube/cube.model",
-      "position" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "z" : 0.0
-      }
-    },
+    
     {
       "model" : "actors/floor/floor.model",
       "position" : {
@@ -40,15 +33,15 @@
     },
     {
       "type" : "spot",
-      "innerangle" : 40,
-      "outerangle" : 50,
+      "innerangle" : 30,
+      "outerangle" : 40,
       "decay" : 0.2,
       "length" : 2,
       "intensity" : 1.0,
       "castsshadows" : true,
       "position" : {
         "x" : 0,
-        "y" : 4,
+        "y" : 1,
         "z" : 0
       },
       "orientation" : {

@@ -85,12 +85,11 @@ float4 ps(float4 position 		: SV_POSITION,
   	lightVector = normalize(mul(NormalMatrix, lightVector));
 
 	if (lightDirectionDot > lightOuterCos) {
-		//diffuseStrength = max(0.0f, saturate(dot(normal, normalize(lightVector))));
-		//diffuseStrength *= smoothstep(lightOuterCos, lightInnerCos, lightDirectionDot);	
+		diffuseStrength = max(0.0f, saturate(dot(normal, normalize(lightVector))));
+		diffuseStrength *= smoothstep(lightOuterCos, lightInnerCos, lightDirectionDot);	
 	}
 
 	if (lightDirectionDot > lightInnerCos) {
-		return float4(1, 0, 0, 1);
 		diffuseStrength = max(0.0f, saturate(dot(normal, normalize(lightVector))));
 	}
 
@@ -108,7 +107,7 @@ float4 ps(float4 position 		: SV_POSITION,
 		halfVector = normalize(mul(NormalMatrix, halfVector));
 
 		float i = pow(saturate(dot(normal, halfVector)), specularPower);
-		//specularContribution = i * specularIntensity / distance;
+		specularContribution = i * specularIntensity / distance;
 	}
 	
 
