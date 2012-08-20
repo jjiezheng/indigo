@@ -108,3 +108,15 @@ void GraphicsInterface::generateMipMaps(unsigned int textureId) {
 void GraphicsInterface::fillTexture(unsigned int textureId, void* data, unsigned int dataSize) {
   graphicsInterface_->fillTexture(textureId, data, dataSize);
 }
+
+void GraphicsInterface::beginPerformanceEvent(const std::string& eventName, const Color4& color) {
+#ifndef MASTER
+  graphicsInterface_->beginPerformanceEvent(eventName, color);
+#endif
+}
+
+void GraphicsInterface::endPerformanceEvent() {
+#ifndef MASTER
+  graphicsInterface_->endPerformanceEvent();
+#endif
+}

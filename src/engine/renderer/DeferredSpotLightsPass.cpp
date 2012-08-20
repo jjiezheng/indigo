@@ -33,8 +33,16 @@ void DeferredSpotLightsPass::init() {
 }
 
 void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
-  GraphicsInterface::setRenderTarget(spotLightRenderTarget_, false);
-  GraphicsInterface::clearRenderTarget(spotLightRenderTarget_, Color4::NOTHING);
+  GraphicsInterface::beginPerformanceEvent("Spot Lighting", Color4::GREEN);
+
+  {
+    GraphicsInterface::beginPerformanceEvent("Clear", Color4::ORANGE);
+
+    GraphicsInterface::setRenderTarget(spotLightRenderTarget_, false);
+    GraphicsInterface::clearRenderTarget(spotLightRenderTarget_, Color4::NOTHING);
+
+    GraphicsInterface::endPerformanceEvent();
+  }
 
   stdext::hash_map<int, std::vector<Mesh*>> meshes;
   std::vector<Model*>::iterator it = world.begin();
@@ -46,6 +54,8 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
   for (std::vector<SpotLight*>::iterator light = spotLights.begin(); light != spotLights.end(); ++light) {
     // create shadowmap
     if ((*light)->castsShadows()) {
+      GraphicsInterface::beginPerformanceEvent("Shadow Map", Color4::ORANGE);
+
       GraphicsInterface::setRenderTarget((*light)->shadowMapRenderTarget(), true);
       GraphicsInterface::clearRenderTarget((*light)->shadowMapRenderTarget(), Color4::WHITE);
 
@@ -60,12 +70,15 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
           (*meshIt)->render();
         }
       }
-
       gaussianBlur_.render((*light)->shadowMapTexture());
+
+      GraphicsInterface::endPerformanceEvent();
     }
 
     // render lighting
     {
+      GraphicsInterface::beginPerformanceEvent("Lighting", Color4::ORANGE);
+
       GraphicsInterface::setRenderTarget(spotLightRenderTarget_, false);
 
       lightEffect_->setTexture(normalMapTexture_, "NormalMap");
@@ -102,16 +115,26 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
       lightEffect_->beginDraw();
       GraphicsInterface::setRenderState(false);
       spotLightModel_->render();
+
+      GraphicsInterface::endPerformanceEvent();
     }
 
     // accumulate into lightmap
     {
+      GraphicsInterface::beginPerformanceEvent("Accumulation", Color4::ORANGE);
+
       GraphicsInterface::setRenderTarget(lightMapRenderTarget_, false);
       accumulationEffect_->setTexture(spotLightRenderTexture_, "LightSourceMap");
       accumulationEffect_->setTexture(colorMapTexture_, "ColorMap");
       accumulationEffect_->beginDraw();
       GraphicsInterface::setRenderState(true);
       GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
+
+      GraphicsInterface::endPerformanceEvent();
     }
+
+    GraphicsInterface::endPerformanceEvent();
   }
+
+  GraphicsInterface::endPerformanceEvent();
 }

@@ -17,6 +17,8 @@
 
 #include "GraphicsInterface.h"
 
+#include "Color4.h"
+
 Renderer3dDeferred::~Renderer3dDeferred() {
   for (std::vector<IDeferredPass*>::iterator i = passes_.begin(); i != passes_.end(); ++i) {
     SAFE_DELETE(*i);
@@ -48,6 +50,7 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
   fullScreenBlurTexture_ = GraphicsInterface::createTexture(screenSize);
   fullScreenBlurRenderTarget_ = GraphicsInterface::createRenderTarget(fullScreenBlurTexture_);
   
+  // Init Stage
   {
     IDeferredPass* clearBuffersPass = new DeferredClearBuffersPass(colorRenderTarget_, depthRenderTarget_, lightRenderTarget_, normalRenderTarget_, compositionRenderTarget_);
     passes_.push_back(clearBuffersPass);
@@ -56,7 +59,10 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
     passes_.push_back(geometryPass);
   }
   
+  // Lighting Stage
   {
+    GraphicsInterface::beginPerformanceEvent("Lighting", Color4::GREEN);
+
     IDeferredPass* directionalLightingPass = new DeferredDirectionalLightsPass(lightRenderTarget_, colorMapTexture_, normalMapTexture_, depthMapTexture_);
     passes_.push_back(directionalLightingPass);
 
@@ -65,9 +71,14 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
 
     IDeferredPass* spotLightingPass = new DeferredSpotLightsPass(lightRenderTarget_, colorMapTexture_, normalMapTexture_, depthMapTexture_);
     passes_.push_back(spotLightingPass);
+
+    GraphicsInterface::endPerformanceEvent();
   }
 
+  // Post Processing Stage
   {
+    GraphicsInterface::beginPerformanceEvent("Post Processing", Color4::GREEN);
+
     IDeferredPass* ssaoPass = new DeferredSSAOPass(ssaoRenderTarget_, colorMapTexture_, normalMapTexture_, depthMapTexture_, lightMapTexture_);
     //passes_.push_back(ssaoPass);
 
@@ -76,8 +87,11 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
 
     /*IDeferredPass* fullScreenBlurPass = new DeferredFullScreenBlurPass(fxaaMapTexture_, fullScreenBlurRenderTarget_);
     passes_.push_back(fullScreenBlurPass);*/
+
+    GraphicsInterface::endPerformanceEvent();
   }
 
+  // Present Stage
   {
     IDeferredPass* presentPass = new DeferredPresentPass(lightMapTexture_);
     passes_.push_back(presentPass);

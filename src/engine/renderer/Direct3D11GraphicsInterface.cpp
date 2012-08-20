@@ -1,6 +1,7 @@
 #include "Direct3D11GraphicsInterface.h"
 
 #include <D3DX10.h>
+#include <d3d9.h>
 #include <D3DX11.h>
 #include <d3dx11effect.h>
 #include <assert.h>
@@ -395,4 +396,15 @@ void Direct3D11GraphicsInterface::generateMipMaps(unsigned int textureId) {
 }
 
 void Direct3D11GraphicsInterface::fillTexture(unsigned int textureId, void* data, unsigned int dataSize) {
+}
+
+void Direct3D11GraphicsInterface::beginPerformanceEvent(const std::string& eventName, const Color4& color) {
+  int stringLength = MultiByteToWideChar(CP_ACP, 0, eventName.data(), eventName.length(), 0, 0);
+  std::wstring wstr(stringLength, 0);
+  MultiByteToWideChar(CP_ACP, 0,  eventName.data(), eventName.length(), &wstr[0], stringLength);
+  D3DPERF_BeginEvent(D3DXCOLOR(color.r, color.g, color.b, color.a), wstr.c_str());
+}
+
+void Direct3D11GraphicsInterface::endPerformanceEvent() {
+  D3DPERF_EndEvent();
 }

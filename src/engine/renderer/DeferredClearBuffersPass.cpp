@@ -5,6 +5,8 @@
 #include "SceneContext.h"
 
 void DeferredClearBuffersPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
+  GraphicsInterface::beginPerformanceEvent("Clear", Color4::GREEN);
+
   GraphicsInterface::resetRenderTarget();
   GraphicsInterface::clearBuffer(Color4::BLACK);
   GraphicsInterface::clearRenderTarget(lightRenderTarget_, Color4::BLACK);
@@ -12,4 +14,6 @@ void DeferredClearBuffersPass::render(IViewer* viewer, World& world, const Scene
   GraphicsInterface::clearRenderTarget(normalRenderTarget_, Color4::WHITE);
   GraphicsInterface::clearRenderTarget(depthRenderTarget_, Color4::WHITE);
   GraphicsInterface::clearRenderTarget(compositionRenderTarget_, Color4::TRANSPAREN);
+
+  GraphicsInterface::endPerformanceEvent();
 }

@@ -34,6 +34,12 @@ public:
 
 public:
 
+  void beginPerformanceEvent(const std::string& eventName, const Color4& color);
+
+  void endPerformanceEvent();
+
+public:
+
   unsigned int loadTexture(const std::string& filePath);
 
   unsigned int createTexture(const CSize& dimensions, unsigned int mipLevels, void* textureData, unsigned int textureLineSize);

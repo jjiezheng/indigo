@@ -23,6 +23,7 @@ public:
   static Color4 BLACK;
   static Color4 WHITE;
   static Color4 RED;
+  static Color4 ORANGE;
   static Color4 GREEN;
   static Color4 BLUE;
   static Color4 GREY;

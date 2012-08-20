@@ -4,6 +4,7 @@ Color4 Color4::NOTHING            =  Color4(0, 0, 0, 0);
 Color4 Color4::BLACK            =  Color4(0, 0, 0, 1);
 Color4 Color4::WHITE            =  Color4(1, 1, 1, 1);
 Color4 Color4::RED              =  Color4(1, 0, 0, 1);
+Color4 Color4::ORANGE              =  Color4(1, 0.84, 0, 1);
 Color4 Color4::GREEN            =  Color4(0, 1, 0, 1);
 Color4 Color4::BLUE             =  Color4(0, 0, 1, 1);
 Color4 Color4::GREY             =  Color4(0.6f, 0.6f, 0.6f, 1);

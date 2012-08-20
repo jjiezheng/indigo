@@ -342,3 +342,11 @@ void OpenGL21GraphicsInterface::generateMipMaps(unsigned int textureId) {
 void OpenGL21GraphicsInterface::fillTexture(unsigned int textureId, void* data, unsigned int dataSize) {
 
 }
+
+void OpenGL21GraphicsInterface::beginPerformanceEvent(const std::string& eventName, const Color4& color) {
+
+}
+
+void OpenGL21GraphicsInterface::endPerformanceEvent() {
+
+}

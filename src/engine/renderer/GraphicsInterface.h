@@ -1,6 +1,7 @@
 #ifndef GRAPHICSINTERFACE_H
 #define GRAPHICSINTERFACE_H
 
+#include <string>
 #include "core/Size.h"
 
 #include "GraphicsAPIType.h"
@@ -44,6 +45,12 @@ public:
   static void drawVertexBuffer(int vertexBuffer,int vertexCount);
 
   static void setRenderState(bool cullBack);
+
+public:
+
+  static void beginPerformanceEvent(const std::string& eventName, const Color4& color);
+
+  static void endPerformanceEvent();
 
 public:
 

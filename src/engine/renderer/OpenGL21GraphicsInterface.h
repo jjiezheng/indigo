@@ -25,6 +25,12 @@ public:
 
 public:
 
+  void beginPerformanceEvent(const std::string& eventName, const Color4& color);
+
+  void endPerformanceEvent();
+
+public:
+
   void swapBuffers();
 
   unsigned int createVertexBuffer(VertexDef* vertexData, int numVertices);

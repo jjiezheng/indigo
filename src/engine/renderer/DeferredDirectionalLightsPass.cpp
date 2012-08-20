@@ -26,36 +26,50 @@ void DeferredDirectionalLightsPass::init() {
 }
 
 void DeferredDirectionalLightsPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
-  GraphicsInterface::setRenderTarget(directionalLightRenderTarget_, false);
+  GraphicsInterface::beginPerformanceEvent("Directional Lighting", Color4::GREEN);
+  
+  {
+    GraphicsInterface::beginPerformanceEvent("Lighting", Color4::ORANGE);
 
-  std::vector<DirectionalLight> directionalLights = sceneContext.directionalLights();
-  for (std::vector<DirectionalLight>::iterator light = directionalLights.begin(); light != directionalLights.end(); ++light) {
-    directionalLightEffect_->setTexture(depthMapTexture_, "DepthMap");
-    directionalLightEffect_->setTexture(normalMapTexture_, "NormalMap");
-    
-    directionalLightEffect_->setUniform(viewer->viewTransform(), "View");
-    Matrix4x4 viewProjection = viewer->projection() * viewer->viewTransform();
-    directionalLightEffect_->setUniform(viewProjection, "ViewProj");
-    directionalLightEffect_->setUniform(viewProjection.inverse(), "ViewProjInv");
-    directionalLightEffect_->setUniform(viewer->position(), "ViewPosition");
-    directionalLightEffect_->setUniform((*light).direction(), "LightDirection");
-    directionalLightEffect_->setUniform((*light).color(), "LightColor");
+    GraphicsInterface::setRenderTarget(directionalLightRenderTarget_, false);
 
-    Matrix4x4 normalMatrix = viewer->viewTransform().mat3x3().inverseTranspose();
-    directionalLightEffect_->setUniform(normalMatrix, "NormalMatrix");
+    std::vector<DirectionalLight> directionalLights = sceneContext.directionalLights();
+    for (std::vector<DirectionalLight>::iterator light = directionalLights.begin(); light != directionalLights.end(); ++light) {
+      directionalLightEffect_->setTexture(depthMapTexture_, "DepthMap");
+      directionalLightEffect_->setTexture(normalMapTexture_, "NormalMap");
+      
+      directionalLightEffect_->setUniform(viewer->viewTransform(), "View");
+      Matrix4x4 viewProjection = viewer->projection() * viewer->viewTransform();
+      directionalLightEffect_->setUniform(viewProjection, "ViewProj");
+      directionalLightEffect_->setUniform(viewProjection.inverse(), "ViewProjInv");
+      directionalLightEffect_->setUniform(viewer->position(), "ViewPosition");
+      directionalLightEffect_->setUniform((*light).direction(), "LightDirection");
+      directionalLightEffect_->setUniform((*light).color(), "LightColor");
 
-    directionalLightEffect_->beginDraw();
-    GraphicsInterface::setRenderState(true);
-    GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
+      Matrix4x4 normalMatrix = viewer->viewTransform().mat3x3().inverseTranspose();
+      directionalLightEffect_->setUniform(normalMatrix, "NormalMatrix");
+
+      directionalLightEffect_->beginDraw();
+      GraphicsInterface::setRenderState(true);
+      GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
+    }
+
+    GraphicsInterface::endPerformanceEvent();
   }
 
   // accumulate into lightmap
   {
+    GraphicsInterface::beginPerformanceEvent("Accumulation", Color4::ORANGE);
+
     GraphicsInterface::setRenderTarget(lightMapRenderTarget_, false);
     accumulationEffect_->setTexture(directionalLightRenderTexture_, "LightSourceMap");
     accumulationEffect_->setTexture(colorMapTexture_, "ColorMap");
     accumulationEffect_->beginDraw();
     GraphicsInterface::setRenderState(true);
     GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
+
+    GraphicsInterface::endPerformanceEvent();
   }
+
+  GraphicsInterface::endPerformanceEvent();
 }
