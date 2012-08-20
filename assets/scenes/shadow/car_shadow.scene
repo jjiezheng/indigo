@@ -23,7 +23,7 @@
        "direction" : {
         "x" : -0.0,
         "y" : -0.1,
-        "z" : -0.0
+        "z" : 0.9
       },
       "color" : {
         "r" : 1.0,
@@ -33,15 +33,15 @@
     },
     {
       "type" : "spot",
-      "innerangle" : 30,
-      "outerangle" : 40,
+      "innerangle" : 20,
+      "outerangle" : 30,
       "decay" : 0.2,
-      "length" : 2,
+      "length" : 4,
       "intensity" : 1.0,
       "castsshadows" : true,
       "position" : {
         "x" : 0,
-        "y" : 1,
+        "y" : 2,
         "z" : 0
       },
       "orientation" : {
