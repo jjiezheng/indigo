@@ -507,6 +507,22 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\src\engine\renderer\DeferredInitRenderStage.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\renderer\DeferredInitRenderStage.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\renderer\DeferredLightingRenderStage.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\renderer\DeferredLightingRenderStage.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\engine\renderer\DeferredPointLightsPass.cpp"
 					>
 				</File>
@@ -515,11 +531,27 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\src\engine\renderer\DeferredPostProcessingStage.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\renderer\DeferredPostProcessingStage.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\engine\renderer\DeferredPresentPass.cpp"
 					>
 				</File>
 				<File
 					RelativePath="..\..\..\src\engine\renderer\DeferredPresentPass.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\renderer\DeferredPresentStage.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\renderer\DeferredPresentStage.h"
 					>
 				</File>
 				<File
@@ -539,7 +571,23 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\src\engine\renderer\IDeferredLightingPass.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\engine\renderer\IDeferredPass.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\renderer\IDeferredPostProcessingPass.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\renderer\IDeferredRenderStage.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\renderer\IDeferredRenderStage.h"
 					>
 				</File>
 				<File

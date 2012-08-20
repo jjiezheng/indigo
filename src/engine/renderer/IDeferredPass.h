@@ -4,12 +4,13 @@
 class IViewer;
 class World;
 class SceneContext;
+class CSize;
 
 class IDeferredPass {
 
 public:
 
-  virtual void init() = 0;
+  virtual void init(const CSize& screenSize) = 0;
 
   virtual void render(IViewer* viewer, World& world, const SceneContext& sceneContext) = 0;
 

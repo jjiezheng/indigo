@@ -13,11 +13,12 @@
 
 #include "Geometry.h"
 
-void DeferredDirectionalLightsPass::init() {
+#include "DeferredInitRenderStage.h"
+
+void DeferredDirectionalLightsPass::init(const CSize& screenSize) {
   directionalLightEffect_ = IEffect::effectFromFile("cgfx/deferred_lighting_directional_light.hlsl");
   quadVbo_ = Geometry::screenPlane();
 
-  CSize screenSize = GraphicsInterface::screenSize(); 
   directionalLightRenderTexture_ = GraphicsInterface::createTexture(screenSize);
   directionalLightRenderTarget_ = GraphicsInterface::createRenderTarget(directionalLightRenderTexture_);
 
@@ -25,8 +26,8 @@ void DeferredDirectionalLightsPass::init() {
   quadVbo_ = Geometry::screenPlane();
 }
 
-void DeferredDirectionalLightsPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
-  GraphicsInterface::beginPerformanceEvent("Directional Lighting", Color4::GREEN);
+void DeferredDirectionalLightsPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext, unsigned int lightMapRenderTarget, const DeferredInitRenderStage& initStage) {
+  GraphicsInterface::beginPerformanceEvent("Directional", Color4::GREEN);
   
   {
     GraphicsInterface::beginPerformanceEvent("Lighting", Color4::ORANGE);
@@ -35,8 +36,8 @@ void DeferredDirectionalLightsPass::render(IViewer* viewer, World& world, const 
 
     std::vector<DirectionalLight> directionalLights = sceneContext.directionalLights();
     for (std::vector<DirectionalLight>::iterator light = directionalLights.begin(); light != directionalLights.end(); ++light) {
-      directionalLightEffect_->setTexture(depthMapTexture_, "DepthMap");
-      directionalLightEffect_->setTexture(normalMapTexture_, "NormalMap");
+      directionalLightEffect_->setTexture(initStage.depthMap(), "DepthMap");
+      directionalLightEffect_->setTexture(initStage.normalMap(), "NormalMap");
       
       directionalLightEffect_->setUniform(viewer->viewTransform(), "View");
       Matrix4x4 viewProjection = viewer->projection() * viewer->viewTransform();
@@ -57,13 +58,13 @@ void DeferredDirectionalLightsPass::render(IViewer* viewer, World& world, const 
     GraphicsInterface::endPerformanceEvent();
   }
 
-  // accumulate into lightmap
+  // accumulate into LightMap
   {
     GraphicsInterface::beginPerformanceEvent("Accumulation", Color4::ORANGE);
 
-    GraphicsInterface::setRenderTarget(lightMapRenderTarget_, false);
+    GraphicsInterface::setRenderTarget(lightMapRenderTarget, false);
     accumulationEffect_->setTexture(directionalLightRenderTexture_, "LightSourceMap");
-    accumulationEffect_->setTexture(colorMapTexture_, "ColorMap");
+    accumulationEffect_->setTexture(initStage.colorMap(), "ColorMap");
     accumulationEffect_->beginDraw();
     GraphicsInterface::setRenderState(true);
     GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);

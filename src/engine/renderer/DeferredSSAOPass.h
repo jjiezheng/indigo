@@ -1,28 +1,26 @@
 #ifndef DEFERRED_SSAO_PASS_H
 #define DEFERRED_SSAO_PASS_H
 
-#include "IDeferredPass.h"
+#include "IDeferredPostProcessingPass.h"
 #include "AverageBlur.h"
 #include "GaussianBlur.h"
 
+class DeferredInitRenderStage;
+class DeferredLightingRenderStage;
+
 class IEffect;
 
-class DeferredSSAOPass : public IDeferredPass {
+class DeferredSSAOPass : public IDeferredPostProcessingPass {
 
 public:
 
-  DeferredSSAOPass(unsigned int ssaoRenderTarget, unsigned int colorMapTexture, unsigned int normalMapTexture, unsigned int depthMapTexture, unsigned int lightMapTexture)
-    : outputRenderTarget_(ssaoRenderTarget)
-    , colorMapTexture_(colorMapTexture)
-    , normalMapTexture_(normalMapTexture)
-    , depthMapTexture_(depthMapTexture) 
-    , lightMapTexture_(lightMapTexture) { }
+  DeferredSSAOPass() { }
 
 public:
 
-  void init();
+  void init(const CSize& screenSize);
 
-  void render(IViewer* viewer, World& world, const SceneContext& sceneContext);
+  unsigned int render(IViewer* viewer, unsigned int inputMap, const DeferredInitRenderStage& initStage);
 
 private:
 
@@ -31,16 +29,12 @@ private:
 
   unsigned int quadVbo_;
 
-  unsigned int outputRenderTarget_;
-  unsigned int colorMapTexture_;
-  unsigned int normalMapTexture_;
-  unsigned int depthMapTexture_;
-  unsigned int lightMapTexture_;
+  unsigned int ssaoMapTexture_;
+  unsigned int ssaoRenderTarget_;
 
   unsigned int noiseTexture_;
 
   unsigned int ssaoRenderTexture_;
-  unsigned int ssaoRenderTarget_;
 
   AverageBlur blur_;
 

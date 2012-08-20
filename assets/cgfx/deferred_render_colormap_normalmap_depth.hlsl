@@ -31,7 +31,7 @@ VOutput vs(float4 position 		: POSITION,
 		   float2 texCoord 		: TEXCOORD0) {
 	VOutput OUT;
 	OUT.position = mul(WorldViewProj, position);
-	OUT.normal = mul(NormalMatrix, normal.xyz);
+	OUT.normal = normalize(mul(NormalMatrix, normal.xyz).xyz);
 	OUT.texCoord = texCoord;
 	
 	OUT.depth.x = OUT.position.z;

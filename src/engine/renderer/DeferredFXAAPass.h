@@ -1,29 +1,32 @@
 #ifndef DEFERRED_FXAA_PASS
 #define DEFERRED_FXAA_PASS
 
-#include "IDeferredPass.h"
+#include "IDeferredPostProcessingPass.h"
 
 class IEffect;
 
-class DeferredFXAAPass : public IDeferredPass {
+class DeferredFXAAPass : public IDeferredPostProcessingPass {
 
 public:
 
-  DeferredFXAAPass(unsigned int fxaaRenderTarget, unsigned int compositionRenderTexture) 
-    : fxaaRenderTarget_(fxaaRenderTarget) 
-    , compositionRenderTexture_(compositionRenderTexture) { } 
+  DeferredFXAAPass()
+    : quadVbo_(0)
+    , fxaaRenderTarget_(0)
+    , fxaaRenderTexture_(0)
+    , fxaaEffect_(0) { } 
 
 public:
 
-  void init();
+  void init(const CSize& screenSize);
 
-  void render(IViewer* viewer, World& world, const SceneContext& sceneContext);
+  unsigned int render(IViewer* viewer, unsigned int inputMap, const DeferredInitRenderStage& initStage);
 
 private:
 
   unsigned int quadVbo_;
+
   unsigned int fxaaRenderTarget_;
-  unsigned int compositionRenderTexture_;
+  unsigned int fxaaRenderTexture_;
 
   IEffect* fxaaEffect_;
 

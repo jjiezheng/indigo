@@ -8,15 +8,20 @@
 
 #include "maths/Vector2.h"
 
-void DeferredFXAAPass::init() {
+void DeferredFXAAPass::init(const CSize& screenSize) {
+  fxaaRenderTexture_ = GraphicsInterface::createTexture(screenSize);
+  fxaaRenderTarget_ = GraphicsInterface::createRenderTarget(fxaaRenderTexture_);
+
   fxaaEffect_ = IEffect::effectFromFile("cgfx/deferred_fxaa.hlsl");
   quadVbo_ = Geometry::screenPlane();
 }
 
-void DeferredFXAAPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
+unsigned int DeferredFXAAPass::render(IViewer* viewer, unsigned int inputMap, const DeferredInitRenderStage& initStage) {
+  GraphicsInterface::beginPerformanceEvent("FXAA", Color4::ORANGE);
+
   GraphicsInterface::setRenderTarget(fxaaRenderTarget_, false);
 
-  fxaaEffect_->setTexture(compositionRenderTexture_, "FinalMap");
+  fxaaEffect_->setTexture(inputMap, "FinalMap");
 
   CSize screenSize = GraphicsInterface::screenSize();
   Vector2 screenSizeInv;
@@ -27,4 +32,8 @@ void DeferredFXAAPass::render(IViewer* viewer, World& world, const SceneContext&
   fxaaEffect_->beginDraw();
   GraphicsInterface::setRenderState(true);
   GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
+
+  GraphicsInterface::endPerformanceEvent();
+
+  return fxaaRenderTexture_;
 }

@@ -1,109 +1,20 @@
 #include "Renderer3dDeferred.h"
 
-#include "memory/Allocation.h"
-
-#include "IDeferredPass.h"
-#include "DeferredClearBuffersPass.h"
-#include "DeferredGeometryPass.h"
-#include "DeferredDirectionalLightsPass.h"
-#include "DeferredPointLightsPass.h"
-#include "DeferredCompositionPass.h"
-#include "DeferredSpotLightsPass.h"
-#include "DeferredFXAAPass.h"
-#include "DeferredShadowPass.h"
-#include "DeferredFullScreenBlurPass.h"
-#include "DeferredPresentPass.h"
-#include "DeferredSSAOPass.h"
+#include "DeferredInitRenderStage.h"
+#include "DeferredLightingRenderStage.h"
 
 #include "GraphicsInterface.h"
 
-#include "Color4.h"
-
-Renderer3dDeferred::~Renderer3dDeferred() {
-  for (std::vector<IDeferredPass*>::iterator i = passes_.begin(); i != passes_.end(); ++i) {
-    SAFE_DELETE(*i);
-  }
-}
-
 void Renderer3dDeferred::init(const CSize& screenSize) {
-  colorMapTexture_ = GraphicsInterface::createTexture(screenSize);
-  colorRenderTarget_ = GraphicsInterface::createRenderTarget(colorMapTexture_);
-
-  normalMapTexture_ = GraphicsInterface::createTexture(screenSize);
-  normalRenderTarget_ = GraphicsInterface::createRenderTarget(normalMapTexture_);
-
-  depthMapTexture_ = GraphicsInterface::createTexture(screenSize);
-  depthRenderTarget_ = GraphicsInterface::createRenderTarget(depthMapTexture_);
-
-  lightMapTexture_ = GraphicsInterface::createTexture(screenSize);
-  lightRenderTarget_ = GraphicsInterface::createRenderTarget(lightMapTexture_);
-
-  compositionMapTexture_ = GraphicsInterface::createTexture(screenSize);
-  compositionRenderTarget_ = GraphicsInterface::createRenderTarget(compositionMapTexture_);
-
-  fxaaMapTexture_ = GraphicsInterface::createTexture(screenSize);
-  fxaaRenderTarget_ = GraphicsInterface::createRenderTarget(fxaaMapTexture_);
-
-  ssaoMapTexture_ = GraphicsInterface::createTexture(screenSize);
-  ssaoRenderTarget_ = GraphicsInterface::createRenderTarget(ssaoMapTexture_);
-
-  fullScreenBlurTexture_ = GraphicsInterface::createTexture(screenSize);
-  fullScreenBlurRenderTarget_ = GraphicsInterface::createRenderTarget(fullScreenBlurTexture_);
-  
-  // Init Stage
-  {
-    IDeferredPass* clearBuffersPass = new DeferredClearBuffersPass(colorRenderTarget_, depthRenderTarget_, lightRenderTarget_, normalRenderTarget_, compositionRenderTarget_);
-    passes_.push_back(clearBuffersPass);
-
-    IDeferredPass* geometryPass = new DeferredGeometryPass(colorRenderTarget_, normalRenderTarget_, depthRenderTarget_);
-    passes_.push_back(geometryPass);
-  }
-  
-  // Lighting Stage
-  {
-    GraphicsInterface::beginPerformanceEvent("Lighting", Color4::GREEN);
-
-    IDeferredPass* directionalLightingPass = new DeferredDirectionalLightsPass(lightRenderTarget_, colorMapTexture_, normalMapTexture_, depthMapTexture_);
-    passes_.push_back(directionalLightingPass);
-
-    /*IDeferredPass* pointLightingPass = new DeferredPointLightsPass(lightRenderTarget_, normalMapTexture_, depthMapTexture_);
-    passes_.push_back(pointLightingPass);*/
-
-    IDeferredPass* spotLightingPass = new DeferredSpotLightsPass(lightRenderTarget_, colorMapTexture_, normalMapTexture_, depthMapTexture_);
-    passes_.push_back(spotLightingPass);
-
-    GraphicsInterface::endPerformanceEvent();
-  }
-
-  // Post Processing Stage
-  {
-    GraphicsInterface::beginPerformanceEvent("Post Processing", Color4::GREEN);
-
-    IDeferredPass* ssaoPass = new DeferredSSAOPass(ssaoRenderTarget_, colorMapTexture_, normalMapTexture_, depthMapTexture_, lightMapTexture_);
-    //passes_.push_back(ssaoPass);
-
-    /*IDeferredPass* fxaaPass = new DeferredFXAAPass(fxaaRenderTarget_, ssaoMapTexture_);
-    passes_.push_back(fxaaPass);*/
-
-    /*IDeferredPass* fullScreenBlurPass = new DeferredFullScreenBlurPass(fxaaMapTexture_, fullScreenBlurRenderTarget_);
-    passes_.push_back(fullScreenBlurPass);*/
-
-    GraphicsInterface::endPerformanceEvent();
-  }
-
-  // Present Stage
-  {
-    IDeferredPass* presentPass = new DeferredPresentPass(lightMapTexture_);
-    passes_.push_back(presentPass);
-  }
-
-  for (std::vector<IDeferredPass*>::iterator i = passes_.begin(); i != passes_.end(); ++i) {
-    (*i)->init();
-  }
+  initStage_.init(screenSize);
+  lightingStage_.init(screenSize);
+  postProcessingStage_.init(screenSize);
+  presentStage_.init(screenSize);
 }
 
 void Renderer3dDeferred::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
-  for (std::vector<IDeferredPass*>::iterator i = passes_.begin(); i != passes_.end(); ++i) {
-    (*i)->render(viewer, world, sceneContext);
-  }
+  initStage_.render(viewer, world, sceneContext);
+  lightingStage_.render(viewer, world, sceneContext, initStage_);
+  postProcessingStage_.render(viewer, lightingStage_.lightMap(), initStage_);
+  presentStage_.render(lightingStage_.lightMap());
 }

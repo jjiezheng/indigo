@@ -1,23 +1,19 @@
 #ifndef DEFERRED_SPOT_LIGHTS_PASS_H
 #define DEFERRED_SPOT_LIGHTS_PASS_H
 
-#include "IDeferredPass.h"
+#include "IDeferredLightingPass.h"
 
 #include "GaussianBlur.h"
 
 class IEffect;
 class Model;
 
-class DeferredSpotLightsPass : public IDeferredPass {
+class DeferredSpotLightsPass : public IDeferredLightingPass {
 
 public:
 
-  DeferredSpotLightsPass(unsigned int lightMapRenderTarget, unsigned int colorMapTexture, unsigned int normalMapTexture, unsigned int depthMapTexture)
-    : lightMapRenderTarget_(lightMapRenderTarget)
-    , colorMapTexture_(colorMapTexture)
-    , normalMapTexture_(normalMapTexture)
-    , depthMapTexture_(depthMapTexture) 
-    , spotLightRenderTarget_(0)
+  DeferredSpotLightsPass()
+    : spotLightRenderTarget_(0)
     , spotLightRenderTexture_(0)
     , quadVbo_(0)
     , spotLightModel_(0)
@@ -27,17 +23,11 @@ public:
 
 public:
 
-  void init();
+  void init(const CSize& screenSize);
 
-  void render(IViewer* viewer, World& world, const SceneContext& sceneContext);
+  void render(IViewer* viewer, World& world, const SceneContext& sceneContext, unsigned int lightMapRenderTarget, const DeferredInitRenderStage& initStage);
 
 private:
-
-  unsigned int lightMapRenderTarget_;
-
-  unsigned int colorMapTexture_;
-  unsigned int normalMapTexture_;
-  unsigned int depthMapTexture_;
 
   unsigned int spotLightRenderTarget_;
   unsigned int spotLightRenderTexture_;

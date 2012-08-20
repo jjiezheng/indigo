@@ -1,33 +1,29 @@
 #ifndef DEFERRED_DIRECTIONAL_LIGHTS_PASS_H
 #define DEFERRED_DIRECTIONAL_LIGHTS_PASS_H
 
-#include "IDeferredPass.h"
+#include "IDeferredLightingPass.h"
 
+class DeferredInitRenderStage;
 class IEffect;
 
-class DeferredDirectionalLightsPass : public IDeferredPass {
+class DeferredDirectionalLightsPass : public IDeferredLightingPass {
 
 public:
 
-  DeferredDirectionalLightsPass(unsigned int lightMapRenderTarget, unsigned int colorMapTexture, unsigned int normalMapTexture, unsigned int depthMapTexture)
-    : lightMapRenderTarget_(lightMapRenderTarget)
-    , colorMapTexture_(colorMapTexture)
-    , depthMapTexture_(depthMapTexture)
-    , normalMapTexture_(normalMapTexture) { }
+  DeferredDirectionalLightsPass()
+    : quadVbo_(0)
+    , directionalLightRenderTarget_(0)
+    , directionalLightRenderTexture_(0)
+    , accumulationEffect_(0)
+    , directionalLightEffect_(0) { }
 
 public:
 
-  void init();
+  void init(const CSize& screenSize);
 
-  void render(IViewer* viewer, World& world, const SceneContext& sceneContext);
+  void render(IViewer* viewer, World& world, const SceneContext& sceneContext, unsigned int lightMapTexture, const DeferredInitRenderStage& initStage);
 
 private:
-
-  unsigned int lightMapRenderTarget_;
-  
-  unsigned int colorMapTexture_;
-  unsigned int depthMapTexture_;
-  unsigned int normalMapTexture_;
 
   unsigned int quadVbo_;
 

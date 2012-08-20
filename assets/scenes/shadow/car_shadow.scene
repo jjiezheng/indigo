@@ -29,8 +29,8 @@
       "type" : "directional",
        "direction" : {
         "x" : -0.0,
-        "y" : -0.1,
-        "z" : 0.9
+        "y" : -0.5,
+        "z" : 0.5
       },
       "color" : {
         "r" : 1.0,
@@ -43,11 +43,11 @@
       "innerangle" : 40,
       "outerangle" : 50,
       "decay" : 0.2,
-      "length" : 20,
+      "length" : 35,
       "intensity" : 1.0,
       "castsshadows" : true,
       "position" : {
-        "x" : 0,
+        "x" : 30,
         "y" : 30,
         "z" : 0
       },
@@ -62,7 +62,7 @@
         "b" : 1.0
       },
       "direction" : {
-        "x" : 0.0,
+        "x" : -1.0,
         "y" : -1.0,
         "z" : 0.0
       }

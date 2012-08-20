@@ -14,7 +14,7 @@ public:
 
 public:
 
-  void init() { };
+  void init(const CSize& screenSize) { };
 
   void render(IViewer* viewer, World& world, const SceneContext& sceneContext);
 

@@ -15,13 +15,19 @@
 
 #include "io/Log.h"
 
+#include "DeferredInitRenderStage.h"
+#include "DeferredLightingRenderStage.h"
+
 static const int kKernelSize = 16;
 static const int kNoisePixelLine = 4;
 
-void DeferredSSAOPass::init() {
+void DeferredSSAOPass::init(const CSize& screenSize) {
   combineEffect_ = IEffect::effectFromFile("cgfx/deferred_ssao_combine.hlsl");
   ssaoEffect_ = IEffect::effectFromFile("cgfx/deferred_ssao_homebrew.hlsl");
   quadVbo_ = Geometry::screenPlane();
+
+  ssaoMapTexture_ = GraphicsInterface::createTexture(screenSize);
+  ssaoRenderTarget_ = GraphicsInterface::createRenderTarget(ssaoMapTexture_);
 
   // generate samples
 
@@ -73,8 +79,12 @@ void DeferredSSAOPass::init() {
   //blur_.setRenderTarget(outputRenderTarget_);
 }
 
-void DeferredSSAOPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
+unsigned int DeferredSSAOPass::render(IViewer* viewer, unsigned int inputMap, const DeferredInitRenderStage& initStage) {
+  GraphicsInterface::beginPerformanceEvent("SSAO", Color4::ORANGE);
+
   {
+    GraphicsInterface::beginPerformanceEvent("Depth", Color4::MAGENTA);
+
     GraphicsInterface::setRenderTarget(ssaoRenderTarget_, false);
     GraphicsInterface::clearRenderTarget(ssaoRenderTarget_, Color4::BLACK);
 
@@ -89,25 +99,42 @@ void DeferredSSAOPass::render(IViewer* viewer, World& world, const SceneContext&
     ssaoEffect_->setUniform(1.0f, "Near");
     ssaoEffect_->setUniform(200.0f, "Far");
 
-    ssaoEffect_->setTexture(normalMapTexture_, "NormalMap");
-    ssaoEffect_->setTexture(depthMapTexture_, "DepthMap");
-    ssaoEffect_->setTexture(colorMapTexture_, "ColorMap");
+    ssaoEffect_->setTexture(initStage.normalMap(), "NormalMap");
+    ssaoEffect_->setTexture(initStage.depthMap(), "DepthMap");
+    ssaoEffect_->setTexture(initStage.colorMap(), "ColorMap");
 
     ssaoEffect_->beginDraw();
     GraphicsInterface::setRenderState(true);
     GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
 
+    GraphicsInterface::endPerformanceEvent();
+
+  }
+
+  {
+    GraphicsInterface::beginPerformanceEvent("Blur", Color4::MAGENTA);
+
     blur_.render(ssaoRenderTexture_);
+
+    GraphicsInterface::endPerformanceEvent();
   }
   
   {
-    GraphicsInterface::setRenderTarget(outputRenderTarget_, false);
+    GraphicsInterface::beginPerformanceEvent("Combine", Color4::MAGENTA);
+
+    GraphicsInterface::setRenderTarget(ssaoRenderTarget_, false);
     
-    combineEffect_->setTexture(lightMapTexture_, "ColorMap");
+    combineEffect_->setTexture(inputMap, "ColorMap");
     combineEffect_->setTexture(blur_.outputTexture(), "SSAOMap");
     combineEffect_->beginDraw();
     
     GraphicsInterface::setRenderState(true);
     GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
+
+    GraphicsInterface::endPerformanceEvent();
   }
+
+  GraphicsInterface::endPerformanceEvent();
+
+  return ssaoRenderTexture_;
 }

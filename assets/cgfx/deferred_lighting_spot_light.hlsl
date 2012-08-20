@@ -84,14 +84,20 @@ float4 ps(float4 position 		: SV_POSITION,
 	float lightOuterCos = cos(LightOuterAngle);
 	float lightInnerCos = cos(LightInnerAngle);	
 
+	float4 color = float4(1, 0, 0, 0);
+
 	if (lightDirectionDot > lightOuterCos) {
+		//color = float4(1, 1, 0, 0);
 		diffuseStrength = max(0.0f, saturate(dot(normal, normalize(lightVector))));
 		diffuseStrength *= smoothstep(lightOuterCos, lightInnerCos, lightDirectionDot);	
 	}
 
 	if (lightDirectionDot > lightInnerCos) {
+		//color = float4(0, 1, 0, 0);
 		diffuseStrength = max(0.0f, saturate(dot(normal, normalize(lightVector))));
 	}
+
+	//return color;
 	
 	float3 diffuseContribution = LightColor * diffusePower * diffuseStrength;// / distance;
 

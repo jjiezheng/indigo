@@ -25,7 +25,7 @@ VOutput vs(float4 position 		: POSITION,
 		   float4 normal 		: NORMAL) {
 	VOutput OUT;
 	OUT.position = mul(WorldViewProj, position);
-	OUT.normal = mul(NormalMatrix, normal.xyz);
+	OUT.normal = normalize(mul(NormalMatrix, normal.xyz));
 	OUT.depth.x = OUT.position.z;
 	OUT.depth.y = OUT.position.w;
 
