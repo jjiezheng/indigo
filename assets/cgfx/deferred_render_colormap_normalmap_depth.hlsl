@@ -55,11 +55,11 @@ POutput ps(float4 position			: SV_POSITION,
 	POutput OUT;
 	
 	OUT.color = ColorMap.Sample(ColorMapSamplerState, texCoord);				
-	OUT.normal = float4(normal, 1.0f);
+	OUT.normal = float4(normal, DiffusePower);
 
 	float depthNDC = depth.x / depth.y; // z / w
 	float depthLinear = (-depth.z - Near) / (Far - Near);
-	OUT.depth = float4(depthNDC, depthLinear, 0, DiffusePower);
+	OUT.depth = float4(depthNDC, depthLinear, SpecularPower, SpecularIntensity);
 
 	return OUT;
 }

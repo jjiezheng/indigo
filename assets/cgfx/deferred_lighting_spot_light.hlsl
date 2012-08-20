@@ -40,6 +40,7 @@ VOutput vs(float4 position : POSITION) {
 
 float4 ps(float4 position 		: SV_POSITION,
 		  float4 screenPosition : TEXCOORD0) : SV_TARGET0 {
+
 	float3 screenPositionHom = screenPosition / screenPosition.w;
 	float2 texCoord = contract(screenPositionHom);
 
@@ -49,17 +50,13 @@ float4 ps(float4 position 		: SV_POSITION,
 
 	float4 normalData = NormalMap.Sample(NormalMapSamplerState, texCoord);
 	float3 normal = normalize(normalData.xyz);
+	float diffusePower = normalData.w;
 
 	float4 depthSpec = DepthMap.Sample(DepthMapSamplerState, texCoord);
+
 	float depth = depthSpec.x;
-
-	if (depth == 1.0f) {
-    	return float4(0, 0, 0, 0);
-  	}
-
-  	float diffusePower = depthSpec.w;
-	float specularPower = depthSpec.y;
-	float specularIntensity = depthSpec.z;
+	float specularPower = depthSpec.z;
+	float specularIntensity = depthSpec.w;
 
 	float4 positionScreen = float4(screenPositionHom.xy, depthSpec.x, 1.0f);
 	float4 positionWorldRaw = mul(ViewProjInv, positionScreen);
@@ -84,25 +81,21 @@ float4 ps(float4 position 		: SV_POSITION,
 	float lightOuterCos = cos(LightOuterAngle);
 	float lightInnerCos = cos(LightInnerAngle);	
 
-	float4 color = float4(1, 0, 0, 0);
-
 	if (lightDirectionDot > lightOuterCos) {
-		//color = float4(1, 1, 0, 0);
 		diffuseStrength = max(0.0f, saturate(dot(normal, normalize(lightVector))));
 		diffuseStrength *= smoothstep(lightOuterCos, lightInnerCos, lightDirectionDot);	
 	}
 
 	if (lightDirectionDot > lightInnerCos) {
-		//color = float4(0, 1, 0, 0);
 		diffuseStrength = max(0.0f, saturate(dot(normal, normalize(lightVector))));
 	}
-
-	//return color;
 	
-	float3 diffuseContribution = LightColor * diffusePower * diffuseStrength;// / distance;
+	float3 diffuseContribution = LightColor * diffusePower * diffuseStrength / distance;
 
 	//specular
 	float specularContribution = 0;
+	
+	// suss with new view space calculations
 	if (diffuseStrength > 0) {
 		float3 viewDirectionRaw = ViewPosition - positionWorld;
 		float3 viewDirection = normalize(viewDirectionRaw);
@@ -115,7 +108,6 @@ float4 ps(float4 position 		: SV_POSITION,
 		float i = pow(saturate(dot(normal, halfVector)), specularPower);
 		specularContribution = i * specularIntensity / distance;
 	}
-	
 
 	//------------------------------------------------------------
 	// shadows

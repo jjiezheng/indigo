@@ -43,12 +43,12 @@
       "innerangle" : 40,
       "outerangle" : 50,
       "decay" : 0.2,
-      "length" : 35,
-      "intensity" : 1.0,
+      "length" : 55,
+      "intensity" : 2.0,
       "castsshadows" : true,
       "position" : {
-        "x" : 30,
-        "y" : 30,
+        "x" : 40,
+        "y" : 40,
         "z" : 0
       },
       "orientation" : {

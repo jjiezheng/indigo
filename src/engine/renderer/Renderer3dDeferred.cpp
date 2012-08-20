@@ -16,5 +16,5 @@ void Renderer3dDeferred::render(IViewer* viewer, World& world, const SceneContex
   initStage_.render(viewer, world, sceneContext);
   lightingStage_.render(viewer, world, sceneContext, initStage_);
   postProcessingStage_.render(viewer, lightingStage_.lightMap(), initStage_);
-  presentStage_.render(lightingStage_.lightMap());
+  presentStage_.render(postProcessingStage_.finalComposition());
 }
