@@ -34,4 +34,30 @@ float ChebyshevUpperBound(float2 moments, float depth, float shadowBias) {
   return max(p, p_max);	
 }  
 
+float4 worldPosition(float2 texCoord, float depth, float4x4 viewProjInv) {
+  float4 positionScreen;
+  positionScreen.xy = (texCoord.xy * 2.0f) - 1.0f;
+  positionScreen.y = -positionScreen.y;
+  positionScreen.z = depth; 
+  positionScreen.w = 1.0f;
+
+  float4 positionWorldRaw = mul(viewProjInv, positionScreen);
+  float4 positionWorld = positionWorldRaw / positionWorldRaw.w;
+
+  return positionWorld;
+}
+
+float4 viewPosition(float2 texCoord, float depth, float4x4 projInv) {
+  float4 positionScreen;
+  positionScreen.xy = (texCoord.xy * 2.0f) - 1.0f;
+  positionScreen.y = -positionScreen.y;
+  positionScreen.z = depth; 
+  positionScreen.w = 1.0f;
+
+  float4 positionViewRaw = mul(projInv, positionScreen);
+  float4 positionView = positionViewRaw / positionViewRaw.w;
+
+  return positionView;
+}
+
 #endif

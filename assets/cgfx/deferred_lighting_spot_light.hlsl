@@ -73,33 +73,26 @@ float4 ps(float4 position 		: SV_POSITION,
   	distance = distance * distance;
 
 	// diffuse
-	float4 directionToLight = LightPosition - positionWorld;
-	float lightDirectionDot = dot(normalize(LightDirection), normalize(-directionToLight));
-
-	float lightOuterCos = cos(LightOuterAngle);
-
-	if (lightDirectionDot > lightOuterCos) {
-		return float4(0, 1, 0, 0);
-		//diffuseStrength = max(0.0f, saturate(dot(normal, normalize(lightVector))));
-		//diffuseStrength *= smoothstep(lightOuterCos, lightInnerCos, lightDirectionDot);	
-	}
-
-	float lightInnerCos = cos(LightInnerAngle);
+	float3 directionToLight = normalize(LightPosition.xyz - positionWorld.xyz);
+	float lightDirectionDot = dot(normalize(LightDirection.xyz), -directionToLight);
 
 	float diffuseStrength = 0.0f;
 
 	float3 lightVector = normalize(-LightDirection.xyz);
   	lightVector = normalize(mul(NormalMatrix, lightVector));
 
-	
+	float lightOuterCos = cos(LightOuterAngle);
+	float lightInnerCos = cos(LightInnerAngle);	
 
-	if (lightDirectionDot > lightInnerCos) {
-		return float4(0, 1, 0, 0);
+	if (lightDirectionDot > lightOuterCos) {
 		diffuseStrength = max(0.0f, saturate(dot(normal, normalize(lightVector))));
+		diffuseStrength *= smoothstep(lightOuterCos, lightInnerCos, lightDirectionDot);	
 	}
 
-	return float4(1, 0, 0, 0);
-
+	if (lightDirectionDot > lightInnerCos) {
+		diffuseStrength = max(0.0f, saturate(dot(normal, normalize(lightVector))));
+	}
+	
 	float3 diffuseContribution = LightColor * diffusePower * diffuseStrength;// / distance;
 
 	//specular

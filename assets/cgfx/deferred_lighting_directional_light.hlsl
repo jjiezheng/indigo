@@ -49,27 +49,13 @@ float4 ps(float4 position : SV_POSITION,
 
   // diffuse
   float diffuseStrength = max(0.0f, dot(normalize(normal), normalize(lightVector)));
-
   float3 diffuseContribution = LightColor * diffuseStrength;
 
   //specular
-  float specularPower = depthSpec.y;// * 255;
+  float specularPower = depthSpec.y;
   float specularIntensity = depthSpec.z;
 
-  float depth = depthSpec.r;
-
-  if (depth == 1.0f) {
-    return float4(0, 0, 0, 0);
-  }
-
-  float4 positionScreen;
-  positionScreen.xy = (texCoord.xy * 2.0f) - 1.0f;
-  positionScreen.y = -positionScreen.y;
-  positionScreen.z = depth; 
-  positionScreen.w = 1.0f;
-
-  float4 positionWorldRaw = mul(ViewProjInv, positionScreen);
-  float4 positionWorld = positionWorldRaw / positionWorldRaw.w;
+  float4 positionWorld = worldPosition(texCoord.xy, depthSpec.r, ViewProjInv);
 
   float specularContribution = 0;
   if (diffuseStrength > 0) {
