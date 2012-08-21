@@ -74,16 +74,13 @@ float4 ps(float4 position 		: SV_POSITION,
 		float4 sampleScreenRaw = mul(Projection, sampleAtViewPosition);
 		float4 sampleScreen = sampleScreenRaw / sampleScreenRaw.w;
 
-		float4 sampleTexCoord = float4(0, 0, 0, 1);
-		sampleTexCoord.xy = (sampleScreen.xy * 0.5f) + 0.5f;
+		float2 sampleTexCoord = (sampleScreen.xy * 0.5f) + 0.5f;
 		sampleTexCoord.y = 1.0f - sampleTexCoord.y;
 
 		float sampleDepth = DepthMap.Sample(DepthMapSamplerState, sampleTexCoord).y;
 
-		float rangeIsInvalid = abs(depth.y - sampleDepth);
-		if (depth.x < 1.0f) {
-			occlusionContribution += lerp(sampleDepth < sampleAtViewPositionZ, 0.5, rangeIsInvalid);
-		}
+		float rangeIsInvalid = abs(depth.y - sampleDepth) < Radius;
+		occlusionContribution += lerp(sampleDepth < sampleAtViewPositionZ, 0.5, rangeIsInvalid);
 	}
 
 	float occlusion = 1.0f - (occlusionContribution / KernelSize);
