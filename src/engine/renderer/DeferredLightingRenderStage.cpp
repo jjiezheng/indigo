@@ -5,12 +5,16 @@
 
 #include "DeferredDirectionalLightsPass.h"
 #include "DeferredSpotLightsPass.h"
+#include "DeferredSkyBoxPass.h"
 
 #include "IDeferredLightingPass.h"
 
 void DeferredLightingRenderStage::init(const CSize& screenSize) {
     lightMapTexture_ = GraphicsInterface::createTexture(screenSize);
     lightRenderTarget_ = GraphicsInterface::createRenderTarget(lightMapTexture_);
+
+    IDeferredLightingPass* skyboxPass = new DeferredSkyBoxPass();
+    passes_.push_back(skyboxPass);
 
     IDeferredLightingPass* directionalLightingPass = new DeferredDirectionalLightsPass();
     passes_.push_back(directionalLightingPass);

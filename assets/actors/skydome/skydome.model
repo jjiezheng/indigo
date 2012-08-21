@@ -1,0 +1,15 @@
+{
+	"mesh" : "actors/skydome/skydome.dae",
+	"materials" : 
+	[
+		{
+		  "effect" : "cgfx/deferred_render_colormap_normal_depth_unlit.hlsl",
+		  "parameters" : {
+		    "Lighting" : false
+		  },
+		  "textures" : {
+		    "ColorMap" : "actors/skydome/day_diffuse.png"
+		  }
+		}
+	]
+}

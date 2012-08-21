@@ -18,6 +18,8 @@ void Game::init(const char* sceneFile) {
   
   renderer_.init(GraphicsInterface::screenSize());
 
+  //input_.addKeyboardListener(
+
   WindowsUtils::setKeyboardListener(this);
 
   WorldLoader loader; 
