@@ -1,7 +1,5 @@
 #include "DeferredSkyBoxPass.h"
 
-#include ""
-
 void DeferredSkyBoxPass::init(const CSize& screenSize) {
   
 }

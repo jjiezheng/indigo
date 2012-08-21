@@ -6,6 +6,7 @@
 
 #include "DeferredSSAOPass.h"
 #include "DeferredFXAAPass.h"
+#include "IDeferredRenderTargetContainer.h"
 
 void DeferredPostProcessingStage::init(const CSize& screenSize) {    
   IDeferredPostProcessingPass* ssaoPass = new DeferredSSAOPass();
@@ -29,4 +30,10 @@ void DeferredPostProcessingStage::render(IViewer* viewer, unsigned int inputMap,
   }
 
   GraphicsInterface::endPerformanceEvent();
+}
+
+void DeferredPostProcessingStage::collectRenderTargets(IDeferredRenderTargetContainer* renderTargetContainer) {
+  for (std::vector<IDeferredPostProcessingPass*>::iterator i = passes_.begin(); i != passes_.end(); ++i) {
+    renderTargetContainer->addRenderTarget((*i)->passName(), (*i)->passMap());
+  }
 }

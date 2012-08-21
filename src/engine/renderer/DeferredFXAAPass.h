@@ -19,17 +19,31 @@ public:
 
   void init(const CSize& screenSize);
 
-  unsigned int render(IViewer* viewer, unsigned int inputMap, const DeferredInitRenderStage& initStage);
+  GraphicsInterface::TextureId render(IViewer* viewer, unsigned int inputMap, const DeferredInitRenderStage& initStage);
+
+public:
+
+  std::string passName() const;
+
+  GraphicsInterface::TextureId passMap() const;
 
 private:
 
   unsigned int quadVbo_;
 
   unsigned int fxaaRenderTarget_;
-  unsigned int fxaaRenderTexture_;
+  GraphicsInterface::TextureId fxaaRenderTexture_;
 
   IEffect* fxaaEffect_;
 
 };
+
+inline std::string DeferredFXAAPass::passName() const {
+  return "FXAA";
+}
+
+inline GraphicsInterface::TextureId DeferredFXAAPass::passMap() const {
+  return fxaaRenderTexture_;
+}
 
 #endif

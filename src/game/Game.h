@@ -30,7 +30,7 @@ private:
   World world_;  
   Clock clock_;
   SceneContext sceneContext_;
-  Properties properties_;
+  Properties properties_; 
 
 };
 

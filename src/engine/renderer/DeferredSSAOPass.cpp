@@ -79,7 +79,7 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
   //blur_.setRenderTarget(outputRenderTarget_);
 }
 
-unsigned int DeferredSSAOPass::render(IViewer* viewer, unsigned int inputMap, const DeferredInitRenderStage& initStage) {
+ GraphicsInterface::TextureId DeferredSSAOPass::render(IViewer* viewer, unsigned int inputMap, const DeferredInitRenderStage& initStage) {
   GraphicsInterface::beginPerformanceEvent("SSAO", Color4::ORANGE);
 
   {

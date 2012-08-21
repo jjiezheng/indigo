@@ -13,6 +13,10 @@ class VertexDef;
 class DDSImage;
 
 class GraphicsInterface {
+
+public:
+
+  typedef unsigned int TextureId;
   
 public:
 

@@ -6,6 +6,7 @@
 class IDeferredPostProcessingPass;
 class DeferredLightingRenderStage;
 class DeferredInitRenderStage;
+class IDeferredRenderTargetContainer;
 
 class CSize;
 class IViewer;
@@ -23,13 +24,19 @@ public:
 
   void render(IViewer* viewer, unsigned int inputMap, const DeferredInitRenderStage& initStage);
 
+public:
+
+  void collectRenderTargets(IDeferredRenderTargetContainer* renderTargetContainer);
+
+public:
+
   unsigned int finalComposition() const;
 
 private:
 
-  std::vector<IDeferredPostProcessingPass*> passes_;
-
   unsigned int finalComposition_;
+
+  std::vector<IDeferredPostProcessingPass*> passes_;
 
 };
 

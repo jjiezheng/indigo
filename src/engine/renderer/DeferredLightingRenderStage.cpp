@@ -8,6 +8,7 @@
 #include "DeferredSkyBoxPass.h"
 
 #include "IDeferredLightingPass.h"
+#include "IDeferredRenderTargetContainer.h"
 
 void DeferredLightingRenderStage::init(const CSize& screenSize) {
     lightMapTexture_ = GraphicsInterface::createTexture(screenSize);
@@ -40,4 +41,8 @@ void DeferredLightingRenderStage::render(IViewer* viewer, World& world, const Sc
   }
 
   GraphicsInterface::endPerformanceEvent();
+}
+
+void DeferredLightingRenderStage::collectRenderTargets(IDeferredRenderTargetContainer* renderTargetContainer) {
+  renderTargetContainer->addRenderTarget("LightMap", lightMapTexture_);
 }

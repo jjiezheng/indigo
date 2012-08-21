@@ -18,7 +18,6 @@ void Game::init(const char* sceneFile) {
   
   renderer_.init(GraphicsInterface::screenSize());
 
-  //input_.addKeyboardListener(
 
   WindowsUtils::setKeyboardListener(this);
 
@@ -34,5 +33,8 @@ void Game::mainLoop() {
 }
 
 void Game::keyUp(int keyCode) {
-  LOG(LOG_CHANNEL_TEMP, "%d%", keyCode);
+  if (keyCode > 48 && keyCode < 58) {
+	  int renderTargetgId = keyCode - 49;
+	  renderer_.presentRenderTarget(renderTargetgId);
+  }
 }

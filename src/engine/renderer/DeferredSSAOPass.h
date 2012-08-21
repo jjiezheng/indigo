@@ -14,13 +14,26 @@ class DeferredSSAOPass : public IDeferredPostProcessingPass {
 
 public:
 
-  DeferredSSAOPass() { }
+  DeferredSSAOPass()
+    : ssaoEffect_(0)
+    , combineEffect_(0)
+    , quadVbo_(0)
+    , ssaoMapTexture_(0)
+    , ssaoRenderTarget_(0)
+    , noiseTexture_(0)
+    , ssaoRenderTexture_(0) { }
 
 public:
 
   void init(const CSize& screenSize);
 
-  unsigned int render(IViewer* viewer, unsigned int inputMap, const DeferredInitRenderStage& initStage);
+   GraphicsInterface::TextureId render(IViewer* viewer, unsigned int inputMap, const DeferredInitRenderStage& initStage);
+
+public:
+
+  std::string passName() const;
+
+  GraphicsInterface::TextureId passMap() const;
 
 private:
 
@@ -29,15 +42,23 @@ private:
 
   unsigned int quadVbo_;
 
-  unsigned int ssaoMapTexture_;
+  GraphicsInterface::TextureId ssaoMapTexture_;
   unsigned int ssaoRenderTarget_;
 
-  unsigned int noiseTexture_;
+  GraphicsInterface::TextureId noiseTexture_;
 
-  unsigned int ssaoRenderTexture_;
+  GraphicsInterface::TextureId ssaoRenderTexture_;
 
   AverageBlur blur_;
 
 };
+
+inline std::string DeferredSSAOPass::passName() const {
+  return "SSAO";
+}
+
+inline GraphicsInterface::TextureId DeferredSSAOPass::passMap() const {
+  return blur_.outputTexture();
+}
 
 #endif

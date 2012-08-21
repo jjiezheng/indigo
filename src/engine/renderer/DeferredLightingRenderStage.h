@@ -5,19 +5,25 @@
 
 class IDeferredLightingPass;
 class DeferredInitRenderStage;
+class IDeferredRenderTargetContainer;
 
 class DeferredLightingRenderStage : public IDeferredRenderStage {
 
 public:
 
   DeferredLightingRenderStage()
-    : lightMapTexture_(0) { }
+    : lightMapTexture_(0)
+    , lightRenderTarget_(0) { }
 
 public:
 
   void init(const CSize& screenSize);
 
   void render(IViewer* viewer, World& world, const SceneContext& sceneContext, const DeferredInitRenderStage& initStage);
+
+public:
+
+  void DeferredLightingRenderStage::collectRenderTargets(IDeferredRenderTargetContainer* renderTargetContainer);
 
 public:
 

@@ -40,7 +40,7 @@ public:
 
 public:
 
-  void setActiveRenderTargetIndex(unsigned int renderTargetIndex);
+  void presentRenderTarget(unsigned int renderTargetIndex);
 
 private:
 
