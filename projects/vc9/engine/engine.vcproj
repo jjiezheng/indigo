@@ -447,11 +447,11 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\engine\renderer\OpenGLShadowMap.h"
+					RelativePath=".\OpenGLShadowMap.h"
 					>
 				</File>
 				<File
-					RelativePath=".\OpenGLShadowMap.h"
+					RelativePath="..\..\..\src\engine\renderer\OpenGLShadowMap.h"
 					>
 				</File>
 			</Filter>
@@ -555,6 +555,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\..\src\engine\renderer\DeferredRenderTarget.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\..\src\engine\renderer\DeferredSpotLightsPass.cpp"
 					>
 				</File>
@@ -588,6 +592,10 @@
 				</File>
 				<File
 					RelativePath="..\..\..\src\engine\renderer\IDeferredRenderStage.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\renderer\IDeferredRenderTargetContainer.h"
 					>
 				</File>
 				<File
@@ -849,6 +857,14 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\engine\platform\WindowsUtils.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="input"
+			>
+			<File
+				RelativePath="..\..\..\src\engine\input\IKeyboardListener.h"
 				>
 			</File>
 		</Filter>

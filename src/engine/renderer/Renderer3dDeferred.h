@@ -3,6 +3,14 @@
 
 #include <vector>
 
+#include "IDeferredRenderTargetContainer.h"
+
+#include "DeferredInitRenderStage.h"
+#include "DeferredLightingRenderStage.h"
+#include "DeferredPostProcessingStage.h"
+#include "DeferredPresentStage.h"
+#include "DeferredRenderTarget.h"
+
 class World;
 class SceneContext;
 class IViewer;
@@ -10,12 +18,7 @@ class CSize;
 class IDeferredPass;
 class IDeferredRenderStage;
 
-#include "DeferredInitRenderStage.h"
-#include "DeferredLightingRenderStage.h"
-#include "DeferredPostProcessingStage.h"
-#include "DeferredPresentStage.h"
-
-class Renderer3dDeferred {
+class Renderer3dDeferred : public IDeferredRenderTargetContainer {
 
 public:
 
@@ -31,12 +34,26 @@ public:
 
   void render(IViewer* viewer, World& world, const SceneContext& sceneContext);
 
+public:
+
+  void addRenderTarget(const std::string& renderTargetName, unsigned int renderTargetId);
+
+public:
+
+  void setActiveRenderTargetIndex(unsigned int renderTargetIndex);
+
 private:
 
   DeferredInitRenderStage initStage_;
   DeferredLightingRenderStage lightingStage_;
   DeferredPostProcessingStage postProcessingStage_;
   DeferredPresentStage presentStage_;
+
+private:
+
+  std::vector<DeferredRenderTarget> renderTargets_;
+  unsigned int activeRenderTargetIndex_;
+
 };
 
 #endif

@@ -3,10 +3,12 @@
 #include "io/Log.h"
 
 #include "Windowsx.h"
+#include "input/IKeyboardListener.h"
 
 bool WindowsUtils::keyStates_[256];
 int WindowsUtils::mouseX_ = 0;
 int WindowsUtils::mouseY_ = 0;
+IKeyboardListener* WindowsUtils::keyboardListener_ = 0;
 
 void WindowsUtils::getDesktopResolution(int& horizontal, int& vertical) {
   RECT desktop;
@@ -92,6 +94,9 @@ bool WindowsUtils::pumpMessages() {
     if (msg.message == WM_KEYUP) {
       char wParam = MapVirtualKey((UINT) msg.wParam, 2) & 0x0000FFFF;
       keyStates_[wParam] = false;
+      if (keyboardListener_) {
+        keyboardListener_->keyUp(wParam);
+      }
     }
 
     if (msg.message == WM_INPUT) {
@@ -115,8 +120,8 @@ bool WindowsUtils::pumpMessages() {
         int width = rect.right - rect.left;
         int height = rect.bottom - rect.top;
 
-        int newX = rect.left + (width / 2.0f);
-        int newY = rect.top + (height / 2.0f);
+        int newX = rect.left + (int)(width / 2.0f);
+        int newY = rect.top + (int)(height / 2.0f);
 
         SetCursorPos(newX, newY);
       }

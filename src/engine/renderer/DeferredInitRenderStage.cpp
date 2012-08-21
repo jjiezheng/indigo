@@ -1,5 +1,6 @@
 #include "DeferredInitRenderStage.h"
 
+#include "IDeferredRenderTargetContainer.h"
 #include "DeferredClearBuffersPass.h"
 #include "DeferredGeometryPass.h"
 
@@ -32,4 +33,10 @@ void DeferredInitRenderStage::render(IViewer* viewer, World& world, const SceneC
   }
 
   GraphicsInterface::endPerformanceEvent();
+}
+
+void DeferredInitRenderStage::collectRenderTargets(IDeferredRenderTargetContainer* renderTargetContainer) {
+  renderTargetContainer->addRenderTarget("Color", colorMapTexture_);
+  renderTargetContainer->addRenderTarget("Normal", normalMapTexture_);
+  renderTargetContainer->addRenderTarget("Depth", depthMapTexture_);
 }

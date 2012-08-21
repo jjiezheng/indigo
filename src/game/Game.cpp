@@ -6,6 +6,8 @@
 #include "renderer/GraphicsInterface.h"
 #include "maths/Angles.h"
 
+#include "platform/WindowsUtils.h"
+
 void Game::init(const char* sceneFile) {
   clock_.init();
   properties_.init();
@@ -16,6 +18,8 @@ void Game::init(const char* sceneFile) {
   
   renderer_.init(GraphicsInterface::screenSize());
 
+  WindowsUtils::setKeyboardListener(this);
+
   WorldLoader loader; 
   loader.loadFromSceneFile(sceneFile, world_, sceneContext_);
 }
@@ -25,4 +29,8 @@ void Game::mainLoop() {
   camera_.update(dt);
   
   renderer_.render(&camera_, world_, sceneContext_);
+}
+
+void Game::keyUp(int keyCode) {
+  LOG(LOG_CHANNEL_TEMP, "%d%", keyCode);
 }

@@ -3,6 +3,8 @@
 
 #include <windows.h>
 
+class IKeyboardListener;
+
 class WindowsUtils {
 
 public:
@@ -19,12 +21,22 @@ public:
 
  static void getMousePosition(int* x, int* y);
 
+public:
+
+  static void setKeyboardListener(IKeyboardListener* keyboardListener);
+
 private:
 
   static bool keyStates_[256];
 
   static int mouseX_, mouseY_;
 
+  static IKeyboardListener* keyboardListener_;
+
 };
+
+inline void WindowsUtils::setKeyboardListener(IKeyboardListener* keyboardListener) {
+  keyboardListener_ = keyboardListener;
+}
 
 #endif

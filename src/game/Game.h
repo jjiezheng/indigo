@@ -9,13 +9,19 @@
 #include "renderer/Renderer3dDeferred.h"
 #include "renderer/Camera.h"
 
-class Game {
+#include "input/IKeyboardListener.h"
+
+class Game : public IKeyboardListener {
   
 public:
   
   void init(const char* sceneFile);
   
   void mainLoop();
+
+public:
+
+  void keyUp(int keyCode);
   
 private:
   
@@ -25,6 +31,7 @@ private:
   Clock clock_;
   SceneContext sceneContext_;
   Properties properties_;
+
 };
 
 #endif

@@ -1,9 +1,11 @@
 #ifndef DEFERRED_INIT_RENDER_STAGE_H
 #define DEFERRED_INIT_RENDER_STAGE_H
 
+#include <vector>
 #include "IDeferredRenderStage.h"
 
 class IDeferredPass;
+class IDeferredRenderTargetContainer;
 
 class DeferredInitRenderStage : public IDeferredRenderStage {
 
@@ -12,6 +14,10 @@ public:
   void init(const CSize &screenSize);
 
   void render(IViewer* viewer, World& world, const SceneContext& sceneContext);
+
+public:
+
+  void collectRenderTargets(IDeferredRenderTargetContainer* renderTargetContainer);
 
 public:
 
