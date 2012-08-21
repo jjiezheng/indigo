@@ -103,6 +103,9 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
       Matrix4x4 worldViewProj = viewer->projection() * viewer->viewTransform() * (*light)->transform();
       lightEffect_->setUniform(worldViewProj, "WorldViewProj");
 
+      Matrix4x4 worldView = viewer->viewTransform() * (*light)->transform();
+      lightEffect_->setUniform(worldView, "WorldView");
+
       Matrix4x4 lightViewProj = (*light)->projection() * (*light)->viewTransform();
       lightEffect_->setUniform(lightViewProj, "LightViewProj");
 

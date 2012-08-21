@@ -76,34 +76,31 @@ float4 ps(float4 position 		: SV_POSITION,
 	float diffuseStrength = 0.0f;
 
 	float3 lightVector = normalize(-LightDirection.xyz);
-  	lightVector = normalize(mul(NormalMatrix, lightVector));
+  	float3 lightVectorViewSpace = normalize(mul(NormalMatrix, lightVector));
 
 	float lightOuterCos = cos(LightOuterAngle);
 	float lightInnerCos = cos(LightInnerAngle);	
 
 	if (lightDirectionDot > lightOuterCos) {
-		diffuseStrength = max(0.0f, saturate(dot(normal, normalize(lightVector))));
+		diffuseStrength = max(0.0f, saturate(dot(normal, normalize(lightVectorViewSpace))));
 		diffuseStrength *= smoothstep(lightOuterCos, lightInnerCos, lightDirectionDot);	
 	}
 
 	if (lightDirectionDot > lightInnerCos) {
-		diffuseStrength = max(0.0f, saturate(dot(normal, normalize(lightVector))));
+		diffuseStrength = max(0.0f, saturate(dot(normal, normalize(lightVectorViewSpace))));
 	}
 	
 	float3 diffuseContribution = LightColor * diffusePower * diffuseStrength / distance;
 
 	//specular
 	float specularContribution = 0;
-	
-	// suss with new view space calculations
+
 	if (diffuseStrength > 0) {
 		float3 viewDirectionRaw = ViewPosition - positionWorld;
 		float3 viewDirection = normalize(viewDirectionRaw);
 
 		float3 halfVectorRaw = lightVector + viewDirection;
-		float3 halfVector = normalize(halfVectorRaw);
-
-		halfVector = normalize(mul(NormalMatrix, halfVector));
+		float3 halfVector = normalize(mul(NormalMatrix, halfVectorRaw));
 
 		float i = pow(saturate(dot(normal, halfVector)), specularPower);
 		specularContribution = i * specularIntensity / distance;
@@ -112,16 +109,18 @@ float4 ps(float4 position 		: SV_POSITION,
 	//------------------------------------------------------------
 	// shadows
 	//------------------------------------------------------------
-	float4 pixelWorldPositionFromLight = mul(LightViewProj, positionWorld);
-	float3 pixelWorldPositionFromLightHom = pixelWorldPositionFromLight / pixelWorldPositionFromLight.w;
+	float4 pixelPositionFromLightRaw = mul(LightViewProj, positionWorld);
+	float3 pixelPositionFromLight = pixelPositionFromLightRaw / pixelPositionFromLightRaw.w;
 
-	float2 shadowCoord = contract(pixelWorldPositionFromLightHom);
+	float2 shadowCoord = (pixelPositionFromLight.xy * 0.5f) + 0.5f;
+	shadowCoord.y = 1.0f - shadowCoord.y;
+
 	float3 moments = ShadowMap.Sample(ShadowMapSamplerState, shadowCoord);
 
 	float shadowLightContribution = 1.0f;
 
-	if (moments.x < pixelWorldPositionFromLightHom.z && shadowCoord.x > 0.0f && shadowCoord.x < 1.0f) {
-		shadowLightContribution = ChebyshevUpperBound(moments.xy, pixelWorldPositionFromLightHom.z, 0.0000005f);
+	if (moments.x < pixelPositionFromLight.z && shadowCoord.x > 0.0f && shadowCoord.x < 1.0f) {
+		shadowLightContribution = ChebyshevUpperBound(moments.xy, pixelPositionFromLight.z, 0.0000005f);
 		shadowLightContribution = ReduceLightBleeding(shadowLightContribution, 0.9f);
 	}
 

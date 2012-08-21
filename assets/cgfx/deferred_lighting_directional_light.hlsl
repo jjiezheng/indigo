@@ -51,25 +51,7 @@ float4 ps(float4 position : SV_POSITION,
   float diffuseStrength = max(0.0f, dot(normalize(normal), normalize(lightVector)));
   float3 diffuseContribution = LightColor * diffuseStrength;
 
-  //specular
-  float specularPower = depthSpec.y;
-  float specularIntensity = depthSpec.z;
-
-  float4 positionWorld = worldPosition(texCoord.xy, depthSpec.r, ViewProjInv);
-
-  float specularContribution = 0;
-  if (diffuseStrength > 0) {
-    float3 viewDirectionRaw = ViewPosition - positionWorld;
-    float3 viewDirection = normalize(viewDirectionRaw);
-
-    float3 halfVectorRaw = lightVector + viewDirection;
-    float3 halfVector = normalize(halfVectorRaw);
-
-    float i = pow(saturate(dot(normal, halfVector)), specularPower);
-    specularContribution = i * specularIntensity;
-  }
-
-  return float4(diffuseContribution, specularContribution);
+  return float4(diffuseContribution, 0);
 }
 
 technique11 Main {

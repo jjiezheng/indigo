@@ -13,7 +13,7 @@ void DeferredLightingRenderStage::init(const CSize& screenSize) {
     lightRenderTarget_ = GraphicsInterface::createRenderTarget(lightMapTexture_);
 
     IDeferredLightingPass* directionalLightingPass = new DeferredDirectionalLightsPass();
-    //passes_.push_back(directionalLightingPass);
+    passes_.push_back(directionalLightingPass);
 
     /*IDeferredPass* pointLightingPass = new DeferredPointLightsPass();
     passes_.push_back(pointLightingPass);*/
