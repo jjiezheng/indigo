@@ -18,11 +18,10 @@ void Game::init(const char* sceneFile) {
   
   renderer_.init(GraphicsInterface::screenSize());
 
-
-  WindowsUtils::setKeyboardListener(this);
-
   WorldLoader loader; 
   loader.loadFromSceneFile(sceneFile, world_, sceneContext_);
+
+  WindowsUtils::setKeyboardListener(this);
 }
  
 void Game::mainLoop() {

@@ -42,7 +42,7 @@ public:
 
   unsigned int loadTexture(const std::string& filePath);
 
-  unsigned int createTexture(const CSize& dimensions, unsigned int mipLevels, void* textureData, unsigned int textureLineSize);
+  unsigned int createTexture(const CSize& dimensions, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize);
 
   void setTexture(int textureId, ID3DX11EffectVariable* variable);
 

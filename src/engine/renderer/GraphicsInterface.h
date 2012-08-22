@@ -73,10 +73,12 @@ public:
   static unsigned int loadTexture(const char* filePath);
 
   static unsigned int createTexture(const CSize& dimensions);
+  
+  static unsigned int createTexture(const CSize& dimensions, unsigned int multisamples);
 
-  static unsigned int createTexture(const CSize& dimensions, unsigned int mipLevels);
+  static unsigned int createTexture(const CSize& dimensions, unsigned int multisamples, unsigned int mipLevels);
 
-  static unsigned int createTexture(const CSize& dimensions, unsigned int mipLevels, void* textureData, unsigned int textureLineSize);
+  static unsigned int createTexture(const CSize& dimensions, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize);
 
   static void generateMipMaps(unsigned int textureId);
 

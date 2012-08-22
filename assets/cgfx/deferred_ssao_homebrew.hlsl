@@ -42,7 +42,6 @@ VOutput vs(float4 position 	: POSITION,
 float4 ps(float4 position 		: SV_POSITION,
 		  float2 texCoord 		: TEXCOORD0) : SV_TARGET0 {
 	float4 normalData = NormalMap.Sample(NormalMapSamplerState, texCoord);
-	//normalData = mul(View, normalData);
 	float3 normal = normalize(normalData.xyz);
 
 	float3 depth = DepthMap.Sample(DepthMapSamplerState, texCoord);
@@ -80,10 +79,8 @@ float4 ps(float4 position 		: SV_POSITION,
 
 		float sampleDepth = DepthMap.Sample(DepthMapSamplerState, sampleTexCoord).y;
 
-		float rangeIsInvalid = abs(depth.y - sampleDepth);
-		if (depth.x < 1.0f) {
-			occlusionContribution += lerp(sampleDepth < sampleAtViewPositionZ, 0.5, rangeIsInvalid);
-		}
+		float range_check = abs(depth.y - sampleDepth) < Radius * 0.001 ? 1.0 : 0.0;
+		occlusionContribution += (sampleDepth <= sampleAtViewPositionZ ? 1.0 : 0.0) * range_check;
 	}
 
 	float occlusion = 1.0f - (occlusionContribution / KernelSize);

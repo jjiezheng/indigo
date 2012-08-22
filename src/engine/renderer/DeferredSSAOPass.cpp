@@ -43,9 +43,9 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
 
     kernel[i] = kernel[i] * Random::random(0.0f, 1.0f);
 
-	float scale = float(i) / float(kKernelSize);
-	scale = lerp(0.1f, 1.0f, scale * scale);
-	kernel[i] = kernel[i] * scale;
+	  float scale = float(i) / float(kKernelSize);
+	  scale = lerp(0.1f, 1.0f, scale * scale);
+	  kernel[i] = kernel[i] * scale;
   }
 
   ssaoEffect_->setUniform(kernel, kKernelSize * sizeof(Vector4), "Kernel");
@@ -64,19 +64,18 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
     noise[i] = noiseN;
   }
 
-  unsigned int noiseTexture = GraphicsInterface::createTexture(CSize(kNoisePixelLine, kNoisePixelLine), 1, &noise, sizeof(Vector4) * kNoisePixelLine);
+  unsigned int noiseTexture = GraphicsInterface::createTexture(CSize(kNoisePixelLine, kNoisePixelLine), 1, 1, &noise, sizeof(Vector4) * kNoisePixelLine);
   ssaoEffect_->setTexture(noiseTexture, "NoiseMap");
 
   Vector2 noiseScale = Vector2(GraphicsInterface::screenWidth() / float(kNoisePixelLine), GraphicsInterface::screenHeight() / float(kNoisePixelLine));
   ssaoEffect_->setUniform(noiseScale, "NoiseScale");
 
-  ssaoEffect_->setUniform(0.05f, "Radius");
+  ssaoEffect_->setUniform(0.4f, "Radius");
 
   ssaoRenderTexture_ = GraphicsInterface::createTexture(GraphicsInterface::screenSize());
   ssaoRenderTarget_ = GraphicsInterface::createRenderTarget(ssaoRenderTexture_);
   
   blur_.init(GraphicsInterface::screenSize());
-  //blur_.setRenderTarget(outputRenderTarget_);
 }
 
  GraphicsInterface::TextureId DeferredSSAOPass::render(IViewer* viewer, unsigned int inputMap, const DeferredInitRenderStage& initStage) {

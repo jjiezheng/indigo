@@ -70,15 +70,19 @@ void GraphicsInterface::setRenderState(bool cullBack) {
 }
 
 unsigned int GraphicsInterface::createTexture(const CSize& dimensions) {
-  return createTexture(dimensions, 1);
+  return createTexture(dimensions, 1, 1);
 }
 
-unsigned int GraphicsInterface::createTexture(const CSize& dimensions, unsigned int mipLevels) {
-  return createTexture(dimensions, mipLevels, NULL, 0);
+unsigned int GraphicsInterface::createTexture(const CSize& dimensions, unsigned int multisamples) {
+  return createTexture(dimensions, multisamples, 1);
 }
 
-unsigned int GraphicsInterface::createTexture(const CSize& dimensions, unsigned int mipLevels, void* textureData, unsigned int textureLineSize) {
-  return graphicsInterface_->createTexture(dimensions, mipLevels, textureData, textureLineSize);
+unsigned int GraphicsInterface::createTexture(const CSize& dimensions, unsigned int multisamples, unsigned int mipLevels) {
+  return createTexture(dimensions, multisamples, mipLevels, NULL, 0);
+}
+
+unsigned int GraphicsInterface::createTexture(const CSize& dimensions, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize) {
+  return graphicsInterface_->createTexture(dimensions, multisamples, mipLevels, textureData, textureLineSize);
 }
 
 void GraphicsInterface::setRenderTarget(unsigned int renderTargetId, bool useDepthBuffer) {

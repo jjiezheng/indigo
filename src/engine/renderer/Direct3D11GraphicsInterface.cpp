@@ -238,59 +238,7 @@ void Direct3D11GraphicsInterface::resetGraphicsState(bool cullBack) {
   }
 }
 
-/*unsigned int Direct3D11GraphicsInterface::createMultisampledTexture(const CSize& dimensions, unsigned int mipLevels, void* textureData, unsigned int textureLineSize) {
-  D3D11_SUBRESOURCE_DATA data;
-  ZeroMemory(&data, sizeof(D3D11_SUBRESOURCE_DATA));
-  data.pSysMem = textureData;
-  data.SysMemPitch = textureLineSize;
-
-  D3D11_TEXTURE2D_DESC textureDesc;
-  ZeroMemory(&textureDesc, sizeof(D3D11_TEXTURE2D_DESC));
-
-  textureDesc.Width = dimensions.width;
-  textureDesc.Height = dimensions.height;
-  textureDesc.MipLevels = mipLevels;
-  textureDesc.ArraySize = 1;
-  textureDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-  textureDesc.SampleDesc.Count = multiSamples_;
-  textureDesc.SampleDesc.Quality = D3D11_STANDARD_MULTISAMPLE_PATTERN;
-  textureDesc.Usage = D3D11_USAGE_DEFAULT;
-  textureDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET;
-  textureDesc.CPUAccessFlags = 0;
-  textureDesc.MiscFlags = D3D11_RESOURCE_MISC_GENERATE_MIPS;
-
-  ID3D11Texture2D* texture;
-  if (!textureData) {
-    HRESULT result = device_->CreateTexture2D(&textureDesc, NULL, &texture);
-    assert(result == S_OK);
-  }
-  else {
-    HRESULT result = device_->CreateTexture2D(&textureDesc, &data, &texture);
-    assert(result == S_OK);
-  }
-
-  D3D11_SHADER_RESOURCE_VIEW_DESC resourceViewDesc;
-  ZeroMemory(&resourceViewDesc, sizeof(D3D11_SHADER_RESOURCE_VIEW_DESC));
-
-  resourceViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2DMS;
-  resourceViewDesc.Texture2D.MostDetailedMip = 0;
-	resourceViewDesc.Texture2D.MipLevels = mipLevels;
-  resourceViewDesc.Format = textureDesc.Format;
-
-  ID3D11ShaderResourceView* resourceView;
-  HRESULT result = device_->CreateShaderResourceView(texture, &resourceViewDesc, &resourceView);
-  assert(result == S_OK);
-
-  unsigned int textureId = textures_.size();
-  DirectXTexture textureContainer;
-  textureContainer.textureData = texture;
-  textureContainer.mipLevels = mipLevels;
-  textureContainer.resourceView = resourceView;
-  textures_.push_back(textureContainer);
-  return textureId;
-}*/
-
-unsigned int Direct3D11GraphicsInterface::createTexture(const CSize& dimensions, unsigned int mipLevels, void* textureData, unsigned int textureLineSize) {
+unsigned int Direct3D11GraphicsInterface::createTexture(const CSize& dimensions, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize) {
   D3D11_SUBRESOURCE_DATA data;
   ZeroMemory(&data, sizeof(D3D11_SUBRESOURCE_DATA));
   data.pSysMem = textureData;
@@ -308,7 +256,8 @@ unsigned int Direct3D11GraphicsInterface::createTexture(const CSize& dimensions,
   textureDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET;
   textureDesc.CPUAccessFlags = 0;
   textureDesc.MiscFlags = D3D11_RESOURCE_MISC_GENERATE_MIPS;
-  textureDesc.SampleDesc.Count = 1;
+  textureDesc.SampleDesc.Count = multisamples;
+  textureDesc.SampleDesc.Quality = multisamples > 1 ? D3D11_STANDARD_MULTISAMPLE_PATTERN : 0;
 
   ID3D11Texture2D* texture;
   if (!textureData) {
@@ -323,7 +272,7 @@ unsigned int Direct3D11GraphicsInterface::createTexture(const CSize& dimensions,
   D3D11_SHADER_RESOURCE_VIEW_DESC resourceViewDesc;
   ZeroMemory(&resourceViewDesc, sizeof(D3D11_SHADER_RESOURCE_VIEW_DESC));
 
-  resourceViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+  resourceViewDesc.ViewDimension = multisamples > 1 ? D3D11_SRV_DIMENSION_TEXTURE2DMS : D3D11_SRV_DIMENSION_TEXTURE2D;
   resourceViewDesc.Texture2D.MostDetailedMip = 0;
 	resourceViewDesc.Texture2D.MipLevels = mipLevels;
   resourceViewDesc.Format = textureDesc.Format;
