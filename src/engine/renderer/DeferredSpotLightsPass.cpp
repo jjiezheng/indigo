@@ -34,10 +34,10 @@ void DeferredSpotLightsPass::init(const CSize& screenSize) {
 }
 
 void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext, unsigned int lightMapRenderTarget, const DeferredInitRenderStage& initStage) {
-  GraphicsInterface::beginPerformanceEvent("Spot", Color4::GREEN);
+  GraphicsInterface::beginPerformanceEvent("Spot", Color4::ORANGE);
 
   {
-    GraphicsInterface::beginPerformanceEvent("Clear", Color4::ORANGE);
+    GraphicsInterface::beginPerformanceEvent("Clear", Color4::MAGENTA);
 
     GraphicsInterface::setRenderTarget(spotLightRenderTarget_, false);
     GraphicsInterface::clearRenderTarget(spotLightRenderTarget_, Color4::NOTHING);
@@ -53,32 +53,45 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
 
   std::vector<SpotLight*> spotLights = sceneContext.spotLights();
   for (std::vector<SpotLight*>::iterator light = spotLights.begin(); light != spotLights.end(); ++light) {
-    // create shadowmap
+
+    GraphicsInterface::beginPerformanceEvent("Light", Color4::MAGENTA);
+
     if ((*light)->castsShadows()) {
-      GraphicsInterface::beginPerformanceEvent("Shadow Map", Color4::ORANGE);
+      GraphicsInterface::beginPerformanceEvent("Shadow Map", Color4::BLUE);
+      
+      {
+        GraphicsInterface::beginPerformanceEvent("Depth", Color4::GREY);
 
-      GraphicsInterface::setRenderTarget((*light)->shadowMapRenderTarget(), true);
-      GraphicsInterface::clearRenderTarget((*light)->shadowMapRenderTarget(), Color4::WHITE);
+        GraphicsInterface::setRenderTarget((*light)->shadowMapRenderTarget(), true);
+        GraphicsInterface::clearRenderTarget((*light)->shadowMapRenderTarget(), Color4::WHITE);
 
-      stdext::hash_map<int, std::vector<Mesh*>>::iterator i = meshes.begin();
-      for (; i != meshes.end(); ++i) {
-        std::vector<Mesh*> effectMeshes = (*i).second;
-        for (std::vector<Mesh*>::iterator meshIt = effectMeshes.begin(); meshIt != effectMeshes.end(); ++meshIt) {
-          (*meshIt)->material().bind((*light)->projection(), (*light)->viewTransform(), (*meshIt)->localToWorld(), sceneContext, shadowMapEffect_);
-         
-          shadowMapEffect_->beginDraw();
-          GraphicsInterface::setRenderState(true);
-          (*meshIt)->render();
+        stdext::hash_map<int, std::vector<Mesh*>>::iterator i = meshes.begin();
+        for (; i != meshes.end(); ++i) {
+          std::vector<Mesh*> effectMeshes = (*i).second;
+          for (std::vector<Mesh*>::iterator meshIt = effectMeshes.begin(); meshIt != effectMeshes.end(); ++meshIt) {
+            (*meshIt)->material().bind((*light)->projection(), (*light)->viewTransform(), (*meshIt)->localToWorld(), sceneContext, shadowMapEffect_);
+           
+            shadowMapEffect_->beginDraw();
+            GraphicsInterface::setRenderState(true);
+            (*meshIt)->render();
+          }
         }
+
+        GraphicsInterface::endPerformanceEvent();
       }
-      gaussianBlur_.render((*light)->shadowMapTexture());
+
+      {
+        GraphicsInterface::beginPerformanceEvent("Blur", Color4::GREY);
+        gaussianBlur_.render((*light)->shadowMapTexture());
+        GraphicsInterface::endPerformanceEvent();
+      }
 
       GraphicsInterface::endPerformanceEvent();
     }
 
     // render lighting
     {
-      GraphicsInterface::beginPerformanceEvent("Lighting", Color4::ORANGE);
+      GraphicsInterface::beginPerformanceEvent("Lighting", Color4::BLUE);
 
       GraphicsInterface::setRenderTarget(spotLightRenderTarget_, false);
 
@@ -125,7 +138,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
 
     // accumulate into lightmap
     {
-      GraphicsInterface::beginPerformanceEvent("Accumulation", Color4::ORANGE);
+      GraphicsInterface::beginPerformanceEvent("Accumulation", Color4::BLUE);
 
       GraphicsInterface::setRenderTarget(lightMapRenderTarget, false);
       accumulationEffect_->setTexture(spotLightRenderTexture_, "LightSourceMap");

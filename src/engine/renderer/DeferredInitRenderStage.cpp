@@ -9,7 +9,7 @@
 #include "Color4.h"
 
 void DeferredInitRenderStage::init(const CSize& screenSize) {
-  colorMapTexture_ = GraphicsInterface::createTexture(screenSize);
+  colorMapTexture_ = GraphicsInterface::createTexture(screenSize, 1, 1);
   colorRenderTarget_ = GraphicsInterface::createRenderTarget(colorMapTexture_);
 
   normalMapTexture_ = GraphicsInterface::createTexture(screenSize);
