@@ -1,6 +1,8 @@
 fix normals (again) - lights are coming from the wrong direction
 skydome
 desert
+debug rendering of lights, bounding boxes
+movable gizmo's for objects (rotation, positon, scale)
 better anti aliasing
 shadows
 maya export
