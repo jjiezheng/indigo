@@ -62,6 +62,8 @@ public:
 public:
 
   float nearDistance() const;
+
+  float farDistance() const;
     
 private:
     
@@ -79,6 +81,7 @@ private:
   Matrix4x4 projection_;
 
   float nearDistance_;
+  float farDistance_;
   float fov_;
   float aspectRatio_;
   
@@ -114,6 +117,10 @@ inline Vector4 Camera::position() const {
 
 inline float Camera::nearDistance() const {
   return nearDistance_;
+}
+
+inline float Camera::farDistance() const {
+  return farDistance_;
 }
 
 inline float Camera::fov() const {

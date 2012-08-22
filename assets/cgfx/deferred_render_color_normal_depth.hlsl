@@ -12,8 +12,8 @@ uniform	float4x4 WorldViewProj;
 uniform	float4x4 WorldView;
 uniform	float4x4 World;
 
-uniform float Far = 200.0f;
-uniform float Near = 1.0f;
+uniform float Far;
+uniform float Near;
 
 struct VOutput {
 	float4 position			: SV_POSITION;

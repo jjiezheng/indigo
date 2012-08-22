@@ -1,6 +1,6 @@
 #define FXAA_PC 1
 #define FXAA_HLSL_4 1
-#define FXAA_QUALITY__PRESET 15
+#define FXAA_QUALITY__PRESET 39
 #include "Fxaa3_11.h"
 
 #include "standard.hlsl"
@@ -38,6 +38,7 @@ float4 ps(float4 position : SV_POSITION,
 		origin, origin, origin,
 		1.0f, 0.063f, 0.0312f, 2.0f, 
 		0.0f, 0.0f, origin);
+
 }
 
 technique11 Main {

@@ -23,6 +23,8 @@ public:
 public:
 
   virtual float nearDistance() const = 0;
+
+  virtual float farDistance() const = 0;
   
 };
 

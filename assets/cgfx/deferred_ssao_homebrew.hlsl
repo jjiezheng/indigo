@@ -5,8 +5,8 @@ uniform float KernelSize;
 uniform float2 NoiseScale;
 uniform float4 Kernel[16];
 
-uniform float Far = 200.0f;
-uniform float Near = 1.0f;
+uniform float Far;
+uniform float Near;
 
 Texture2D NoiseMap;
 SamplerState NoiseMapSamplerState {

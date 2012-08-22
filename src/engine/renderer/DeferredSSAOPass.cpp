@@ -70,7 +70,7 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
   Vector2 noiseScale = Vector2(GraphicsInterface::screenWidth() / float(kNoisePixelLine), GraphicsInterface::screenHeight() / float(kNoisePixelLine));
   ssaoEffect_->setUniform(noiseScale, "NoiseScale");
 
-  ssaoEffect_->setUniform(0.4f, "Radius");
+  ssaoEffect_->setUniform(0.2f, "Radius");
 
   ssaoRenderTexture_ = GraphicsInterface::createTexture(GraphicsInterface::screenSize());
   ssaoRenderTarget_ = GraphicsInterface::createRenderTarget(ssaoRenderTexture_);
@@ -95,8 +95,8 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
     ssaoEffect_->setUniform(viewer->viewTransform(), "View");
     ssaoEffect_->setUniform(viewProjection.inverse(), "ViewProjInv");
 
-    ssaoEffect_->setUniform(1.0f, "Near");
-    ssaoEffect_->setUniform(200.0f, "Far");
+    ssaoEffect_->setUniform(viewer->nearDistance(), "Near");
+    ssaoEffect_->setUniform(viewer->farDistance(), "Far");
 
     ssaoEffect_->setTexture(initStage.normalMap(), "NormalMap");
     ssaoEffect_->setTexture(initStage.depthMap(), "DepthMap");
@@ -107,7 +107,6 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
     GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
 
     GraphicsInterface::endPerformanceEvent();
-
   }
 
   {

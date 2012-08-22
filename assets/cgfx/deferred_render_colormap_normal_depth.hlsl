@@ -16,8 +16,8 @@ uniform float DiffusePower;
 uniform float SpecularPower;
 uniform float SpecularIntensity;
 
-uniform float Far = 200.0f;
-uniform float Near = 1.0f;
+uniform float Far;
+uniform float Near;
 
 struct VOutput {
 	float4 position			: SV_POSITION;

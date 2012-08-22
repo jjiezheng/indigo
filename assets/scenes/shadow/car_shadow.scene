@@ -19,15 +19,7 @@
       "model" : "actors/sphere/sphere.model",
       "position" : {
         "x" : 4.0,
-        "y" : 0.0,
-        "z" : 0.0
-      }
-    },
-    {
-      "model" : "actors/car/car.model",
-      "position" : {
-        "x" : 0.0,
-        "y" : 0.0,
+        "y" : -0.1,
         "z" : 0.0
       }
     },
@@ -44,9 +36,9 @@
     {
       "type" : "directional",
        "direction" : {
-        "x" : -0.0,
+        "x" : -0.5,
         "y" : -0.5,
-        "z" : 0.5
+        "z" : -0.5
       },
       "color" : {
         "r" : 1.0,
@@ -63,9 +55,9 @@
       "intensity" : 2.0,
       "castsshadows" : true,
       "position" : {
-        "x" : 40,
-        "y" : 40,
-        "z" : 40
+        "x" : 10,
+        "y" : 10,
+        "z" : 10
       },
       "orientation" : {
         "x" : 0,

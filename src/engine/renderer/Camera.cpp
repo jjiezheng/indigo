@@ -114,5 +114,6 @@ void Camera::setPerspective(float fov, float aspectRatio, float nearDistance, fl
 	fov_ = fov;
 	aspectRatio_ = aspectRatio;
 	nearDistance_ = nearDistance;
+  farDistance_ = farDistance;
 	projection_ = Matrix4x4::perspective(fov, aspectRatio, nearDistance, farDistance);
 }

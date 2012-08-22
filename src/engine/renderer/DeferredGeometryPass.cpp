@@ -35,6 +35,9 @@ void DeferredGeometryPass::render(IViewer* viewer, World& world, const SceneCont
     unsigned int effectId = (*i).first;
     IEffect* effect = EffectCache::instance()->getEffect(effectId);
 
+    effect->setUniform(viewer->nearDistance(), "Near");
+    effect->setUniform(viewer->farDistance(), "Far");
+
     std::vector<Mesh*> effectMeshes = (*i).second;
     for (std::vector<Mesh*>::iterator meshIt = effectMeshes.begin(); meshIt != effectMeshes.end(); ++meshIt) {
       Matrix4x4 projection = viewer->projection();
