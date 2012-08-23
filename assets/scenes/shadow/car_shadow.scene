@@ -1,6 +1,6 @@
 
 {
-  "skybox" : "skyboxes/mountains/mountains.png",
+  "skydome" : "skydomes/day/day.model",
   "backgroundColor" : {
     "r" : 1.0,
     "g" : 1.0,

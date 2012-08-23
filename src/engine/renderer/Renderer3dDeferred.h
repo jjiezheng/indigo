@@ -7,6 +7,7 @@
 
 #include "DeferredInitRenderStage.h"
 #include "DeferredLightingRenderStage.h"
+#include "DeferredSkyRenderStage.h"
 #include "DeferredPostProcessingStage.h"
 #include "DeferredPresentStage.h"
 #include "DeferredRenderTarget.h"
@@ -46,6 +47,7 @@ private:
 
   DeferredInitRenderStage initStage_;
   DeferredLightingRenderStage lightingStage_;
+  DeferredSkyRenderStage skyStage_;
   DeferredPostProcessingStage postProcessingStage_;
   DeferredPresentStage presentStage_;
 

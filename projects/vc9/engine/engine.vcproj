@@ -336,6 +336,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\engine\renderer\SkyDome.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\engine\renderer\SkyDome.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\engine\renderer\SpotLight.cpp"
 				>
 			</File>
@@ -447,11 +455,11 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\engine\renderer\OpenGLShadowMap.h"
+					RelativePath=".\OpenGLShadowMap.h"
 					>
 				</File>
 				<File
-					RelativePath=".\OpenGLShadowMap.h"
+					RelativePath="..\..\..\src\engine\renderer\OpenGLShadowMap.h"
 					>
 				</File>
 			</Filter>
@@ -564,6 +572,14 @@
 				</File>
 				<File
 					RelativePath="..\..\..\src\engine\renderer\DeferredSkyBoxPass.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\renderer\DeferredSkyRenderStage.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\renderer\DeferredSkyRenderStage.h"
 					>
 				</File>
 				<File

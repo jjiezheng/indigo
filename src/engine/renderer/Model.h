@@ -6,27 +6,36 @@
 #include "Mesh.h"
 #include "Material.h"
 
+#include <string>
 #include <hash_map>
 
 class IViewer;
 class SceneContext;
 
 class Model {
+
+public:
+
+  static Model* modelFromFile(const std::string& modelFilePath);
   
 public:
 
   void render() const;
 
   void visit(stdext::hash_map<int, std::vector<Mesh*>>& meshes);
-  
-  void addMesh(Mesh& mesh);
-  
+    
   void setMaterial(unsigned int meshIndex, const Material& material);
   
   void setLocalToWorld(const Matrix4x4& localToWorld);
 
   Matrix4x4 localToWorld() const;
-  
+
+public:
+ 
+  void addMesh(Mesh& mesh);
+
+  Mesh mesh(unsigned int meshIndex) const;
+
 private:
   
   std::vector<Mesh> meshes_;
@@ -38,6 +47,10 @@ private:
 inline void Model::addMesh(Mesh& mesh) {
   mesh.setParent(this);
   meshes_.push_back(mesh);
+}
+
+inline Mesh Model::mesh(unsigned int meshIndex) const {
+  return meshes_[meshIndex];
 }
 
 inline void Model::setMaterial(unsigned int meshIndex, const Material& material) {

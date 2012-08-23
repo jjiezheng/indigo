@@ -2,6 +2,10 @@
 #define TEXTURE_H
 
 class Texture {
+
+public:
+
+  static const char* DiffuseTexture;
   
 public:
   

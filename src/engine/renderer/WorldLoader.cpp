@@ -27,7 +27,7 @@
 #include "SceneContext.h"
 
 #include "Light.h"
-#include "SkyBox.h"
+#include "SkyDome.h"
 #include "Texture.h"
 
 #include "GraphicsInterface.h"
@@ -45,13 +45,13 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
   std::ifstream levelFile(fullFilePath.c_str(), std::ifstream::in);
   json::Object sceneObject;
   json::Reader::Read(sceneObject, levelFile);
-  
-  json::String skyboxString = sceneObject["skybox"];
-  std::string skyboxBasename = skyboxString.Value();
-  
-  SkyBox skybox;
-  skybox.load(skyboxBasename);
-  world.setSkyBox(skybox);
+
+  json::String skydomeString = sceneObject["skydome"];
+  std::string skydomePath = skydomeString.Value();
+
+  SkyDome skydome;
+  skydome.load(skydomePath);
+  world.setSkyDome(skydome);
 
   json::Object backgroundColor = sceneObject["backgroundColor"];
   json::Number redNumber = backgroundColor["r"];

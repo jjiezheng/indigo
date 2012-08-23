@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "SkyBox.h"
+#include "SkyDome.h"
 #include "Model.h"
 
 class Vector3;
@@ -14,9 +14,9 @@ public:
   
   void addObject(Model* model);
   
-  void setSkyBox(const SkyBox& skyBox);
+  void setSkyDome(const SkyDome& skyDome);
   
-  SkyBox skyBox() const;
+  SkyDome skyDome() const;
   
 public:
   
@@ -27,15 +27,15 @@ private:
   
   std::vector<Model*> models_;
   
-  SkyBox skyBox_;
+  SkyDome skyDome_;
 };
 
-inline SkyBox World::skyBox() const {
-  return skyBox_;
+inline SkyDome World::skyDome() const {
+  return skyDome_;
 }
 
-inline void World::setSkyBox(const SkyBox &skyBox) {
-  skyBox_ = skyBox;
+inline void World::setSkyDome(const SkyDome& skyDome) {
+  skyDome_ = skyDome;
 }
 
 inline void World::addObject(Model* model) {

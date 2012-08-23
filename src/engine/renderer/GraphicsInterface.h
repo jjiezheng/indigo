@@ -17,6 +17,8 @@ class GraphicsInterface {
 public:
 
   typedef unsigned int TextureId;
+  typedef unsigned int RenderTarget;
+  typedef unsigned int VertexBuffer;
   
 public:
 

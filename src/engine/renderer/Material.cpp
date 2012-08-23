@@ -9,7 +9,7 @@
 
 #include "io/Log.h"
 
-void Material::bind(const Matrix4x4& projection, const Matrix4x4& view, const Matrix4x4& model, const SceneContext& sceneContext, IEffect* effect) const {  
+void Material::bind(const Matrix4x4& projection, const Matrix4x4& view, const Matrix4x4& model, IEffect* effect) const {  
   effect->setUniform(model, "World");
   
   Matrix4x4 worldView = view * model;

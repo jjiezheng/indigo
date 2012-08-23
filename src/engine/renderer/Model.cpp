@@ -1,5 +1,7 @@
 #include "Model.h"
 
+#include "WorldLoader.h"
+
 void Model::visit(stdext::hash_map<int, std::vector<Mesh*>>& meshes) {
   std::vector<Mesh>::iterator it = meshes_.begin();
   for (; it != meshes_.end(); ++it) {
@@ -12,4 +14,10 @@ void Model::render() const {
   for (; it != meshes_.end(); ++it) {
     (*it).render();
   }
+}
+
+Model* Model::modelFromFile(const std::string& modelFilePath) {
+  Model* model = new Model();
+  WorldLoader().loadModel(model, modelFilePath);
+  return model;
 }

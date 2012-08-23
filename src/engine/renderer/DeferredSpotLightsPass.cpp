@@ -69,7 +69,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
         for (; i != meshes.end(); ++i) {
           std::vector<Mesh*> effectMeshes = (*i).second;
           for (std::vector<Mesh*>::iterator meshIt = effectMeshes.begin(); meshIt != effectMeshes.end(); ++meshIt) {
-            (*meshIt)->material().bind((*light)->projection(), (*light)->viewTransform(), (*meshIt)->localToWorld(), sceneContext, shadowMapEffect_);
+            (*meshIt)->material().bind((*light)->projection(), (*light)->viewTransform(), (*meshIt)->localToWorld(), shadowMapEffect_);
            
             shadowMapEffect_->beginDraw();
             GraphicsInterface::setRenderState(true);
