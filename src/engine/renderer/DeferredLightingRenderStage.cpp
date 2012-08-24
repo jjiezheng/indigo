@@ -34,7 +34,7 @@ void DeferredLightingRenderStage::init(const CSize& screenSize) {
 void DeferredLightingRenderStage::render(IViewer* viewer, World& world, const SceneContext& sceneContext, const DeferredInitRenderStage& initStage) {
   GraphicsInterface::beginPerformanceEvent("Lighting", Color4::GREEN);
 
-  GraphicsInterface::clearRenderTarget(lightRenderTarget_, Color4::BLACK);
+  GraphicsInterface::clearRenderTarget(lightRenderTarget_, Color4::TRANSPAREN);
 
   for (std::vector<IDeferredLightingPass*>::iterator i = passes_.begin(); i != passes_.end(); ++i) {
     (*i)->render(viewer, world, sceneContext, lightRenderTarget_, initStage);

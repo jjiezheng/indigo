@@ -58,7 +58,6 @@ void DeferredDirectionalLightsPass::render(IViewer* viewer, World& world, const 
     GraphicsInterface::endPerformanceEvent();
   }
 
-  // accumulate into LightMap
   {
     GraphicsInterface::beginPerformanceEvent("Accumulation", Color4::ORANGE);
 

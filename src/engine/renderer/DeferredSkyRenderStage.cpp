@@ -13,8 +13,6 @@ void DeferredSkyRenderStage::init(const CSize &screenSize) {
   skyRenderTexture_ = GraphicsInterface::createTexture(screenSize);
   skyRenderTarget_ = GraphicsInterface::createRenderTarget(skyRenderTexture_);
 
-  compositeTexture_ = GraphicsInterface::createTexture(screenSize);
-  compositeRenderTarget_ = GraphicsInterface::createRenderTarget(compositeTexture_);
   compositeEffect_ = IEffect::effectFromFile("cgfx/composite.hlsl");
 
   quadVBO_ = Geometry::screenPlane();
@@ -37,8 +35,7 @@ void DeferredSkyRenderStage::render(IViewer* viewer, World& world, DeferredLight
   {
     GraphicsInterface::beginPerformanceEvent("Composite", Color4::MAGENTA);
 
-    GraphicsInterface::clearRenderTarget(compositeRenderTarget_, Color4::BLACK);
-    GraphicsInterface::setRenderTarget(compositeRenderTarget_, false);
+    GraphicsInterface::setRenderTarget(skyRenderTarget_, false);
 
     compositeEffect_->setTexture(lightingStage.lightMap(), "ColorMap");
 
@@ -54,5 +51,4 @@ void DeferredSkyRenderStage::render(IViewer* viewer, World& world, DeferredLight
 
 void DeferredSkyRenderStage::collectRenderTargets(IDeferredRenderTargetContainer* renderTargetContainer) {
   renderTargetContainer->addRenderTarget("Sky", skyRenderTexture_);
-  renderTargetContainer->addRenderTarget("Sky Composite", compositeTexture_);
 }

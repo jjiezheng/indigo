@@ -54,6 +54,10 @@ float4 ps(float4 position 		: SV_POSITION,
 
 	float4 depthSpec = DepthMap.Sample(DepthMapSamplerState, texCoord);
 
+	if (depthSpec.r == 1.0f) {
+		return float4(0, 0, 0, 0);
+	}
+
 	float depth = depthSpec.x;
 	float specularPower = depthSpec.z;
 	float specularIntensity = depthSpec.w;

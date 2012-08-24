@@ -33,8 +33,6 @@ private:
   GraphicsInterface::TextureId skyMapTexture_;
 
   GraphicsInterface::VertexBuffer quadVBO_;
-  GraphicsInterface::RenderTarget compositeRenderTarget_;
-  GraphicsInterface::TextureId compositeTexture_;
 
   IEffect* compositeEffect_;
 
