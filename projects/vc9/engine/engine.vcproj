@@ -106,7 +106,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="../../../src/engine;../../../libs/assimp/include;../../../libs/freeimage;../../../libs/glew/include;../../../libs/glfw/include;../../../libs"
+				AdditionalIncludeDirectories="../../../libs/dxfx/Inc;../../../src/engine;../../../libs/assimp/include;../../../libs/freeimage;../../../libs/glew/include;../../../libs/glfw/include;../../../libs"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				WarningLevel="3"
@@ -809,14 +809,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\engine\maths\Vector4.h"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="memory"
-			>
-			<File
-				RelativePath="..\..\..\src\engine\renderer\Allocation.h"
 				>
 			</File>
 		</Filter>

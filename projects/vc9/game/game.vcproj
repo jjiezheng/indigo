@@ -62,7 +62,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="Effects11.lib d3dcompiler.lib dxguid.lib dinput8.lib d3d9.lib d3d11.lib d3dx10d.lib d3dx11d.lib cg.lib cgGL.lib GLFW.lib OpenGL32.lib glu32.lib assimp.lib FreeImage.lib glew32.lib"
+				AdditionalDependencies="Effects11.lib d3dcompiler.lib dxguid.lib dinput8.lib d3d9.lib d3d11.lib cg.lib cgGL.lib OpenGL32.lib glu32.lib assimp.lib FreeImage.lib glew32.lib d3dx10d.lib d3dx11d.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="../../../libs/dxfx/Debug;../../../libs/glew/lib;../../../libs/glfw/lib;../../../libs/assimp/lib;../../../libs/freeimage"
 				GenerateDebugInformation="true"
@@ -138,9 +138,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="dxguid.lib dinput8.lib d3d11.lib d3dx10.lib d3dx11.lib cg.lib cgGL.lib cgD3D11.lib GLFW.lib OpenGL32.lib glu32.lib assimp.lib FreeImage.lib glew32.lib"
+				AdditionalDependencies="Effects11.lib d3dcompiler.lib dxguid.lib dinput8.lib d3d9.lib d3d11.lib cg.lib cgGL.lib OpenGL32.lib glu32.lib assimp.lib FreeImage.lib glew32.lib d3dx10.lib d3dx11.lib"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="../../../libs/glew/lib;../../../libs/glfw/lib;../../../libs/assimp/lib;../../../libs/freeimage"
+				AdditionalLibraryDirectories="../../../libs/dxfx/Release;../../../libs/glew/lib;../../../libs/glfw/lib;../../../libs/assimp/lib;../../../libs/freeimage"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
