@@ -12,9 +12,9 @@ class DeferredPresentPass : public IDeferredPass {
 public:
 
   DeferredPresentPass(unsigned int fullScreenTexture)
-    : fullScreenTexture_(fullScreenTexture) {
-
-  }
+    : fullScreenTexture_(fullScreenTexture)
+    , quadVbo_(0)
+    , effect_(0) { }
 
 public:
 

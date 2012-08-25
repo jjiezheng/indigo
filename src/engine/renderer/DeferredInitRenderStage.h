@@ -11,6 +11,16 @@ class DeferredInitRenderStage : public IDeferredRenderStage {
 
 public:
 
+  DeferredInitRenderStage()
+    : colorMapTexture_(0)
+    , colorRenderTarget_(0)
+    , normalMapTexture_(0)
+    , normalRenderTarget_(0)
+    , depthMapTexture_(0)
+    , depthRenderTarget_(0) { }
+
+public:
+
   void init(const CSize &screenSize);
 
   void render(IViewer* viewer, World& world, const SceneContext& sceneContext);

@@ -40,7 +40,6 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/analyse"
 				Optimization="0"
 				AdditionalIncludeDirectories="../../../src/engine;../../../libs"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
@@ -65,7 +64,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="Effects11.lib d3dcompiler.lib dxguid.lib dinput8.lib d3d9.lib d3d11.lib d3dx10d.lib d3dx11d.lib cg.lib cgGL.lib GLFW.lib OpenGL32.lib glu32.lib assimp.lib FreeImage.lib glew32.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="../../../libs/dxfx/Release;../../../libs/glew/lib;../../../libs/glfw/lib;../../../libs/assimp/lib;../../../libs/freeimage"
+				AdditionalLibraryDirectories="../../../libs/dxfx/Debug;../../../libs/glew/lib;../../../libs/glfw/lib;../../../libs/assimp/lib;../../../libs/freeimage"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"

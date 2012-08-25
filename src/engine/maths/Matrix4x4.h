@@ -13,15 +13,9 @@ public:
 
   static Matrix4x4 rotation(const Vector4& axis, float angleRadians);
   
-  static Matrix4x4 rotationX(int degrees);
-  
   static Matrix4x4 rotationX(float radians);
     
-  static Matrix4x4 rotationY(int degrees);
-  
   static Matrix4x4 rotationY(float radians);
-
-  static Matrix4x4 rotationZ(int degrees);
   
   static Matrix4x4 rotationZ(float radians);  
 

@@ -10,7 +10,10 @@ class AverageBlur {
 public:
 
   AverageBlur()
-    : outputRenderTarget_(0) { }
+    : outputRenderTarget_(0)
+    , outputRenderTexture_(0)
+    , quadVbo_(0)
+    , effect_(0) { }
 
 public:
 

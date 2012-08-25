@@ -4,7 +4,8 @@
 #include <time.h>
 
 void Random::seed() {
-  srand(time(NULL));
+  unsigned int seed = (unsigned int)time(NULL);
+  srand(seed);
 }
 
 float Random::random(float low, float high) {

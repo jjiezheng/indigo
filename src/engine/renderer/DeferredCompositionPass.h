@@ -12,7 +12,9 @@ public:
   DeferredCompositionPass(unsigned int finalRenderTarget, unsigned int colorMapTexture, unsigned int lightMapTexture)
     : finalRenderTarget_(finalRenderTarget)
     , colorMapTexture_(colorMapTexture)
-    , lightMapTexture_(lightMapTexture) { }
+    , lightMapTexture_(lightMapTexture)
+    , quadVbo_(0)
+    , finalEffect_(0) { }
 
 public:
 
@@ -22,12 +24,12 @@ public:
 
 private:
 
-  IEffect* finalEffect_;
-  unsigned int quadVbo_;
-
   unsigned int finalRenderTarget_;
   unsigned int colorMapTexture_;
   unsigned int lightMapTexture_;
+
+  unsigned int quadVbo_;
+  IEffect* finalEffect_;
 
 };
 

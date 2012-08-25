@@ -13,7 +13,10 @@ public:
   DeferredPointLightsPass(unsigned int lightMapRenderTarget, unsigned int normalMapTexture, unsigned int depthMapTexture)
     : lightMapRenderTarget_(lightMapRenderTarget)
     , normalMapTexture_(normalMapTexture)
-    , depthMapTexture_(depthMapTexture) { }
+    , depthMapTexture_(depthMapTexture)
+    , quadVbo_(0)
+    , pointLightEffect_(0)
+    , pointLightModel_(0) { }
 
 public:
 
@@ -24,7 +27,6 @@ public:
 private:
 
   unsigned int lightMapRenderTarget_;
-  
   unsigned int normalMapTexture_;
   unsigned int depthMapTexture_;
 

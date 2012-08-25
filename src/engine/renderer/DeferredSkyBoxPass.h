@@ -7,6 +7,11 @@ class DeferredSkyBoxPass : public IDeferredLightingPass {
 
 public:
 
+  DeferredSkyBoxPass() 
+    : skyBoxMesh_(0) { }
+
+public:
+
   void init(const CSize& screenSize);
 
   void render(IViewer* viewer, World& world, const SceneContext& sceneContext, unsigned int lightMapTexture, const DeferredInitRenderStage& initStage);

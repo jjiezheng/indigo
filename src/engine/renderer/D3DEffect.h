@@ -13,6 +13,13 @@ class D3DEffect : public IEffect {
 
 public:
 
+  D3DEffect() 
+    : effect_(0)
+    , pass_(0)
+    , layout_(0) { }
+
+public:
+
   static void setDevice(ID3D11Device* device, ID3D11DeviceContext* context);
 
 public:

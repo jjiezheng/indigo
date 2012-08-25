@@ -10,6 +10,11 @@ class PointLight {
 
 public:
 
+  PointLight()
+    : radius_(0) { }
+
+public:
+
   void setPosition(const Vector4& position);
 
   Vector4 position() const;

@@ -5,8 +5,9 @@ struct DeferredRenderTarget {
 
 public:
 
-  DeferredRenderTarget(const std::string name_, unsigned int renderTargetId_)
-    : name(name_), renderTargetId(renderTargetId_) { } 
+  DeferredRenderTarget(const std::string& name_, unsigned int renderTargetId_)
+    : name(name_)
+    , renderTargetId(renderTargetId_) { } 
 
 public:
 

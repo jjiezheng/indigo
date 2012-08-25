@@ -13,7 +13,8 @@ public:
 
   DeferredFullScreenBlurPass(unsigned int compositionTexture, unsigned int blurRenderTarget)
     : compositionTexture_(compositionTexture)
-    , blurRenderTarget_(blurRenderTarget) { }
+    , blurRenderTarget_(blurRenderTarget)
+    , quadVbo_(0) { }
 
 public:
 

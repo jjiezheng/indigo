@@ -55,8 +55,6 @@ HWND WindowsUtils::createWindow(int width, int height) {
   HWND hWnd = CreateWindow("GameWindowClass", "Game", WS_OVERLAPPEDWINDOW,
     windowPositionX, windowPositionY, width, height, NULL, NULL, hInstance, NULL);
 
-  LPSTR lpCmdLine = GetCommandLine();
-
   STARTUPINFO lpStartupInfo;
   GetStartupInfo(&lpStartupInfo);
 
@@ -92,7 +90,7 @@ bool WindowsUtils::pumpMessages() {
     }
 
     if (msg.message == WM_KEYUP) {
-      char wParam = MapVirtualKey((UINT) msg.wParam, 2) & 0x0000FFFF;
+      unsigned char wParam = MapVirtualKey((UINT) msg.wParam, 2) & 0x0000FFFF;
       keyStates_[wParam] = false;
       if (keyboardListener_) {
         keyboardListener_->keyUp(wParam);

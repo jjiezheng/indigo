@@ -208,13 +208,13 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
         json::Object positionObject = (*lit)["orientation"];
 
         json::Number xNumber = positionObject["x"];
-        int x = xNumber.Value();
+        float x = xNumber.Value();
 
         json::Number yNumber = positionObject["y"];
-        int y = yNumber.Value();
+        float y = yNumber.Value();
 
         json::Number zNumber = positionObject["z"];
-        int z = zNumber.Value();
+        float z = zNumber.Value();
 
         Matrix4x4 orientation = Matrix4x4::rotationZ(toRadians(z)) * Matrix4x4::rotationY(toRadians(y)) * Matrix4x4::rotationX(toRadians(x));
 

@@ -18,6 +18,16 @@ class DeferredSkyRenderStage : public IDeferredRenderStage {
 
 public:
 
+  DeferredSkyRenderStage()
+    : skyRenderTarget_(0)
+    , skyRenderTexture_(0)
+    , skyMapTexture_(0)
+    , quadVBO_(0)
+    , compositeEffect_(0) { }
+
+
+public:
+
   void init(const CSize &screenSize);
 
   void render(IViewer* viewer, World& world, DeferredLightingRenderStage& lightingStage);

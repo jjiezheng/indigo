@@ -2,6 +2,6 @@
 #define ANGLES_H
 
 float toDegrees(float radians);
-float toRadians(int degrees);
+float toRadians(float degrees);
 
 #endif

@@ -8,7 +8,7 @@ float toDegrees(float radians) {
   return result; 
 }
 
-float toRadians(int degrees) {
+float toRadians(float degrees) {
   float result = (degrees / 180.0f) * (float)M_PI;
   return result;
 }

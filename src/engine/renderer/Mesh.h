@@ -19,6 +19,13 @@ class Model;
 class Mesh {
 
 public:
+
+  Mesh()
+    : numVertices_(0)
+    , vertexBuffer_(0)
+    , parent_(0) { }
+
+public:
   
   void init(VertexDef* vertexData, unsigned int numVertices);
   
@@ -39,7 +46,6 @@ public:
 private:
   
   unsigned int numVertices_;
-
   unsigned int vertexBuffer_;
     
   Material material_;

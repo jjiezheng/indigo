@@ -9,34 +9,21 @@
 
 TEST(Matrix4x4Test, RotationArbitraryAxis) {
   Vector4 result = Matrix4x4::rotation(Vector4::UP, toRadians(90)) * Vector4::RIGHT;
-  // have to round the result :(
-  result.x = (int)result.x;
-  result.y = (int)result.y;
-  result.z = (int)result.z;
   EXPECT_EQ(result, Vector4::FORWARD);
 }
 
 TEST(Matrix4x4Test, RotatingXAxis) {
-  Vector4 result = Matrix4x4::rotationX(-90) * Vector4::FORWARD;
-  result.x = (int)result.x;
-  result.y = (int)result.y;
-  result.z = (int)result.z;
+  Vector4 result = Matrix4x4::rotationX(toRadians(-90)) * Vector4::FORWARD;
   EXPECT_EQ(result, -Vector4::UP);
 }
 
 TEST(Matrix4x4Test, RotatingYAxis) {
-  Vector4 result = Matrix4x4::rotationY(-90) * Vector4::FORWARD;
-  result.x = (int)result.x;
-  result.y = (int)result.y;
-  result.z = (int)result.z;
+  Vector4 result = Matrix4x4::rotationY(toRadians(-90)) * Vector4::FORWARD;
   EXPECT_EQ(result, Vector4::RIGHT);
 }
 
 TEST(Matrix4x4Test, RotatingZAxis) {
-  Vector4 result = Matrix4x4::rotationZ(-90) * Vector4::UP;
-  result.x = (int)result.x;
-  result.y = (int)result.y;
-  result.z = (int)result.z;
+  Vector4 result = Matrix4x4::rotationZ(toRadians(-90)) * Vector4::UP;
   EXPECT_EQ(result, Vector4::RIGHT);
 }
 
@@ -45,5 +32,4 @@ TEST(Matrix4x4Test, LookAt) {
   Vector4 origin = Vector4::IDENTITY;
   Vector4 direction = result * origin;
   EXPECT_EQ(floorf(direction.z), -1.0f);
-
 }

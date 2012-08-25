@@ -11,10 +11,15 @@ Camera::Camera()
   : forward_(Vector3::FORWARD)
   , right_(Vector3::RIGHT)
   , up_(Vector3::UP)
-  , rotationX_(0.0f)
-  , rotationY_(0.0f)
-  , rotationZ_(0.0f)
-  , position_(Vector4::IDENTITY) { }
+  , nearDistance_(0)
+  , farDistance_(0)
+  , fov_(0)
+  , aspectRatio_(0)
+  , rotationX_(0)
+  , rotationY_(0)
+  , rotationZ_(0)
+  , lastMouseX_(0)
+  , lastMouseY_(0) { }
 
 Camera* Camera::camera() {
   Camera* camera = new Camera();

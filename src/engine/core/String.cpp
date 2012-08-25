@@ -8,8 +8,13 @@
 String String::withFormat(const char* format, ...) {
   va_list args;
   va_start(args, format);
-  char buffer[50];
-  vsprintf(buffer, format, args);
+
+  int length = _vscprintf( format, args ) + 1; // _vscprintf doesn't count terminating '\0'
+
+  char* buffer = (char*)malloc(length * sizeof(char));
+
+  vsprintf_s(buffer, length, format, args);
+
   va_end(args);
   return String(buffer);
 }

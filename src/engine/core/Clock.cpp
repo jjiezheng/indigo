@@ -18,12 +18,12 @@ float Clock::delta_time() {
 
   QueryPerformanceCounter((LARGE_INTEGER*)&currentTime);
   dt = (double)(currentTime - lastTime_);
-  lastTime_ = currentTime;
+  lastTime_ = (double)currentTime;
 
-  float deltaTime = dt * resolution_;
+  double deltaTime = dt * resolution_;
   lastDeltaTime_ = deltaTime;
 
-  return deltaTime;
+  return (float)deltaTime;
 }
 
 #endif
@@ -52,7 +52,7 @@ float Clock::delta_time() {
 int Clock::averageFPS() {
   fpsHistory_.push_back(fps());
 
-  static int kAvgFPSElements = 10;
+  static unsigned int kAvgFPSElements = 10;
   if (fpsHistory_.size() > kAvgFPSElements) {
     fpsHistory_.erase(fpsHistory_.begin());
   }

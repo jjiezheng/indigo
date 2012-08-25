@@ -31,9 +31,9 @@ public:
   
 public:
   
-  Vector4 rotateX(int degrees);
+  Vector4 rotateX(float degrees);
   
-  Vector4 rotateY(int degrees);
+  Vector4 rotateY(float degrees);
   
 public:
 

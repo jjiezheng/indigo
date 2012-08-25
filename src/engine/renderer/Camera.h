@@ -78,14 +78,14 @@ private:
   Vector3 forward_;
   Vector3 right_;
   Vector3 up_;
+  Vector4 position_;
+
   Matrix4x4 projection_;
 
   float nearDistance_;
   float farDistance_;
   float fov_;
   float aspectRatio_;
-  
-  Vector4 position_;
   
   float rotationX_;
   float rotationY_;

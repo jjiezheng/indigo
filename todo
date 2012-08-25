@@ -1,5 +1,7 @@
 skydome
+instanced grass on a hill
 desert
+figure out why the ssao fucks up sometimes
 debug rendering of lights, bounding boxes
 movable gizmo's for objects (rotation, positon, scale)
 better anti aliasing

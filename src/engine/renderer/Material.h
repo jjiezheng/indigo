@@ -15,6 +15,11 @@ class Matrix4x4;
 class Matrix3x3;
 
 class Material {
+
+public:
+
+  Material() 
+    : effectId_(0) { }
   
 public:
   

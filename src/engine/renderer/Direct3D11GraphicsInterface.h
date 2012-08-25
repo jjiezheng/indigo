@@ -16,6 +16,16 @@ class Direct3D11GraphicsInterface : public IGraphicsInterface {
 
 public:
 
+  Direct3D11GraphicsInterface()
+    : swapChain_(0)
+    , device_(0)
+    , deviceConnection_(0)
+    , backBuffer_(0)
+    , depthBuffer_(0)
+    , multiSamples_(0) { }
+
+public:
+
   void openWindow(int width, int height, unsigned int multiSamples);
 
 public:

@@ -10,7 +10,13 @@ class GaussianBlur {
 public:
 
   GaussianBlur()
-    : outputRenderTarget_(0) { }
+    : outputRenderTarget_(0)
+    , outputRenderTexture_(0)
+    , gaussianHorizontalRenderTarget_(0)
+    , gaussianHorizontalMapTexture_(0)
+    , quadVbo_(0)
+    , gaussianBlurHorizontalEffect_(0)
+    , gaussianBluVerticalEffect_(0) { }
 
 public:
 

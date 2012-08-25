@@ -6,6 +6,8 @@
 
 #include <sstream>
 
+#include "Angles.h"
+
 Vector4 Vector4::IDENTITY = Vector4(0, 0, 0, 1);
 Vector4 Vector4::FORWARD = Vector4(0, 0, -1, 1);
 Vector4 Vector4::RIGHT = Vector4(1, 0, 0, 1);
@@ -60,13 +62,13 @@ float Vector4::length() const {
   return sqrt(x * x + y * y + z * z);
 }
 
-Vector4 Vector4::rotateX(int degrees) {
-  Matrix4x4 rotation = Matrix4x4::rotationX(degrees);
+Vector4 Vector4::rotateX(float degrees) {
+  Matrix4x4 rotation = Matrix4x4::rotationX(toRadians(degrees));
   return rotation * *this;
 }
 
-Vector4 Vector4::rotateY(int degrees) {
-  Matrix4x4 rotation = Matrix4x4::rotationY(degrees);
+Vector4 Vector4::rotateY(float degrees) {
+  Matrix4x4 rotation = Matrix4x4::rotationY(toRadians(degrees));
   return rotation * *this;
 }
 

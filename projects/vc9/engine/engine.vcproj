@@ -41,13 +41,13 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/analyze"
 				Optimization="0"
 				AdditionalIncludeDirectories="../../../libs/dxfx/Inc;../../../src/engine;../../../libs/assimp/include;../../../libs/freeimage;../../../libs/glew/include;../../../libs/glfw/include;../../../libs"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				WarningLevel="3"
+				WarnAsError="true"
 				DebugInformationFormat="4"
 			/>
 			<Tool
@@ -145,20 +145,8 @@
 	</References>
 	<Files>
 		<Filter
-			Name="app"
-			>
-		</Filter>
-		<Filter
 			Name="renderer"
 			>
-			<File
-				RelativePath="..\..\..\src\engine\renderer\Box.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\engine\renderer\Box.h"
-				>
-			</File>
 			<File
 				RelativePath="..\..\..\src\engine\renderer\Camera.cpp"
 				>
@@ -328,14 +316,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\engine\renderer\SkyBox.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\engine\renderer\SkyBox.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\engine\renderer\SkyDome.cpp"
 				>
 			</File>
@@ -361,10 +341,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\engine\renderer\VertexDefinition.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\engine\renderer\World.cpp"
 				>
 			</File>
 			<File
@@ -611,10 +587,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\engine\renderer\IDeferredRenderStage.cpp"
-					>
-				</File>
-				<File
 					RelativePath="..\..\..\src\engine\renderer\IDeferredRenderStage.h"
 					>
 				</File>
@@ -681,24 +653,8 @@
 			</Filter>
 		</Filter>
 		<Filter
-			Name="config"
-			>
-			<File
-				RelativePath="..\..\..\src\engine\config\Properties.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\engine\config\Properties.h"
-				>
-			</File>
-		</Filter>
-		<Filter
 			Name="core"
 			>
-			<File
-				RelativePath="..\..\..\src\engine\core\Accessors.h"
-				>
-			</File>
 			<File
 				RelativePath="..\..\..\src\engine\core\Any.h"
 				>

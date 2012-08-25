@@ -12,7 +12,6 @@
 #include "renderer/Color3.h"
 #include "io/Log.h"
 
-#include "Accessors.h"
 #include "Types.h"
 
 #include "memory/Allocation.h"

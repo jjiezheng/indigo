@@ -11,7 +11,14 @@ class SpotLight {
 public:
 
   SpotLight()
-    : castsShadows_(false) { };
+    : innerAngle_(0)
+    , outerAngle_(0)
+    , radius_(0)
+    , length_(0)
+    , decay_(0)
+    , castsShadows_(0)
+    , shadowMapRenderTarget_(0)
+    , shadowMapTexture_(0) { }
 
 public:
 

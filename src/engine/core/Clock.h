@@ -29,7 +29,7 @@ public:
   
 private:
   
-  float lastDeltaTime_;
+  double lastDeltaTime_;
   double lastTime_;
 	double resolution_;
 

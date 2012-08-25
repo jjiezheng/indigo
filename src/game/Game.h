@@ -2,7 +2,6 @@
 #define GAME_H
 
 #include "core/Clock.h"
-#include "config/Properties.h"
 
 #include "renderer/World.h"
 #include "renderer/SceneContext.h"
@@ -30,7 +29,6 @@ private:
   World world_;  
   Clock clock_;
   SceneContext sceneContext_;
-  Properties properties_; 
 
 };
 

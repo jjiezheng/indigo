@@ -27,7 +27,8 @@ public:
 
 public:
 
-  Renderer3dDeferred() { };
+  Renderer3dDeferred()
+    : activeRenderTargetIndex_(0) { };
 
 public:
 

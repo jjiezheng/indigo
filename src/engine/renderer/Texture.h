@@ -5,6 +5,11 @@ class Texture {
 
 public:
 
+  Texture() 
+    : textureId_(0) { }
+
+public:
+
   static const char* DiffuseTexture;
   
 public:

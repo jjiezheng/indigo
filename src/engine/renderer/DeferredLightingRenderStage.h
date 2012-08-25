@@ -23,7 +23,7 @@ public:
 
 public:
 
-  void DeferredLightingRenderStage::collectRenderTargets(IDeferredRenderTargetContainer* renderTargetContainer);
+  void collectRenderTargets(IDeferredRenderTargetContainer* renderTargetContainer);
 
 public:
 

@@ -21,28 +21,16 @@ Matrix3x3 Matrix3x3::rotation(const Vector3& axis, float angleRadians) {
     (axis.x * axis.z) * (1 - cos(angle)) + axis.y * sin(angle), axis.y * axis.z * (1 - cos(angle)) - axis.x * sin(angle), (axis.z * axis.z) * (1 - cos(angle)) + cos(angle));
 }
 
-Matrix3x3 Matrix3x3::rotationX(int degrees) {
-  return Matrix3x3::rotationX(toRadians(degrees));
-}
-
 Matrix3x3 Matrix3x3::rotationX(float radians) {
   return Matrix3x3(1.0f, 0.0f, 0.0f, 
     0.0f, cosf(radians),   -sinf(radians), 
     0.0f, sinf(radians),    cosf(radians));
 }
 
-Matrix3x3 Matrix3x3::rotationY(int degrees) {
-  return Matrix3x3::rotationY(toRadians(degrees));
-}
-
 Matrix3x3 Matrix3x3::rotationY(float radians) {
   return Matrix3x3(cosf(radians),    0.0f, sinf(radians),
                    0.0f,             1.0f, 0.0f,
                   -sinf(radians),    0.0f, cosf(radians));
-}
-
-Matrix3x3 Matrix3x3::rotationZ(int degrees) {
-  return Matrix3x3::rotationZ(toRadians(degrees));
 }
 
 Matrix3x3 Matrix3x3::rotationZ(float radians) {

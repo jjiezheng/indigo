@@ -8,16 +8,10 @@ class Matrix3x3 {
 public:
 
   static Matrix3x3 rotation(const Vector3& axis, float angleRadians);
-  
-  static Matrix3x3 rotationX(int degrees);
 
   static Matrix3x3 rotationX(float radians);
 
-  static Matrix3x3 rotationY(int degrees);
-
   static Matrix3x3 rotationY(float radians);
-
-  static Matrix3x3 rotationZ(int degrees);
 
   static Matrix3x3 rotationZ(float radians); 
 

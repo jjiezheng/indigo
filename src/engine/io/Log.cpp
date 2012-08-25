@@ -15,12 +15,28 @@ const char* LOG_CHANNEL_TEMP = "TEMP";
 
 #ifdef _WIN32
 #include <windows.h>
-void DLOG(const char* channel, const char* fmt, ...)
+#include "String.h"
+
+
+void DLOG(const char* channel, const char* format, ...)
 {
   
   OutputDebugStringA(channel);
   OutputDebugStringA(": ");
-  char    buf[4096], *p = buf;
+
+  va_list args;
+  va_start(args, format);
+
+  int length = _vscprintf(format, args) + 1; // _vscprintf doesn't count terminating '\0'
+
+  char* buffer = (char*)malloc(length * sizeof(char));
+
+  vsprintf_s(buffer, length, format, args);
+
+  va_end(args);
+
+
+  /*char    buf[4096], *p = buf;
   va_list args;
   int     n;
 
@@ -35,9 +51,9 @@ void DLOG(const char* channel, const char* fmt, ...)
 
   *p++ = '\r';
   *p++ = '\n';
-  *p   = '\0';
+  *p   = '\0';*/
 
-  OutputDebugStringA(buf);
+  OutputDebugStringA(buffer);
 }
 #else
 void DLOG(const char* channel, const char* fmt, ...) {

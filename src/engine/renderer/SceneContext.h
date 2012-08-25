@@ -16,6 +16,7 @@ public:
   
   SceneContext() 
     : shadowTexture_(0)
+    , fogType_(FOG_NONE)
     , fogStart_(0)
     , fogEnd_(0)
     , fogFactor_(0) { }
@@ -66,14 +67,16 @@ private:
   std::vector<PointLight> pointLights_;
   std::vector<SpotLight*> spotLights_;
   
-  unsigned int shadowTexture_;
-  float fogStart_;
-  float fogEnd_;
-  FogType fogType_;
-  float fogFactor_;
   Color4 fogColor_;
   Color4 backgroundColor_;
-    
+
+  unsigned int shadowTexture_;
+  FogType fogType_;
+  
+  float fogStart_;
+  float fogEnd_;
+  float fogFactor_;
+  
 };
 
 inline void SceneContext::setFog(FogType fogType, float fogFactor, float fogStart, float fogEnd, const Color4 &fogColor) {
