@@ -13,11 +13,3 @@ IEffect* IEffect::effectFromFile(const std::string& relativeFilePath) {
   effect->load(fullFilePath);
   return effect;
 }
-
-void IEffect::beginDraw() {
- 
-}
-
-void IEffect::resetStates() {
-
-}

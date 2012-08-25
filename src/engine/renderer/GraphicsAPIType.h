@@ -8,4 +8,5 @@ enum GraphicsAPIType {
   GRAPHICSAPI_MAX = 3
 };
 
+
 #endif

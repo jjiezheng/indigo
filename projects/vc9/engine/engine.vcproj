@@ -292,22 +292,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\engine\renderer\Renderer3d.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\engine\renderer\Renderer3d.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\engine\renderer\RendererShadow.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\engine\renderer\RendererShadow.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\engine\renderer\SceneContext.h"
 				>
 			</File>

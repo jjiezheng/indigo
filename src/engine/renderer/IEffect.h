@@ -26,9 +26,7 @@ public:
 
 public:
 
-  virtual void beginDraw();
-
-  virtual void resetStates();
+  virtual void beginDraw() = 0;
 
 public:
 
