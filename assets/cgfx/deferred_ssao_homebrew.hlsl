@@ -23,9 +23,6 @@ SamplerState DepthMapSamplerState;
 uniform float4x4 Projection;
 uniform float4x4 ProjInv;
 
-uniform float4x4 ViewProjInv;
-uniform float4x4 View;
-
 struct VOutput {
       float4 position 		: SV_POSITION;
       float2 texCoord		: TEXCOORD0;

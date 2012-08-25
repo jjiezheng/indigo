@@ -5,6 +5,8 @@
 #include <math.h>
 #include <sstream>
 
+#include "Angles.h"
+
 Vector3 Vector3::IDENTITY = Vector3(0, 0, 0);
 Vector3 Vector3::FORWARD = Vector3(0, 0, -1);
 Vector3 Vector3::RIGHT = Vector3(1, 0, 0);
@@ -28,13 +30,13 @@ Vector3 Vector3::operator - () const {
   return *this * -1.0f;
 }
 
-Vector3 Vector3::rotateX(float degrees) {
-  Matrix3x3 rotation = Matrix3x3::rotationX(degrees);
+Vector3 Vector3::rotateX(float radians) {
+  Matrix3x3 rotation = Matrix3x3::rotationX(radians);
   return rotation * (*this);
 }
 
-Vector3 Vector3::rotateY(float degrees) {
-  Matrix3x3 rotation = Matrix3x3::rotationY(degrees);
+Vector3 Vector3::rotateY(float radians) {
+  Matrix3x3 rotation = Matrix3x3::rotationY(radians);
   return rotation * (*this);
 }
 

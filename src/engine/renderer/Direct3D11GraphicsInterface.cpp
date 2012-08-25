@@ -20,6 +20,7 @@
 #include "io/DDSMipLevel.h"
 
 #include <comdef.h>
+#include <assert.h>
 
 void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, int height, unsigned int multiSamples) {
   multiSamples_ = multiSamples;
@@ -207,7 +208,9 @@ unsigned int Direct3D11GraphicsInterface::loadTexture(const std::string& filePat
 
 }
 
-void Direct3D11GraphicsInterface::setTexture(int textureId, ID3DX11EffectVariable* variable) {
+void Direct3D11GraphicsInterface::setTexture(unsigned int textureId, ID3DX11EffectVariable* variable) {
+  assert(textureId < textures_.size());
+
   DirectXTexture texture = textures_[textureId];
   ID3DX11EffectShaderResourceVariable* resource = variable->AsShaderResource();
   HRESULT result = resource->SetResource(texture.resourceView);
@@ -290,11 +293,13 @@ unsigned int Direct3D11GraphicsInterface::createTexture(const CSize& dimensions,
   return textureId;
 }
 
-void Direct3D11GraphicsInterface::setRenderTarget(unsigned int* renderTargetIds, unsigned int renderTargetCount, bool useDepthBuffer) {
+void Direct3D11GraphicsInterface::setRenderTarget(unsigned int* renderTargetIds, unsigned int renderTargetCount, bool useDepthBuffer) {  
   std::vector<ID3D11RenderTargetView*> renderTargetViews;
 
   for (unsigned int i = 0; i < renderTargetCount; i++) {
     unsigned int renderTargetId = renderTargetIds[i];
+    assert(renderTargetId < renderTargets_.size());
+
     ID3D11RenderTargetView* renderTargetView = renderTargets_[renderTargetId];
     renderTargetViews.push_back(renderTargetView);
   }
@@ -304,6 +309,8 @@ void Direct3D11GraphicsInterface::setRenderTarget(unsigned int* renderTargetIds,
 }
 
 unsigned int Direct3D11GraphicsInterface::createRenderTarget(unsigned int textureId) {
+  assert(textureId < textures_.size());
+
   DirectXTexture texture = textures_[textureId];
   ID3D11RenderTargetView* renderTarget;
 
@@ -316,6 +323,8 @@ unsigned int Direct3D11GraphicsInterface::createRenderTarget(unsigned int textur
 }
 
 void Direct3D11GraphicsInterface::clearRenderTarget(unsigned int renderTargetId, const Color4& color) {
+  assert(renderTargetId < renderTargets_.size());
+
   D3DXCOLOR clearColor(color.r, color.g, color.b, color.a);
   ID3D11RenderTargetView* renderTarget = renderTargets_[renderTargetId];
   deviceConnection_->ClearRenderTargetView(renderTarget, clearColor);
@@ -327,6 +336,8 @@ void Direct3D11GraphicsInterface::resetRenderTarget() {
 }
 
 void Direct3D11GraphicsInterface::generateMipMaps(unsigned int textureId) {
+  assert(textureId < textures_.size());
+
   DirectXTexture texture = textures_[textureId];
 
   D3D11_SHADER_RESOURCE_VIEW_DESC resourceViewDesc;

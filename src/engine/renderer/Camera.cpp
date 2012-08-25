@@ -11,6 +11,7 @@ Camera::Camera()
   : forward_(Vector3::FORWARD)
   , right_(Vector3::RIGHT)
   , up_(Vector3::UP)
+  , position_(Vector3::IDENTITY)
   , nearDistance_(0)
   , farDistance_(0)
   , fov_(0)
@@ -88,10 +89,10 @@ void Camera::moveRight(float speed) {
   position_ = position_ + (right_ * speed);
 }
 
-void Camera::rotateY(float degrees) {
-  rotationY_ += degrees;
-  forward_ = forward_.rotateY(degrees);
-  right_ = right_.rotateY(degrees);
+void Camera::rotateY(float radians) {
+  rotationY_ += radians;
+  forward_ = forward_.rotateY(radians);
+  right_ = right_.rotateY(radians);
 }
 
 void Camera::rotateX(float degrees) {

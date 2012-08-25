@@ -25,9 +25,9 @@ public:
     
 public:
   
-  void rotateY(float degrees);
+  void rotateY(float radians);
   
-  void rotateX(float degrees);
+  void rotateX(float radians);
   
 public:
   

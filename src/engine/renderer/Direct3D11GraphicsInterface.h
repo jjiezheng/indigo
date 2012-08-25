@@ -54,7 +54,7 @@ public:
 
   unsigned int createTexture(const CSize& dimensions, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize);
 
-  void setTexture(int textureId, ID3DX11EffectVariable* variable);
+  void setTexture(unsigned int textureId, ID3DX11EffectVariable* variable);
 
   void generateMipMaps(unsigned int textureId);
 

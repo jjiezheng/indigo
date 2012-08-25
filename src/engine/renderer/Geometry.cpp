@@ -28,6 +28,6 @@ unsigned int Geometry::screenPlane() {
   quadVertices[4].uv = Vector2(1.0f, 0.0f);
   quadVertices[5].uv = Vector2(1.0f, 1.0f);
 
-  unsigned int vbo = GraphicsInterface::createVertexBuffer(quadVertices, SCREEN_PLANE_VERTEX_COUNT);
+  GraphicsInterface::VertexBuffer vbo = GraphicsInterface::createVertexBuffer(quadVertices, SCREEN_PLANE_VERTEX_COUNT);
   return vbo;
 }

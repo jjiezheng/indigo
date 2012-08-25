@@ -36,8 +36,8 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
     float x = Random::random(-1.0f, 1.0f);
     float y = Random::random(-1.0f, 1.0f);
     float z = Random::random(0.0f, 1.0f);
+
     Vector4 kernelV(x, y, z, 0.0f);
-    LOG(LOG_CHANNEL_SHADER, "%s", kernelV.toString().c_str()); 
     Vector4 kernelN = kernelV.normalize();
     kernel[i] = kernelV;
 
@@ -90,11 +90,6 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
     ssaoEffect_->setUniform(viewer->projection(), "Projection");
     ssaoEffect_->setUniform(viewer->projection().inverse(), "ProjInv");
 
-    Matrix4x4 viewProjection = viewer->projection() * viewer->viewTransform();
-    ssaoEffect_->setUniform(viewProjection, "ViewProj");
-    ssaoEffect_->setUniform(viewer->viewTransform(), "View");
-    ssaoEffect_->setUniform(viewProjection.inverse(), "ViewProjInv");
-
     ssaoEffect_->setUniform(viewer->nearDistance(), "Near");
     ssaoEffect_->setUniform(viewer->farDistance(), "Far");
 
@@ -103,7 +98,6 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
     ssaoEffect_->setTexture(initStage.colorMap(), "ColorMap");
 
     ssaoEffect_->beginDraw();
-    GraphicsInterface::setRenderState(true);
     GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
 
     GraphicsInterface::endPerformanceEvent();
@@ -126,7 +120,6 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
     combineEffect_->setTexture(blur_.outputTexture(), "SSAOMap");
     combineEffect_->beginDraw();
     
-    GraphicsInterface::setRenderState(true);
     GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
 
     GraphicsInterface::endPerformanceEvent();
