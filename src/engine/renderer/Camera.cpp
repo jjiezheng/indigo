@@ -107,9 +107,14 @@ Matrix4x4 Camera::rotation() const {
   return rotation;
 }
 
-Matrix4x4 Camera::transform() const {
+Matrix4x4 Camera::translation() const {
   Matrix4x4 translation = Matrix4x4::translation(position_);
-  return translation * rotation();
+  return translation;
+}
+
+Matrix4x4 Camera::transform() const {
+  Matrix4x4 transform = translation() * rotation();
+  return transform;
 }
 
 Matrix4x4 Camera::viewTransform() const {

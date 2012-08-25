@@ -26,6 +26,6 @@ technique11 Main {
 	pass P0 {
 		SetVertexShader(CompileShader(vs_4_0, vs()));
 		SetPixelShader(CompileShader(ps_4_0, ps()));
-		SetBlendState(Add, float4(0.0f, 0.0f, 0.0f, 0.0f), 0xFFFFFFFF);
+		SetBlendState(Blend, float4(0.0f, 0.0f, 0.0f, 0.0f), 0xFFFFFFFF);
 	}
 }

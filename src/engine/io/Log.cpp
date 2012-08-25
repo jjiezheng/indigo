@@ -8,6 +8,7 @@ const char* LOG_CHANNEL_IO = "IO";
 const char* LOG_CHANNEL_GL_UTILS = "GL_UTILS";
 const char* LOG_CHANNEL_GRAPHICS_API = "GRAPHICS API";
 const char* LOG_CHANNEL_TEMP = "TEMP";
+const char* LOG_CHANNEL_RENDERER = "RENDERER";
 
 #include <stdio.h>
 #include <stdarg.h>
@@ -18,9 +19,7 @@ const char* LOG_CHANNEL_TEMP = "TEMP";
 #include "String.h"
 
 
-void DLOG(const char* channel, const char* format, ...)
-{
-  
+void DLOG(const char* channel, const char* format, ...) {
   OutputDebugStringA(channel);
   OutputDebugStringA(": ");
 
@@ -29,29 +28,13 @@ void DLOG(const char* channel, const char* format, ...)
 
   int length = _vscprintf(format, args) + 1; // _vscprintf doesn't count terminating '\0'
 
-  char* buffer = (char*)malloc(length * sizeof(char));
-
+  unsigned int bufferSize = (length * sizeof(char)) + 1;
+  char* buffer = (char*)malloc(bufferSize);
   vsprintf_s(buffer, length, format, args);
-
   va_end(args);
 
-
-  /*char    buf[4096], *p = buf;
-  va_list args;
-  int     n;
-
-  va_start(args, fmt);
-  n = vsnprintf(p, sizeof buf - 3, fmt, args); // buf-3 is room for CR/LF/NUL
-  va_end(args);
-
-  p += (n < 0) ? sizeof buf - 3 : n;
-
-  while ( p > buf  &&  isspace(p[-1]) )
-    *--p = '\0';
-
-  *p++ = '\r';
-  *p++ = '\n';
-  *p   = '\0';*/
+  buffer[bufferSize - 2] = '\n';
+  buffer[bufferSize - 1] = '\0';
 
   OutputDebugStringA(buffer);
 }

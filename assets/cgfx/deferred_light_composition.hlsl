@@ -25,10 +25,10 @@ VOutput vs(float4 position 		: POSITION,
 
 float4 ps(float4 position	: SV_POSITION,
 		  float2 texCoord	: TEXCOORD0) : SV_TARGET0 {
-	float3 diffuseColor = ColorMap.Sample(ColorMapSamplerState, texCoord).rgb;
+	float4 diffuseColor = ColorMap.Sample(ColorMapSamplerState, texCoord);
 	float4 diffuseLight = LightSourceMap.Sample(LightSourceMapSamplerState, texCoord);
-	float3 finalColor = diffuseColor * diffuseLight.rgb + diffuseLight.w;
-	return float4(finalColor, 1.0f);
+	float3 finalColor = diffuseColor.rgb * diffuseLight.rgb + diffuseLight.w;
+	return float4(finalColor, diffuseColor.a);
 }
 
 technique11 Main {

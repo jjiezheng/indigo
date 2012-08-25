@@ -1,0 +1,13 @@
+{
+	"mesh" : "skydomes/skydome.dae",
+	"materials" : 
+	[
+		{
+		  "effect" : "cgfx/colormap.hlsl",
+		  "parameters" : { },
+		  "textures" : {
+		    "ColorMap" : "skydomes/clear_midmorning/clear_midmorning.png"
+		  }
+		}
+	]
+}

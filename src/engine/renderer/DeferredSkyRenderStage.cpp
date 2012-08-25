@@ -24,10 +24,11 @@ void DeferredSkyRenderStage::render(IViewer* viewer, World& world, DeferredLight
   {
     GraphicsInterface::beginPerformanceEvent("SkyDome", Color4::MAGENTA);
 
-    GraphicsInterface::clearRenderTarget(skyRenderTarget_, Color4::BLACK);
+    GraphicsInterface::clearRenderTarget(skyRenderTarget_, Color4::TRANSPAREN);
 
     GraphicsInterface::setRenderTarget(skyRenderTarget_, false);
-    world.skyDome().render(viewer->projection(), viewer->viewTransform(), Matrix4x4::IDENTITY);
+
+    world.skyDome().render(viewer->projection(), viewer->viewTransform(), viewer->translation());
 
     GraphicsInterface::endPerformanceEvent();
   }
@@ -40,7 +41,6 @@ void DeferredSkyRenderStage::render(IViewer* viewer, World& world, DeferredLight
     compositeEffect_->setTexture(lightingStage.lightMap(), "ColorMap");
 
     compositeEffect_->beginDraw();
-    GraphicsInterface::setRenderState(true);
     GraphicsInterface::drawVertexBuffer(quadVBO_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
 
     GraphicsInterface::endPerformanceEvent();

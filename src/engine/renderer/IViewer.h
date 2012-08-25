@@ -16,6 +16,8 @@ public:
   
   virtual Vector4 position() const = 0;
 
+  virtual Matrix4x4 translation() const = 0;
+
   virtual float fov() const = 0;
 
   virtual float aspectRatio() const = 0;

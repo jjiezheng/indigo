@@ -52,6 +52,8 @@ public:
   Matrix4x4 transform() const;
 
   Matrix4x4 viewTransform() const;
+
+  Matrix4x4 translation() const;
   
 public:
 
