@@ -98,7 +98,7 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
     ssaoEffect_->setTexture(initStage.colorMap(), "ColorMap");
 
     ssaoEffect_->beginDraw();
-    GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
+    GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);
 
     GraphicsInterface::endPerformanceEvent();
   }
@@ -120,7 +120,7 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
     combineEffect_->setTexture(blur_.outputTexture(), "SSAOMap");
     combineEffect_->beginDraw();
     
-    GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
+    GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);
 
     GraphicsInterface::endPerformanceEvent();
   }

@@ -8,7 +8,7 @@
 std::string File::data() {
   std::ifstream file_stream(file_path.c_str());
   if (!file_stream) {
-    LOG("Failed to open file %s", file_path.c_str());
+    LOG(LOG_CHANNEL_IO, "Failed to open file %s", file_path.c_str());
   }
   std::stringstream data;
   data << file_stream.rdbuf();

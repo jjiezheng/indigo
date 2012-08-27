@@ -212,6 +212,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\engine\renderer\HeightMap.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\engine\renderer\HeightMap.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\engine\renderer\IEffect.cpp"
 				>
 			</File>
@@ -325,6 +333,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\engine\renderer\VertexDefinition.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\engine\renderer\VertexFormat.h"
 				>
 			</File>
 			<File

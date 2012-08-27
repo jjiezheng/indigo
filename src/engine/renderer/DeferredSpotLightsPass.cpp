@@ -145,7 +145,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
       accumulationEffect_->setTexture(initStage.colorMap(), "ColorMap");
       accumulationEffect_->beginDraw();
       GraphicsInterface::setRenderState(true);
-      GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
+      GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);
 
       GraphicsInterface::endPerformanceEvent();
     }

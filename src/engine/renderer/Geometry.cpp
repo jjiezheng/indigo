@@ -2,8 +2,10 @@
 
 #include "GraphicsInterface.h"
 #include "VertexDefinition.h"
+#include "VertexFormat.h"
 
 int Geometry::SCREEN_PLANE_VERTEX_COUNT = 6;
+VertexFormat Geometry::SCREEN_PLANE_VERTEX_FORMAT =  TRIANGLE_LIST;
 
 unsigned int Geometry::screenPlane() {
   VertexDef quadVertices[6];

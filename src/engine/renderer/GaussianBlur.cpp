@@ -42,7 +42,7 @@ void GaussianBlur::render(unsigned int sourceTexture) {
     gaussianBlurHorizontalEffect_->setUniform(bufferSize_.width, "SceneWidth");
 
     gaussianBlurHorizontalEffect_->beginDraw();
-    GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);         
+    GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);         
   }
 
   {
@@ -55,7 +55,7 @@ void GaussianBlur::render(unsigned int sourceTexture) {
     gaussianBluVerticalEffect_->setUniform(bufferSize_.height, "SceneHeight");
 
     gaussianBluVerticalEffect_->beginDraw();
-    GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);         
+    GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);         
   }
 
   GraphicsInterface::generateMipMaps(outputRenderTarget_);

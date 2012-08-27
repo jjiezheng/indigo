@@ -1,0 +1,27 @@
+{
+	"heightmap" : "terrain/flat.raw",
+	"material" : {
+	  "effect" : "cgfx/deferred_render_color_normal_depth.hlsl",
+	  "parameters" : {
+	    "SpecularPower" : {
+	      "value" : 80,
+	      "type" : "float"
+	    },
+	    "SpecularIntensity" : {
+	      "value" : 2.8,
+	      "type" : "float"
+	    },
+	    "DiffusePower" : {
+	        "value" : 1.0,
+	        "type" : "float"
+	    },
+	    "DiffuseColor" : {
+	      "r" : 1.0,
+	      "g" : 1.0,
+	      "b" : 1.0,
+	      "type" : "color3"
+	    }
+	  },
+	  "textures" : { }
+	}
+}

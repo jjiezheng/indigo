@@ -148,14 +148,20 @@ unsigned int Direct3D11GraphicsInterface::createVertexBuffer(VertexDef* vertexDa
   return bufferId;
 }
 
-void Direct3D11GraphicsInterface::drawVertexBuffer(int vertexBuffer, int vertexCount) {
+void Direct3D11GraphicsInterface::drawVertexBuffer(int vertexBuffer, int vertexCount, VertexFormat vertexFormat) {
   ID3D11Buffer* buffer = vertexBuffers_[vertexBuffer];
 
   UINT stride = sizeof(VertexDef);
   UINT offset = 0;
 
+  D3D11_PRIMITIVE_TOPOLOGY triangleTopology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
+
+  if (vertexFormat == TRIANGLE_STRIP) {
+    triangleTopology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP;
+  }
+
   deviceConnection_->IASetVertexBuffers(0, 1, &buffer, &stride, &offset);
-  deviceConnection_->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+  deviceConnection_->IASetPrimitiveTopology(triangleTopology);
   deviceConnection_->Draw(vertexCount, 0);
 }
 

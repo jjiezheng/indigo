@@ -45,8 +45,8 @@ unsigned int GraphicsInterface::createVertexBuffer(VertexDef* vertexData, int nu
   return graphicsInterface_->createVertexBuffer(vertexData, numVertices);
 }
 
-void GraphicsInterface::drawVertexBuffer(int vertexBuffer, int vertexCount) {
-  graphicsInterface_->drawVertexBuffer(vertexBuffer, vertexCount);
+void GraphicsInterface::drawVertexBuffer(int vertexBuffer, int vertexCount, VertexFormat vertexFormat) {
+  graphicsInterface_->drawVertexBuffer(vertexBuffer, vertexCount, vertexFormat);
 }
 
 IEffect* GraphicsInterface::createEffect() {

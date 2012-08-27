@@ -35,7 +35,7 @@ public:
 
   unsigned int createVertexBuffer(VertexDef* vertexData, int numVertices);
 
-  void drawVertexBuffer(int vertexBuffer, int vertexCount);
+  void drawVertexBuffer(int vertexBuffer, int vertexCount, VertexFormat vertexFormat);
 
   void clearBuffer(const Color4& color);
 

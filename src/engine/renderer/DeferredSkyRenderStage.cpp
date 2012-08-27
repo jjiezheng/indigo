@@ -41,7 +41,7 @@ void DeferredSkyRenderStage::render(IViewer* viewer, World& world, DeferredLight
     compositeEffect_->setTexture(lightingStage.lightMap(), "ColorMap");
 
     compositeEffect_->beginDraw();
-    GraphicsInterface::drawVertexBuffer(quadVBO_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
+    GraphicsInterface::drawVertexBuffer(quadVBO_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);
 
     GraphicsInterface::endPerformanceEvent();
   }

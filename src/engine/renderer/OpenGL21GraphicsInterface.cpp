@@ -169,7 +169,7 @@ unsigned int OpenGL21GraphicsInterface::createVertexBuffer(VertexDef* vertexData
   return vertexArray;
 }
 
-void OpenGL21GraphicsInterface::drawVertexBuffer(int vertexBuffer, int vertexCount) {
+void OpenGL21GraphicsInterface::drawVertexBuffer(int vertexBuffer, int vertexCount, VertexFormat vertexFormat) {
   glBindVertexArray(vertexBuffer);
   glDrawArrays(GL_TRIANGLES, 0, vertexCount);
 }

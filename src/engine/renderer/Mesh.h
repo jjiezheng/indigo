@@ -8,6 +8,8 @@
 
 #include "Color3.h"
 #include "Material.h"
+#include "VertexFormat.h"
+
 
 class Shader;
 class Material;
@@ -20,6 +22,8 @@ class Mesh {
 
 public:
 
+public:
+
   Mesh()
     : numVertices_(0)
     , vertexBuffer_(0)
@@ -27,7 +31,7 @@ public:
 
 public:
   
-  void init(VertexDef* vertexData, unsigned int numVertices);
+  void init(VertexDef* vertexData, unsigned int numVertices, VertexFormat vertexFormat);
   
 public:
 
@@ -47,6 +51,7 @@ private:
   
   unsigned int numVertices_;
   unsigned int vertexBuffer_;
+  VertexFormat vertexFormat_;
     
   Material material_;
   Model* parent_;

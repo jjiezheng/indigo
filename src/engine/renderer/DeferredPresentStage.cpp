@@ -19,7 +19,7 @@ void DeferredPresentStage::render(unsigned int presentTextureId) {
   effect_->beginDraw();
   effect_->setTexture(presentTextureId, "Texture");
   GraphicsInterface::setRenderState(true);
-  GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
+  GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);
 
   GraphicsInterface::endPerformanceEvent();
 }

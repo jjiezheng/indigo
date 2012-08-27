@@ -5,6 +5,7 @@
 #include "core/Size.h"
 
 #include "GraphicsAPIType.h"
+#include "VertexFormat.h"
 
 class IGraphicsInterface;
 class IEffect;
@@ -48,7 +49,7 @@ public:
 
   static unsigned int createVertexBuffer(VertexDef* vertexData, int numVertices);
 
-  static void drawVertexBuffer(int vertexBuffer,int vertexCount);
+  static void drawVertexBuffer(int vertexBuffer,int vertexCount, VertexFormat vertexFormat);
 
   static void setRenderState(bool cullBack);
 

@@ -40,6 +40,8 @@
 
 #include "maths/Angles.h"
 
+#include "HeightMap.h"
+
 void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, SceneContext& sceneContext) {
   std::string fullFilePath = Path::pathForFile(filePath);
   std::ifstream levelFile(fullFilePath.c_str(), std::ifstream::in);
@@ -65,6 +67,13 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
 
   Color4 backgroundColor3(r, g, b, 1);
   sceneContext.setBackgroundColor(backgroundColor3);
+
+  json::Array terrainArray = sceneObject["terrain"];
+  json::Array::iterator tit = terrainArray.begin();
+
+  for(; tit != terrainArray.end(); ++tit) {
+    loadTerrain((*tit), world);
+  }
   
   json::Array objectsArray = sceneObject["objects"];
   json::Array::iterator oit = objectsArray.begin();
@@ -311,7 +320,7 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
     json::Array materialsArray = modelObject["materials"];
     json::Array::const_iterator mit = materialsArray.begin();
     for (; mit != materialsArray.end(); ++mit) {
-      Material material = loadMaterial(model, (*mit));
+      Material material = loadMaterial((*mit));
       materials.push_back(material);
     }
   }
@@ -356,7 +365,7 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
 
       Mesh mesh;
       Material material = materials[i];
-      mesh.init(defs, aiMesh->mNumVertices);
+      mesh.init(defs, aiMesh->mNumVertices, TRIANGLE_LIST);
       mesh.setMaterial(material);
       model->addMesh(mesh);
       
@@ -366,7 +375,7 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
   }
 }
 
-Material WorldLoader::loadMaterial(Model* model, const json::Object& materialObject) {
+Material WorldLoader::loadMaterial(const json::Object& materialObject) {
  
   json::String effectFilePath = materialObject["effect"];
  
@@ -433,4 +442,32 @@ void WorldLoader::loadEffect(Material& material, const std::string &shaderFilePa
   std::string fullEffectPath = Path::pathForFile(shaderFilePath);
   int effectId = EffectCache::instance()->loadEffect(fullEffectPath);
   material.setEffect(effectId);
+}
+
+void WorldLoader::loadTerrain(const json::Object& objectItem, World& world) {
+  json::String terrainFileString = objectItem["terrain"];
+  std::string terrainFilePath = terrainFileString.Value();
+  std::string fullTerrainFilePath = Path::pathForFile(terrainFilePath);
+  std::ifstream terrainFile(fullTerrainFilePath.c_str(), std::ifstream::in);
+  
+  json::Object terrainObject;
+  json::Reader::Read(terrainObject, terrainFile);
+
+  json::String heightmapString = terrainObject["heightmap"];
+  std::string heightmap = heightmapString.Value();
+
+  HeightMap heightMap;
+  heightMap.load(heightmap);
+
+  json::Object materialObject = terrainObject["material"];
+  Material material = loadMaterial(materialObject);
+
+  Mesh mesh;
+  mesh.init(heightMap.vertices, heightMap.vertexCount, heightMap.vertexFormat);
+  mesh.setMaterial(material);
+
+  Model* model = new Model();
+  model->addMesh(mesh);
+
+  world.addObject(model);
 }

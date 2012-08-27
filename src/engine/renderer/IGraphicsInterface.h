@@ -5,6 +5,7 @@
 
 #include "GraphicsAPIType.h"
 #include "core/Size.h"
+#include "VertexFormat.h"
 
 class IEffect;
 class Color4;
@@ -42,7 +43,7 @@ public:
 
   virtual unsigned int createVertexBuffer(VertexDef* vertexData, int numVertices) = 0;
 
-  virtual void drawVertexBuffer(int vertexBuffer, int vertexCount) = 0;
+  virtual void drawVertexBuffer(int vertexBuffer, int vertexCount, VertexFormat vertexFormat) = 0;
 
   virtual void clearBuffer(const Color4& color) = 0;
 

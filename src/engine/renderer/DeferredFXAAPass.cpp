@@ -33,7 +33,7 @@ unsigned int DeferredFXAAPass::render(IViewer* viewer, unsigned int inputMap, co
 
     colorLumaEffect_->beginDraw();
     GraphicsInterface::setRenderState(true);
-    GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
+    GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);
 
     GraphicsInterface::endPerformanceEvent();
   }
@@ -53,7 +53,7 @@ unsigned int DeferredFXAAPass::render(IViewer* viewer, unsigned int inputMap, co
 
     fxaaEffect_->beginDraw();
     GraphicsInterface::setRenderState(true);
-    GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT);
+    GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);
 
     GraphicsInterface::endPerformanceEvent();
   }
