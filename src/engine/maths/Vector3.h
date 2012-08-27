@@ -22,6 +22,14 @@ public:
   static Vector3 UP;
   
 public:
+
+  Vector3 cross(const Vector3& other) const;
+
+  Vector3 normalize() const;
+
+  float length() const;
+
+public:
   
   Vector3 rotateX(float degrees);
   
@@ -40,6 +48,8 @@ public:
   inline float const * valuePtr() const;
   
   Vector3 operator + (const Vector3& other) const;
+
+  Vector3 operator - (const Vector3& other) const;
   
   Vector3 operator * (float scalar) const;
   

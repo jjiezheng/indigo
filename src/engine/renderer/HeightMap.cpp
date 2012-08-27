@@ -12,6 +12,7 @@
 
 #include "VertexDefinition.h"
 #include "Mesh.h"
+#include "maths/Vector3.h"
 
 void HeightMap::load(const std::string& heightMapFile) {
   std::string fullFilePath = Path::pathForFile(heightMapFile);
@@ -153,4 +154,52 @@ void HeightMap::load(const std::string& heightMapFile) {
   }
 
   LOG(LOG_CHANNEL_RENDERER, "Processed %d vertices", vertexIndex);
+
+  // Calculating Normals
+  for (unsigned int i = 0; i < heightMapSquareSize * heightMapSquareSize; i++) {
+    unsigned int vertexIndex = i * 2;
+
+    VertexDef vertex = vertices[vertexIndex];
+
+    VertexDef leftVertex;
+    if (i > 0) {
+      unsigned int leftVertexIndex = vertexIndex - 2;
+      leftVertex = vertices[leftVertexIndex];
+    } else {
+      leftVertex = vertex;
+    }
+
+    VertexDef rightVertex;
+    if (i < heightMapSquareSize - 1) {
+      unsigned int rightVertexIndex = vertexIndex + 2;
+      rightVertex = vertices[rightVertexIndex];
+    } else {
+      rightVertex = vertex;
+    }
+
+    Vector3 x = rightVertex.vertex - leftVertex.vertex;
+    Vector3 xNormalized = x.normalize();
+
+    VertexDef bottomVertex;
+    if (i > 0) {
+      unsigned int bottomVertexIndex = vertexIndex - heightMapSquareSize;
+      bottomVertex = vertices[bottomVertexIndex];
+    } else {
+      bottomVertex = vertex;
+    }
+
+    VertexDef topVertex;
+    if (i < heightMapSquareSize - 1) {
+      unsigned int topVertexIndex = vertexIndex + 1;
+      topVertex = vertices[topVertexIndex];
+    } else {
+      topVertex = vertex;
+    }
+
+    Vector3 z = topVertex.vertex - bottomVertex.vertex;
+    Vector3 zNormalized = z.normalize();
+
+    Vector3 normal = zNormalized.cross(xNormalized);
+    vertices[vertexIndex].normal = normal.normalize();
+  }
 }
