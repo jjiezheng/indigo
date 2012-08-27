@@ -28,9 +28,13 @@ void HeightMap::load(const std::string& heightMapFile) {
 
   unsigned int heightMapSquareSize = (unsigned int)sqrt((double)pixelCount);
 
-  vertexCount = ((2 * (heightMapSquareSize * heightMapSquareSize)) - (2 * heightMapSquareSize)) + (heightMapSquareSize - 1);
+  vertexCount = ((2 * heightMapSquareSize) + 1) * (heightMapSquareSize - 1);
+
+  LOG(LOG_CHANNEL_RENDERER, "Allocating for %d vertices", vertexCount);
   vertices = new VertexDef[vertexCount];
   vertexFormat = TRIANGLE_STRIP;
+
+  float heightResolution = 104;
 
   unsigned int vertexIndex = 0;
 
@@ -43,10 +47,10 @@ void HeightMap::load(const std::string& heightMapFile) {
         float height = pixelColor / 255.0f;
 
         vertices[vertexIndex].vertex.x = (float)j;
-        vertices[vertexIndex].vertex.y = height;
+        vertices[vertexIndex].vertex.y = height * heightResolution;
         vertices[vertexIndex].vertex.z = (float)i;
 
-        LOG(LOG_CHANNEL_RENDERER, "%f %f %f", vertices[vertexIndex].vertex.x, vertices[vertexIndex].vertex.y, vertices[vertexIndex].vertex.z);
+        //LOG(LOG_CHANNEL_RENDERER, "%f %f %f", vertices[vertexIndex].vertex.x, vertices[vertexIndex].vertex.y, vertices[vertexIndex].vertex.z);
         vertexIndex++;
       }
 
@@ -60,31 +64,38 @@ void HeightMap::load(const std::string& heightMapFile) {
         }
 
         vertices[vertexIndex].vertex.x = (float)j;
-        vertices[vertexIndex].vertex.y = height;
+        vertices[vertexIndex].vertex.y = height * heightResolution;
         vertices[vertexIndex].vertex.z = (float)i + 1;
 
-        LOG(LOG_CHANNEL_RENDERER, "%f %f %f", vertices[vertexIndex].vertex.x, vertices[vertexIndex].vertex.y, vertices[vertexIndex].vertex.z);
+        //LOG(LOG_CHANNEL_RENDERER, "%f %f %f", vertices[vertexIndex].vertex.x, vertices[vertexIndex].vertex.y, vertices[vertexIndex].vertex.z);
         vertexIndex++;  
-
-        if (j + 1 == heightMapSquareSize) {
-          vertices[vertexIndex].vertex.x = (float)j;
-          vertices[vertexIndex].vertex.y = height;
-          vertices[vertexIndex].vertex.z = (float)i + 1;
-
-          LOG(LOG_CHANNEL_RENDERER, "%f %f %f", vertices[vertexIndex].vertex.x, vertices[vertexIndex].vertex.y, vertices[vertexIndex].vertex.z);
-          vertexIndex++;  
-        }
       }
+    }
+
+    {
+      unsigned int pixelIndex = ((i + 1) * heightMapSquareSize) + (heightMapSquareSize - 1);
+      float height = 0.0f;
+
+      vertices[vertexIndex].vertex.x = (float)heightMapSquareSize - 1;
+      vertices[vertexIndex].vertex.y = height * heightResolution;
+      vertices[vertexIndex].vertex.z = (float)i + 1;
+
+      //LOG(LOG_CHANNEL_RENDERER, "%f %f %f", vertices[vertexIndex].vertex.x, vertices[vertexIndex].vertex.y, vertices[vertexIndex].vertex.z);
+      vertexIndex++;  
     }
 
     i++;
 
-    LOG(LOG_CHANNEL_RENDERER, "--");
+    if (vertexIndex >= vertexCount) {
+      break;
+    }
+
+    //LOG(LOG_CHANNEL_RENDERER, "--");
 
     for (int j = heightMapSquareSize - 1; j > -1; j--) {
 
       {
-        unsigned int pixelIndex = ((i + 1) * heightMapSquareSize) + j;
+        unsigned int pixelIndex = (i * heightMapSquareSize) + j;
         float height = 0.0f;
 
         if (pixelIndex < pixelCount) {
@@ -93,9 +104,9 @@ void HeightMap::load(const std::string& heightMapFile) {
         }
 
         vertices[vertexIndex].vertex.x = (float)j;
-        vertices[vertexIndex].vertex.y = height;
+        vertices[vertexIndex].vertex.y = height * heightResolution;
         vertices[vertexIndex].vertex.z = (float)i;
-        LOG(LOG_CHANNEL_RENDERER, "%f %f %f", vertices[vertexIndex].vertex.x, vertices[vertexIndex].vertex.y, vertices[vertexIndex].vertex.z);
+        //LOG(LOG_CHANNEL_RENDERER, "%f %f %f", vertices[vertexIndex].vertex.x, vertices[vertexIndex].vertex.y, vertices[vertexIndex].vertex.z);
         vertexIndex++;
       }
 
@@ -109,23 +120,37 @@ void HeightMap::load(const std::string& heightMapFile) {
         }
 
         vertices[vertexIndex].vertex.x = (float)j;
-        vertices[vertexIndex].vertex.y = height;
+        vertices[vertexIndex].vertex.y = height * heightResolution;
         vertices[vertexIndex].vertex.z = (float)i + 1;
-        LOG(LOG_CHANNEL_RENDERER, "%f %f %f", vertices[vertexIndex].vertex.x, vertices[vertexIndex].vertex.y, vertices[vertexIndex].vertex.z);
+        //LOG(LOG_CHANNEL_RENDERER, "%f %f %f", vertices[vertexIndex].vertex.x, vertices[vertexIndex].vertex.y, vertices[vertexIndex].vertex.z);
         vertexIndex++; 
-
-        if (j - 1 == -1) {
-          vertices[vertexIndex].vertex.x = (float)j;
-          vertices[vertexIndex].vertex.y = height;
-          vertices[vertexIndex].vertex.z = (float)i + 1;
-          LOG(LOG_CHANNEL_RENDERER, "%f %f %f", vertices[vertexIndex].vertex.x, vertices[vertexIndex].vertex.y, vertices[vertexIndex].vertex.z);
-          vertexIndex++;  
-        }
       }
+    }
+
+    {
+      unsigned int pixelIndex = ((i + 1) * heightMapSquareSize) + (heightMapSquareSize - 1);
+      float height = 0.0f;
+
+      if (pixelIndex < pixelCount) {
+        unsigned int pixelColor = pixelData[pixelIndex];
+        height = pixelColor / 255.0f;
+      }
+
+      vertices[vertexIndex].vertex.x = (float)0;
+      vertices[vertexIndex].vertex.y = height * heightResolution;
+      vertices[vertexIndex].vertex.z = (float)i + 1;
+      //LOG(LOG_CHANNEL_RENDERER, "%f %f %f", vertices[vertexIndex].vertex.x, vertices[vertexIndex].vertex.y, vertices[vertexIndex].vertex.z);
+      vertexIndex++;  
     }
 
     i++;
 
-    LOG(LOG_CHANNEL_RENDERER, "--");
+    if (vertexIndex >= vertexCount) {
+      break;
+    }
+
+     //LOG(LOG_CHANNEL_RENDERER, "--");
   }
+
+  LOG(LOG_CHANNEL_RENDERER, "Processed %d vertices", vertexIndex);
 }
