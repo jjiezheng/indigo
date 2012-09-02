@@ -29,177 +29,132 @@ void HeightMap::load(const std::string& heightMapFile) {
 
   unsigned int heightMapSquareSize = (unsigned int)sqrt((double)pixelCount);
 
+  VertexDef** vertexGrid = new VertexDef*[heightMapSquareSize];
+
+  for (unsigned int x = 0; x < heightMapSquareSize; x++) {
+    vertexGrid[x] = new VertexDef[heightMapSquareSize];
+  }
+
+  float heightResolution = 10;
+
+  // created vertex grid
+
+  for (unsigned int z = 0; z < heightMapSquareSize; z++) {
+    for (unsigned int x = 0; x < heightMapSquareSize; x++) {
+      vertexGrid[z][x].vertex.x = 1.0f * x;
+      vertexGrid[z][x].vertex.z = 1.0f * z;
+
+      unsigned int pixelIndex = z * heightMapSquareSize + x;
+      unsigned int pixelColor = pixelData[pixelIndex];
+      float height = pixelColor / 255.0f;
+      float scaledHeight = height * heightResolution;
+      vertexGrid[z][x].vertex.y = scaledHeight;
+    }
+  }
+
+  // calculate normals
+
+  for (unsigned int z = 0; z < heightMapSquareSize; z++) {
+    for (unsigned int x = 0; x < heightMapSquareSize; x++) {
+      VertexDef left;
+
+      if (x > 0) {
+        unsigned int leftIndex = x - 1;
+        left = vertexGrid[z][leftIndex];
+      } else {
+        left = vertexGrid[z][x];
+      }
+
+      VertexDef right;
+
+      if (x < heightMapSquareSize - 1) {
+        unsigned int rightIndex = x + 1;
+        right = vertexGrid[z][rightIndex];
+      } else {
+        right = vertexGrid[z][x];
+      }
+
+      VertexDef bottom;
+      if (z > 0) {
+        unsigned int bottomIndex = z - 1;
+        bottom = vertexGrid[bottomIndex][x];
+      } else {
+        bottom = vertexGrid[z][x];
+      }
+
+      VertexDef top;
+      if (z < heightMapSquareSize - 1) {
+        unsigned int topIndex = z + 1;
+        top = vertexGrid[topIndex][x];
+      } else {
+        top = vertexGrid[z][x];
+      }
+
+      Vector3 width = right.vertex - left.vertex;
+      Vector3 widthNormalized = width.normalize();
+
+      Vector3 height = top.vertex - bottom.vertex;
+      Vector3 heightNormalized = height.normalize();
+
+      Vector3 normal = heightNormalized.cross(widthNormalized);
+      Vector3 normalNormalized = normal.normalize();
+      vertexGrid[z][x].normal = normalNormalized;
+    }
+  }
+
+  // arrange into triangle strip
+
   vertexCount = ((2 * heightMapSquareSize) + 1) * (heightMapSquareSize - 1);
+
+  LOG(LOG_CHANNEL_RENDERER, "Allocated %dx%d heightmap grid totalling %d vertices", heightMapSquareSize, heightMapSquareSize, vertexCount);
 
   LOG(LOG_CHANNEL_RENDERER, "Allocating for %d vertices", vertexCount);
   vertices = new VertexDef[vertexCount];
   vertexFormat = TRIANGLE_STRIP;
 
-  float heightResolution = 104;
-
   unsigned int vertexIndex = 0;
 
-  for (unsigned int i = 0; i < heightMapSquareSize; ) {
-    for (unsigned int j = 0; j < heightMapSquareSize; j++) {
-      
-      {
-        unsigned int pixelIndex = i * heightMapSquareSize + j;
-        unsigned int pixelColor = pixelData[pixelIndex];
-        float height = pixelColor / 255.0f;
+  for (unsigned int z = 0; z < heightMapSquareSize;) {
+    for (unsigned int x = 0; x < heightMapSquareSize; x++) {
+      vertices[vertexIndex] = vertexGrid[z][x];
+      vertexIndex++;
 
-        vertices[vertexIndex].vertex.x = (float)j;
-        vertices[vertexIndex].vertex.y = height * heightResolution;
-        vertices[vertexIndex].vertex.z = (float)i;
-
-        //LOG(LOG_CHANNEL_RENDERER, "%f %f %f", vertices[vertexIndex].vertex.x, vertices[vertexIndex].vertex.y, vertices[vertexIndex].vertex.z);
-        vertexIndex++;
+      if (z < heightMapSquareSize - 1) {
+        unsigned int zIndex = z + 1;
+        vertices[vertexIndex] = vertexGrid[zIndex][x];
       }
+      vertexIndex++;
+    }
 
-      {
-        unsigned int pixelIndex = ((i + 1) * heightMapSquareSize) + j;
-        float height = 0.0f;
+    if (z < heightMapSquareSize - 1) {
+      unsigned int zIndex = z + 1;
+      vertices[vertexIndex] = vertexGrid[zIndex][heightMapSquareSize - 1];
+    }
 
-        if (pixelIndex < pixelCount) {
-          unsigned int pixelColor = pixelData[pixelIndex];
-          height = pixelColor / 255.0f;
-        }
+    vertexIndex++;
 
-        vertices[vertexIndex].vertex.x = (float)j;
-        vertices[vertexIndex].vertex.y = height * heightResolution;
-        vertices[vertexIndex].vertex.z = (float)i + 1;
+    z++;
 
-        //LOG(LOG_CHANNEL_RENDERER, "%f %f %f", vertices[vertexIndex].vertex.x, vertices[vertexIndex].vertex.y, vertices[vertexIndex].vertex.z);
-        vertexIndex++;  
+    for (int x = heightMapSquareSize - 1; x > -1; x--) {
+      vertices[vertexIndex] = vertexGrid[z][x];
+      vertexIndex++;
+
+      if (z < heightMapSquareSize - 1) {
+        unsigned int zIndex = z + 1;
+        vertices[vertexIndex] = vertexGrid[zIndex][x];
       }
+      vertexIndex++;
     }
 
-    {
-      unsigned int pixelIndex = ((i + 1) * heightMapSquareSize) + (heightMapSquareSize - 1);
-      float height = 0.0f;
-
-      vertices[vertexIndex].vertex.x = (float)heightMapSquareSize - 1;
-      vertices[vertexIndex].vertex.y = height * heightResolution;
-      vertices[vertexIndex].vertex.z = (float)i + 1;
-
-      //LOG(LOG_CHANNEL_RENDERER, "%f %f %f", vertices[vertexIndex].vertex.x, vertices[vertexIndex].vertex.y, vertices[vertexIndex].vertex.z);
-      vertexIndex++;  
+    if (z < heightMapSquareSize - 1) {
+      unsigned int zIndex = z + 1;
+      vertices[vertexIndex] = vertexGrid[zIndex][0];
     }
 
-    i++;
+    vertexIndex++;
 
-    if (vertexIndex >= vertexCount) {
-      break;
-    }
-
-    //LOG(LOG_CHANNEL_RENDERER, "--");
-
-    for (int j = heightMapSquareSize - 1; j > -1; j--) {
-
-      {
-        unsigned int pixelIndex = (i * heightMapSquareSize) + j;
-        float height = 0.0f;
-
-        if (pixelIndex < pixelCount) {
-          unsigned int pixelColor = pixelData[pixelIndex];
-          height = pixelColor / 255.0f;
-        }
-
-        vertices[vertexIndex].vertex.x = (float)j;
-        vertices[vertexIndex].vertex.y = height * heightResolution;
-        vertices[vertexIndex].vertex.z = (float)i;
-        //LOG(LOG_CHANNEL_RENDERER, "%f %f %f", vertices[vertexIndex].vertex.x, vertices[vertexIndex].vertex.y, vertices[vertexIndex].vertex.z);
-        vertexIndex++;
-      }
-
-      {
-        unsigned int pixelIndex = ((i + 1) * heightMapSquareSize) + j;
-        float height = 0.0f;
-
-        if (pixelIndex < pixelCount) {
-          unsigned int pixelColor = pixelData[pixelIndex];
-          height = pixelColor / 255.0f;
-        }
-
-        vertices[vertexIndex].vertex.x = (float)j;
-        vertices[vertexIndex].vertex.y = height * heightResolution;
-        vertices[vertexIndex].vertex.z = (float)i + 1;
-        //LOG(LOG_CHANNEL_RENDERER, "%f %f %f", vertices[vertexIndex].vertex.x, vertices[vertexIndex].vertex.y, vertices[vertexIndex].vertex.z);
-        vertexIndex++; 
-      }
-    }
-
-    {
-      unsigned int pixelIndex = ((i + 1) * heightMapSquareSize) + (heightMapSquareSize - 1);
-      float height = 0.0f;
-
-      if (pixelIndex < pixelCount) {
-        unsigned int pixelColor = pixelData[pixelIndex];
-        height = pixelColor / 255.0f;
-      }
-
-      vertices[vertexIndex].vertex.x = (float)0;
-      vertices[vertexIndex].vertex.y = height * heightResolution;
-      vertices[vertexIndex].vertex.z = (float)i + 1;
-      //LOG(LOG_CHANNEL_RENDERER, "%f %f %f", vertices[vertexIndex].vertex.x, vertices[vertexIndex].vertex.y, vertices[vertexIndex].vertex.z);
-      vertexIndex++;  
-    }
-
-    i++;
-
-    if (vertexIndex >= vertexCount) {
-      break;
-    }
-
-     //LOG(LOG_CHANNEL_RENDERER, "--");
+    z++;
   }
 
   LOG(LOG_CHANNEL_RENDERER, "Processed %d vertices", vertexIndex);
-
-  // Calculating Normals
-  for (unsigned int i = 0; i < heightMapSquareSize * heightMapSquareSize; i++) {
-    unsigned int vertexIndex = i * 2;
-
-    VertexDef vertex = vertices[vertexIndex];
-
-    VertexDef leftVertex;
-    if (i > 0) {
-      unsigned int leftVertexIndex = vertexIndex - 2;
-      leftVertex = vertices[leftVertexIndex];
-    } else {
-      leftVertex = vertex;
-    }
-
-    VertexDef rightVertex;
-    if (i < heightMapSquareSize - 1) {
-      unsigned int rightVertexIndex = vertexIndex + 2;
-      rightVertex = vertices[rightVertexIndex];
-    } else {
-      rightVertex = vertex;
-    }
-
-    Vector3 x = rightVertex.vertex - leftVertex.vertex;
-    Vector3 xNormalized = x.normalize();
-
-    VertexDef bottomVertex;
-    if (i > 0) {
-      unsigned int bottomVertexIndex = vertexIndex - heightMapSquareSize;
-      bottomVertex = vertices[bottomVertexIndex];
-    } else {
-      bottomVertex = vertex;
-    }
-
-    VertexDef topVertex;
-    if (i < heightMapSquareSize - 1) {
-      unsigned int topVertexIndex = vertexIndex + 1;
-      topVertex = vertices[topVertexIndex];
-    } else {
-      topVertex = vertex;
-    }
-
-    Vector3 z = topVertex.vertex - bottomVertex.vertex;
-    Vector3 zNormalized = z.normalize();
-
-    Vector3 normal = zNormalized.cross(xNormalized);
-    vertices[vertexIndex].normal = normal.normalize();
-  }
 }
