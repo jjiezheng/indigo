@@ -1,9 +1,0 @@
-PS3_SNC_PPU_Debug/Clock.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/core/Clock.cpp
-PS3_SNC_PPU_Debug/Clock.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/core/Clock.h
-PS3_SNC_PPU_Debug/Clock.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/core/Standard.h
-PS3_SNC_PPU_Debug/Clock.obj: ../../../src/engine/maths/Vector3.h
-PS3_SNC_PPU_Debug/Clock.obj: ../../../src/engine/renderer/Color3.h
-PS3_SNC_PPU_Debug/Clock.obj: ../../../src/engine/io/Log.h
-PS3_SNC_PPU_Debug/Clock.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/core/Types.h
-PS3_SNC_PPU_Debug/Clock.obj: ../../../src/engine/memory/Allocation.h
-PS3_SNC_PPU_Debug/Clock.obj: ../../../src/engine/platform/PlatformDefs.h

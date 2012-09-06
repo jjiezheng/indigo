@@ -1,9 +1,0 @@
-PS3_SNC_PPU_Debug/DeferredPresentStage.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/DeferredPresentStage.cpp
-PS3_SNC_PPU_Debug/DeferredPresentStage.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/DeferredPresentStage.h
-PS3_SNC_PPU_Debug/DeferredPresentStage.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/IEffect.h
-PS3_SNC_PPU_Debug/DeferredPresentStage.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/Geometry.h
-PS3_SNC_PPU_Debug/DeferredPresentStage.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/VertexFormat.h
-PS3_SNC_PPU_Debug/DeferredPresentStage.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/Color4.h
-PS3_SNC_PPU_Debug/DeferredPresentStage.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/GraphicsInterface.h
-PS3_SNC_PPU_Debug/DeferredPresentStage.obj: ../../../src/engine/core/Size.h
-PS3_SNC_PPU_Debug/DeferredPresentStage.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/GraphicsAPIType.h

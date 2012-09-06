@@ -1,9 +1,0 @@
-PS3_SNC_PPU_Debug/Geometry.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/Geometry.cpp
-PS3_SNC_PPU_Debug/Geometry.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/Geometry.h
-PS3_SNC_PPU_Debug/Geometry.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/VertexFormat.h
-PS3_SNC_PPU_Debug/Geometry.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/GraphicsInterface.h
-PS3_SNC_PPU_Debug/Geometry.obj: ../../../src/engine/core/Size.h
-PS3_SNC_PPU_Debug/Geometry.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/GraphicsAPIType.h
-PS3_SNC_PPU_Debug/Geometry.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/VertexDefinition.h
-PS3_SNC_PPU_Debug/Geometry.obj: ../../../src/engine/maths/Vector3.h
-PS3_SNC_PPU_Debug/Geometry.obj: ../../../src/engine/maths/Vector2.h
