@@ -2,7 +2,12 @@
 
 #include "platform/PlatformDefs.h"
 
-#ifdef PLATFORM_WINDOWS || PLATFORM_MAC
+#ifdef PLATFORM_WINDOWS
+  #include "Direct3D11GraphicsInterface.h"
+  #include "OpenGL21GraphicsInterface.h"
+#endif
+
+#ifdef PLATFORM_MAC
   #include "Direct3D11GraphicsInterface.h"
   #include "OpenGL21GraphicsInterface.h"
 #endif
@@ -20,7 +25,13 @@ IGraphicsInterface* IGraphicsInterface::createInterface(GraphicsAPIType graphics
   }
 #endif
 
-#ifdef PLATFORM_WINDOWS || PLATFORM_MAC
+#ifdef PLATFORM_WINDOWS
+  if (graphicsAPIType == GRAPHICSAPI_OPENGL21) {
+    return new OpenGL21GraphicsInterface();
+  }
+#endif
+
+#ifdef PLATFORM_MAC
   if (graphicsAPIType == GRAPHICSAPI_OPENGL21) {
     return new OpenGL21GraphicsInterface();
   }

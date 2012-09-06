@@ -36,7 +36,7 @@ public:
   
 public:
 
-  void visit(std::hash_map<int, std::vector<Mesh*> >& meshes);
+  void visit(stdext::hash_map<int, std::vector<Mesh*> >& meshes);
 
   void render() const;
   

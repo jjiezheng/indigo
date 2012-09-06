@@ -4,7 +4,7 @@
 #include "core/Clock.h"
 
 #include "renderer/World.h"
-#include "renderer/SceneContext.h"*/
+#include "renderer/SceneContext.h"
 #include "renderer/Renderer3dDeferred.h"
 #include "renderer/Camera.h"
 

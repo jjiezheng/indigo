@@ -26,4 +26,4 @@ public:
 
 };
 
-#endif HEIGHTMAP_H
+#endif HEIGHTMAP_mH

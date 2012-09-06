@@ -427,11 +427,11 @@
 					>
 				</File>
 				<File
-					RelativePath=".\OpenGLShadowMap.h"
+					RelativePath="..\..\..\src\engine\renderer\OpenGLShadowMap.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\engine\renderer\OpenGLShadowMap.h"
+					RelativePath=".\OpenGLShadowMap.h"
 					>
 				</File>
 			</Filter>
@@ -661,6 +661,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\engine\core\Clock.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\engine\core\HashMap.h"
 				>
 			</File>
 			<File

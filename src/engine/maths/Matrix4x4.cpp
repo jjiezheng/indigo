@@ -1,12 +1,20 @@
 #include "Matrix4x4.h"
 
 #include <sstream>
+#include <assert.h>
 
 #include "Trigonometry.h"
 #include "Angles.h"
 #include "Vector3.h"
 #include "Vector4.h"
 #include "Matrix3x3.h"
+
+#include "platform/PlatformDefs.h"
+
+#ifdef PLATFORM_WINDOWS
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#endif
 
 Matrix4x4 Matrix4x4::IDENTITY = Matrix4x4(1.0f, 0.0f, 0.0f, 0.0f,
                                           0.0f, 1.0f, 0.0f, 0.0f,
@@ -45,12 +53,17 @@ Matrix4x4 Matrix4x4::scale(const Vector4& v) {
 }
 
 Matrix4x4 Matrix4x4::perspective(float fov, float aspect, float znear, float zfar) {
-  /*glm::mat4 mat = glm::perspective(toDegrees(fov), aspect, znear, zfar);
+#ifdef PLATFORM_WINDOWS
+  glm::mat4 mat = glm::perspective(toDegrees(fov), aspect, znear, zfar);
 
   return Matrix4x4(mat[0][0], mat[0][1], mat[0][2], mat[0][3],
                    mat[1][0], mat[1][1], mat[1][2], mat[1][3],
                    mat[2][0], mat[2][1], mat[2][2], mat[2][3],
-                   mat[3][0], mat[3][1], mat[3][2], mat[3][3]);*/
+                   mat[3][0], mat[3][1], mat[3][2], mat[3][3]);
+#endif
+
+  assert(false);
+
   return Matrix4x4::IDENTITY;
 }
 

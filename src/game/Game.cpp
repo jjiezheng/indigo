@@ -3,6 +3,8 @@
 #include "renderer/GraphicsInterface.h"
 #include "maths/Angles.h"
 
+#include "renderer/WorldLoader.h"
+
 /*#include "platform/WindowsUtils.h"*/
 
 void Game::init(const char* sceneFile) {
@@ -14,8 +16,8 @@ void Game::init(const char* sceneFile) {
   camera_.rotateX(toRadians(-90));
   camera_.setPerspective(toRadians(45.0f), GraphicsInterface::aspectRatio(), 0.5f, 1000.0f);
 
-  /*WorldLoader loader; 
-  loader.loadFromSceneFile(sceneFile, world_, sceneContext_);*/
+  WorldLoader loader; 
+  loader.loadFromSceneFile(sceneFile, world_, sceneContext_);
 
   //WindowsUtils::setKeyboardListener(this);*/
 }

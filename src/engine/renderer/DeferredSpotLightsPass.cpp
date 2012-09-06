@@ -45,7 +45,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
     GraphicsInterface::endPerformanceEvent();
   }
 
-  std::hash_map<int, std::vector<Mesh*> > meshes;
+  stdext::hash_map<int, std::vector<Mesh*> > meshes;
   std::vector<Model*>::iterator it = world.begin();
   for (; it != world.end(); ++it) {
     (*it)->visit(meshes);
@@ -65,7 +65,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
         GraphicsInterface::setRenderTarget((*light)->shadowMapRenderTarget(), true);
         GraphicsInterface::clearRenderTarget((*light)->shadowMapRenderTarget(), Color4::WHITE);
 
-        std::hash_map<int, std::vector<Mesh*> >::iterator i = meshes.begin();
+        stdext::hash_map<int, std::vector<Mesh*> >::iterator i = meshes.begin();
         for (; i != meshes.end(); ++i) {
           std::vector<Mesh*> effectMeshes = (*i).second;
           for (std::vector<Mesh*>::iterator meshIt = effectMeshes.begin(); meshIt != effectMeshes.end(); ++meshIt) {

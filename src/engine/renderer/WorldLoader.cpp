@@ -42,6 +42,8 @@
 
 #include "HeightMap.h"
 
+#include "platform/PlatformDefs.h"
+
 void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, SceneContext& sceneContext) {
   std::string fullFilePath = Path::pathForFile(filePath);
   std::ifstream levelFile(fullFilePath.c_str(), std::ifstream::in);
@@ -72,7 +74,7 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
   json::Array::iterator tit = terrainArray.begin();
 
   for(; tit != terrainArray.end(); ++tit) {
-    loadTerrain((*tit), world);
+    //loadTerrain((*tit), world);
   }
   
   json::Array objectsArray = sceneObject["objects"];
@@ -330,8 +332,8 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
   {  
     std::string fullAssetFilePath = Path::pathForFile(assetFilePath);
     LOG(LOG_CHANNEL_WORLDLOADER, "Loading model %s", fullAssetFilePath.c_str());
-
-    /*Assimp::Importer importer;
+#ifdef PLATFORM_WINDOWS
+    Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(fullAssetFilePath.c_str(), aiProcess_PreTransformVertices  );
     LOG(LOG_CHANNEL_WORLDLOADER, "Submesh count: %d", scene->mNumMeshes);
     
@@ -371,7 +373,8 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
       
     }
     
-    importer.FreeScene();*/
+    importer.FreeScene();
+#endif
   }
 }
 
