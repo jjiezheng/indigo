@@ -9,12 +9,19 @@
 class Vector3;
 
 class World {
+
+public:
+
+  World()
+    : hasSkyDome_(false) { }
   
 public:
   
   void addObject(Model* model);
   
   void setSkyDome(const SkyDome& skyDome);
+
+  bool hasSkyDome() const;
   
   SkyDome skyDome() const;
   
@@ -28,6 +35,7 @@ private:
   std::vector<Model*> models_;
   
   SkyDome skyDome_;
+  bool hasSkyDome_;
 };
 
 inline SkyDome World::skyDome() const {
@@ -49,5 +57,10 @@ inline std::vector<Model*>::iterator World::begin() {
 inline std::vector<Model*>::iterator World::end() {
   return models_.end();
 }
+
+inline bool World::hasSkyDome() const {
+  return hasSkyDome_;
+}
+
 
 #endif

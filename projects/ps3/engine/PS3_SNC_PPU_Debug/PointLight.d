@@ -1,0 +1,9 @@
+PS3_SNC_PPU_Debug/PointLight.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/PointLight.cpp
+PS3_SNC_PPU_Debug/PointLight.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/PointLight.h
+PS3_SNC_PPU_Debug/PointLight.obj: ../../../src/engine/maths/Vector4.h
+PS3_SNC_PPU_Debug/PointLight.obj: ../../../src/engine/maths/Matrix4x4.h
+PS3_SNC_PPU_Debug/PointLight.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/Color3.h
+PS3_SNC_PPU_Debug/PointLight.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/GraphicsInterface.h
+PS3_SNC_PPU_Debug/PointLight.obj: ../../../src/engine/core/Size.h
+PS3_SNC_PPU_Debug/PointLight.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/GraphicsAPIType.h
+PS3_SNC_PPU_Debug/PointLight.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/VertexFormat.h

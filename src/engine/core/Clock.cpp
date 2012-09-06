@@ -2,6 +2,15 @@
 
 #include "platform/PlatformDefs.h"
 
+#ifdef PLATFORM_PS3
+void Clock::init() {
+}
+
+float Clock::delta_time() {
+  return 0.0f;
+}
+#endif
+
 #ifdef PLATFORM_WINDOWS
 
 #include <windows.h>

@@ -6,7 +6,8 @@
 #include <stdarg.h>
 
 String String::withFormat(const char* format, ...) {
-  va_list args;
+
+  /*va_list args;
   va_start(args, format);
 
   int length = _vscprintf( format, args ) + 1; // _vscprintf doesn't count terminating '\0'
@@ -16,7 +17,9 @@ String String::withFormat(const char* format, ...) {
   vsprintf_s(buffer, length, format, args);
 
   va_end(args);
-  return String(buffer);
+  return String(buffer);*/
+
+  return String();
 }
 
 String String::pathExtension() const {
@@ -147,7 +150,8 @@ bool String::contains(const String& token) const {
 }
 
 float String::toFloat() const {
-  return (float)atof(string_.c_str());
+  return 0.0f;
+  //return (float)atof(string_.c_str());
 }
 
 String String::concat(const String& other) const {

@@ -7,6 +7,7 @@ Author: Terry Caton
 ***********************************************/
 
 #include <cassert>
+#include <ctype.h>
 #include <set>
 #include <sstream>
 

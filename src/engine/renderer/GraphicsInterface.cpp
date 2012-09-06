@@ -124,3 +124,8 @@ void GraphicsInterface::endPerformanceEvent() {
   graphicsInterface_->endPerformanceEvent();
 #endif
 }
+
+void GraphicsInterface::getMousePosition(int* x, int* y) {
+  *x = 0;
+  *y = 0;
+}

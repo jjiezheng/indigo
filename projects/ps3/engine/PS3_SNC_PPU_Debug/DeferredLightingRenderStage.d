@@ -1,0 +1,15 @@
+PS3_SNC_PPU_Debug/DeferredLightingRenderStage.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/DeferredLightingRenderStage.cpp
+PS3_SNC_PPU_Debug/DeferredLightingRenderStage.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/DeferredLightingRenderStage.h
+PS3_SNC_PPU_Debug/DeferredLightingRenderStage.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/IDeferredRenderStage.h
+PS3_SNC_PPU_Debug/DeferredLightingRenderStage.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/GraphicsInterface.h
+PS3_SNC_PPU_Debug/DeferredLightingRenderStage.obj: ../../../src/engine/core/Size.h
+PS3_SNC_PPU_Debug/DeferredLightingRenderStage.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/GraphicsAPIType.h
+PS3_SNC_PPU_Debug/DeferredLightingRenderStage.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/VertexFormat.h
+PS3_SNC_PPU_Debug/DeferredLightingRenderStage.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/Color4.h
+PS3_SNC_PPU_Debug/DeferredLightingRenderStage.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/DeferredDirectionalLightsPass.h
+PS3_SNC_PPU_Debug/DeferredLightingRenderStage.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/IDeferredLightingPass.h
+PS3_SNC_PPU_Debug/DeferredLightingRenderStage.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/DeferredSpotLightsPass.h
+PS3_SNC_PPU_Debug/DeferredLightingRenderStage.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/GaussianBlur.h
+PS3_SNC_PPU_Debug/DeferredLightingRenderStage.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/DeferredSkyBoxPass.h
+PS3_SNC_PPU_Debug/DeferredLightingRenderStage.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/IDeferredRenderTargetContainer.h
+PS3_SNC_PPU_Debug/DeferredLightingRenderStage.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/DeferredRenderTarget.h

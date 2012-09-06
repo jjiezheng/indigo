@@ -331,7 +331,7 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
     std::string fullAssetFilePath = Path::pathForFile(assetFilePath);
     LOG(LOG_CHANNEL_WORLDLOADER, "Loading model %s", fullAssetFilePath.c_str());
 
-    Assimp::Importer importer;
+    /*Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(fullAssetFilePath.c_str(), aiProcess_PreTransformVertices  );
     LOG(LOG_CHANNEL_WORLDLOADER, "Submesh count: %d", scene->mNumMeshes);
     
@@ -371,7 +371,7 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
       
     }
     
-    importer.FreeScene();
+    importer.FreeScene();*/
   }
 }
 

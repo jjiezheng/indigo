@@ -12,7 +12,7 @@ public:
   
 public:
   
-  String();
+  String() { };
   
   String(const std::string& string)
     : string_(string) { };

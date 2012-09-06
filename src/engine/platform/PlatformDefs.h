@@ -7,6 +7,8 @@
   #define PLATFORM_WINDOWS 1
 #elif defined(__APPLE__)
   #define PLATFORM_MAC 1
+#elif defined(__SNC__)
+  #define PLATFORM_PS3 1
 #else
   #define PLATFORM_UNDEFINED 1
 #endif

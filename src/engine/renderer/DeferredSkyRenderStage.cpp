@@ -28,7 +28,9 @@ void DeferredSkyRenderStage::render(IViewer* viewer, World& world, DeferredLight
 
     GraphicsInterface::setRenderTarget(skyRenderTarget_, false);
 
-    world.skyDome().render(viewer->projection(), viewer->viewTransform(), viewer->translation());
+    if (world.hasSkyDome()) {
+      world.skyDome().render(viewer->projection(), viewer->viewTransform(), viewer->translation());
+    }
 
     GraphicsInterface::endPerformanceEvent();
   }

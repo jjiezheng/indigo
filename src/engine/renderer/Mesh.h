@@ -2,6 +2,7 @@
 #define MESH_H
 
 #include <hash_map>
+#include <vector>
 
 #include "core/Standard.h"
 #include "maths/Matrix4x4.h"
@@ -35,7 +36,7 @@ public:
   
 public:
 
-  void visit(stdext::hash_map<int, std::vector<Mesh*>>& meshes);
+  void visit(std::hash_map<int, std::vector<Mesh*> >& meshes);
 
   void render() const;
   

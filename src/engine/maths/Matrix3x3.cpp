@@ -4,10 +4,10 @@
 #include "Vector3.h"
 #include "Angles.h"
 
-#include "glm/glm.hpp"
+/*#include "glm/glm.hpp"
 #include "glm/gtx/projection.hpp"
 #include "glm/gtc/matrix_transform.hpp"
-#include "glm/gtc/matrix_inverse.hpp"
+#include "glm/gtc/matrix_inverse.hpp"*/
 
 Matrix3x3 Matrix3x3::IDENTITY = Matrix3x3(1.0f, 0.0f, 0.0f,
                                           0.0f, 1.0f, 0.0f,
@@ -65,7 +65,8 @@ Matrix3x3 Matrix3x3::scale(const Vector3& scale) {
 }
 
 Matrix3x3 Matrix3x3::inverseTranspose() const {
-	glm::mat3 mat(
+  return Matrix3x3::IDENTITY;
+	/*glm::mat3 mat(
 		m11, m12, m13,
 		m21, m22, m23,
 		m31, m32, m33);
@@ -73,5 +74,5 @@ Matrix3x3 Matrix3x3::inverseTranspose() const {
 	return Matrix3x3(
 		invTranspose[0][0], invTranspose[0][1], invTranspose[0][2],
 		invTranspose[1][0], invTranspose[1][1], invTranspose[1][2],
-		invTranspose[2][0], invTranspose[2][1], invTranspose[2][2]);
+		invTranspose[2][0], invTranspose[2][1], invTranspose[2][2]);*/
 }

@@ -1,0 +1,15 @@
+PS3_SNC_PPU_Debug/Renderer3dDeferred.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/Renderer3dDeferred.cpp
+PS3_SNC_PPU_Debug/Renderer3dDeferred.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/Renderer3dDeferred.h
+PS3_SNC_PPU_Debug/Renderer3dDeferred.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/IDeferredRenderTargetContainer.h
+PS3_SNC_PPU_Debug/Renderer3dDeferred.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/DeferredRenderTarget.h
+PS3_SNC_PPU_Debug/Renderer3dDeferred.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/DeferredInitRenderStage.h
+PS3_SNC_PPU_Debug/Renderer3dDeferred.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/IDeferredRenderStage.h
+PS3_SNC_PPU_Debug/Renderer3dDeferred.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/DeferredLightingRenderStage.h
+PS3_SNC_PPU_Debug/Renderer3dDeferred.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/DeferredSkyRenderStage.h
+PS3_SNC_PPU_Debug/Renderer3dDeferred.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/GraphicsInterface.h
+PS3_SNC_PPU_Debug/Renderer3dDeferred.obj: ../../../src/engine/core/Size.h
+PS3_SNC_PPU_Debug/Renderer3dDeferred.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/GraphicsAPIType.h
+PS3_SNC_PPU_Debug/Renderer3dDeferred.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/VertexFormat.h
+PS3_SNC_PPU_Debug/Renderer3dDeferred.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/DeferredPostProcessingStage.h
+PS3_SNC_PPU_Debug/Renderer3dDeferred.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/DeferredPresentStage.h
+PS3_SNC_PPU_Debug/Renderer3dDeferred.obj: ../../../src/engine/io/Log.h

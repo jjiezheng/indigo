@@ -1,11 +1,11 @@
 #include "Camera.h"
 
+#include <math.h>
+
 #include "maths/Angles.h"
-#include "platform/WindowsUtils.h"
 #include "io/Log.h"
 
 #include "GraphicsInterface.h"
-#include "OpenGL.h"
 
 Camera::Camera() 
   : forward_(Vector3::FORWARD)
@@ -59,7 +59,7 @@ void Camera::update(float dt) {
   
   int x = 0;
   int y = 0;
-  WindowsUtils::getMousePosition(&x, &y);
+  GraphicsInterface::getMousePosition(&x, &y);
   
   int xDelta = x - lastMouseX_;
   int yDelta = y - lastMouseY_;

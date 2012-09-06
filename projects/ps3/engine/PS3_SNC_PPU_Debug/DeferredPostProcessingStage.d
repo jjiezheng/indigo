@@ -1,0 +1,14 @@
+PS3_SNC_PPU_Debug/DeferredPostProcessingStage.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/DeferredPostProcessingStage.cpp
+PS3_SNC_PPU_Debug/DeferredPostProcessingStage.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/DeferredPostProcessingStage.h
+PS3_SNC_PPU_Debug/DeferredPostProcessingStage.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/GraphicsInterface.h
+PS3_SNC_PPU_Debug/DeferredPostProcessingStage.obj: ../../../src/engine/core/Size.h
+PS3_SNC_PPU_Debug/DeferredPostProcessingStage.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/GraphicsAPIType.h
+PS3_SNC_PPU_Debug/DeferredPostProcessingStage.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/VertexFormat.h
+PS3_SNC_PPU_Debug/DeferredPostProcessingStage.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/Color4.h
+PS3_SNC_PPU_Debug/DeferredPostProcessingStage.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/DeferredSSAOPass.h
+PS3_SNC_PPU_Debug/DeferredPostProcessingStage.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/IDeferredPostProcessingPass.h
+PS3_SNC_PPU_Debug/DeferredPostProcessingStage.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/AverageBlur.h
+PS3_SNC_PPU_Debug/DeferredPostProcessingStage.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/GaussianBlur.h
+PS3_SNC_PPU_Debug/DeferredPostProcessingStage.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/DeferredFXAAPass.h
+PS3_SNC_PPU_Debug/DeferredPostProcessingStage.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/IDeferredRenderTargetContainer.h
+PS3_SNC_PPU_Debug/DeferredPostProcessingStage.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/DeferredRenderTarget.h

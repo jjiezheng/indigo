@@ -1,0 +1,17 @@
+PS3_SNC_PPU_Debug/Mesh.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/Mesh.cpp
+PS3_SNC_PPU_Debug/Mesh.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/Mesh.h
+PS3_SNC_PPU_Debug/Mesh.obj: ../../../src/engine/core/Standard.h
+PS3_SNC_PPU_Debug/Mesh.obj: ../../../src/engine/maths/Vector3.h
+PS3_SNC_PPU_Debug/Mesh.obj: ../../../src/engine/renderer/Color3.h
+PS3_SNC_PPU_Debug/Mesh.obj: ../../../src/engine/io/Log.h
+PS3_SNC_PPU_Debug/Mesh.obj: ../../../src/engine/core/Types.h
+PS3_SNC_PPU_Debug/Mesh.obj: ../../../src/engine/memory/Allocation.h
+PS3_SNC_PPU_Debug/Mesh.obj: ../../../src/engine/maths/Matrix4x4.h
+PS3_SNC_PPU_Debug/Mesh.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/Material.h
+PS3_SNC_PPU_Debug/Mesh.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/MaterialParameter.h
+PS3_SNC_PPU_Debug/Mesh.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/Texture.h
+PS3_SNC_PPU_Debug/Mesh.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/VertexFormat.h
+PS3_SNC_PPU_Debug/Mesh.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/GraphicsInterface.h
+PS3_SNC_PPU_Debug/Mesh.obj: ../../../src/engine/core/Size.h
+PS3_SNC_PPU_Debug/Mesh.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/GraphicsAPIType.h
+PS3_SNC_PPU_Debug/Mesh.obj: c:/cygwin/home/GBkosteni/Development/game/src/engine/renderer/Model.h
