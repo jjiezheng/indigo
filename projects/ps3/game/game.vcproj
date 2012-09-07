@@ -4,6 +4,7 @@
 	Version="9.00"
 	Name="game"
 	ProjectGUID="{933A86DB-E22E-4103-A6BF-6A01B786A347}"
+	RootNamespace="game"
 	TargetFrameworkVersion="196613"
 	>
 	<Platforms>
@@ -38,7 +39,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="-g -Xc-=rtti"
+				AdditionalOptions="-g -Xc+=exceptions"
 				AdditionalIncludeDirectories="../../../src/engine;../../../libs"
 				PreprocessorDefinitions="SN_TARGET_PS3;_DEBUG;__SNC__;__CELL_ASSERT__"
 				ProgramDataBaseFileName=""
