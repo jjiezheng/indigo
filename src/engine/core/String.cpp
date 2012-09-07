@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <assert.h>
+#include <stdlib.h>
 
 #include "platform/PlatformDefs.h"
 
@@ -19,6 +20,20 @@ String String::withFormat(const char* format, ...) {
   char* buffer = (char*)malloc(length * sizeof(char));
 
   vsprintf_s(buffer, length, format, args);
+
+  va_end(args);
+  return String(buffer);
+#endif
+
+#ifdef PLATFORM_POSIX
+  va_list args;
+  va_start(args, format);
+
+  int length = 255;
+
+  char* buffer = (char*)malloc(length * sizeof(char));
+
+  vsprintf(buffer, format, args);
 
   va_end(args);
   return String(buffer);

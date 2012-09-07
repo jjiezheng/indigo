@@ -13,4 +13,8 @@
   #define PLATFORM_UNDEFINED 1
 #endif
 
+#if defined(PLATFORM_MAC) || defined(PLATFORM_PS3)
+  #define PLATFORM_POSIX 1 
+#endif
+
 #endif

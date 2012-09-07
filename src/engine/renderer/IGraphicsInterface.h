@@ -17,6 +17,10 @@ class IGraphicsInterface {
 
 public:
 
+  virtual ~IGraphicsInterface() { };
+
+public:
+
   static IGraphicsInterface* createInterface(GraphicsAPIType graphicsAPIType);
 
 public:

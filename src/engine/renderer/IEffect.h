@@ -16,6 +16,10 @@ class IEffect {
 
 public:
 
+  virtual ~IEffect() { };
+
+public:
+
   static IEffect* effectFromFile(const std::string& relativeFilePath);
 
 public:

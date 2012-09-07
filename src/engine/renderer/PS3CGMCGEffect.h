@@ -7,6 +7,10 @@ class PS3GCMCGEffect : public IEffect {
 
 public:
 
+  virtual ~PS3GCMCGEffect() { };
+
+public:
+
   void load(const std::string& filePath);
 
   void beginDraw();

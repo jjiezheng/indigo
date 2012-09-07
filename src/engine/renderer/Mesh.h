@@ -4,13 +4,14 @@
 #include <hash_map>
 #include <vector>
 
+#include "core/StandardNamespace.h"
+
 #include "core/Standard.h"
 #include "maths/Matrix4x4.h"
 
 #include "Color3.h"
 #include "Material.h"
 #include "VertexFormat.h"
-
 
 class Shader;
 class Material;
