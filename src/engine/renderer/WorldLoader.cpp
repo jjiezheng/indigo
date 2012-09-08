@@ -316,23 +316,86 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
   json::Object modelObject;
   json::Reader::Read(modelObject, modelFile);
 
-  std::vector<Material> materials;
-
-   {
-    json::Array materialsArray = modelObject["materials"];
-    json::Array::const_iterator mit = materialsArray.begin();
-    for (; mit != materialsArray.end(); ++mit) {
-      Material material = loadMaterial((*mit));
-      materials.push_back(material);
-    }
-  }
-
   json::String assetFilePath = modelObject["mesh"];
   
   {  
     std::string fullAssetFilePath = Path::pathForFile(assetFilePath);
     LOG(LOG_CHANNEL_WORLDLOADER, "Loading model %s", fullAssetFilePath.c_str());
-#ifdef PLATFORM_WINDOWS
+
+    std::ifstream modelFile(fullAssetFilePath.c_str(), std::ifstream::in);
+    json::Object modelJSONObject;
+    json::Reader::Read(modelJSONObject, modelFile);
+
+    json::Array submeshesJSONArray = modelJSONObject["submeshes"];
+    json::Array::iterator smit = submeshesJSONArray.begin();
+
+    
+
+    for (; smit != submeshesJSONArray.end(); ++smit) {
+      json::Object submeshJSONObject = (*smit);
+      json::Array verticesJSONArray = modelJSONObject["vertices"];
+      json::Array normalsJSONArray = modelJSONObject["normals"];
+      json::Array uvsJSONArray = modelJSONObject["uvs"];
+
+      unsigned int defi = 0;
+      VertexDef* defs = new VertexDef[verticesJSONArray.Size()];
+
+      unsigned int index = 0;
+
+      VertexDef def;
+
+      json::Number vertexXJSONNumber = verticesJSONArray[index];
+      float vertexX = vertexXJSONNumber.Value();
+      def.vertex.x = vertexX; 
+
+      json::Number normalXJSONNumber = normalsJSONArray[index];
+      float normalX = normalXJSONNumber.Value();
+      def.normal.x = normalX;
+
+      json::Number uvUJSONNumber = uvsJSONArray[index];
+      float uvU = uvUJSONNumber.Value();
+      def.uv.x = uvU;
+
+      index++;
+
+
+      json::Number vertexYJSONNumber = verticesJSONArray[index];
+      float vertexY = vertexYJSONNumber.Value();
+      def.vertex.y = vertexY; 
+
+      json::Number normalYJSONNumber = normalsJSONArray[index];
+      float normalY = normalYJSONNumber.Value();
+      def.normal.y = normalY;
+
+      json::Number uvVJSONNumber = uvsJSONArray[index];
+      float uvV = uvVJSONNumber.Value();
+      def.uv.y = uvV;
+
+      index++;
+
+
+      json::Number vertexZJSONNumber = verticesJSONArray[index];
+      float vertexZ = vertexZJSONNumber.Value();
+      def.vertex.z = vertexZ;
+
+
+      json::Number normalZJSONNumber = normalsJSONArray[index];
+      float normalZ = normalZJSONNumber.Value();
+      def.normal.z = normalZ;
+
+      index++;
+
+      defs[defi++] = def;
+
+
+      Mesh mesh;
+      //Material material = materials[i];
+      mesh.init(defs, verticesJSONArray.Size(), TRIANGLE_LIST);
+      //mesh.setMaterial(material);
+      model->addMesh(mesh);
+    }
+/*
+//#ifdef PLATFORM_WINDOWS
     Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(fullAssetFilePath.c_str(), aiProcess_PreTransformVertices  );
     LOG(LOG_CHANNEL_WORLDLOADER, "Submesh count: %d", scene->mNumMeshes);
@@ -374,7 +437,8 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
     }
     
     importer.FreeScene();
-#endif
+//#endif
+*/
   }
 }
 
