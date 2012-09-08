@@ -50,12 +50,14 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
   json::Object sceneObject;
   json::Reader::Read(sceneObject, levelFile);
 
-  json::String skydomeString = sceneObject["skydome"];
-  std::string skydomePath = skydomeString.Value();
+  if (sceneObject.Find("skydome") != sceneObject.end()) {
+    json::String skydomeString = sceneObject["skydome"];
+    std::string skydomePath = skydomeString.Value();
 
-  SkyDome skydome;
-  skydome.load(skydomePath);
-  world.setSkyDome(skydome);
+    SkyDome skydome;
+    skydome.load(skydomePath);
+    world.setSkyDome(skydome);
+  }
 
   json::Object backgroundColor = sceneObject["backgroundColor"];
   json::Number redNumber = backgroundColor["r"];
@@ -312,133 +314,89 @@ void WorldLoader::loadSceneItem(const json::Object& objectItem, World& world) {
 
 void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
   std::string fullFilePath = Path::pathForFile(modelFilePath);
-  std::ifstream modelFile(fullFilePath.c_str(), std::ifstream::in);
-  json::Object modelObject;
-  json::Reader::Read(modelObject, modelFile);
 
-  json::String assetFilePath = modelObject["mesh"];
+  std::string fullAssetFilePath = Path::pathForFile(fullFilePath);
+  LOG(LOG_CHANNEL_WORLDLOADER, "Loading model %s", fullAssetFilePath.c_str());
+
+  std::ifstream modelFile(fullFilePath.c_str(), std::ifstream::in);
+  json::Object modelJSONObject;
+  json::Reader::Read(modelJSONObject, modelFile);
   
   {  
-    std::string fullAssetFilePath = Path::pathForFile(assetFilePath);
-    LOG(LOG_CHANNEL_WORLDLOADER, "Loading model %s", fullAssetFilePath.c_str());
-
-    std::ifstream modelFile(fullAssetFilePath.c_str(), std::ifstream::in);
-    json::Object modelJSONObject;
-    json::Reader::Read(modelJSONObject, modelFile);
-
     json::Array submeshesJSONArray = modelJSONObject["submeshes"];
     json::Array::iterator smit = submeshesJSONArray.begin();
 
-    
-
     for (; smit != submeshesJSONArray.end(); ++smit) {
       json::Object submeshJSONObject = (*smit);
-      json::Array verticesJSONArray = modelJSONObject["vertices"];
-      json::Array normalsJSONArray = modelJSONObject["normals"];
-      json::Array uvsJSONArray = modelJSONObject["uvs"];
+      json::Array verticesJSONArray = submeshJSONObject["vertices"];
+      json::Array normalsJSONArray = submeshJSONObject["normals"];
+      json::Array uvsJSONArray = submeshJSONObject["uvs"];
+
+      unsigned int vertexCount = (unsigned int)verticesJSONArray.Size();
+      unsigned int polyCount = (unsigned int)(verticesJSONArray.Size() / 3.0f);
 
       unsigned int defi = 0;
-      VertexDef* defs = new VertexDef[verticesJSONArray.Size()];
+      VertexDef* defs = new VertexDef[vertexCount];
 
-      unsigned int index = 0;
+      for (unsigned int index = 0; index < polyCount;) {
 
-      VertexDef def;
-
-      json::Number vertexXJSONNumber = verticesJSONArray[index];
-      float vertexX = vertexXJSONNumber.Value();
-      def.vertex.x = vertexX; 
-
-      json::Number normalXJSONNumber = normalsJSONArray[index];
-      float normalX = normalXJSONNumber.Value();
-      def.normal.x = normalX;
-
-      json::Number uvUJSONNumber = uvsJSONArray[index];
-      float uvU = uvUJSONNumber.Value();
-      def.uv.x = uvU;
-
-      index++;
-
-
-      json::Number vertexYJSONNumber = verticesJSONArray[index];
-      float vertexY = vertexYJSONNumber.Value();
-      def.vertex.y = vertexY; 
-
-      json::Number normalYJSONNumber = normalsJSONArray[index];
-      float normalY = normalYJSONNumber.Value();
-      def.normal.y = normalY;
-
-      json::Number uvVJSONNumber = uvsJSONArray[index];
-      float uvV = uvVJSONNumber.Value();
-      def.uv.y = uvV;
-
-      index++;
-
-
-      json::Number vertexZJSONNumber = verticesJSONArray[index];
-      float vertexZ = vertexZJSONNumber.Value();
-      def.vertex.z = vertexZ;
-
-
-      json::Number normalZJSONNumber = normalsJSONArray[index];
-      float normalZ = normalZJSONNumber.Value();
-      def.normal.z = normalZ;
-
-      index++;
-
-      defs[defi++] = def;
-
-
-      Mesh mesh;
-      //Material material = materials[i];
-      mesh.init(defs, verticesJSONArray.Size(), TRIANGLE_LIST);
-      //mesh.setMaterial(material);
-      model->addMesh(mesh);
-    }
-/*
-//#ifdef PLATFORM_WINDOWS
-    Assimp::Importer importer;
-    const aiScene* scene = importer.ReadFile(fullAssetFilePath.c_str(), aiProcess_PreTransformVertices  );
-    LOG(LOG_CHANNEL_WORLDLOADER, "Submesh count: %d", scene->mNumMeshes);
-    
-    for (unsigned int i = 0; i < scene->mNumMeshes; i++) {
-      aiMesh* aiMesh = scene->mMeshes[i];
-      VertexDef* defs = new VertexDef[aiMesh->mNumVertices];
-
-      for (unsigned int vertexi = 0; vertexi < aiMesh->mNumVertices; vertexi++) {
         VertexDef def;
 
-        aiVector3D vertex = aiMesh->mVertices[vertexi];
-        def.vertex.x = vertex.x; 
-        def.vertex.y = vertex.y; 
-        def.vertex.z = vertex.z; 
-        //LOG(LOG_CHANNEL_WORLDLOADER, "vert: %s", def.vertex.toString().c_str());
+        json::Number vertexXJSONNumber = verticesJSONArray[index];
+        float vertexX = vertexXJSONNumber.Value();
+        def.vertex.x = vertexX; 
 
-        aiVector3D normal = aiMesh->mNormals[vertexi];
-        def.normal.x = normal.x; 
-        def.normal.y = normal.y; 
-        def.normal.z = normal.z; 
-        //LOG(LOG_CHANNEL_WORLDLOADER, "norm: %s", def.normal.toString().c_str());
+        json::Number normalXJSONNumber = normalsJSONArray[index];
+        float normalX = normalXJSONNumber.Value();
+        def.normal.x = normalX;
 
-        if (aiMesh->mTextureCoords[0]) {
-          aiVector3D uv = aiMesh->mTextureCoords[0][vertexi];
-          def.uv.x = uv.x; 
-          def.uv.y = uv.y; 
-        }
-        //LOG(LOG_CHANNEL_WORLDLOADER, "uv: %s", def.uv.toString().c_str());
-        defs[vertexi] = def;
+        json::Number uvUJSONNumber = uvsJSONArray[index];
+        float uvU = uvUJSONNumber.Value();
+        def.uv.x = uvU;
+
+        index++;
+
+
+        json::Number vertexYJSONNumber = verticesJSONArray[index];
+        float vertexY = vertexYJSONNumber.Value();
+        def.vertex.y = vertexY; 
+
+        json::Number normalYJSONNumber = normalsJSONArray[index];
+        float normalY = normalYJSONNumber.Value();
+        def.normal.y = normalY;
+
+        json::Number uvVJSONNumber = uvsJSONArray[index];
+        float uvV = uvVJSONNumber.Value();
+        def.uv.y = uvV;
+
+        index++;
+
+
+        json::Number vertexZJSONNumber = verticesJSONArray[index];
+        float vertexZ = vertexZJSONNumber.Value();
+        def.vertex.z = vertexZ;
+
+
+        json::Number normalZJSONNumber = normalsJSONArray[index];
+        float normalZ = normalZJSONNumber.Value();
+        def.normal.z = normalZ;
+
+        index++;
+
+        json::Object materialJSONObject = submeshJSONObject["material"];
+        Material material = loadMaterial(materialJSONObject);
+
+        defs[defi++] = def;
+
+
+
+
+        Mesh mesh;
+        mesh.init(defs, verticesJSONArray.Size(), TRIANGLE_LIST);
+        mesh.setMaterial(material);
+        model->addMesh(mesh);
       }
-
-      Mesh mesh;
-      Material material = materials[i];
-      mesh.init(defs, aiMesh->mNumVertices, TRIANGLE_LIST);
-      mesh.setMaterial(material);
-      model->addMesh(mesh);
-      
     }
-    
-    importer.FreeScene();
-//#endif
-*/
   }
 }
 
