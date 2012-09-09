@@ -223,9 +223,9 @@ unsigned int OpenGL21GraphicsInterface::loadTexture(const std::string& filePath)
 
 void OpenGL21GraphicsInterface::setTexture(int textureId, CGparameter parameter) {
   glBindTexture(GL_TEXTURE_2D, textureId);
-  cgGLSetTextureParameter(parameter, textureId);
+  //cgGLSetTextureParameter(parameter, textureId);
   GLUtilities::checkForError();
-  cgSetSamplerState(parameter);
+  //cgSetSamplerState(parameter);
   GLUtilities::checkForError();
 }
 

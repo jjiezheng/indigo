@@ -383,13 +383,11 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
 
         index++;
 
-        json::Object materialJSONObject = submeshJSONObject["material"];
-        Material material = loadMaterial(materialJSONObject);
-
         defs[defi++] = def;
 
 
-
+        json::Object materialJSONObject = submeshJSONObject["material"];
+        Material material = loadMaterial(materialJSONObject);
 
         Mesh mesh;
         mesh.init(defs, verticesJSONArray.Size(), TRIANGLE_LIST);
