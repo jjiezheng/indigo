@@ -332,8 +332,8 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
       json::Array normalsJSONArray = submeshJSONObject["normals"];
       json::Array uvsJSONArray = submeshJSONObject["uvs"];
 
-      unsigned int vertexCount = (unsigned int)verticesJSONArray.Size();
-      unsigned int polyCount = (unsigned int)(verticesJSONArray.Size() / 3.0f);
+      unsigned int vertexCount = (unsigned int)(verticesJSONArray.Size() / 3.0f);
+      unsigned int polyCount = (unsigned int)(vertexCount / 3.0f);
 
       unsigned int defi = 0;
       VertexDef* defs = new VertexDef[vertexCount];
@@ -384,16 +384,15 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
         index++;
 
         defs[defi++] = def;
-
-
-        json::Object materialJSONObject = submeshJSONObject["material"];
-        Material material = loadMaterial(materialJSONObject);
-
-        Mesh mesh;
-        mesh.init(defs, verticesJSONArray.Size(), TRIANGLE_LIST);
-        mesh.setMaterial(material);
-        model->addMesh(mesh);
       }
+
+      json::Object materialJSONObject = submeshJSONObject["material"];
+      Material material = loadMaterial(materialJSONObject);
+
+      Mesh mesh;
+      mesh.init(defs, vertexCount, TRIANGLE_LIST);
+      mesh.setMaterial(material);
+      model->addMesh(mesh);
     }
   }
 }

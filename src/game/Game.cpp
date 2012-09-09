@@ -5,7 +5,7 @@
 
 #include "renderer/WorldLoader.h"
 
-/*#include "platform/WindowsUtils.h"*/
+#include "platform/WindowsUtils.h"
 
 void Game::init(const char* sceneFile) {
   renderer_.init(GraphicsInterface::screenSize());
@@ -19,7 +19,7 @@ void Game::init(const char* sceneFile) {
   WorldLoader loader; 
   loader.loadFromSceneFile(sceneFile, world_, sceneContext_);
 
-  //WindowsUtils::setKeyboardListener(this);*/
+  WindowsUtils::setKeyboardListener(this);
 }
  
 void Game::mainLoop() {
