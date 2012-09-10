@@ -19,14 +19,14 @@ void DeferredInitRenderStage::init(const CSize& screenSize) {
   depthRenderTarget_ = GraphicsInterface::createRenderTarget(depthMapTexture_);
 
   IDeferredPass* clearBuffersPass = new DeferredClearBuffersPass(colorRenderTarget_, depthRenderTarget_, normalRenderTarget_);
-  passes_.push_back(clearBuffersPass);
+  //passes_.push_back(clearBuffersPass);
 
   IDeferredPass* geometryPass = new DeferredGeometryPass(colorRenderTarget_, normalRenderTarget_, depthRenderTarget_);
   passes_.push_back(geometryPass);
 }
 
 void DeferredInitRenderStage::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
-  GraphicsInterface::beginPerformanceEvent("Clear", Color4::GREEN);
+  GraphicsInterface::beginPerformanceEvent("Init", Color4::GREEN);
 
   for (std::vector<IDeferredPass*>::iterator i = passes_.begin(); i != passes_.end(); ++i) {
     (*i)->render(viewer, world, sceneContext);
