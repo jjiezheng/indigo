@@ -4,10 +4,10 @@
 #include "Vector3.h"
 #include "Angles.h"
 
-/*#include "glm/glm.hpp"
+#include "glm/glm.hpp"
 #include "glm/gtx/projection.hpp"
 #include "glm/gtc/matrix_transform.hpp"
-#include "glm/gtc/matrix_inverse.hpp"*/
+#include "glm/gtc/matrix_inverse.hpp"
 
 Matrix3x3 Matrix3x3::IDENTITY = Matrix3x3(1.0f, 0.0f, 0.0f,
                                           0.0f, 1.0f, 0.0f,
@@ -22,7 +22,8 @@ Matrix3x3 Matrix3x3::rotation(const Vector3& axis, float angleRadians) {
 }
 
 Matrix3x3 Matrix3x3::rotationX(float radians) {
-  return Matrix3x3(1.0f, 0.0f, 0.0f, 
+  return Matrix3x3(
+    1.0f, 0.0f,             0.0f, 
     0.0f, cosf(radians),   -sinf(radians), 
     0.0f, sinf(radians),    cosf(radians));
 }

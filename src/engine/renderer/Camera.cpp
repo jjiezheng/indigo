@@ -118,7 +118,8 @@ Matrix4x4 Camera::transform() const {
 }
 
 Matrix4x4 Camera::viewTransform() const {
-  return transform().inverse();
+  Matrix4x4 viewTransform = transform().inverse();
+  return viewTransform;
 }
 
 void Camera::setPerspective(float fov, float aspectRatio, float nearDistance, float farDistance) {

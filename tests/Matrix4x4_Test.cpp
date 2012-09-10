@@ -33,3 +33,54 @@ TEST(Matrix4x4Test, LookAt) {
   Vector4 direction = result * origin;
   EXPECT_EQ(floorf(direction.z), -1.0f);
 }
+
+TEST(Matrix4x4Test, InverseX) {
+  Matrix4x4 m = Matrix4x4(
+    1.0f, 0.0f, 0.0f, 1.0f,
+    0.0f, 1.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 1.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 1.0f);
+  Matrix4x4 result = m.inverse();
+
+  Matrix4x4 test = Matrix4x4(
+    1.0f, 0.0f, 0.0f, -1.0f,
+    0.0f, 1.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 1.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 1.0f);
+
+  EXPECT_EQ(result, test);
+}
+
+TEST(Matrix4x4Test, InverseY) {
+  Matrix4x4 m = Matrix4x4(
+    1.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 1.0f, 0.0f, 1.0f,
+    0.0f, 0.0f, 1.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 1.0f);
+  Matrix4x4 result = m.inverse();
+
+  Matrix4x4 test = Matrix4x4(
+    1.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 1.0f, 0.0f, -1.0f,
+    0.0f, 0.0f, 1.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 1.0f);
+
+  EXPECT_EQ(result, test);
+}
+
+TEST(Matrix4x4Test, InverseZ) {
+  Matrix4x4 m = Matrix4x4(
+    1.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 1.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 1.0f, 1.0f,
+    0.0f, 0.0f, 0.0f, 1.0f);
+  Matrix4x4 result = m.inverse();
+
+  Matrix4x4 test = Matrix4x4(
+    1.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 1.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 1.0f, -1.0f,
+    0.0f, 0.0f, 0.0f, 1.0f);
+
+  EXPECT_EQ(result, test);
+}

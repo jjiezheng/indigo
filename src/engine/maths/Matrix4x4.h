@@ -63,6 +63,10 @@ public:
   Vector4 operator * (const Vector4& other) const;
   
   Matrix4x4 operator * (const Matrix4x4& other) const;
+
+  void operator /= (float scalar);
+
+  bool operator == (const Matrix4x4& other) const;
   
 public:
   
