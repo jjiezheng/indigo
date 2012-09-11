@@ -374,3 +374,8 @@ void Direct3D11GraphicsInterface::beginPerformanceEvent(const std::string& event
 void Direct3D11GraphicsInterface::endPerformanceEvent() {
   D3DPERF_EndEvent();
 }
+
+void Direct3D11GraphicsInterface::getMousePosition(int* x, int* y) {
+  WindowsUtils::getMousePosition(x, y);
+
+}

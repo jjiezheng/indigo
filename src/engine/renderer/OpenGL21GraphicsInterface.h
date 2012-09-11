@@ -73,6 +73,8 @@ public:
 
   bool getKeySate(char key);
 
+  void getMousePosition(int* x, int* y);
+
 private:
 
   HDC createGraphicsContext(HWND hWnd, int width, int height, unsigned int multiSamples);

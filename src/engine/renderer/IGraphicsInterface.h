@@ -80,6 +80,8 @@ public:
 public:
 
   virtual bool getKeySate(char key) = 0;
+
+  virtual void getMousePosition(int* x, int* y) = 0;
   
 protected:
 

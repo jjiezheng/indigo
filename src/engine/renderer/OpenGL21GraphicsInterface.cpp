@@ -350,3 +350,7 @@ void OpenGL21GraphicsInterface::beginPerformanceEvent(const std::string& eventNa
 void OpenGL21GraphicsInterface::endPerformanceEvent() {
 
 }
+
+void OpenGL21GraphicsInterface::getMousePosition(int* x, int* y) {
+
+}
