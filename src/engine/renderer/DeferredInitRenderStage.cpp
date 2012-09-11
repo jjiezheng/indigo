@@ -19,7 +19,7 @@ void DeferredInitRenderStage::init(const CSize& screenSize) {
   depthRenderTarget_ = GraphicsInterface::createRenderTarget(depthMapTexture_);
 
   IDeferredPass* clearBuffersPass = new DeferredClearBuffersPass(colorRenderTarget_, depthRenderTarget_, normalRenderTarget_);
-  //passes_.push_back(clearBuffersPass);
+  passes_.push_back(clearBuffersPass);
 
   IDeferredPass* geometryPass = new DeferredGeometryPass(colorRenderTarget_, normalRenderTarget_, depthRenderTarget_);
   passes_.push_back(geometryPass);

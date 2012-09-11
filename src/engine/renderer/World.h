@@ -44,6 +44,7 @@ inline SkyDome World::skyDome() const {
 
 inline void World::setSkyDome(const SkyDome& skyDome) {
   skyDome_ = skyDome;
+  hasSkyDome_ = true;
 }
 
 inline void World::addObject(Model* model) {
