@@ -338,7 +338,7 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
       unsigned int defi = 0;
       VertexDef* defs = new VertexDef[vertexCount];
 
-      for (unsigned int index = 0; index < polyCount;) {
+      for (unsigned int index = 0; index < verticesJSONArray.Size();) {
 
         VertexDef def;
 
