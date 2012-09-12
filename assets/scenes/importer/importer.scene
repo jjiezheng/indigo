@@ -7,10 +7,10 @@
   },
   "terrain" : [ ],
   "objects" : [
-    {
-      "model" : "debug/cone.model",
+  {
+      "model" : "actors/car/car.model",
       "position" : {
-        "x" : 0.0,
+        "x" : 10.0,
         "y" : 0.0,
         "z" : 0.0
       }
@@ -27,6 +27,14 @@
       "model" : "actors/cube/cube.model",
       "position" : {
         "x" : 2.0,
+        "y" : 0.0,
+        "z" : 0.0
+      }
+    },
+    {
+      "model" : "actors/cone/cone.model",
+      "position" : {
+        "x" : 0.0,
         "y" : 0.0,
         "z" : 0.0
       }
@@ -55,9 +63,9 @@
       "intensity" : 2.0,
       "castsshadows" : true,
       "position" : {
-        "x" : 0,
+        "x" : 10,
         "y" : 10,
-        "z" : 0
+        "z" : 10
       },
       "orientation" : {
         "x" : 0,
@@ -70,9 +78,9 @@
         "b" : 1.0
       },
       "direction" : {
-        "x" : 0.0,
+        "x" : -1.0,
         "y" : -1.0,
-        "z" : 0.0
+        "z" : -1.0
       }
     }
   ]

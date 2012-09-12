@@ -87,8 +87,11 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
     GraphicsInterface::setRenderTarget(ssaoRenderTarget_, false);
     GraphicsInterface::clearRenderTarget(ssaoRenderTarget_, Color4::BLACK);
 
-    ssaoEffect_->setUniform(viewer->projection(), "Projection");
-    ssaoEffect_->setUniform(viewer->projection().inverse(), "ProjInv");
+    Matrix4x4 projection = viewer->projection();
+    ssaoEffect_->setUniform(projection, "Projection");
+
+    Matrix4x4 projectionInverse = projection.inverse();
+    ssaoEffect_->setUniform(projectionInverse, "ProjInv");
 
     ssaoEffect_->setUniform(viewer->nearDistance(), "Near");
     ssaoEffect_->setUniform(viewer->farDistance(), "Far");

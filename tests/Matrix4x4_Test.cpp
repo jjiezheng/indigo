@@ -84,3 +84,21 @@ TEST(Matrix4x4Test, InverseZ) {
 
   EXPECT_EQ(result, test);
 }
+
+TEST(Matrix4x4Test, InverseVector) {
+  Matrix4x4 m = Matrix4x4(
+    1.0f, 0.0f, 5.0f, 1.0f,
+    3.0f, 2.0f, 2.0f, 0.0f,
+    2.0f, 0.0f, 1.0f, 1.0f,
+    1.0f, 4.0f, 7.0f, 1.0f);
+
+  Vector4 v = Vector4::FORWARD;
+
+  Vector4 mv = m * v;
+
+  Matrix4x4 inverse = m.inverse();
+
+  Vector4 result = inverse * mv;
+
+  EXPECT_EQ(result, Vector4::FORWARD);
+}
