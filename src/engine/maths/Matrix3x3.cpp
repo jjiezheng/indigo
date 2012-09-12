@@ -66,14 +66,46 @@ Matrix3x3 Matrix3x3::scale(const Vector3& scale) {
 }
 
 Matrix3x3 Matrix3x3::inverseTranspose() const {
-  return Matrix3x3::IDENTITY;
-	/*glm::mat3 mat(
-		m11, m12, m13,
-		m21, m22, m23,
-		m31, m32, m33);
-	glm::mat3 invTranspose = glm::inverseTranspose(mat);
-	return Matrix3x3(
-		invTranspose[0][0], invTranspose[0][1], invTranspose[0][2],
-		invTranspose[1][0], invTranspose[1][1], invTranspose[1][2],
-		invTranspose[2][0], invTranspose[2][1], invTranspose[2][2]);*/
+  float determinant = 
+    + m11 * (m22 * m33 - m23 * m32)
+    - m12 * (m21 * m33 - m23 * m31)
+    + m13 * (m21 * m32 - m22 * m31);
+
+  Matrix3x3 inverse;
+  inverse.m11 = + (m22 * m33 - m32 * m23);
+  inverse.m12 = - (m21 * m33 - m31 * m23);
+  inverse.m13 = + (m21 * m32 - m31 * m22);
+  inverse.m21 = - (m12 * m33 - m32 * m13);
+  inverse.m22 = + (m11 * m33 - m31 * m13);
+  inverse.m23 = - (m11 * m32 - m31 * m12);
+  inverse.m31 = + (m12 * m23 - m22 * m13);
+  inverse.m32 = - (m11 * m23 - m21 * m13);
+  inverse.m33 = + (m11 * m22 - m21 * m12);
+  
+  inverse /= determinant;
+
+  return inverse;
+}
+
+void Matrix3x3::operator /= (float scalar) {
+  scalar = (scalar == 0.0f) ? 1.0f : scalar;
+
+  m11 /= scalar;
+  m12 /= scalar;
+  m13 /= scalar;
+
+  m21 /= scalar;
+  m22 /= scalar;
+  m23 /= scalar;
+
+  m31 /= scalar;
+  m32 /= scalar;
+  m33 /= scalar;
+}
+
+bool Matrix3x3::operator == (const Matrix3x3& other) const {
+  return 
+    m11 == other.m11 && m12 == other.m12 && m13 == other.m13 && 
+    m21 == other.m21 && m22 == other.m22 && m23 == other.m23 && 
+    m31 == other.m31 && m32 == other.m32 && m33 == other.m33;
 }

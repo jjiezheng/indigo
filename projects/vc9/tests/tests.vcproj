@@ -290,6 +290,10 @@
 			Name="tests"
 			>
 			<File
+				RelativePath=".\Matrix3x3_Test.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\tests\Matrix4x4_Test.cpp"
 				>
 			</File>

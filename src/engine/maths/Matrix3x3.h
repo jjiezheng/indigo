@@ -26,6 +26,10 @@ public:
 public:
   
   Vector3 operator * (const Vector3& other) const;
+
+  void operator /= (float scalar);
+
+  bool operator == (const Matrix3x3& other) const;
   
 public:
   
