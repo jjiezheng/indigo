@@ -10,29 +10,13 @@
   {
       "model" : "actors/car/car.model",
       "position" : {
-        "x" : 10.0,
-        "y" : 0.0,
-        "z" : 0.0
-      }
-    },
-    {
-      "model" : "actors/floor/floor.model",
-      "position" : {
         "x" : 0.0,
         "y" : 0.0,
         "z" : 0.0
       }
     },
     {
-      "model" : "actors/cube/cube.model",
-      "position" : {
-        "x" : 2.0,
-        "y" : 0.0,
-        "z" : 0.0
-      }
-    },
-    {
-      "model" : "actors/cone/cone.model",
+      "model" : "actors/floor/floor.model",
       "position" : {
         "x" : 0.0,
         "y" : 0.0,
