@@ -31,7 +31,7 @@ public:
 
   static Matrix4x4 lookAt(const Vector4& eye, const Vector4& target, const Vector4& up);
 
-  static Matrix4x4 perspective(float fov, float aspect, float znear, float zfar);
+  static Matrix4x4 perspective(float fovDegrees, float aspect, float znear, float zfar);
   
   static Matrix4x4 orthographic(float left, float right, float bottom, float top, float near, float far);
   

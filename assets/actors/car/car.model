@@ -2,7 +2,7 @@
 	"submeshes" : [
 		{
 			"material" : {
-				"effect" : "cgfx/deferred_render_color_normal_depth.hlsl",
+				"effect" : "cgfx/deferred_render_colormap_normalmap_depth.hlsl",
 				"parameters" : {
 					"DiffuseColor" : {
 						"type" : "color3",
@@ -23,7 +23,10 @@
 						"type" : "float"
 					}
 				},
-				"textures" : {}
+				"textures" : {
+					"ColorMap" : "actors/car/car_hull_diffuse.png",
+		   			"NormalMap" : "actors/car/car_hull_normal.dds"
+				}
 			},
 			"vertices" : [
 				-0.22761344909667969,
@@ -49090,7 +49093,7 @@
 		},
 		{
 			"material" : {
-				"effect" : "cgfx/deferred_render_color_normal_depth.hlsl",
+				"effect" : "cgfx/deferred_render_colormap_normalmap_depth.hlsl",
 				"parameters" : {
 					"DiffuseColor" : {
 						"type" : "color3",
@@ -49111,7 +49114,10 @@
 						"type" : "float"
 					}
 				},
-				"textures" : {}
+				"textures" : {
+					"ColorMap" : "actors/car/car_frame_diffuse.png",
+		   			"NormalMap" : "actors/car/car_frame_normal.dds"
+				}
 			},
 			"vertices" : [
 				0.52802658081054688,

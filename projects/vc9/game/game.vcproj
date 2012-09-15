@@ -66,7 +66,7 @@
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="../../../libs/dxfx/Release;../../../libs/glew/lib;../../../libs/glfw/lib;../../../libs/assimp/lib;../../../libs/freeimage"
 				GenerateDebugInformation="true"
-				SubSystem="2"
+				SubSystem="1"
 				TargetMachine="1"
 			/>
 			<Tool

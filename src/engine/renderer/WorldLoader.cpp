@@ -338,6 +338,8 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
       unsigned int defi = 0;
       VertexDef* defs = new VertexDef[vertexCount];
 
+      unsigned int uvIndex = 0;
+
       for (unsigned int index = 0; index < verticesJSONArray.Size();) {
 
         VertexDef def;
@@ -350,10 +352,11 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
         float normalX = normalXJSONNumber.Value();
         def.normal.x = normalX;
 
-        json::Number uvUJSONNumber = uvsJSONArray[index];
+        json::Number uvUJSONNumber = uvsJSONArray[uvIndex];
         float uvU = uvUJSONNumber.Value();
         def.uv.x = uvU;
 
+        uvIndex++;
         index++;
 
 
@@ -365,10 +368,11 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
         float normalY = normalYJSONNumber.Value();
         def.normal.y = normalY;
 
-        json::Number uvVJSONNumber = uvsJSONArray[index];
+        json::Number uvVJSONNumber = uvsJSONArray[uvIndex];
         float uvV = uvVJSONNumber.Value();
         def.uv.y = uvV;
 
+        uvIndex++;
         index++;
 
 

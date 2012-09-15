@@ -50,8 +50,8 @@ Matrix4x4 Matrix4x4::scale(const Vector4& v) {
   return Matrix4x4(Matrix3x3::scale(v.vec3()));
 }
 
-Matrix4x4 Matrix4x4::perspective(float fovY, float aspect, float zNear, float zFar) {
-  float range = tan(fovY / float(2)) * zNear;	
+Matrix4x4 Matrix4x4::perspective(float fovDegrees, float aspect, float zNear, float zFar) {
+  float range = tan(toRadians(fovDegrees) / float(2)) * zNear;	
   float left = -range * aspect;
   float right = range * aspect;
   float bottom = -range;

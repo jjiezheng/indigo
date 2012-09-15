@@ -13,6 +13,7 @@ const char* LOG_CHANNEL_RENDERER = "RENDERER";
 #include <stdio.h>
 #include <stdarg.h>
 #include <ctype.h>
+#include <iostream>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -35,6 +36,8 @@ void DLOG(const char* channel, const char* format, ...) {
 
   buffer[bufferSize - 2] = '\n';
   buffer[bufferSize - 1] = '\0';
+
+  std::clog << buffer;
 
   OutputDebugStringA(buffer);
 }

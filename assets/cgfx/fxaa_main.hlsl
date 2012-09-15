@@ -1,7 +1,7 @@
 #define FXAA_PC 1
 #define FXAA_HLSL_4 1
 #define FXAA_QUALITY__PRESET 39
-#include "Fxaa3_11.h"
+#include "Fxaa3_11.hlsl"
 
 #include "standard.hlsl"
 
