@@ -8,7 +8,7 @@
   "terrain" : [ ],
   "objects" : [
   {
-      "model" : "actors/car/car.model",
+      "model" : "actors/plane/plane.model",
       "position" : {
         "x" : 0.0,
         "y" : 0.0,

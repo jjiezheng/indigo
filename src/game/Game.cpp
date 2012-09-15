@@ -14,7 +14,7 @@ void Game::init(const char* sceneFile) {
   
   camera_.translateZ(1.0f);
   
-  camera_.setPerspective(toRadians(45.0f), GraphicsInterface::aspectRatio(), 0.1f, 1000.0f);
+  camera_.setPerspective(toRadians(45.0f), GraphicsInterface::aspectRatio(), 1.0f, 1000.0f);
 
   WorldLoader loader; 
   loader.loadFromSceneFile(sceneFile, world_, sceneContext_);
