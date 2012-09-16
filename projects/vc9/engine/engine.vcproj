@@ -427,11 +427,11 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\engine\renderer\OpenGLShadowMap.h"
+					RelativePath=".\OpenGLShadowMap.h"
 					>
 				</File>
 				<File
-					RelativePath=".\OpenGLShadowMap.h"
+					RelativePath="..\..\..\src\engine\renderer\OpenGLShadowMap.h"
 					>
 				</File>
 			</Filter>
@@ -837,6 +837,18 @@
 			>
 			<File
 				RelativePath="..\..\..\src\engine\input\IKeyboardListener.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="serialization"
+			>
+			<File
+				RelativePath="..\..\..\src\engine\serialization\BinaryModelDeserializer.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\engine\serialization\BinaryModelDeserializer.h"
 				>
 			</File>
 		</Filter>

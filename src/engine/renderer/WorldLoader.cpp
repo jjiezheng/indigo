@@ -44,6 +44,8 @@
 
 #include "platform/PlatformDefs.h"
 
+#include "serialization/BinaryModelDeserializer.h"
+
 void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, SceneContext& sceneContext) {
   std::string fullFilePath = Path::pathForFile(filePath);
   std::ifstream levelFile(fullFilePath.c_str(), std::ifstream::in);
@@ -287,9 +289,10 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
 }
 
 void WorldLoader::loadSceneItem(const json::Object& objectItem, World& world) {
-  Model* model = new Model();
-
   json::String modelFilePath = objectItem["model"];
+
+  std::string fullFilePath = Path::pathForFile(modelFilePath);
+  Model* model = BinaryModelDeserializer::deserialize(fullFilePath);
   
   json::Object positionObject = objectItem["position"];
   
@@ -305,15 +308,13 @@ void WorldLoader::loadSceneItem(const json::Object& objectItem, World& world) {
   Vector3 position(x, y, z);
   Matrix4x4 localToWorld = Matrix4x4::translation(position);
   model->setLocalToWorld(localToWorld);
-  
-  loadModel(model, modelFilePath);
 
-  //loadMaterial(model, materialFilePath);
   world.addObject(model);
 }
 
 void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
   std::string fullFilePath = Path::pathForFile(modelFilePath);
+  //Model* model = BinaryModelDeserializer::deserialize(fullFilePath);
 
   std::string fullAssetFilePath = Path::pathForFile(fullFilePath);
   LOG(LOG_CHANNEL_WORLDLOADER, "Loading model %s", fullAssetFilePath.c_str());

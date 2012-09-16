@@ -5,7 +5,7 @@
 
 const char* Texture::DiffuseTexture = "DiffuseColor";
 
-void Texture::init(const char* filePath) {
+void Texture::init(const std::string& filePath) {
   std::string fullpath = Path::pathForFile(filePath);
   textureId_ = GraphicsInterface::loadTexture(fullpath.c_str());
 }

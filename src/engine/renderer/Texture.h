@@ -1,6 +1,8 @@
 #ifndef TEXTURE_H
 #define TEXTURE_H
 
+#include <string>
+
 class Texture {
 
 public:
@@ -14,7 +16,7 @@ public:
   
 public:
   
-  void init(const char* filePath);
+  void init(const std::string& filePath);
   
 public:
   

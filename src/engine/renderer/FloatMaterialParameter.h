@@ -24,7 +24,7 @@ private:
   
 };
 
-FloatMaterialParameter::FloatMaterialParameter(const std::string& name, float value) 
+inline FloatMaterialParameter::FloatMaterialParameter(const std::string& name, float value) 
   : name_(name)
   , value_(value) { }
 

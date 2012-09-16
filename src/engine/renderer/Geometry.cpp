@@ -23,12 +23,12 @@ unsigned int Geometry::screenPlane() {
   quadVertices[4].normal = Vector3(0.0f, 0.0f, 1.0f);
   quadVertices[5].normal = Vector3(0.0f, 0.0f, 1.0f);
 
-  quadVertices[0].uv = Vector2(0.0f, 0.0f);
-  quadVertices[1].uv = Vector2(1.0f, 1.0f);
-  quadVertices[2].uv = Vector2(0.0f, 1.0f);
-  quadVertices[3].uv = Vector2(0.0f, 0.0f);
-  quadVertices[4].uv = Vector2(1.0f, 0.0f);
-  quadVertices[5].uv = Vector2(1.0f, 1.0f);
+  quadVertices[0].uv = Vector2(0.0f, 1.0f);
+  quadVertices[1].uv = Vector2(1.0f, 0.0f);
+  quadVertices[2].uv = Vector2(0.0f, 0.0f);
+  quadVertices[3].uv = Vector2(0.0f, 1.0f);
+  quadVertices[4].uv = Vector2(1.0f, 1.0f);
+  quadVertices[5].uv = Vector2(1.0f, 0.0f);
 
   GraphicsInterface::VertexBuffer vbo = GraphicsInterface::createVertexBuffer(quadVertices, SCREEN_PLANE_VERTEX_COUNT);
   return vbo;

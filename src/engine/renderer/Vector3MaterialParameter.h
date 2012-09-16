@@ -5,6 +5,7 @@
 
 #include "maths/Vector3.h"
 #include "MaterialParameter.h"
+#include "IEffect.h"
 
 class IEffect;
 
@@ -25,7 +26,7 @@ private:
   
 };
 
-Vector3MaterialParameter::Vector3MaterialParameter(const std::string& name, const Vector3& value) 
+inline Vector3MaterialParameter::Vector3MaterialParameter(const std::string& name, const Vector3& value) 
 : name_(name)
 , value_(value) { }
 

@@ -17,12 +17,15 @@
 
 #include "DeferredInitRenderStage.h"
 
+#include "serialization/BinaryModelDeserializer.h"
+#include "io/Path.h"
+
 void DeferredSpotLightsPass::init(const CSize& screenSize) {
   shadowMapEffect_ = IEffect::effectFromFile("cgfx/deferred_depth.hlsl");
   lightEffect_ = IEffect::effectFromFile("cgfx/deferred_lighting_spot_light.hlsl");
 
-  spotLightModel_ = new Model();
-  WorldLoader().loadModel(spotLightModel_, "debug/cone.model");
+  std::string coneModelPath = Path::pathForFile("debug/cone.modelbinary");
+  spotLightModel_ = BinaryModelDeserializer::deserialize(coneModelPath);
 
   gaussianBlur_.init(screenSize, 16);
 

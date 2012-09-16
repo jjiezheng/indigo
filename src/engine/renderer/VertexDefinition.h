@@ -11,6 +11,7 @@ public:
   Vector3 vertex;
   Vector3 normal;
   Vector2 uv;
+
 };
 
 #endif

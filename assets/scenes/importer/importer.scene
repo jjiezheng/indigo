@@ -8,7 +8,7 @@
   "terrain" : [ ],
   "objects" : [
   {
-      "model" : "actors/car/car.model",
+      "model" : "actors/cube/cube.modelbinary",
       "position" : {
         "x" : 0.0,
         "y" : 0.0,
@@ -16,7 +16,7 @@
       }
     },
     {
-      "model" : "actors/floor/floor.model",
+      "model" : "actors/floor/floor.modelbinary",
       "position" : {
         "x" : 0.0,
         "y" : 0.0,
