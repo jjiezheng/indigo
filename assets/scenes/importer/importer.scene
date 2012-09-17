@@ -7,22 +7,7 @@
   },
   "terrain" : [ ],
   "objects" : [
-  {
-      "model" : "actors/cube/cube.modelbinary",
-      "position" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "z" : 0.0
-      }
-    },
-    {
-      "model" : "actors/floor/floor.modelbinary",
-      "position" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "z" : 0.0
-      }
-    }
+ 
   ],
   "lights" : [
     {

@@ -13,6 +13,14 @@
 
 #include "io/Path.h"
 
+
+//! Byte swap unsigned int
+unsigned int swap_uint32( unsigned int val )
+{
+	val = ((val << 8) & 0xFF00FF00 ) | ((val >> 8) & 0xFF00FF ); 
+	return (val << 16) | (val >> 16);
+}
+
 enum MaterialParameterType {
   PARAMETER_TYPE_UNKNOWN = 0,
   PARAMETER_TYPE_STRING = 1,
@@ -61,10 +69,21 @@ Model* BinaryModelDeserializer::deserialize(const std::string& modelFilePath) {
 
   std::ifstream input;
   input.open(modelFilePath.c_str(), std::ifstream::in | std::ios::binary);
+  input.seekg(0); 
+
+#ifdef PLATFORM_PS3
+  unsigned int bigEndianOffset;
+  input.read((char*)&bigEndianOffset, sizeof(unsigned int));
+  bigEndianOffset = swap_uint32(bigEndianOffset);
+  input.seekg(0);
+  input.seekg(bigEndianOffset);
+#else
+  input.seekg(sizeof(unsigned int));
+#endif
 
   if (!input.is_open()) {
     LOG(LOG_CHANNEL_IO, "Failed to open %s", modelFilePath.c_str());
-    return model;
+    return model; 
   }
 
   unsigned int subMeshCount = readUINT(input);
