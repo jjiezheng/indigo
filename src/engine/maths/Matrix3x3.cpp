@@ -4,11 +4,6 @@
 #include "Vector3.h"
 #include "Angles.h"
 
-#include "glm/glm.hpp"
-#include "glm/gtx/projection.hpp"
-#include "glm/gtc/matrix_transform.hpp"
-#include "glm/gtc/matrix_inverse.hpp"
-
 Matrix3x3 Matrix3x3::IDENTITY = Matrix3x3(1.0f, 0.0f, 0.0f,
                                           0.0f, 1.0f, 0.0f,
                                           0.0f, 0.0f, 1.0f);

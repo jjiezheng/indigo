@@ -43,6 +43,8 @@ public:
 
   bool getKeySate(char key);
 
+  void getMousePosition(int* x, int* y);
+
 };
 
 #endif

@@ -8,12 +8,6 @@
 #include "Vector4.h"
 #include "Matrix3x3.h"
 
-
-#include "glm/glm.hpp"
-#include "glm/gtx/projection.hpp"
-#include "glm/gtc/matrix_transform.hpp"
-#include "glm/gtc/matrix_inverse.hpp"
-
 Matrix4x4 Matrix4x4::IDENTITY = Matrix4x4(1.0f, 0.0f, 0.0f, 0.0f,
                                           0.0f, 1.0f, 0.0f, 0.0f,
                                           0.0f, 0.0f, 1.0f, 0.0f,
@@ -159,15 +153,55 @@ std::string Matrix4x4::toString() const {
 }
 
 Matrix4x4 Matrix4x4::inverse() const {
-  glm::mat4 mat(m11_, m12_, m13_, m14_,
-    m21_, m22_, m23_, m24_,
-    m31_, m32_, m33_, m34_,
-    m41_, m42_, m43_, m44_);
-  glm::mat4 inv = glm::inverse(mat);
-  return Matrix4x4(inv[0][0], inv[0][1], inv[0][2], inv[0][3],
-    inv[1][0], inv[1][1], inv[1][2], inv[1][3],
-    inv[2][0], inv[2][1], inv[2][2], inv[2][3],
-    inv[3][0], inv[3][1], inv[3][2], inv[3][3]);
+	float subFactor00 = m33_ * m44_ - m34_ * m43_;
+	float subFactor01 = m23_ * m44_ - m24_ * m43_;
+	float subFactor02 = m23_ * m34_ - m24_ * m33_;
+	float subFactor03 = m13_ * m44_ - m14_ * m43_;
+	float subFactor04 = m13_ * m34_ - m14_ * m33_;
+	float subFactor05 = m13_ * m24_ - m14_ * m23_;
+	float subFactor06 = m32_ * m44_ - m34_ * m42_;
+	float subFactor07 = m22_ * m44_ - m24_ * m42_;
+	float subFactor08 = m22_ * m34_ - m24_ * m32_;
+	float subFactor09 = m12_ * m44_ - m14_ * m42_;
+	float subFactor10 = m12_ * m34_ - m14_ * m32_;
+	float subFactor11 = m22_ * m44_ - m24_ * m42_;
+	float subFactor12 = m12_ * m24_ - m14_ * m22_;
+	float subFactor13 = m32_ * m43_ - m33_ * m42_;
+	float subFactor14 = m22_ * m43_ - m23_ * m42_;
+	float subFactor15 = m22_ * m33_ - m23_ * m32_;
+	float subFactor16 = m12_ * m43_ - m13_ * m42_;
+	float subFactor17 = m12_ * m33_ - m13_ * m32_;
+	float subFactor18 = m12_ * m23_ - m13_ * m22_;
+
+	Matrix4x4 inverse(
+		+ m22_ * subFactor00 - m32_ * subFactor01 + m42_ * subFactor02,
+		- m12_ * subFactor00 + m32_ * subFactor03 - m42_ * subFactor04,
+		+ m12_ * subFactor01 - m22_ * subFactor03 + m42_ * subFactor05,
+		- m12_ * subFactor02 + m22_ * subFactor04 - m32_ * subFactor05,
+
+		- m21_ * subFactor00 + m31_ * subFactor01 - m41_ * subFactor02,
+		+ m11_ * subFactor00 - m31_ * subFactor03 + m41_ * subFactor04,
+		- m11_ * subFactor01 + m21_ * subFactor03 - m41_ * subFactor05,
+		+ m11_ * subFactor02 - m21_ * subFactor04 + m31_ * subFactor05,
+
+		+ m21_ * subFactor06 - m31_ * subFactor07 + m41_ * subFactor08,
+		- m11_ * subFactor06 + m31_ * subFactor09 - m41_ * subFactor10,
+		+ m11_ * subFactor11 - m21_ * subFactor09 + m41_ * subFactor12,
+		- m11_ * subFactor08 + m21_ * subFactor10 - m31_ * subFactor12,
+
+		- m21_ * subFactor13 + m31_ * subFactor14 - m41_ * subFactor15,
+		+ m11_ * subFactor13 - m31_ * subFactor16 + m41_ * subFactor17,
+		- m11_ * subFactor14 + m21_ * subFactor16 - m41_ * subFactor18,
+		+ m11_ * subFactor15 - m21_ * subFactor17 + m31_ * subFactor18);
+
+	float determinant = 
+		+ m11_ * inverse.m11_ 
+		+ m21_ * inverse.m12_ 
+		+ m31_ * inverse.m13_ 
+		+ m41_ * inverse.m14_;
+
+	inverse /= determinant;
+	return inverse;
 }
 
 Matrix3x3 Matrix4x4::mat3x3() const {
@@ -209,4 +243,28 @@ bool Matrix4x4::operator==(const Matrix4x4& other) const {
     m21_ == other.m21_ && m22_ == other.m22_ && m23_ == other.m23_ && m24_ == other.m24_ && 
     m31_ == other.m31_ && m32_ == other.m32_ && m33_ == other.m33_ && m34_ == other.m34_ && 
     m41_ == other.m41_ && m42_ == other.m42_ && m43_ == other.m43_ && m44_ == other.m44_;
+}
+
+void Matrix4x4::operator /= (float scalar) {
+	scalar = (scalar == 0.0f) ? 1.0f : scalar;
+
+	m11_ /= scalar;
+	m12_ /= scalar;
+	m13_ /= scalar;
+	m14_ /= scalar;
+
+	m21_ /= scalar;
+	m22_ /= scalar;
+	m23_ /= scalar;
+	m24_ /= scalar;
+
+	m31_ /= scalar;
+	m32_ /= scalar;
+	m33_ /= scalar;
+	m34_ /= scalar;
+
+	m41_ /= scalar;
+	m42_ /= scalar;
+	m43_ /= scalar;
+	m44_ /= scalar;
 }

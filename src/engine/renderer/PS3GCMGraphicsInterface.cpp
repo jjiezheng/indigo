@@ -74,3 +74,6 @@ void PS3GCMGraphicsInterface::clearRenderTarget(unsigned int renderTargetId, con
 bool PS3GCMGraphicsInterface::getKeySate(char key) {
   return false;
 }
+
+void PS3GCMGraphicsInterface::getMousePosition(int* x, int* y) {
+}
