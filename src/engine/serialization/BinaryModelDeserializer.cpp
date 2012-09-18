@@ -71,7 +71,7 @@ Model* BinaryModelDeserializer::deserialize(const std::string& modelFilePath) {
   input.open(modelFilePath.c_str(), std::ifstream::in | std::ios::binary);
   input.seekg(0); 
 
-#ifdef PLATFORM_PS3
+#ifdef BIG_ENDIAN
   unsigned int bigEndianOffset;
   input.read((char*)&bigEndianOffset, sizeof(unsigned int));
   bigEndianOffset = swap_uint32(bigEndianOffset);

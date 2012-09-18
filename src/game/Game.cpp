@@ -21,6 +21,8 @@ void Game::init(const char* sceneFile) {
     loader.loadFromSceneFile(sceneFile, world_, sceneContext_);
   }
 
+  GraphicsInterface::clearBuffer(Color4::GREEN);
+
   //WindowsUtils::setKeyboardListener(this);
 }
  

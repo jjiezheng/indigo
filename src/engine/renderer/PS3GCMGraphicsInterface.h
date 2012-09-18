@@ -3,6 +3,8 @@
 
 #include "renderer/IGraphicsInterface.h"
 
+#include "maths/Vector2.h"
+
 class PS3GCMGraphicsInterface : public IGraphicsInterface {
 
 public:
@@ -44,6 +46,12 @@ public:
   bool getKeySate(char key);
 
   void getMousePosition(int* x, int* y);
+
+private:
+
+  unsigned int bufferFrameIndex_;
+
+  Vector2 backBufferSize_;
 
 };
 
