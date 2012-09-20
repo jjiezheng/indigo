@@ -3,7 +3,14 @@
 
 #include "IEffect.h"
 
+#include <cell/gcm.h>
+
 class PS3GCMCGEffect : public IEffect {
+
+public:
+
+  PS3GCMCGEffect()
+    : vertexPositionIndex_(0) { }
 
 public:
 
@@ -35,6 +42,24 @@ public:
 
   void setTexture(unsigned int textureId, const char* uniformName);
 
+  unsigned int vertexPositionIndex() const;
+
+private:
+
+  CGprogram vertexProgram_;
+  CGprogram fragmentProgram_;
+
+private:
+
+  unsigned int vertexPositionIndex_;
+
+  void* vertexProgramAddress_;
+  unsigned int fragmentProgramOffset_;
+
 };
+
+inline unsigned int PS3GCMCGEffect::vertexPositionIndex() const {
+  return vertexPositionIndex_;
+}
 
 #endif

@@ -22,6 +22,8 @@ void DeferredGeometryPass::render(IViewer* viewer, World& world, const SceneCont
   unsigned int renderTargets[] = {colorRenderTarget_, normalRenderTarget_, depthRenderTarget_};
   GraphicsInterface::setRenderTarget(renderTargets, 3, true);
 
+  GraphicsInterface::resetRenderTarget();
+
   stdext::hash_map<int, std::vector<Mesh*> > effects;
 
   std::vector<Model*>::iterator it = world.begin();

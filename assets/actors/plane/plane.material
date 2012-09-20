@@ -1,5 +1,5 @@
 {
-  "effect" : "cgfx/deferred_render_color_normal_depth.hlsl",
+  "effect" : "effects/simple.effect",
   "parameters" : {
     "AmbientColor" : {
       "r" : 0,

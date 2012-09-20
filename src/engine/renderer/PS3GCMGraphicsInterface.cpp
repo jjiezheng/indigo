@@ -1,6 +1,7 @@
 #include "PS3GCMGraphicsInterface.h"
 
 #include "Color4.h"
+#include "VertexDefinition.h"
 
 #include <stddef.h>
 #include <stdlib.h>
@@ -13,6 +14,8 @@
 #define HOST_SIZE (1*1024*1024)
 #define CB_SIZE	(0x10000)
 #define BUFFER_COUNT 2
+
+#define BASED_ALIGN	128	
 
 /* local memory allocation */
 static uint32_t local_mem_heap = 0;
@@ -28,6 +31,10 @@ static void *localMemoryAlign(const unsigned int alignment, const unsigned int s
   local_mem_heap = (local_mem_heap + alignment - 1) & (~(alignment-1));
   void* memory = (void*)localMemoryAlloc(size);
   return memory;
+}
+
+void* PS3GCMGraphicsInterface::localAllocate(unsigned int size) {
+  return localMemoryAlign(BASED_ALIGN, size);
 }
 
 unsigned int colorOffset[BUFFER_COUNT];
@@ -54,8 +61,8 @@ void PS3GCMGraphicsInterface::openWindow(int width, int height, unsigned int mul
   depthPitch = zDepth * resolution.width;
   unsigned int depthSize =  depthPitch * resolution.height;
 
-  backBufferSize_.x = resolution.width;
-  backBufferSize_.y = resolution.height;
+  screenSize_.width = resolution.width;
+  screenSize_.height = resolution.height;
 
   CellVideoOutConfiguration videocfg;
   memset(&videocfg, 0, sizeof(CellVideoOutConfiguration));
@@ -113,8 +120,36 @@ void PS3GCMGraphicsInterface::endPerformanceEvent() {
 
 }
 
-void PS3GCMGraphicsInterface::swapBuffers() {
-  {
+void PS3GCMGraphicsInterface::swapBuffers() {  
+  if (cell::Gcm::cellGcmSetFlip(bufferFrameIndex_) != CELL_OK) {
+    return; 
+  }
+
+  cell::Gcm::cellGcmFlush();
+  cell::Gcm::cellGcmSetWaitFlip();
+}
+
+unsigned int PS3GCMGraphicsInterface::createVertexBuffer(VertexDef* vertexData, int numVertices) {
+  void* vertex = localMemoryAlign(BASED_ALIGN, sizeof(VertexDef) * numVertices);
+  memcpy(vertex, vertexData, numVertices * sizeof(VertexDef));
+
+  unsigned int vertexDataOffset = 0;
+  CELL_GCMUTIL_CHECK_ASSERT(cellGcmAddressToOffset(vertex, &vertexDataOffset));
+
+  int bufferId = vertexBuffers_.size();
+  vertexBuffers_.push_back(vertexDataOffset);
+  return bufferId;
+
+}
+
+void PS3GCMGraphicsInterface::clearBuffer(const Color4& color) {
+  unsigned int argb = ((char)color.a * 255) << 24 | ((char)color.r * 255) << 16 | ((char)color.g * 255) << 8 | ((char)color.b * 255) << 0;
+  cell::Gcm::cellGcmSetClearColor(argb);
+
+  cell::Gcm::cellGcmSetClearSurface(CELL_GCM_CLEAR_Z | CELL_GCM_CLEAR_R | CELL_GCM_CLEAR_G | CELL_GCM_CLEAR_B | CELL_GCM_CLEAR_A);
+}
+
+void PS3GCMGraphicsInterface::resetGraphicsState(bool cullBack) {
     CellGcmSurface sf;
 
     sf.colorFormat = CELL_GCM_SURFACE_A8R8G8B8;
@@ -141,37 +176,12 @@ void PS3GCMGraphicsInterface::swapBuffers() {
     sf.type = CELL_GCM_SURFACE_PITCH;
     sf.antialias = CELL_GCM_SURFACE_CENTER_1;
 
-    sf.width = backBufferSize_.x;
-    sf.height = backBufferSize_.y;
+    sf.width = screenSize_.width;
+    sf.height = screenSize_.height;
     sf.x = 0;
     sf.y = 0;
 
     cell::Gcm::cellGcmSetSurface(&sf);
-  }
-
-  
-  cell::Gcm::cellGcmSetClearSurface(CELL_GCM_CLEAR_Z | CELL_GCM_CLEAR_R | CELL_GCM_CLEAR_G | CELL_GCM_CLEAR_B | CELL_GCM_CLEAR_A);
-
-  if (cell::Gcm::cellGcmSetFlip(bufferFrameIndex_) != CELL_OK) {
-    return; 
-  }
-
-  cell::Gcm::cellGcmFlush();
-  cell::Gcm::cellGcmSetWaitFlip();
-}
-
-unsigned int PS3GCMGraphicsInterface::createVertexBuffer(VertexDef* vertexData, int numVertices) {
-  return 0;
-}
-
-void PS3GCMGraphicsInterface::clearBuffer(const Color4& color) {
-  unsigned int argb = ((char)color.a * 255) << 24 | ((char)color.r * 255) << 16 | ((char)color.g * 255) << 8 | ((char)color.b * 255) << 0;
-  cell::Gcm::cellGcmSetClearColor(argb);
-}
-
-
-void PS3GCMGraphicsInterface::resetGraphicsState(bool cullBack) {
-
 }
 
 unsigned int PS3GCMGraphicsInterface::loadTexture(const std::string& filePath) {
@@ -179,7 +189,10 @@ unsigned int PS3GCMGraphicsInterface::loadTexture(const std::string& filePath) {
 }
 
 void PS3GCMGraphicsInterface::drawVertexBuffer(int vertexBuffer, int vertexCount, VertexFormat vertexFormat) {
-
+  unsigned int positionIndex = effect_->vertexPositionIndex();
+  unsigned int vertexDataOffset = vertexBuffers_[vertexBuffer];
+  cell::Gcm::cellGcmSetVertexDataArray(positionIndex, 0, sizeof(VertexDef), 3, CELL_GCM_VERTEX_F, CELL_GCM_LOCATION_LOCAL, vertexDataOffset);
+  cell::Gcm::cellGcmSetDrawArrays(CELL_GCM_PRIMITIVE_TRIANGLES, 0, vertexCount);
 }
 
 IEffect* PS3GCMGraphicsInterface::createEffect() {
@@ -219,4 +232,7 @@ bool PS3GCMGraphicsInterface::getKeySate(char key) {
 }
 
 void PS3GCMGraphicsInterface::getMousePosition(int* x, int* y) {
+
 }
+
+

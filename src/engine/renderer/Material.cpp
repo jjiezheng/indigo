@@ -18,6 +18,8 @@ void Material::bind(const Matrix4x4& projection, const Matrix4x4& view, const Ma
   Matrix4x4 worldViewProjection = projection * worldView;
   effect->setUniform(worldViewProjection, "WorldViewProj");
 
+  effect->setUniform(projection, "Projection");
+
   Matrix4x4 viewProjection = projection * view;
   effect->setUniform(viewProjection, "ViewProj");
 

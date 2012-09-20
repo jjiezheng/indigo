@@ -1,0 +1,11 @@
+{
+	"targets" : {
+		"gcm" : {
+			"vertex" : "shaders/cg/simple.vpo",
+			"fragment" : "shaders/cg/simple.fpo"
+		},
+		"dx11" : {
+			"effect" : "shaders/hlsl/simple.hlsl"
+		}
+	}
+}

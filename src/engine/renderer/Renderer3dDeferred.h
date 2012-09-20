@@ -19,6 +19,8 @@ class CSize;
 class IDeferredPass;
 class IDeferredRenderStage;
 
+class IEffect;
+
 class Renderer3dDeferred : public IDeferredRenderTargetContainer {
 
 public:
@@ -56,6 +58,11 @@ private:
 
   std::vector<DeferredRenderTarget> renderTargets_;
   unsigned int activeRenderTargetIndex_;
+
+private:
+
+  IEffect* effect_;
+  unsigned int screenPlaneId_;
 
 };
 

@@ -6,9 +6,13 @@
 #include <D3DX11.h>
 #include <assert.h>
 
+#include <fstream>
+#include "json/reader.h"
+
 #include <d3dx11effect.h>
 
 #include "io/Log.h"
+#include "io/Path.h"
 
 #include "Color3.h"
 
@@ -26,11 +30,25 @@ ID3D11Device* D3DEffect::device_ = NULL;
 ID3D11DeviceContext* D3DEffect::context_ = NULL;
 
 void D3DEffect::load(const std::string& filePath) {
+  std::string fullEffectFilePath;
+
+  {
+    std::ifstream effectFile;
+    effectFile.open(filePath.c_str());
+
+    json::Object effectJSONObject;
+    json::Reader::Read(effectJSONObject, effectFile);
+
+    json::String vertexFileJSONObject = effectJSONObject["targets"]["dx11"]["effect"];
+    std::string vertexShaderFilePath = vertexFileJSONObject.Value();
+    fullEffectFilePath = Path::pathForFile(vertexShaderFilePath);
+  }
+
   ID3D10Blob* effect = NULL;
 
   {
     ID3D10Blob* errors = NULL;
-    HRESULT result = D3DX11CompileFromFile(filePath.c_str(), NULL, NULL, NULL, "fx_5_0", 0, 0, 0, &effect, &errors, NULL);
+    HRESULT result = D3DX11CompileFromFile(fullEffectFilePath.c_str(), NULL, NULL, NULL, "fx_5_0", 0, 0, 0, &effect, &errors, NULL);
     if (errors) {
       LPVOID errorData = errors->GetBufferPointer();
       char* errorText = (char*)errorData;

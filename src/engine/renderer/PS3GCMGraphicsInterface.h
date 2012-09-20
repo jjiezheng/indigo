@@ -5,6 +5,11 @@
 
 #include "maths/Vector2.h"
 
+#include <cell/gcm.h>
+#include <vector>
+
+class PS3GCMCGEffect;
+
 class PS3GCMGraphicsInterface : public IGraphicsInterface {
 
 public:
@@ -47,12 +52,26 @@ public:
 
   void getMousePosition(int* x, int* y);
 
+public:
+
+  void setEffect(PS3GCMCGEffect* effect);
+
+  void* localAllocate(unsigned int size);
+
 private:
 
   unsigned int bufferFrameIndex_;
 
-  Vector2 backBufferSize_;
+private:
+
+  PS3GCMCGEffect* effect_;
+
+  std::vector<unsigned int> vertexBuffers_;
 
 };
+
+inline void PS3GCMGraphicsInterface::setEffect(PS3GCMCGEffect* effect) {
+  effect_ = effect;
+}
 
 #endif

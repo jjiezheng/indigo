@@ -1,17 +1,23 @@
 #include "File.h"
 
 #include <fstream>
-#include <sstream>
 
 #include "core/Standard.h"
 
-std::string File::data() {
-  std::ifstream file_stream(file_path.c_str());
-  if (!file_stream) {
-    LOG(LOG_CHANNEL_IO, "Failed to open file %s", file_path.c_str());
-  }
-  std::stringstream data;
-  data << file_stream.rdbuf();
-  return data.str();
-}
+void File::open(const std::string fullFilePath) {
+  std::ifstream fileStream;
+  fileStream.open(fullFilePath.c_str(), std::ios::binary);
 
+  if (!fileStream.is_open()) {
+    LOG(LOG_CHANNEL_RENDERER, "Failed to open file %s", fullFilePath.c_str());
+    return;
+  }
+
+  fileStream.seekg(0, std::ios::end);
+  size_ = fileStream.tellg();
+  fileStream.seekg(0, std::ios::beg);
+  data_ = new char[size_];
+  fileStream.read(data_, size_);
+
+  hasData_ = true;
+}

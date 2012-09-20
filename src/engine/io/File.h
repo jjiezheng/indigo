@@ -1,21 +1,37 @@
-#ifndef CubeFX_File_h
-#define CubeFX_File_h
+#ifndef FILE_H
+#define FILE_H
 
 #include <string>
 
 class File {
+
+public:
+
+  File() 
+    : hasData_(false) { }
   
 public:
-  
-  File(const std::string& file_path)
-    : file_path(file_path) { }
-  
-  std::string data();
-    
+
+  void open(const std::string fullFilePath);
+
+  char* data() const;
+
+  unsigned int size() const;
+
 private:
-  
-  std::string file_path;
+
+  char* data_;
+  unsigned int size_;
+  bool hasData_;
   
 };
+
+inline char* File::data() const {
+  return data_;
+}
+
+inline unsigned int File::size() const {
+  return size_;
+}
 
 #endif

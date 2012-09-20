@@ -1,0 +1,10 @@
+struct VS_OUTPUT  {
+	float4 vPosition : POSITION;
+};
+
+VS_OUTPUT main(float4 position : POSITION,
+			   uniform float4x4 Projection) {
+	VS_OUTPUT vout;
+	vout.vPosition = mul(Projection, position);
+	return vout;
+}
