@@ -33,27 +33,27 @@ void Camera::init() { }
 void Camera::update(float dt) {
   float speed = dt * 10;
 
-  if (GraphicsInterface::getKeyState('W')) {
+  if (GraphicsInterface::getKeyState('w')) {
     moveForward(speed);
   }
   
-  if (GraphicsInterface::getKeyState('S')) {
+  if (GraphicsInterface::getKeyState('s')) {
     moveForward(-speed);
   }
   
-  if (GraphicsInterface::getKeyState('A')) {
+  if (GraphicsInterface::getKeyState('a')) {
     moveRight(-speed);
   }
   
-  if (GraphicsInterface::getKeyState('D')) {
+  if (GraphicsInterface::getKeyState('d')) {
     moveRight(speed);
   }
   
-  if (GraphicsInterface::getKeyState('E')) {
+  if (GraphicsInterface::getKeyState('e')) {
     moveUp(speed);
   }
 
-  if (GraphicsInterface::getKeyState('Q')) {
+  if (GraphicsInterface::getKeyState('q')) {
     moveUp(-speed);
   }
   

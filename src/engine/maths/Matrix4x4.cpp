@@ -64,7 +64,6 @@ Matrix4x4 Matrix4x4::perspective(float fovDegrees, float aspect, float zNear, fl
     0.0f,   0.0f,   z,      flip,
     0.0f,   0.0f,   persp,  0.0f);
 
-  //return Matrix4x4::IDENTITY;
   return resultb;
 }
 

@@ -3,6 +3,10 @@
 #include "Color4.h"
 #include "VertexDefinition.h"
 
+#include <cell/keyboard.h>
+
+#include "io/Log.h"
+
 #include <stddef.h>
 #include <stdlib.h>
 #include <cell/gcm.h>
@@ -16,6 +20,10 @@
 #define BUFFER_COUNT 2
 
 #define BASED_ALIGN	128	
+
+#define MAX_KEYBD 2
+
+bool PS3GCMGraphicsInterface::keyStates_[256];
 
 /* local memory allocation */
 static uint32_t local_mem_heap = 0;
@@ -110,6 +118,11 @@ void PS3GCMGraphicsInterface::openWindow(int width, int height, unsigned int mul
   void *depthBaseAddr = localMemoryAlign(64, depthSize);
   void *depthAddr = depthBaseAddr;
   CELL_GCMUTIL_CHECK_ASSERT(cellGcmAddressToOffset(depthAddr, &depthOffset));
+
+  int ret = cellKbInit (MAX_KEYBD);
+  if (ret != CELL_OK) {
+    LOG(LOG_CHANNEL_TEMP, "cellPadInit failed 0x%08x\n", ret);
+  }
 }
 
 void PS3GCMGraphicsInterface::beginPerformanceEvent(const std::string& eventName, const Color4& color) {
@@ -127,6 +140,28 @@ void PS3GCMGraphicsInterface::swapBuffers() {
 
   cell::Gcm::cellGcmFlush();
   cell::Gcm::cellGcmSetWaitFlip();
+
+  for (unsigned int i = 0; i < MAX_KEYBD; i++) {
+
+    static CellKbData kdata;
+    unsigned int ret = cellKbRead (i, &kdata);
+    if (CELL_KB_OK != ret) {
+      
+    }
+
+    if (kdata.len == 0) {
+
+    }
+
+    for (unsigned int i = 0; i < 256; i++) {
+      keyStates_[i] = false;
+    }
+
+    for (unsigned int j = 0; j < kdata.len; j++) {
+      int keyCode = kdata.keycode[j];
+      keyStates_[keyCode] = true;
+    }
+  }
 }
 
 unsigned int PS3GCMGraphicsInterface::createVertexBuffer(VertexDef* vertexData, int numVertices) {
@@ -150,6 +185,7 @@ void PS3GCMGraphicsInterface::clearBuffer(const Color4& color) {
 }
 
 void PS3GCMGraphicsInterface::resetGraphicsState(bool cullBack) {
+  {
     CellGcmSurface sf;
 
     sf.colorFormat = CELL_GCM_SURFACE_A8R8G8B8;
@@ -182,6 +218,23 @@ void PS3GCMGraphicsInterface::resetGraphicsState(bool cullBack) {
     sf.y = 0;
 
     cell::Gcm::cellGcmSetSurface(&sf);
+
+  }
+
+  {
+    uint16_t x, y, w,h;
+    float min = 0.0f, max = 1.0f;
+
+    x = y = 0;
+    w = screenSize_.width;
+    h = screenSize().height;
+
+    float scale[4] = {w * 0.5f, h * -0.5f, (max - min) * 0.5f, 0.0f};
+    float offset[4] = {x + scale[0], h - y + scale[1], (max + min) * 0.5f, 0.0f};
+
+    cell::Gcm::cellGcmSetViewport(x, y, w, h, min, max, scale, offset); 
+    //cellGcmSetScissor( x, y, w, h ) ;
+  }
 }
 
 unsigned int PS3GCMGraphicsInterface::loadTexture(const std::string& filePath) {
@@ -228,7 +281,8 @@ void PS3GCMGraphicsInterface::clearRenderTarget(unsigned int renderTargetId, con
 }
 
 bool PS3GCMGraphicsInterface::getKeySate(char key) {
-  return false;
+  bool keyState = keyStates_[key];
+  return keyState;
 }
 
 void PS3GCMGraphicsInterface::getMousePosition(int* x, int* y) {

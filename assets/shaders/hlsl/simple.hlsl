@@ -1,4 +1,4 @@
-uniform	float4x4 Projection;
+uniform	float4x4 WorldViewProj;
 
 struct VOutput {
 	float4 position			: SV_POSITION;
@@ -6,7 +6,7 @@ struct VOutput {
 
 VOutput vs(float4 position 		: POSITION) {
 	VOutput OUT;
-	OUT.position =  mul(Projection, position);
+	OUT.position =  mul(WorldViewProj, position);
  	return OUT;
 }
 

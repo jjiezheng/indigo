@@ -3,11 +3,21 @@
 #include "platform/PlatformDefs.h"
 
 #ifdef PLATFORM_PS3
+
+#include <sys/sys_time.h>
+
 void Clock::init() {
 }
 
 float Clock::delta_time() {
-  return 0.0f;
+  system_time_t timeMicroSeconds = sys_time_get_system_time();
+  float currentTime = timeMicroSeconds / 100000000.0f;
+
+  float dt = currentTime - lastTime_;
+  lastTime_ = currentTime;
+  lastDeltaTime_ = dt;
+
+  return dt;
 }
 #endif
 

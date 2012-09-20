@@ -68,6 +68,8 @@ private:
 
   std::vector<unsigned int> vertexBuffers_;
 
+  static bool keyStates_[256];
+
 };
 
 inline void PS3GCMGraphicsInterface::setEffect(PS3GCMCGEffect* effect) {
