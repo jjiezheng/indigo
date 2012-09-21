@@ -7,6 +7,8 @@
 
 #include "GraphicsInterface.h"
 
+#include "input/Pad.h"
+
 Camera::Camera() 
   : forward_(Vector3::FORWARD)
   , right_(Vector3::RIGHT)
@@ -32,6 +34,16 @@ void Camera::init() { }
 
 void Camera::update(float dt) {
   float speed = dt * 10;
+
+  float leftStickY = Pad::leftStickY();
+  if (leftStickY != 0.0f) {
+    moveForward(100 * speed * leftStickY);
+  }
+
+  float leftStickX = Pad::leftStickX();
+  if (leftStickX != 0.0f) {
+    moveRight(100 * speed * leftStickX);
+  }
 
   if (GraphicsInterface::getKeyState('w')) {
     moveForward(speed);

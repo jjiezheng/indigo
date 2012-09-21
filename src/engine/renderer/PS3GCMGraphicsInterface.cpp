@@ -3,8 +3,6 @@
 #include "Color4.h"
 #include "VertexDefinition.h"
 
-#include <cell/keyboard.h>
-
 #include "io/Log.h"
 
 #include <stddef.h>
@@ -19,11 +17,7 @@
 #define CB_SIZE	(0x10000)
 #define BUFFER_COUNT 2
 
-#define BASED_ALIGN	128	
-
-#define MAX_KEYBD 2
-
-bool PS3GCMGraphicsInterface::keyStates_[256];
+#define BASED_ALIGN	128
 
 /* local memory allocation */
 static uint32_t local_mem_heap = 0;
@@ -118,11 +112,6 @@ void PS3GCMGraphicsInterface::openWindow(int width, int height, unsigned int mul
   void *depthBaseAddr = localMemoryAlign(64, depthSize);
   void *depthAddr = depthBaseAddr;
   CELL_GCMUTIL_CHECK_ASSERT(cellGcmAddressToOffset(depthAddr, &depthOffset));
-
-  int ret = cellKbInit (MAX_KEYBD);
-  if (ret != CELL_OK) {
-    LOG(LOG_CHANNEL_TEMP, "cellPadInit failed 0x%08x\n", ret);
-  }
 }
 
 void PS3GCMGraphicsInterface::beginPerformanceEvent(const std::string& eventName, const Color4& color) {
@@ -133,35 +122,34 @@ void PS3GCMGraphicsInterface::endPerformanceEvent() {
 
 }
 
+/* wait until flip */
+static void waitFlip(void)
+{
+  while (cellGcmGetFlipStatus()!=0){
+    sys_timer_usleep(300);
+  }
+  cellGcmResetFlipStatus();
+}
+
 void PS3GCMGraphicsInterface::swapBuffers() {  
+
+
+  static int first=1;
+
+  // wait until the previous flip executed
+  if (first!=1) waitFlip();
+  else cellGcmResetFlipStatus();
+
+  //cellGcmResetFlipStatus();
+
   if (cell::Gcm::cellGcmSetFlip(bufferFrameIndex_) != CELL_OK) {
     return; 
   }
 
+  bufferFrameIndex_ = (bufferFrameIndex_+1)%BUFFER_COUNT;
+
   cell::Gcm::cellGcmFlush();
   cell::Gcm::cellGcmSetWaitFlip();
-
-  for (unsigned int i = 0; i < MAX_KEYBD; i++) {
-
-    static CellKbData kdata;
-    unsigned int ret = cellKbRead (i, &kdata);
-    if (CELL_KB_OK != ret) {
-      
-    }
-
-    if (kdata.len == 0) {
-
-    }
-
-    for (unsigned int i = 0; i < 256; i++) {
-      keyStates_[i] = false;
-    }
-
-    for (unsigned int j = 0; j < kdata.len; j++) {
-      int keyCode = kdata.keycode[j];
-      keyStates_[keyCode] = true;
-    }
-  }
 }
 
 unsigned int PS3GCMGraphicsInterface::createVertexBuffer(VertexDef* vertexData, int numVertices) {
@@ -174,7 +162,6 @@ unsigned int PS3GCMGraphicsInterface::createVertexBuffer(VertexDef* vertexData, 
   int bufferId = vertexBuffers_.size();
   vertexBuffers_.push_back(vertexDataOffset);
   return bufferId;
-
 }
 
 void PS3GCMGraphicsInterface::clearBuffer(const Color4& color) {
@@ -281,8 +268,7 @@ void PS3GCMGraphicsInterface::clearRenderTarget(unsigned int renderTargetId, con
 }
 
 bool PS3GCMGraphicsInterface::getKeySate(char key) {
-  bool keyState = keyStates_[key];
-  return keyState;
+  return false;
 }
 
 void PS3GCMGraphicsInterface::getMousePosition(int* x, int* y) {

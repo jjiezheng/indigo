@@ -4,15 +4,18 @@
 #include "maths/Angles.h"
 
 #include "renderer/WorldLoader.h"
+#include "input/Pad.h"
 
 //#include "platform/WindowsUtils.h"
 
 void Game::init(const char* sceneFile) {
+  Pad::init();
+
   renderer_.init(GraphicsInterface::screenSize());
 
   clock_.init();
   
-  camera_.translateZ(1.5f);
+  camera_.translateZ(5.5f);
   
   camera_.setPerspective(45.0f, GraphicsInterface::aspectRatio(), 1.0f, 1000.0f);
 
@@ -27,7 +30,7 @@ void Game::init(const char* sceneFile) {
 void Game::mainLoop() {
   float dt = clock_.delta_time();
   camera_.update(dt);
-  
+  Pad::update();
   renderer_.render(&camera_, world_, sceneContext_);
 }
 

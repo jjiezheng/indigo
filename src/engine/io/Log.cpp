@@ -9,6 +9,7 @@ const char* LOG_CHANNEL_GL_UTILS = "GL_UTILS";
 const char* LOG_CHANNEL_GRAPHICS_API = "GRAPHICS API";
 const char* LOG_CHANNEL_TEMP = "TEMP";
 const char* LOG_CHANNEL_RENDERER = "RENDERER";
+const char* LOG_CHANNEL_INPUT = "INPUT";
 
 #include <stdio.h>
 #include <stdarg.h>
@@ -44,12 +45,12 @@ void DLOG(const char* channel, const char* format, ...) {
 #else
 void DLOG(const char* channel, const char* fmt, ...) {
   
-  va_list args;
+  /*va_list args;
   va_start(args, fmt);
   printf("%s: ", channel);
   vfprintf(stderr, fmt, args);
   printf("\n");
-  va_end(args);
+  va_end(args);*/
 };
 #endif
 

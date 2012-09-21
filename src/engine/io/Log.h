@@ -10,6 +10,7 @@ extern const char* LOG_CHANNEL_GL_UTILS;
 extern const char* LOG_CHANNEL_GRAPHICS_API;
 extern const char* LOG_CHANNEL_TEMP;
 extern const char* LOG_CHANNEL_RENDERER;
+extern const char* LOG_CHANNEL_INPUT;
 
 void DLOG(const char* channel, const char* fmt, ...);
 void RLOG(const char* channel, const char* fmt, ...);
