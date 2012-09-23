@@ -5,18 +5,20 @@
 
 struct ID3D11Device;
 struct ID3D11DeviceContext;
-struct ID3DX11Effect;
-struct ID3DX11EffectPass;
+/*struct ID3DX11Effect;
+struct ID3DX11EffectPass;*/
 struct ID3D11InputLayout;
+
+struct ID3D11VertexShader;
 
 class D3DEffect : public IEffect {
 
 public:
 
-  D3DEffect() 
+  /*D3DEffect() 
     : effect_(0)
     , pass_(0)
-    , layout_(0) { }
+    , layout_(0) { }*/
 
 public:
 
@@ -57,9 +59,11 @@ private:
   static ID3D11Device* device_;
   static ID3D11DeviceContext* context_;
 
-  ID3DX11Effect* effect_;
+  ID3D11VertexShader* vertexShader_;
+
+  /*ID3DX11Effect* effect_;
   ID3DX11EffectPass* pass_;
-  ID3D11InputLayout* layout_;
+  ID3D11InputLayout* layout_;*/
 
 };
 

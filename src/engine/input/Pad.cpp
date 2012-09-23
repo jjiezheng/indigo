@@ -1,6 +1,8 @@
 #include "Pad.h"
 
+#ifdef PLATFORM_PS3
 #include <cell/pad.h>    
+#endif
 
 #include "io/Log.h"
 
@@ -11,6 +13,7 @@
 float Pad::leftStickY_ = 0;
 
 void Pad::update() {
+#ifdef PLATFORM_PS3
   static CellPadInfo2 padInfo;
   int32_t ret;
   if ((ret = cellPadGetInfo2(&padInfo)) != CELL_OK) {
@@ -42,6 +45,7 @@ void Pad::update() {
       }
     }
   }
+#endif
 }
 
 float Pad::leftStickY() {
@@ -49,10 +53,12 @@ float Pad::leftStickY() {
 }
 
 void Pad::init() {
-  int32_t ret = cellPadInit (MAX_PAD);
+#ifdef PLATFORM_PS3
+  int32_t ret = cellPadInit(MAX_PAD);
   if (ret != CELL_OK) {
     LOG(LOG_CHANNEL_INPUT, "Failed to init pad");
   }
+#endif
 }
 
 float Pad::leftStickX() {

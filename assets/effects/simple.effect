@@ -5,7 +5,8 @@
 			"fragment" : "shaders/cg/simple.fpo"
 		},
 		"dx11" : {
-			"effect" : "shaders/hlsl/simple.hlsl"
+			"vertex" : "shaders/hlsl/simple.v.hlsl",
+			"fragment" : "shaders/hlsl/simple.f.hlsl"
 		}
 	}
 }
