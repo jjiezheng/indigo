@@ -9,13 +9,31 @@ public:
 
   static void update();
 
+public:
+
   static float leftStickY();
 
   static float leftStickX();
 
+  static float rightStickX();
+
+  static float rightStickY();
+
+  static bool leftShoulder();
+
+  static bool rightShoulder();
+
 private:
 
   static float leftStickY_;
+  static float leftStickX_;
+  static float rightStickX_;
+  static float rightStickY_;
+
+private:
+
+  static bool leftShoulder_;
+  static bool rightShoulder_;
 
 };
 

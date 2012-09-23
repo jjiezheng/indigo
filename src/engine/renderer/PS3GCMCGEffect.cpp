@@ -1,4 +1,4 @@
-#include "PS3CGMCGEffect.h"
+#include "PS3GCMCGEffect.h"
 
 #include <fstream>
 #include "json/reader.h"
@@ -18,7 +18,13 @@
 #include "GraphicsInterface.h"
 #include "PS3GCMGraphicsInterface.h"
 
+#include "maths/Vector2.h"
+#include "maths/Vector3.h"
+#include "maths/Vector4.h"
+#include "maths/Matrix3x3.h"
 #include "maths/Matrix4x4.h"
+
+#include "Color3.h"
 
 #define BASED_ALIGN	128	
 
@@ -91,34 +97,70 @@ void PS3GCMCGEffect::beginDraw() {
 }
 
 void PS3GCMCGEffect::setUniform(const Matrix3x3& uniformData, const char* uniformName) const {
-
+  CGparameter parameter = cellGcmCgGetNamedParameter(vertexProgram_, uniformName);
+  if (parameter) {
+    //cell::Gcm::cellGcmSetVertexProgramParameter(parameter, uniformData.valuePtr());
+  }
 }
 
 void PS3GCMCGEffect::setUniform(const Matrix4x4& uniformData, const char* uniformName) const {
+  {
+    CGparameter parameter = cellGcmCgGetNamedParameter(vertexProgram_, uniformName);
+    if (parameter) {
+      cell::Gcm::cellGcmSetVertexProgramParameter(parameter, uniformData.valuePtr());
+    }
+  }
+  {
+    CGparameter parameter = cellGcmCgGetNamedParameter(fragmentProgram_, uniformName);
+    if (parameter) {
+      int a = 1;
+      cell::Gcm::cellGcmSetFragmentProgramParameter(fragmentProgram_, parameter, uniformData.valuePtr(), fragmentProgramOffset_);
+    }
+  }
+}
+
+void PS3GCMCGEffect::setUniform(const Color3& uniformData, const char* uniformName) const {
   CGparameter parameter = cellGcmCgGetNamedParameter(vertexProgram_, uniformName);
   if (parameter) {
     cell::Gcm::cellGcmSetVertexProgramParameter(parameter, uniformData.valuePtr());
   }
 }
 
-void PS3GCMCGEffect::setUniform(const Color3& uniformData, const char* uniformName) const {
-
-}
-
 void PS3GCMCGEffect::setUniform(const Vector2& uniformData, const char* uniformName) const {
-
+  CGparameter parameter = cellGcmCgGetNamedParameter(vertexProgram_, uniformName);
+  if (parameter) {
+    //cell::Gcm::cellGcmSetVertexProgramParameter(parameter, uniformData.valuePtr());
+  }
 }
 
 void PS3GCMCGEffect::setUniform(const Vector3& uniformData, const char* uniformName) const {
-
+  {
+    CGparameter parameter = cellGcmCgGetNamedParameter(vertexProgram_, uniformName);
+    if (parameter) {
+      cell::Gcm::cellGcmSetVertexProgramParameter(parameter, uniformData.valuePtr());
+    }
+  }
+  {
+    CGparameter parameter = cellGcmCgGetNamedParameter(fragmentProgram_, uniformName);
+    if (parameter) {
+      int a = 1;
+      cell::Gcm::cellGcmSetFragmentProgramParameter(fragmentProgram_, parameter, uniformData.valuePtr(), fragmentProgramOffset_);
+    }
+  }
 }
 
 void PS3GCMCGEffect::setUniform(const Vector4& uniformData, const char* uniformName) const {
-
+  CGparameter parameter = cellGcmCgGetNamedParameter(vertexProgram_, uniformName);
+  if (parameter) {
+    //cell::Gcm::cellGcmSetVertexProgramParameter(parameter, uniformData.valuePtr());
+  }
 }
 
 void PS3GCMCGEffect::setUniform(const Vector4* uniformData, unsigned int uniformDataSize, const char* uniformName) const {
-
+  CGparameter parameter = cellGcmCgGetNamedParameter(vertexProgram_, uniformName);
+  if (parameter) {
+    //cell::Gcm::cellGcmSetVertexProgramParameter(parameter, (float*)uniformData);
+  }
 }
 
 void PS3GCMCGEffect::setUniform(int uniformData, const char* uniformName) const {
@@ -126,7 +168,10 @@ void PS3GCMCGEffect::setUniform(int uniformData, const char* uniformName) const 
 }
 
 void PS3GCMCGEffect::setUniform(float uniformData, const char* uniformName) const {
-
+  CGparameter parameter = cellGcmCgGetNamedParameter(vertexProgram_, uniformName);
+  if (parameter) {
+    //cell::Gcm::cellGcmSetVertexProgramParameter(parameter, &uniformData);
+  }
 }
 
 void PS3GCMCGEffect::setTexture(unsigned int textureId, const char* uniformName) {

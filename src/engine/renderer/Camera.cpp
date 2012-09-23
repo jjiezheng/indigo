@@ -35,14 +35,36 @@ void Camera::init() { }
 void Camera::update(float dt) {
   float speed = dt * 10;
 
+  float padSpeed = 100.0f * speed;
+
   float leftStickY = Pad::leftStickY();
   if (leftStickY != 0.0f) {
-    moveForward(100 * speed * leftStickY);
+    moveForward(padSpeed * leftStickY);
   }
 
   float leftStickX = Pad::leftStickX();
   if (leftStickX != 0.0f) {
-    moveRight(100 * speed * leftStickX);
+    moveRight(padSpeed * leftStickX);
+  }
+
+  float rightStickX = Pad::rightStickX();
+  if (rightStickX != 0.0f) {
+    rotateY(10.0f * speed * rightStickX);
+  }
+
+  float rightStickY = Pad::rightStickY();
+  if (rightStickY != 0.0f) {
+    rotateX(10.0f * speed * -rightStickY); // inv look
+  }
+
+  bool leftShoulder = Pad::leftShoulder();
+  if (leftShoulder) {
+    moveUp(padSpeed * -leftShoulder);
+  }
+
+  bool rightShoulder = Pad::rightShoulder();
+  if (rightShoulder) {
+    moveUp(padSpeed * rightShoulder);
   }
 
   if (GraphicsInterface::getKeyState('w')) {

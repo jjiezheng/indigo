@@ -10,12 +10,12 @@
 #include <cell/gcm.h>
 #include <sysutil/sysutil_sysparam.h>
 
-#include "PS3CGMCGEffect.h"
+#include "PS3GCMCGEffect.h"
 #include "gcmutil_error.h"
 
 #define HOST_SIZE (1*1024*1024)
 #define CB_SIZE	(0x10000)
-#define BUFFER_COUNT 2
+#define BUFFER_COUNT 3
 
 #define BASED_ALIGN	128
 
@@ -90,7 +90,7 @@ void PS3GCMGraphicsInterface::openWindow(int width, int height, unsigned int mul
       aspectRatio = 16.0f / 9.0f;
   }
 
-  cellGcmSetFlipMode(CELL_GCM_DISPLAY_VSYNC);
+  cellGcmSetFlipMode(CELL_GCM_DISPLAY_HSYNC);
 
   // get config
   CellGcmConfig config;
@@ -209,6 +209,11 @@ void PS3GCMGraphicsInterface::resetGraphicsState(bool cullBack) {
   }
 
   {
+    cell::Gcm::cellGcmSetCullFaceEnable(cullBack);
+    cell::Gcm::cellGcmSetFrontFace(CELL_GCM_CCW);
+  }
+
+  {
     uint16_t x, y, w,h;
     float min = 0.0f, max = 1.0f;
 
@@ -220,7 +225,7 @@ void PS3GCMGraphicsInterface::resetGraphicsState(bool cullBack) {
     float offset[4] = {x + scale[0], h - y + scale[1], (max + min) * 0.5f, 0.0f};
 
     cell::Gcm::cellGcmSetViewport(x, y, w, h, min, max, scale, offset); 
-    //cellGcmSetScissor( x, y, w, h ) ;
+    cell::Gcm::cellGcmSetScissor(x, y, w, h) ;
   }
 }
 
@@ -252,11 +257,11 @@ void PS3GCMGraphicsInterface::fillTexture(unsigned int textureId, void* data, un
 }
 
 void PS3GCMGraphicsInterface::setRenderTarget(unsigned int* textureId, unsigned int renderTargetCount, bool useDepthBuffer) {
-
+  cell::Gcm::cellGcmSetDepthTestEnable(useDepthBuffer);
 }
 
 void PS3GCMGraphicsInterface::resetRenderTarget() {
-
+  cell::Gcm::cellGcmSetDepthTestEnable(true);
 }
 
 unsigned int PS3GCMGraphicsInterface::createRenderTarget(unsigned int textureId) {

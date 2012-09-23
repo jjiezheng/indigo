@@ -1,0 +1,12 @@
+{
+	"targets" : {
+		"gcm" : {
+			"vertex" : "shaders/cg/deferred_render_color_normal_depth.v.vpo",
+			"fragment" : "shaders/cg/deferred_render_color_normal_depth.f.fpo"
+		},
+		"dx11" : {
+			"vertex" : "shaders/hlsl/deferred_render_color_normal_depth.v.hlsl",
+			"fragment" : "shaders/hlsl/deferred_render_color_normal_depth.f.hlsl"
+		}
+	}
+}

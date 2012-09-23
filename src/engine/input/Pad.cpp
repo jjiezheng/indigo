@@ -1,5 +1,7 @@
 #include "Pad.h"
 
+#include "platform/PlatformDefs.h"
+
 #ifdef PLATFORM_PS3
 #include <cell/pad.h>    
 #endif
@@ -10,46 +12,53 @@
 
 #define MAX_PAD 1
 
+float Pad::leftStickX_ = 0;
 float Pad::leftStickY_ = 0;
+float Pad::rightStickX_ = 0;
+float Pad::rightStickY_ = 0;
+
+bool Pad::leftShoulder_ = false;
+bool Pad::rightShoulder_ = false;
+
+#ifdef PLATFORM_PS3
+float stickValue(CellPadData padData, int padIndex) {
+  int padValue = 255 - padData.button[padIndex];
+  float stickRaw = padValue / 255.0f;
+  float stick = (stickRaw * 2.0f) - 1.0f;
+  return stick > 0.1f || stick < -0.1f ? stick : 0.0f;
+}
+#endif
+
 
 void Pad::update() {
 #ifdef PLATFORM_PS3
   static CellPadInfo2 padInfo;
   int32_t ret;
   if ((ret = cellPadGetInfo2(&padInfo)) != CELL_OK) {
-    //printf("Error(%08X) : cellPadGetPadInfo2\n", ret);
     return;
   }
 
   static CellPadData padData;
 
   for (int i = 0; i < MAX_PAD; i++) {
-    ret = cellPadGetData (i, &padData);
+    ret = cellPadGetData(i, &padData);
 
     if (0 != ret) {
       continue;
     }
 
     if (padData.len > 0) {
-      int padValue = 255 - padData.button[7];
-      float leftStickYRaw = padValue / 255.0f;
-      float leftStickY = (leftStickYRaw * 2.0f) - 1.0f;
+      rightStickX_ = stickValue(padData, 4);
+      rightStickY_ = stickValue(padData, 5);
+      leftStickX_ = -stickValue(padData, 6);
+      leftStickY_ = stickValue(padData, 7);
 
-      printf("%f", leftStickY);
-
-      if (leftStickY > 0.1f || leftStickY < -0.1f) {
-        leftStickY_ = leftStickY;
-      } 
-      else {
-        leftStickY_ = 0.0f;
-      }
+      int buttonData = padData.button[3];
+      leftShoulder_ = buttonData & CELL_PAD_CTRL_L1;
+      rightShoulder_ = buttonData & CELL_PAD_CTRL_R1;
     }
   }
 #endif
-}
-
-float Pad::leftStickY() {
-  return leftStickY_;
 }
 
 void Pad::init() {
@@ -61,6 +70,26 @@ void Pad::init() {
 #endif
 }
 
+float Pad::leftStickY() {
+  return leftStickY_;
+}
+
 float Pad::leftStickX() {
-  return 0;
+  return leftStickX_;
+}
+
+float Pad::rightStickX() {
+  return rightStickX_;
+}
+
+float Pad::rightStickY() {
+  return rightStickY_;
+}
+
+bool Pad::leftShoulder() {
+  return leftShoulder_;
+}
+
+bool Pad::rightShoulder() {
+  return rightShoulder_;
 }
