@@ -1,7 +1,7 @@
 #ifndef MOUSE_H
 #define MOUSE_H
 
-#include "renderer/Point.h"
+#include "maths/Point.h"
 
 class IMouse;
 

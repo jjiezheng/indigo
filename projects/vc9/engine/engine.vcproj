@@ -284,10 +284,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\engine\renderer\Point.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\engine\renderer\PointLight.cpp"
 				>
 			</File>
@@ -776,6 +772,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\engine\maths\Point.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\engine\maths\Random.cpp"
 				>
 			</File>
@@ -835,18 +835,66 @@
 		<Filter
 			Name="input"
 			>
-			<File
-				RelativePath="..\..\..\src\engine\input\IKeyboardListener.h"
+			<Filter
+				Name="pad"
 				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\engine\input\Pad.cpp"
+				<File
+					RelativePath="..\..\..\src\engine\input\IPad.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\input\NullPad.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\input\Pad.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\input\Pad.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="keyboard"
 				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\engine\input\Pad.h"
+				<File
+					RelativePath="..\..\..\src\engine\input\IKeyboard.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\input\IKeyboardListener.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\input\Keyboard.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\input\Keyboard.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\input\WindowsKeyboard.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\input\WindowsKeyboard.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="mouse"
 				>
-			</File>
+				<File
+					RelativePath="..\..\..\src\engine\input\Mouse.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\input\Mouse.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="serialization"

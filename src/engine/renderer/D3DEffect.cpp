@@ -117,7 +117,8 @@ void D3DEffect::load(const std::string& filePath) {
 }
 
 void D3DEffect::beginDraw() {
-  context_->VSSetShader(vertexShader_, NULL, 0);
+/*  context_->VSSetConstantBuffers()
+  context_->VSSetShader(vertexShader_, NULL, 0);*/
   /*pass_->Apply(0, context_);
   context_->IASetInputLayout(layout_);*/
 }

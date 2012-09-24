@@ -15,7 +15,7 @@ public:
   
   virtual bool keyState(char keyCode) = 0;
 
-  virtual bool setKeydownListener(IKeyboardListener* keyDownListener) = 0;
+  virtual void setKeydownListener(IKeyboardListener* keyDownListener) = 0;
   
 };
 

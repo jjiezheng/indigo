@@ -40,7 +40,7 @@ public:
   
 public:
 
-  void visit(std::unordered_map<int, std::vector<Mesh*> >& meshes);
+  void visit(std::tr1::unordered_map<int, std::vector<Mesh*> >& meshes);
 
   void render() const;
   

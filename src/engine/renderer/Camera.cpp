@@ -61,7 +61,7 @@ void Camera::update(float dt) {
 
   bool leftShoulder = Pad::leftShoulder();
   if (leftShoulder) {
-    moveUp(padSpeed * -leftShoulder);
+    moveUp(-padSpeed * leftShoulder);
   }
 
   bool rightShoulder = Pad::rightShoulder();

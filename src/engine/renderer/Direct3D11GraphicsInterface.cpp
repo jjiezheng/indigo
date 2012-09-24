@@ -175,10 +175,6 @@ void Direct3D11GraphicsInterface::clearBuffer(const Color4& color) {
   deviceConnection_->ClearDepthStencilView(depthBuffer_, D3D11_CLEAR_DEPTH, 1.0f, 0);
 }
 
-bool Direct3D11GraphicsInterface::getKeySate(char key) {
-  return WindowsUtils::getKeyState(key);
-}
-
 unsigned int Direct3D11GraphicsInterface::loadTexture(const std::string& filePath) {
 
   D3DX11_IMAGE_INFO fileInfo;
@@ -373,9 +369,4 @@ void Direct3D11GraphicsInterface::beginPerformanceEvent(const std::string& event
 
 void Direct3D11GraphicsInterface::endPerformanceEvent() {
   D3DPERF_EndEvent();
-}
-
-void Direct3D11GraphicsInterface::getMousePosition(int* x, int* y) {
-  WindowsUtils::getMousePosition(x, y);
-
 }

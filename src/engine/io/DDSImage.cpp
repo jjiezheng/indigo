@@ -7,6 +7,8 @@
 #include "io/dds.h"
 #include "DDSMipLevel.h"
 
+#pragma warning(disable:4996) 
+
 DDSImage::~DDSImage() {
   for (unsigned int i = 0; i < numMipLevels; i++) {
     delete mipLevels[i];

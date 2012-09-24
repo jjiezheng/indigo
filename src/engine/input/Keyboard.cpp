@@ -5,10 +5,10 @@
 #include "IKeyboard.h"
 
 #ifdef PLATFORM_WINDOWS
-#include "WindowsKeyboard.h
+#include "WindowsKeyboard.h"
 #endif
 
-IKeyboard* Keyboard::keyboard_ = NULL;
+IKeyboard* Keyboard::keyboard_ = 0;
 
 void Keyboard::init() {
 #ifdef PLATFORM_WINDOWS

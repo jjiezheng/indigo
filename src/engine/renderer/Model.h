@@ -22,7 +22,7 @@ public:
 
   void render() const;
 
-  void visit(std::unordered_map<int, std::vector<Mesh*> >& meshes);
+  void visit(std::tr1::unordered_map<int, std::vector<Mesh*> >& meshes);
     
   void setMaterial(unsigned int meshIndex, const Material& material);
   

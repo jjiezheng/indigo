@@ -11,6 +11,8 @@ public:
   
   bool keyState(char keyCode);
 
+  void setKeydownListener(IKeyboardListener* keyDownListener);
+
 };
 
 #endif

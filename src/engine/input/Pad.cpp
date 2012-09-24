@@ -10,7 +10,7 @@
 
 #include "NullPad.h"
 
-IPad* Pad::pad_ = NULL;
+IPad* Pad::pad_ = 0;
 
 void Pad::init() {
 #ifdef PLATFORM_PS3
