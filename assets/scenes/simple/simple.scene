@@ -8,30 +8,6 @@
   "terrain" : [ ],
   "objects" : [
     {
-      "model" : "actors/plane/plane.modelbinary",
-      "position" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "z" : 0.0
-      }
-    },
-    {
-      "model" : "actors/plane/plane.modelbinary",
-      "position" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "z" : -2.0
-      }
-    },
-    {
-      "model" : "actors/plane/plane.modelbinary",
-      "position" : {
-        "x" : 0.0,
-        "y" : 0.0,
-        "z" : -4.0
-      }
-    },
-    {
       "model" : "actors/floor/floor.modelbinary",
       "position" : {
         "x" : 0.0,

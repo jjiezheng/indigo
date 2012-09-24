@@ -196,8 +196,20 @@ unsigned int PS3GCMGraphicsInterface::loadTexture(const std::string& filePath) {
 
 void PS3GCMGraphicsInterface::drawVertexBuffer(int vertexBuffer, int vertexCount, VertexFormat vertexFormat) {
   unsigned int positionIndex = effect_->vertexPositionIndex();
+
   unsigned int vertexDataOffset = vertexBuffers_[vertexBuffer];
   cell::Gcm::cellGcmSetVertexDataArray(positionIndex, 0, sizeof(VertexDef), 3, CELL_GCM_VERTEX_F, CELL_GCM_LOCATION_LOCAL, vertexDataOffset);
+
+  unsigned int normalIndex = effect_->normalIndex();
+  if (normalIndex > 0) {
+    cell::Gcm::cellGcmSetVertexDataArray(normalIndex, 0, sizeof(VertexDef), 3, CELL_GCM_VERTEX_F, CELL_GCM_LOCATION_LOCAL, vertexDataOffset + sizeof(float) * 3);
+  }
+
+  unsigned int uvIndex = effect_->uvIndex();
+  if (uvIndex > 0) {
+    cell::Gcm::cellGcmSetVertexDataArray(uvIndex, 0, sizeof(VertexDef), 3, CELL_GCM_VERTEX_F, CELL_GCM_LOCATION_LOCAL, vertexDataOffset + sizeof(float) * 6);
+  }
+
   cell::Gcm::cellGcmSetDrawArrays(CELL_GCM_PRIMITIVE_TRIANGLES, 0, vertexCount);
 }
 
@@ -206,16 +218,38 @@ IEffect* PS3GCMGraphicsInterface::createEffect() {
 }
 
 unsigned int PS3GCMGraphicsInterface::createTexture(const CSize& dimensions, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize) {
-  int colorComponents = 4; // rgba32
-  colorPitch = colorComponents * dimensions.width;
-  unsigned int colorSize = colorPitch * dimensions.height;
+  int textureComponents = 4;
+  unsigned int textureSize = dimensions.width * dimensions.height * textureComponents;
 
-  void* textureBaseAddress = localMemoryAlign(64, colorSize);
+  CellGcmTexture texture;
+  
+  texture.format = 0; // int 32
+  texture.mipmap = mipLevels;
+  texture.dimension = CELL_GCM_TEXTURE_DIMENSION_2;
+  texture.cubemap = CELL_GCM_FALSE;
+  
+  texture.remap = CELL_GCM_REMAP_MODE(CELL_GCM_TEXTURE_REMAP_ORDER_XYXY,
+    CELL_GCM_TEXTURE_REMAP_FROM_A,
+    CELL_GCM_TEXTURE_REMAP_FROM_R,
+    CELL_GCM_TEXTURE_REMAP_FROM_G,
+    CELL_GCM_TEXTURE_REMAP_FROM_B,
+    CELL_GCM_TEXTURE_REMAP_REMAP,
+    CELL_GCM_TEXTURE_REMAP_REMAP,
+    CELL_GCM_TEXTURE_REMAP_REMAP,
+    CELL_GCM_TEXTURE_REMAP_REMAP);
+
+  texture.width = dimensions.width;
+  texture.height = dimensions.height;
+  texture.depth = 1;
+  texture.location = CELL_GCM_LOCATION_LOCAL;
+  texture.pitch = 0;
+
+  void* textureBaseAddress = localMemoryAlign(64, textureSize);
   unsigned int textureOffset = 0;
-  CELL_GCMUTIL_CHECK_ASSERT(cellGcmAddressToOffset(textureBaseAddress, &textureOffset));
+  CELL_GCMUTIL_CHECK_ASSERT(cellGcmAddressToOffset(textureBaseAddress, &texture.offset));
 
   unsigned int textureId = textures_.size();
-  textures_.push_back(textureOffset);
+  textures_.push_back(texture);
   return textureId;
 }
 
@@ -246,36 +280,58 @@ void PS3GCMGraphicsInterface::setRenderTarget(unsigned int* renderTargetIds, uns
    sf.colorFormat = CELL_GCM_SURFACE_A8R8G8B8;
 
    sf.colorTarget = CELL_GCM_SURFACE_TARGET_0;
-   sf.colorLocation[0]	= CELL_GCM_LOCATION_LOCAL;
+
+   sf.colorLocation[0]= CELL_GCM_LOCATION_LOCAL;
    sf.colorOffset[0] = renderTargetOffsets[0];
-   sf.colorPitch[0] 	= colorPitch;
+   sf.colorPitch[0] = colorPitch;
 
-   if (renderTargetCount > 1) {
-     sf.colorTarget = CELL_GCM_SURFACE_TARGET_MRT1;
-     sf.colorLocation[1]	= CELL_GCM_LOCATION_LOCAL;
-     sf.colorOffset[1] = renderTargetOffsets[1];
-     sf.colorPitch[1] = 64;
-   }
-
-    /*if (renderTargetCount > 2) {
-     sf.colorTarget = CELL_GCM_SURFACE_TARGET_MRT3;
-     sf.colorLocation[2]	= CELL_GCM_LOCATION_LOCAL;
-     sf.colorOffset[2] = renderTargetOffsets[2];
-     sf.colorPitch[2] = 64;  
-    }*/
-
-   /*sf.colorLocation[1]	= CELL_GCM_LOCATION_LOCAL;
+   sf.colorLocation[1]	= CELL_GCM_LOCATION_LOCAL;
    sf.colorOffset[1] = 0;
-   sf.colorPitch[1] = 64;*/
+   sf.colorPitch[1] = 64; 
 
    sf.colorLocation[2]	= CELL_GCM_LOCATION_LOCAL;
    sf.colorOffset[2] = 0;
-   sf.colorPitch[2] = 64;  
+   sf.colorPitch[2] = 64; 
 
    sf.colorLocation[3]	= CELL_GCM_LOCATION_LOCAL;
    sf.colorOffset[3] = 0;
    sf.colorPitch[3] = 64;
 
+   unsigned int colorWriteMask = 0;
+
+   if (renderTargetCount > 1) {
+     sf.colorTarget = CELL_GCM_SURFACE_TARGET_MRT1;
+
+     sf.colorLocation[1]	= CELL_GCM_LOCATION_LOCAL;
+     sf.colorOffset[1] = renderTargetOffsets[1];
+     sf.colorPitch[1] = colorPitch;
+
+     colorWriteMask |= CELL_GCM_COLOR_MASK_MRT1_A | CELL_GCM_COLOR_MASK_MRT1_R | CELL_GCM_COLOR_MASK_MRT1_G | CELL_GCM_COLOR_MASK_MRT1_B;
+   }
+
+   if (renderTargetCount > 2) {
+     sf.colorTarget = CELL_GCM_SURFACE_TARGET_MRT2;
+
+     sf.colorLocation[2]	= CELL_GCM_LOCATION_LOCAL;
+     sf.colorOffset[2] = renderTargetOffsets[2];
+     sf.colorPitch[2] = colorPitch;  
+
+     colorWriteMask |= CELL_GCM_COLOR_MASK_MRT2_A | CELL_GCM_COLOR_MASK_MRT2_R | CELL_GCM_COLOR_MASK_MRT2_G | CELL_GCM_COLOR_MASK_MRT2_B;
+   }
+
+   if (renderTargetCount > 3) {
+     sf.colorTarget = CELL_GCM_SURFACE_TARGET_MRT3;
+     sf.colorLocation[3]	= CELL_GCM_LOCATION_LOCAL;
+     sf.colorOffset[3] = renderTargetOffsets[3];
+     sf.colorPitch[3] = colorPitch;  
+
+     colorWriteMask |= CELL_GCM_COLOR_MASK_MRT3_A | CELL_GCM_COLOR_MASK_MRT3_R | CELL_GCM_COLOR_MASK_MRT3_G | CELL_GCM_COLOR_MASK_MRT3_B;
+   }
+
+   if (renderTargetCount > 1) {
+     cell::Gcm::cellGcmSetColorMaskMrt(colorWriteMask);
+   }
+ 
    sf.depthFormat = CELL_GCM_SURFACE_Z24S8;
    sf.depthLocation = CELL_GCM_LOCATION_LOCAL;
    sf.depthOffset = depthOffset;
@@ -333,9 +389,9 @@ void PS3GCMGraphicsInterface::resetRenderTarget() {
 }
 
 unsigned int PS3GCMGraphicsInterface::createRenderTarget(unsigned int textureId) {
-  unsigned int textureOffset = textures_[textureId];
+  CellGcmTexture texture = textures_[textureId];
   unsigned int renderTargetId = renderTargets_.size();
-  renderTargets_.push_back(textureOffset);
+  renderTargets_.push_back(texture.offset);
   return renderTargetId;
 }
 
@@ -349,6 +405,23 @@ bool PS3GCMGraphicsInterface::getKeySate(char key) {
 
 void PS3GCMGraphicsInterface::getMousePosition(int* x, int* y) {
 
+}
+
+void PS3GCMGraphicsInterface::setTexture(unsigned int textureUnit, unsigned int textureId) {
+  CellGcmTexture texture = textures_[textureId];
+  cell::Gcm::cellGcmSetTexture(textureUnit, &texture);
+  cell::Gcm::cellGcmSetTextureControl(textureUnit, CELL_GCM_TRUE, 0<<8, 12<<8, CELL_GCM_TEXTURE_MAX_ANISO_1);
+
+  cell::Gcm::cellGcmSetTextureAddress(textureUnit,
+    CELL_GCM_TEXTURE_CLAMP,
+    CELL_GCM_TEXTURE_CLAMP,
+    CELL_GCM_TEXTURE_CLAMP,
+    CELL_GCM_TEXTURE_UNSIGNED_REMAP_NORMAL,
+    CELL_GCM_TEXTURE_ZFUNC_LESS, 0);
+
+  cell::Gcm::cellGcmSetTextureFilter(textureUnit, 0,
+    CELL_GCM_TEXTURE_LINEAR,
+    CELL_GCM_TEXTURE_LINEAR, CELL_GCM_TEXTURE_CONVOLUTION_QUINCUNX);
 }
 
 

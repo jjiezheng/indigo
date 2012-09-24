@@ -3,6 +3,7 @@ struct VS_OUTPUT  {
 };
 
 VS_OUTPUT main(float4 position : POSITION,
+			   float4 normal   : NORMAL,
 			   uniform float4x4 WorldViewProj) {
 	VS_OUTPUT vout;
 	vout.vPosition = mul(WorldViewProj, position);

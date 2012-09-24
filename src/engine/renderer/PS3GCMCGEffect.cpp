@@ -1,6 +1,7 @@
 #include "PS3GCMCGEffect.h"
 
 #include <fstream>
+#include <algorithm>
 #include "json/reader.h"
 
 #include <Cg/cg.h>
@@ -62,6 +63,16 @@ void PS3GCMCGEffect::load(const std::string& filePath) {
 
     CGparameter positionParameter = cellGcmCgGetNamedParameter(vertexProgram_, "position");
     vertexPositionIndex_ = cellGcmCgGetParameterResource(vertexProgram_, positionParameter) - CG_ATTR0;
+
+    CGparameter normalParameter = cellGcmCgGetNamedParameter(vertexProgram_, "normal");
+    if (normalParameter) {
+      normalIndex_ = cellGcmCgGetParameterResource(vertexProgram_, normalParameter) - CG_ATTR0;
+    }
+
+    CGparameter uvParameter = cellGcmCgGetNamedParameter(vertexProgram_, "texCoord");
+    if (uvParameter) { 
+      uvIndex_ = cellGcmCgGetParameterResource(vertexProgram_, uvParameter) - CG_ATTR0;
+    }
   }
   
   {
@@ -85,14 +96,21 @@ void PS3GCMCGEffect::load(const std::string& filePath) {
 
     CELL_GCMUTIL_CHECK_ASSERT(cellGcmAddressToOffset(fpLocal, &fragmentProgramOffset_));
   }
+
+  {
+    unsigned int registerCount = cellGcmCgGetRegisterCount(vertexProgram_);
+    cellGcmCgSetRegisterCount(vertexProgram_, std::max(registerCount, 4u)); 
+  }
+
+  {
+    unsigned int registerCount = cellGcmCgGetRegisterCount(fragmentProgram_);
+    cellGcmCgSetRegisterCount(fragmentProgram_, std::max(registerCount, 4u)); 
+  }
 }
 
 void PS3GCMCGEffect::beginDraw() {
   cell::Gcm::cellGcmSetVertexProgram(vertexProgram_, vertexProgramAddress_);
   cell::Gcm::cellGcmSetFragmentProgram(fragmentProgram_, fragmentProgramOffset_);
-
-  /*unsigned int registerCount = cellGcmCgGetRegisterCount(fragmentProgram_);
-  cellGcmCgSetRegisterCount(fragmentProgram_, 3u);*/
 
   IGraphicsInterface* rawInterface = GraphicsInterface::rawInterface();
   PS3GCMGraphicsInterface* graphicsInterface = static_cast<PS3GCMGraphicsInterface*>(rawInterface);
@@ -171,12 +189,29 @@ void PS3GCMCGEffect::setUniform(int uniformData, const char* uniformName) const 
 }
 
 void PS3GCMCGEffect::setUniform(float uniformData, const char* uniformName) const {
-  CGparameter parameter = cellGcmCgGetNamedParameter(vertexProgram_, uniformName);
-  if (parameter) {
-    //cell::Gcm::cellGcmSetVertexProgramParameter(parameter, &uniformData);
+  {
+    CGparameter parameter = cellGcmCgGetNamedParameter(vertexProgram_, uniformName);
+    if (parameter) {
+      cell::Gcm::cellGcmSetVertexProgramParameter(parameter, &uniformData);
+    }
+  }
+  {
+    CGparameter parameter = cellGcmCgGetNamedParameter(fragmentProgram_, uniformName);
+    if (parameter) {
+      int a = 1;
+      cell::Gcm::cellGcmSetFragmentProgramParameter(fragmentProgram_, parameter, &uniformData, fragmentProgramOffset_);
+    }
   }
 }
 
 void PS3GCMCGEffect::setTexture(unsigned int textureId, const char* uniformName) {
+  CGparameter texture = cellGcmCgGetNamedParameter(fragmentProgram_, uniformName);
 
+  if (texture) {
+    unsigned int textureUnit = cellGcmCgGetParameterResource(fragmentProgram_, texture) - CG_TEXUNIT0;
+
+    IGraphicsInterface* rawInterface = GraphicsInterface::rawInterface();
+    PS3GCMGraphicsInterface* graphicsInterface = static_cast<PS3GCMGraphicsInterface*>(rawInterface);
+    graphicsInterface->setTexture(textureUnit, textureId);
+  }
 }

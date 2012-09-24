@@ -10,7 +10,8 @@ class PS3GCMCGEffect : public IEffect {
 public:
 
   PS3GCMCGEffect()
-    : vertexPositionIndex_(0) { }
+    : vertexPositionIndex_(0)
+    , normalIndex_(0) { }
 
 public:
 
@@ -42,7 +43,14 @@ public:
 
   void setTexture(unsigned int textureId, const char* uniformName);
 
+public:
+
   unsigned int vertexPositionIndex() const;
+
+  unsigned int normalIndex() const;
+
+  unsigned int uvIndex() const;
+
 
 private:
 
@@ -52,6 +60,8 @@ private:
 private:
 
   unsigned int vertexPositionIndex_;
+  unsigned int normalIndex_;
+  unsigned int uvIndex_;
 
   void* vertexProgramAddress_;
   unsigned int fragmentProgramOffset_;
@@ -60,6 +70,14 @@ private:
 
 inline unsigned int PS3GCMCGEffect::vertexPositionIndex() const {
   return vertexPositionIndex_;
+}
+
+inline unsigned int PS3GCMCGEffect::normalIndex() const {
+  return normalIndex_;
+}
+
+inline unsigned int PS3GCMCGEffect::uvIndex() const {
+  return uvIndex_;
 }
 
 #endif

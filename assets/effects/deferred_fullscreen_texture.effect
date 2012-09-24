@@ -1,0 +1,12 @@
+{
+	"targets" : {
+		"gcm" : {
+			"vertex" : "shaders/cg/deferred_fullscreen_texture.v.vpo",
+			"fragment" : "shaders/cg/deferred_fullscreen_texture.f.fpo"
+		},
+		"dx11" : {
+			"vertex" : "shaders/hlsl/deferred_fullscreen_texture.v.hlsl",
+			"fragment" : "shaders/hlsl/deferred_fullscreen_texture.f.hlsl"
+		}
+	}
+}

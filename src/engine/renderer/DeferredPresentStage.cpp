@@ -8,7 +8,7 @@
 #include "GraphicsInterface.h"
 
 void DeferredPresentStage::init(const CSize& screenSize) {
-  effect_ = IEffect::effectFromFile("cgfx/deferred_fullscreen_texture.hlsl");
+  effect_ = IEffect::effectFromFile("effects/deferred_fullscreen_texture.effect");
   quadVbo_ = Geometry::screenPlane();
 }
 
@@ -17,7 +17,7 @@ void DeferredPresentStage::render(unsigned int presentTextureId) {
 
   GraphicsInterface::resetRenderTarget();
   effect_->beginDraw();
-  effect_->setTexture(presentTextureId, "Texture");
+  effect_->setTexture(presentTextureId, "texture");
   GraphicsInterface::setRenderState(true);
   GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);
 

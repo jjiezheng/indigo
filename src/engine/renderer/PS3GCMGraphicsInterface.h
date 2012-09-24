@@ -57,7 +57,7 @@ public:
   void setEffect(PS3GCMCGEffect* effect);
 
   void* localAllocate(unsigned int size);
-
+  void setTexture(unsigned int textureUnit, unsigned int textureId);
 private:
 
   unsigned int bufferFrameIndex_;
@@ -67,7 +67,7 @@ private:
   PS3GCMCGEffect* effect_;
 
   std::vector<unsigned int> vertexBuffers_;
-  std::vector<unsigned int> textures_;
+  std::vector<CellGcmTexture> textures_;
   std::vector<unsigned int> renderTargets_;
 
 };
