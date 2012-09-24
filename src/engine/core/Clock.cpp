@@ -51,6 +51,10 @@ float Clock::delta_time() {
 
 #include <sys/time.h>
 
+void Clock::init() {
+  
+}
+
 float Clock::delta_time() {
   
   struct timeval now;

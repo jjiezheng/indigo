@@ -10,9 +10,6 @@
 #include "GLUtilities.h"
 #include "ShaderSemantics.h"
 
-#include <windows.h>
-#include "platform/WindowsUtils.h"
-
 #include <Cg/cg.h>
 #include <Cg/cgGL.h>
 
@@ -22,86 +19,15 @@
 #include "io/DDSImage.h"
 #include "io/DDSMipLevel.h"
 
-HDC OpenGL21GraphicsInterface::createGraphicsContext(HWND hWnd, int width, int height, unsigned int multiSamples) {
-
-  // create base context
-  static	PIXELFORMATDESCRIPTOR pixelFormatDescriptor =				// pfd Tells Windows How We Want Things To Be
-  {
-    sizeof(PIXELFORMATDESCRIPTOR),				// Size Of This Pixel Format Descriptor
-    1,											// Version Number
-    PFD_DRAW_TO_WINDOW |						// Format Must Support Window
-    PFD_SUPPORT_OPENGL |						// Format Must Support OpenGL
-    PFD_DOUBLEBUFFER,							// Must Support Double Buffering
-    PFD_TYPE_RGBA,								// Request An RGBA Format
-    32,										    // Select Our Color Depth
-    0, 0, 0, 0, 0, 0,							// Color Bits Ignored
-    0,											// No Alpha Buffer
-    0,											// Shift Bit Ignored
-    0,											// No Accumulation Buffer
-    0, 0, 0, 0,									// Accumulation Bits Ignored
-    16,											// 16Bit Z-Buffer (Depth Buffer)  
-    0,											// No Stencil Buffer
-    0,											// No Auxiliary Buffer
-    PFD_MAIN_PLANE,								// Main Drawing Layer
-    0,											// Reserved
-    0, 0, 0										// Layer Masks Ignored
-  };
-
-  HDC deviceContext = GetDC(hWnd);
-
-  int pixelFormat = ChoosePixelFormat(deviceContext, &pixelFormatDescriptor);
-  SetPixelFormat(deviceContext, pixelFormat, &pixelFormatDescriptor);
-
-  // setup opengl 3.x
-  HGLRC dummyRenderContext = wglCreateContext(deviceContext); 
-  wglMakeCurrent(deviceContext, dummyRenderContext);
-
-  glewInit();
-
-  int major, minor;
-  GLUtilities::getGLVersion(&major, &minor);
-
-  LOG(LOG_CHANNEL_GRAPHICS_API, "Graphics device supports up to OpenGL %d.%d", major, minor);
-
-  PFNWGLCREATECONTEXTATTRIBSARBPROC wglCreateContextAttribsARB = NULL;
-  wglCreateContextAttribsARB = (PFNWGLCREATECONTEXTATTRIBSARBPROC) wglGetProcAddress("wglCreateContextAttribsARB");
-  
-  HGLRC renderContext;
-  if(wglCreateContextAttribsARB != NULL) {
-    int attribs[] = {
-      WGL_CONTEXT_MAJOR_VERSION_ARB, 2,
-      WGL_CONTEXT_MINOR_VERSION_ARB, 1, 
-      //WGL_CONTEXT_PROFILE_MASK_ARB, WGL_CONTEXT_COMPATIBILITY_PROFILE_BIT_ARB,
-      0
-    };
-
-    renderContext = wglCreateContextAttribsARB(deviceContext, 0, attribs);
-    if (!renderContext) {
-      LOG(LOG_CHANNEL_GRAPHICS_API, "Failed to create OpenGL Render Context");
-    }
-   }
-
-  wglMakeCurrent(NULL, NULL);
-  wglDeleteContext(dummyRenderContext);
-
-  wglMakeCurrent(deviceContext, renderContext);
-
-  GLUtilities::checkForError();
-
-  return deviceContext;
-}
 
 void OpenGL21GraphicsInterface::openWindow(int width, int height, unsigned int multiSamples) {
   screenSize_ = CSize(width, height);
-  HWND hWnd = WindowsUtils::createWindow(width, height);
-  deviceContext_ = createGraphicsContext(hWnd, width, height, multiSamples);
-  glewInit();
+  
   CGGLEffect::initCG();
 }
 
 void OpenGL21GraphicsInterface::swapBuffers() {
-  SwapBuffers(deviceContext_);
-  windowClosed_ = WindowsUtils::pumpMessages();
+  windowClosed_ = false;
 }
 
 unsigned int OpenGL21GraphicsInterface::createVertexBuffer(VertexDef* vertexData, int numVertices) {
@@ -184,12 +110,8 @@ void OpenGL21GraphicsInterface::clearBuffer(const Color4& color) {
   GLUtilities::checkForError();
 }
 
-void OpenGL21GraphicsInterface::setPass(CGpass pass) {
-
-}
-
 bool OpenGL21GraphicsInterface::getKeySate(char key) {
-  return WindowsUtils::getKeyState(key);
+  return false;
 }
 
 unsigned int OpenGL21GraphicsInterface::loadTexture(const std::string& filePath) {
@@ -219,14 +141,6 @@ unsigned int OpenGL21GraphicsInterface::loadTexture(const std::string& filePath)
   GLUtilities::checkForError();
 
   return textureId;
-}
-
-void OpenGL21GraphicsInterface::setTexture(int textureId, CGparameter parameter) {
-  glBindTexture(GL_TEXTURE_2D, textureId);
-  //cgGLSetTextureParameter(parameter, textureId);
-  GLUtilities::checkForError();
-  //cgSetSamplerState(parameter);
-  GLUtilities::checkForError();
 }
 
 void OpenGL21GraphicsInterface::resetGraphicsState(bool cullBack) {
@@ -309,7 +223,7 @@ unsigned int OpenGL21GraphicsInterface::createRenderTarget(unsigned int textureI
 
   GLUtilities::checkForError();
 
-  unsigned int rendetTargetId = renderTargets_.size();
+  unsigned int rendetTargetId = (unsigned int)renderTargets_.size();
   OpenGLRenderTarget renderTarget;
   renderTarget.renderBuffer = colorRenderBuffer;
   renderTarget.frameBuffer = frameBuffer;

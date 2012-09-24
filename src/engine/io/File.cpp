@@ -14,7 +14,7 @@ void File::open(const std::string fullFilePath) {
   }
 
   fileStream.seekg(0, std::ios::end);
-  size_ = fileStream.tellg();
+  size_ = (unsigned int)fileStream.tellg();
   fileStream.seekg(0, std::ios::beg);
   data_ = new char[size_];
   fileStream.read(data_, size_);

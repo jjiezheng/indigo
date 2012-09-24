@@ -1,5 +1,7 @@
 #include "DDSImage.h"
 
+#include <stdio.h>
+
 #include "core/String.h"
 #include "io/Path.h"
 #include "io/dds.h"
@@ -16,10 +18,9 @@ void DDSImage::load(const std::string& filePath) {
   this->filePath = filePath;
   unsigned char header[124];
   
-  FILE *fp = NULL;
-  fopen_s(&fp, filePath.c_str(), "rb");
+  FILE *fp = fopen(filePath.c_str(), "rb");
   if (fp == NULL) {
-    LOG(LOG_CHANNEL_IO, "Failed to load %s", filePath);
+    LOG(LOG_CHANNEL_IO, "Failed to load %s", filePath.c_str());
     return;
   }
   

@@ -30,13 +30,13 @@ public:
       LOG(LOG_CHANNEL_GL_UTILS, "Attachments are missing! At least one image (texture) must be bound to the frame buffer object!");
       break;
 
-    case GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS_EXT:
+    /*case GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS_EXT:
       LOG(LOG_CHANNEL_GL_UTILS, "The dimensions of the buffers attached to the currently used frame buffer object do not match!");
       break;
 
     case GL_FRAMEBUFFER_INCOMPLETE_FORMATS_EXT:
       LOG(LOG_CHANNEL_GL_UTILS, "The formats of the currently used frame buffer object are not supported or do not fit together!");
-      break;
+      break;*/
 
     case GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER:
       LOG(LOG_CHANNEL_GL_UTILS, "A Draw buffer is incomplete or undefinied. All draw buffers must specify attachment points that have images attached.");
@@ -77,8 +77,8 @@ public:
     GLenum error = glGetError();
 
     if (error != GL_NO_ERROR) {
-      const GLubyte * errorString = gluErrorString(error);
-      LOG(LOG_CHANNEL_GL_UTILS, "OpenGL Error: %s", errorString);
+      //const GLubyte * errorString = gluErrorString(error);
+      //LOG(LOG_CHANNEL_GL_UTILS, "OpenGL Error: %s", errorString);
     }
 
     assert(error == GL_NO_ERROR);

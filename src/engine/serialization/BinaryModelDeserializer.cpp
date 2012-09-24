@@ -15,7 +15,7 @@
 
 
 //! Byte swap unsigned int
-unsigned int swap_uint32( unsigned int val )
+unsigned int BinaryModelDeserializer::swap_uint32( unsigned int val )
 {
 	val = ((val << 8) & 0xFF00FF00 ) | ((val >> 8) & 0xFF00FF ); 
 	return (val << 16) | (val >> 16);
@@ -28,7 +28,7 @@ enum MaterialParameterType {
   PARAMETER_TYPE_VECTOR3 = 3,
 };
 
-std::string readString(std::ifstream& input) {
+std::string BinaryModelDeserializer::readString(std::ifstream& input) {
   unsigned int stringLength = 0;
   input.read((char*)&stringLength, sizeof(unsigned int));
 
@@ -40,25 +40,25 @@ std::string readString(std::ifstream& input) {
   return result;
 }
 
-unsigned int readUINT(std::ifstream& input) {
+unsigned int BinaryModelDeserializer::readUINT(std::ifstream& input) {
   unsigned int value = 0;
   input.read((char*)&value, sizeof(unsigned int));
   return value;
 }
 
-int readINT(std::ifstream& input) {
+int BinaryModelDeserializer::readINT(std::ifstream& input) {
   int value = 0;
   input.read((char*)&value, sizeof(int));
   return value;
 }
 
-Vector3 readVector3(std::ifstream& input) {
+Vector3 BinaryModelDeserializer::readVector3(std::ifstream& input) {
   Vector3 value;
   input.read((char*)&value, sizeof(Vector3));
   return value;
 }
 
-float readFloat(std::ifstream& input) {
+float BinaryModelDeserializer::readFloat(std::ifstream& input) {
   float value;
   input.read((char*)&value, sizeof(float));
   return value;

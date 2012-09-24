@@ -16,7 +16,7 @@ int EffectCache::loadEffect(const std::string& filename) {
   if (effectIds_.find(filename) == effectIds_.end()) {
     IEffect* effect = GraphicsInterface::createEffect();
     effect->load(filename);
-    unsigned int effectId = effects_.size();
+    unsigned int effectId = (unsigned int)effects_.size();
     effects_.push_back(effect);
     effectIds_[filename] = effectId;
   }

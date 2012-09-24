@@ -23,7 +23,7 @@ public:
   
 public:
 
-  static void init(GraphicsAPIType graphicsAPIType);
+  static void init();
 
   static bool openWindow(int width, int height, unsigned int multiSamples);
 

@@ -211,8 +211,6 @@ Matrix3x3 Matrix4x4::mat3x3() const {
 }
 
 Matrix4x4 Matrix4x4::lookAt(const Vector4& eye, const Vector4& target, const Vector4& worldUp) {
-  Vector4 eyeN = eye.normalize();
-
   Vector4 forward = eye - target;
   Vector4 forwardN = forward.normalize();
 

@@ -81,7 +81,8 @@ String String::addPathComponent(const String& pathComponent) {
 #endif
   std::stringstream pathStream;
   pathStream << string_;
-  char finalCharacter = charAt(size() - 1);
+  int intSize = (int)size();
+  char finalCharacter = charAt(intSize - 1);
   if (finalCharacter != pathSeperator) {
     pathStream << pathSeperator;
   }
@@ -89,7 +90,7 @@ String String::addPathComponent(const String& pathComponent) {
   return pathStream.str();
 }
 
-unsigned int String::size() const {
+size_t String::size() const {
   return string_.size();
 }
 

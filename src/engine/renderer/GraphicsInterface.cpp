@@ -4,8 +4,8 @@
 
 IGraphicsInterface* GraphicsInterface::graphicsInterface_ = 0;
 
-void GraphicsInterface::init(GraphicsAPIType graphicsAPIType) {
-  graphicsInterface_ = IGraphicsInterface::createInterface(graphicsAPIType);
+void GraphicsInterface::init() {
+  graphicsInterface_ = IGraphicsInterface::createInterface();
 }
 
 bool GraphicsInterface::openWindow(int width, int height, unsigned int multiSamples) {

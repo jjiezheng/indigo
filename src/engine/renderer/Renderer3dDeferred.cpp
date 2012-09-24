@@ -29,7 +29,8 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
 
   presentStage_.init(screenSize);
   
-  presentRenderTarget(renderTargets_.size() - 1);
+  unsigned int renderTargetsSize = (unsigned int)renderTargets_.size();
+  presentRenderTarget(renderTargetsSize - 1);
 }
 
 void Renderer3dDeferred::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
@@ -55,6 +56,7 @@ void Renderer3dDeferred::presentRenderTarget(unsigned int renderTargetIndex) {
     LOG(LOG_CHANNEL_RENDERER, "Presenting %s", renderTargetToPresent.name.c_str());
   
   } else {
-    activeRenderTargetIndex_ = renderTargets_.size() - 1;
+    unsigned int renderTargetsSize = (unsigned int)renderTargets_.size();
+    activeRenderTargetIndex_ = renderTargetsSize - 1;
   }
 }

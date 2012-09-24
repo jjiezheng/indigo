@@ -7,8 +7,6 @@
 #include "IEffect.h"
 #include "core/String.h"
 
-static int kMipLevels = 1;
-
 void GaussianBlur::init(const CSize& bufferSize, int tapSize) {
   bufferSize_ = bufferSize;
 
@@ -38,7 +36,6 @@ void GaussianBlur::render(unsigned int sourceTexture) {
     
     gaussianBlurHorizontalEffect_->setTexture(sourceTexture, "SourceMap");
 
-    CSize screenSize = GraphicsInterface::screenSize(); 
     gaussianBlurHorizontalEffect_->setUniform(bufferSize_.width, "SceneWidth");
 
     gaussianBlurHorizontalEffect_->beginDraw();
@@ -51,7 +48,6 @@ void GaussianBlur::render(unsigned int sourceTexture) {
 
     gaussianBluVerticalEffect_->setTexture(gaussianHorizontalMapTexture_, "SourceMap");
 
-    CSize screenSize = GraphicsInterface::screenSize(); 
     gaussianBluVerticalEffect_->setUniform(bufferSize_.height, "SceneHeight");
 
     gaussianBluVerticalEffect_->beginDraw();

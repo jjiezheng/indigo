@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4C25CB531520C67E003E275D /* libassimp.2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C25CB521520C67E003E275D /* libassimp.2.0.0.dylib */; };
 		4C372FE814E47D8900FBAF6B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C372FE714E47D8800FBAF6B /* libz.dylib */; };
 		4C392004160FD722005F5775 /* Clock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C391FFB160FD722005F5775 /* Clock.cpp */; };
 		4C392005160FD722005F5775 /* String.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C392001160FD722005F5775 /* String.cpp */; };
@@ -42,12 +41,10 @@
 		4C3920B4160FD758005F5775 /* DeferredSpotLightsPass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C392050160FD758005F5775 /* DeferredSpotLightsPass.cpp */; };
 		4C3920B5160FD758005F5775 /* DeferredSSAOPass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C392052160FD758005F5775 /* DeferredSSAOPass.cpp */; };
 		4C3920B7160FD758005F5775 /* DirectionalLight.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C392056160FD758005F5775 /* DirectionalLight.cpp */; };
-		4C3920B8160FD758005F5775 /* DirectXVertexDataFormatter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C392059160FD758005F5775 /* DirectXVertexDataFormatter.cpp */; };
 		4C3920B9160FD758005F5775 /* EffectCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C39205B160FD758005F5775 /* EffectCache.cpp */; };
 		4C3920BA160FD758005F5775 /* GaussianBlur.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C39205F160FD758005F5775 /* GaussianBlur.cpp */; };
 		4C3920BB160FD758005F5775 /* Geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C392061160FD758005F5775 /* Geometry.cpp */; };
 		4C3920BC160FD758005F5775 /* GraphicsInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C392065160FD758005F5775 /* GraphicsInterface.cpp */; };
-		4C3920BD160FD758005F5775 /* GraphicsInterface.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C392067160FD758005F5775 /* GraphicsInterface.mm */; };
 		4C3920BE160FD758005F5775 /* HeightMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C392068160FD758005F5775 /* HeightMap.cpp */; };
 		4C3920BF160FD758005F5775 /* IEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C39206F160FD758005F5775 /* IEffect.cpp */; };
 		4C3920C0160FD758005F5775 /* IGraphicsInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C392071160FD758005F5775 /* IGraphicsInterface.cpp */; };
@@ -56,7 +53,6 @@
 		4C3920C3160FD758005F5775 /* Material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C392078160FD758005F5775 /* Material.cpp */; };
 		4C3920C4160FD758005F5775 /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C39207C160FD758005F5775 /* Mesh.cpp */; };
 		4C3920C5160FD758005F5775 /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C39207F160FD758005F5775 /* Model.cpp */; };
-		4C3920C6160FD758005F5775 /* OpenGL21GraphicsInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C392082160FD758005F5775 /* OpenGL21GraphicsInterface.cpp */; };
 		4C3920C7160FD758005F5775 /* PointLight.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C392087160FD758005F5775 /* PointLight.cpp */; };
 		4C3920CA160FD758005F5775 /* Renderer3dDeferred.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C39208D160FD758005F5775 /* Renderer3dDeferred.cpp */; };
 		4C3920CB160FD758005F5775 /* SkyDome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C392091160FD758005F5775 /* SkyDome.cpp */; };
@@ -74,17 +70,16 @@
 		4C4D2C03155E50CB005EE885 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 4C4D2BFD155E50CB005EE885 /* Credits.rtf */; };
 		4C4D2C04155E50CB005EE885 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C4D2BFF155E50CB005EE885 /* InfoPlist.strings */; };
 		4C4D2C05155E50CB005EE885 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C4D2C01155E50CB005EE885 /* MainMenu.xib */; };
-		4C573812155C626900798AA9 /* libfreeimage.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C573811155C626900798AA9 /* libfreeimage.dylib */; };
-		4C573815155C6B9300798AA9 /* libIL.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C573814155C6B9300798AA9 /* libIL.1.dylib */; };
-		4C573817155C7A6400798AA9 /* libILU.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C573816155C7A6400798AA9 /* libILU.1.dylib */; };
-		4C74AB1C154892070008271B /* libglfw.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C74AB1B154892070008271B /* libglfw.dylib */; };
-		4C79CC2C156189F70037EA75 /* Cg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C79CC2B156189F70037EA75 /* Cg.framework */; };
 		4C8E100714F03D450095F390 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C8E100614F03D450095F390 /* QuartzCore.framework */; };
 		4C94129A1438203800D9357E /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9412991438203800D9357E /* ApplicationServices.framework */; };
 		4CB28511144699D300A26530 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CB28510144699D300A26530 /* OpenGL.framework */; };
 		4CB8D3131436F03A0079949A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CB8D3121436F03A0079949A /* Cocoa.framework */; };
 		4CB8D3311436F03A0079949A /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CB8D3301436F03A0079949A /* SenTestingKit.framework */; };
 		4CB8D3321436F03A0079949A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CB8D3121436F03A0079949A /* Cocoa.framework */; };
+		4CD90F8D1611034600D5F1B3 /* Cg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CD90F8C1611034600D5F1B3 /* Cg.framework */; };
+		4CD90F921611037100D5F1B3 /* BinaryModelDeserializer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CD90F901611037100D5F1B3 /* BinaryModelDeserializer.cpp */; };
+		4CD90F9E161105BC00D5F1B3 /* Pad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CD90F9C161105BC00D5F1B3 /* Pad.cpp */; };
+		4CD90FA216110A5E00D5F1B3 /* OpenGL21GraphicsInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CD90FA016110A5E00D5F1B3 /* OpenGL21GraphicsInterface.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,7 +93,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4C25CB521520C67E003E275D /* libassimp.2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libassimp.2.0.0.dylib; path = /usr/local/lib/libassimp.2.0.0.dylib; sourceTree = "<absolute>"; };
 		4C372FE714E47D8800FBAF6B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		4C391FFA160FD722005F5775 /* Any.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Any.h; sourceTree = "<group>"; };
 		4C391FFB160FD722005F5775 /* Clock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Clock.cpp; sourceTree = "<group>"; };
@@ -176,8 +170,6 @@
 		4C392056160FD758005F5775 /* DirectionalLight.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DirectionalLight.cpp; sourceTree = "<group>"; };
 		4C392057160FD758005F5775 /* DirectionalLight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectionalLight.h; sourceTree = "<group>"; };
 		4C392058160FD758005F5775 /* DirectXTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectXTexture.h; sourceTree = "<group>"; };
-		4C392059160FD758005F5775 /* DirectXVertexDataFormatter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DirectXVertexDataFormatter.cpp; sourceTree = "<group>"; };
-		4C39205A160FD758005F5775 /* DirectxVertexDataFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectxVertexDataFormatter.h; sourceTree = "<group>"; };
 		4C39205B160FD758005F5775 /* EffectCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EffectCache.cpp; sourceTree = "<group>"; };
 		4C39205C160FD758005F5775 /* EffectCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EffectCache.h; sourceTree = "<group>"; };
 		4C39205D160FD758005F5775 /* FloatMaterialParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FloatMaterialParameter.h; sourceTree = "<group>"; };
@@ -190,7 +182,6 @@
 		4C392064160FD758005F5775 /* GraphicsAPIType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphicsAPIType.h; sourceTree = "<group>"; };
 		4C392065160FD758005F5775 /* GraphicsInterface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GraphicsInterface.cpp; sourceTree = "<group>"; };
 		4C392066160FD758005F5775 /* GraphicsInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphicsInterface.h; sourceTree = "<group>"; };
-		4C392067160FD758005F5775 /* GraphicsInterface.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GraphicsInterface.mm; sourceTree = "<group>"; };
 		4C392068160FD758005F5775 /* HeightMap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HeightMap.cpp; sourceTree = "<group>"; };
 		4C392069160FD758005F5775 /* HeightMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeightMap.h; sourceTree = "<group>"; };
 		4C39206A160FD758005F5775 /* IDeferredLightingPass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDeferredLightingPass.h; sourceTree = "<group>"; };
@@ -217,8 +208,6 @@
 		4C39207F160FD758005F5775 /* Model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Model.cpp; sourceTree = "<group>"; };
 		4C392080160FD758005F5775 /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
 		4C392081160FD758005F5775 /* OpenGL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGL.h; sourceTree = "<group>"; };
-		4C392082160FD758005F5775 /* OpenGL21GraphicsInterface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGL21GraphicsInterface.cpp; sourceTree = "<group>"; };
-		4C392083160FD758005F5775 /* OpenGL21GraphicsInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGL21GraphicsInterface.h; sourceTree = "<group>"; };
 		4C392084160FD758005F5775 /* OpenGLRenderTarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLRenderTarget.h; sourceTree = "<group>"; };
 		4C392085160FD758005F5775 /* OpenGLShadowMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLShadowMap.h; sourceTree = "<group>"; };
 		4C392086160FD758005F5775 /* Point.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Point.h; sourceTree = "<group>"; };
@@ -260,12 +249,7 @@
 		4C4D2BFE155E50CB005EE885 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		4C4D2C00155E50CB005EE885 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4C4D2C02155E50CB005EE885 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		4C573811155C626900798AA9 /* libfreeimage.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfreeimage.dylib; path = usr/local/lib/libfreeimage.dylib; sourceTree = SDKROOT; };
-		4C573814155C6B9300798AA9 /* libIL.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libIL.1.dylib; path = /usr/local/Cellar/devil/1.7.8/lib/libIL.1.dylib; sourceTree = "<absolute>"; };
-		4C573816155C7A6400798AA9 /* libILU.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libILU.1.dylib; path = /usr/local/Cellar/devil/1.7.8/lib/libILU.1.dylib; sourceTree = "<absolute>"; };
 		4C6783671436F0F500F39B80 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
-		4C74AB1B154892070008271B /* libglfw.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.dylib; path = usr/local/lib/libglfw.dylib; sourceTree = SDKROOT; };
-		4C79CC2B156189F70037EA75 /* Cg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cg.framework; path = Library/Frameworks/Cg.framework; sourceTree = SDKROOT; };
 		4C8E100614F03D450095F390 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4C9412991438203800D9357E /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		4CB28510144699D300A26530 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -280,6 +264,16 @@
 		4CC9D0AF154C379E00E0EEBB /* reader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = reader.h; sourceTree = "<group>"; };
 		4CC9D0B1154C379E00E0EEBB /* visitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = visitor.h; sourceTree = "<group>"; };
 		4CC9D0B2154C379E00E0EEBB /* writer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = writer.h; sourceTree = "<group>"; };
+		4CD90F8C1611034600D5F1B3 /* Cg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cg.framework; path = ../../../../Desktop/NVIDIA_Cg/Library/Frameworks/Cg.framework; sourceTree = "<group>"; };
+		4CD90F901611037100D5F1B3 /* BinaryModelDeserializer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BinaryModelDeserializer.cpp; path = serialization/BinaryModelDeserializer.cpp; sourceTree = "<group>"; };
+		4CD90F911611037100D5F1B3 /* BinaryModelDeserializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BinaryModelDeserializer.h; path = serialization/BinaryModelDeserializer.h; sourceTree = "<group>"; };
+		4CD90F971611052000D5F1B3 /* IPad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IPad.h; path = input/IPad.h; sourceTree = "<group>"; };
+		4CD90F981611058900D5F1B3 /* Pad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Pad.h; path = input/Pad.h; sourceTree = "<group>"; };
+		4CD90F9C161105BC00D5F1B3 /* Pad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Pad.cpp; path = input/Pad.cpp; sourceTree = "<group>"; };
+		4CD90F9D161105BC00D5F1B3 /* Pad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Pad.h; path = input/Pad.h; sourceTree = "<group>"; };
+		4CD90F9F1611082200D5F1B3 /* NullPad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NullPad.h; path = input/NullPad.h; sourceTree = "<group>"; };
+		4CD90FA016110A5E00D5F1B3 /* OpenGL21GraphicsInterface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGL21GraphicsInterface.cpp; sourceTree = "<group>"; };
+		4CD90FA116110A5E00D5F1B3 /* OpenGL21GraphicsInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGL21GraphicsInterface.h; sourceTree = "<group>"; };
 		4CD9C607155E962C003AA28A /* maindef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = maindef.h; sourceTree = "<group>"; };
 		4CD9C608155E962C003AA28A /* PlatformDefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlatformDefs.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -289,12 +283,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C79CC2C156189F70037EA75 /* Cg.framework in Frameworks */,
-				4C573817155C7A6400798AA9 /* libILU.1.dylib in Frameworks */,
-				4C573815155C6B9300798AA9 /* libIL.1.dylib in Frameworks */,
-				4C573812155C626900798AA9 /* libfreeimage.dylib in Frameworks */,
-				4C74AB1C154892070008271B /* libglfw.dylib in Frameworks */,
-				4C25CB531520C67E003E275D /* libassimp.2.0.0.dylib in Frameworks */,
+				4CD90F8D1611034600D5F1B3 /* Cg.framework in Frameworks */,
 				4C8E100714F03D450095F390 /* QuartzCore.framework in Frameworks */,
 				4C372FE814E47D8900FBAF6B /* libz.dylib in Frameworks */,
 				4CB28511144699D300A26530 /* OpenGL.framework in Frameworks */,
@@ -338,6 +327,8 @@
 		4C74AB1E154892F40008271B /* engine */ = {
 			isa = PBXGroup;
 			children = (
+				4CD90F93161104CD00D5F1B3 /* input */,
+				4CD90F8F1611036200D5F1B3 /* serialization */,
 				4C74AB23154892F40008271B /* core */,
 				4C74AB3F154892F40008271B /* io */,
 				4C74AB47154892F40008271B /* maths */,
@@ -419,6 +410,8 @@
 		4C74AB5C154892F40008271B /* renderer */ = {
 			isa = PBXGroup;
 			children = (
+				4CD90FA016110A5E00D5F1B3 /* OpenGL21GraphicsInterface.cpp */,
+				4CD90FA116110A5E00D5F1B3 /* OpenGL21GraphicsInterface.h */,
 				4C39201F160FD758005F5775 /* AverageBlur.cpp */,
 				4C392020160FD758005F5775 /* AverageBlur.h */,
 				4C392022160FD758005F5775 /* Camera.cpp */,
@@ -468,8 +461,6 @@
 				4C392056160FD758005F5775 /* DirectionalLight.cpp */,
 				4C392057160FD758005F5775 /* DirectionalLight.h */,
 				4C392058160FD758005F5775 /* DirectXTexture.h */,
-				4C392059160FD758005F5775 /* DirectXVertexDataFormatter.cpp */,
-				4C39205A160FD758005F5775 /* DirectxVertexDataFormatter.h */,
 				4C39205B160FD758005F5775 /* EffectCache.cpp */,
 				4C39205C160FD758005F5775 /* EffectCache.h */,
 				4C39205D160FD758005F5775 /* FloatMaterialParameter.h */,
@@ -482,7 +473,6 @@
 				4C392064160FD758005F5775 /* GraphicsAPIType.h */,
 				4C392065160FD758005F5775 /* GraphicsInterface.cpp */,
 				4C392066160FD758005F5775 /* GraphicsInterface.h */,
-				4C392067160FD758005F5775 /* GraphicsInterface.mm */,
 				4C392068160FD758005F5775 /* HeightMap.cpp */,
 				4C392069160FD758005F5775 /* HeightMap.h */,
 				4C39206A160FD758005F5775 /* IDeferredLightingPass.h */,
@@ -509,8 +499,6 @@
 				4C39207F160FD758005F5775 /* Model.cpp */,
 				4C392080160FD758005F5775 /* Model.h */,
 				4C392081160FD758005F5775 /* OpenGL.h */,
-				4C392082160FD758005F5775 /* OpenGL21GraphicsInterface.cpp */,
-				4C392083160FD758005F5775 /* OpenGL21GraphicsInterface.h */,
 				4C392084160FD758005F5775 /* OpenGLRenderTarget.h */,
 				4C392085160FD758005F5775 /* OpenGLShadowMap.h */,
 				4C392086160FD758005F5775 /* Point.h */,
@@ -571,12 +559,7 @@
 		4CB8D3111436F03A0079949A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4C79CC2B156189F70037EA75 /* Cg.framework */,
-				4C573816155C7A6400798AA9 /* libILU.1.dylib */,
-				4C573814155C6B9300798AA9 /* libIL.1.dylib */,
-				4C573811155C626900798AA9 /* libfreeimage.dylib */,
-				4C74AB1B154892070008271B /* libglfw.dylib */,
-				4C25CB521520C67E003E275D /* libassimp.2.0.0.dylib */,
+				4CD90F8C1611034600D5F1B3 /* Cg.framework */,
 				4C8E100614F03D450095F390 /* QuartzCore.framework */,
 				4C372FE714E47D8800FBAF6B /* libz.dylib */,
 				4CB28510144699D300A26530 /* OpenGL.framework */,
@@ -617,6 +600,27 @@
 			);
 			name = json;
 			path = ../../libs/json;
+			sourceTree = "<group>";
+		};
+		4CD90F8F1611036200D5F1B3 /* serialization */ = {
+			isa = PBXGroup;
+			children = (
+				4CD90F901611037100D5F1B3 /* BinaryModelDeserializer.cpp */,
+				4CD90F911611037100D5F1B3 /* BinaryModelDeserializer.h */,
+			);
+			name = serialization;
+			sourceTree = "<group>";
+		};
+		4CD90F93161104CD00D5F1B3 /* input */ = {
+			isa = PBXGroup;
+			children = (
+				4CD90F9C161105BC00D5F1B3 /* Pad.cpp */,
+				4CD90F9D161105BC00D5F1B3 /* Pad.h */,
+				4CD90F971611052000D5F1B3 /* IPad.h */,
+				4CD90F981611058900D5F1B3 /* Pad.h */,
+				4CD90F9F1611082200D5F1B3 /* NullPad.h */,
+			);
+			name = input;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -718,7 +722,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cp -rf ${SOURCE_ROOT}/../../assets/* ${CODESIGNING_FOLDER_PATH}/Contents/Resources\n";
+			shellScript = "#cp -rf ${SOURCE_ROOT}/../../assets/* ${CODESIGNING_FOLDER_PATH}/Contents/Resources";
 		};
 		4CB8D32D1436F03A0079949A /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -776,12 +780,10 @@
 				4C3920B4160FD758005F5775 /* DeferredSpotLightsPass.cpp in Sources */,
 				4C3920B5160FD758005F5775 /* DeferredSSAOPass.cpp in Sources */,
 				4C3920B7160FD758005F5775 /* DirectionalLight.cpp in Sources */,
-				4C3920B8160FD758005F5775 /* DirectXVertexDataFormatter.cpp in Sources */,
 				4C3920B9160FD758005F5775 /* EffectCache.cpp in Sources */,
 				4C3920BA160FD758005F5775 /* GaussianBlur.cpp in Sources */,
 				4C3920BB160FD758005F5775 /* Geometry.cpp in Sources */,
 				4C3920BC160FD758005F5775 /* GraphicsInterface.cpp in Sources */,
-				4C3920BD160FD758005F5775 /* GraphicsInterface.mm in Sources */,
 				4C3920BE160FD758005F5775 /* HeightMap.cpp in Sources */,
 				4C3920BF160FD758005F5775 /* IEffect.cpp in Sources */,
 				4C3920C0160FD758005F5775 /* IGraphicsInterface.cpp in Sources */,
@@ -789,7 +791,6 @@
 				4C3920C3160FD758005F5775 /* Material.cpp in Sources */,
 				4C3920C4160FD758005F5775 /* Mesh.cpp in Sources */,
 				4C3920C5160FD758005F5775 /* Model.cpp in Sources */,
-				4C3920C6160FD758005F5775 /* OpenGL21GraphicsInterface.cpp in Sources */,
 				4C3920C7160FD758005F5775 /* PointLight.cpp in Sources */,
 				4C3920CA160FD758005F5775 /* Renderer3dDeferred.cpp in Sources */,
 				4C3920CB160FD758005F5775 /* SkyDome.cpp in Sources */,
@@ -801,6 +802,9 @@
 				4C3920DD160FD7BC005F5775 /* Image.cpp in Sources */,
 				4C3920DE160FD7BC005F5775 /* Log.cpp in Sources */,
 				4C3920DF160FD7BC005F5775 /* Path.mm in Sources */,
+				4CD90F921611037100D5F1B3 /* BinaryModelDeserializer.cpp in Sources */,
+				4CD90F9E161105BC00D5F1B3 /* Pad.cpp in Sources */,
+				4CD90FA216110A5E00D5F1B3 /* OpenGL21GraphicsInterface.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -904,6 +908,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
+					"\"$(SRCROOT)/../../../../Desktop/NVIDIA_Cg/Library/Frameworks\"",
 				);
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -915,16 +920,12 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_PEDANTIC = YES;
 				HEADER_SEARCH_PATHS = (
-					../../libs/assimp/include,
 					../../libs,
 					../../src/engine,
+					/Library/Frameworks/Cg.framework/Headers,
 				);
 				INFOPLIST_FILE = "Shadows-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../libs/assimp\"",
-					/usr/local/Cellar/devil/1.7.8/lib,
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -940,6 +941,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
+					"\"$(SRCROOT)/../../../../Desktop/NVIDIA_Cg/Library/Frameworks\"",
 				);
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -947,16 +949,12 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_PEDANTIC = YES;
 				HEADER_SEARCH_PATHS = (
-					../../libs/assimp/include,
 					../../libs,
 					../../src/engine,
+					/Library/Frameworks/Cg.framework/Headers,
 				);
 				INFOPLIST_FILE = "Shadows-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../../libs/assimp\"",
-					/usr/local/Cellar/devil/1.7.8/lib,
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

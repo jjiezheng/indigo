@@ -2,7 +2,6 @@
 
 #include "OpenGL.h"
 #include <Cg/Cg.h>
-#define CGGL_NO_OPENGL
 #include <Cg/cgGL.h>
 
 #include "io/Log.h"

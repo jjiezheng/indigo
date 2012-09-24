@@ -21,7 +21,7 @@ public:
 
 public:
 
-  static IGraphicsInterface* createInterface(GraphicsAPIType graphicsAPIType);
+  static IGraphicsInterface* createInterface();
 
 public:
 

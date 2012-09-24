@@ -7,7 +7,7 @@
 #include "Material.h"
 
 #include <string>
-#include <hash_map>
+#include <unordered_map>
 
 class IViewer;
 class SceneContext;
@@ -22,7 +22,7 @@ public:
 
   void render() const;
 
-  void visit(stdext::hash_map<int, std::vector<Mesh*> >& meshes);
+  void visit(std::unordered_map<int, std::vector<Mesh*> >& meshes);
     
   void setMaterial(unsigned int meshIndex, const Material& material);
   

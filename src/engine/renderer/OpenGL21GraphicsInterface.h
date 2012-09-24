@@ -8,14 +8,7 @@
 
 #include <vector>
 
-#include <CG/cg.h>
-
 class OpenGL21GraphicsInterface : public IGraphicsInterface {
-
-public:
-
-  OpenGL21GraphicsInterface()
-    : deviceContext_(0) { };
 
 public:
 
@@ -39,8 +32,6 @@ public:
 
 public:
 
-  void setPass(CGpass pass);
-
   IEffect* createEffect();
 
   void resetGraphicsState(bool cullBack);
@@ -50,8 +41,6 @@ public:
   unsigned int loadTexture(const std::string& filePath);
 
   unsigned int createTexture(const CSize& dimensions, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize);
-
-  void setTexture(int textureId, CGparameter parameter);
 
   void generateMipMaps(unsigned int textureId);
 
@@ -74,12 +63,6 @@ public:
   void getMousePosition(int* x, int* y);
 
 private:
-
-  HDC createGraphicsContext(HWND hWnd, int width, int height, unsigned int multiSamples);
-
-private:
-
-  HDC deviceContext_;
 
   std::vector<OpenGLShadowMap> shadowMaps_;
   std::vector<OpenGLRenderTarget> renderTargets_;

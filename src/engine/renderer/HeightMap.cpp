@@ -20,7 +20,7 @@ void HeightMap::load(const std::string& heightMapFile) {
   std::ifstream heightMapStream(fullFilePath.c_str(), std::ios::binary);
 
   heightMapStream.seekg(0, std::ios::end);
-  unsigned int pixelCount = heightMapStream.tellg();
+  unsigned int pixelCount = (unsigned int)heightMapStream.tellg();
   heightMapStream.seekg(0, std::ios::beg);
 
   unsigned char* pixelData = new unsigned char[pixelCount];

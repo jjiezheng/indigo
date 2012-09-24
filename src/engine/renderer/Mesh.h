@@ -1,7 +1,10 @@
 #ifndef MESH_H
 #define MESH_H
 
-#include <hash_map>
+#include "platform/PlatformDefs.h"
+
+#include <unordered_map>
+
 #include <vector>
 
 #include "core/StandardNamespace.h"
@@ -37,7 +40,7 @@ public:
   
 public:
 
-  void visit(stdext::hash_map<int, std::vector<Mesh*> >& meshes);
+  void visit(std::unordered_map<int, std::vector<Mesh*> >& meshes);
 
   void render() const;
   

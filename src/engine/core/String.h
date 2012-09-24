@@ -47,7 +47,7 @@ public:
 
 public:
 
-  unsigned int size() const;
+  size_t size() const;
   
 public:
   

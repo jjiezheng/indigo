@@ -7,10 +7,6 @@
 #include "io/Path.h"
 #include "io/Log.h"
 
-#include <assimp.hpp>
-#include <aiScene.h>
-#include <aiPostProcess.h>
-
 #include "Mesh.h"
 #include "maths/Vector4.h"
 #include "VertexDefinition.h"
@@ -334,8 +330,7 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
       json::Array uvsJSONArray = submeshJSONObject["uvs"];
 
       unsigned int vertexCount = (unsigned int)(verticesJSONArray.Size() / 3.0f);
-      unsigned int polyCount = (unsigned int)(vertexCount / 3.0f);
-
+      
       unsigned int defi = 0;
       VertexDef* defs = new VertexDef[vertexCount];
 

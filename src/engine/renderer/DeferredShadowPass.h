@@ -33,7 +33,7 @@ private:
 
   unsigned int quadVbo_;
 
-  IEffect* shadowLightEffect_;;
+  IEffect* shadowLightEffect_;
   IEffect* shadowMapEffect_;
 
   Vector2 halfPixel_;

@@ -2,7 +2,7 @@
 
 #include "WorldLoader.h"
 
-void Model::visit(stdext::hash_map<int, std::vector<Mesh*> >& meshes) {
+void Model::visit(std::unordered_map<int, std::vector<Mesh*> >& meshes) {
   std::vector<Mesh>::iterator it = meshes_.begin();
   for (; it != meshes_.end(); ++it) {
     (*it).visit(meshes);

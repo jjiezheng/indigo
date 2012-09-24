@@ -23,7 +23,7 @@ private:
 
   unsigned int colorRenderTarget_;
   unsigned int depthRenderTarget_;
-  unsigned int normalRenderTarget_;;
+  unsigned int normalRenderTarget_;
 
 };
 

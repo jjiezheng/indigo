@@ -1,6 +1,6 @@
 #include "DeferredGeometryPass.h"
 
-#include <hash_map>
+#include <unordered_map>
 
 #include "GraphicsInterface.h"
 
@@ -22,14 +22,14 @@ void DeferredGeometryPass::render(IViewer* viewer, World& world, const SceneCont
 
   GraphicsInterface::setRenderState(true);
 
-  stdext::hash_map<int, std::vector<Mesh*> > effects;
+  std::unordered_map<int, std::vector<Mesh*> > effects;
 
   std::vector<Model*>::iterator it = world.begin();
   for (; it != world.end(); ++it) {
     (*it)->visit(effects);
   }
 
-  stdext::hash_map<int, std::vector<Mesh*> >::iterator i = effects.begin();
+  std::unordered_map<int, std::vector<Mesh*> >::iterator i = effects.begin();
   for (; i != effects.end(); ++i) {
 
     unsigned int effectId = (*i).first;
