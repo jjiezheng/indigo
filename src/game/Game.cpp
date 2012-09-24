@@ -4,12 +4,15 @@
 #include "maths/Angles.h"
 
 #include "renderer/WorldLoader.h"
-#include "input/Pad.h"
 
-//#include "platform/WindowsUtils.h"
+#include "input/Pad.h"
+#include "input/Mouse.h"
+#include "input/Keyboard.h"
 
 void Game::init(const char* sceneFile) {
   Pad::init();
+  Mouse::init();
+  Keyboard::init();
 
   renderer_.init(GraphicsInterface::screenSize());
 
@@ -23,8 +26,8 @@ void Game::init(const char* sceneFile) {
     WorldLoader loader; 
     loader.loadFromSceneFile(sceneFile, world_, sceneContext_);
   }
-
-  //WindowsUtils::setKeyboardListener(this);
+  
+  Keyboard::setKeydownListener(this);
 }
  
 void Game::mainLoop() {

@@ -57,10 +57,6 @@ void GraphicsInterface::clearBuffer(const Color4& clearColor) {
   graphicsInterface_->clearBuffer(clearColor);
 }
 
-bool GraphicsInterface::getKeyState(char key) {
-  return graphicsInterface_->getKeySate(key);
-}
-
 unsigned int GraphicsInterface::loadTexture(const char* filePath) {
   return graphicsInterface_->loadTexture(filePath);
 }
@@ -123,8 +119,4 @@ void GraphicsInterface::endPerformanceEvent() {
 #ifndef MASTER
   graphicsInterface_->endPerformanceEvent();
 #endif
-}
-
-void GraphicsInterface::getMousePosition(int* x, int* y) {
-  graphicsInterface_->getMousePosition(x, y);
 }

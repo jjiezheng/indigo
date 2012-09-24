@@ -56,12 +56,6 @@ public:
 
   void resetRenderTarget();
 
-public:
-
-  bool getKeySate(char key);
-
-  void getMousePosition(int* x, int* y);
-
 private:
 
   std::vector<OpenGLShadowMap> shadowMaps_;

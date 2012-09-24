@@ -76,12 +76,6 @@ public:
   virtual unsigned int createRenderTarget(unsigned int textureId) = 0;
 
   virtual void clearRenderTarget(unsigned int renderTargetId, const Color4& color) = 0;
-
-public:
-
-  virtual bool getKeySate(char key) = 0;
-
-  virtual void getMousePosition(int* x, int* y) = 0;
   
 protected:
 

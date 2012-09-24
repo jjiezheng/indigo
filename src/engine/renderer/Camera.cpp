@@ -8,6 +8,8 @@
 #include "GraphicsInterface.h"
 
 #include "input/Pad.h"
+#include "input/Keyboard.h"
+#include "input/Mouse.h"
 
 Camera::Camera() 
   : forward_(Vector3::FORWARD)
@@ -67,36 +69,34 @@ void Camera::update(float dt) {
     moveUp(padSpeed * rightShoulder);
   }
 
-  if (GraphicsInterface::getKeyState('w')) {
+  if (Keyboard::keyState('w')) {
     moveForward(speed);
   }
   
-  if (GraphicsInterface::getKeyState('s')) {
+  if (Keyboard::keyState('s')) {
     moveForward(-speed);
   }
   
-  if (GraphicsInterface::getKeyState('a')) {
+  if (Keyboard::keyState('a')) {
     moveRight(-speed);
   }
   
-  if (GraphicsInterface::getKeyState('d')) {
+  if (Keyboard::keyState('d')) {
     moveRight(speed);
   }
   
-  if (GraphicsInterface::getKeyState('e')) {
+  if (Keyboard::keyState('e')) {
     moveUp(speed);
   }
 
-  if (GraphicsInterface::getKeyState('q')) {
+  if (Keyboard::keyState('q')) {
     moveUp(-speed);
   }
   
-  int x = 0;
-  int y = 0;
-  GraphicsInterface::getMousePosition(&x, &y);
+  Point mousePoint = Mouse::position();
   
-  int xDelta = x - lastMouseX_;
-  int yDelta = y - lastMouseY_;
+  int xDelta = mousePoint.x - lastMouseX_;
+  int yDelta = mousePoint.y - lastMouseY_;
   
   xDelta = abs(xDelta) > 100 ? 0 : xDelta;
   yDelta = abs(yDelta) > 100 ? 0 : yDelta;
@@ -107,8 +107,8 @@ void Camera::update(float dt) {
   rotateY(toRadians(xDegrees));
   rotateX(toRadians(yDegrees));
   
-  lastMouseX_ = x;
-  lastMouseY_ = y;
+  lastMouseX_ = mousePoint.x;
+  lastMouseY_ = mousePoint.y;
 }
 
 void Camera::moveUp(float speed) {

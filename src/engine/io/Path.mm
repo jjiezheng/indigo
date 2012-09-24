@@ -11,6 +11,8 @@ std::string Path::pathForFile(const std::string &filename) {
   
   std::string finalPath = [path cStringUsingEncoding:NSUTF8StringEncoding];
   
+  NSLog(@"%@", path);
+  
   [pool release];
   return finalPath;
 }

@@ -2,6 +2,8 @@
 #define POINT_H
 
 class Point {
+  
+public:
 
   Point(int x_, int y_)
     : x(x_)

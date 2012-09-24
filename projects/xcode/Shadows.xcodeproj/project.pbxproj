@@ -70,6 +70,7 @@
 		4C4D2C03155E50CB005EE885 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 4C4D2BFD155E50CB005EE885 /* Credits.rtf */; };
 		4C4D2C04155E50CB005EE885 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C4D2BFF155E50CB005EE885 /* InfoPlist.strings */; };
 		4C4D2C05155E50CB005EE885 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C4D2C01155E50CB005EE885 /* MainMenu.xib */; };
+		4C6CBA69161113E600D4A7C7 /* Mouse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C6CBA68161113E600D4A7C7 /* Mouse.cpp */; };
 		4C8E100714F03D450095F390 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C8E100614F03D450095F390 /* QuartzCore.framework */; };
 		4C94129A1438203800D9357E /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9412991438203800D9357E /* ApplicationServices.framework */; };
 		4CB28511144699D300A26530 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CB28510144699D300A26530 /* OpenGL.framework */; };
@@ -80,6 +81,7 @@
 		4CD90F921611037100D5F1B3 /* BinaryModelDeserializer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CD90F901611037100D5F1B3 /* BinaryModelDeserializer.cpp */; };
 		4CD90F9E161105BC00D5F1B3 /* Pad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CD90F9C161105BC00D5F1B3 /* Pad.cpp */; };
 		4CD90FA216110A5E00D5F1B3 /* OpenGL21GraphicsInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CD90FA016110A5E00D5F1B3 /* OpenGL21GraphicsInterface.cpp */; };
+		4CD90FA516110E7600D5F1B3 /* Keyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CD90FA416110E7600D5F1B3 /* Keyboard.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -250,6 +252,8 @@
 		4C4D2C00155E50CB005EE885 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4C4D2C02155E50CB005EE885 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		4C6783671436F0F500F39B80 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		4C6CBA671611138600D4A7C7 /* Mouse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Mouse.h; path = input/Mouse.h; sourceTree = "<group>"; };
+		4C6CBA68161113E600D4A7C7 /* Mouse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Mouse.cpp; path = input/Mouse.cpp; sourceTree = "<group>"; };
 		4C8E100614F03D450095F390 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4C9412991438203800D9357E /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		4CB28510144699D300A26530 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -274,6 +278,9 @@
 		4CD90F9F1611082200D5F1B3 /* NullPad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NullPad.h; path = input/NullPad.h; sourceTree = "<group>"; };
 		4CD90FA016110A5E00D5F1B3 /* OpenGL21GraphicsInterface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGL21GraphicsInterface.cpp; sourceTree = "<group>"; };
 		4CD90FA116110A5E00D5F1B3 /* OpenGL21GraphicsInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGL21GraphicsInterface.h; sourceTree = "<group>"; };
+		4CD90FA316110E3000D5F1B3 /* Keyboard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Keyboard.h; path = input/Keyboard.h; sourceTree = "<group>"; };
+		4CD90FA416110E7600D5F1B3 /* Keyboard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Keyboard.cpp; path = input/Keyboard.cpp; sourceTree = "<group>"; };
+		4CD90FA616110F5400D5F1B3 /* IKeyboard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IKeyboard.h; path = input/IKeyboard.h; sourceTree = "<group>"; };
 		4CD9C607155E962C003AA28A /* maindef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = maindef.h; sourceTree = "<group>"; };
 		4CD9C608155E962C003AA28A /* PlatformDefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlatformDefs.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -312,6 +319,37 @@
 				4C4D2C01155E50CB005EE885 /* MainMenu.xib */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4C6CBA631611132C00D4A7C7 /* pad */ = {
+			isa = PBXGroup;
+			children = (
+				4CD90F9C161105BC00D5F1B3 /* Pad.cpp */,
+				4CD90F9D161105BC00D5F1B3 /* Pad.h */,
+				4CD90F971611052000D5F1B3 /* IPad.h */,
+				4CD90F981611058900D5F1B3 /* Pad.h */,
+				4CD90F9F1611082200D5F1B3 /* NullPad.h */,
+			);
+			name = pad;
+			sourceTree = "<group>";
+		};
+		4C6CBA651611133300D4A7C7 /* keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				4CD90FA316110E3000D5F1B3 /* Keyboard.h */,
+				4CD90FA416110E7600D5F1B3 /* Keyboard.cpp */,
+				4CD90FA616110F5400D5F1B3 /* IKeyboard.h */,
+			);
+			name = keyboard;
+			sourceTree = "<group>";
+		};
+		4C6CBA661611135C00D4A7C7 /* mouse */ = {
+			isa = PBXGroup;
+			children = (
+				4C6CBA671611138600D4A7C7 /* Mouse.h */,
+				4C6CBA68161113E600D4A7C7 /* Mouse.cpp */,
+			);
+			name = mouse;
 			sourceTree = "<group>";
 		};
 		4C74AB1D154892F40008271B /* src */ = {
@@ -614,11 +652,9 @@
 		4CD90F93161104CD00D5F1B3 /* input */ = {
 			isa = PBXGroup;
 			children = (
-				4CD90F9C161105BC00D5F1B3 /* Pad.cpp */,
-				4CD90F9D161105BC00D5F1B3 /* Pad.h */,
-				4CD90F971611052000D5F1B3 /* IPad.h */,
-				4CD90F981611058900D5F1B3 /* Pad.h */,
-				4CD90F9F1611082200D5F1B3 /* NullPad.h */,
+				4C6CBA661611135C00D4A7C7 /* mouse */,
+				4C6CBA651611133300D4A7C7 /* keyboard */,
+				4C6CBA631611132C00D4A7C7 /* pad */,
 			);
 			name = input;
 			sourceTree = "<group>";
@@ -805,6 +841,8 @@
 				4CD90F921611037100D5F1B3 /* BinaryModelDeserializer.cpp in Sources */,
 				4CD90F9E161105BC00D5F1B3 /* Pad.cpp in Sources */,
 				4CD90FA216110A5E00D5F1B3 /* OpenGL21GraphicsInterface.cpp in Sources */,
+				4CD90FA516110E7600D5F1B3 /* Keyboard.cpp in Sources */,
+				4C6CBA69161113E600D4A7C7 /* Mouse.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,24 +1,19 @@
 #include "OpenGL21GraphicsInterface.h"
 
 #include "CGGLEffect.h"
-#include "io/Log.h"
 #include "Color4.h"
 #include "VertexDefinition.h"
 
+#include "GLUtilities.h"
+
 #include "OpenGL.h"
 #include "OpenGLRenderTarget.h"
-#include "GLUtilities.h"
 #include "ShaderSemantics.h"
-
-#include <Cg/cg.h>
-#include <Cg/cgGL.h>
-
-#include "io/DDSImage.h"
 
 #include "io/dds.h"
 #include "io/DDSImage.h"
 #include "io/DDSMipLevel.h"
-
+#include "io/Log.h"
 
 void OpenGL21GraphicsInterface::openWindow(int width, int height, unsigned int multiSamples) {
   screenSize_ = CSize(width, height);
@@ -31,7 +26,7 @@ void OpenGL21GraphicsInterface::swapBuffers() {
 }
 
 unsigned int OpenGL21GraphicsInterface::createVertexBuffer(VertexDef* vertexData, int numVertices) {
-  GLuint vertexArray;
+  /*GLuint vertexArray;
   glGenVertexArrays(1, &vertexArray);
   glBindVertexArray(vertexArray);
 
@@ -92,12 +87,13 @@ unsigned int OpenGL21GraphicsInterface::createVertexBuffer(VertexDef* vertexData
 
   GLUtilities::checkForError();
 
-  return vertexArray;
+  return vertexArray;*/
+  return 0;
 }
 
 void OpenGL21GraphicsInterface::drawVertexBuffer(int vertexBuffer, int vertexCount, VertexFormat vertexFormat) {
-  glBindVertexArray(vertexBuffer);
-  glDrawArrays(GL_TRIANGLES, 0, vertexCount);
+  /*glBindVertexArray(vertexBuffer);
+  glDrawArrays(GL_TRIANGLES, 0, vertexCount);*/
 }
 
 IEffect* OpenGL21GraphicsInterface::createEffect() {
@@ -105,17 +101,13 @@ IEffect* OpenGL21GraphicsInterface::createEffect() {
 }
 
 void OpenGL21GraphicsInterface::clearBuffer(const Color4& color) {
-  glClearColor(color.r, color.g, color.b, 1.0f);
+  /*glClearColor(color.r, color.g, color.b, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  GLUtilities::checkForError();
-}
-
-bool OpenGL21GraphicsInterface::getKeySate(char key) {
-  return false;
+  GLUtilities::checkForError();*/
 }
 
 unsigned int OpenGL21GraphicsInterface::loadTexture(const std::string& filePath) {
-  DDSImage image;
+/*  DDSImage image;
   image.load(filePath.c_str());
 
   unsigned int format = 0;
@@ -140,11 +132,12 @@ unsigned int OpenGL21GraphicsInterface::loadTexture(const std::string& filePath)
 
   GLUtilities::checkForError();
 
-  return textureId;
+  return textureId;*/
+  return 0;
 }
 
 void OpenGL21GraphicsInterface::resetGraphicsState(bool cullBack) {
-  glEnable(GL_DEPTH_TEST);
+/*  glEnable(GL_DEPTH_TEST);
   glEnable(GL_CULL_FACE);
 
   glPolygonOffset(2.5f, 10.0f);
@@ -152,22 +145,24 @@ void OpenGL21GraphicsInterface::resetGraphicsState(bool cullBack) {
  
   int faceToCull = cullBack ? GL_BACK : GL_FRONT;
   glCullFace(faceToCull);
-  GLUtilities::checkForError();
+  GLUtilities::checkForError();*/
 }
 
 unsigned int OpenGL21GraphicsInterface::createTexture(const CSize& dimensions, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize) {
-  GLuint texture;
+/*  GLuint texture;
   glGenTextures(1, &texture);
   glBindTexture(GL_TEXTURE_2D, texture);
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, dimensions.width, dimensions.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
   GLUtilities::checkForError();
   glBindTexture(GL_TEXTURE_2D, 0);
-  return texture;
+  return texture;*/
+  
+  return 0;
 }
 
 void OpenGL21GraphicsInterface::setRenderTarget(unsigned int* renderBuffers, unsigned int renderTargetCount, bool useDepthBuffer) {
   
-  unsigned int primartyRenderTargetId = renderBuffers[0];
+/*  unsigned int primartyRenderTargetId = renderBuffers[0];
   OpenGLRenderTarget primaryRenderTarget = renderTargets_[primartyRenderTargetId];
   glBindFramebuffer(GL_FRAMEBUFFER, primaryRenderTarget.frameBuffer);
 
@@ -176,11 +171,11 @@ void OpenGL21GraphicsInterface::setRenderTarget(unsigned int* renderBuffers, uns
     OpenGLRenderTarget renderTarget = renderTargets_[renderBuffer];
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_RENDERBUFFER, renderTarget.renderBuffer);
     GLUtilities::checkForError();
-  }
+  }*/
 }
 
 unsigned int OpenGL21GraphicsInterface::createRenderTarget(unsigned int textureId) {
-  GLuint frameBuffer = 0;
+/*  GLuint frameBuffer = 0;
   glGenFramebuffers(1, &frameBuffer);
   glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
   GLUtilities::checkForError();
@@ -194,7 +189,7 @@ unsigned int OpenGL21GraphicsInterface::createRenderTarget(unsigned int textureI
   GLUtilities::checkForError();
 
   glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, colorRenderBuffer);
-  GLUtilities::checkForError();
+  GLUtilities::checkForError();*/
 
   //--
 
@@ -208,7 +203,7 @@ unsigned int OpenGL21GraphicsInterface::createRenderTarget(unsigned int textureI
 
   //--
 
-  GLUtilities::checkFramebufferStatus(GL_FRAMEBUFFER);
+/*  GLUtilities::checkFramebufferStatus(GL_FRAMEBUFFER);
 
   //--
 
@@ -228,25 +223,26 @@ unsigned int OpenGL21GraphicsInterface::createRenderTarget(unsigned int textureI
   renderTarget.renderBuffer = colorRenderBuffer;
   renderTarget.frameBuffer = frameBuffer;
   renderTargets_.push_back(renderTarget);
-  return rendetTargetId;
+  return rendetTargetId;*/
+  return 0;
 }
 
 void OpenGL21GraphicsInterface::clearRenderTarget(unsigned int renderTargetId, const Color4& color) {
-  OpenGLRenderTarget renderTarget = renderTargets_[renderTargetId];
+/*  OpenGLRenderTarget renderTarget = renderTargets_[renderTargetId];
   glBindFramebuffer(GL_FRAMEBUFFER, renderTarget.frameBuffer);
   glClearColor(color.r, color.g, color.b, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  GLUtilities::checkForError();
+  GLUtilities::checkForError();*/
 }
 
 void OpenGL21GraphicsInterface::resetRenderTarget() {
-  glCullFace(GL_BACK);
+/*  glCullFace(GL_BACK);
   glDisable(GL_POLYGON_OFFSET_FILL);
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   glEnable(GL_TEXTURE_2D);
   glBindFramebuffer(GL_FRAMEBUFFER, 0);
-  GLUtilities::checkForError();
+  GLUtilities::checkForError();*/
 }
 
 void OpenGL21GraphicsInterface::generateMipMaps(unsigned int textureId) {
@@ -262,9 +258,5 @@ void OpenGL21GraphicsInterface::beginPerformanceEvent(const std::string& eventNa
 }
 
 void OpenGL21GraphicsInterface::endPerformanceEvent() {
-
-}
-
-void OpenGL21GraphicsInterface::getMousePosition(int* x, int* y) {
 
 }

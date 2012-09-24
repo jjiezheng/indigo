@@ -91,10 +91,6 @@ public:
 
 public:
 
-  static bool getKeyState(char key);
-
-  static void getMousePosition(int* x, int* y);
-
   static void fillTexture(unsigned int textureId, void* data, unsigned int dataSize);
 
 private:
