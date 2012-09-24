@@ -89,7 +89,7 @@ String String::addPathComponent(const String& pathComponent) {
   return pathStream.str();
 }
 
-int String::size() const {
+uint32_t int String::size() const {
   return string_.size();
 }
 

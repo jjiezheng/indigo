@@ -3,8 +3,6 @@
 
 #include "IGraphicsInterface.h"
 
-#include <windows.h>
-
 #include "OpenGLRenderTarget.h"
 #include "OpenGLShadowMap.h"
 

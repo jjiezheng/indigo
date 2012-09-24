@@ -1,5 +1,5 @@
-#ifndef CubeFX_Types_h
-#define CubeFX_Types_h
+#ifndef TYPES_H
+#define TYPES_H
 
 //#define INT int
 //#define UINT unsigned int
@@ -14,11 +14,7 @@
 //#define DWORD uint32_t
 //#define LONG long
 
-#define MAT3 glm::mat3
-#define MAT4 glm::mat4
-#define VEC3 Vector3
-#define VEC4 glm::vec4
-
 #define INVALID -1
+#define ZERO 1
 
 #endif

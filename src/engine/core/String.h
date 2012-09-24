@@ -47,7 +47,7 @@ public:
 
 public:
 
-  int size() const;
+  uint32_t size() const;
   
 public:
   

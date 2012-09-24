@@ -9,7 +9,7 @@
   #define LITTLE_ENDIAN 1
 #elif defined(__APPLE__)
   #define PLATFORM_MAC 1
-  #define LITTLE_ENDIAN 1
+  // #define LITTLE_ENDIAN 1 - already defined on OSX
 #elif defined(__SNC__)
   #define PLATFORM_PS3 1
   #define BIG_ENDIAN 1
