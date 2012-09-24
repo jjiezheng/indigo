@@ -5,6 +5,10 @@
 #include "maths/Vector4.h"
 
 class IViewer {
+
+public:
+
+  ~IViewer() { };
   
 public:
   

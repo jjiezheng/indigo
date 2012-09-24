@@ -67,6 +67,8 @@ private:
   PS3GCMCGEffect* effect_;
 
   std::vector<unsigned int> vertexBuffers_;
+  std::vector<unsigned int> textures_;
+  std::vector<unsigned int> renderTargets_;
 
 };
 

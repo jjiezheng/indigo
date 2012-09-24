@@ -19,8 +19,8 @@ POutput ps(float4 position			: POSITION,
 		   float3 depth 			: TEXCOORD1) {
 	POutput OUT;
 	
-	OUT.color = float4(DiffuseColor, 1);					
-	OUT.normal = float4(normal, DiffusePower);
+	OUT.color = float4(1, 1, 0, 1); //float4(DiffuseColor, 1);					
+	OUT.normal = float4(1, 0, 0, 1);// float4(normal, DiffusePower);
 
 	float depthNDC = depth.x / depth.y; // z / w
 	float depthLinear = (-depth.z - Near) / (Far - Near);

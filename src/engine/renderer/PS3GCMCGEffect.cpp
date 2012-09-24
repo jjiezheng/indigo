@@ -91,6 +91,9 @@ void PS3GCMCGEffect::beginDraw() {
   cell::Gcm::cellGcmSetVertexProgram(vertexProgram_, vertexProgramAddress_);
   cell::Gcm::cellGcmSetFragmentProgram(fragmentProgram_, fragmentProgramOffset_);
 
+  /*unsigned int registerCount = cellGcmCgGetRegisterCount(fragmentProgram_);
+  cellGcmCgSetRegisterCount(fragmentProgram_, 3u);*/
+
   IGraphicsInterface* rawInterface = GraphicsInterface::rawInterface();
   PS3GCMGraphicsInterface* graphicsInterface = static_cast<PS3GCMGraphicsInterface*>(rawInterface);
   graphicsInterface->setEffect(this);
