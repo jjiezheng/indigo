@@ -7,7 +7,7 @@ class PS3Pad : public IPad {
 
 public:
 
-  static void init();
+  void setup();
 
   void update();
 

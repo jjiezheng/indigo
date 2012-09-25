@@ -17,14 +17,14 @@ float stickValue(CellPadData padData, int padIndex) {
   return stick > 0.1f || stick < -0.1f ? stick : 0.0f;
 }
 
-void Pad::init() {
+void PS3Pad::setup() {
   int32_t ret = cellPadInit(MAX_PAD);
   if (ret != CELL_OK) {
     LOG(LOG_CHANNEL_INPUT, "Failed to init pad");
   }
 }
 
-void Pad::update() {
+void PS3Pad::update() {
   static CellPadInfo2 padInfo;
   int32_t ret;
   if ((ret = cellPadGetInfo2(&padInfo)) != CELL_OK) {
@@ -53,26 +53,26 @@ void Pad::update() {
   }
 }
 
-float Pad::leftStickY() {
+float PS3Pad::leftStickY() {
   return leftStickY_;
 }
 
-float Pad::leftStickX() {
+float PS3Pad::leftStickX() {
   return leftStickX_;
 }
 
-float Pad::rightStickX() {
+float PS3Pad::rightStickX() {
   return rightStickX_;
 }
 
-float Pad::rightStickY() {
+float PS3Pad::rightStickY() {
   return rightStickY_;
 }
 
-bool Pad::leftShoulder() {
+bool PS3Pad::leftShoulder() {
   return leftShoulder_;
 }
 
-bool Pad::rightShoulder() {
+bool PS3Pad::rightShoulder() {
   return rightShoulder_;
 }
