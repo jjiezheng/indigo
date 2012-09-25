@@ -7,7 +7,7 @@ class NullPad : public IPad {
   
 public:
   
-  void init();
+  void setup();
   
   void update();
   
@@ -27,7 +27,7 @@ public:
   
 };
 
-inline void NullPad::init() {
+inline void NullPad::setup() {
   
 }
 

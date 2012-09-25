@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C1A6ABC1612562300E4F6A1 /* Cg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1A6ABB1612562300E4F6A1 /* Cg.framework */; };
 		4C372FE814E47D8900FBAF6B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C372FE714E47D8800FBAF6B /* libz.dylib */; };
 		4C392004160FD722005F5775 /* Clock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C391FFB160FD722005F5775 /* Clock.cpp */; };
 		4C392005160FD722005F5775 /* String.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C392001160FD722005F5775 /* String.cpp */; };
@@ -77,7 +78,6 @@
 		4CB8D3131436F03A0079949A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CB8D3121436F03A0079949A /* Cocoa.framework */; };
 		4CB8D3311436F03A0079949A /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CB8D3301436F03A0079949A /* SenTestingKit.framework */; };
 		4CB8D3321436F03A0079949A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CB8D3121436F03A0079949A /* Cocoa.framework */; };
-		4CD90F8D1611034600D5F1B3 /* Cg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CD90F8C1611034600D5F1B3 /* Cg.framework */; };
 		4CD90F921611037100D5F1B3 /* BinaryModelDeserializer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CD90F901611037100D5F1B3 /* BinaryModelDeserializer.cpp */; };
 		4CD90F9E161105BC00D5F1B3 /* Pad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CD90F9C161105BC00D5F1B3 /* Pad.cpp */; };
 		4CD90FA216110A5E00D5F1B3 /* OpenGL21GraphicsInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CD90FA016110A5E00D5F1B3 /* OpenGL21GraphicsInterface.cpp */; };
@@ -95,6 +95,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C1A6AB8161255C500E4F6A1 /* IKeyboardListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IKeyboardListener.h; path = input/IKeyboardListener.h; sourceTree = "<group>"; };
+		4C1A6AB9161255C500E4F6A1 /* NullKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NullKeyboard.h; path = input/NullKeyboard.h; sourceTree = "<group>"; };
+		4C1A6ABB1612562300E4F6A1 /* Cg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cg.framework; path = ../../../../../../Library/Frameworks/Cg.framework; sourceTree = "<group>"; };
 		4C372FE714E47D8800FBAF6B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		4C391FFA160FD722005F5775 /* Any.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Any.h; sourceTree = "<group>"; };
 		4C391FFB160FD722005F5775 /* Clock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Clock.cpp; sourceTree = "<group>"; };
@@ -268,7 +271,6 @@
 		4CC9D0AF154C379E00E0EEBB /* reader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = reader.h; sourceTree = "<group>"; };
 		4CC9D0B1154C379E00E0EEBB /* visitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = visitor.h; sourceTree = "<group>"; };
 		4CC9D0B2154C379E00E0EEBB /* writer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = writer.h; sourceTree = "<group>"; };
-		4CD90F8C1611034600D5F1B3 /* Cg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cg.framework; path = ../../../../Desktop/NVIDIA_Cg/Library/Frameworks/Cg.framework; sourceTree = "<group>"; };
 		4CD90F901611037100D5F1B3 /* BinaryModelDeserializer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BinaryModelDeserializer.cpp; path = serialization/BinaryModelDeserializer.cpp; sourceTree = "<group>"; };
 		4CD90F911611037100D5F1B3 /* BinaryModelDeserializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BinaryModelDeserializer.h; path = serialization/BinaryModelDeserializer.h; sourceTree = "<group>"; };
 		4CD90F971611052000D5F1B3 /* IPad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IPad.h; path = input/IPad.h; sourceTree = "<group>"; };
@@ -290,12 +292,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4CD90F8D1611034600D5F1B3 /* Cg.framework in Frameworks */,
 				4C8E100714F03D450095F390 /* QuartzCore.framework in Frameworks */,
 				4C372FE814E47D8900FBAF6B /* libz.dylib in Frameworks */,
 				4CB28511144699D300A26530 /* OpenGL.framework in Frameworks */,
 				4C94129A1438203800D9357E /* ApplicationServices.framework in Frameworks */,
 				4CB8D3131436F03A0079949A /* Cocoa.framework in Frameworks */,
+				4C1A6ABC1612562300E4F6A1 /* Cg.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,6 +338,8 @@
 		4C6CBA651611133300D4A7C7 /* keyboard */ = {
 			isa = PBXGroup;
 			children = (
+				4C1A6AB8161255C500E4F6A1 /* IKeyboardListener.h */,
+				4C1A6AB9161255C500E4F6A1 /* NullKeyboard.h */,
 				4CD90FA316110E3000D5F1B3 /* Keyboard.h */,
 				4CD90FA416110E7600D5F1B3 /* Keyboard.cpp */,
 				4CD90FA616110F5400D5F1B3 /* IKeyboard.h */,
@@ -597,7 +601,7 @@
 		4CB8D3111436F03A0079949A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4CD90F8C1611034600D5F1B3 /* Cg.framework */,
+				4C1A6ABB1612562300E4F6A1 /* Cg.framework */,
 				4C8E100614F03D450095F390 /* QuartzCore.framework */,
 				4C372FE714E47D8800FBAF6B /* libz.dylib */,
 				4CB28510144699D300A26530 /* OpenGL.framework */,
@@ -758,7 +762,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#cp -rf ${SOURCE_ROOT}/../../assets/* ${CODESIGNING_FOLDER_PATH}/Contents/Resources";
+			shellScript = "cp -rf ${SOURCE_ROOT}/../../assets/* ${CODESIGNING_FOLDER_PATH}/Contents/Resources";
 		};
 		4CB8D32D1436F03A0079949A /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -946,7 +950,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
-					"\"$(SRCROOT)/../../../../Desktop/NVIDIA_Cg/Library/Frameworks\"",
+					/Library/Frameworks,
 				);
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -979,7 +983,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
-					"\"$(SRCROOT)/../../../../Desktop/NVIDIA_Cg/Library/Frameworks\"",
+					/Library/Frameworks,
 				);
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
