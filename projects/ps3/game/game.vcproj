@@ -57,9 +57,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="-oformat=fself"
-				AdditionalDependencies="libsn.a libm.a libio_stub.a libfs_stub.a"
+				AdditionalDependencies="libsn.a libm.a libio_stub.a libfs_stub.a libgcm_cmd.a libgcm_sys_stub.a libsysmodule_stub.a libsysutil_stub.a libcgc.a"
 				OutputFile="$(OutDir)/$(ProjectName).ppu.self"
-				AdditionalLibraryDirectories=""
+				AdditionalLibraryDirectories="C:\usr\local\cell\target\ppu\lib\PSGL\RSX\opt"
 				ProgramDatabaseFile=""
 			/>
 			<Tool

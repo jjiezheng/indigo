@@ -19,6 +19,8 @@ void Game::init(const char* sceneFile) {
   clock_.init();
   
   camera_.translateZ(5.5f);
+  //camera_.translateY(2.0f);
+  //camera_.rotateX(toRadians(-90));
   
   camera_.setPerspective(45.0f, GraphicsInterface::aspectRatio(), 1.0f, 1000.0f);
 

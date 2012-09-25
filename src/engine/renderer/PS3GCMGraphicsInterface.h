@@ -48,10 +48,6 @@ public:
 
   void clearRenderTarget(unsigned int renderTargetId, const Color4& color);
 
-  bool getKeySate(char key);
-
-  void getMousePosition(int* x, int* y);
-
 public:
 
   void setEffect(PS3GCMCGEffect* effect);

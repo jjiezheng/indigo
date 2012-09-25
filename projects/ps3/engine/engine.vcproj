@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-g -Xc+=exceptions"
-				AdditionalIncludeDirectories="../../../src/engine;../../../libs;../../../libs/assimp/include;../../../libs/freeimage"
+				AdditionalIncludeDirectories="C:\usr\local\cell\target\ppu\include;../../../src/engine;../../../libs;../../../libs/assimp/include;../../../libs/freeimage"
 				PreprocessorDefinitions="SN_TARGET_PS3;_DEBUG;__SNC__;__CELL_ASSERT__"
 				ProgramDataBaseFileName=""
 				CompileAs="0"
@@ -310,11 +310,11 @@
 				Name="PS3GCM"
 				>
 				<File
-					RelativePath="..\..\..\src\engine\renderer\PS3CGMCGEffect.cpp"
+					RelativePath="..\..\..\src\engine\renderer\PS3GCMCGEffect.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\engine\renderer\PS3CGMCGEffect.h"
+					RelativePath="..\..\..\src\engine\renderer\PS3GCMCGEffect.h"
 					>
 				</File>
 				<File
@@ -603,6 +603,14 @@
 			Name="io"
 			>
 			<File
+				RelativePath="..\..\..\src\engine\io\File.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\engine\io\File.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\engine\io\Log.cpp"
 				>
 			</File>
@@ -618,6 +626,82 @@
 				RelativePath="..\..\..\src\engine\io\Path.h"
 				>
 			</File>
+		</Filter>
+		<Filter
+			Name="serialization"
+			>
+			<File
+				RelativePath="..\..\..\src\engine\serialization\BinaryModelDeserializer.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\engine\serialization\BinaryModelDeserializer.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="input"
+			>
+			<Filter
+				Name="pad"
+				>
+				<File
+					RelativePath="..\..\..\src\engine\input\IPad.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\input\NullPad.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\input\Pad.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\input\Pad.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\input\PS3Pad.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\input\PS3Pad.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="keyboard"
+				>
+				<File
+					RelativePath="..\..\..\src\engine\input\IKeyboard.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\input\IKeyboardListener.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\input\Keyboard.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\input\Keyboard.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="mouse"
+				>
+				<File
+					RelativePath="..\..\..\src\engine\input\Mouse.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\input\Mouse.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 	</Files>
 	<Globals>

@@ -163,7 +163,7 @@ unsigned int PS3GCMGraphicsInterface::createVertexBuffer(VertexDef* vertexData, 
 
 void PS3GCMGraphicsInterface::clearBuffer(const Color4& color) {
   unsigned int argb = ((char)color.a * 255) << 24 | ((char)color.r * 255) << 16 | ((char)color.g * 255) << 8 | ((char)color.b * 255) << 0;
-  cell::Gcm::cellGcmSetClearColor(argb);
+  cell::Gcm::cellGcmSetClearColor(0xffffff0000);
 
   cell::Gcm::cellGcmSetClearSurface(CELL_GCM_CLEAR_Z | CELL_GCM_CLEAR_R | CELL_GCM_CLEAR_G | CELL_GCM_CLEAR_B | CELL_GCM_CLEAR_A);
 }
@@ -207,7 +207,7 @@ void PS3GCMGraphicsInterface::drawVertexBuffer(int vertexBuffer, int vertexCount
 
   unsigned int uvIndex = effect_->uvIndex();
   if (uvIndex > 0) {
-    cell::Gcm::cellGcmSetVertexDataArray(uvIndex, 0, sizeof(VertexDef), 3, CELL_GCM_VERTEX_F, CELL_GCM_LOCATION_LOCAL, vertexDataOffset + sizeof(float) * 6);
+    cell::Gcm::cellGcmSetVertexDataArray(uvIndex, 0, sizeof(VertexDef), 2, CELL_GCM_VERTEX_F, CELL_GCM_LOCATION_LOCAL, vertexDataOffset + sizeof(float) * 6);
   }
 
   cell::Gcm::cellGcmSetDrawArrays(CELL_GCM_PRIMITIVE_TRIANGLES, 0, vertexCount);
@@ -222,27 +222,30 @@ unsigned int PS3GCMGraphicsInterface::createTexture(const CSize& dimensions, uns
   unsigned int textureSize = dimensions.width * dimensions.height * textureComponents;
 
   CellGcmTexture texture;
+  memset(&texture, 0, sizeof(CellGcmTexture));
   
-  texture.format = 0; // int 32
+  texture.format = CELL_GCM_TEXTURE_A8R8G8B8 | CELL_GCM_TEXTURE_LN | CELL_GCM_TEXTURE_UN;
   texture.mipmap = mipLevels;
   texture.dimension = CELL_GCM_TEXTURE_DIMENSION_2;
   texture.cubemap = CELL_GCM_FALSE;
-  
-  texture.remap = CELL_GCM_REMAP_MODE(CELL_GCM_TEXTURE_REMAP_ORDER_XYXY,
-    CELL_GCM_TEXTURE_REMAP_FROM_A,
-    CELL_GCM_TEXTURE_REMAP_FROM_R,
-    CELL_GCM_TEXTURE_REMAP_FROM_G,
-    CELL_GCM_TEXTURE_REMAP_FROM_B,
-    CELL_GCM_TEXTURE_REMAP_REMAP,
-    CELL_GCM_TEXTURE_REMAP_REMAP,
-    CELL_GCM_TEXTURE_REMAP_REMAP,
-    CELL_GCM_TEXTURE_REMAP_REMAP);
+
+  unsigned int texturePitch = dimensions.width * textureComponents;
+  texture.pitch = texturePitch;
+
+  texture.remap = 
+    CELL_GCM_TEXTURE_REMAP_REMAP << 14 |
+    CELL_GCM_TEXTURE_REMAP_REMAP << 12 |
+    CELL_GCM_TEXTURE_REMAP_REMAP << 10 |
+    CELL_GCM_TEXTURE_REMAP_REMAP << 8  |
+    CELL_GCM_TEXTURE_REMAP_FROM_B << 6 |
+    CELL_GCM_TEXTURE_REMAP_FROM_G << 4 |
+    CELL_GCM_TEXTURE_REMAP_FROM_R << 2 |
+    CELL_GCM_TEXTURE_REMAP_FROM_A;
 
   texture.width = dimensions.width;
   texture.height = dimensions.height;
   texture.depth = 1;
   texture.location = CELL_GCM_LOCATION_LOCAL;
-  texture.pitch = 0;
 
   void* textureBaseAddress = localMemoryAlign(64, textureSize);
   unsigned int textureOffset = 0;
@@ -399,20 +402,12 @@ void PS3GCMGraphicsInterface::clearRenderTarget(unsigned int renderTargetId, con
 
 }
 
-bool PS3GCMGraphicsInterface::getKeySate(char key) {
-  return false;
-}
-
-void PS3GCMGraphicsInterface::getMousePosition(int* x, int* y) {
-
-}
-
 void PS3GCMGraphicsInterface::setTexture(unsigned int textureUnit, unsigned int textureId) {
   CellGcmTexture texture = textures_[textureId];
   cell::Gcm::cellGcmSetTexture(textureUnit, &texture);
-  cell::Gcm::cellGcmSetTextureControl(textureUnit, CELL_GCM_TRUE, 0<<8, 12<<8, CELL_GCM_TEXTURE_MAX_ANISO_1);
+  cell::Gcm::cellGcmSetTextureControl(textureUnit, CELL_GCM_TRUE, 1*0xff, 1*0xff, CELL_GCM_TEXTURE_MAX_ANISO_1);
 
-  cell::Gcm::cellGcmSetTextureAddress(textureUnit,
+  /*cell::Gcm::cellGcmSetTextureAddress(textureUnit,
     CELL_GCM_TEXTURE_CLAMP,
     CELL_GCM_TEXTURE_CLAMP,
     CELL_GCM_TEXTURE_CLAMP,
@@ -421,7 +416,7 @@ void PS3GCMGraphicsInterface::setTexture(unsigned int textureUnit, unsigned int 
 
   cell::Gcm::cellGcmSetTextureFilter(textureUnit, 0,
     CELL_GCM_TEXTURE_LINEAR,
-    CELL_GCM_TEXTURE_LINEAR, CELL_GCM_TEXTURE_CONVOLUTION_QUINCUNX);
+    CELL_GCM_TEXTURE_LINEAR, CELL_GCM_TEXTURE_CONVOLUTION_QUINCUNX);*/
 }
 
 

@@ -30,7 +30,7 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
   presentStage_.init(screenSize);
   
   unsigned int renderTargetsSize = (unsigned int)renderTargets_.size();
-  presentRenderTarget(renderTargetsSize - 1);
+  presentRenderTarget(0);
 }
 
 void Renderer3dDeferred::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
