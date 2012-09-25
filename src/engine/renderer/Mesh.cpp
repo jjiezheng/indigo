@@ -13,7 +13,7 @@ void Mesh::render() const {
   GraphicsInterface::drawVertexBuffer(vertexBuffer_, numVertices_, vertexFormat_);
 }
 
-void Mesh::visit(std::tr1::unordered_map<int, std::vector<Mesh*> >& meshes) {
+void Mesh::visit(hash_map<int, std::vector<Mesh*> >& meshes) {
   unsigned int effectId = material_.effect();
   meshes[effectId].push_back(this);
 }

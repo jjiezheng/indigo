@@ -3,10 +3,10 @@
 
 #include "platform/PlatformDefs.h"
 
-#include <unordered_map>
 
 #include <vector>
 
+#include "core/HashMap.h"
 #include "core/StandardNamespace.h"
 
 #include "core/Standard.h"
@@ -40,7 +40,7 @@ public:
   
 public:
 
-  void visit(std::tr1::unordered_map<int, std::vector<Mesh*> >& meshes);
+  void visit(hash_map<int, std::vector<Mesh*> >& meshes);
 
   void render() const;
   

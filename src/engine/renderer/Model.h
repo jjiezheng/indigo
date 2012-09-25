@@ -1,13 +1,13 @@
 #ifndef MODEL_H
 #define MODEL_H
 
+#include <string>
+
+#include "core/HashMap.h"
 #include "maths/Matrix4x4.h"
 
 #include "Mesh.h"
 #include "Material.h"
-
-#include <string>
-#include <unordered_map>
 
 class IViewer;
 class SceneContext;
@@ -22,7 +22,7 @@ public:
 
   void render() const;
 
-  void visit(std::tr1::unordered_map<int, std::vector<Mesh*> >& meshes);
+  void visit(hash_map<int, std::vector<Mesh*> >& meshes);
     
   void setMaterial(unsigned int meshIndex, const Material& material);
   
