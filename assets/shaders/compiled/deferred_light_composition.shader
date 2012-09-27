@@ -168,4 +168,12 @@ void main()
 } // main end
 "
 }
+,
+"gcm" : {
+"vertex" : "
+[נ ° ׀AÿÿÿÿI@Iÿÿÿÿ\R*¸ÿÿÿÿeÿÿÿÿ*¸ÿÿÿÿnÿÿÿÿֳÿÿÿÿ†}ÿÿÿÿ”ÿÿÿÿ’ÿÿÿÿPOSITIONpositionTEXCOORD0texCoordColorMapLightSourceMapPOSITIONvs.positionTEXCOORD0vs.texCoord@@l@ְƒ`Aÿ€@l@ְƒ`A",
+"fragment" : "
+\`   @”ÿÿÿÿךא*ÿÿÿÿףÿÿÿÿ*ÿÿÿÿüÿÿÿÿ
+ֵÿÿÿÿÿÿÿÿTEXCOORD0texCoordColorMapLightSourceMapCOLOR0ps@ÿÿָָָ?בָָָ?ב"
+}
 }

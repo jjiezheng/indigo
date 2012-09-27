@@ -21,17 +21,19 @@ function gl21 {
 	echo }
 }
 function gcm {
-	if [ -e "sce-cgc" ] ; then
+	#if [ -e "sce-cgc" ] ; then
 		echo ,
 		echo \"gcm\" : { 
 		echo \"vertex\" : \"
-		sce-cgc -q -profile sce_vp_rsx -entry vs $f
+		sce-cgc -q -p sce_vp_rsx -e vs $f && cat ucode.bin
 		echo \",
+		rm ucode.bin
 		echo \"fragment\" : \"
-		sce-cgc -q -profile sce_fp_rsx -entry ps $f
+		sce-cgc -q -p sce_fp_rsx -e ps $f && cat ucode.bin
 		echo \"
 		echo }
-	fi
+		rm ucode.bin
+	#fi
 }
 function shader {
 	echo {

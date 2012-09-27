@@ -105,8 +105,8 @@ float4 main( in X1X cin) : SV_Target0
 
     _texCoord = cin._TEXCOORD0;
     _TMP0 = _TMP13.Sample(_DepthMap, _texCoord);
-    if (_TMP0.x ==   1.00000000000000000E00f) { // if begin
-        return float4(   0.00000000000000000E00f,   0.00000000000000000E00f,   0.00000000000000000E00f,   0.00000000000000000E00f);
+    if (_TMP0.x ==  1.00000000000000000E000f) { // if begin
+        return float4(  0.00000000000000000E000f,  0.00000000000000000E000f,  0.00000000000000000E000f,  0.00000000000000000E000f);
     } // end if
     _normalData = _TMP14.Sample(_NormalMap, _texCoord);
     _TMP4 = dot(_normalData.xyz, _normalData.xyz);
@@ -120,9 +120,9 @@ float4 main( in X1X cin) : SV_Target0
     _TMP5 = rsqrt(_TMP4);
     _TMP2 = _TMP5*_lightVector;
     _TMP3 = dot(_TMP1, _TMP2);
-    _diffuseStrength = max(  0.00000000000000000E00f, _TMP3);
+    _diffuseStrength = max( 0.00000000000000000E000f, _TMP3);
     _diffuseContribution = _LightColor*_diffuseStrength;
-    return float4(_diffuseContribution.x, _diffuseContribution.y, _diffuseContribution.z,   0.00000000000000000E00f);
+    return float4(_diffuseContribution.x, _diffuseContribution.y, _diffuseContribution.z,  0.00000000000000000E000f);
 } // main end
 "
 }
@@ -215,8 +215,8 @@ void main()
     vec3 _diffuseContribution;
 
     _TMP0 = texture2D(_DepthMap, gl_TexCoord[0].xy);
-    if (_TMP0.x == 1.00000000E+00) { // if begin
-        gl_FragColor = vec4( 0.00000000E+00, 0.00000000E+00, 0.00000000E+00, 0.00000000E+00);
+    if (_TMP0.x == 1.00000000E+000) { // if begin
+        gl_FragColor = vec4( 0.00000000E+000, 0.00000000E+000, 0.00000000E+000, 0.00000000E+000);
         return;
     } // end if
     _normalData = texture2D(_NormalMap, gl_TexCoord[0].xy);
@@ -231,12 +231,22 @@ void main()
     _TMP5 = inversesqrt(_TMP4);
     _TMP2 = _TMP5*_lightVector;
     _TMP3 = dot(_TMP1, _TMP2);
-    _diffuseStrength = max(0.00000000E+00, _TMP3);
+    _diffuseStrength = max(0.00000000E+000, _TMP3);
     _diffuseContribution = _LightColor*_diffuseStrength;
-    _ret_0 = vec4(_diffuseContribution.x, _diffuseContribution.y, _diffuseContribution.z, 0.00000000E+00);
+    _ret_0 = vec4(_diffuseContribution.x, _diffuseContribution.y, _diffuseContribution.z, 0.00000000E+000);
     gl_FragColor = _ret_0;
     return;
 } // main end
 "
+}
+,
+"gcm" : {
+"vertex" : "
+[`   @Aÿÿÿÿi`Iÿÿÿÿ|r*¸ÿÿÿÿ…ÿÿÿÿ*¸ÿÿÿÿÿÿÿÿ#¸ÿÿÿÿ˜ÿÿÿÿ¸ÿÿÿÿ¥ÿÿÿÿ¸ÿÿÿÿµÿÿÿÿ¸ÿÿÿÿÅÿÿÿÿ¸ÿÿÿÿÕÿÿÿÿ¸ÿÿÿÿäÿÿÿÿÃÿÿÿÿøïÿÿÿÿ”ÿÿÿÿÿÿÿÿPOSITIONpositionTEXCOORD0texCoordNormalMapDepthMapNormalMatrixNormalMatrix[0]NormalMatrix[1]NormalMatrix[2]LightDirectionLightColorPOSITIONvs.positionTEXCOORD0vs.texCoord@@œl@Àƒ`Aÿ€@œl@Àƒ`AŸ",
+"fragment" : "
+\0
+ °`Ğ”ÿÿÿÿ
+*ÿÿÿÿÿÿÿÿ*ÿÿÿÿÿÿÿÿ#¸ÿÿÿÿ&ÿÿÿÿ¸ÿÿÿÿ3ÿÿÿÿ¸ÿÿÿÿCÿÿÿÿ¸ÿÿÿÿSÿÿÿÿ¸ÿÿÿÿ|pÿÿÿÿ¸ÿÿÿÿ˜ÿÿÿÿ
+Åÿÿÿÿª£ÿÿÿÿTEXCOORD0texCoordNormalMapDepthMapNormalMatrixNormalMatrix[0]NormalMatrix[1]NormalMatrix[2]  LightDirection@LightColorCOLOR0ps@ÿÿÈÈÈ?áÈŸÈÈ‚ÈÈÈ?áˆ9@ÈÈ)ÈÉÉÈ~OœÈ?€ÈTÈÉÈÈÈéÈÈ;ªœşÈ~NœÈ?€	ÈÈœÈÈœÈÈÈõÈÈ"
 }
 }

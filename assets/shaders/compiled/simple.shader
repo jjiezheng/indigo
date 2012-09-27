@@ -72,7 +72,7 @@ float4 main() : SV_Target0
 {
 
 
-    return float4(   1.00000000000000000E00f,   1.00000000000000000E00f,   1.00000000000000000E00f,   1.00000000000000000E00f);
+    return float4(  1.00000000000000000E000f,  1.00000000000000000E000f,  1.00000000000000000E000f,  1.00000000000000000E000f);
 } // main end
 "
 }
@@ -139,9 +139,17 @@ void main()
 {
 
 
-    gl_FragColor = vec4( 1.00000000E+00, 1.00000000E+00, 1.00000000E+00, 1.00000000E+00);
+    gl_FragColor = vec4( 1.00000000E+000, 1.00000000E+000, 1.00000000E+000, 1.00000000E+000);
     return;
 } // main end
 "
+}
+,
+"gcm" : {
+"vertex" : "
+[ 0@PAÿÿÿÿ© Cÿÿÿÿ¹²(‚Àÿÿÿÿ‚Îÿÿÿÿ‚ßÿÿÿÿ‚ğÿÿÿÿ‚ÿÿÿÿÃÿÿÿÿÿÿÿÿPOSITIONpositionNORMALnormalWorldViewProjWorldViewProj[0]WorldViewProj[1]WorldViewProj[2]WorldViewProj[3]POSITIONvs.position@œlĞ0ÀÃ`@?€@œlĞ ÀÃ`@_€@œlĞÀÃ`@Ÿ€@œlĞÀÃ`A",
+"fragment" : "
+\ğ  0À(¸ÿÿÿÿ@ÿÿÿÿ¸ÿÿÿÿNÿÿÿÿ¸ÿÿÿÿ_ÿÿÿÿ¸ÿÿÿÿpÿÿÿÿ¸ÿÿÿÿÿÿÿÿ
+Åÿÿÿÿ™’ÿÿÿÿWorldViewProjWorldViewProj[0]WorldViewProj[1]WorldViewProj[2]WorldViewProj[3]COLOR0psÿÿ~~ÈÈÈœÈÈ?€"
 }
 }

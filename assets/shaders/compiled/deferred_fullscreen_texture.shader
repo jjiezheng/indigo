@@ -9,7 +9,6 @@
 //version 3.1.0.13
 //profile vs_5_0
 //program vs
-//semantic PerObject : BUFFER0
 //semantic texture
 //var float4 position : $vin.POSITION : POSITION : 0 : 1
 //var float2 texCoord : $vin.TEXCOORD0 : TEXCOORD0 : 1 : 1
@@ -29,8 +28,6 @@ struct X1X {
 };
 
 static X1X cout;
-uniform float _something : BUFFER0;
-uniform float4 _somethingElse : BUFFER0;
 
  // main procedure, the original name was vs
 X1X main(in float4 _position : POSITION, in float2 _texCoord : TEXCOORD0)
@@ -39,7 +36,6 @@ X1X main(in float4 _position : POSITION, in float2 _texCoord : TEXCOORD0)
     VOutput _OUT;
 
     _OUT._position1 = _position;
-    _OUT._position1.x = _something + _somethingElse.x;
     _OUT._texCoord1 = _texCoord;
     cout._POSITION = _OUT._position1;
     cout._TEXCOORD0 = _OUT._texCoord1;
@@ -55,7 +51,6 @@ X1X main(in float4 _position : POSITION, in float2 _texCoord : TEXCOORD0)
 //version 3.1.0.13
 //profile ps_5_0
 //program ps
-//semantic PerObject : BUFFER0
 //semantic texture
 //var sampler2D texture :  : _texture : -1 : 1
 //var float2 texCoord : $vin.TEXCOORD0 :  : 1 : 1
@@ -98,7 +93,6 @@ float4 main( in X1X cin) : SV_Target0
 //version 3.1.0.13
 //profile glslv
 //program vs
-//semantic PerObject : BUFFER0
 //semantic texture
 //var float4 position : $vin.POSITION : ATTR0 : 0 : 1
 //var float2 texCoord : $vin.TEXCOORD0 : ATTR8 : 1 : 1
@@ -112,19 +106,14 @@ struct VOutput {
     vec2 _texCoord2;
 };
 
-uniform float _something;
-uniform vec4 _somethingElse;
 
  // main procedure, the original name was vs
 void main()
 {
 
-    VOutput _OUT;
 
-    _OUT._position2 = gl_Vertex;
-    _OUT._position2.x = _something + _somethingElse.x;
     gl_TexCoord[0].xy = gl_MultiTexCoord0.xy;
-    gl_Position = _OUT._position2;
+    gl_Position = gl_Vertex;
     return;
 } // main end
 ",
@@ -137,7 +126,6 @@ void main()
 //version 3.1.0.13
 //profile glslf
 //program ps
-//semantic PerObject : BUFFER0
 //semantic texture
 //var sampler2D texture :  : _texture : -1 : 1
 //var float2 texCoord : $vin.TEXCOORD0 : TEX0 : 1 : 1
@@ -162,5 +150,13 @@ void main()
     return;
 } // main end
 "
+}
+,
+"gcm" : {
+"vertex" : "
+[° p AÿÿÿÿIÿÿÿÿ,"*¸ÿÿÿÿ5ÿÿÿÿÃÿÿÿÿF=ÿÿÿÿ”ÿÿÿÿ\RÿÿÿÿPOSITIONpositionTEXCOORD0texCoordtexturePOSITIONvs.positionTEXCOORD0vs.texCoord@@œl@Àƒ`Aÿ€@œl@Àƒ`AŸ",
+"fragment" : "
+\ à”ÿÿÿÿº°*ÿÿÿÿÃÿÿÿÿ
+ÅÿÿÿÿÒËÿÿÿÿTEXCOORD0texCoordtextureCOLOR0ps@ÿÿÈÈÈ?á"
 }
 }

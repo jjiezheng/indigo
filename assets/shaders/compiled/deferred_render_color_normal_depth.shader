@@ -157,7 +157,7 @@ POutput main( in X1X cin)
 
     _normal1 = cin._TEXCOORD0;
     _depth1 = cin._TEXCOORD1;
-    _OUT._color = float4(_DiffuseColor.x, _DiffuseColor.y, _DiffuseColor.z,   1.00000000000000000E00f);
+    _OUT._color = float4(_DiffuseColor.x, _DiffuseColor.y, _DiffuseColor.z,  1.00000000000000000E000f);
     _OUT._normal = float4(_normal1.x, _normal1.y, _normal1.z, _DiffusePower);
     _depthNDC = _depth1.x/_depth1.y;
     _depthLinear = (-_depth1.z - _Near)/(_Far - _Near);
@@ -308,7 +308,7 @@ void main()
     float _depthNDC;
     float _depthLinear;
 
-    _OUT._color = vec4(_DiffuseColor.x, _DiffuseColor.y, _DiffuseColor.z, 1.00000000E+00);
+    _OUT._color = vec4(_DiffuseColor.x, _DiffuseColor.y, _DiffuseColor.z, 1.00000000E+000);
     _OUT._normal3 = vec4(gl_TexCoord[0].x, gl_TexCoord[0].y, gl_TexCoord[0].z, _DiffusePower);
     _depthNDC = gl_TexCoord[1].x/gl_TexCoord[1].y;
     _depthLinear = (-gl_TexCoord[1].z - _Near)/(_Far - _Near);
@@ -319,5 +319,16 @@ void main()
     return;
 } // main end
 "
+}
+,
+"gcm" : {
+"vertex" : "
+[   àÀAÿÿÿÿùğCÿÿÿÿ	#‚ÿÿÿÿ‚ÿÿÿÿ‚-ÿÿÿÿ‚=ÿÿÿÿ(‚Mÿÿÿÿ‚[ÿÿÿÿ‚lÿÿÿÿ‚}ÿÿÿÿ‚ÿÿÿÿ(‚Ÿÿÿÿÿ‚©ÿÿÿÿ‚¶ÿÿÿÿ‚	Ãÿÿÿÿ‚
+Ğÿÿÿÿ(¸ÿÿÿÿİÿÿÿÿ¸ÿÿÿÿãÿÿÿÿ¸ÿÿÿÿìÿÿÿÿ¸ÿÿÿÿõÿÿÿÿ¸ÿÿÿÿşÿÿÿÿ¸ÿÿÿÿÿÿÿÿ¸ÿÿÿÿÿÿÿÿ¸ÿÿÿÿ!ÿÿÿÿ¸ÿÿÿÿ.ÿÿÿÿ¸ÿÿÿÿ<ÿÿÿÿ¸ÿÿÿÿNÿÿÿÿ¸ÿÿÿÿRÿÿÿÿÃÿÿÿÿ`Wÿÿÿÿ”ÿÿÿÿvlÿÿÿÿ•ÿÿÿÿŠ€ÿÿÿÿPOSITIONpositionNORMALnormalNormalMatrixNormalMatrix[0]NormalMatrix[1]NormalMatrix[2]WorldViewProjWorldViewProj[0]WorldViewProj[1]WorldViewProj[2]WorldViewProj[3]WorldViewWorldView[0]WorldView[1]WorldView[2]WorldView[3]WorldWorld[0]World[1]World[2]World[3]DiffuseColorAmbientColorDiffusePowerSpecularPowerSpecularIntensityFarNearPOSITIONvs.positionTEXCOORD0vs.normalTEXCOORD1vs.depthÀ@œlĞ@ÀÃ`@Ÿ€@œlĞ0ÀÃ`A€lĞÀÃ`@_ülĞPÀÃ`AüœlP"Ã`@_üœlPÃ`@ŸüœlPÃ`AülĞ`ÀÃ`@Ÿüœl@†C`@?ü@œl@*€†Àƒ`@?€@œl@†Àƒ`@_€œl ÀŸà¢ü@œl@†Àƒ`Aß @œl€‚†C`Aß",
+"fragment" : "
+\	` @ ”ÿÿÿÿúğ•ÿÿÿÿ#¸ÿÿÿÿÿÿÿÿ¸ÿÿÿÿÿÿÿÿ¸ÿÿÿÿ.ÿÿÿÿ¸ÿÿÿÿ>ÿÿÿÿ(¸ÿÿÿÿNÿÿÿÿ¸ÿÿÿÿ\ÿÿÿÿ¸ÿÿÿÿmÿÿÿÿ¸ÿÿÿÿ~ÿÿÿÿ¸ÿÿÿÿÿÿÿÿ(¸ÿÿÿÿ ÿÿÿÿ¸ÿÿÿÿªÿÿÿÿ¸ÿÿÿÿ·ÿÿÿÿ¸ÿÿÿÿÄÿÿÿÿ¸ÿÿÿÿÑÿÿÿÿ(¸ÿÿÿÿŞÿÿÿÿ¸ÿÿÿÿäÿÿÿÿ¸ÿÿÿÿíÿÿÿÿ¸ÿÿÿÿöÿÿÿÿ¸ÿÿÿÿÿÿÿÿÿ¸ÿÿÿÿÿÿÿÿ¸ÿÿÿÿ%ÿÿÿÿ¸ÿÿÿÿH@ÿÿÿÿ¸ÿÿÿÿh`ÿÿÿÿ¸ÿÿÿÿˆ€ÿÿÿÿ¸ÿÿÿÿ¨ ÿÿÿÿ¸ÿÿÿÿ¼°ÿÿÿÿ
+ÅÿÿÿÿÈÁÿÿÿÿ
+ÆÿÿÿÿØÑÿÿÿÿ
+ÇÿÿÿÿéâÿÿÿÿTEXCOORD0normalTEXCOORD1depthNormalMatrixNormalMatrix[0]NormalMatrix[1]NormalMatrix[2]WorldViewProjWorldViewProj[0]WorldViewProj[1]WorldViewProj[2]WorldViewProj[3]WorldViewWorldView[0]WorldView[1]WorldView[2]WorldView[3]WorldWorld[0]World[1]World[2]World[3]DiffuseColorAmbientColor€DiffusePoweràSpecularPower SpecularIntensity°Far`@NearCOLOR0ps.colorCOLOR1ps.normalCOLOR2ps.depthÀÿü®ÈÈÈ?áœÈÈTŸÈœÈÈœÈÈÈÈÈ?áÈŸÈ:ÈªÈœÈÈÈÈÈÈÈÈ?€:ÈşÈ"
 }
 }
