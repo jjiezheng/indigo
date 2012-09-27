@@ -109,6 +109,7 @@ void PS3GCMCGEffect::load(const std::string& filePath) {
 }
 
 void PS3GCMCGEffect::beginDraw() {
+  cell::Gcm::cellGcmSetUpdateFragmentProgramParameter(fragmentProgramOffset_);
   cell::Gcm::cellGcmSetVertexProgram(vertexProgram_, vertexProgramAddress_);
   cell::Gcm::cellGcmSetFragmentProgram(fragmentProgram_, fragmentProgramOffset_);
 
@@ -202,6 +203,7 @@ void PS3GCMCGEffect::setUniform(const Vector4& uniformData, const char* uniformN
   {
     CGparameter parameter = cellGcmCgGetNamedParameter(fragmentProgram_, uniformName);
     if (parameter) {
+      int a = 1;
       cell::Gcm::cellGcmSetFragmentProgramParameter(fragmentProgram_, parameter, uniformData.valuePtr(), fragmentProgramOffset_);
     }
   }

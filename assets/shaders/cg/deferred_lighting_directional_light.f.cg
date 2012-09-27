@@ -1,7 +1,7 @@
 sampler2D NormalMap;
 sampler2D DepthMap;
 
-uniform float4x4 NormalMatrix;
+uniform float3x3 NormalMatrix;
 
 uniform float4 LightDirection;
 uniform float3 LightColor;
@@ -18,7 +18,7 @@ float4 ps(float4 position : POSITION,
   float3 normal = normalize(normalData.xyz);
 
   float3 lightVector = -LightDirection.xyz;
-  lightVector = normalize(mul(NormalMatrix, lightVector));
+  // /lightVector = mul(NormalMatrix, lightVector);//normalize(mul(NormalMatrix, lightVector));
 
   // Blinn+Phong from http://en.wikipedia.org/wiki/Blinn%E2%80%93Phong_shading_model
 

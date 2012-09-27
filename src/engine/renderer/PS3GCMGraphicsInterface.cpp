@@ -19,6 +19,8 @@
 
 #define BASED_ALIGN	128
 
+static const uint32_t sLabelId = 128;
+
 /* local memory allocation */
 static uint32_t local_mem_heap = 0;
 static void *localMemoryAlloc(const uint32_t size) 
@@ -90,7 +92,7 @@ void PS3GCMGraphicsInterface::openWindow(int width, int height, unsigned int mul
       aspectRatio = 16.0f / 9.0f;
   }
 
-  cellGcmSetFlipMode(CELL_GCM_DISPLAY_HSYNC);
+  cellGcmSetFlipMode(CELL_GCM_DISPLAY_VSYNC);
 
   // get config
   CellGcmConfig config;
@@ -124,29 +126,38 @@ void PS3GCMGraphicsInterface::endPerformanceEvent() {
 
 /* wait until flip */
 static void waitFlip(void) {
-  while (cellGcmGetFlipStatus()!=0){
+  /*while (cellGcmGetFlipStatus()!=0){
     sys_timer_usleep(300);
-  }
+  }*/
   cellGcmResetFlipStatus();
 }
 
 void PS3GCMGraphicsInterface::swapBuffers() {  
+
+//   while (*((volatile uint32_t *)mLabel) != mLabelValue) {
+//     sys_timer_usleep(10);
+//   }
+
+  //sys_timer_usleep(10);
+
   static int first=1;
 
   // wait until the previous flip executed
-  if (first!=1) waitFlip();
-  else cellGcmResetFlipStatus();
+  //if (first!=1) waitFlip();
+  //else cellGcmResetFlipStatus();
 
   //cellGcmResetFlipStatus();
 
   if (cell::Gcm::cellGcmSetFlip(bufferFrameIndex_) != CELL_OK) {
-    return; 
+   // return; 
   }
 
   bufferFrameIndex_ = (bufferFrameIndex_+1)%BUFFER_COUNT;
 
+  //cellGcmSetWriteBackEndLabel(sLabelId, mLabelValue);
+
   cell::Gcm::cellGcmFlush();
-  cell::Gcm::cellGcmSetWaitFlip();
+  //cell::Gcm::cellGcmSetWaitFlip();
 }
 
 unsigned int PS3GCMGraphicsInterface::createVertexBuffer(VertexDef* vertexData, int numVertices) {
