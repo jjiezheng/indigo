@@ -1,0 +1,12 @@
+{
+	"targets" : {
+		"gcm" : {
+			"vertex" : "shaders/cg/deferred_lighting_directional_light.v.vpo",
+			"fragment" : "shaders/cg/deferred_lighting_directional_light.f.fpo"
+		},
+		"dx11" : {
+			"vertex" : "shaders/hlsl/deferred_lighting_directional_light.v.hlsl",
+			"fragment" : "shaders/hlsl/deferred_lighting_directional_light.f.hlsl"
+		}
+	}
+}

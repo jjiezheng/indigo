@@ -23,8 +23,8 @@ void DeferredLightingRenderStage::init(const CSize& screenSize) {
     /*IDeferredPass* pointLightingPass = new DeferredPointLightsPass();
     passes_.push_back(pointLightingPass);*/
 
-    IDeferredLightingPass* spotLightingPass = new DeferredSpotLightsPass();
-    passes_.push_back(spotLightingPass);
+    /*IDeferredLightingPass* spotLightingPass = new DeferredSpotLightsPass();
+    passes_.push_back(spotLightingPass);*/
 
     for (std::vector<IDeferredLightingPass*>::iterator i = passes_.begin(); i != passes_.end(); ++i) {
       (*i)->init(screenSize);

@@ -18,10 +18,10 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
   initStage_.init(screenSize);
   initStage_.collectRenderTargets(this);
 
-  /*lightingStage_.init(screenSize);
+  lightingStage_.init(screenSize);
   lightingStage_.collectRenderTargets(this);
 
-  skyStage_.init(screenSize);
+  /*skyStage_.init(screenSize);
   skyStage_.collectRenderTargets(this);
   
   postProcessingStage_.init(screenSize);
@@ -30,13 +30,13 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
   presentStage_.init(screenSize);
   
   unsigned int renderTargetsSize = (unsigned int)renderTargets_.size();
-  presentRenderTarget(0);
+  presentRenderTarget(renderTargetsSize - 1);
 }
 
 void Renderer3dDeferred::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
   initStage_.render(viewer, world, sceneContext);
-  /*lightingStage_.render(viewer, world, sceneContext, initStage_);
-  skyStage_.render(viewer, world, lightingStage_);
+  lightingStage_.render(viewer, world, sceneContext, initStage_);
+  /*skyStage_.render(viewer, world, lightingStage_);
   postProcessingStage_.render(viewer, lightingStage_.lightMap(), initStage_);*/
 
   DeferredRenderTarget renderTargetToPresent = renderTargets_[activeRenderTargetIndex_];

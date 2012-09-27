@@ -16,13 +16,13 @@
 #include "DeferredInitRenderStage.h"
 
 void DeferredDirectionalLightsPass::init(const CSize& screenSize) {
-  directionalLightEffect_ = IEffect::effectFromFile("cgfx/deferred_lighting_directional_light.hlsl");
+  directionalLightEffect_ = IEffect::effectFromFile("effects/deferred_lighting_directional_light.effect");
   quadVbo_ = Geometry::screenPlane();
 
   directionalLightRenderTexture_ = GraphicsInterface::createTexture(screenSize);
   directionalLightRenderTarget_ = GraphicsInterface::createRenderTarget(directionalLightRenderTexture_);
 
-  accumulationEffect_ = IEffect::effectFromFile("cgfx/deferred_light_composition.hlsl");
+  accumulationEffect_ = IEffect::effectFromFile("effects/deferred_light_composition.effect");
   quadVbo_ = Geometry::screenPlane();
 }
 

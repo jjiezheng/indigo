@@ -8,6 +8,14 @@
   "terrain" : [ ],
   "objects" : [
     {
+      "model" : "actors/cube/cube.modelbinary",
+      "position" : {
+        "x" : 0.0,
+        "y" : 0.0,
+        "z" : 0.0
+      }
+    },
+    {
       "model" : "actors/floor/floor.modelbinary",
       "position" : {
         "x" : 0.0,
@@ -16,5 +24,19 @@
       }
     }
   ],
-  "lights" : []
+  "lights" : [
+     {
+      "type" : "directional",
+       "direction" : {
+        "x" : 0.5,
+        "y" : -0.5,
+        "z" : 0.5
+      },
+      "color" : {
+        "r" : 1.0,
+        "g" : 1.0,
+        "b" : 1.0
+      }
+    }
+  ]
 }

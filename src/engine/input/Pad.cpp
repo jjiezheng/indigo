@@ -18,6 +18,7 @@ void Pad::init() {
 #else
   pad_ = new NullPad();
 #endif
+  pad_->setup();
 }
 
 void Pad::update() {

@@ -224,7 +224,7 @@ unsigned int PS3GCMGraphicsInterface::createTexture(const CSize& dimensions, uns
   CellGcmTexture texture;
   memset(&texture, 0, sizeof(CellGcmTexture));
   
-  texture.format = CELL_GCM_TEXTURE_A8R8G8B8 | CELL_GCM_TEXTURE_LN | CELL_GCM_TEXTURE_UN;
+  texture.format = CELL_GCM_TEXTURE_A8R8G8B8 | CELL_GCM_TEXTURE_LN | CELL_GCM_TEXTURE_NR;
   texture.mipmap = mipLevels;
   texture.dimension = CELL_GCM_TEXTURE_DIMENSION_2;
   texture.cubemap = CELL_GCM_FALSE;
@@ -399,7 +399,6 @@ unsigned int PS3GCMGraphicsInterface::createRenderTarget(unsigned int textureId)
 }
 
 void PS3GCMGraphicsInterface::clearRenderTarget(unsigned int renderTargetId, const Color4& color) {
-
 }
 
 void PS3GCMGraphicsInterface::setTexture(unsigned int textureUnit, unsigned int textureId) {
