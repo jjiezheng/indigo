@@ -1,2 +1,0 @@
-sce-cgc -p sce_vp_rsx -e vs -o deferred_render_color_normal_depth.v.vpo deferred_render_color_normal_depth.v.cg
-sce-cgc -p sce_fp_rsx -e ps -o deferred_render_color_normal_depth.f.fpo deferred_render_color_normal_depth.f.cg

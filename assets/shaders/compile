@@ -1,0 +1,46 @@
+#!/bin/bash
+function dx11 {
+	echo \"dx11\" : { 
+	echo \"vertex\" : \"
+	cgc -q -profile vs_5_0 -entry vs $f
+	echo \",
+	echo \"fragment\" : \"
+	cgc -q -profile ps_5_0 -entry ps $f
+	echo \"
+	echo }
+}
+function gl21 {
+	echo ,
+	echo \"gl21\" : { 
+	echo \"vertex\" : \"
+	cgc -q -profile glslv -entry vs $f
+	echo \",
+	echo \"fragment\" : \"
+	cgc -q -profile glslf -entry ps $f
+	echo \"
+	echo }
+}
+function gcm {
+	if [ -e "sce-cgc" ] ; then
+		echo ,
+		echo \"gcm\" : { 
+		echo \"vertex\" : \"
+		sce-cgc -q -profile sce_vp_rsx -entry vs $f
+		echo \",
+		echo \"fragment\" : \"
+		sce-cgc -q -profile sce_fp_rsx -entry ps $f
+		echo \"
+		echo }
+	fi
+}
+function shader {
+	echo {
+	dx11
+	gl21
+	gcm
+	echo }
+}
+for f in *.cg ; do
+	shaderOutput="`shader`"
+	echo "$shaderOutput" > compiled/${f%.*}.shader
+done

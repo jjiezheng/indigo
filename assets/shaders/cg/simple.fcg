@@ -1,3 +1,15 @@
-float4 main() : COLOR0 {
+struct VS_OUTPUT  {
+	float4 vPosition : POSITION;
+};
+
+VS_OUTPUT vs(float4 position : POSITION,
+			   float4 normal   : NORMAL,
+			   uniform float4x4 WorldViewProj) {
+	VS_OUTPUT vout;
+	vout.vPosition = mul(WorldViewProj, position);
+	return vout;
+}
+
+float4 ps() : COLOR0 {
 	return float4(1, 1, 1, 1);
 }

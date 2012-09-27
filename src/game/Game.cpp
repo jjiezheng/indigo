@@ -36,6 +36,7 @@ void Game::mainLoop() {
   float dt = clock_.delta_time();
   camera_.update(dt);
   Pad::update();
+  Keyboard::update();
   renderer_.render(&camera_, world_, sceneContext_);
 }
 

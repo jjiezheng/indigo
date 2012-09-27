@@ -1,0 +1,12 @@
+{
+	"targets" : {
+		"gcm" : {
+			"vertex" : "shaders/cg/deferred_light_composition.v.vpo",
+			"fragment" : "shaders/cg/deferred_light_composition.f.fpo"
+		},
+		"dx11" : {
+			"vertex" : "shaders/hlsl/deferred_light_composition.v.hlsl",
+			"fragment" : "shaders/hlsl/deferred_light_composition.f.hlsl"
+		}
+	}
+}

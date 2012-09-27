@@ -10,14 +10,14 @@ void Clock::init() {
 }
 
 float Clock::delta_time() {
-  system_time_t timeMicroSeconds = sys_time_get_system_time();
+  /*system_time_t timeMicroSeconds = sys_time_get_system_time();
   float currentTime = timeMicroSeconds / 100000000.0f;
 
   float dt = currentTime - lastTime_;
   lastTime_ = currentTime;
-  lastDeltaTime_ = dt;
+  lastDeltaTime_ = dt;*/
 
-  return dt;
+  return 0.1f * (1.0f/60.0f);// dt;
 }
 #endif
 

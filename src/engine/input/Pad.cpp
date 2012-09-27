@@ -18,7 +18,10 @@ void Pad::init() {
 #else
   pad_ = new NullPad();
 #endif
+<<<<<<< HEAD
   
+=======
+>>>>>>> 781288e0c35f52975ce30d42b07b4a37f0042aa1
   pad_->setup();
 }
 

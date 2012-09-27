@@ -13,6 +13,8 @@ public:
 public:
   
   static bool keyState(char keyCode);
+
+  static void update();
   
 public:
   

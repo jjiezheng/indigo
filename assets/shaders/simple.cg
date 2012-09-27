@@ -1,0 +1,16 @@
+uniform float4x4 WorldViewProj;
+
+struct VOutput  {
+	float4 position : POSITION;
+};
+
+VOutput vs(float4 position : POSITION,
+			   	 float4 normal   : NORMAL) {
+	VOutput output;
+	output.position = mul(WorldViewProj, position);
+	return output;
+}
+
+float4 ps() : COLOR0 {
+	return float4(1, 1, 1, 1);
+}

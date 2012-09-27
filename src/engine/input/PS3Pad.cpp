@@ -14,7 +14,7 @@ float stickValue(CellPadData padData, int padIndex) {
   int padValue = 255 - padData.button[padIndex];
   float stickRaw = padValue / 255.0f;
   float stick = (stickRaw * 2.0f) - 1.0f;
-  return stick > 0.1f || stick < -0.1f ? stick : 0.0f;
+  return stick > 0.2f || stick < -0.2f ? stick : 0.0f;
 }
 
 void PS3Pad::setup() {

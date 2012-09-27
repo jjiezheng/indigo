@@ -11,7 +11,9 @@ public:
   
 public:
   
-  virtual void init() = 0;
+  virtual void setup() = 0;
+
+  virtual void update() = 0;
   
   virtual bool keyState(char keyCode) = 0;
 

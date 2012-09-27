@@ -1,0 +1,30 @@
+sampler2D NormalMap;
+sampler2D DepthMap;
+
+uniform float3x3 NormalMatrix;
+
+uniform float4 LightDirection;
+uniform float3 LightColor;
+
+float4 ps(float4 position : POSITION,
+          float2 texCoord : TEXCOORD0) : COLOR0 {
+  float3 depthSpec = tex2D(DepthMap, texCoord).rgb;
+
+  if (depthSpec.r == 1.0f) {
+    return float4(0, 0, 0, 0);
+  }
+
+  float4 normalData = tex2D(NormalMap, texCoord);
+  float3 normal = normalize(normalData.xyz);
+
+  float3 lightVector = -LightDirection.xyz;
+  // /lightVector = mul(NormalMatrix, lightVector);//normalize(mul(NormalMatrix, lightVector));
+
+  // Blinn+Phong from http://en.wikipedia.org/wiki/Blinn%E2%80%93Phong_shading_model
+
+  // diffuse
+  float diffuseStrength = max(0.0f, dot(normalize(normal), normalize(lightVector)));
+  float3 diffuseContribution = LightColor * diffuseStrength;
+
+  return float4(diffuseContribution, 0);
+}
