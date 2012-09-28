@@ -8,7 +8,7 @@
 #include "SceneContext.h"
 
 void DeferredPresentPass::init() {
-  effect_ = IEffect::effectFromFile("cgfx/deferred_fullscreen_texture.hlsl");
+  effect_ = IEffect::effectFromFile(IEffect::SHADER_FULLSCREEN_TEXTURE);
   quadVbo_ = Geometry::screenPlane();
 }
 

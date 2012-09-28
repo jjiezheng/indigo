@@ -66,19 +66,23 @@ void GraphicsInterface::setRenderState(bool cullBack) {
 }
 
 unsigned int GraphicsInterface::createTexture(const CSize& dimensions) {
-  return createTexture(dimensions, 1, 1);
+  return createTexture(dimensions, IGraphicsInterface::R8G8B8A8);
 }
 
-unsigned int GraphicsInterface::createTexture(const CSize& dimensions, unsigned int multisamples) {
-  return createTexture(dimensions, multisamples, 1);
+unsigned int GraphicsInterface::createTexture(const CSize& dimensions, IGraphicsInterface::TextureFormat textureFormat) {
+  return createTexture(dimensions, textureFormat, 1);
 }
 
-unsigned int GraphicsInterface::createTexture(const CSize& dimensions, unsigned int multisamples, unsigned int mipLevels) {
-  return createTexture(dimensions, multisamples, mipLevels, NULL, 0);
+unsigned int GraphicsInterface::createTexture(const CSize& dimensions, IGraphicsInterface::TextureFormat textureFormat, unsigned int multisamples) {
+  return createTexture(dimensions, textureFormat, multisamples, 1);
 }
 
-unsigned int GraphicsInterface::createTexture(const CSize& dimensions, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize) {
-  return graphicsInterface_->createTexture(dimensions, multisamples, mipLevels, textureData, textureLineSize);
+unsigned int GraphicsInterface::createTexture(const CSize& dimensions, IGraphicsInterface::TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels) {
+  return createTexture(dimensions, textureFormat, multisamples, mipLevels, NULL, 0);
+}
+
+unsigned int GraphicsInterface::createTexture(const CSize& dimensions, IGraphicsInterface::TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize) {
+  return graphicsInterface_->createTexture(dimensions, textureFormat, multisamples, mipLevels, textureData, textureLineSize);
 }
 
 void GraphicsInterface::setRenderTarget(unsigned int renderTargetId, bool useDepthBuffer) {

@@ -228,14 +228,31 @@ IEffect* PS3GCMGraphicsInterface::createEffect() {
   return new PS3GCMCGEffect();
 }
 
-unsigned int PS3GCMGraphicsInterface::createTexture(const CSize& dimensions, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize) {
+unsigned int PS3GCMGraphicsInterface::createTexture(const CSize& dimensions, TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize) {
   int textureComponents = 4;
   unsigned int textureSize = dimensions.width * dimensions.height * textureComponents;
 
   CellGcmTexture texture;
   memset(&texture, 0, sizeof(CellGcmTexture));
+
+  int gcmTextureFormat = 0;
+
+  switch (textureFormat) {
+    case IGraphicsInterface::R8G8B8A8: {
+      gcmTextureFormat = CELL_GCM_TEXTURE_A8R8G8B8;
+      break;
+    }
+    case IGraphicsInterface::R16G16B16A16: {
+        gcmTextureFormat = CELL_GCM_TEXTURE_W16_Z16_Y16_X16_FLOAT;
+        break;
+    }
+    case IGraphicsInterface::R32G32B32A32: {
+        gcmTextureFormat = CELL_GCM_TEXTURE_W32_Z32_Y32_X32_FLOAT;
+        break;
+    }
+  }
   
-  texture.format = CELL_GCM_TEXTURE_A8R8G8B8 | CELL_GCM_TEXTURE_LN | CELL_GCM_TEXTURE_NR;
+  texture.format = gcmTextureFormat | CELL_GCM_TEXTURE_LN | CELL_GCM_TEXTURE_NR;
   texture.mipmap = mipLevels;
   texture.dimension = CELL_GCM_TEXTURE_DIMENSION_2;
   texture.cubemap = CELL_GCM_FALSE;
@@ -292,7 +309,6 @@ void PS3GCMGraphicsInterface::setRenderTarget(unsigned int* renderTargetIds, uns
    memset(&sf, 0, sizeof(CellGcmSurface));
 
    sf.colorFormat = CELL_GCM_SURFACE_A8R8G8B8;
-
    sf.colorTarget = CELL_GCM_SURFACE_TARGET_0;
 
    sf.colorLocation[0]= CELL_GCM_LOCATION_LOCAL;

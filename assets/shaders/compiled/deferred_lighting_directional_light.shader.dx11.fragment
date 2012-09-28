@@ -1,0 +1,92 @@
+// ps_4_0 output by Cg compiler
+// cgc version 3.1.0013, build date Apr 18 2012
+// command line args: -q -profile ps_5_0
+// source file: deferred_lighting_directional_light.cg
+//vendor NVIDIA Corporation
+//version 3.1.0.13
+//profile ps_5_0
+//program ps
+//semantic NormalMap
+//semantic DepthMap
+//semantic NormalMatrix
+//semantic LightDirection
+//semantic LightColor
+//var sampler2D NormalMap :  : _NormalMap : -1 : 1
+//var sampler2D DepthMap :  : _DepthMap : -1 : 1
+//var float3x3 NormalMatrix :  : _NormalMatrix[0], 3 : -1 : 1
+//var float4 LightDirection :  : _LightDirection : -1 : 1
+//var float3 LightColor :  : _LightColor : -1 : 1
+//var float2 texCoord : $vin.TEXCOORD0 :  : 1 : 1
+//var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
+
+#pragma pack_matrix(row_major)
+
+struct VOutput {
+    float4 _position1 : SV_Position;
+    float2 _texCoord2 : TEXCOORD0;
+};
+
+struct X1X {
+    float4 _POSITION : SV_Position;
+    float2 _TEXCOORD0 : TEXCOORD0;
+};
+
+static float _TMP5;
+static float3 _TMP4;
+static float3 _TMP3;
+static float _TMP7;
+static float _TMP6;
+static float4 _TMP0;
+static float4 _unPackedNormal0010;
+static float4 _normalData0010;
+static float3 _r0014;
+static float3 _v0018;
+static float3 _v0020;
+Texture2D<float4> _TMP21;
+Texture2D<float4> _TMP22;
+SamplerState _NormalMap;
+SamplerState _DepthMap;
+uniform float3x3 _NormalMatrix;
+uniform float4 _LightDirection;
+uniform float3 _LightColor;
+
+ // main procedure, the original name was ps
+float4 main( in X1X cin) : SV_Target0
+{
+
+    float2 _texCoord1;
+    float3 _normal;
+    float3 _lightVector;
+    float _diffuseStrength;
+    float3 _diffuseContribution;
+
+    _texCoord1 = cin._TEXCOORD0;
+    _TMP0 = _TMP21.Sample(_DepthMap, _texCoord1);
+    if (_TMP0.x ==  1.00000000000000000E000f) { // if begin
+        return float4(  0.00000000000000000E000f,  0.00000000000000000E000f,  0.00000000000000000E000f,  0.00000000000000000E000f);
+    } // end if
+    _normalData0010 = _TMP22.Sample(_NormalMap, _texCoord1);
+    _unPackedNormal0010 = _normalData0010* 2.00000000000000000E000f -  1.00000000000000000E000f;
+    _TMP6 = dot(_unPackedNormal0010.xyz, _unPackedNormal0010.xyz);
+    _TMP7 = rsqrt(_TMP6);
+    _normal = _TMP7*_unPackedNormal0010.xyz;
+    _lightVector = -_LightDirection.xyz;
+    _r0014.x = dot(_NormalMatrix._11_12_13, _lightVector);
+    _r0014.y = dot(_NormalMatrix._21_22_23, _lightVector);
+    _r0014.z = dot(_NormalMatrix._31_32_33, _lightVector);
+    _TMP6 = dot(_r0014, _r0014);
+    _TMP7 = rsqrt(_TMP6);
+    _lightVector = _TMP7*_r0014;
+    _v0018 = -_normal;
+    _TMP6 = dot(_v0018, _v0018);
+    _TMP7 = rsqrt(_TMP6);
+    _TMP3 = _TMP7*_v0018;
+    _v0020 = -_lightVector;
+    _TMP6 = dot(_v0020, _v0020);
+    _TMP7 = rsqrt(_TMP6);
+    _TMP4 = _TMP7*_v0020;
+    _TMP5 = dot(_TMP3, _TMP4);
+    _diffuseStrength = max( 0.00000000000000000E000f, _TMP5);
+    _diffuseContribution = _LightColor*_diffuseStrength;
+    return float4(_diffuseContribution.x, _diffuseContribution.y, _diffuseContribution.z,  0.00000000000000000E000f);
+} // main end

@@ -5,9 +5,10 @@
 #include "core/Size.h"
 
 #include "GraphicsAPIType.h"
+#include "IGraphicsInterface.h"
+
 #include "VertexFormat.h"
 
-class IGraphicsInterface;
 class IEffect;
 class Color4;
 class VertexDef;
@@ -76,12 +77,14 @@ public:
   static unsigned int loadTexture(const char* filePath);
 
   static unsigned int createTexture(const CSize& dimensions);
+
+  static unsigned int createTexture(const CSize& dimensions, IGraphicsInterface::TextureFormat textureFormat);
   
-  static unsigned int createTexture(const CSize& dimensions, unsigned int multisamples);
+  static unsigned int createTexture(const CSize& dimensions, IGraphicsInterface::TextureFormat textureFormat, unsigned int multisamples);
 
-  static unsigned int createTexture(const CSize& dimensions, unsigned int multisamples, unsigned int mipLevels);
+  static unsigned int createTexture(const CSize& dimensions, IGraphicsInterface::TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels);
 
-  static unsigned int createTexture(const CSize& dimensions, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize);
+  static unsigned int createTexture(const CSize& dimensions, IGraphicsInterface::TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize);
 
   static void generateMipMaps(unsigned int textureId);
 

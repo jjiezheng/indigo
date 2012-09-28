@@ -30,25 +30,8 @@
 #define BASED_ALIGN	128	
 
 void PS3GCMCGEffect::load(const std::string& filePath) {
-
-  std::string fullVertexShaderFilePath;
-  std::string fullFragmentShaderFilePath;
-
-  {
-    std::ifstream effectFile;
-    effectFile.open(filePath.c_str());
-
-    json::Object effectJSONObject;
-    json::Reader::Read(effectJSONObject, effectFile);
-
-    json::String vertexFileJSONObject = effectJSONObject["targets"]["gcm"]["vertex"];
-    std::string vertexShaderFilePath = vertexFileJSONObject.Value();
-    fullVertexShaderFilePath = Path::pathForFile(vertexShaderFilePath);
-
-    json::String fragmentFileJSONObject = effectJSONObject["targets"]["gcm"]["fragment"];
-    std::string fragmentShaderFilePath = fragmentFileJSONObject.Value();
-    fullFragmentShaderFilePath = Path::pathForFile(fragmentShaderFilePath);
-  }
+  std::string fullVertexShaderFilePath = filePath + ".gcm.vertex";
+  std::string fullFragmentShaderFilePath = filePath + ".gcm.fragment";
 
   {
     File vertexShaderFile;
@@ -99,12 +82,14 @@ void PS3GCMCGEffect::load(const std::string& filePath) {
 
   {
     unsigned int registerCount = cellGcmCgGetRegisterCount(vertexProgram_);
-    cellGcmCgSetRegisterCount(vertexProgram_, std::max(registerCount, 4u)); 
+    unsigned int properRegisterCount = std::max(registerCount, 5u);
+    cellGcmCgSetRegisterCount(vertexProgram_, properRegisterCount); 
   }
 
   {
     unsigned int registerCount = cellGcmCgGetRegisterCount(fragmentProgram_);
-    cellGcmCgSetRegisterCount(fragmentProgram_, std::max(registerCount, 4u)); 
+    unsigned int properRegisterCount = std::max(registerCount, 5u);
+    cellGcmCgSetRegisterCount(fragmentProgram_, properRegisterCount); 
   }
 }
 

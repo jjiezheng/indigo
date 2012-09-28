@@ -689,6 +689,14 @@
 					RelativePath="..\..\..\src\engine\input\Keyboard.h"
 					>
 				</File>
+				<File
+					RelativePath="..\..\..\src\engine\input\PS3Keyboard.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\input\PS3Keyboard.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="mouse"

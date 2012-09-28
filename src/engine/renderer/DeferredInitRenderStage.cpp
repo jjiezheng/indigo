@@ -9,13 +9,13 @@
 #include "Color4.h"
 
 void DeferredInitRenderStage::init(const CSize& screenSize) {
-  colorMapTexture_ = GraphicsInterface::createTexture(screenSize, 1, 1);
+  colorMapTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R8G8B8A8, 1, 1);
   colorRenderTarget_ = GraphicsInterface::createRenderTarget(colorMapTexture_);
 
-  normalMapTexture_ = GraphicsInterface::createTexture(screenSize);
+  normalMapTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R8G8B8A8);
   normalRenderTarget_ = GraphicsInterface::createRenderTarget(normalMapTexture_);
 
-  depthMapTexture_ = GraphicsInterface::createTexture(screenSize);
+  depthMapTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R8G8B8A8);
   depthRenderTarget_ = GraphicsInterface::createRenderTarget(depthMapTexture_);
 
   IDeferredPass* clearBuffersPass = new DeferredClearBuffersPass(colorRenderTarget_, depthRenderTarget_, normalRenderTarget_);

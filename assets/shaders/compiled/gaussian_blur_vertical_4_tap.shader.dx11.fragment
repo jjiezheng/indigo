@@ -1,0 +1,92 @@
+// ps_4_0 output by Cg compiler
+// cgc version 3.1.0013, build date Apr 18 2012
+// command line args: -q -profile ps_5_0
+// source file: gaussian_blur_vertical_4_tap.cg
+//vendor NVIDIA Corporation
+//version 3.1.0.13
+//profile ps_5_0
+//program ps
+//semantic SourceMap
+//semantic SceneHeight
+//semantic offsets
+//semantic weights
+//var sampler2D SourceMap :  : _SourceMap : -1 : 1
+//var float SceneHeight :  : _SceneHeight : -1 : 1
+//var float offsets[0] :  : _offsets[0] : -1 : 1
+//var float offsets[1] :  : _offsets[1] : -1 : 1
+//var float offsets[2] :  : _offsets[2] : -1 : 1
+//var float offsets[3] :  : _offsets[3] : -1 : 1
+//var float weights[0] :  : _weights[0] : -1 : 1
+//var float weights[1] :  : _weights[1] : -1 : 1
+//var float weights[2] :  : _weights[2] : -1 : 1
+//var float weights[3] :  : _weights[3] : -1 : 1
+//var float2 centerTap : $vin.TEXCOORD0 :  : 1 : 1
+//var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
+//default offsets[0] = 1
+//default offsets[1] = 2
+//default offsets[2] = 3
+//default offsets[3] = 4
+//default weights[0] = 0.7978846
+//default weights[1] = 0.1079819
+//default weights[2] = 0.0002676605
+//default weights[3] = 1.22e-008
+
+#pragma pack_matrix(row_major)
+
+struct VOutput {
+    float4 _position1 : SV_Position;
+    float2 _centerTap1 : TEXCOORD0;
+};
+
+struct X1X {
+    float4 _POSITION : SV_Position;
+    float2 _TEXCOORD0 : TEXCOORD0;
+};
+
+static float4 _TMP3;
+static float4 _TMP2;
+static float4 _TMP1;
+Texture2D<float4> _TMP4;
+SamplerState _SourceMap;
+float _SceneHeight;
+float _offsets[4];
+float _weights[4];
+
+ // main procedure, the original name was ps
+float4 main( in X1X cin) : SV_Target0
+{
+
+    float2 _centerTap;
+    float4 _color;
+    float _texelSize;
+    float2 _offset1;
+    float2 _rightTap1;
+    float2 _leftTap1;
+
+    _centerTap = cin._TEXCOORD0;
+    _TMP1 = _TMP4.Sample(_SourceMap, _centerTap);
+    _color = _TMP1*_weights[0];
+    _texelSize =  1.00000000000000000E000f/_SceneHeight;
+    _offset1 = float2(  1.00000000000000000E000f,  0.00000000000000000E000f)*_offsets[1]*_texelSize;
+    _rightTap1 = _centerTap + _offset1;
+    _TMP2 = _TMP4.Sample(_SourceMap, _rightTap1);
+    _color = _color + _TMP2*_weights[1];
+    _leftTap1 = _centerTap - _offset1;
+    _TMP3 = _TMP4.Sample(_SourceMap, _leftTap1);
+    _color = _color + _TMP3*_weights[1];
+    _offset1 = float2(  1.00000000000000000E000f,  0.00000000000000000E000f)*_offsets[2]*_texelSize;
+    _rightTap1 = _centerTap + _offset1;
+    _TMP2 = _TMP4.Sample(_SourceMap, _rightTap1);
+    _color = _color + _TMP2*_weights[2];
+    _leftTap1 = _centerTap - _offset1;
+    _TMP3 = _TMP4.Sample(_SourceMap, _leftTap1);
+    _color = _color + _TMP3*_weights[2];
+    _offset1 = float2(  1.00000000000000000E000f,  0.00000000000000000E000f)*_offsets[3]*_texelSize;
+    _rightTap1 = _centerTap + _offset1;
+    _TMP2 = _TMP4.Sample(_SourceMap, _rightTap1);
+    _color = _color + _TMP2*_weights[3];
+    _leftTap1 = _centerTap - _offset1;
+    _TMP3 = _TMP4.Sample(_SourceMap, _leftTap1);
+    _color = _color + _TMP3*_weights[3];
+    return _color;
+} // main end

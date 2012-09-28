@@ -1,0 +1,38 @@
+// glslf output by Cg compiler
+// cgc version 3.1.0013, build date Apr 18 2012
+// command line args: -q -profile glslf
+// source file: deferred_light_composition.cg
+//vendor NVIDIA Corporation
+//version 3.1.0.13
+//profile glslf
+//program ps
+//semantic ColorMap
+//semantic LightSourceMap
+//var sampler2D ColorMap :  : _ColorMap : -1 : 1
+//var sampler2D LightSourceMap :  : _LightSourceMap : -1 : 1
+//var float2 texCoord : $vin.TEXCOORD0 : TEX0 : 1 : 1
+//var float4 ps : $vout.COLOR0 : COL : -1 : 1
+
+#version 110
+
+struct VOutput {
+    vec2 _texCoord2;
+};
+
+vec4 _ret_0;
+uniform sampler2D _ColorMap;
+uniform sampler2D _LightSourceMap;
+
+ // main procedure, the original name was ps
+void main()
+{
+
+    vec4 _diffuseColor;
+    vec4 _diffuseLight;
+
+    _diffuseColor = texture2D(_ColorMap, gl_TexCoord[0].xy);
+    _diffuseLight = texture2D(_LightSourceMap, gl_TexCoord[0].xy);
+    _ret_0 = vec4(_diffuseLight.x, _diffuseLight.y, _diffuseLight.z, _diffuseColor.w);
+    gl_FragColor = _ret_0;
+    return;
+} // main end

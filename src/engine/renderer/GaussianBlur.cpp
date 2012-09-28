@@ -20,10 +20,10 @@ void GaussianBlur::init(const CSize& bufferSize, int tapSize) {
 
   quadVbo_ = Geometry::screenPlane();
 
-  String horizontalFilename = String::withFormat("cgfx/gaussian_blur_horizontal_%d_tap.hlsl", tapSize);
+  String horizontalFilename = String::withFormat("shaders/compiled/gaussian_blur_horizontal_%d_tap.shader", tapSize);
   gaussianBlurHorizontalEffect_ = IEffect::effectFromFile(horizontalFilename.c_str());
 
-  String verticalFilename = String::withFormat("cgfx/gaussian_blur_vertical_%d_tap.hlsl", tapSize);
+  String verticalFilename = String::withFormat("shaders/compiled/gaussian_blur_vertical_%d_tap.shader", tapSize);
   gaussianBluVerticalEffect_ = IEffect::effectFromFile(verticalFilename.c_str());
 }
 

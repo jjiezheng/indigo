@@ -1,3 +1,5 @@
+#include "standard.h"
+
 sampler2D NormalMap;
 sampler2D DepthMap;
 
@@ -27,16 +29,16 @@ float4 ps(float4 position : POSITION,
     return float4(0, 0, 0, 0);
   }
 
-  float4 normalData = tex2D(NormalMap, texCoord);
-  float3 normal = normalize(normalData.xyz);
+  float3 normalData = unpackNormal(NormalMap, texCoord).xyz;
+  float3 normal = normalize(normalData);
 
   float3 lightVector = -LightDirection.xyz;
-  // /lightVector = mul(NormalMatrix, lightVector);//normalize(mul(NormalMatrix, lightVector));
+  lightVector = normalize(mul(NormalMatrix, lightVector));
 
   // Blinn+Phong from http://en.wikipedia.org/wiki/Blinn%E2%80%93Phong_shading_model
 
   // diffuse
-  float diffuseStrength = max(0.0f, dot(normalize(normal), normalize(lightVector)));
+  float diffuseStrength = max(0.0f, dot(normalize(-normal), normalize(-lightVector)));
   float3 diffuseContribution = LightColor * diffuseStrength;
 
   return float4(diffuseContribution, 0);

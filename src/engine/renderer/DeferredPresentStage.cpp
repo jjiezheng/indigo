@@ -8,7 +8,7 @@
 #include "GraphicsInterface.h"
 
 void DeferredPresentStage::init(const CSize& screenSize) {
-  effect_ = IEffect::effectFromFile("effects/deferred_fullscreen_texture.effect");
+  effect_ = IEffect::effectFromFile(IEffect::SHADER_FULLSCREEN_TEXTURE);
   quadVbo_ = Geometry::screenPlane();
 }
 

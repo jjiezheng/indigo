@@ -1,0 +1,86 @@
+// glslf output by Cg compiler
+// cgc version 3.1.0013, build date Apr 18 2012
+// command line args: -q -profile glslf
+// source file: deferred_lighting_directional_light.cg
+//vendor NVIDIA Corporation
+//version 3.1.0.13
+//profile glslf
+//program ps
+//semantic NormalMap
+//semantic DepthMap
+//semantic NormalMatrix
+//semantic LightDirection
+//semantic LightColor
+//var sampler2D NormalMap :  : _NormalMap : -1 : 1
+//var sampler2D DepthMap :  : _DepthMap : -1 : 1
+//var float3x3 NormalMatrix :  : _NormalMatrix[0], 3 : -1 : 1
+//var float4 LightDirection :  : _LightDirection : -1 : 1
+//var float3 LightColor :  : _LightColor : -1 : 1
+//var float2 texCoord : $vin.TEXCOORD0 : TEX0 : 1 : 1
+//var float4 ps : $vout.COLOR0 : COL : -1 : 1
+
+#version 110
+
+struct VOutput {
+    vec2 _texCoord3;
+};
+
+vec4 _ret_0;
+float _TMP5;
+vec3 _TMP4;
+vec3 _TMP3;
+float _TMP7;
+float _TMP6;
+vec4 _TMP0;
+vec4 _normalData0017;
+vec4 _unPackedNormal0017;
+vec3 _r0027;
+vec3 _v0041;
+vec3 _v0047;
+uniform sampler2D _NormalMap;
+uniform sampler2D _DepthMap;
+uniform vec3 _NormalMatrix[3];
+uniform vec4 _LightDirection;
+uniform vec3 _LightColor;
+
+ // main procedure, the original name was ps
+void main()
+{
+
+    vec3 _normal;
+    vec3 _lightVector;
+    float _diffuseStrength;
+    vec3 _diffuseContribution;
+
+    _TMP0 = texture2D(_DepthMap, gl_TexCoord[0].xy);
+    if (_TMP0.x == 1.00000000E+000) { // if begin
+        gl_FragColor = vec4( 0.00000000E+000, 0.00000000E+000, 0.00000000E+000, 0.00000000E+000);
+        return;
+    } // end if
+    _normalData0017 = texture2D(_NormalMap, gl_TexCoord[0].xy);
+    _unPackedNormal0017 = _normalData0017*2.00000000E+000 - 1.00000000E+000;
+    _TMP6 = dot(_unPackedNormal0017.xyz, _unPackedNormal0017.xyz);
+    _TMP7 = inversesqrt(_TMP6);
+    _normal = _TMP7*_unPackedNormal0017.xyz;
+    _lightVector = -_LightDirection.xyz;
+    _r0027.x = dot(_NormalMatrix[0], _lightVector);
+    _r0027.y = dot(_NormalMatrix[1], _lightVector);
+    _r0027.z = dot(_NormalMatrix[2], _lightVector);
+    _TMP6 = dot(_r0027, _r0027);
+    _TMP7 = inversesqrt(_TMP6);
+    _lightVector = _TMP7*_r0027;
+    _v0041 = -_normal;
+    _TMP6 = dot(_v0041, _v0041);
+    _TMP7 = inversesqrt(_TMP6);
+    _TMP3 = _TMP7*_v0041;
+    _v0047 = -_lightVector;
+    _TMP6 = dot(_v0047, _v0047);
+    _TMP7 = inversesqrt(_TMP6);
+    _TMP4 = _TMP7*_v0047;
+    _TMP5 = dot(_TMP3, _TMP4);
+    _diffuseStrength = max(0.00000000E+000, _TMP5);
+    _diffuseContribution = _LightColor*_diffuseStrength;
+    _ret_0 = vec4(_diffuseContribution.x, _diffuseContribution.y, _diffuseContribution.z, 0.00000000E+000);
+    gl_FragColor = _ret_0;
+    return;
+} // main end

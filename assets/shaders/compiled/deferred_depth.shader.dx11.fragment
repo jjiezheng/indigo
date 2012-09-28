@@ -1,0 +1,36 @@
+// ps_4_0 output by Cg compiler
+// cgc version 3.1.0013, build date Apr 18 2012
+// command line args: -q -profile ps_5_0
+// source file: deferred_depth.cg
+//vendor NVIDIA Corporation
+//version 3.1.0.13
+//profile ps_5_0
+//program ps
+//semantic WorldViewProj
+//var float2 depth : $vin.TEXCOORD0 :  : 1 : 1
+//var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
+
+#pragma pack_matrix(row_major)
+
+struct VOutput {
+    float4 _position1 : SV_Position;
+    float2 _depth1 : TEXCOORD0;
+};
+
+struct X1X {
+    float4 _POSITION : SV_Position;
+    float2 _TEXCOORD0 : TEXCOORD0;
+};
+
+
+ // main procedure, the original name was ps
+float4 main( in X1X cin) : SV_Target0
+{
+
+    float2 _depth;
+    float _depthHom;
+
+    _depth = cin._TEXCOORD0;
+    _depthHom = _depth.x/_depth.y;
+    return float4(_depthHom, _depthHom*_depthHom,  0.00000000000000000E000f,  1.00000000000000000E000f);
+} // main end

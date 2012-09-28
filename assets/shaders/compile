@@ -1,48 +1,21 @@
 #!/bin/bash
 function dx11 {
-	echo \"dx11\" : { 
-	echo \"vertex\" : \"
-	cgc -q -profile vs_5_0 -entry vs $f
-	echo \",
-	echo \"fragment\" : \"
-	cgc -q -profile ps_5_0 -entry ps $f
-	echo \"
-	echo }
+	cgc -q -profile vs_5_0 -entry vs -o compiled/${f%.*}.shader.dx11.vertex $f
+	cgc -q -profile ps_5_0 -entry ps -o compiled/${f%.*}.shader.dx11.fragment $f
 }
 function gl21 {
-	echo ,
-	echo \"gl21\" : { 
-	echo \"vertex\" : \"
-	cgc -q -profile glslv -entry vs $f
-	echo \",
-	echo \"fragment\" : \"
-	cgc -q -profile glslf -entry ps $f
-	echo \"
-	echo }
+	cgc -q -profile glslv -entry vs -o compiled/${f%.*}.shader.gl21.vertex $f
+	cgc -q -profile glslf -entry ps -o compiled/${f%.*}.shader.gl21.fragment $f
 }
 function gcm {
-	#if [ -e "sce-cgc" ] ; then
-		echo ,
-		echo \"gcm\" : { 
-		echo \"vertex\" : \"
-		sce-cgc -q -p sce_vp_rsx -e vs $f && cat ucode.bin
-		echo \",
-		rm ucode.bin
-		echo \"fragment\" : \"
-		sce-cgc -q -p sce_fp_rsx -e ps $f && cat ucode.bin
-		echo \"
-		echo }
-		rm ucode.bin
-	#fi
+	sce-cgc -q -p sce_vp_rsx -e vs -o compiled/${f%.*}.shader.gcm.vertex $f
+	sce-cgc -q -p sce_fp_rsx -e ps -o compiled/${f%.*}.shader.gcm.fragment $f
 }
 function shader {
-	echo {
 	dx11
 	gl21
 	gcm
-	echo }
 }
 for f in *.cg ; do
-	shaderOutput="`shader`"
-	echo "$shaderOutput" > compiled/${f%.*}.shader
+	shader
 done

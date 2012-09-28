@@ -16,13 +16,13 @@
 #include "DeferredInitRenderStage.h"
 
 void DeferredDirectionalLightsPass::init(const CSize& screenSize) {
-  directionalLightEffect_ = IEffect::effectFromFile("effects/deferred_lighting_directional_light.effect");
+  directionalLightEffect_ = IEffect::effectFromFile("shaders/compiled/deferred_lighting_directional_light.shader");
   quadVbo_ = Geometry::screenPlane();
 
   directionalLightRenderTexture_ = GraphicsInterface::createTexture(screenSize);
   directionalLightRenderTarget_ = GraphicsInterface::createRenderTarget(directionalLightRenderTexture_);
 
-  accumulationEffect_ = IEffect::effectFromFile("effects/deferred_light_composition.effect");
+  accumulationEffect_ = IEffect::effectFromFile("shaders/compiled/deferred_light_composition.shader");
   quadVbo_ = Geometry::screenPlane();
 }
 
@@ -48,7 +48,7 @@ void DeferredDirectionalLightsPass::render(IViewer* viewer, World& world, const 
       directionalLightEffect_->setUniform((*light).color(), "LightColor");
 
       Matrix4x4 normalMatrix = viewer->viewTransform().mat3x3().inverseTranspose();
-      directionalLightEffect_->setUniform(normalMatrix, "NormalMatrix");
+      directionalLightEffect_->setUniform(Matrix4x4::IDENTITY.mat3x3(), "NormalMatrix");
 
       directionalLightEffect_->beginDraw();
       GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);

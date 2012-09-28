@@ -1,0 +1,128 @@
+// glslf output by Cg compiler
+// cgc version 3.1.0013, build date Apr 18 2012
+// command line args: -q -profile glslf
+// source file: gaussian_blur_vertical_16_tap.cg
+//vendor NVIDIA Corporation
+//version 3.1.0.13
+//profile glslf
+//program ps
+//semantic SourceMap
+//semantic SceneHeight
+//semantic offsets
+//semantic weights
+//var sampler2D SourceMap :  : _SourceMap : -1 : 1
+//var float SceneHeight :  : _SceneHeight : -1 : 1
+//var float offsets[0] :  : _offsets[0] : -1 : 1
+//var float offsets[1] :  : _offsets[1] : -1 : 1
+//var float offsets[2] :  : _offsets[2] : -1 : 1
+//var float offsets[3] :  : _offsets[3] : -1 : 1
+//var float offsets[4] :  : _offsets[4] : -1 : 1
+//var float offsets[5] :  : _offsets[5] : -1 : 1
+//var float offsets[6] :  : _offsets[6] : -1 : 1
+//var float offsets[7] :  : _offsets[7] : -1 : 1
+//var float weights[0] :  : _weights[0] : -1 : 1
+//var float weights[1] :  : _weights[1] : -1 : 1
+//var float weights[2] :  : _weights[2] : -1 : 1
+//var float weights[3] :  : _weights[3] : -1 : 1
+//var float weights[4] :  : _weights[4] : -1 : 1
+//var float weights[5] :  : _weights[5] : -1 : 1
+//var float weights[6] :  : _weights[6] : -1 : 1
+//var float weights[7] :  : _weights[7] : -1 : 1
+//var float2 centerTap : $vin.TEXCOORD0 : TEX0 : 1 : 1
+//var float4 ps : $vout.COLOR0 : COL : -1 : 1
+//default offsets[0] = 1
+//default offsets[1] = 2
+//default offsets[2] = 3
+//default offsets[3] = 4
+//default offsets[4] = 5
+//default offsets[5] = 6
+//default offsets[6] = 7
+//default offsets[7] = 8
+//default weights[0] = 0.2659615
+//default weights[1] = 0.2129653
+//default weights[2] = 0.10934
+//default weights[3] = 0.03599398
+//default weights[4] = 0.007597324
+//default weights[5] = 0.001028186
+//default weights[6] = 8.92202e-005
+//default weights[7] = 4.964e-006
+
+#version 110
+
+struct VOutput {
+    vec2 _centerTap2;
+};
+
+vec4 _TMP3;
+vec4 _TMP2;
+vec4 _TMP1;
+uniform sampler2D _SourceMap;
+uniform float _SceneHeight;
+uniform float _offsets[8];
+uniform float _weights[8];
+
+ // main procedure, the original name was ps
+void main()
+{
+
+    vec4 _color;
+    float _texelSize;
+    vec2 _offset1;
+    vec2 _rightTap1;
+    vec2 _leftTap1;
+
+    _TMP1 = texture2D(_SourceMap, gl_TexCoord[0].xy);
+    _color = _TMP1*_weights[0];
+    _texelSize = 1.00000000E+000/_SceneHeight;
+    _offset1 = vec2( 1.00000000E+000, 0.00000000E+000)*_offsets[1]*_texelSize;
+    _rightTap1 = gl_TexCoord[0].xy + _offset1;
+    _TMP2 = texture2D(_SourceMap, _rightTap1);
+    _color = _color + _TMP2*_weights[1];
+    _leftTap1 = gl_TexCoord[0].xy - _offset1;
+    _TMP3 = texture2D(_SourceMap, _leftTap1);
+    _color = _color + _TMP3*_weights[1];
+    _offset1 = vec2( 1.00000000E+000, 0.00000000E+000)*_offsets[2]*_texelSize;
+    _rightTap1 = gl_TexCoord[0].xy + _offset1;
+    _TMP2 = texture2D(_SourceMap, _rightTap1);
+    _color = _color + _TMP2*_weights[2];
+    _leftTap1 = gl_TexCoord[0].xy - _offset1;
+    _TMP3 = texture2D(_SourceMap, _leftTap1);
+    _color = _color + _TMP3*_weights[2];
+    _offset1 = vec2( 1.00000000E+000, 0.00000000E+000)*_offsets[3]*_texelSize;
+    _rightTap1 = gl_TexCoord[0].xy + _offset1;
+    _TMP2 = texture2D(_SourceMap, _rightTap1);
+    _color = _color + _TMP2*_weights[3];
+    _leftTap1 = gl_TexCoord[0].xy - _offset1;
+    _TMP3 = texture2D(_SourceMap, _leftTap1);
+    _color = _color + _TMP3*_weights[3];
+    _offset1 = vec2( 1.00000000E+000, 0.00000000E+000)*_offsets[4]*_texelSize;
+    _rightTap1 = gl_TexCoord[0].xy + _offset1;
+    _TMP2 = texture2D(_SourceMap, _rightTap1);
+    _color = _color + _TMP2*_weights[4];
+    _leftTap1 = gl_TexCoord[0].xy - _offset1;
+    _TMP3 = texture2D(_SourceMap, _leftTap1);
+    _color = _color + _TMP3*_weights[4];
+    _offset1 = vec2( 1.00000000E+000, 0.00000000E+000)*_offsets[5]*_texelSize;
+    _rightTap1 = gl_TexCoord[0].xy + _offset1;
+    _TMP2 = texture2D(_SourceMap, _rightTap1);
+    _color = _color + _TMP2*_weights[5];
+    _leftTap1 = gl_TexCoord[0].xy - _offset1;
+    _TMP3 = texture2D(_SourceMap, _leftTap1);
+    _color = _color + _TMP3*_weights[5];
+    _offset1 = vec2( 1.00000000E+000, 0.00000000E+000)*_offsets[6]*_texelSize;
+    _rightTap1 = gl_TexCoord[0].xy + _offset1;
+    _TMP2 = texture2D(_SourceMap, _rightTap1);
+    _color = _color + _TMP2*_weights[6];
+    _leftTap1 = gl_TexCoord[0].xy - _offset1;
+    _TMP3 = texture2D(_SourceMap, _leftTap1);
+    _color = _color + _TMP3*_weights[6];
+    _offset1 = vec2( 1.00000000E+000, 0.00000000E+000)*_offsets[7]*_texelSize;
+    _rightTap1 = gl_TexCoord[0].xy + _offset1;
+    _TMP2 = texture2D(_SourceMap, _rightTap1);
+    _color = _color + _TMP2*_weights[7];
+    _leftTap1 = gl_TexCoord[0].xy - _offset1;
+    _TMP3 = texture2D(_SourceMap, _leftTap1);
+    _color = _color + _TMP3*_weights[7];
+    gl_FragColor = _color;
+    return;
+} // main end

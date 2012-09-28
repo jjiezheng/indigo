@@ -1,0 +1,73 @@
+// glslf output by Cg compiler
+// cgc version 3.1.0013, build date Apr 18 2012
+// command line args: -q -profile glslf
+// source file: deferred_render_color_normal_depth.cg
+//vendor NVIDIA Corporation
+//version 3.1.0.13
+//profile glslf
+//program ps
+//semantic NormalMatrix
+//semantic WorldViewProj
+//semantic WorldView
+//semantic World
+//semantic DiffuseColor
+//semantic AmbientColor
+//semantic DiffusePower
+//semantic SpecularPower
+//semantic SpecularIntensity
+//semantic Far
+//semantic Near
+//var float3 DiffuseColor :  : _DiffuseColor : -1 : 1
+//var float DiffusePower :  : _DiffusePower : -1 : 1
+//var float SpecularPower :  : _SpecularPower : -1 : 1
+//var float SpecularIntensity :  : _SpecularIntensity : -1 : 1
+//var float Far :  : _Far : -1 : 1
+//var float Near :  : _Near : -1 : 1
+//var float3 normal : $vin.TEXCOORD0 : TEX0 : 1 : 1
+//var float3 depth : $vin.TEXCOORD1 : TEX1 : 2 : 1
+//var float4 ps.color : $vout.COLOR0 : COL : -1 : 1
+//var float4 ps.normal : $vout.COLOR1 : COL1 : -1 : 1
+//var float4 ps.depth : $vout.COLOR2 : COL2 : -1 : 1
+
+#version 110
+
+#extension GL_ARB_draw_buffers : enable
+
+struct VOutput {
+    vec3 _normal2;
+    vec3 _depth2;
+};
+
+struct POutput {
+    vec4 _color;
+    vec4 _normal3;
+    vec4 _depth3;
+};
+
+vec4 _unPackedNormal0014;
+uniform vec3 _DiffuseColor;
+uniform float _DiffusePower;
+uniform float _SpecularPower;
+uniform float _SpecularIntensity;
+uniform float _Far;
+uniform float _Near;
+
+ // main procedure, the original name was ps
+void main()
+{
+
+    POutput _OUT;
+    float _depthNDC;
+    float _depthLinear;
+
+    _OUT._color = vec4(_DiffuseColor.x, _DiffuseColor.y, _DiffuseColor.z, 1.00000000E+000);
+    _unPackedNormal0014 = vec4(gl_TexCoord[0].x, gl_TexCoord[0].y, gl_TexCoord[0].z, _DiffusePower);
+    _OUT._normal3 = 5.00000000E-001 + _unPackedNormal0014*5.00000000E-001;
+    _depthNDC = gl_TexCoord[1].x/gl_TexCoord[1].y;
+    _depthLinear = (-gl_TexCoord[1].z - _Near)/(_Far - _Near);
+    _OUT._depth3 = vec4(_depthNDC, _depthLinear, _SpecularPower, _SpecularIntensity);
+    gl_FragData[1] = _OUT._normal3;
+    gl_FragData[2] = _OUT._depth3;
+    gl_FragData[0] = _OUT._color;
+    return;
+} // main end

@@ -64,7 +64,7 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
     noise[i] = noiseN;
   }
 
-  unsigned int noiseTexture = GraphicsInterface::createTexture(CSize(kNoisePixelLine, kNoisePixelLine), 1, 1, &noise, sizeof(Vector4) * kNoisePixelLine);
+  unsigned int noiseTexture = GraphicsInterface::createTexture(CSize(kNoisePixelLine, kNoisePixelLine), IGraphicsInterface::R16G16B16A16, 1, 1, &noise, sizeof(Vector4) * kNoisePixelLine);
   ssaoEffect_->setTexture(noiseTexture, "NoiseMap");
 
   Vector2 noiseScale = Vector2(GraphicsInterface::screenWidth() / float(kNoisePixelLine), GraphicsInterface::screenHeight() / float(kNoisePixelLine));

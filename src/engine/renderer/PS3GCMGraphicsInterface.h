@@ -10,6 +10,8 @@
 
 class PS3GCMCGEffect;
 
+class GraphicsInterface;
+
 class PS3GCMGraphicsInterface : public IGraphicsInterface {
 
 public:
@@ -34,7 +36,7 @@ public:
 
   unsigned int loadTexture(const std::string& filePath);
 
-  unsigned int createTexture(const CSize& dimensions, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize);
+  unsigned int createTexture(const CSize& dimensions, IGraphicsInterface::TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize);
 
   void generateMipMaps(unsigned int textureId);
 

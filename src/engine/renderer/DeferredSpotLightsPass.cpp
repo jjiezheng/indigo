@@ -21,8 +21,8 @@
 #include "io/Path.h"
 
 void DeferredSpotLightsPass::init(const CSize& screenSize) {
-  shadowMapEffect_ = IEffect::effectFromFile("cgfx/deferred_depth.hlsl");
-  lightEffect_ = IEffect::effectFromFile("cgfx/deferred_lighting_spot_light.hlsl");
+  shadowMapEffect_ = IEffect::effectFromFile("shaders/compiled/deferred_depth.shader");
+  lightEffect_ = IEffect::effectFromFile("shaders/compiled/deferred_lighting_spot_light.shader");
 
   std::string coneModelPath = Path::pathForFile("debug/cone.modelbinary");
   spotLightModel_ = BinaryModelDeserializer::deserialize(coneModelPath);
@@ -32,7 +32,7 @@ void DeferredSpotLightsPass::init(const CSize& screenSize) {
   spotLightRenderTexture_ = GraphicsInterface::createTexture(screenSize);
   spotLightRenderTarget_ = GraphicsInterface::createRenderTarget(spotLightRenderTexture_);
 
-  accumulationEffect_ = IEffect::effectFromFile("cgfx/deferred_light_composition.hlsl");
+  accumulationEffect_ = IEffect::effectFromFile("shaders/compiled/deferred_light_composition.shader");
   quadVbo_ = Geometry::screenPlane();
 }
 

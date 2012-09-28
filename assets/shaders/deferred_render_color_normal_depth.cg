@@ -1,8 +1,9 @@
+#include "standard.h"
+
 uniform	float3x3 NormalMatrix;
 uniform	float4x4 WorldViewProj;
 uniform	float4x4 WorldView;
 uniform	float4x4 World;
-
 
 uniform	float3 DiffuseColor;
 uniform	float3 AmbientColor;
@@ -45,8 +46,8 @@ POutput ps(float4 position			: POSITION,
 		   float3 depth 			: TEXCOORD1) {
 	POutput OUT;
 	
-	OUT.color = float4(DiffuseColor, 1);					
-	OUT.normal = float4(normal, DiffusePower);
+	OUT.color = float4(DiffuseColor, 1);
+	OUT.normal = packNormal(float4(normal, DiffusePower));
 
 	float depthNDC = depth.x / depth.y; // z / w
 	float depthLinear = (-depth.z - Near) / (Far - Near);

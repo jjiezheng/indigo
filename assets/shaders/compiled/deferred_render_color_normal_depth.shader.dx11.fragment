@@ -1,0 +1,79 @@
+// ps_4_0 output by Cg compiler
+// cgc version 3.1.0013, build date Apr 18 2012
+// command line args: -q -profile ps_5_0
+// source file: deferred_render_color_normal_depth.cg
+//vendor NVIDIA Corporation
+//version 3.1.0.13
+//profile ps_5_0
+//program ps
+//semantic NormalMatrix
+//semantic WorldViewProj
+//semantic WorldView
+//semantic World
+//semantic DiffuseColor
+//semantic AmbientColor
+//semantic DiffusePower
+//semantic SpecularPower
+//semantic SpecularIntensity
+//semantic Far
+//semantic Near
+//var float3 DiffuseColor :  : _DiffuseColor : -1 : 1
+//var float DiffusePower :  : _DiffusePower : -1 : 1
+//var float SpecularPower :  : _SpecularPower : -1 : 1
+//var float SpecularIntensity :  : _SpecularIntensity : -1 : 1
+//var float Far :  : _Far : -1 : 1
+//var float Near :  : _Near : -1 : 1
+//var float3 normal : $vin.TEXCOORD0 :  : 1 : 1
+//var float3 depth : $vin.TEXCOORD1 :  : 2 : 1
+//var float4 ps.color : $vout.COLOR0 : COLOR0 : -1 : 1
+//var float4 ps.normal : $vout.COLOR1 : COLOR1 : -1 : 1
+//var float4 ps.depth : $vout.COLOR2 : COLOR2 : -1 : 1
+
+#pragma pack_matrix(row_major)
+
+struct VOutput {
+    float4 _position1 : SV_Position;
+    float3 _normal2 : TEXCOORD0;
+    float3 _depth2 : TEXCOORD1;
+};
+
+struct POutput {
+    float4 _color : SV_Target0;
+    float4 _normal : SV_Target1;
+    float4 _depth : SV_Target2;
+};
+
+struct X1X {
+    float4 _POSITION : SV_Position;
+    float3 _TEXCOORD0 : TEXCOORD0;
+    float3 _TEXCOORD1 : TEXCOORD1;
+};
+
+static float4 _unPackedNormal0003;
+uniform float3 _DiffuseColor;
+uniform float _DiffusePower;
+uniform float _SpecularPower;
+uniform float _SpecularIntensity;
+uniform float _Far;
+uniform float _Near;
+
+ // main procedure, the original name was ps
+POutput main( in X1X cin)
+{
+
+    float3 _normal1;
+    float3 _depth1;
+    POutput _OUT;
+    float _depthNDC;
+    float _depthLinear;
+
+    _normal1 = cin._TEXCOORD0;
+    _depth1 = cin._TEXCOORD1;
+    _OUT._color = float4(_DiffuseColor.x, _DiffuseColor.y, _DiffuseColor.z,  1.00000000000000000E000f);
+    _unPackedNormal0003 = float4(_normal1.x, _normal1.y, _normal1.z, _DiffusePower);
+    _OUT._normal =  5.00000000000000000E-001f + _unPackedNormal0003* 5.00000000000000000E-001f;
+    _depthNDC = _depth1.x/_depth1.y;
+    _depthLinear = (-_depth1.z - _Near)/(_Far - _Near);
+    _OUT._depth = float4(_depthNDC, _depthLinear, _SpecularPower, _SpecularIntensity);
+    return _OUT;
+} // main end

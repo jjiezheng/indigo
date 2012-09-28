@@ -1,0 +1,44 @@
+// vs_4_0 output by Cg compiler
+// cgc version 3.1.0013, build date Apr 18 2012
+// command line args: -q -profile vs_5_0
+// source file: deferred_lighting_directional_light.cg
+//vendor NVIDIA Corporation
+//version 3.1.0.13
+//profile vs_5_0
+//program vs
+//semantic NormalMap
+//semantic DepthMap
+//semantic NormalMatrix
+//semantic LightDirection
+//semantic LightColor
+//var float4 position : $vin.POSITION : POSITION : 0 : 1
+//var float2 texCoord : $vin.TEXCOORD0 : TEXCOORD0 : 1 : 1
+//var float4 vs.position : $vout.POSITION :  : -1 : 1
+//var float2 vs.texCoord : $vout.TEXCOORD0 :  : -1 : 1
+
+#pragma pack_matrix(row_major)
+
+struct VOutput {
+    float4 _position1 : POSITION;
+    float2 _texCoord1 : TEXCOORD0;
+};
+
+struct X1X {
+    float4 _POSITION : SV_Position;
+    float2 _TEXCOORD0 : TEXCOORD0;
+};
+
+static X1X cout;
+
+ // main procedure, the original name was vs
+X1X main(in float4 _position : POSITION, in float2 _texCoord : TEXCOORD0)
+{
+
+    VOutput _OUT;
+
+    _OUT._position1 = _position;
+    _OUT._texCoord1 = _texCoord;
+    cout._POSITION = _OUT._position1;
+    cout._TEXCOORD0 = _OUT._texCoord1;
+    return cout;
+} // main end

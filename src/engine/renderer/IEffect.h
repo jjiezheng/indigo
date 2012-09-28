@@ -16,6 +16,10 @@ class IEffect {
 
 public:
 
+  static const char* SHADER_FULLSCREEN_TEXTURE;
+
+public:
+
   virtual ~IEffect() { };
 
 public:

@@ -1,0 +1,45 @@
+// ps_4_0 output by Cg compiler
+// cgc version 3.1.0013, build date Apr 18 2012
+// command line args: -q -profile ps_5_0
+// source file: deferred_light_composition.cg
+//vendor NVIDIA Corporation
+//version 3.1.0.13
+//profile ps_5_0
+//program ps
+//semantic ColorMap
+//semantic LightSourceMap
+//var sampler2D ColorMap :  : _ColorMap : -1 : 1
+//var sampler2D LightSourceMap :  : _LightSourceMap : -1 : 1
+//var float2 texCoord : $vin.TEXCOORD0 :  : 1 : 1
+//var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
+
+#pragma pack_matrix(row_major)
+
+struct VOutput {
+    float4 _position1 : SV_Position;
+    float2 _texCoord1 : TEXCOORD0;
+};
+
+struct X1X {
+    float4 _POSITION : SV_Position;
+    float2 _TEXCOORD0 : TEXCOORD0;
+};
+
+Texture2D<float4> _TMP1;
+Texture2D<float4> _TMP2;
+SamplerState _ColorMap;
+SamplerState _LightSourceMap;
+
+ // main procedure, the original name was ps
+float4 main( in X1X cin) : SV_Target0
+{
+
+    float2 _texCoord;
+    float4 _diffuseColor;
+    float4 _diffuseLight;
+
+    _texCoord = cin._TEXCOORD0;
+    _diffuseColor = _TMP1.Sample(_ColorMap, _texCoord);
+    _diffuseLight = _TMP2.Sample(_LightSourceMap, _texCoord);
+    return float4(_diffuseLight.x, _diffuseLight.y, _diffuseLight.z, _diffuseColor.w);
+} // main end
