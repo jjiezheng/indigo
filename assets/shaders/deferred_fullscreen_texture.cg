@@ -1,4 +1,5 @@
 uniform sampler2D texture;
+
 struct VOutput {
 	float4 position			: POSITION;
 	float2 texCoord			: TEXCOORD0;

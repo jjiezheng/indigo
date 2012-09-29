@@ -14,6 +14,10 @@ struct ID3D11VertexShader;
 struct ID3D11PixelShader;
 struct ID3D10Blob;
 
+struct ShaderTexture {
+  unsigned int slot;
+};
+
 struct ShaderUniform {
   unsigned int size;
   unsigned int offset;
@@ -72,8 +76,11 @@ private:
   ID3D11VertexShader* vertexShader_;
   ID3D11PixelShader* pixelShader_;
 
+  std::map<std::string, ShaderTexture> vertexShaderTextures_;
   std::vector<ConstantBuffer> vertexShaderConstantBuffers_;
+
   std::vector<ConstantBuffer> pixelShaderConstantBuffers_;
+  std::map<std::string, ShaderTexture> pixelShaderTextures_;
 
 private:
 
@@ -85,7 +92,7 @@ private:
 
   void setConstantBufferValue(const std::vector<ConstantBuffer>& constantBuffer, const std::string& uniformName, void* uniformData) const;
 
-  void fillConstantBuffer(ID3D10Blob* programData, std::vector<ConstantBuffer>& constantBufferList);
+  void fillConstantBuffer(ID3D10Blob* programData, std::vector<ConstantBuffer>& constantBufferList, std::map<std::string, ShaderTexture>& shaderTextures);
 
   void commitShaderConstantBuffers(const std::vector<ConstantBuffer>& shaderConstantBuffers);
 

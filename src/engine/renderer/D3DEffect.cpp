@@ -28,7 +28,7 @@ ID3D11DeviceContext* D3DEffect::context_ = NULL;
 
 #define D3D_COMPILE_STANDARD_FILE_INCLUDE ((ID3DInclude*)(UINT_PTR)1)
 
-void D3DEffect::fillConstantBuffer(ID3D10Blob* programData, std::vector<ConstantBuffer>& constantBufferList) {
+void D3DEffect::fillConstantBuffer(ID3D10Blob* programData, std::vector<ConstantBuffer>& constantBufferList, std::map<std::string, ShaderTexture>& shaderTextures) {
   ID3D11ShaderReflection* shaderReflection = NULL;
   HRESULT result = D3DReflect(programData->GetBufferPointer(), programData->GetBufferSize(), IID_ID3D11ShaderReflection, (void**) &shaderReflection);
   assert(SUCCEEDED(result) && shaderReflection);
@@ -82,6 +82,17 @@ void D3DEffect::fillConstantBuffer(ID3D10Blob* programData, std::vector<Constant
 
       constantBufferList.push_back(constantBuffer);          
     }
+
+    unsigned int boundResources = shaderDesc.BoundResources;
+    for (unsigned int i = 0; i < boundResources; i++) {
+      D3D11_SHADER_INPUT_BIND_DESC bindDesc;
+      HRESULT result = shaderReflection->GetResourceBindingDesc(i, &bindDesc);
+      assert(SUCCEEDED(result));
+
+      ShaderTexture texture;
+      texture.slot = bindDesc.BindPoint;
+      shaderTextures[bindDesc.Name] = texture;
+    }
   }
 }
 
@@ -108,7 +119,7 @@ void D3DEffect::load(const std::string& filePath) {
       }
 
       {
-          fillConstantBuffer(vertexProgram, vertexShaderConstantBuffers_);
+          fillConstantBuffer(vertexProgram, vertexShaderConstantBuffers_, vertexShaderTextures_);
       }
     }
 
@@ -153,7 +164,7 @@ void D3DEffect::load(const std::string& filePath) {
     }
 
     {
-      fillConstantBuffer(pixelProgram, pixelShaderConstantBuffers_);
+      fillConstantBuffer(pixelProgram, pixelShaderConstantBuffers_, pixelShaderTextures_);
     }
 
     {
@@ -265,14 +276,15 @@ void D3DEffect::setUniform(float uniformData, const char* uniformName) const {
   }*/
 }
 
-
-
 void D3DEffect::setTexture(unsigned int textureId, const char* uniformName) {
-  /*Direct3D11GraphicsInterface* graphicsInterface = static_cast<Direct3D11GraphicsInterface*>(GraphicsInterface::rawInterface());
-  ID3DX11EffectVariable* variable = effect_->GetVariableByName(uniformName);
-  if (variable->IsValid()) {
-    graphicsInterface->setTexture(textureId, variable);
-  }*/
+  std::string internalTextureName = std::string("_") + uniformName;
+  std::map<std::string, ShaderTexture>::const_iterator textureIt = pixelShaderTextures_.find(internalTextureName);
+
+  if (textureIt != pixelShaderTextures_.end()) {
+    IGraphicsInterface* graphicsInterface = GraphicsInterface::rawInterface();
+    Direct3D11GraphicsInterface* directXGraphicsInterface = static_cast<Direct3D11GraphicsInterface*>(graphicsInterface);
+    directXGraphicsInterface->setTexture((*textureIt).second.slot, textureId);
+  }
 }
 
 

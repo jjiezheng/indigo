@@ -54,8 +54,6 @@ public:
 
   unsigned int createTexture(const CSize& dimensions, IGraphicsInterface::TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize);
 
-  void setTexture(unsigned int textureId, ID3DX11EffectVariable* variable);
-
   void generateMipMaps(unsigned int textureId);
 
   void fillTexture(unsigned int textureId, void* data, unsigned int dataSize);
@@ -70,9 +68,14 @@ public:
 
   void clearRenderTarget(unsigned int renderTargetId, const Color4& color);
 
+public:
+
+  void setTexture(unsigned int slotIndex, unsigned int textureId);
+
 private:
 
   void createGraphicsContext(HWND hWnd, int width, int height, unsigned int multiSamples);
+
   void createInputContext(HWND hWnd);
 
 private:
