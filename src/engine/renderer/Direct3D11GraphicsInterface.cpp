@@ -112,6 +112,10 @@ void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, in
   D3DEffect::setDevice(device_, deviceConnection_);
 }
 
+void Direct3D11GraphicsInterface::destroy() {
+  device_->Release();
+}
+
 void Direct3D11GraphicsInterface::openWindow(int width, int height, unsigned int multiSamples) {
   screenSize_ = CSize(width, height);
   HWND hWnd = WindowsUtils::createWindow(width, height);
@@ -210,13 +214,14 @@ unsigned int Direct3D11GraphicsInterface::loadTexture(const std::string& filePat
 
 }
 
-void Direct3D11GraphicsInterface::setTexture(unsigned int slotIndex, unsigned int textureId) {
+void Direct3D11GraphicsInterface::setTexture(unsigned int slotIndex, ID3D11SamplerState* samplerState, unsigned int textureId) {
   assert(textureId < textures_.size());
 
   DirectXTexture texture = textures_[textureId];
   ID3D11ShaderResourceView* resourceView = texture.resourceView;
 
   deviceConnection_->PSSetShaderResources(slotIndex, 1, &resourceView);
+  deviceConnection_->PSSetSamplers(slotIndex, 1, &samplerState);
 }
 
 void Direct3D11GraphicsInterface::resetGraphicsState(bool cullBack) {

@@ -13,6 +13,7 @@ struct ID3D11Buffer;
 struct ID3D11VertexShader;
 struct ID3D11PixelShader;
 struct ID3D10Blob;
+struct ID3D11SamplerState;
 
 struct ShaderTexture {
   unsigned int slot;
@@ -43,6 +44,8 @@ public:
 public:
 
   void beginDraw();
+
+  void endDraw();
 
 public:
 
@@ -81,6 +84,7 @@ private:
 
   std::vector<ConstantBuffer> pixelShaderConstantBuffers_;
   std::map<std::string, ShaderTexture> pixelShaderTextures_;
+  std::map<unsigned int, ID3D11SamplerState*> pixelShaderSamplers_;
 
 private:
 

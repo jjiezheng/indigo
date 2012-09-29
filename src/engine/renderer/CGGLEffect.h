@@ -16,6 +16,8 @@ public:
 
   void beginDraw() { };
 
+  void endDraw() { };
+
 public:
 
   void setUniform(const Matrix3x3& uniformData, const char* uniformName) const;

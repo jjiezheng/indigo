@@ -516,14 +516,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\src\engine\renderer\DeferredPresentPass.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\src\engine\renderer\DeferredPresentPass.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\..\src\engine\renderer\DeferredPresentStage.cpp"
 					>
 				</File>

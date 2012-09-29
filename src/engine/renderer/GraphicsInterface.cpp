@@ -8,13 +8,17 @@ void GraphicsInterface::init() {
   graphicsInterface_ = IGraphicsInterface::createInterface();
 }
 
+void GraphicsInterface::destroy() {
+  graphicsInterface_->destroy();
+}
+
 bool GraphicsInterface::openWindow(int width, int height, unsigned int multiSamples) {
   graphicsInterface_->openWindow(width, height, multiSamples);
   return true;
 }
 
 int GraphicsInterface::closeWindow() {
-  return graphicsInterface_->exitCode();;
+  return graphicsInterface_->exitCode();
 }
 
 void GraphicsInterface::swapBuffers() {

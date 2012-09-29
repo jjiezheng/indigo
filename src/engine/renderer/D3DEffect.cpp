@@ -38,6 +38,7 @@ void D3DEffect::fillConstantBuffer(ID3D10Blob* programData, std::vector<Constant
     HRESULT result = shaderReflection->GetDesc(&shaderDesc);
     assert(SUCCEEDED(result));
 
+
     unsigned int constantBuffers = shaderDesc.ConstantBuffers;
     for (unsigned int i = 0; i < constantBuffers; i++) {
       ID3D11ShaderReflectionConstantBuffer* reflectionConstantBuffer = shaderReflection->GetConstantBufferByIndex(i);
@@ -92,6 +93,18 @@ void D3DEffect::fillConstantBuffer(ID3D10Blob* programData, std::vector<Constant
       ShaderTexture texture;
       texture.slot = bindDesc.BindPoint;
       shaderTextures[bindDesc.Name] = texture;
+
+      D3D11_SAMPLER_DESC samplerDesc;
+      ZeroMemory(&samplerDesc, sizeof(D3D11_SAMPLER_DESC));
+
+      samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
+      samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
+      samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
+
+      ID3D11SamplerState* samplerState = 0;
+      result = device_->CreateSamplerState(&samplerDesc, &samplerState);
+      assert(SUCCEEDED(result));
+      pixelShaderSamplers_[bindDesc.BindPoint] = samplerState;
     }
   }
 }
@@ -207,6 +220,16 @@ void D3DEffect::beginDraw() {
   context_->IASetInputLayout(layout_);
 }
 
+void D3DEffect::endDraw() {
+  ID3D11ShaderResourceView* emptyResourceView[5];
+  ZeroMemory(emptyResourceView, sizeof(ID3D11ShaderResourceView) * 5);
+  context_->PSSetShaderResources(0, 1, emptyResourceView);
+
+  ID3D11SamplerState* emptySamplerState[5];
+  ZeroMemory(emptySamplerState, sizeof(ID3D11SamplerState) * 5);
+  context_->PSSetSamplers(0, 1, emptySamplerState); 
+}
+
 void D3DEffect::setConstant(const char* uniformName, void* uniformData) const {
   setConstantBufferValue(vertexShaderConstantBuffers_, uniformName, uniformData);
   setConstantBufferValue(pixelShaderConstantBuffers_, uniformName, uniformData);
@@ -283,8 +306,9 @@ void D3DEffect::setTexture(unsigned int textureId, const char* uniformName) {
   if (textureIt != pixelShaderTextures_.end()) {
     IGraphicsInterface* graphicsInterface = GraphicsInterface::rawInterface();
     Direct3D11GraphicsInterface* directXGraphicsInterface = static_cast<Direct3D11GraphicsInterface*>(graphicsInterface);
-    directXGraphicsInterface->setTexture((*textureIt).second.slot, textureId);
+
+    unsigned int textureSlot = (*textureIt).second.slot;
+    ID3D11SamplerState* samplerState = pixelShaderSamplers_[textureSlot];
+    directXGraphicsInterface->setTexture(textureSlot, samplerState, textureId);
   }
 }
-
-

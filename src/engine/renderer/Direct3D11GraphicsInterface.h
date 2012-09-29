@@ -28,6 +28,8 @@ public:
 
   void openWindow(int width, int height, unsigned int multiSamples);
 
+  void destroy();
+
 public:
 
   void swapBuffers();
@@ -70,7 +72,7 @@ public:
 
 public:
 
-  void setTexture(unsigned int slotIndex, unsigned int textureId);
+  void setTexture(unsigned int slotIndex, ID3D11SamplerState* samplerState, unsigned int textureId);
 
 private:
 

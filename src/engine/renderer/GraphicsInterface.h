@@ -26,6 +26,8 @@ public:
 
   static void init();
 
+  static void destroy();
+
   static bool openWindow(int width, int height, unsigned int multiSamples);
 
   static int closeWindow();

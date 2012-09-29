@@ -36,6 +36,8 @@ public:
 
   virtual void beginDraw() = 0;
 
+  virtual void endDraw() = 0;
+
 public:
 
   virtual void setUniform(const Matrix3x3& uniformData, const char* uniformName) const = 0;

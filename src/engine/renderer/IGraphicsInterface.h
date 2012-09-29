@@ -33,6 +33,10 @@ public:
 
 public:
 
+  virtual void destroy() = 0;
+
+public:
+
   bool windowClosed() const;
 
   int exitCode() const;
