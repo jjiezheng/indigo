@@ -7,7 +7,9 @@ class WindowsKeyboard : public IKeyboard {
   
 public:
   
-  void init();
+  void setup() { };
+
+  void update() { };
   
   bool keyState(char keyCode);
 

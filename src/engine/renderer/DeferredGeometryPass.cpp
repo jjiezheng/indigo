@@ -19,7 +19,9 @@ void DeferredGeometryPass::render(IViewer* viewer, World& world, const SceneCont
 
   unsigned int renderTargets[] = {colorRenderTarget_, normalRenderTarget_, depthRenderTarget_};
   GraphicsInterface::setRenderTarget(renderTargets, 3, true);
-  GraphicsInterface::clearBuffer(Color4::BLACK);
+
+  //GraphicsInterface::resetRenderTarget();
+  GraphicsInterface::clearBuffer(Color4::WHITE);
 
   GraphicsInterface::setRenderState(true);
 
@@ -45,8 +47,8 @@ void DeferredGeometryPass::render(IViewer* viewer, World& world, const SceneCont
       Matrix4x4 viewTransform = viewer->viewTransform();
       Matrix4x4 localToWorld = (*meshIt)->localToWorld();
       Material material = (*meshIt)->material();
-      effect->beginDraw();
       material.bind(projection, viewTransform, localToWorld, effect);
+      effect->beginDraw();
       (*meshIt)->render();
     }
   }

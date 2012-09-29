@@ -28,7 +28,7 @@ void Keyboard::init() {
 };
 
 bool Keyboard::keyState(char keyCode) {
-  return false;
+  return keyboard_->keyState(keyCode);
 }
 
 void Keyboard::setKeydownListener(IKeyboardListener* keyDownListener) {

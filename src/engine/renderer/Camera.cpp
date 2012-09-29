@@ -69,27 +69,27 @@ void Camera::update(float dt) {
     moveUp(padSpeed * rightShoulder);
   }
 
-  if (Keyboard::keyState('w')) {
+  if (Keyboard::keyState('w') || Keyboard::keyState('W')) {
     moveForward(speed);
   }
   
-  if (Keyboard::keyState('s')) {
+  if (Keyboard::keyState('s') || Keyboard::keyState('S')) {
     moveForward(-speed);
   }
   
-  if (Keyboard::keyState('a')) {
+  if (Keyboard::keyState('a') || Keyboard::keyState('A')) {
     moveRight(-speed);
   }
   
-  if (Keyboard::keyState('d')) {
+  if (Keyboard::keyState('d') || Keyboard::keyState('D')) {
     moveRight(speed);
   }
   
-  if (Keyboard::keyState('e')) {
+  if (Keyboard::keyState('e') || Keyboard::keyState('E')) {
     moveUp(speed);
   }
 
-  if (Keyboard::keyState('q')) {
+  if (Keyboard::keyState('q') || Keyboard::keyState('Q')) {
     moveUp(-speed);
   }
   

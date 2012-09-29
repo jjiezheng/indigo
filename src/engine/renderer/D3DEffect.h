@@ -1,24 +1,32 @@
 #ifndef D3DEFFECT_H
 #define D3DEFFECT_H
 
+#include <map>
+
 #include "IEffect.h"
 
 struct ID3D11Device;
 struct ID3D11DeviceContext;
-/*struct ID3DX11Effect;
-struct ID3DX11EffectPass;*/
 struct ID3D11InputLayout;
+struct ID3D11Buffer;
 
 struct ID3D11VertexShader;
+struct ID3D11PixelShader;
+struct ID3D10Blob;
+
+struct ShaderUniform {
+  unsigned int size;
+  unsigned int offset;
+};
+
+struct ConstantBuffer {
+  std::map<std::string, ShaderUniform> uniforms;
+  unsigned int size;
+  ID3D11Buffer* GPUBuffer;
+  char* CPUBuffer;
+};
 
 class D3DEffect : public IEffect {
-
-public:
-
-  /*D3DEffect() 
-    : effect_(0)
-    , pass_(0)
-    , layout_(0) { }*/
 
 public:
 
@@ -59,11 +67,27 @@ private:
   static ID3D11Device* device_;
   static ID3D11DeviceContext* context_;
 
-  ID3D11VertexShader* vertexShader_;
+private:
 
-  /*ID3DX11Effect* effect_;
-  ID3DX11EffectPass* pass_;
-  ID3D11InputLayout* layout_;*/
+  ID3D11VertexShader* vertexShader_;
+  ID3D11PixelShader* pixelShader_;
+
+  std::vector<ConstantBuffer> vertexShaderConstantBuffers_;
+  std::vector<ConstantBuffer> pixelShaderConstantBuffers_;
+
+private:
+
+  ID3D11InputLayout* layout_;
+
+private:
+
+  void setConstant(const char* uniformName, void* uniformData) const;
+
+  void setConstantBufferValue(const std::vector<ConstantBuffer>& constantBuffer, const std::string& uniformName, void* uniformData) const;
+
+  void fillConstantBuffer(ID3D10Blob* programData, std::vector<ConstantBuffer>& constantBufferList);
+
+  void commitShaderConstantBuffers(const std::vector<ConstantBuffer>& shaderConstantBuffers);
 
 };
 

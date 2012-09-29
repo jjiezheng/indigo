@@ -243,7 +243,7 @@ void Direct3D11GraphicsInterface::resetGraphicsState(bool cullBack) {
   }
 }
 
-unsigned int Direct3D11GraphicsInterface::createTexture(const CSize& dimensions, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize) {
+unsigned int Direct3D11GraphicsInterface::createTexture(const CSize& dimensions, IGraphicsInterface::TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize) {
   D3D11_SUBRESOURCE_DATA data;
   ZeroMemory(&data, sizeof(D3D11_SUBRESOURCE_DATA));
   data.pSysMem = textureData;
