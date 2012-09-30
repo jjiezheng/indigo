@@ -9,7 +9,7 @@ public:
 
   void setup() { };
 
-  Point position() = 0;
+  Point position();
 
 };
 

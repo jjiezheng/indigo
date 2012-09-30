@@ -13,6 +13,8 @@ class OpenGL21GraphicsInterface : public IGraphicsInterface {
 public:
 
   void openWindow(int width, int height, unsigned int multiSamples);
+  
+  void destroy() { };
 
 public:
 
@@ -40,7 +42,7 @@ public:
 
   unsigned int loadTexture(const std::string& filePath);
 
-  unsigned int createTexture(const CSize& dimensions, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize);
+  unsigned int createTexture(const CSize& dimensions, TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize);
 
   void generateMipMaps(unsigned int textureId);
 

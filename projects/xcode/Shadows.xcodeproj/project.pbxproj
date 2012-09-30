@@ -34,7 +34,6 @@
 		4C3920AC160FD758005F5775 /* DeferredLightingRenderStage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C39203F160FD758005F5775 /* DeferredLightingRenderStage.cpp */; };
 		4C3920AD160FD758005F5775 /* DeferredPointLightsPass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C392041160FD758005F5775 /* DeferredPointLightsPass.cpp */; };
 		4C3920AE160FD758005F5775 /* DeferredPostProcessingStage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C392043160FD758005F5775 /* DeferredPostProcessingStage.cpp */; };
-		4C3920AF160FD758005F5775 /* DeferredPresentPass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C392045160FD758005F5775 /* DeferredPresentPass.cpp */; };
 		4C3920B0160FD758005F5775 /* DeferredPresentStage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C392047160FD758005F5775 /* DeferredPresentStage.cpp */; };
 		4C3920B1160FD758005F5775 /* DeferredShadowPass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C39204A160FD758005F5775 /* DeferredShadowPass.cpp */; };
 		4C3920B2160FD758005F5775 /* DeferredSkyBoxPass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C39204C160FD758005F5775 /* DeferredSkyBoxPass.cpp */; };
@@ -157,8 +156,6 @@
 		4C392042160FD758005F5775 /* DeferredPointLightsPass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeferredPointLightsPass.h; sourceTree = "<group>"; };
 		4C392043160FD758005F5775 /* DeferredPostProcessingStage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DeferredPostProcessingStage.cpp; sourceTree = "<group>"; };
 		4C392044160FD758005F5775 /* DeferredPostProcessingStage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeferredPostProcessingStage.h; sourceTree = "<group>"; };
-		4C392045160FD758005F5775 /* DeferredPresentPass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DeferredPresentPass.cpp; sourceTree = "<group>"; };
-		4C392046160FD758005F5775 /* DeferredPresentPass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeferredPresentPass.h; sourceTree = "<group>"; };
 		4C392047160FD758005F5775 /* DeferredPresentStage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DeferredPresentStage.cpp; sourceTree = "<group>"; };
 		4C392048160FD758005F5775 /* DeferredPresentStage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeferredPresentStage.h; sourceTree = "<group>"; };
 		4C392049160FD758005F5775 /* DeferredRenderTarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeferredRenderTarget.h; sourceTree = "<group>"; };
@@ -485,8 +482,6 @@
 				4C392042160FD758005F5775 /* DeferredPointLightsPass.h */,
 				4C392043160FD758005F5775 /* DeferredPostProcessingStage.cpp */,
 				4C392044160FD758005F5775 /* DeferredPostProcessingStage.h */,
-				4C392045160FD758005F5775 /* DeferredPresentPass.cpp */,
-				4C392046160FD758005F5775 /* DeferredPresentPass.h */,
 				4C392047160FD758005F5775 /* DeferredPresentStage.cpp */,
 				4C392048160FD758005F5775 /* DeferredPresentStage.h */,
 				4C392049160FD758005F5775 /* DeferredRenderTarget.h */,
@@ -812,7 +807,6 @@
 				4C3920AC160FD758005F5775 /* DeferredLightingRenderStage.cpp in Sources */,
 				4C3920AD160FD758005F5775 /* DeferredPointLightsPass.cpp in Sources */,
 				4C3920AE160FD758005F5775 /* DeferredPostProcessingStage.cpp in Sources */,
-				4C3920AF160FD758005F5775 /* DeferredPresentPass.cpp in Sources */,
 				4C3920B0160FD758005F5775 /* DeferredPresentStage.cpp in Sources */,
 				4C3920B1160FD758005F5775 /* DeferredShadowPass.cpp in Sources */,
 				4C3920B2160FD758005F5775 /* DeferredSkyBoxPass.cpp in Sources */,

@@ -47,7 +47,7 @@ void DeferredDirectionalLightsPass::render(IViewer* viewer, World& world, const 
       directionalLightEffect_->setUniform((*light).direction(), "LightDirection");
       directionalLightEffect_->setUniform((*light).color(), "LightColor");
 
-      Matrix4x4 normalMatrix = viewer->viewTransform().mat3x3().inverseTranspose();
+      //Matrix4x4 normalMatrix = viewer->viewTransform().mat3x3().inverseTranspose();
       directionalLightEffect_->setUniform(Matrix4x4::IDENTITY.mat3x3(), "NormalMatrix");
 
       directionalLightEffect_->beginDraw();

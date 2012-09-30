@@ -7,7 +7,9 @@ class NullKeyboard : public IKeyboard {
 
 public:
 
-  void init();
+  void setup();
+  
+  void update() { }
 
   bool keyState(char keyCode);
 
@@ -15,7 +17,7 @@ public:
 
 };
 
-inline void NullKeyboard::init() { }
+inline void NullKeyboard::setup() { }
 
 inline bool NullKeyboard::keyState(char keyCode) {
   return false;

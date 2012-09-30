@@ -6,6 +6,8 @@
 #include "WindowsMouse.h"
 #endif
 
+#include "NullMouse.h"
+
 IMouse* Mouse::mouse_ = 0;
 
 void Mouse::init() {
