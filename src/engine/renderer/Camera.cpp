@@ -69,28 +69,30 @@ void Camera::update(float dt) {
     moveUp(padSpeed * rightShoulder);
   }
 
+  float keyboardSpeed = 10;
+
   if (Keyboard::keyState('w') || Keyboard::keyState('W')) {
-    moveForward(speed);
+    moveForward(speed * keyboardSpeed);
   }
   
   if (Keyboard::keyState('s') || Keyboard::keyState('S')) {
-    moveForward(-speed);
+    moveForward(-speed * keyboardSpeed);
   }
   
   if (Keyboard::keyState('a') || Keyboard::keyState('A')) {
-    moveRight(-speed);
+    moveRight(-speed * keyboardSpeed);
   }
   
   if (Keyboard::keyState('d') || Keyboard::keyState('D')) {
-    moveRight(speed);
+    moveRight(speed * keyboardSpeed);
   }
   
   if (Keyboard::keyState('e') || Keyboard::keyState('E')) {
-    moveUp(speed);
+    moveUp(speed * keyboardSpeed);
   }
 
   if (Keyboard::keyState('q') || Keyboard::keyState('Q')) {
-    moveUp(-speed);
+    moveUp(-speed * keyboardSpeed);
   }
   
   Point mousePoint = Mouse::position();

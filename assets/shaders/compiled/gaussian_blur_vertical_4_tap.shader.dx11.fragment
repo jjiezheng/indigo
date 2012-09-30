@@ -1,16 +1,16 @@
 // ps_4_0 output by Cg compiler
 // cgc version 3.1.0013, build date Apr 18 2012
-// command line args: -q -profile ps_5_0
+// command line args: -q -profile ps_5_0 -nofastmath
 // source file: gaussian_blur_vertical_4_tap.cg
 //vendor NVIDIA Corporation
 //version 3.1.0.13
 //profile ps_5_0
 //program ps
-//semantic SourceMap
+//semantic SourceMap : TEXUNIT0
 //semantic SceneHeight
 //semantic offsets
 //semantic weights
-//var sampler2D SourceMap :  : _SourceMap : -1 : 1
+//var sampler2D SourceMap : TEXUNIT0 : _SourceMap 0 : -1 : 1
 //var float SceneHeight :  : _SceneHeight : -1 : 1
 //var float offsets[0] :  : _offsets[0] : -1 : 1
 //var float offsets[1] :  : _offsets[1] : -1 : 1
@@ -46,8 +46,8 @@ struct X1X {
 static float4 _TMP3;
 static float4 _TMP2;
 static float4 _TMP1;
-Texture2D<float4> _TMP4;
-SamplerState _SourceMap;
+Texture2D<float4> _TMP4 : register(t0);
+SamplerState _SourceMap : TEXUNIT0;
 float _SceneHeight;
 float _offsets[4];
 float _weights[4];

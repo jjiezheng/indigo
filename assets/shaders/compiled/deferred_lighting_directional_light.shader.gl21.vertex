@@ -6,9 +6,7 @@
 //version 3.1.0.13
 //profile glslv
 //program vs
-//semantic NormalMap
-//semantic DepthMap
-//semantic NormalMatrix
+//semantic NormalMap : TEXUNIT0
 //semantic LightDirection
 //semantic LightColor
 //var float4 position : $vin.POSITION : ATTR0 : 0 : 1

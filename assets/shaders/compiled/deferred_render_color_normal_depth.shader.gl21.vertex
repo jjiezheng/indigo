@@ -17,11 +17,10 @@
 //semantic SpecularIntensity
 //semantic Far
 //semantic Near
-//var float3x3 NormalMatrix :  : _NormalMatrix[0], 3 : -1 : 1
 //var float4x4 WorldViewProj :  : _WorldViewProj[0], 4 : -1 : 1
 //var float4x4 WorldView :  : _WorldView[0], 4 : -1 : 1
 //var float4 position : $vin.POSITION : ATTR0 : 0 : 1
-//var float4 normal : $vin.NORMAL : ATTR2 : 1 : 1
+//var float3 normal : $vin.NORMAL : ATTR2 : 1 : 1
 //var float4 vs.position : $vout.POSITION : HPOS : -1 : 1
 //var float3 vs.normal : $vout.TEXCOORD0 : TEX0 : -1 : 1
 //var float3 vs.depth : $vout.TEXCOORD1 : TEX1 : -1 : 1
@@ -40,12 +39,8 @@ struct POutput {
     vec4 _depth1;
 };
 
-float _TMP2;
-float _TMP1;
-vec4 _r0015;
-vec3 _r0025;
-vec4 _r0039;
-uniform vec3 _NormalMatrix[3];
+vec4 _r0012;
+vec4 _r0022;
 uniform vec4 _WorldViewProj[4];
 uniform vec4 _WorldView[4];
 
@@ -55,22 +50,16 @@ void main()
 
     VOutput _OUT;
 
-    _r0015.x = dot(_WorldViewProj[0], gl_Vertex);
-    _r0015.y = dot(_WorldViewProj[1], gl_Vertex);
-    _r0015.z = dot(_WorldViewProj[2], gl_Vertex);
-    _r0015.w = dot(_WorldViewProj[3], gl_Vertex);
-    _r0025.x = dot(_NormalMatrix[0], gl_Normal);
-    _r0025.y = dot(_NormalMatrix[1], gl_Normal);
-    _r0025.z = dot(_NormalMatrix[2], gl_Normal);
-    _TMP1 = dot(_r0025, _r0025);
-    _TMP2 = inversesqrt(_TMP1);
-    _OUT._normal2 = _TMP2*_r0025;
-    _OUT._depth.x = _r0015.z;
-    _OUT._depth.y = _r0015.w;
-    _r0039.z = dot(_WorldView[2], gl_Vertex);
-    _OUT._depth.z = _r0039.z;
-    gl_TexCoord[0].xyz = _OUT._normal2;
+    _r0012.x = dot(_WorldViewProj[0], gl_Vertex);
+    _r0012.y = dot(_WorldViewProj[1], gl_Vertex);
+    _r0012.z = dot(_WorldViewProj[2], gl_Vertex);
+    _r0012.w = dot(_WorldViewProj[3], gl_Vertex);
+    _OUT._depth.x = _r0012.z;
+    _OUT._depth.y = _r0012.w;
+    _r0022.z = dot(_WorldView[2], gl_Vertex);
+    _OUT._depth.z = _r0022.z;
+    gl_TexCoord[0].xyz = gl_Normal;
     gl_TexCoord[1].xyz = _OUT._depth;
-    gl_Position = _r0015;
+    gl_Position = _r0012;
     return;
 } // main end

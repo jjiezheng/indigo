@@ -18,7 +18,7 @@
             "model": "actors/floor/floor.modelbinary",
             "position": {
                 "x": 0,
-                "y": -5,
+                "y": -1,
                 "z": 0
             }
         }
@@ -27,44 +27,44 @@
         {
             "type": "directional",
             "direction": {
-                "x": 1,
+                "x": -1,
                 "y": -1,
                 "z": -1
             },
             "color": {
-                "r": 0.1,
-                "g": 0.1,
-                "b": 0.1
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0
             }
         },
         {
-            "type": "spot",
-            "innerangle": 40,
-            "outerangle": 50,
-            "decay": 0.2,
-            "length": 55,
-            "intensity": 2,
-            "castsshadows": true,
-            "position": {
-                "x": -10,
-                "y": 10,
-                "z": -10
-            },
-            "orientation": {
-                "x": 0,
-                "y": 0,
-                "z": 0
-            },
-            "color": {
-                "r": 1,
-                "g": 1,
-                "b": 1
-            },
-            "direction": {
-                "x": 1,
-                "y": -1,
-                "z": 1
-            }
+          "type" : "spot",
+          "innerangle" : 40,
+          "outerangle" : 50,
+          "decay" : 0.2,
+          "length" : 55,
+          "intensity" : 10.0,
+          "castsshadows" : true,
+          "position" : {
+            "x" : 10,
+            "y" : 10,
+            "z" : 10
+          },
+          "orientation" : {
+            "x" : 0,
+            "y" : 0,
+            "z" : 0
+          },
+          "color" : {
+            "r" : 1.0,
+            "g" : 1.0,
+            "b" : 1.0
+          },
+          "direction" : {
+            "x" : -1.0,
+            "y" : -1.0,
+            "z" : -1.0
+          }
         }
     ]
 }

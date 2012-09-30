@@ -1,0 +1,47 @@
+// ps_4_0 output by Cg compiler
+// cgc version 3.1.0013, build date Apr 18 2012
+// command line args: -q -profile ps_5_0
+// source file: deferred_ssao_combine.shader
+//vendor NVIDIA Corporation
+//version 3.1.0.13
+//profile ps_5_0
+//program ps
+//semantic ColorMap
+//semantic SSAOMap
+//var sampler2D ColorMap :  : _ColorMap : -1 : 1
+//var sampler2D SSAOMap :  : _SSAOMap : -1 : 1
+//var float2 texCoord : $vin.TEXCOORD0 :  : 1 : 1
+//var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
+
+#pragma pack_matrix(row_major)
+
+struct VOutput {
+    float4 _position1 : SV_Position;
+    float2 _texCoord1 : TEXCOORD0;
+};
+
+struct X1X {
+    float4 _POSITION : SV_Position;
+    float2 _TEXCOORD0 : TEXCOORD0;
+};
+
+Texture2D<float4> _TMP0;
+Texture2D<float4> _TMP1;
+SamplerState _ColorMap;
+SamplerState _SSAOMap;
+
+ // main procedure, the original name was ps
+float4 main( in X1X cin) : SV_Target0
+{
+
+    float2 _texCoord;
+    float4 _color;
+    float4 _ssao;
+    float4 _finalColor;
+
+    _texCoord = cin._TEXCOORD0;
+    _color = _TMP0.Sample(_ColorMap, _texCoord);
+    _ssao = _TMP1.Sample(_SSAOMap, _texCoord);
+    _finalColor = _color*_ssao;
+    return _finalColor;
+} // main end

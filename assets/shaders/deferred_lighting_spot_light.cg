@@ -1,9 +1,9 @@
 #include "standard.h"
 #include "utils.h"
 
-sampler2D NormalMap;
-sampler2D DepthMap;
-sampler2D ShadowMap;
+sampler2D DepthMap : TEXUNIT0;
+sampler2D NormalMap : TEXUNIT1;
+sampler2D ShadowMap : TEXUNIT2;
 
 uniform float4 ViewPosition;
 
@@ -46,7 +46,7 @@ float4 ps(float4 position 		: POSITION,
 
 	float4 normalData = unpackNormal(NormalMap, texCoord);
 	float3 normal = normalize(normalData.xyz);
-	float diffusePower = normalData.w;
+	float diffusePower = normalData.w * 255; // 0-1 -> 0-255
 
 	float4 depthSpec = tex2D(DepthMap, texCoord);
 
@@ -76,7 +76,7 @@ float4 ps(float4 position 		: POSITION,
 	float diffuseStrength = 0.0f;
 
 	float3 lightVector = normalize(-LightDirection.xyz);
-  	float3 lightVectorViewSpace = normalize(mul(NormalMatrix, lightVector));
+  	float3 lightVectorViewSpace = lightVector;//normalize(mul(NormalMatrix, lightVector));
 
 	float lightOuterCos = cos(LightOuterAngle);
 	float lightInnerCos = cos(LightInnerAngle);	
@@ -100,7 +100,7 @@ float4 ps(float4 position 		: POSITION,
 		float3 viewDirection = normalize(viewDirectionRaw.xyz);
 
 		float3 halfVectorRaw = lightVector + viewDirection;
-		float3 halfVector = normalize(mul(NormalMatrix, halfVectorRaw));
+		float3 halfVector = halfVectorRaw;//normalize(mul(NormalMatrix, halfVectorRaw));
 
 		float i = pow(saturate(dot(normal, halfVector)), specularPower);
 		specularContribution = i * specularIntensity / distance;

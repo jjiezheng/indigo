@@ -5,6 +5,8 @@
 #include "AverageBlur.h"
 #include "GaussianBlur.h"
 
+#include "maths/Vector4.h"
+
 class DeferredInitRenderStage;
 class DeferredLightingRenderStage;
 
@@ -51,6 +53,8 @@ private:
 
   AverageBlur blur_;
 
+  Vector4 kernel[16];
+
 };
 
 inline std::string DeferredSSAOPass::passName() const {
@@ -58,7 +62,7 @@ inline std::string DeferredSSAOPass::passName() const {
 }
 
 inline GraphicsInterface::TextureId DeferredSSAOPass::passMap() const {
-  return blur_.outputTexture();
+  return ssaoRenderTexture_;// blur_.outputTexture();
 }
 
 #endif

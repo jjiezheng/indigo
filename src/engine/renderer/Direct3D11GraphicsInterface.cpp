@@ -257,11 +257,24 @@ unsigned int Direct3D11GraphicsInterface::createTexture(const CSize& dimensions,
   D3D11_TEXTURE2D_DESC textureDesc;
   ZeroMemory(&textureDesc, sizeof(D3D11_TEXTURE2D_DESC));
 
+  DXGI_FORMAT directXTextureFormat = DXGI_FORMAT_R32G32B32A32_FLOAT;
+
+  switch (textureFormat) {
+    case IGraphicsInterface::R8G8B8A8: {
+      directXTextureFormat = DXGI_FORMAT_R8G8B8A8_UNORM;
+      break;
+    }
+    case IGraphicsInterface::R16G16B16A16: {
+      directXTextureFormat = DXGI_FORMAT_R16G16B16A16_FLOAT;
+      break;
+    }
+  }
+
   textureDesc.Width = dimensions.width;
   textureDesc.Height = dimensions.height;
   textureDesc.MipLevels = mipLevels;
   textureDesc.ArraySize = 1;
-  textureDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+  textureDesc.Format = directXTextureFormat;
   textureDesc.Usage = D3D11_USAGE_DEFAULT;
   textureDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET;
   textureDesc.CPUAccessFlags = 0;

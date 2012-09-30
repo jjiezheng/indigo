@@ -12,8 +12,8 @@ void DeferredPostProcessingStage::init(const CSize& screenSize) {
   IDeferredPostProcessingPass* ssaoPass = new DeferredSSAOPass();
   passes_.push_back(ssaoPass);
 
-  IDeferredPostProcessingPass* fxaaPass = new DeferredFXAAPass();
-  passes_.push_back(fxaaPass);
+  //IDeferredPostProcessingPass* fxaaPass = new DeferredFXAAPass();
+  //passes_.push_back(fxaaPass);
 
   for (std::vector<IDeferredPostProcessingPass*>::iterator i = passes_.begin(); i != passes_.end(); ++i) {
     (*i)->init(screenSize);

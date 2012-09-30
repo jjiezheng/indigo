@@ -83,11 +83,11 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
         GraphicsInterface::endPerformanceEvent();
       }
 
-      {
+      /*{
         GraphicsInterface::beginPerformanceEvent("Blur", Color4::GREY);
         gaussianBlur_.render((*light)->shadowMapTexture());
         GraphicsInterface::endPerformanceEvent();
-      }
+      }*/
 
       GraphicsInterface::endPerformanceEvent();
     }
@@ -100,7 +100,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
 
       lightEffect_->setTexture(initStage.normalMap(), "NormalMap");
       lightEffect_->setTexture(initStage.depthMap(), "DepthMap");
-      lightEffect_->setTexture(gaussianBlur_.outputTexture(), "ShadowMap");
+      lightEffect_->setTexture((*light)->shadowMapTexture(), "ShadowMap");
 
       lightEffect_->setUniform((*light)->castsShadows(), "ShadowsEnabled");
 
@@ -112,7 +112,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
       lightEffect_->setUniform(viewer->projection().inverse(), "ProjInv");
 
       Matrix4x4 normalMatrix = viewer->viewTransform().mat3x3().inverseTranspose();
-      lightEffect_->setUniform(normalMatrix, "NormalMatrix");
+      lightEffect_->setUniform(normalMatrix, "NormalMatrix"); 
 
       lightEffect_->setUniform(viewer->position(), "ViewPosition");
 

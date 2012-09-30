@@ -23,6 +23,8 @@ public:
 
   unsigned int outputTexture() const;
 
+  unsigned int outputTarget() const;
+
 public:
 
   void setRenderTarget(unsigned int renderTarget);
@@ -39,6 +41,10 @@ private:
   CSize bufferSize_;
 
 };
+
+inline unsigned int AverageBlur::outputTarget() const {
+  return outputRenderTarget_;
+}
 
 inline unsigned int AverageBlur::outputTexture() const {
   return outputRenderTexture_;

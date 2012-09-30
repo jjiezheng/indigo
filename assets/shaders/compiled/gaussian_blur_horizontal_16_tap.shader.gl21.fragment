@@ -6,11 +6,11 @@
 //version 3.1.0.13
 //profile glslf
 //program ps
-//semantic SourceMap
+//semantic SourceMap : TEXUNIT0
 //semantic SceneWidth
 //semantic offsets
 //semantic weights
-//var sampler2D SourceMap :  : _SourceMap : -1 : 1
+//var sampler2D SourceMap : TEXUNIT0 : _SourceMap 0 : -1 : 1
 //var float SceneWidth :  : _SceneWidth : -1 : 1
 //var float offsets[0] :  : _offsets[0] : -1 : 1
 //var float offsets[1] :  : _offsets[1] : -1 : 1

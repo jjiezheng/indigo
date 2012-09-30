@@ -1,4 +1,4 @@
-sampler2D SourceMap;
+sampler2D SourceMap : TEXUNIT0;
 
 float SceneHeight;
 

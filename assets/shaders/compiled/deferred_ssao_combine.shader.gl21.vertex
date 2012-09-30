@@ -1,35 +1,32 @@
 // glslv output by Cg compiler
 // cgc version 3.1.0013, build date Apr 18 2012
 // command line args: -q -profile glslv
-// source file: simple.cg
+// source file: deferred_ssao_combine.shader
 //vendor NVIDIA Corporation
 //version 3.1.0.13
 //profile glslv
 //program vs
-//semantic WorldViewProj
-//var float4x4 WorldViewProj :  : _WorldViewProj[0], 4 : -1 : 1
+//semantic ColorMap
+//semantic SSAOMap
 //var float4 position : $vin.POSITION : ATTR0 : 0 : 1
-//var float4 normal : $vin.NORMAL :  : 1 : 0
+//var float2 texCoord : $vin.TEXCOORD0 : ATTR8 : 1 : 1
 //var float4 vs.position : $vout.POSITION : HPOS : -1 : 1
+//var float2 vs.texCoord : $vout.TEXCOORD0 : TEX0 : -1 : 1
 
 #version 110
 
 struct VOutput {
     vec4 _position2;
+    vec2 _texCoord2;
 };
 
-vec4 _r0002;
-uniform vec4 _WorldViewProj[4];
 
  // main procedure, the original name was vs
 void main()
 {
 
 
-    _r0002.x = dot(_WorldViewProj[0], gl_Vertex);
-    _r0002.y = dot(_WorldViewProj[1], gl_Vertex);
-    _r0002.z = dot(_WorldViewProj[2], gl_Vertex);
-    _r0002.w = dot(_WorldViewProj[3], gl_Vertex);
-    gl_Position = _r0002;
+    gl_TexCoord[0].xy = gl_MultiTexCoord0.xy;
+    gl_Position = gl_Vertex;
     return;
 } // main end

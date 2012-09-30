@@ -1,0 +1,38 @@
+// glslf output by Cg compiler
+// cgc version 3.1.0013, build date Apr 18 2012
+// command line args: -q -profile glslf
+// source file: deferred_ssao_combine.shader
+//vendor NVIDIA Corporation
+//version 3.1.0.13
+//profile glslf
+//program ps
+//semantic ColorMap
+//semantic SSAOMap
+//var sampler2D ColorMap :  : _ColorMap : -1 : 1
+//var sampler2D SSAOMap :  : _SSAOMap : -1 : 1
+//var float2 texCoord : $vin.TEXCOORD0 : TEX0 : 1 : 1
+//var float4 ps : $vout.COLOR0 : COL : -1 : 1
+
+#version 110
+
+struct VOutput {
+    vec2 _texCoord2;
+};
+
+uniform sampler2D _ColorMap;
+uniform sampler2D _SSAOMap;
+
+ // main procedure, the original name was ps
+void main()
+{
+
+    vec4 _color;
+    vec4 _ssao;
+    vec4 _finalColor;
+
+    _color = texture2D(_ColorMap, gl_TexCoord[0].xy);
+    _ssao = texture2D(_SSAOMap, gl_TexCoord[0].xy);
+    _finalColor = _color*_ssao;
+    gl_FragColor = _finalColor;
+    return;
+} // main end

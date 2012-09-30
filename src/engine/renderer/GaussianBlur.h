@@ -26,6 +26,8 @@ public:
 
   unsigned int outputTexture() const;
 
+  unsigned int outputTarget() const;
+
 public:
 
   void setRenderTarget(unsigned int renderTarget);
@@ -49,6 +51,10 @@ private:
 
 inline unsigned int GaussianBlur::outputTexture() const {
   return outputRenderTexture_;
+}
+
+inline unsigned int GaussianBlur::outputTarget() const {
+  return outputRenderTarget_;
 }
 
 inline void GaussianBlur::setRenderTarget(unsigned int renderTarget) {

@@ -16,7 +16,7 @@ public:
 
   void init(const CSize& screenSize);
 
-  void render(unsigned int presentTextureId);
+  void render(unsigned int presentTextureId, unsigned int depthTextureId);
 
 private:
 

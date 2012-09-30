@@ -101,6 +101,8 @@ void D3DEffect::fillConstantBuffer(ID3D10Blob* programData, std::vector<Constant
       samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
       samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
 
+      samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
+
       ID3D11SamplerState* samplerState = 0;
       result = device_->CreateSamplerState(&samplerDesc, &samplerState);
       assert(SUCCEEDED(result));
@@ -223,11 +225,11 @@ void D3DEffect::beginDraw() {
 void D3DEffect::endDraw() {
   ID3D11ShaderResourceView* emptyResourceView[5];
   ZeroMemory(emptyResourceView, sizeof(ID3D11ShaderResourceView) * 5);
-  context_->PSSetShaderResources(0, 1, emptyResourceView);
+  context_->PSSetShaderResources(0, 5, emptyResourceView);
 
   ID3D11SamplerState* emptySamplerState[5];
   ZeroMemory(emptySamplerState, sizeof(ID3D11SamplerState) * 5);
-  context_->PSSetSamplers(0, 1, emptySamplerState); 
+  context_->PSSetSamplers(0, 5, emptySamplerState); 
 }
 
 void D3DEffect::setConstant(const char* uniformName, void* uniformData) const {
@@ -257,14 +259,11 @@ void D3DEffect::setUniform(const Matrix4x4& uniformData, const char* uniformName
 }
 
 void D3DEffect::setUniform(const Color3& uniformData, const char* uniformName) const {
-
+  setConstant(uniformName, (void*)uniformData.valuePtr());
 }
 
 void D3DEffect::setUniform(const Vector2& uniformData, const char* uniformName) const {
-  /*ID3DX11EffectVariable* variable = effect_->GetVariableByName(uniformName);
-  if (variable->IsValid()) {
-    variable->AsVector()->SetFloatVector(uniformData.valuePtr());
-  }*/
+  setConstant(uniformName, (void*)uniformData.valuePtr());
 }
 
 void D3DEffect::setUniform(const Vector3& uniformData, const char* uniformName) const {
@@ -272,31 +271,19 @@ void D3DEffect::setUniform(const Vector3& uniformData, const char* uniformName) 
 }
 
 void D3DEffect::setUniform(const Vector4& uniformData, const char* uniformName) const {
-  /*ID3DX11EffectVariable* variable = effect_->GetVariableByName(uniformName);
-  if (variable->IsValid()) {
-    variable->AsVector()->SetFloatVector(uniformData.valuePtr());
-  }*/
+  setConstant(uniformName, (void*)uniformData.valuePtr());
 }
 
 void D3DEffect::setUniform(const Vector4* uniformData, unsigned int uniformDataCount, const char* uniformName) const {
-  /*ID3DX11EffectVariable* variable = effect_->GetVariableByName(uniformName);
-  if (variable->IsValid()) {
-    variable->AsVector()->SetFloatVectorArray((float*)uniformData, 0, uniformDataCount);
-  }*/
+  setConstant(uniformName, (void*)uniformData);
 }
 
 void D3DEffect::setUniform(int uniformData, const char* uniformName) const {
-  /*ID3DX11EffectVariable* variable = effect_->GetVariableByName(uniformName);
-  if (variable->IsValid()) {
-    variable->AsScalar()->SetInt(uniformData);
-  }*/
+  setConstant(uniformName, (void*)&uniformData);
 }
 
 void D3DEffect::setUniform(float uniformData, const char* uniformName) const {
-  /*ID3DX11EffectVariable* variable = effect_->GetVariableByName(uniformName);
-  if (variable->IsValid()) {
-    variable->AsScalar()->SetFloat(uniformData);
-  }*/
+  setConstant(uniformName, (void*)&uniformData);
 }
 
 void D3DEffect::setTexture(unsigned int textureId, const char* uniformName) {

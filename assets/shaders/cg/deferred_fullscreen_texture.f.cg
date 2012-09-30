@@ -1,6 +1,0 @@
-uniform sampler2D texture;
-
-float4 ps(float4 position : POSITION,
-		  float2 texCoord : TEXCOORD0) : COLOR0 {
-	return tex2D(texture, texCoord);
-}

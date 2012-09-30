@@ -16,7 +16,7 @@ void AverageBlur::init(const CSize& bufferSize) {
   }
 
   quadVbo_ = Geometry::screenPlane();
-  effect_ = IEffect::effectFromFile("cgfx/average_blur.hlsl");
+  //effect_ = IEffect::effectFromFile("cgfx/average_blur.hlsl");
 }
 
 void AverageBlur::render(unsigned int sourceTexture) {

@@ -16,6 +16,24 @@ function shader {
 	gl21
 	gcm
 }
-for f in *.cg ; do
+if [ "$1" = "-a" ] ; then
+	echo "Compiling all shaders:"
+	for f in *.cg ; do
+		echo
+		echo $f
+		shader
+	done
+	echo
+	echo "done!"
+fi
+if [ "$1" = "-s" ] ; then
+	echo
+	fullfile=$2
+	pathfile=${fullfile//[\\:CD]//}
+	file=${pathfile/\/*\//}
+	echo "Compiling single shader: $file"
+	f="$file"
+	echo
 	shader
-done
+	echo
+fi
