@@ -167,7 +167,7 @@ inline void Reader::Scan(Tokens& tokens, InputStream& inputStream)
       // gives us null-terminated string
       std::string sChar;
       sChar.push_back(inputStream.Peek());
-
+      
       switch (sChar[0])
       {
          case '{':
@@ -246,7 +246,8 @@ inline void Reader::Scan(Tokens& tokens, InputStream& inputStream)
 
          default: {
             std::string sErrorMessage = "Unexpected character in stream: " + sChar;
-            throw ScanException(sErrorMessage, inputStream.GetLocation());
+            std::cerr << sErrorMessage << std::endl;
+            //throw ScanException(sErrorMessage, inputStream.GetLocation());
          }
       }
 

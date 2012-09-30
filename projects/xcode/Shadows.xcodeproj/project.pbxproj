@@ -73,6 +73,9 @@
 		4C6CBA69161113E600D4A7C7 /* Mouse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C6CBA68161113E600D4A7C7 /* Mouse.cpp */; };
 		4C8E100714F03D450095F390 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C8E100614F03D450095F390 /* QuartzCore.framework */; };
 		4C94129A1438203800D9357E /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9412991438203800D9357E /* ApplicationServices.framework */; };
+		4C96E81616184532000D227F /* elements.inl in Resources */ = {isa = PBXBuildFile; fileRef = 4C96E81316184532000D227F /* elements.inl */; };
+		4C96E81716184532000D227F /* reader.inl in Resources */ = {isa = PBXBuildFile; fileRef = 4C96E81416184532000D227F /* reader.inl */; };
+		4C96E81816184532000D227F /* writer.inl in Resources */ = {isa = PBXBuildFile; fileRef = 4C96E81516184532000D227F /* writer.inl */; };
 		4CB28511144699D300A26530 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CB28510144699D300A26530 /* OpenGL.framework */; };
 		4CB8D3131436F03A0079949A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CB8D3121436F03A0079949A /* Cocoa.framework */; };
 		4CB8D3311436F03A0079949A /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CB8D3301436F03A0079949A /* SenTestingKit.framework */; };
@@ -256,6 +259,9 @@
 		4C6CBA68161113E600D4A7C7 /* Mouse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Mouse.cpp; path = input/Mouse.cpp; sourceTree = "<group>"; };
 		4C8E100614F03D450095F390 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4C9412991438203800D9357E /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
+		4C96E81316184532000D227F /* elements.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = elements.inl; sourceTree = "<group>"; };
+		4C96E81416184532000D227F /* reader.inl */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = reader.inl; sourceTree = "<group>"; };
+		4C96E81516184532000D227F /* writer.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = writer.inl; sourceTree = "<group>"; };
 		4CB28510144699D300A26530 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		4CB8D30E1436F03A0079949A /* Shadows.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shadows.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CB8D3121436F03A0079949A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -630,6 +636,9 @@
 		4CC9D0AC154C379E00E0EEBB /* json */ = {
 			isa = PBXGroup;
 			children = (
+				4C96E81316184532000D227F /* elements.inl */,
+				4C96E81416184532000D227F /* reader.inl */,
+				4C96E81516184532000D227F /* writer.inl */,
 				4CC9D0AD154C379E00E0EEBB /* elements.h */,
 				4CC9D0AF154C379E00E0EEBB /* reader.h */,
 				4CC9D0B1154C379E00E0EEBB /* visitor.h */,
@@ -733,6 +742,9 @@
 				4C4D2C04155E50CB005EE885 /* InfoPlist.strings in Resources */,
 				4C4D2C05155E50CB005EE885 /* MainMenu.xib in Resources */,
 				4C3920C2160FD758005F5775 /* Light.inl in Resources */,
+				4C96E81616184532000D227F /* elements.inl in Resources */,
+				4C96E81716184532000D227F /* reader.inl in Resources */,
+				4C96E81816184532000D227F /* writer.inl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -757,7 +769,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cp -rf ${SOURCE_ROOT}/../../assets/* ${CODESIGNING_FOLDER_PATH}/Contents/Resources";
+			shellScript = "#cp -rf ${SOURCE_ROOT}/../../assets/* ${CODESIGNING_FOLDER_PATH}/Contents/Resources";
 		};
 		4CB8D32D1436F03A0079949A /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
