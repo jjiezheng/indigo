@@ -23,6 +23,8 @@ public:
 
   void beginDraw();
 
+  void endDraw();
+
   void setUniform(const Matrix3x3& uniformData, const char* uniformName) const;
 
   void setUniform(const Matrix4x4& uniformData, const char* uniformName) const;

@@ -116,6 +116,10 @@ void PS3GCMGraphicsInterface::openWindow(int width, int height, unsigned int mul
   CELL_GCMUTIL_CHECK_ASSERT(cellGcmAddressToOffset(depthAddr, &depthOffset));
 }
 
+void PS3GCMGraphicsInterface::destroy() {
+
+}
+
 void PS3GCMGraphicsInterface::beginPerformanceEvent(const std::string& eventName, const Color4& color) {
 
 }

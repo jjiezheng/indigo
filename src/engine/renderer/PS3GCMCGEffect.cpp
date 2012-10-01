@@ -103,6 +103,12 @@ void PS3GCMCGEffect::beginDraw() {
   graphicsInterface->setEffect(this);
 }
 
+
+void PS3GCMCGEffect::endDraw() {
+
+}
+
+
 void PS3GCMCGEffect::setUniform(const Matrix3x3& uniformData, const char* uniformName) const {
   {
     CGparameter parameter = cellGcmCgGetNamedParameter(vertexProgram_, uniformName);

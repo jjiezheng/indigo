@@ -18,6 +18,10 @@ public:
 
   void openWindow(int width, int height, unsigned int multiSamples);
 
+  void destroy();
+
+public:
+
   void beginPerformanceEvent(const std::string& eventName, const Color4& color);
 
   void endPerformanceEvent();
