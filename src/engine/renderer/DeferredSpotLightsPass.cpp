@@ -99,7 +99,10 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
       GraphicsInterface::setRenderTarget(spotLightRenderTarget_, false);
 
       lightEffect_->setTexture(initStage.normalMap(), "NormalMap");
-      lightEffect_->setTexture(initStage.depthMap(), "DepthMap");
+      
+      unsigned int depthBufferId = GraphicsInterface::depthBufferTexture();
+      lightEffect_->setTexture(depthBufferId, "DepthMap");
+
       lightEffect_->setTexture((*light)->shadowMapTexture(), "ShadowMap");
 
       lightEffect_->setUniform((*light)->castsShadows(), "ShadowsEnabled");

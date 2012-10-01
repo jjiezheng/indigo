@@ -92,7 +92,7 @@ void PS3GCMGraphicsInterface::openWindow(int width, int height, unsigned int mul
       aspectRatio = 16.0f / 9.0f;
   }
 
-  cellGcmSetFlipMode(CELL_GCM_DISPLAY_VSYNC);
+  cellGcmSetFlipMode(CELL_GCM_DISPLAY_HSYNC);
 
   // get config
   CellGcmConfig config;
@@ -111,9 +111,49 @@ void PS3GCMGraphicsInterface::openWindow(int width, int height, unsigned int mul
     CELL_GCMUTIL_CHECK_ASSERT(cellGcmSetDisplayBuffer(i, colorOffset[i], colorPitch,  resolution.width,  resolution.height));
   }
 
-  void *depthBaseAddr = localMemoryAlign(64, depthSize);
+  /*void *depthBaseAddr = localMemoryAlign(64, depthSize);
   void *depthAddr = depthBaseAddr;
-  CELL_GCMUTIL_CHECK_ASSERT(cellGcmAddressToOffset(depthAddr, &depthOffset));
+  CELL_GCMUTIL_CHECK_ASSERT(cellGcmAddressToOffset(depthAddr, &depthOffset));*/
+
+ 
+  {
+    CellGcmTexture depthTexture;
+    memset(&depthTexture, 0, sizeof(CellGcmTexture));
+
+    int gcmTextureFormat = 0;
+
+    depthTexture.format = CELL_GCM_TEXTURE_A8R8G8B8 | CELL_GCM_TEXTURE_LN | CELL_GCM_TEXTURE_NR;
+    depthTexture.mipmap = 1;
+    depthTexture.dimension = CELL_GCM_TEXTURE_DIMENSION_2;
+    depthTexture.cubemap = CELL_GCM_FALSE;
+
+    depthTexture.pitch = depthPitch;
+
+    depthTexture.remap = 0;
+
+    depthTexture.width = resolution.width;
+    depthTexture.height = resolution.height;
+    depthTexture.depth = 1;
+    depthTexture.location = CELL_GCM_LOCATION_LOCAL;
+
+    depthTexture.remap =
+      CELL_GCM_TEXTURE_REMAP_REMAP << 14 |
+      CELL_GCM_TEXTURE_REMAP_REMAP << 12 |
+      CELL_GCM_TEXTURE_REMAP_REMAP << 10 |
+      CELL_GCM_TEXTURE_REMAP_REMAP << 8  |
+      CELL_GCM_TEXTURE_REMAP_FROM_B << 6 |
+      CELL_GCM_TEXTURE_REMAP_FROM_G << 4 |
+      CELL_GCM_TEXTURE_REMAP_FROM_R << 2 |
+      CELL_GCM_TEXTURE_REMAP_FROM_A;
+
+    void* depthAddr = localMemoryAlign(64, depthSize);
+    CELL_GCMUTIL_CHECK_ASSERT(cellGcmAddressToOffset(depthAddr, &depthTexture.offset));
+    depthOffset = depthTexture.offset;
+
+    unsigned int textureId = textures_.size();
+    textures_.push_back(depthTexture);
+    depthBufferTexture_ = textureId;
+  }
 }
 
 void PS3GCMGraphicsInterface::destroy() {
@@ -233,6 +273,7 @@ IEffect* PS3GCMGraphicsInterface::createEffect() {
 }
 
 unsigned int PS3GCMGraphicsInterface::createTexture(const CSize& dimensions, TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize) {
+  
   int textureComponents = 4;
   unsigned int textureSize = dimensions.width * dimensions.height * textureComponents;
 
@@ -247,12 +288,12 @@ unsigned int PS3GCMGraphicsInterface::createTexture(const CSize& dimensions, Tex
       break;
     }
     case IGraphicsInterface::R16G16B16A16: {
-        gcmTextureFormat = CELL_GCM_TEXTURE_W16_Z16_Y16_X16_FLOAT;
-        break;
+      gcmTextureFormat = CELL_GCM_TEXTURE_W16_Z16_Y16_X16_FLOAT;
+      break;
     }
     case IGraphicsInterface::R32G32B32A32: {
-        gcmTextureFormat = CELL_GCM_TEXTURE_W32_Z32_Y32_X32_FLOAT;
-        break;
+      gcmTextureFormat = CELL_GCM_TEXTURE_W32_Z32_Y32_X32_FLOAT;
+      break;
     }
   }
   

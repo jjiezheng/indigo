@@ -19,11 +19,12 @@ void DeferredPresentStage::render(unsigned int presentTextureId, unsigned int de
   GraphicsInterface::resetRenderTarget();
   GraphicsInterface::clearBuffer(Color4::CORNFLOWERBLUE);
 
-  effect_->beginDraw();
   effect_->setTexture(presentTextureId, "ColorMap");
   effect_->setTexture(depthTextureId, "DepthMap");
   effect_->setUniform(Color3::CORNFLOWERBLUE, "BackgroundColor");
   GraphicsInterface::setRenderState(true);
+
+  effect_->beginDraw();
   GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);
   effect_->endDraw();
 

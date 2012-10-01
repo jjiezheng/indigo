@@ -8,6 +8,8 @@
 
 #include "Color4.h"
 
+#include <stdio.h>
+
 void DeferredInitRenderStage::init(const CSize& screenSize) {
   colorMapTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R8G8B8A8, 1, 1);
   colorRenderTarget_ = GraphicsInterface::createRenderTarget(colorMapTexture_);
@@ -38,5 +40,5 @@ void DeferredInitRenderStage::render(IViewer* viewer, World& world, const SceneC
 void DeferredInitRenderStage::collectRenderTargets(IDeferredRenderTargetContainer* renderTargetContainer) {
   renderTargetContainer->addRenderTarget("Color", colorMapTexture_);
   renderTargetContainer->addRenderTarget("Normal", normalMapTexture_);
-  renderTargetContainer->addRenderTarget("Depth", depthMapTexture_);
+  renderTargetContainer->addRenderTarget("Depth", depthRenderTarget_);
 }

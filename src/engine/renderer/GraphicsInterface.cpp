@@ -128,3 +128,7 @@ void GraphicsInterface::endPerformanceEvent() {
   graphicsInterface_->endPerformanceEvent();
 #endif
 }
+
+unsigned int GraphicsInterface::depthBufferTexture() {
+  return graphicsInterface_->depthBufferTexture();
+}

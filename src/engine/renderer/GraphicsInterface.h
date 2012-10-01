@@ -92,6 +92,10 @@ public:
 
 public:
 
+  static unsigned int depthBufferTexture();
+
+public:
+
   static IGraphicsInterface* rawInterface();
 
 public:

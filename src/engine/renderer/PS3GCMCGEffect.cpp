@@ -94,7 +94,6 @@ void PS3GCMCGEffect::load(const std::string& filePath) {
 }
 
 void PS3GCMCGEffect::beginDraw() {
-  cell::Gcm::cellGcmSetUpdateFragmentProgramParameter(fragmentProgramOffset_);
   cell::Gcm::cellGcmSetVertexProgram(vertexProgram_, vertexProgramAddress_);
   cell::Gcm::cellGcmSetFragmentProgram(fragmentProgram_, fragmentProgramOffset_);
 

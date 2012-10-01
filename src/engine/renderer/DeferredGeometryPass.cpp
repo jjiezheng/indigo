@@ -20,12 +20,11 @@ void DeferredGeometryPass::render(IViewer* viewer, World& world, const SceneCont
   GraphicsInterface::resetRenderTarget();
   GraphicsInterface::clearBuffer(Color4::CORNFLOWERBLUE);
 
-  unsigned int renderTargets[] = {colorRenderTarget_, normalRenderTarget_, depthRenderTarget_};
-  GraphicsInterface::setRenderTarget(renderTargets, 3, true);
+  unsigned int renderTargets[] = {colorRenderTarget_, normalRenderTarget_};
+  GraphicsInterface::setRenderTarget(renderTargets, 2, true);
 
   GraphicsInterface::clearRenderTarget(colorRenderTarget_, Color4::NOTHING);
   GraphicsInterface::clearRenderTarget(normalRenderTarget_, Color4::NOTHING);
-  GraphicsInterface::clearRenderTarget(depthRenderTarget_, Color4::WHITE);
 
   GraphicsInterface::setRenderState(true);
 

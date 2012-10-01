@@ -56,13 +56,21 @@ public:
 
 public:
 
+   unsigned int depthBufferTexture() const;
+
+public:
+
   void setEffect(PS3GCMCGEffect* effect);
 
   void* localAllocate(unsigned int size);
+
   void setTexture(unsigned int textureUnit, unsigned int textureId);
+
 private:
 
   unsigned int bufferFrameIndex_;
+
+  unsigned int depthBufferTexture_;
 
 private:
 
@@ -76,6 +84,10 @@ private:
 
 inline void PS3GCMGraphicsInterface::setEffect(PS3GCMCGEffect* effect) {
   effect_ = effect;
+}
+
+inline unsigned int PS3GCMGraphicsInterface::depthBufferTexture() const {
+  return depthBufferTexture_;
 }
 
 #endif

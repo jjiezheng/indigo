@@ -88,6 +88,10 @@ public:
   virtual unsigned int createRenderTarget(unsigned int textureId) = 0;
 
   virtual void clearRenderTarget(unsigned int renderTargetId, const Color4& color) = 0;
+
+public:
+
+  virtual unsigned int depthBufferTexture() const = 0;
   
 protected:
 
