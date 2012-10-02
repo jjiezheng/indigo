@@ -51,7 +51,7 @@ float4 ps(float4 position 		: POSITION,
 	float depth = unpackDepth(DepthMap, texCoord);
 
 	if (depth == 1.0f) {
-		return float4(0, 0, 0, 0);
+		//return float4(0, 0, 0, 0);
 	}
 
 	float specularPower = 1;//depthSpec.z;
@@ -60,6 +60,8 @@ float4 ps(float4 position 		: POSITION,
 	float4 positionScreen = float4(screenPositionHom.xy, depth, 1.0f);
 	float4 positionWorldRaw = mul(ViewProjInv, positionScreen);
 	float4 positionWorld = positionWorldRaw / positionWorldRaw.w;
+
+	return float4(depth, depth, depth, 1.0f);
 
 	//------------------------------------------------------------
 	// spot light
@@ -123,7 +125,7 @@ float4 ps(float4 position 		: POSITION,
 		shadowLightContribution = ReduceLightBleeding(shadowLightContribution, 0.9f);
 	}
 
-	diffuseContribution *= shadowLightContribution;
+	//diffuseContribution *= shadowLightContribution;
 
-	return float4(diffuseContribution, specularContribution);
+	return float4(diffuseContribution, 0);
 } 

@@ -53,6 +53,12 @@ bool Vector4::operator != (const Vector4& other) const {
   return !(*this == other);
 }
 
+void Vector4::operator /= (float scalar) {
+  x /= scalar;
+  y /= scalar;
+  z /= scalar;
+  w /= scalar;
+}
 
 float Vector4::distance(const Vector4& other) const {
   return (*this - other).length();

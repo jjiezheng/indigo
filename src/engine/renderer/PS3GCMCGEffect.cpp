@@ -193,7 +193,6 @@ void PS3GCMCGEffect::setUniform(const Vector4& uniformData, const char* uniformN
   {
     CGparameter parameter = cellGcmCgGetNamedParameter(fragmentProgram_, uniformName);
     if (parameter) {
-      int a = 1;
       cell::Gcm::cellGcmSetFragmentProgramParameter(fragmentProgram_, parameter, uniformData.valuePtr(), fragmentProgramOffset_);
     }
   }

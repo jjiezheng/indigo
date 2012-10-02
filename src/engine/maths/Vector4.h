@@ -68,6 +68,8 @@ public:
   Vector4 operator - (const Vector4& other) const;
   
   Vector4 operator * (float scalar) const;
+
+  void operator /= (float scalar);
   
   bool operator == (const Vector4& other) const;
 

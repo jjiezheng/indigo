@@ -13,7 +13,7 @@ float unpackDepth(sampler2D depthSampler, float2 texCoord) {
 #ifdef GCM
 	float3 rgb = tex2D(depthSampler, texCoord).arg;
 	float3 colour = round(rgb * 255.0);
-	float depth = dot(colour, float3(65536.0, 256.0, 1.0));
+	float depth = dot(colour, float3(65535.0, 255.0, 1.0));
 	depth *= 1.0/16777215.0; 
 	return depth;
 #else

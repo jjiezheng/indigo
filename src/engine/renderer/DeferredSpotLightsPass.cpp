@@ -29,7 +29,7 @@ void DeferredSpotLightsPass::init(const CSize& screenSize) {
 
   gaussianBlur_.init(screenSize, 16);
 
-  spotLightRenderTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R32G32B32A32);
+  spotLightRenderTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R8G8B8A8);
   spotLightRenderTarget_ = GraphicsInterface::createRenderTarget(spotLightRenderTexture_);
 
   shadowMapDepthTexture_ = GraphicsInterface::createDepthTexture(screenSize);
@@ -146,7 +146,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
     }
 
     // accumulate into lightmap
-    {
+    /*{
       GraphicsInterface::beginPerformanceEvent("Accumulation", Color4::BLUE);
 
       GraphicsInterface::setRenderTarget(lightMapRenderTarget, false);
@@ -157,7 +157,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
       GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);
 
       GraphicsInterface::endPerformanceEvent();
-    }
+    }*/
 
     GraphicsInterface::endPerformanceEvent();
   }

@@ -91,7 +91,6 @@ void PS3GCMGraphicsInterface::openWindow(int width, int height, unsigned int mul
 
   cellGcmSetFlipMode(CELL_GCM_DISPLAY_HSYNC);
 
-  // get config
   CellGcmConfig config;
   cellGcmGetConfiguration(&config);
   local_mem_heap = (uint32_t)config.localAddress;
@@ -107,11 +106,6 @@ void PS3GCMGraphicsInterface::openWindow(int width, int height, unsigned int mul
   for (int i = 0; i < BUFFER_COUNT; i++) {
     CELL_GCMUTIL_CHECK_ASSERT(cellGcmSetDisplayBuffer(i, colorOffset[i], colorPitch,  resolution.width,  resolution.height));
   }
-
-  /*void *depthBaseAddr = localMemoryAlign(64, depthSize);
-  void *depthAddr = depthBaseAddr;
-  CELL_GCMUTIL_CHECK_ASSERT(cellGcmAddressToOffset(depthAddr, &depthOffset));*/
-
  
   {
     CellGcmTexture depthTexture;
@@ -164,29 +158,8 @@ void PS3GCMGraphicsInterface::endPerformanceEvent() {
 
 }
 
-/* wait until flip */
-static void waitFlip(void) {
-  /*while (cellGcmGetFlipStatus()!=0){
-    sys_timer_usleep(300);
-  }*/
-  cellGcmResetFlipStatus();
-}
-
 void PS3GCMGraphicsInterface::swapBuffers() {  
-
-//   while (*((volatile uint32_t *)mLabel) != mLabelValue) {
-//     sys_timer_usleep(10);
-//   }
-
-  //sys_timer_usleep(10);
-
-  static int first=1;
-
-  // wait until the previous flip executed
-  //if (first!=1) waitFlip();
-  //else cellGcmResetFlipStatus();
-
-  //cellGcmResetFlipStatus();
+  static int first = 1;
 
   if (cell::Gcm::cellGcmSetFlip(bufferFrameIndex_) != CELL_OK) {
    // return; 
@@ -194,10 +167,7 @@ void PS3GCMGraphicsInterface::swapBuffers() {
 
   bufferFrameIndex_ = (bufferFrameIndex_+1)%BUFFER_COUNT;
 
-  //cellGcmSetWriteBackEndLabel(sLabelId, mLabelValue);
-
   cell::Gcm::cellGcmFlush();
-  //cell::Gcm::cellGcmSetWaitFlip();
 }
 
 unsigned int PS3GCMGraphicsInterface::createVertexBuffer(VertexDef* vertexData, int numVertices) {
@@ -480,7 +450,7 @@ void PS3GCMGraphicsInterface::setTexture(unsigned int textureUnit, unsigned int 
   cell::Gcm::cellGcmSetTexture(textureUnit, &texture);
   cell::Gcm::cellGcmSetTextureControl(textureUnit, CELL_GCM_TRUE, 1*0xff, 1*0xff, CELL_GCM_TEXTURE_MAX_ANISO_1);
 
-  /*cell::Gcm::cellGcmSetTextureAddress(textureUnit,
+   /*cell::Gcm::cellGcmSetTextureAddress(textureUnit,
     CELL_GCM_TEXTURE_CLAMP,
     CELL_GCM_TEXTURE_CLAMP,
     CELL_GCM_TEXTURE_CLAMP,
@@ -488,8 +458,8 @@ void PS3GCMGraphicsInterface::setTexture(unsigned int textureUnit, unsigned int 
     CELL_GCM_TEXTURE_ZFUNC_LESS, 0);
 
   cell::Gcm::cellGcmSetTextureFilter(textureUnit, 0,
-    CELL_GCM_TEXTURE_LINEAR,
-    CELL_GCM_TEXTURE_LINEAR, CELL_GCM_TEXTURE_CONVOLUTION_QUINCUNX);*/
+    CELL_GCM_TEXTURE_NEAREST,
+    CELL_GCM_TEXTURE_NEAREST, CELL_GCM_TEXTURE_CONVOLUTION_QUINCUNX);*/
 }
 
 void PS3GCMGraphicsInterface::clearDepthTarget(unsigned int textureId) {
@@ -497,7 +467,45 @@ void PS3GCMGraphicsInterface::clearDepthTarget(unsigned int textureId) {
 }
 
 unsigned int PS3GCMGraphicsInterface::createDepthTexture(const CSize& dimensions) {
-  return 0;
+
+  int zDepth = 4;
+  unsigned int depthPitch = zDepth * dimensions.width;
+  unsigned int depthSize =  depthPitch * dimensions.height;
+
+  CellGcmTexture depthTexture;
+  memset(&depthTexture, 0, sizeof(CellGcmTexture));
+
+  int gcmTextureFormat = 0;
+
+  depthTexture.format = CELL_GCM_TEXTURE_A8R8G8B8 | CELL_GCM_TEXTURE_LN | CELL_GCM_TEXTURE_NR;
+  depthTexture.mipmap = 1;
+  depthTexture.dimension = CELL_GCM_TEXTURE_DIMENSION_2;
+  depthTexture.cubemap = CELL_GCM_FALSE;
+
+  depthTexture.pitch = depthPitch;
+
+  depthTexture.remap = 0;
+
+  depthTexture.width = dimensions.width;
+  depthTexture.height = dimensions.height;
+  depthTexture.depth = 1;
+  depthTexture.location = CELL_GCM_LOCATION_LOCAL;
+
+  depthTexture.remap =
+    CELL_GCM_TEXTURE_REMAP_REMAP << 14 |
+    CELL_GCM_TEXTURE_REMAP_REMAP << 12 |
+    CELL_GCM_TEXTURE_REMAP_REMAP << 10 |
+    CELL_GCM_TEXTURE_REMAP_REMAP << 8  |
+    CELL_GCM_TEXTURE_REMAP_FROM_B << 6 |
+    CELL_GCM_TEXTURE_REMAP_FROM_G << 4 |
+    CELL_GCM_TEXTURE_REMAP_FROM_R << 2 |
+    CELL_GCM_TEXTURE_REMAP_FROM_A;
+
+  void* depthAddr = localMemoryAlign(64, depthSize);
+  CELL_GCMUTIL_CHECK_ASSERT(cellGcmAddressToOffset(depthAddr, &depthTexture.offset));
+
+  unsigned int textureId = textures_.size();
+  textures_.push_back(depthTexture);
+
+  return textureId;
 }
-
-
