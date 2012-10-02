@@ -40,7 +40,7 @@ float4 ps(float4 position 		: POSITION,
 	float3 normalViewSpace = mul(NormalMatrix, normalData.xyz);
 	float3 normal = normalize(normalViewSpace);
 
-	float2 depth = tex2D(DepthMap, texCoord).xy;
+	float depth = unpackDepth(DepthMap, texCoord);
 
 	float4 positionScreen = float4(0, 0, 0, 1);
 	positionScreen.xy = texCoord.xy * 2.0f - 1.0f;
@@ -72,9 +72,9 @@ float4 ps(float4 position 		: POSITION,
 		float2 sampleTexCoord = (sampleScreen.xy * 0.5f) + 0.5f;
 		sampleTexCoord.y = 1.0f - sampleTexCoord.y;
 
-		float sampleDepth = tex2D(DepthMap, sampleTexCoord).y;
+		float sampleDepth = unpackDepth(DepthMap, sampleTexCoord);
 
-		float rangeCheck = abs(depth.y - sampleDepth) < Radius * 0.001 ? 1.0 : 0.0;
+		float rangeCheck = abs(depth - sampleDepth) < Radius * 0.001 ? 1.0 : 0.0;
 		occlusionContribution += (sampleDepth <= sampleAtViewPositionZ ? 1.0 : 0.0) * rangeCheck;
 	}
 

@@ -16,7 +16,7 @@
 #version 110
 
 struct VOutput {
-    vec2 _texCoord2;
+    vec2 _texCoord3;
 };
 
 vec4 _ret_0;

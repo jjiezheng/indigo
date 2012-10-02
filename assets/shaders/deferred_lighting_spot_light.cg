@@ -48,7 +48,7 @@ float4 ps(float4 position 		: POSITION,
 	float3 normal = normalize(normalData.xyz);
 	float diffusePower = normalData.w * 255; // 0-1 -> 0-255
 
-	float depth = tex2D(DepthMap, texCoord).r;
+	float depth = unpackDepth(DepthMap, texCoord);
 
 	if (depth == 1.0f) {
 		return float4(0, 0, 0, 0);
