@@ -106,7 +106,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
       unsigned int depthBufferId = GraphicsInterface::depthBufferTexture();
       lightEffect_->setTexture(depthBufferId, "DepthMap");
 
-      lightEffect_->setTexture((*light)->shadowMapTexture(), "ShadowMap");
+      lightEffect_->setTexture(shadowMapDepthTexture_, "ShadowMap");
 
       lightEffect_->setUniform((*light)->castsShadows(), "ShadowsEnabled");
 
@@ -146,7 +146,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
     }
 
     // accumulate into lightmap
-    /*{
+    {
       GraphicsInterface::beginPerformanceEvent("Accumulation", Color4::BLUE);
 
       GraphicsInterface::setRenderTarget(lightMapRenderTarget, false);
@@ -157,7 +157,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
       GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);
 
       GraphicsInterface::endPerformanceEvent();
-    }*/
+    }
 
     GraphicsInterface::endPerformanceEvent();
   }

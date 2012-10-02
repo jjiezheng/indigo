@@ -165,31 +165,5 @@ void Camera::setPerspective(float fov, float aspectRatio, float nearDistance, fl
 	aspectRatio_ = aspectRatio;
 	nearDistance_ = nearDistance;
   farDistance_ = farDistance;
-	projection_ = Matrix4x4::perspective(fov, aspectRatio, nearDistance, farDistance);
-
-  D3DXMATRIX perspective;
-  D3DXMatrixPerspectiveFovRH(&perspective, toRadians(fov), aspectRatio, nearDistance, farDistance);
-
-  D3DXVECTOR4 nearrr(0, 0, -nearDistance, 1.0f);
-  D3DXVECTOR4 farrr(0, 0, -farDistance, 1.0f);
-
-  D3DXVECTOR4 resultNear(0, 0, 0, 1);
-  D3DXVec4Transform(&resultNear, &nearrr, &perspective);
-  D3DXVECTOR4 ndcNear = D3DXVECTOR4(resultNear.x / resultNear.w, resultNear.y/ resultNear.w, resultNear.z / resultNear.w, resultNear.w / resultNear.w);
-
-  D3DXVECTOR4 resultFar(0, 0, 0, 1);
-  D3DXVec4Transform(&resultFar, &farrr, &perspective);
-  D3DXVECTOR4 ndcFar = D3DXVECTOR4(resultFar.x / resultFar.w, resultFar.y/ resultFar.w, resultFar.z / resultFar.w, resultFar.w / resultFar.w);
-
-  int a = 1;
-
-  Vector4 nearr(0, 0, -nearDistance, 1);
-  Vector4 resulta = projection_ * nearr;
-  resulta /= resulta.w;
-  int b = 1;
-
-  Vector4 farr(0, 0, -farDistance, 1);
-  Vector4 resultb = projection_ * farr;
-  resultb /= resultb.w;
-  int c = 1;
+	projection_ = Matrix4x4::perspective(fov, aspectRatio, nearDistance_, farDistance_);
 }

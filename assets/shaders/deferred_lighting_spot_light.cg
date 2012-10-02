@@ -34,6 +34,11 @@ VOutput vs(float4 position : POSITION) {
     return OUT;
 }
 
+float2 texOffset( int u, int v )
+{
+	return float2(u * 1.0f/1024, v * 1.0f/768 );
+}
+
 float4 ps(float4 position 		: POSITION,
 		  float4 screenPosition : TEXCOORD0) : COLOR0 {
 
@@ -60,8 +65,6 @@ float4 ps(float4 position 		: POSITION,
 	float4 positionScreen = float4(screenPositionHom.xy, depth, 1.0f);
 	float4 positionWorldRaw = mul(ViewProjInv, positionScreen);
 	float4 positionWorld = positionWorldRaw / positionWorldRaw.w;
-
-	return float4(depth, depth, depth, 1.0f);
 
 	//------------------------------------------------------------
 	// spot light
@@ -116,16 +119,22 @@ float4 ps(float4 position 		: POSITION,
 	float2 shadowCoord = (pixelPositionFromLight.xy * 0.5f) + 0.5f;
 	shadowCoord.y = 1.0f - shadowCoord.y;
 
-	float2 moments = tex2D(ShadowMap, shadowCoord).xy;
+	float lightDepth = unpackDepth(ShadowMap, shadowCoord).x;
 
-	float shadowLightContribution = 1.0f;
+	if (lightDepth + 0.0005f < pixelPositionFromLight.z) {
+		float sum = 0.0f;
+		for (float y = -1.5f; y <= 1.5f; y += 1.0f)
+		{
+			for (float x = -1.5f; x <= 1.5f; x += 1.0f)
+			{
+				sum += tex2D(ShadowMap, shadowCoord + texOffset(x,y)).x;
+			}
+		}
 
-	if (moments.x < pixelPositionFromLight.z && shadowCoord.x > 0.0f && shadowCoord.x < 1.0f) {
-		shadowLightContribution = ChebyshevUpperBound(moments.xy, pixelPositionFromLight.z, 0.0000005f);
-		shadowLightContribution = ReduceLightBleeding(shadowLightContribution, 0.9f);
+		float shadowFactor = sum / 16.0f;
+
+		diffuseContribution *= shadowFactor - 0.1;
 	}
-
-	//diffuseContribution *= shadowLightContribution;
 
 	return float4(diffuseContribution, 0);
 } 

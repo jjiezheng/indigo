@@ -44,25 +44,20 @@ Matrix4x4 Matrix4x4::scale(const Vector4& v) {
   return Matrix4x4(Matrix3x3::scale(v.vec3()));
 }
 
+float cot(float i) { return(1.0f / tan(i)); }
+
 Matrix4x4 Matrix4x4::perspective(float fovDegrees, float aspect, float zNear, float zFar) {
-  float range = tan(toRadians(fovDegrees) / float(2)) * zNear;	
-  float left = -range * aspect;
-  float right = range * aspect;
-  float bottom = -range;
-  float top = range;
-
-  float x = (2.0f * zNear) / (right - left);
-  float y = (2.0f * zNear) / (top - bottom);
-  float z = -(zFar + zNear) / (zFar - zNear);
-
-  float persp = -(2.0f * zFar * zNear) / (zFar - zNear);
-  float flip = -1.0f;
+  float fovY = toRadians(fovDegrees);
+  float yScale = cot(fovY/2);
+  float xScale = yScale / aspect;
+  float zn = zNear;
+  float zf = zFar;
 
   Matrix4x4 resultb = Matrix4x4(
-    x,      0.0f,   0.0f,   0.0f,
-    0.0f,   y,      0.0f,   0.0f,
-    0.0f,   0.0f,   z,      persp,
-    0.0f,   0.0f,   flip,  0.0f);
+  xScale,     0,          0,              0,
+    0,        yScale,       0,              0,
+    0,        0,       zf/(zn-zf),        -1,
+    0,        0,        zn*zf/(zn-zf),      0);
 
   return resultb;
 }

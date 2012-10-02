@@ -15,6 +15,5 @@ VOutput vs(float4 position : POSITION) {
 
 float4 ps(float4 position		: POSITION,
 		  float2 depth 			: TEXCOORD0) : COLOR0 {
-	float depthHom = depth.x / depth.y;
-	return float4(depthHom, depthHom * depthHom, 0.0f, 1.0f);
+	return float4(depth.x, depth.x, depth.x, 1.0f);
 }
