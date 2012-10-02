@@ -48,7 +48,9 @@ public:
 
   void setRenderTarget(unsigned int* textureId, unsigned int renderTargetCount, bool useDepthBuffer);
 
-  void resetRenderTarget();
+  void setRenderTarget(unsigned int* textureId, unsigned int renderTargetCount, bool useDepthBuffer, unsigned int depthTextureId);
+
+  void resetRenderTarget(bool useDepthBuffer);
 
   unsigned int createRenderTarget(unsigned int textureId);
 
@@ -56,7 +58,11 @@ public:
 
 public:
 
-   unsigned int depthBufferTexture() const;
+  unsigned int createDepthTexture(const CSize& dimensions);
+
+  void clearDepthTarget(unsigned int textureId);
+
+  unsigned int depthBufferTexture() const;
 
 public:
 

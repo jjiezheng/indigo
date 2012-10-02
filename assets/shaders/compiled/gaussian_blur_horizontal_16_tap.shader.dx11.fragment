@@ -1,6 +1,6 @@
 // ps_4_0 output by Cg compiler
 // cgc version 3.1.0013, build date Apr 18 2012
-// command line args: -q -profile ps_5_0 -nofastmath
+// command line args: -q -profile ps_5_0
 // source file: gaussian_blur_horizontal_16_tap.cg
 //vendor NVIDIA Corporation
 //version 3.1.0.13

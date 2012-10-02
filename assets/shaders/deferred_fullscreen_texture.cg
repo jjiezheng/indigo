@@ -18,7 +18,7 @@ VOutput vs(float4 position 		: POSITION,
 
 float4 ps(float4 position : POSITION,
 		  float2 texCoord : TEXCOORD0) : COLOR0 {
-	float depth = unpackDepth(DepthMap, texCoord).r;
+	float depth = unpackDepth(DepthMap, texCoord);
 
 	if (depth >= 1.0f) {
 		discard;
