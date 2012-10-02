@@ -68,9 +68,13 @@ public:
 
   static void setRenderTarget(unsigned int renderTargetId, bool useDepthBuffer);
 
+  static void setRenderTarget(unsigned int renderTargetId, bool useDepthBuffer, unsigned int depthTextureId);
+
   static void setRenderTarget(unsigned int* renderTargetId, unsigned int renderTargetCount, bool useDepthBuffer);
 
-  static void resetRenderTarget();
+  static void setRenderTarget(unsigned int* renderTargetId, unsigned int renderTargetCount, bool useDepthBuffer, unsigned int depthTextureId);
+
+  static void resetRenderTarget(bool useDepthBuffer);
 
   static unsigned int createRenderTarget(unsigned int textureId);
 
@@ -91,6 +95,10 @@ public:
   static void generateMipMaps(unsigned int textureId);
 
 public:
+
+  static void clearDepthTarget(unsigned int textureId);
+
+  static unsigned int createDepthTexture(const CSize& dimensions);
 
   static unsigned int depthBufferTexture();
 

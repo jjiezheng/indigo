@@ -18,7 +18,6 @@
 //semantic Far
 //semantic Near
 //var float3 DiffuseColor :  : _DiffuseColor : -1 : 1
-//var float DiffusePower :  : _DiffusePower : -1 : 1
 //var float SpecularPower :  : _SpecularPower : -1 : 1
 //var float SpecularIntensity :  : _SpecularIntensity : -1 : 1
 //var float Far :  : _Far : -1 : 1
@@ -46,7 +45,6 @@ struct POutput {
 
 vec4 _unPackedNormal0014;
 uniform vec3 _DiffuseColor;
-uniform float _DiffusePower;
 uniform float _SpecularPower;
 uniform float _SpecularIntensity;
 uniform float _Far;
@@ -61,7 +59,7 @@ void main()
     float _depthLinear;
 
     _OUT._color = vec4(_DiffuseColor.x, _DiffuseColor.y, _DiffuseColor.z, 1.00000000E+000);
-    _unPackedNormal0014 = vec4(gl_TexCoord[0].x, gl_TexCoord[0].y, gl_TexCoord[0].z, _DiffusePower);
+    _unPackedNormal0014 = vec4(gl_TexCoord[0].x, gl_TexCoord[0].y, gl_TexCoord[0].z, 9.99999978E-003);
     _OUT._normal3 = 5.00000000E-001 + _unPackedNormal0014*5.00000000E-001;
     _depthNDC = gl_TexCoord[1].x/gl_TexCoord[1].y;
     _depthLinear = (-gl_TexCoord[1].z - _Near)/(_Far - _Near);

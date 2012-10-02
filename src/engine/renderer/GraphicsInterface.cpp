@@ -89,12 +89,20 @@ unsigned int GraphicsInterface::createTexture(const CSize& dimensions, IGraphics
   return graphicsInterface_->createTexture(dimensions, textureFormat, multisamples, mipLevels, textureData, textureLineSize);
 }
 
-void GraphicsInterface::setRenderTarget(unsigned int renderTargetId, bool useDepthBuffer) {
-  return graphicsInterface_->setRenderTarget(&renderTargetId, 1, useDepthBuffer);
+void GraphicsInterface::setRenderTarget(unsigned int renderTargetId, bool useDepthBuffer) { 
+  return graphicsInterface_->setRenderTarget(&renderTargetId, 1, useDepthBuffer, GraphicsInterface::depthBufferTexture());
+}
+
+void GraphicsInterface::setRenderTarget(unsigned int renderTargetId, bool useDepthBuffer, unsigned int depthTextureId) {
+  return graphicsInterface_->setRenderTarget(&renderTargetId, 1, useDepthBuffer, depthTextureId);
 }
 
 void GraphicsInterface::setRenderTarget(unsigned int* renderTargetId, unsigned int renderTargetCount, bool useDepthBuffer) {
-  return graphicsInterface_->setRenderTarget(renderTargetId, renderTargetCount, useDepthBuffer);
+  return graphicsInterface_->setRenderTarget(renderTargetId, renderTargetCount, useDepthBuffer, GraphicsInterface::depthBufferTexture());
+}
+
+void GraphicsInterface::setRenderTarget(unsigned int* renderTargetId, unsigned int renderTargetCount, bool useDepthBuffer, unsigned int depthTextureId) {
+  return graphicsInterface_->setRenderTarget(renderTargetId, renderTargetCount, useDepthBuffer, depthTextureId);
 }
 
 unsigned int GraphicsInterface::createRenderTarget(unsigned int textureId) {
@@ -105,8 +113,8 @@ void GraphicsInterface::clearRenderTarget(unsigned int renderTargetId, const Col
   graphicsInterface_->clearRenderTarget(renderTargetId, color);
 }
 
-void GraphicsInterface::resetRenderTarget() {
-  graphicsInterface_->resetRenderTarget();
+void GraphicsInterface::resetRenderTarget(bool useDepthBuffer) {
+  graphicsInterface_->resetRenderTarget(useDepthBuffer);
 }
 
 void GraphicsInterface::generateMipMaps(unsigned int textureId) {
@@ -131,4 +139,12 @@ void GraphicsInterface::endPerformanceEvent() {
 
 unsigned int GraphicsInterface::depthBufferTexture() {
   return graphicsInterface_->depthBufferTexture();
+}
+
+unsigned int GraphicsInterface::createDepthTexture(const CSize& dimensions) {
+  return graphicsInterface_->createDepthTexture(dimensions);
+}
+
+void GraphicsInterface::clearDepthTarget(unsigned int textureId) {
+  graphicsInterface_->clearDepthTarget(textureId);
 }

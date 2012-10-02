@@ -48,17 +48,16 @@ float4 ps(float4 position 		: POSITION,
 	float3 normal = normalize(normalData.xyz);
 	float diffusePower = normalData.w * 255; // 0-1 -> 0-255
 
-	float4 depthSpec = tex2D(DepthMap, texCoord);
+	float depth = tex2D(DepthMap, texCoord).r;
 
-	if (depthSpec.r == 1.0f) {
+	if (depth == 1.0f) {
 		return float4(0, 0, 0, 0);
 	}
 
-	float depth = depthSpec.x;
-	float specularPower = depthSpec.z;
-	float specularIntensity = depthSpec.w;
+	float specularPower = 1;//depthSpec.z;
+	float specularIntensity = 1;//depthSpec.w;
 
-	float4 positionScreen = float4(screenPositionHom.xy, depthSpec.x, 1.0f);
+	float4 positionScreen = float4(screenPositionHom.xy, depth, 1.0f);
 	float4 positionWorldRaw = mul(ViewProjInv, positionScreen);
 	float4 positionWorld = positionWorldRaw / positionWorldRaw.w;
 
@@ -115,7 +114,7 @@ float4 ps(float4 position 		: POSITION,
 	float2 shadowCoord = (pixelPositionFromLight.xy * 0.5f) + 0.5f;
 	shadowCoord.y = 1.0f - shadowCoord.y;
 
-	float3 moments = tex2D(ShadowMap, shadowCoord).xyz;
+	float2 moments = tex2D(ShadowMap, shadowCoord).xy;
 
 	float shadowLightContribution = 1.0f;
 

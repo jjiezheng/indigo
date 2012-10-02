@@ -20,7 +20,8 @@ public:
   enum TextureFormat {
     R8G8B8A8,
     R16G16B16A16,
-    R32G32B32A32
+    R32G32B32A32,
+    R16G16
   };
 
 public:
@@ -81,15 +82,19 @@ public:
 
 public:
 
-  virtual void setRenderTarget(unsigned int* textureId, unsigned int renderTargetCount, bool useDepthBuffer) = 0;
+  virtual void setRenderTarget(unsigned int* textureId, unsigned int renderTargetCount, bool useDepthBuffer, unsigned int depthTextureId) = 0;
 
-  virtual void resetRenderTarget() = 0;
+  virtual void resetRenderTarget(bool useDepthBuffer) = 0;
 
   virtual unsigned int createRenderTarget(unsigned int textureId) = 0;
 
   virtual void clearRenderTarget(unsigned int renderTargetId, const Color4& color) = 0;
 
 public:
+
+  virtual unsigned int createDepthTexture(const CSize& dimensions) = 0;
+
+  virtual void clearDepthTarget(unsigned int textureId) = 0;
 
   virtual unsigned int depthBufferTexture() const = 0;
   

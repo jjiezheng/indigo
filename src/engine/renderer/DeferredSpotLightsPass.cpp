@@ -29,8 +29,10 @@ void DeferredSpotLightsPass::init(const CSize& screenSize) {
 
   gaussianBlur_.init(screenSize, 16);
 
-  spotLightRenderTexture_ = GraphicsInterface::createTexture(screenSize);
+  spotLightRenderTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R32G32B32A32);
   spotLightRenderTarget_ = GraphicsInterface::createRenderTarget(spotLightRenderTexture_);
+
+  shadowMapDepthTexture_ = GraphicsInterface::createDepthTexture(screenSize);
 
   accumulationEffect_ = IEffect::effectFromFile("shaders/compiled/deferred_light_composition.shader");
   quadVbo_ = Geometry::screenPlane();
@@ -65,8 +67,9 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
       {
         GraphicsInterface::beginPerformanceEvent("Depth", Color4::GREY);
 
-        GraphicsInterface::setRenderTarget((*light)->shadowMapRenderTarget(), true);
+        GraphicsInterface::setRenderTarget((*light)->shadowMapRenderTarget(), true, shadowMapDepthTexture_);
         GraphicsInterface::clearRenderTarget((*light)->shadowMapRenderTarget(), Color4::WHITE);
+        GraphicsInterface::clearDepthTarget(shadowMapDepthTexture_);
 
         hash_map<int, std::vector<Mesh*> >::iterator i = meshes.begin();
         for (; i != meshes.end(); ++i) {

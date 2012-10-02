@@ -36,7 +36,7 @@ void DeferredDirectionalLightsPass::render(IViewer* viewer, World& world, const 
 
     std::vector<DirectionalLight> directionalLights = sceneContext.directionalLights();
     for (std::vector<DirectionalLight>::iterator light = directionalLights.begin(); light != directionalLights.end(); ++light) {
-      directionalLightEffect_->setTexture(initStage.depthMap(), "DepthMap");
+      directionalLightEffect_->setTexture(GraphicsInterface::depthBufferTexture(), "DepthMap");
       directionalLightEffect_->setTexture(initStage.normalMap(), "NormalMap");
       
       directionalLightEffect_->setUniform(viewer->viewTransform(), "View");

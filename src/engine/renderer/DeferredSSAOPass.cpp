@@ -91,7 +91,7 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
     ssaoEffect_->setUniform(viewer->farDistance(), "Far");
 
     ssaoEffect_->setTexture(initStage.normalMap(), "NormalMap");
-    ssaoEffect_->setTexture(initStage.depthMap(), "DepthMap");
+    ssaoEffect_->setTexture(GraphicsInterface::depthBufferTexture(), "DepthMap");
     ssaoEffect_->setTexture(noiseTexture_, "NoiseMap");
 
     ssaoEffect_->setUniform(0.2f, "Radius");

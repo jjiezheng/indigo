@@ -22,6 +22,7 @@ public:
     , deviceConnection_(0)
     , backBuffer_(0)
     , depthBuffer_(0)
+    , depthBufferTexture_(0)
     , multiSamples_(0) { }
 
 public:
@@ -60,11 +61,13 @@ public:
 
   void fillTexture(unsigned int textureId, void* data, unsigned int dataSize);
 
+  unsigned int copyTexture(unsigned int textureId);
+
 public:
 
-  void setRenderTarget(unsigned int* renderTargetId, unsigned int renderTargetCount, bool useDepthBuffer);
+  void setRenderTarget(unsigned int* renderTargetId, unsigned int renderTargetCount, bool useDepthBuffer, unsigned int depthTextureId);
 
-  void resetRenderTarget();
+  void resetRenderTarget(bool useDepthBuffer);
 
   unsigned int createRenderTarget(unsigned int textureId);
 
@@ -73,6 +76,14 @@ public:
 public:
 
   void setTexture(unsigned int slotIndex, ID3D11SamplerState* samplerState, unsigned int textureId);
+
+public:
+
+  unsigned int createDepthTexture(const CSize& dimensions);
+
+  void clearDepthTarget(unsigned int textureId);
+
+  unsigned int depthBufferTexture() const;
 
 private:
 
@@ -86,8 +97,7 @@ private:
   ID3D11Device *device_;
   ID3D11DeviceContext *deviceConnection_;
   ID3D11RenderTargetView* backBuffer_;
-  ID3D11DepthStencilView* depthBuffer_;
-
+  
 private:
 
   std::vector<ID3D11Buffer*> vertexBuffers_;
@@ -95,6 +105,15 @@ private:
   std::vector<ID3D11RenderTargetView*> renderTargets_;
   unsigned int multiSamples_;
 
+private:
+
+  ID3D11DepthStencilView* depthBuffer_;
+  unsigned int depthBufferTexture_;
+
 };
+
+inline unsigned int Direct3D11GraphicsInterface::depthBufferTexture() const {
+  return depthBufferTexture_;
+}
 
 #endif

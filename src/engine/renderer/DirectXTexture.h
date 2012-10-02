@@ -10,6 +10,7 @@ public:
   ID3D11Resource* textureData;
   ID3D11ShaderResourceView* resourceView;
   unsigned int mipLevels;
+  ID3D11DepthStencilView* depthStencilView;
 
 };
 

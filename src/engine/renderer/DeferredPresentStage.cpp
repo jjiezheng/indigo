@@ -16,8 +16,7 @@ void DeferredPresentStage::init(const CSize& screenSize) {
 void DeferredPresentStage::render(unsigned int presentTextureId, unsigned int depthTextureId) {
   GraphicsInterface::beginPerformanceEvent("Present", Color4::GREEN);
 
-  GraphicsInterface::resetRenderTarget();
-  GraphicsInterface::clearBuffer(Color4::CORNFLOWERBLUE);
+  GraphicsInterface::resetRenderTarget(false);
 
   effect_->setTexture(presentTextureId, "ColorMap");
   effect_->setTexture(depthTextureId, "DepthMap");
