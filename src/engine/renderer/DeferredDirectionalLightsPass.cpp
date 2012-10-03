@@ -61,12 +61,14 @@ void DeferredDirectionalLightsPass::render(IViewer* viewer, World& world, const 
   {
     GraphicsInterface::beginPerformanceEvent("Accumulation", Color4::ORANGE);
 
+    GraphicsInterface::setBlendState(IGraphicsInterface::ADDITIVE);
     GraphicsInterface::setRenderTarget(lightMapRenderTarget, false);
     accumulationEffect_->setTexture(directionalLightRenderTexture_, "LightSourceMap");
     accumulationEffect_->setTexture(initStage.colorMap(), "ColorMap");
     accumulationEffect_->beginDraw();
     GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);
     accumulationEffect_->endDraw();
+    GraphicsInterface::setBlendState(IGraphicsInterface::NOBLEND);
 
     GraphicsInterface::endPerformanceEvent();
   }

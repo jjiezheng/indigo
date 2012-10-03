@@ -17,8 +17,8 @@ void DeferredLightingRenderStage::init(const CSize& screenSize) {
     IDeferredLightingPass* skyboxPass = new DeferredSkyBoxPass();
     passes_.push_back(skyboxPass);
 
-    //IDeferredLightingPass* directionalLightingPass = new DeferredDirectionalLightsPass();
-    //passes_.push_back(directionalLightingPass);
+    IDeferredLightingPass* directionalLightingPass = new DeferredDirectionalLightsPass();
+    passes_.push_back(directionalLightingPass);
 
     /*IDeferredPass* pointLightingPass = new DeferredPointLightsPass();
     passes_.push_back(pointLightingPass);*/
