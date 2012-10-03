@@ -106,6 +106,10 @@ public:
 
 public:
 
+  static void setBlendState(IGraphicsInterface::BlendState blendState);
+
+public:
+
   static IGraphicsInterface* rawInterface();
 
 public:

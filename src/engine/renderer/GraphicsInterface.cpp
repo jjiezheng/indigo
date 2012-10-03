@@ -152,3 +152,7 @@ void GraphicsInterface::clearDepthTarget(unsigned int textureId) {
 void GraphicsInterface::setViewport(const CSize& dimensions) {
   graphicsInterface_->setViewport(dimensions);
 }
+
+void GraphicsInterface::setBlendState(IGraphicsInterface::BlendState blendState) {
+  graphicsInterface_->setBlendState(blendState);
+}

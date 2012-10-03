@@ -87,6 +87,10 @@ public:
 
   unsigned int depthBufferTexture() const;
 
+public:
+
+  void setBlendState(IGraphicsInterface::BlendState blendState);
+
 private:
 
   void createGraphicsContext(HWND hWnd, int width, int height, unsigned int multiSamples);
@@ -106,6 +110,10 @@ private:
   std::vector<DirectXTexture> textures_;
   std::vector<ID3D11RenderTargetView*> renderTargets_;
   unsigned int multiSamples_;
+
+private:
+
+  std::vector<ID3D11BlendState*> blendStates_;
 
 private:
 

@@ -56,6 +56,50 @@ void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, in
     device_->CreateRenderTargetView(backBufferTexture, NULL, &backBuffer_);
     backBufferTexture->Release();
   }
+  {
+    D3D11_BLEND_DESC noBlendDesc;
+    ZeroMemory(&noBlendDesc, sizeof(D3D11_BLEND_DESC));
+
+    noBlendDesc.RenderTarget[0].BlendEnable = false;
+
+    noBlendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+    noBlendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;
+    noBlendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_ZERO;
+
+    noBlendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+    noBlendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+    noBlendDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+
+    noBlendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+    ID3D11BlendState* noBlendState;
+    HRESULT result = device_->CreateBlendState(&noBlendDesc, &noBlendState);
+    assert(SUCCEEDED(result));
+
+    blendStates_.push_back(noBlendState);
+  }
+  {
+    D3D11_BLEND_DESC additiveBlendDesc;
+    ZeroMemory(&additiveBlendDesc, sizeof(D3D11_BLEND_DESC));
+
+    additiveBlendDesc.RenderTarget[0].BlendEnable = true;
+    
+    additiveBlendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+    additiveBlendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;
+    additiveBlendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;
+    
+    additiveBlendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+    additiveBlendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+    additiveBlendDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+    additiveBlendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+
+    ID3D11BlendState* additiveBlendState;
+    HRESULT result = device_->CreateBlendState(&additiveBlendDesc, &additiveBlendState);
+    assert(SUCCEEDED(result));
+
+    blendStates_.push_back(additiveBlendState);
+  }
 
   // depth buffer
   {
@@ -493,3 +537,8 @@ void Direct3D11GraphicsInterface::clearDepthTarget(unsigned int textureId) {
   deviceConnection_->ClearDepthStencilView(texture.depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 }
 
+void Direct3D11GraphicsInterface::setBlendState(IGraphicsInterface::BlendState blendState) {
+  assert((unsigned int)blendState < blendStates_.size());
+  ID3D11BlendState* blendStateData = blendStates_[blendState];
+  deviceConnection_->OMSetBlendState(blendStateData, 0, 0xffffffff);
+}

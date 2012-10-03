@@ -23,6 +23,11 @@ public:
     R16G16
   };
 
+  enum BlendState {
+    NOBLEND,
+    ADDITIVE
+  };
+
 public:
 
   virtual ~IGraphicsInterface() { };
@@ -98,6 +103,10 @@ public:
   virtual void clearDepthTarget(unsigned int textureId) = 0;
 
   virtual unsigned int depthBufferTexture() const = 0;
+
+public:
+
+  virtual void setBlendState(IGraphicsInterface::BlendState blendState) = 0;
   
 protected:
 
