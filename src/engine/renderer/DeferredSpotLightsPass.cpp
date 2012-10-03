@@ -24,9 +24,6 @@ void DeferredSpotLightsPass::init(const CSize& screenSize) {
   shadowMapEffect_ = IEffect::effectFromFile("shaders/compiled/deferred_depth.shader");
   lightEffect_ = IEffect::effectFromFile("shaders/compiled/deferred_lighting_spot_light.shader");
 
-  std::string coneModelPath = Path::pathForFile("debug/cone.modelbinary");
-  spotLightModel_ = BinaryModelDeserializer::deserialize(coneModelPath);
-
   gaussianBlur_.init(screenSize, 16);
 
   spotLightRenderTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R16G16B16A16);
@@ -140,10 +137,10 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
       lightEffect_->setUniform((*light)->outerAngle() / 2.0f, "LightOuterAngle");
       lightEffect_->setUniform((*light)->decay(), "LightDecay");
 
+      GraphicsInterface::setRenderState(true);
       lightEffect_->beginDraw();
-      GraphicsInterface::setRenderState(false);
-      spotLightModel_->render();
-
+      GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);
+      lightEffect_->endDraw();
       GraphicsInterface::endPerformanceEvent();
     }
 

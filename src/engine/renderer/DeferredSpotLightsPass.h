@@ -16,7 +16,6 @@ public:
     : spotLightRenderTarget_(0)
     , spotLightRenderTexture_(0)
     , quadVbo_(0)
-    , spotLightModel_(0)
     , lightEffect_(0)
     , shadowMapEffect_(0)
     , accumulationEffect_(0) { }
@@ -35,8 +34,6 @@ private:
   unsigned int quadVbo_;
 
   GaussianBlur gaussianBlur_;
-
-  Model* spotLightModel_;
 
   IEffect* lightEffect_;
   IEffect* shadowMapEffect_;

@@ -29,7 +29,7 @@ struct VOutput {
 
 VOutput vs(float4 position : POSITION) {
     VOutput OUT;
-    OUT.position = mul(WorldViewProj, position);
+    OUT.position = position;// mul(WorldViewProj, position);
     OUT.screenPosition = OUT.position;
     return OUT;
 }
@@ -54,8 +54,6 @@ float4 ps(float4 position 		: POSITION,
 	float diffusePower = normalData.w * 255; // 0-1 -> 0-255
 
 	float depth = unpackDepth(DepthMap, texCoord);
-
-	return float4(depth, depth, depth, 1.0f);
 
 	if (depth == 1.0f) {
 		//return float4(0, 0, 0, 0);

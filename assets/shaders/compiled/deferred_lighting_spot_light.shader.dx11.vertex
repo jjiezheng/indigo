@@ -22,7 +22,6 @@
 //semantic LightViewProj
 //semantic WorldViewProj
 //semantic NormalMatrix
-//var float4x4 WorldViewProj :  : _WorldViewProj[0], 4 : -1 : 1
 //var float4 position : $vin.POSITION : POSITION : 0 : 1
 //var float4 vs.position : $vout.POSITION :  : -1 : 1
 //var float4 vs.screenPosition : $vout.TEXCOORD0 :  : -1 : 1
@@ -39,9 +38,7 @@ struct X1X {
     float4 _TEXCOORD0 : TEXCOORD0;
 };
 
-static float4 _r0001;
 static X1X cout;
-uniform float4x4 _WorldViewProj;
 
  // main procedure, the original name was vs
 X1X main(in float4 _position : POSITION)
@@ -49,12 +46,8 @@ X1X main(in float4 _position : POSITION)
 
     VOutput _OUT;
 
-    _r0001.x = dot(_WorldViewProj._11_12_13_14, _position);
-    _r0001.y = dot(_WorldViewProj._21_22_23_24, _position);
-    _r0001.z = dot(_WorldViewProj._31_32_33_34, _position);
-    _r0001.w = dot(_WorldViewProj._41_42_43_44, _position);
-    _OUT._position1 = _r0001;
-    _OUT._screenPosition = _r0001;
+    _OUT._position1 = _position;
+    _OUT._screenPosition = _position;
     cout._POSITION = _OUT._position1;
     cout._TEXCOORD0 = _OUT._screenPosition;
     return cout;

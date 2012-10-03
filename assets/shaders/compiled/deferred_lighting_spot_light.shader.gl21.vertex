@@ -22,7 +22,6 @@
 //semantic LightViewProj
 //semantic WorldViewProj
 //semantic NormalMatrix
-//var float4x4 WorldViewProj :  : _WorldViewProj[0], 4 : -1 : 1
 //var float4 position : $vin.POSITION : ATTR0 : 0 : 1
 //var float4 vs.position : $vout.POSITION : HPOS : -1 : 1
 //var float4 vs.screenPosition : $vout.TEXCOORD0 : TEX0 : -1 : 1
@@ -34,19 +33,13 @@ struct VOutput {
     vec4 _screenPosition;
 };
 
-vec4 _r0017;
-uniform vec4 _WorldViewProj[4];
 
  // main procedure, the original name was vs
 void main()
 {
 
 
-    _r0017.x = dot(_WorldViewProj[0], gl_Vertex);
-    _r0017.y = dot(_WorldViewProj[1], gl_Vertex);
-    _r0017.z = dot(_WorldViewProj[2], gl_Vertex);
-    _r0017.w = dot(_WorldViewProj[3], gl_Vertex);
-    gl_TexCoord[0] = _r0017;
-    gl_Position = _r0017;
+    gl_TexCoord[0] = gl_Vertex;
+    gl_Position = gl_Vertex;
     return;
 } // main end
