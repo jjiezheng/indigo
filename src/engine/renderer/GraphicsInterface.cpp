@@ -58,7 +58,7 @@ IEffect* GraphicsInterface::createEffect() {
 }
 
 void GraphicsInterface::clearBuffer(const Color4& clearColor) {
-  graphicsInterface_->clearBuffer(clearColor);
+  graphicsInterface_->clearActiveRenderTargets(clearColor);
 }
 
 unsigned int GraphicsInterface::loadTexture(const char* filePath) {

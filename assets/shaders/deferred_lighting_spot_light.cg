@@ -34,9 +34,9 @@ VOutput vs(float4 position : POSITION) {
     return OUT;
 }
 
-float2 texOffset( int u, int v )
+float2 texOffset(int u, int v)
 {
-	return float2(u * 1.0f/1024, v * 1.0f/768 );
+	return float2(u * 1.0f/1024, v * 1.0f/1024 );
 }
 
 float4 ps(float4 position 		: POSITION,
@@ -54,6 +54,8 @@ float4 ps(float4 position 		: POSITION,
 	float diffusePower = normalData.w * 255; // 0-1 -> 0-255
 
 	float depth = unpackDepth(DepthMap, texCoord);
+
+	return float4(depth, depth, depth, 1.0f);
 
 	if (depth == 1.0f) {
 		//return float4(0, 0, 0, 0);
@@ -122,47 +124,8 @@ float4 ps(float4 position 		: POSITION,
 	float lightDepth = unpackDepth(ShadowMap, shadowCoord).x;
 
 	if (lightDepth + 0.0005f < pixelPositionFromLight.z) {
-		float sum = 0.0f;
-		for (float y = -1.5f; y <= 1.5f; y += 1.0f)
-		{
-			for (float x = -1.5f; x <= 1.5f; x += 1.0f)
-			{
-				sum += tex2D(ShadowMap, shadowCoord + texOffset(x,y)).x;
-			}
-		}
-
-		float shadowFactor = sum / 16.0f;
-
-		diffuseContribution *= shadowFactor - 0.1;
+		diffuseContribution = 0;
 	}
-
-	/*
-	//------------------------------------------------------------
-	float4 pixelPositionFromLightRaw = mul(LightViewProj, positionWorld);
-	float3 pixelPositionFromLight = pixelPositionFromLightRaw.xyz / pixelPositionFromLightRaw.w;
-
-	float4 shadowCoord;
-	shadowCoord.x = (pixelPositionFromLight.x * 0.5f) + 0.5f;
-	shadowCoord.y = (pixelPositionFromLight.y * 0.5f) + 0.5f;
-	shadowCoord.y = 1.0f - shadowCoord.y;
-	shadowCoord.z = pixelPositionFromLight.z;
-	shadowCoord.w = pixelPositionFromLightRaw.w;
-
-	//float lightDepth = unpackDepth(ShadowMap, shadowCoord).x;
-
-	//if (lightDepth + 0.0005f < pixelPositionFromLight.z) {
-		float sum = 0;
-		float x, y;
-
-		for (y = -1.5; y <= 1.5; y += 1.0)
-		  for (x = -1.5; x <= 1.5; x += 1.0)
-		    sum += offset_lookup(ShadowMap, shadowCoord, float2(x, y)).x;
-
-		float shadowFactor = sum / 16.0f;
-
-		diffuseContribution *= shadowFactor;// - 0.5;
-	//}
-	*/
 
 	return float4(diffuseContribution, 0);
 } 

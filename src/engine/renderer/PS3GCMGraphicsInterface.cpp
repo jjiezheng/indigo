@@ -144,6 +144,23 @@ void PS3GCMGraphicsInterface::openWindow(int width, int height, unsigned int mul
     textures_.push_back(depthTexture);
     depthBufferTexture_ = textureId;
   }
+
+  setViewport(screenSize_);
+}
+
+void PS3GCMGraphicsInterface::setViewport(const CSize& dimensions) {
+  uint16_t x, y, w,h;
+  float min = 0.0f, max = 1.0f;
+
+  x = y = 0;
+  w = dimensions.width;
+  h = dimensions.height;
+
+  float scale[4] = {w * 0.5f, h * -0.5f, (max - min) * 0.5f, 0.0f};
+  float offset[4] = {x + scale[0], h - y + scale[1], (max + min) * 0.5f, 0.0f};
+
+  cell::Gcm::cellGcmSetViewport(x, y, w, h, min, max, scale, offset); 
+  cell::Gcm::cellGcmSetScissor(x, y, w, h) ;
 }
 
 void PS3GCMGraphicsInterface::destroy() {
@@ -182,33 +199,15 @@ unsigned int PS3GCMGraphicsInterface::createVertexBuffer(VertexDef* vertexData, 
   return bufferId;
 }
 
-void PS3GCMGraphicsInterface::clearBuffer(const Color4& color) {
+void PS3GCMGraphicsInterface::clearActiveRenderTargets(const Color4& color) {
   unsigned int argb = ((char)color.a * 255) << 24 | ((char)color.r * 255) << 16 | ((char)color.g * 255) << 8 | ((char)color.b * 255) << 0;
-  cell::Gcm::cellGcmSetClearColor(0xffffff0000);
-
+  cell::Gcm::cellGcmSetClearColor(0x000000);
   cell::Gcm::cellGcmSetClearSurface(CELL_GCM_CLEAR_R | CELL_GCM_CLEAR_G | CELL_GCM_CLEAR_B | CELL_GCM_CLEAR_A);
 }
 
 void PS3GCMGraphicsInterface::resetGraphicsState(bool cullBack) {
-  {
-    cell::Gcm::cellGcmSetCullFaceEnable(cullBack);
-    cell::Gcm::cellGcmSetFrontFace(CELL_GCM_CCW);
-  }
-
-  {
-    uint16_t x, y, w,h;
-    float min = 0.0f, max = 1.0f;
-
-    x = y = 0;
-    w = screenSize_.width;
-    h = screenSize_.height;
-
-    float scale[4] = {w * 0.5f, h * -0.5f, (max - min) * 0.5f, 0.0f};
-    float offset[4] = {x + scale[0], h - y + scale[1], (max + min) * 0.5f, 0.0f};
-
-    cell::Gcm::cellGcmSetViewport(x, y, w, h, min, max, scale, offset); 
-    cell::Gcm::cellGcmSetScissor(x, y, w, h) ;
-  }
+  cell::Gcm::cellGcmSetCullFaceEnable(cullBack);
+  cell::Gcm::cellGcmSetFrontFace(CELL_GCM_CCW);
 }
 
 unsigned int PS3GCMGraphicsInterface::loadTexture(const std::string& filePath) {

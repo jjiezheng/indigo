@@ -63,7 +63,7 @@ public:
 
   virtual void drawVertexBuffer(int vertexBuffer, int vertexCount, VertexFormat vertexFormat) = 0;
 
-  virtual void clearBuffer(const Color4& color) = 0;
+  virtual void clearActiveRenderTargets(const Color4& color) = 0;
 
 public:
 

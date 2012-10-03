@@ -195,10 +195,20 @@ IEffect* Direct3D11GraphicsInterface::createEffect() {
   return new D3DEffect();
 }
 
-void Direct3D11GraphicsInterface::clearBuffer(const Color4& color) {
+void Direct3D11GraphicsInterface::clearActiveRenderTargets(const Color4& color) {
   D3DXCOLOR clearColor(color.r, color.g, color.b, color.a);
-  deviceConnection_->ClearRenderTargetView(backBuffer_, clearColor);
-  deviceConnection_->ClearDepthStencilView(depthBuffer_, D3D11_CLEAR_DEPTH, 1.0f, 0);
+
+  ID3D11RenderTargetView* renderTargetViews[4];
+  unsigned int renderTargetCount = 4;
+  deviceConnection_->OMGetRenderTargets(renderTargetCount, &renderTargetViews[0], 0);
+
+  for (unsigned int i = 0; i < renderTargetCount; i++) {
+    ID3D11RenderTargetView* renderTargetView = renderTargetViews[i];
+    
+    if (renderTargetView) {
+      deviceConnection_->ClearRenderTargetView(renderTargetView, clearColor);
+    }
+  }
 }
 
 unsigned int Direct3D11GraphicsInterface::loadTexture(const std::string& filePath) {

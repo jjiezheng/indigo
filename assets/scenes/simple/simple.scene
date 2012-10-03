@@ -15,7 +15,7 @@
             }
         },
         {
-            "model": "actors/cathedral/cathedral.modelbinary",
+            "model": "actors/floor/floor.modelbinary",
             "position": {
                 "x": 0,
                 "y": 0,
@@ -25,59 +25,17 @@
     ],
     "lights": [
         {
-            "type": "directional",
-            "direction": {
-                "x": -1,
-                "y": -1,
-                "z": -1
-            },
-            "color": {
-                "r": 1.0,
-                "g": 1.0,
-                "b": 1.0
-            }
-        },
-        {
           "type" : "spot",
-          "innerangle" : 40,
-          "outerangle" : 90,
+          "innerangle" : 10,
+          "outerangle" : 20,
           "decay" : 0.2,
-          "length" : 205,
+          "length" : 30,
           "intensity" : 1.0,
           "castsshadows" : true,
           "position" : {
-            "x" : 8,
-            "y" : 25,
-            "z" : 0
-          },
-          "orientation" : {
-            "x" : 0,
-            "y" : 0,
-            "z" : 0
-          },
-          "color" : {
-            "r" : 0.1,
-            "g" : 0.1,
-            "b" : 0.1
-          },
-          "direction" : {
-            "x" : 0.0,
-            "y" : -1.0,
-            "z" : 0.0
-          }
-        },
-        {
-          "type" : "spot",
-          "innerangle" : 40,
-          "outerangle" : 90,
-          "decay" : 0.2,
-          "length" : 20.5,
-          "intensity" : 1.0,
-          "castsshadows" : true,
-          "position" : {
-            "x" : -30,
+            "x" : 20,
             "y" : 20,
-            "z" : 0
+            "z" : 20
           },
           "orientation" : {
             "x" : 0,
@@ -90,9 +48,9 @@
             "b" : 1.1
           },
           "direction" : {
-            "x" : 1.0,
+            "x" : -1.0,
             "y" : -1.0,
-            "z" : 0.0
+            "z" : -1.0
           }
         }
     ]

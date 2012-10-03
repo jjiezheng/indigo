@@ -18,6 +18,8 @@ public:
 
   void openWindow(int width, int height, unsigned int multiSamples);
 
+  void setViewport(const CSize& dimensions);
+
   void destroy();
 
 public:
@@ -32,7 +34,7 @@ public:
 
   void drawVertexBuffer(int vertexBuffer, int vertexCount, VertexFormat vertexFormat);
 
-  void clearBuffer(const Color4& color);
+  void clearActiveRenderTargets(const Color4& color);
 
   IEffect* createEffect();
 

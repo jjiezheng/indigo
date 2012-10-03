@@ -17,6 +17,8 @@ void DeferredPresentStage::render(unsigned int presentTextureId, unsigned int de
   GraphicsInterface::beginPerformanceEvent("Present", Color4::GREEN);
 
   GraphicsInterface::resetRenderTarget(false);
+  GraphicsInterface::setViewport(GraphicsInterface::screenSize());
+  GraphicsInterface::clearBuffer(Color4::NOTHING);
 
   effect_->setTexture(presentTextureId, "ColorMap");
   effect_->setTexture(depthTextureId, "DepthMap");

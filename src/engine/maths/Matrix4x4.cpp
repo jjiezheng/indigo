@@ -44,23 +44,49 @@ Matrix4x4 Matrix4x4::scale(const Vector4& v) {
   return Matrix4x4(Matrix3x3::scale(v.vec3()));
 }
 
-float cot(float i) { return(1.0f / tan(i)); }
+#ifdef PLATFORM_WINDOWS
 
+// x: -1 to 1, y: -1 to 1, z: 0 to 1
+Matrix4x4 Matrix4x4::perspectivedx(float fovDegrees, float aspect, float zNear, float zFar) {
+  float fovY = toRadians(fovDegrees);
+
+  float f = 1.0f / tanf(0.5f * fovY);
+  float e = (zNear - zFar);
+
+  float a = zFar / e;
+  float b = (zFar * zNear) / e;
+
+  Matrix4x4 result = Matrix4x4(
+   f/aspect,  0,       0,       0,
+    0,        f,       0,       0,
+    0,        0,       a,      -1,
+    0,        0,       b,       0);
+
+  return result;
+}
+
+#else
+
+// x: -1 to 1, y: -1 to 1, z: -1 to 1
 Matrix4x4 Matrix4x4::perspective(float fovDegrees, float aspect, float zNear, float zFar) {
   float fovY = toRadians(fovDegrees);
-  float yScale = cot(fovY/2);
-  float xScale = yScale / aspect;
-  float zn = zNear;
-  float zf = zFar;
 
-  Matrix4x4 resultb = Matrix4x4(
-  xScale,     0,          0,              0,
-    0,        yScale,       0,              0,
-    0,        0,       zf/(zn-zf),        -1,
-    0,        0,        zn*zf/(zn-zf),      0);
+  float f = 1.0f / tanf(0.5f * fovY);
+  float e = (zNear - zFar);
+  
+  float a = (zFar + zNear) / e;
+  float b = (2.0f * zFar * zNear) / e;
 
-  return resultb;
+  Matrix4x4 result = Matrix4x4(
+    f/aspect, 0,       0,       0,
+    0,        f,       0,       0,
+    0,        0,       a,       b,
+    0,        0,       -1,      0);
+
+  return result;
 }
+
+#endif
 
 Matrix4x4 Matrix4x4::orthographic(float left, float right, float bottom, float top, float znear, float zfar) {
   float w = right / 2.0f;

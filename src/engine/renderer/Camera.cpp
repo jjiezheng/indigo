@@ -11,8 +11,6 @@
 #include "input/Keyboard.h"
 #include "input/Mouse.h"
 
-#include <D3DX10.h>
-
 Camera::Camera() 
   : forward_(Vector3::FORWARD)
   , right_(Vector3::RIGHT)
@@ -166,4 +164,26 @@ void Camera::setPerspective(float fov, float aspectRatio, float nearDistance, fl
 	nearDistance_ = nearDistance;
   farDistance_ = farDistance;
 	projection_ = Matrix4x4::perspective(fov, aspectRatio, nearDistance_, farDistance_);
+
+  /*Matrix4x4 dxProjection = Matrix4x4::perspectivedx(fov, aspectRatio, nearDistance, farDistance);
+  Vector4 dxNear(0, 0, -nearDistance, 1.0f);
+  dxNear = dxProjection * dxNear;
+  dxNear /= dxNear.w;
+
+
+  Matrix4x4 gcmProjection = Matrix4x4::perspective(fov, aspectRatio, nearDistance, farDistance);
+  Vector4 gcmNear(0, 0, -nearDistance, 1.0f);
+  gcmNear = gcmProjection * gcmNear;
+  gcmNear /= gcmNear.w;
+
+
+  Vector4 dxFar(0, 0, -farDistance, 1.0f);
+  dxFar = dxProjection * dxFar;
+  dxFar /= dxFar.w;
+
+  Vector4 gcmFar(0, 0, -farDistance, 1.0f);
+  gcmFar = gcmProjection * gcmFar;
+  gcmFar /= gcmFar.w;
+
+  int a = 1;*/
 }

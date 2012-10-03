@@ -43,7 +43,7 @@ public:
 
   IEffect* createEffect();
 
-  void clearBuffer(const Color4& color);
+  void clearActiveRenderTargets(const Color4& color);
 
   void resetGraphicsState(bool cullBack);
 
