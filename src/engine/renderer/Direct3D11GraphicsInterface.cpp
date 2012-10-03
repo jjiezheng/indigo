@@ -116,21 +116,23 @@ void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, in
 
   deviceConnection_->OMSetRenderTargets(1, &backBuffer_, depthBuffer_);
 
-  // viewport
-  {
-    D3D11_VIEWPORT viewport;
-    ZeroMemory(&viewport, sizeof(D3D11_VIEWPORT));
-
-    viewport.Width = (float)width;
-    viewport.Height = (float)height;
-    viewport.MinDepth = 0.0f;
-    viewport.MaxDepth = 1.0f;
-
-    deviceConnection_->RSSetViewports(1, &viewport);
-  }
+  setViewport(CSize(width, height));
 
   D3DEffect::setDevice(device_, deviceConnection_);
 }
+
+void Direct3D11GraphicsInterface::setViewport(const CSize& dimensions) {
+  D3D11_VIEWPORT viewport;
+  ZeroMemory(&viewport, sizeof(D3D11_VIEWPORT));
+
+  viewport.Width = (float)dimensions.width;
+  viewport.Height = (float)dimensions.height;
+  viewport.MinDepth = 0.0f;
+  viewport.MaxDepth = 1.0f;
+
+  deviceConnection_->RSSetViewports(1, &viewport);
+}
+
 
 void Direct3D11GraphicsInterface::destroy() {
   device_->Release();
@@ -374,8 +376,7 @@ void Direct3D11GraphicsInterface::clearRenderTarget(unsigned int renderTargetId,
 
   D3DXCOLOR clearColor(color.r, color.g, color.b, color.a);
   ID3D11RenderTargetView* renderTarget = renderTargets_[renderTargetId];
-  deviceConnection_->ClearRenderTargetView(renderTarget, clearColor);
-  //deviceConnection_->ClearDepthStencilView(depthBuffer_, D3D11_CLEAR_DEPTH, 1.0f, 0);
+  deviceConnection_->ClearRenderTargetView(renderTarget, clearColor);\
 }
 
 
@@ -481,3 +482,4 @@ void Direct3D11GraphicsInterface::clearDepthTarget(unsigned int textureId) {
   DirectXTexture texture = textures_[textureId];
   deviceConnection_->ClearDepthStencilView(texture.depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 }
+

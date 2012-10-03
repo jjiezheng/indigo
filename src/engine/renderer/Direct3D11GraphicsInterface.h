@@ -31,6 +31,8 @@ public:
 
   void destroy();
 
+  void setViewport(const CSize& dimensions);
+
 public:
 
   void swapBuffers();

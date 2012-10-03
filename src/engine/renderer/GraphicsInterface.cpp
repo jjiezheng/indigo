@@ -148,3 +148,7 @@ unsigned int GraphicsInterface::createDepthTexture(const CSize& dimensions) {
 void GraphicsInterface::clearDepthTarget(unsigned int textureId) {
   graphicsInterface_->clearDepthTarget(textureId);
 }
+
+void GraphicsInterface::setViewport(const CSize& dimensions) {
+  graphicsInterface_->setViewport(dimensions);
+}

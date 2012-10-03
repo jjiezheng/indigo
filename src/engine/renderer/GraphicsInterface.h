@@ -46,6 +46,8 @@ public:
 
   static bool windowClosed();
 
+  static void setViewport(const CSize& dimensions);
+
 public:
 
   static IEffect* createEffect();

@@ -4,14 +4,13 @@
 #include <string>
 
 #include "GraphicsAPIType.h"
-#include "core/Size.h"
 #include "VertexFormat.h"
+#include "core/Size.h"
 
 class IEffect;
 class Color4;
 class VertexDef;
 class DDSImage;
-class CSize;
 
 class IGraphicsInterface {
 
@@ -47,6 +46,8 @@ public:
 public:
 
   virtual void openWindow(int width, int height, unsigned int multiSamples) = 0;
+
+  virtual void setViewport(const CSize& dimensions) = 0;
 
 public:
 

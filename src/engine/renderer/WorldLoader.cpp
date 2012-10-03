@@ -270,8 +270,14 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
 
         if (castsShadows) {
           light->setCastsShadows(castsShadows);
+
+          CSize shadowMapSize = CSize(4096, 4096);
+          light->setShadowMapResolution(shadowMapSize);
+
+          unsigned int shadowMapDepthTexture = GraphicsInterface::createDepthTexture(shadowMapSize);
+          light->setShadowMapDepthTexture(shadowMapDepthTexture);
           
-          unsigned int shadowMapTexture = GraphicsInterface::createTexture(GraphicsInterface::screenSize(), IGraphicsInterface::R8G8B8A8, 1, 1);
+          unsigned int shadowMapTexture = GraphicsInterface::createTexture(shadowMapSize, IGraphicsInterface::R8G8B8A8, 1, 1);
           light->setShadowMapTexture(shadowMapTexture);
 
           unsigned int shadowMapRendeTarget = GraphicsInterface::createRenderTarget(shadowMapTexture);

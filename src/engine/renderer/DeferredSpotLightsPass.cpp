@@ -32,8 +32,6 @@ void DeferredSpotLightsPass::init(const CSize& screenSize) {
   spotLightRenderTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R8G8B8A8);
   spotLightRenderTarget_ = GraphicsInterface::createRenderTarget(spotLightRenderTexture_);
 
-  shadowMapDepthTexture_ = GraphicsInterface::createDepthTexture(screenSize);
-
   accumulationEffect_ = IEffect::effectFromFile("shaders/compiled/deferred_light_composition.shader");
   quadVbo_ = Geometry::screenPlane();
 }
@@ -67,9 +65,10 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
       {
         GraphicsInterface::beginPerformanceEvent("Depth", Color4::GREY);
 
-        GraphicsInterface::setRenderTarget((*light)->shadowMapRenderTarget(), true, shadowMapDepthTexture_);
+        GraphicsInterface::setRenderTarget((*light)->shadowMapRenderTarget(), true, (*light)->shadowMapDepthTexture());
         GraphicsInterface::clearRenderTarget((*light)->shadowMapRenderTarget(), Color4::WHITE);
-        GraphicsInterface::clearDepthTarget(shadowMapDepthTexture_);
+        GraphicsInterface::clearDepthTarget((*light)->shadowMapDepthTexture());
+        GraphicsInterface::setViewport((*light)->shadowMapResolution());
 
         hash_map<int, std::vector<Mesh*> >::iterator i = meshes.begin();
         for (; i != meshes.end(); ++i) {
@@ -80,8 +79,11 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
             shadowMapEffect_->beginDraw();
             GraphicsInterface::setRenderState(true);
             (*meshIt)->render();
+            shadowMapEffect_->endDraw();
           }
         }
+
+        GraphicsInterface::setViewport(GraphicsInterface::screenSize());
 
         GraphicsInterface::endPerformanceEvent();
       }
@@ -106,7 +108,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
       unsigned int depthBufferId = GraphicsInterface::depthBufferTexture();
       lightEffect_->setTexture(depthBufferId, "DepthMap");
 
-      lightEffect_->setTexture(shadowMapDepthTexture_, "ShadowMap");
+      lightEffect_->setTexture((*light)->shadowMapDepthTexture(), "ShadowMap");
 
       lightEffect_->setUniform((*light)->castsShadows(), "ShadowsEnabled");
 
@@ -147,6 +149,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
 
     // accumulate into lightmap
     {
+  
       GraphicsInterface::beginPerformanceEvent("Accumulation", Color4::BLUE);
 
       GraphicsInterface::setRenderTarget(lightMapRenderTarget, false);

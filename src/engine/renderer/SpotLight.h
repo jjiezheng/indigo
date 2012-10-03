@@ -3,6 +3,7 @@
 
 #include "maths/Vector4.h"
 #include "maths/Matrix4x4.h"
+#include "core/Size.h"
 
 #include "Color3.h"
 
@@ -18,7 +19,8 @@ public:
     , decay_(0)
     , castsShadows_(0)
     , shadowMapRenderTarget_(0)
-    , shadowMapTexture_(0) { }
+    , shadowMapTexture_(0)
+    , shadowMapDepthTexture_(0) { }
 
 public:
 
@@ -96,6 +98,18 @@ public:
 
 public:
 
+  void setShadowMapDepthTexture(unsigned int shadowMapDepthTexture);
+
+  unsigned int shadowMapDepthTexture() const;
+
+public:
+
+  void setShadowMapResolution(const CSize& resolution);
+
+  CSize shadowMapResolution() const;
+
+public:
+
   Matrix4x4 transform() const;
 
 public:
@@ -116,9 +130,11 @@ private:
 
   bool castsShadows_;
 
+  CSize shadowMapResolution_;
+
   unsigned int shadowMapRenderTarget_;
   unsigned int shadowMapTexture_;
-
+  unsigned int shadowMapDepthTexture_;
 };
 
 inline void SpotLight::setDecay(float decay) {
@@ -185,12 +201,28 @@ inline void SpotLight::setShadowMapTexture(unsigned int shadowMapTexture) {
   shadowMapTexture_ = shadowMapTexture;
 }
 
+inline void SpotLight::setShadowMapDepthTexture(unsigned int shadowMapDepthTexture) {
+  shadowMapDepthTexture_ = shadowMapDepthTexture;
+}
+
+inline unsigned int SpotLight::shadowMapDepthTexture() const {
+  return shadowMapDepthTexture_;
+}
+
 inline unsigned int SpotLight::shadowMapTexture() const {
   return shadowMapTexture_;
 }
 
 inline unsigned int SpotLight::shadowMapRenderTarget() const {
   return shadowMapRenderTarget_;
+}
+
+inline void SpotLight::setShadowMapResolution(const CSize& resolution) {
+  shadowMapResolution_ = resolution;
+}
+
+inline CSize SpotLight::shadowMapResolution() const {
+  return shadowMapResolution_;
 }
 
 inline void SpotLight::setShadowMapRenderTarget(unsigned int shadowMapRenderTarget) {

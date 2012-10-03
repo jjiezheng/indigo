@@ -136,5 +136,33 @@ float4 ps(float4 position 		: POSITION,
 		diffuseContribution *= shadowFactor - 0.1;
 	}
 
+	/*
+	//------------------------------------------------------------
+	float4 pixelPositionFromLightRaw = mul(LightViewProj, positionWorld);
+	float3 pixelPositionFromLight = pixelPositionFromLightRaw.xyz / pixelPositionFromLightRaw.w;
+
+	float4 shadowCoord;
+	shadowCoord.x = (pixelPositionFromLight.x * 0.5f) + 0.5f;
+	shadowCoord.y = (pixelPositionFromLight.y * 0.5f) + 0.5f;
+	shadowCoord.y = 1.0f - shadowCoord.y;
+	shadowCoord.z = pixelPositionFromLight.z;
+	shadowCoord.w = pixelPositionFromLightRaw.w;
+
+	//float lightDepth = unpackDepth(ShadowMap, shadowCoord).x;
+
+	//if (lightDepth + 0.0005f < pixelPositionFromLight.z) {
+		float sum = 0;
+		float x, y;
+
+		for (y = -1.5; y <= 1.5; y += 1.0)
+		  for (x = -1.5; x <= 1.5; x += 1.0)
+		    sum += offset_lookup(ShadowMap, shadowCoord, float2(x, y)).x;
+
+		float shadowFactor = sum / 16.0f;
+
+		diffuseContribution *= shadowFactor;// - 0.5;
+	//}
+	*/
+
 	return float4(diffuseContribution, 0);
 } 

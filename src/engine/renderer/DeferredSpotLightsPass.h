@@ -32,8 +32,6 @@ private:
   unsigned int spotLightRenderTarget_;
   unsigned int spotLightRenderTexture_;
 
-  unsigned int shadowMapDepthTexture_;
-
   unsigned int quadVbo_;
 
   GaussianBlur gaussianBlur_;

@@ -15,7 +15,15 @@ public:
   
   int width;
   int height;
+
+public:
+
+  CSize operator * (int scalar) const;
   
 };
+
+inline CSize CSize::operator * (int scalar) const {
+  return CSize(width * scalar, height * scalar);
+}
 
 #endif
