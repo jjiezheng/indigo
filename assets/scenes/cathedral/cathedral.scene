@@ -7,14 +7,6 @@
     "terrain": [],
     "objects": [
         {
-            "model": "actors/cube/cube.modelbinary",
-            "position": {
-                "x": 0,
-                "y": 0,
-                "z": 0
-            }
-        },
-        {
             "model": "actors/cathedral/cathedral.modelbinary",
             "position": {
                 "x": 0,
@@ -44,7 +36,7 @@
           "decay" : 0.2,
           "length" : 205,
           "intensity" : 1.0,
-          "castsshadows" : true,
+          "castsshadows" : false,
           "position" : {
             "x" : 17,
             "y" : 23,
@@ -93,6 +85,64 @@
             "x" : 1.0,
             "y" : -1.0,
             "z" : 0.0
+          }
+        },
+        {
+          "type" : "spot",
+          "innerangle" : 80,
+          "outerangle" : 90,
+          "decay" : 0.2,
+          "length" : 20.5,
+          "intensity" : 1.0,
+          "castsshadows" : true,
+          "position" : {
+            "x" : -5,
+            "y" : 20,
+            "z" : -20
+          },
+          "orientation" : {
+            "x" : 0,
+            "y" : 0,
+            "z" : 0
+          },
+          "color" : {
+            "r" : 1.1,
+            "g" : 1.1,
+            "b" : 1.1
+          },
+          "direction" : {
+            "x" : 0.0,
+            "y" : -1.0,
+            "z" : 1.0
+          }
+        },
+        {
+          "type" : "spot",
+          "innerangle" : 80,
+          "outerangle" : 90,
+          "decay" : 0.2,
+          "length" : 20.5,
+          "intensity" : 1.0,
+          "castsshadows" : true,
+          "position" : {
+            "x" : -5,
+            "y" : 20,
+            "z" : 20
+          },
+          "orientation" : {
+            "x" : 0,
+            "y" : 0,
+            "z" : 0
+          },
+          "color" : {
+            "r" : 1.1,
+            "g" : 1.1,
+            "b" : 1.1
+          },
+          "direction" : {
+            "x" : 0.0,
+            "y" : -1.0,
+            "z" : -1.0
           }
         }
     ]

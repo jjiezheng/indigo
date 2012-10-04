@@ -78,6 +78,7 @@ void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, in
 
     blendStates_.push_back(noBlendState);
   }
+
   {
     D3D11_BLEND_DESC additiveBlendDesc;
     ZeroMemory(&additiveBlendDesc, sizeof(D3D11_BLEND_DESC));
@@ -298,6 +299,25 @@ void Direct3D11GraphicsInterface::setTexture(unsigned int slotIndex, ID3D11Sampl
 
   deviceConnection_->PSSetShaderResources(slotIndex, 1, &resourceView);
   deviceConnection_->PSSetSamplers(slotIndex, 1, &samplerState);
+
+  {
+    D3D11_SAMPLER_DESC samplerDesc;
+    ZeroMemory(&samplerDesc, sizeof(D3D11_SAMPLER_DESC));
+
+    samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+    samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+    samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+
+    samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+
+    ID3D11SamplerState* samplerState = 0;
+    HRESULT result = device_->CreateSamplerState(&samplerDesc, &samplerState);
+    assert(SUCCEEDED(result));
+
+    deviceConnection_->PSSetSamplers(0, 1, &samplerState);
+    deviceConnection_->PSSetSamplers(1, 1, &samplerState);
+    deviceConnection_->PSSetSamplers(2, 1, &samplerState);
+  }
 }
 
 void Direct3D11GraphicsInterface::resetGraphicsState(bool cullBack) {

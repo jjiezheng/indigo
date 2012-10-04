@@ -100,13 +100,21 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
 
       GraphicsInterface::setRenderTarget(spotLightRenderTarget_, false);
 
+      Matrix4x4 textureMatrix(
+        1.0f, 0.0f, 0.0f, 0.0f,
+        1.0f, -1.0f, 0.0f, 0.0f,
+        0.0f, 0.0f, 1.0f, 0.0f,
+        0.0f, 0.0f, 0.0f, 1.0f);
+      lightEffect_->setUniform(textureMatrix, "TextureMatrix");
+
       lightEffect_->setTexture(initStage.normalMap(), "NormalMap");
       
       unsigned int depthBufferId = GraphicsInterface::depthBufferTexture();
       lightEffect_->setTexture(depthBufferId, "DepthMap");
 
-      lightEffect_->setTexture((*light)->shadowMapDepthTexture(), "ShadowMap");
 
+      lightEffect_->setTexture((*light)->shadowMapDepthTexture(), "ShadowMap");
+      
       lightEffect_->setUniform((*light)->castsShadows(), "ShadowsEnabled");
 
       Matrix4x4 viewProjection = viewer->projection() * viewer->viewTransform();

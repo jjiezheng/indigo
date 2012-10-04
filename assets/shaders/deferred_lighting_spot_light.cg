@@ -22,6 +22,8 @@ uniform float4x4 LightViewProj;
 uniform float4x4 WorldViewProj;
 uniform float3x3 NormalMatrix;
 
+uniform int ShadowsEnabled;
+
 struct VOutput {
       float4 position 			: POSITION;
       float4 screenPosition 	: TEXCOORD0;
@@ -113,16 +115,19 @@ float4 ps(float4 position 		: POSITION,
 	//------------------------------------------------------------
 	// shadows
 	//------------------------------------------------------------
-	float4 pixelPositionFromLightRaw = mul(LightViewProj, positionWorld);
-	float3 pixelPositionFromLight = pixelPositionFromLightRaw.xyz / pixelPositionFromLightRaw.w;
 
-	float2 shadowCoord = (pixelPositionFromLight.xy * 0.5f) + 0.5f;
-	shadowCoord.y = 1.0f - shadowCoord.y;
+	if (ShadowsEnabled) {
+		float4 pixelPositionFromLightRaw = mul(LightViewProj, positionWorld);
+		float3 pixelPositionFromLight = pixelPositionFromLightRaw.xyz / pixelPositionFromLightRaw.w;
 
-	float lightDepth = unpackDepth(ShadowMap, shadowCoord).x;
+		float2 shadowCoord = (pixelPositionFromLight.xy * 0.5f) + 0.5f;
+		shadowCoord.y = 1.0f - shadowCoord.y;
 
-	if (lightDepth + 0.0005f < pixelPositionFromLight.z) {
-		diffuseContribution = 0;
+		float lightDepth = unpackDepth(ShadowMap, shadowCoord).x;
+
+		if (lightDepth + 0.0005f < pixelPositionFromLight.z) {
+			diffuseContribution = 0;
+		}
 	}
 
 	return float4(diffuseContribution, 0);

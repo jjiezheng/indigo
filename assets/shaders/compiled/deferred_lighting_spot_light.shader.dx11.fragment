@@ -22,6 +22,7 @@
 //semantic LightViewProj
 //semantic WorldViewProj
 //semantic NormalMatrix
+//semantic ShadowsEnabled
 //var sampler2D DepthMap : TEXUNIT0 : _DepthMap 0 : -1 : 1
 //var sampler2D NormalMap : TEXUNIT1 : _NormalMap 1 : -1 : 1
 //var sampler2D ShadowMap : TEXUNIT2 : _ShadowMap 2 : -1 : 1
@@ -32,6 +33,7 @@
 //var float LightOuterAngle :  : _LightOuterAngle : -1 : 1
 //var float4x4 ViewProjInv :  : _ViewProjInv[0], 4 : -1 : 1
 //var float4x4 LightViewProj :  : _LightViewProj[0], 4 : -1 : 1
+//var int ShadowsEnabled :  : _ShadowsEnabled : -1 : 1
 //var float4 screenPosition : $vin.TEXCOORD0 :  : 1 : 1
 //var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
 
@@ -83,6 +85,7 @@ uniform float _LightInnerAngle;
 uniform float _LightOuterAngle;
 uniform float4x4 _ViewProjInv;
 uniform float4x4 _LightViewProj;
+uniform int _ShadowsEnabled;
 
  // main procedure, the original name was ps
 float4 main( in X1X cin) : SV_Target0
@@ -102,8 +105,8 @@ float4 main( in X1X cin) : SV_Target0
     float _lightOuterCos;
     float _lightInnerCos;
     float3 _diffuseContribution;
-    float3 _pixelPositionFromLight;
-    float2 _shadowCoord;
+    float3 _pixelPositionFromLight1;
+    float2 _shadowCoord1;
 
     _screenPosition = cin._TEXCOORD0;
     _screenPositionHom = _screenPosition/_screenPosition.w;
@@ -161,16 +164,18 @@ float4 main( in X1X cin) : SV_Target0
         _diffuseStrength = max( 0.00000000000000000E000f, _TMP8);
     } // end if
     _diffuseContribution = (_LightColor*_diffusePower*_diffuseStrength)/_distance;
-    _r0050.x = dot(_LightViewProj._11_12_13_14, _positionWorld);
-    _r0050.y = dot(_LightViewProj._21_22_23_24, _positionWorld);
-    _r0050.z = dot(_LightViewProj._31_32_33_34, _positionWorld);
-    _r0050.w = dot(_LightViewProj._41_42_43_44, _positionWorld);
-    _pixelPositionFromLight = _r0050.xyz/_r0050.w;
-    _shadowCoord = _pixelPositionFromLight.xy* 5.00000000000000000E-001f +  5.00000000000000000E-001f;
-    _shadowCoord.y =  1.00000000000000000E000f - _shadowCoord.y;
-    _TMP14 = _TMP55.Sample(_ShadowMap, _shadowCoord);
-    if (_TMP14.x +  5.00000023748725650E-004f < _pixelPositionFromLight.z) { // if begin
-        _diffuseContribution = float3(  0.00000000000000000E000f,  0.00000000000000000E000f,  0.00000000000000000E000f);
+    if ((bool) _ShadowsEnabled) { // if begin
+        _r0050.x = dot(_LightViewProj._11_12_13_14, _positionWorld);
+        _r0050.y = dot(_LightViewProj._21_22_23_24, _positionWorld);
+        _r0050.z = dot(_LightViewProj._31_32_33_34, _positionWorld);
+        _r0050.w = dot(_LightViewProj._41_42_43_44, _positionWorld);
+        _pixelPositionFromLight1 = _r0050.xyz/_r0050.w;
+        _shadowCoord1 = _pixelPositionFromLight1.xy* 5.00000000000000000E-001f +  5.00000000000000000E-001f;
+        _shadowCoord1.y =  1.00000000000000000E000f - _shadowCoord1.y;
+        _TMP14 = _TMP55.Sample(_ShadowMap, _shadowCoord1);
+        if (_TMP14.x +  5.00000023748725650E-004f < _pixelPositionFromLight1.z) { // if begin
+            _diffuseContribution = float3(  0.00000000000000000E000f,  0.00000000000000000E000f,  0.00000000000000000E000f);
+        } // end if
     } // end if
     return float4(_diffuseContribution.x, _diffuseContribution.y, _diffuseContribution.z,  0.00000000000000000E000f);
 } // main end
