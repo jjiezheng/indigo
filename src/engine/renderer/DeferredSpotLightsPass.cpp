@@ -73,8 +73,8 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
           for (std::vector<Mesh*>::iterator meshIt = effectMeshes.begin(); meshIt != effectMeshes.end(); ++meshIt) {
             (*meshIt)->material().bind((*light)->projection(), (*light)->viewTransform(), (*meshIt)->localToWorld(), shadowMapEffect_);
            
-            shadowMapEffect_->beginDraw();
             GraphicsInterface::setRenderState(true);
+            shadowMapEffect_->beginDraw();
             (*meshIt)->render();
             shadowMapEffect_->endDraw();
           }
@@ -105,15 +105,13 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
         1.0f, -1.0f, 0.0f, 0.0f,
         0.0f, 0.0f, 1.0f, 0.0f,
         0.0f, 0.0f, 0.0f, 1.0f);
+
+
       lightEffect_->setUniform(textureMatrix, "TextureMatrix");
 
       lightEffect_->setTexture(initStage.normalMap(), "NormalMap");
       
-      unsigned int depthBufferId = GraphicsInterface::depthBufferTexture();
-      lightEffect_->setTexture(depthBufferId, "DepthMap");
-
-
-      lightEffect_->setTexture((*light)->shadowMapDepthTexture(), "ShadowMap");
+      
       
       lightEffect_->setUniform((*light)->castsShadows(), "ShadowsEnabled");
 
@@ -163,6 +161,12 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
       accumulationEffect_->setTexture(initStage.colorMap(), "ColorMap");
       GraphicsInterface::setRenderState(true);
       accumulationEffect_->beginDraw();
+
+
+
+      lightEffect_->setTexture(depthBufferId, "DepthMap");
+      lightEffect_->setTexture((*light)->shadowMapDepthTexture(), "ShadowMap");
+
       GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);
       accumulationEffect_->endDraw();
       GraphicsInterface::setBlendState(IGraphicsInterface::NOBLEND);

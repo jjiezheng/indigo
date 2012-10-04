@@ -508,3 +508,6 @@ unsigned int PS3GCMGraphicsInterface::createDepthTexture(const CSize& dimensions
 
   return textureId;
 }
+
+void PS3GCMGraphicsInterface::setBlendState(IGraphicsInterface::BlendState blendState) {
+}

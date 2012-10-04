@@ -19,7 +19,7 @@ void DeferredDirectionalLightsPass::init(const CSize& screenSize) {
   directionalLightEffect_ = IEffect::effectFromFile("shaders/compiled/deferred_lighting_directional_light.shader");
   quadVbo_ = Geometry::screenPlane();
 
-  directionalLightRenderTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R32G32B32A32);
+  directionalLightRenderTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R8G8B8A8);
   directionalLightRenderTarget_ = GraphicsInterface::createRenderTarget(directionalLightRenderTexture_);
 
   accumulationEffect_ = IEffect::effectFromFile("shaders/compiled/deferred_light_composition.shader");

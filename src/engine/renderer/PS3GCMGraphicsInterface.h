@@ -74,6 +74,8 @@ public:
 
   void setTexture(unsigned int textureUnit, unsigned int textureId);
 
+  void setBlendState(IGraphicsInterface::BlendState blendState);
+
 private:
 
   unsigned int bufferFrameIndex_;
