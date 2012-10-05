@@ -25,16 +25,14 @@
 //semantic ShadowsEnabled
 //var sampler2D DepthMap : TEXUNIT0 : _DepthMap 0 : -1 : 1
 //var sampler2D NormalMap : TEXUNIT1 : _NormalMap 1 : -1 : 1
-//var sampler2D ShadowMap : TEXUNIT2 : _ShadowMap 2 : -1 : 1
 //var float4 LightDirection :  : _LightDirection : -1 : 1
 //var float4 LightPosition :  : _LightPosition : -1 : 1
 //var float3 LightColor :  : _LightColor : -1 : 1
 //var float LightInnerAngle :  : _LightInnerAngle : -1 : 1
 //var float LightOuterAngle :  : _LightOuterAngle : -1 : 1
 //var float4x4 ViewProjInv :  : _ViewProjInv[0], 4 : -1 : 1
-//var float4x4 LightViewProj :  : _LightViewProj[0], 4 : -1 : 1
-//var int ShadowsEnabled :  : _ShadowsEnabled : -1 : 1
 //var float4 screenPosition : $vin.TEXCOORD0 :  : 1 : 1
+//var float4 textureCoordProj : $vin.TEXCOORD1 :  : 2 : 0
 //var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
 
 #pragma pack_matrix(row_major)
@@ -42,14 +40,15 @@
 struct VOutput {
     float4 _position1 : SV_Position;
     float4 _screenPosition1 : TEXCOORD0;
+    float4 _textureCoordProj1 : TEXCOORD1;
 };
 
 struct X1X {
     float4 _POSITION : SV_Position;
     float4 _TEXCOORD0 : TEXCOORD0;
+    float4 _TEXCOORD1 : TEXCOORD1;
 };
 
-static float4 _TMP14;
 static float _TMP13;
 static float _TMP12;
 static float _TMP8;
@@ -62,6 +61,7 @@ static float3 _TMP2;
 static float3 _TMP1;
 static float _TMP15;
 static float _TMP16;
+static float4 _TMP14;
 static float3 _TMP0;
 static float3 _TMP11;
 static float4 _unPackedNormal0024;
@@ -71,21 +71,16 @@ static float _TMP31;
 static float3 _v0036;
 static float3 _v0040;
 static float _y0044;
-static float4 _r0050;
-Texture2D<float4> _TMP53 : register(t1);
-Texture2D<float4> _TMP54 : register(t0);
-Texture2D<float4> _TMP55 : register(t2);
+Texture2D<float4> _TMP49 : register(t1);
+Texture2D<float4> _TMP50 : register(t0);
 SamplerState _DepthMap : TEXUNIT0;
 SamplerState _NormalMap : TEXUNIT1;
-SamplerState _ShadowMap : TEXUNIT2;
 uniform float4 _LightDirection;
 uniform float4 _LightPosition;
 uniform float3 _LightColor;
 uniform float _LightInnerAngle;
 uniform float _LightOuterAngle;
 uniform float4x4 _ViewProjInv;
-uniform float4x4 _LightViewProj;
-uniform int _ShadowsEnabled;
 
  // main procedure, the original name was ps
 float4 main( in X1X cin) : SV_Target0
@@ -105,20 +100,18 @@ float4 main( in X1X cin) : SV_Target0
     float _lightOuterCos;
     float _lightInnerCos;
     float3 _diffuseContribution;
-    float3 _pixelPositionFromLight1;
-    float2 _shadowCoord1;
 
     _screenPosition = cin._TEXCOORD0;
     _screenPositionHom = _screenPosition/_screenPosition.w;
     _TMP11 = float3(_screenPositionHom.x, -_screenPositionHom.y, _screenPositionHom.z);
     _TMP0 =  5.00000000000000000E-001f*(_TMP11 + float3(  1.00000000000000000E000f,  1.00000000000000000E000f,  0.00000000000000000E000f));
-    _normalData0024 = _TMP53.Sample(_NormalMap, _TMP0.xy);
+    _normalData0024 = _TMP49.Sample(_NormalMap, _TMP0.xy);
     _unPackedNormal0024 = _normalData0024* 2.00000000000000000E000f -  1.00000000000000000E000f;
     _TMP12 = dot(_unPackedNormal0024.xyz, _unPackedNormal0024.xyz);
     _TMP13 = rsqrt(_TMP12);
     _normal = _TMP13*_unPackedNormal0024.xyz;
     _diffusePower = _unPackedNormal0024.w* 2.55000000000000000E002f;
-    _TMP14 = _TMP54.Sample(_DepthMap, _TMP0.xy);
+    _TMP14 = _TMP50.Sample(_DepthMap, _TMP0.xy);
     _positionScreen = float4(_screenPositionHom.x, _screenPositionHom.y, _TMP14.x,  1.00000000000000000E000f);
     _r0030.x = dot(_ViewProjInv._11_12_13_14, _positionScreen);
     _r0030.y = dot(_ViewProjInv._21_22_23_24, _positionScreen);
@@ -164,18 +157,5 @@ float4 main( in X1X cin) : SV_Target0
         _diffuseStrength = max( 0.00000000000000000E000f, _TMP8);
     } // end if
     _diffuseContribution = (_LightColor*_diffusePower*_diffuseStrength)/_distance;
-    if ((bool) _ShadowsEnabled) { // if begin
-        _r0050.x = dot(_LightViewProj._11_12_13_14, _positionWorld);
-        _r0050.y = dot(_LightViewProj._21_22_23_24, _positionWorld);
-        _r0050.z = dot(_LightViewProj._31_32_33_34, _positionWorld);
-        _r0050.w = dot(_LightViewProj._41_42_43_44, _positionWorld);
-        _pixelPositionFromLight1 = _r0050.xyz/_r0050.w;
-        _shadowCoord1 = _pixelPositionFromLight1.xy* 5.00000000000000000E-001f +  5.00000000000000000E-001f;
-        _shadowCoord1.y =  1.00000000000000000E000f - _shadowCoord1.y;
-        _TMP14 = _TMP55.Sample(_ShadowMap, _shadowCoord1);
-        if (_TMP14.x +  5.00000023748725650E-004f < _pixelPositionFromLight1.z) { // if begin
-            _diffuseContribution = float3(  0.00000000000000000E000f,  0.00000000000000000E000f,  0.00000000000000000E000f);
-        } // end if
-    } // end if
     return float4(_diffuseContribution.x, _diffuseContribution.y, _diffuseContribution.z,  0.00000000000000000E000f);
 } // main end

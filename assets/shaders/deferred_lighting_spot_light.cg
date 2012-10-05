@@ -20,6 +20,7 @@ uniform float4x4 ViewProjInv;
 uniform float4x4 ProjInv;
 uniform float4x4 LightViewProj;
 uniform float4x4 WorldViewProj;
+
 uniform float3x3 NormalMatrix;
 
 uniform int ShadowsEnabled;
@@ -27,22 +28,20 @@ uniform int ShadowsEnabled;
 struct VOutput {
       float4 position 			: POSITION;
       float4 screenPosition 	: TEXCOORD0;
+      float4 textureCoordProj	: TEXCOORD1;
 };
 
 VOutput vs(float4 position : POSITION) {
     VOutput OUT;
     OUT.position = position;// mul(WorldViewProj, position);
     OUT.screenPosition = OUT.position;
+    OUT.textureCoordProj = mul(LightViewProj, position);
     return OUT;
 }
 
-float2 texOffset(int u, int v)
-{
-	return float2(u * 1.0f/1024, v * 1.0f/1024 );
-}
-
-float4 ps(float4 position 		: POSITION,
-		  float4 screenPosition : TEXCOORD0) : COLOR0 {
+float4 ps(float4 position 			: POSITION,
+		  float4 screenPosition 	: TEXCOORD0,
+		  float4 textureCoordProj	: TEXCOORD1) : COLOR0 {
 
 	float4 screenPositionHom = screenPosition / screenPosition.w;
 	float2 texCoord = contract(screenPositionHom.xyz).xy;
@@ -115,20 +114,18 @@ float4 ps(float4 position 		: POSITION,
 	//------------------------------------------------------------
 	// shadows
 	//------------------------------------------------------------
+/*
+	//if (ShadowsEnabled) {
+	    float4 projTexColor = float4(1, 1, 1, 1);
+	    //if (textureCoordProj.w > 0)
+	   // {
+	        projTexColor = tex2Dproj(ShadowMap, textureCoordProj);
 
-	if (ShadowsEnabled) {
-		float4 pixelPositionFromLightRaw = mul(LightViewProj, positionWorld);
-		float3 pixelPositionFromLight = pixelPositionFromLightRaw.xyz / pixelPositionFromLightRaw.w;
+	        return float4(projTexColor.rgb, 0);
+	    //}
 
-		float2 shadowCoord = (pixelPositionFromLight.xy * 0.5f) + 0.5f;
-		shadowCoord.y = 1.0f - shadowCoord.y;
-
-		float lightDepth = unpackDepth(ShadowMap, shadowCoord).x;
-
-		if (lightDepth + 0.0005f < pixelPositionFromLight.z) {
-			diffuseContribution = 0;
-		}
-	}
-
+	    diffuseContribution *= projTexColor.rgb;
+	//}
+*/
 	return float4(diffuseContribution, 0);
 } 

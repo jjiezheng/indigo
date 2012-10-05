@@ -23,24 +23,34 @@
 //semantic WorldViewProj
 //semantic NormalMatrix
 //semantic ShadowsEnabled
+//var float4x4 LightViewProj :  : _LightViewProj[0], 4 : -1 : 1
 //var float4 position : $vin.POSITION : ATTR0 : 0 : 1
 //var float4 vs.position : $vout.POSITION : HPOS : -1 : 1
 //var float4 vs.screenPosition : $vout.TEXCOORD0 : TEX0 : -1 : 1
+//var float4 vs.textureCoordProj : $vout.TEXCOORD1 : TEX1 : -1 : 1
 
 #version 110
 
 struct VOutput {
     vec4 _position2;
     vec4 _screenPosition;
+    vec4 _textureCoordProj;
 };
 
+vec4 _r0018;
+uniform vec4 _LightViewProj[4];
 
  // main procedure, the original name was vs
 void main()
 {
 
 
+    _r0018.x = dot(_LightViewProj[0], gl_Vertex);
+    _r0018.y = dot(_LightViewProj[1], gl_Vertex);
+    _r0018.z = dot(_LightViewProj[2], gl_Vertex);
+    _r0018.w = dot(_LightViewProj[3], gl_Vertex);
     gl_TexCoord[0] = gl_Vertex;
+    gl_TexCoord[1] = _r0018;
     gl_Position = gl_Vertex;
     return;
 } // main end

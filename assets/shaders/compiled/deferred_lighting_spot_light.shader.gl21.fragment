@@ -25,26 +25,24 @@
 //semantic ShadowsEnabled
 //var sampler2D DepthMap : TEXUNIT0 : _DepthMap 0 : -1 : 1
 //var sampler2D NormalMap : TEXUNIT1 : _NormalMap 1 : -1 : 1
-//var sampler2D ShadowMap : TEXUNIT2 : _ShadowMap 2 : -1 : 1
 //var float4 LightDirection :  : _LightDirection : -1 : 1
 //var float4 LightPosition :  : _LightPosition : -1 : 1
 //var float3 LightColor :  : _LightColor : -1 : 1
 //var float LightInnerAngle :  : _LightInnerAngle : -1 : 1
 //var float LightOuterAngle :  : _LightOuterAngle : -1 : 1
 //var float4x4 ViewProjInv :  : _ViewProjInv[0], 4 : -1 : 1
-//var float4x4 LightViewProj :  : _LightViewProj[0], 4 : -1 : 1
-//var int ShadowsEnabled :  : _ShadowsEnabled : -1 : 1
 //var float4 screenPosition : $vin.TEXCOORD0 : TEX0 : 1 : 1
+//var float4 textureCoordProj : $vin.TEXCOORD1 :  : 2 : 0
 //var float4 ps : $vout.COLOR0 : COL : -1 : 1
 
 #version 110
 
 struct VOutput {
     vec4 _screenPosition2;
+    vec4 _textureCoordProj2;
 };
 
 vec4 _ret_0;
-vec4 _TMP14;
 float _TMP15;
 float _TMP13;
 float _TMP12;
@@ -54,6 +52,7 @@ float _TMP5;
 float _TMP3;
 vec3 _TMP2;
 vec3 _TMP1;
+vec4 _TMP14;
 vec3 _TMP0;
 vec3 _TMP11;
 vec4 _normalData0040;
@@ -66,18 +65,14 @@ float _TMP99;
 float _x0110;
 float _TMP111;
 float _TMP127;
-vec4 _r0152;
 uniform sampler2D _DepthMap;
 uniform sampler2D _NormalMap;
-uniform sampler2D _ShadowMap;
 uniform vec4 _LightDirection;
 uniform vec4 _LightPosition;
 uniform vec3 _LightColor;
 uniform float _LightInnerAngle;
 uniform float _LightOuterAngle;
 uniform vec4 _ViewProjInv[4];
-uniform vec4 _LightViewProj[4];
-uniform int _ShadowsEnabled;
 
  // main procedure, the original name was ps
 void main()
@@ -96,8 +91,6 @@ void main()
     float _lightOuterCos;
     float _lightInnerCos;
     vec3 _diffuseContribution;
-    vec3 _pixelPositionFromLight1;
-    vec2 _shadowCoord1;
 
     _screenPositionHom = gl_TexCoord[0]/gl_TexCoord[0].w;
     _TMP11 = vec3(_screenPositionHom.x, -_screenPositionHom.y, _screenPositionHom.z);
@@ -157,19 +150,6 @@ void main()
         _diffuseStrength = max(0.00000000E+000, _TMP127);
     } // end if
     _diffuseContribution = (_LightColor*_diffusePower*_diffuseStrength)/_distance;
-    if (bool(_ShadowsEnabled)) { // if begin
-        _r0152.x = dot(_LightViewProj[0], _positionWorld);
-        _r0152.y = dot(_LightViewProj[1], _positionWorld);
-        _r0152.z = dot(_LightViewProj[2], _positionWorld);
-        _r0152.w = dot(_LightViewProj[3], _positionWorld);
-        _pixelPositionFromLight1 = _r0152.xyz/_r0152.w;
-        _shadowCoord1 = _pixelPositionFromLight1.xy*5.00000000E-001 + 5.00000000E-001;
-        _shadowCoord1.y = 1.00000000E+000 - _shadowCoord1.y;
-        _TMP14 = texture2D(_ShadowMap, _shadowCoord1);
-        if (_TMP14.x + 5.00000024E-004 < _pixelPositionFromLight1.z) { // if begin
-            _diffuseContribution = vec3( 0.00000000E+000, 0.00000000E+000, 0.00000000E+000);
-        } // end if
-    } // end if
     _ret_0 = vec4(_diffuseContribution.x, _diffuseContribution.y, _diffuseContribution.z, 0.00000000E+000);
     gl_FragColor = _ret_0;
     return;

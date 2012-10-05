@@ -23,23 +23,29 @@
 //semantic WorldViewProj
 //semantic NormalMatrix
 //semantic ShadowsEnabled
+//var float4x4 LightViewProj :  : _LightViewProj[0], 4 : -1 : 1
 //var float4 position : $vin.POSITION : POSITION : 0 : 1
 //var float4 vs.position : $vout.POSITION :  : -1 : 1
 //var float4 vs.screenPosition : $vout.TEXCOORD0 :  : -1 : 1
+//var float4 vs.textureCoordProj : $vout.TEXCOORD1 :  : -1 : 1
 
 #pragma pack_matrix(row_major)
 
 struct VOutput {
     float4 _position1 : POSITION;
     float4 _screenPosition : TEXCOORD0;
+    float4 _textureCoordProj : TEXCOORD1;
 };
 
 struct X1X {
     float4 _POSITION : SV_Position;
     float4 _TEXCOORD0 : TEXCOORD0;
+    float4 _TEXCOORD1 : TEXCOORD1;
 };
 
+static float4 _r0001;
 static X1X cout;
+uniform float4x4 _LightViewProj;
 
  // main procedure, the original name was vs
 X1X main(in float4 _position : POSITION)
@@ -49,7 +55,13 @@ X1X main(in float4 _position : POSITION)
 
     _OUT._position1 = _position;
     _OUT._screenPosition = _position;
+    _r0001.x = dot(_LightViewProj._11_12_13_14, _position);
+    _r0001.y = dot(_LightViewProj._21_22_23_24, _position);
+    _r0001.z = dot(_LightViewProj._31_32_33_34, _position);
+    _r0001.w = dot(_LightViewProj._41_42_43_44, _position);
+    _OUT._textureCoordProj = _r0001;
     cout._POSITION = _OUT._position1;
     cout._TEXCOORD0 = _OUT._screenPosition;
+    cout._TEXCOORD1 = _OUT._textureCoordProj;
     return cout;
 } // main end
