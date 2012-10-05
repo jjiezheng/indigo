@@ -1,6 +1,6 @@
 // vs_4_0 output by Cg compiler
 // cgc version 3.1.0013, build date Apr 18 2012
-// command line args: -q -profile vs_5_0
+// command line args: -q -unroll all -profile vs_5_0
 // source file: deferred_render_color_normal_depth.cg
 //vendor NVIDIA Corporation
 //version 3.1.0.13

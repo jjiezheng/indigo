@@ -74,7 +74,7 @@ void PS3GCMCGEffect::load(const std::string& filePath) {
     IGraphicsInterface* rawInterface = GraphicsInterface::rawInterface();
     PS3GCMGraphicsInterface* graphicsInterface = static_cast<PS3GCMGraphicsInterface*>(rawInterface);
 
-    void *fpLocal = graphicsInterface->localAllocate(fpSize);	// 128B align
+    void *fpLocal = graphicsInterface->localAllocate(128, fpSize);	// 128B align
     memcpy(fpLocal, fpAddr, fpSize);
 
     CELL_GCMUTIL_CHECK_ASSERT(cellGcmAddressToOffset(fpLocal, &fragmentProgramOffset_));
@@ -102,11 +102,9 @@ void PS3GCMCGEffect::beginDraw() {
   graphicsInterface->setEffect(this);
 }
 
-
 void PS3GCMCGEffect::endDraw() {
 
 }
-
 
 void PS3GCMCGEffect::setUniform(const Matrix3x3& uniformData, const char* uniformName) const {
   {

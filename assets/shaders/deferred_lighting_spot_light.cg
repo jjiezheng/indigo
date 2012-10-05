@@ -4,6 +4,11 @@
 sampler2D DepthMap : TEXUNIT0;
 sampler2D NormalMap : TEXUNIT1;
 sampler2D ShadowMap : TEXUNIT2;
+sampler2D DepthMap2 : TEXUNIT3;
+
+uniform float LightInnerAngle;
+uniform float LightOuterAngle;
+uniform float LightDecay;
 
 uniform float4 ViewPosition;
 
@@ -11,17 +16,9 @@ uniform float4 LightDirection;
 uniform float4 LightPosition;
 uniform float3 LightColor;
 
-uniform float LightInnerAngle;
-uniform float LightOuterAngle;
-uniform float LightDecay;
-
-uniform float4x4 View;
 uniform float4x4 ViewProjInv;
-uniform float4x4 ProjInv;
 uniform float4x4 LightViewProj;
-uniform float4x4 LightViewProjInv;
 uniform float4x4 WorldViewProj;
-
 uniform float3x3 NormalMatrix;
 
 uniform int ShadowsEnabled;
@@ -38,11 +35,18 @@ VOutput vs(float4 position : POSITION) {
     return OUT;
 }
 
-float4 ps(float4 position 			: POSITION,
-		  float4 screenPosition 	: TEXCOORD0) : COLOR0 {
+float2 texOffset(int u, int v)
+{
+	return float2(u * 1.0f/1024, v * 1.0f/1024 );
+}
+
+float4 ps(float4 position 		: POSITION,
+		  float4 screenPosition : TEXCOORD0) : COLOR0 {
 
 	float4 screenPositionHom = screenPosition / screenPosition.w;
 	float2 texCoord = contract(screenPositionHom.xyz).xy;
+
+	float depth = unpackDepth(DepthMap, texCoord);
 
 	//------------------------------------------------------------
 	// world position
@@ -50,13 +54,8 @@ float4 ps(float4 position 			: POSITION,
 
 	float4 normalData = unpackNormal(NormalMap, texCoord);
 	float3 normal = normalize(normalData.xyz);
+
 	float diffusePower = normalData.w * 255; // 0-1 -> 0-255
-
-	float depth = unpackDepth(DepthMap, texCoord);
-
-	if (depth == 1.0f) {
-		//return float4(0, 0, 0, 0);
-	}
 
 	float specularPower = 1;//depthSpec.z;
 	float specularIntensity = 1;//depthSpec.w;
@@ -70,7 +69,7 @@ float4 ps(float4 position 			: POSITION,
 	//------------------------------------------------------------
 
 	float distance = length(LightDirection);
-  	distance = distance * distance;
+  	//distance = distance * distance;
 
 	// diffuse
 	float3 directionToLight = normalize(LightPosition.xyz - positionWorld.xyz);
@@ -93,7 +92,7 @@ float4 ps(float4 position 			: POSITION,
 		diffuseStrength = max(0.0f, saturate(dot(normal, normalize(lightVectorViewSpace))));
 	}
 	
-	float3 diffuseContribution = LightColor * diffusePower * diffuseStrength / distance;
+	float3 diffuseContribution = LightColor * diffuseStrength * diffusePower / distance;
 
 	//specular
 	float specularContribution = 0;
@@ -109,31 +108,23 @@ float4 ps(float4 position 			: POSITION,
 		specularContribution = i * specularIntensity / distance;
 	}
 
-	 
-	float4 pixelPositionFromLightRaw = mul(LightViewProj, positionWorld);
-	//float4 pixelPositionFromLight = pixelPositionFromLightRaw / pixelPositionFromLightRaw.w;
+	// //------------------------------------------------------------
+	// // shadows
+	// //------------------------------------------------------------
 
-	//float2 shadowCoord = (pixelPositionFromLight.xy * 0.5f) + 0.5f;
-	//shadowCoord.y = 1.0f - shadowCoord.y;
-	//pixelPositionFromLight.xy = (shadowCoord * 2.0f) - 1.0f;
+	if (ShadowsEnabled) {
+		float4 pixelPositionFromLightRaw = mul(LightViewProj, positionWorld);
+		float3 pixelPositionFromLight = pixelPositionFromLightRaw.xyz / pixelPositionFromLightRaw.w;
 
-	//pixelPositionFromLightRaw = mul(LightViewProjInv, pixelPositionFromLight);
-	//pixelPositionFromLightRaw = pixelPositionFromLightRaw / pixelPositionFromLightRaw.w;
+		float2 shadowCoord = (pixelPositionFromLight.xy * 0.5f) + 0.5f;
+		shadowCoord.y = 1.0f - shadowCoord.y;
 
-	//float lightDepth = unpackDepth(ShadowMap, shadowCoord).x;
+		float lightDepth = unpackDepth(ShadowMap, shadowCoord).x;
 
-	/*if (lightDepth + 0.0005f < pixelPositionFromLight.z) {
-		diffuseContribution = 0;
-	}*/
-
-	//------------------------------------------------------------
-	// shadows
-	//------------------------------------------------------------
-
-	//if (ShadowsEnabled) {
-	    float4 projTexColor = tex2Dproj(ShadowMap, pixelPositionFromLightRaw);
-	    diffuseContribution *= projTexColor.rgb;
-	//}
+		if (lightDepth + 0.0005f < pixelPositionFromLight.z) {
+			diffuseContribution = 0;
+		}
+	}
 
 	return float4(diffuseContribution, 0);
 } 

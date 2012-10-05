@@ -9,18 +9,16 @@
 //semantic DepthMap : TEXUNIT0
 //semantic NormalMap : TEXUNIT1
 //semantic ShadowMap : TEXUNIT2
+//semantic DepthMap2 : TEXUNIT3
+//semantic LightInnerAngle
+//semantic LightOuterAngle
+//semantic LightDecay
 //semantic ViewPosition
 //semantic LightDirection
 //semantic LightPosition
 //semantic LightColor
-//semantic LightInnerAngle
-//semantic LightOuterAngle
-//semantic LightDecay
-//semantic View
 //semantic ViewProjInv
-//semantic ProjInv
 //semantic LightViewProj
-//semantic LightViewProjInv
 //semantic WorldViewProj
 //semantic NormalMatrix
 //semantic ShadowsEnabled

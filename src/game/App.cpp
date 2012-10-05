@@ -9,7 +9,7 @@ int App::run(const char* sceneFile) {
   
   GraphicsInterface::init();
 
-  GraphicsInterface::openWindow(1024, 768, 1);
+  GraphicsInterface::openWindow(1920, 1080, 1);
 
   game_.init(sceneFile);
 

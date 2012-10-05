@@ -26,7 +26,7 @@ void DeferredSpotLightsPass::init(const CSize& screenSize) {
 
   gaussianBlur_.init(screenSize, 16);
 
-  spotLightRenderTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R16G16B16A16);
+  spotLightRenderTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R8G8B8A8);
   spotLightRenderTarget_ = GraphicsInterface::createRenderTarget(spotLightRenderTexture_);
 
   accumulationEffect_ = IEffect::effectFromFile("shaders/compiled/deferred_light_composition.shader");
@@ -85,11 +85,11 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
         GraphicsInterface::endPerformanceEvent();
       }
 
-      /*{
-        GraphicsInterface::beginPerformanceEvent("Blur", Color4::GREY);
-        gaussianBlur_.render((*light)->shadowMapTexture());
-        GraphicsInterface::endPerformanceEvent();
-      }*/
+//       {
+//         GraphicsInterface::beginPerformanceEvent("Blur", Color4::GREY);
+//         gaussianBlur_.render((*light)->shadowMapTexture());
+//         GraphicsInterface::endPerformanceEvent();
+//       }
 
       GraphicsInterface::endPerformanceEvent();
     }
@@ -100,21 +100,6 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
 
       GraphicsInterface::setRenderTarget(spotLightRenderTarget_, false);
 
-      Matrix4x4 textureMatrix(
-        1.0f, 0.0f, 0.0f, 0.0f,
-        1.0f, -1.0f, 0.0f, 0.0f,
-        0.0f, 0.0f, 1.0f, 0.0f,
-        0.0f, 0.0f, 0.0f, 1.0f);
-
-      lightEffect_->setUniform(textureMatrix, "TextureMatrix");
-
-      lightEffect_->setTexture(initStage.normalMap(), "NormalMap");
-
-      unsigned int depthBufferId = GraphicsInterface::depthBufferTexture();
-      lightEffect_->setTexture(depthBufferId, "DepthMap");
-      lightEffect_->setTexture((*light)->shadowMapDepthTexture(), "ShadowMap");     
-      
-      
       lightEffect_->setUniform((*light)->castsShadows(), "ShadowsEnabled");
 
       Matrix4x4 viewProjection = viewer->projection() * viewer->viewTransform();
@@ -125,7 +110,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
       lightEffect_->setUniform(viewer->projection().inverse(), "ProjInv");
 
       Matrix4x4 normalMatrix = viewer->viewTransform().mat3x3().inverseTranspose();
-      lightEffect_->setUniform(normalMatrix, "NormalMatrix"); 
+      //lightEffect_->setUniform(normalMatrix, "NormalMatrix"); 
 
       lightEffect_->setUniform(viewer->position(), "ViewPosition");
 
@@ -137,14 +122,18 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
 
       Matrix4x4 lightViewProj = (*light)->projection() * (*light)->viewTransform();
       lightEffect_->setUniform(lightViewProj, "LightViewProj");
-      lightEffect_->setUniform(lightViewProj.inverse(), "LightViewProjInv");
 
       lightEffect_->setUniform((*light)->position(), "LightPosition");
       lightEffect_->setUniform((*light)->direction(), "LightDirection");
       lightEffect_->setUniform((*light)->color(), "LightColor");
-      lightEffect_->setUniform((*light)->innerAngle() / 2.0f, "LightInnerAngle");
-      lightEffect_->setUniform((*light)->outerAngle() / 2.0f, "LightOuterAngle");
-      lightEffect_->setUniform((*light)->decay(), "LightDecay");
+
+      lightEffect_->setUniform((*light)->outerAngle(), "LightOuterAngle");
+      lightEffect_->setUniform((*light)->innerAngle(), "LightInnerAngle");
+
+      unsigned int depthBufferId = GraphicsInterface::depthBufferTexture();
+      lightEffect_->setTexture(depthBufferId, "DepthMap");
+      lightEffect_->setTexture((*light)->shadowMapDepthTexture(), "ShadowMap");
+      lightEffect_->setTexture(initStage.normalMap(), "NormalMap");
 
       GraphicsInterface::setRenderState(true);
       lightEffect_->beginDraw();

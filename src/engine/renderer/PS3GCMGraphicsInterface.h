@@ -70,7 +70,7 @@ public:
 
   void setEffect(PS3GCMCGEffect* effect);
 
-  void* localAllocate(unsigned int size);
+  void* localAllocate(unsigned int alignment, unsigned int size);
 
   void setTexture(unsigned int textureUnit, unsigned int textureId);
 

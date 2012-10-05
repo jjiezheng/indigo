@@ -44,10 +44,10 @@ Matrix4x4 Matrix4x4::scale(const Vector4& v) {
   return Matrix4x4(Matrix3x3::scale(v.vec3()));
 }
 
-#ifdef PLATFORM_WINDOWS
+//#ifdef PLATFORM_WINDOWS
 
 // x: -1 to 1, y: -1 to 1, z: 0 to 1
-Matrix4x4 Matrix4x4::perspectivedx(float fovDegrees, float aspect, float zNear, float zFar) {
+Matrix4x4 Matrix4x4::perspective(float fovDegrees, float aspect, float zNear, float zFar) {
   float fovY = toRadians(fovDegrees);
 
   float f = 1.0f / tanf(0.5f * fovY);
@@ -65,7 +65,7 @@ Matrix4x4 Matrix4x4::perspectivedx(float fovDegrees, float aspect, float zNear, 
   return result;
 }
 
-#else
+/*#else
 
 // x: -1 to 1, y: -1 to 1, z: -1 to 1
 Matrix4x4 Matrix4x4::perspective(float fovDegrees, float aspect, float zNear, float zFar) {
@@ -86,7 +86,7 @@ Matrix4x4 Matrix4x4::perspective(float fovDegrees, float aspect, float zNear, fl
   return result;
 }
 
-#endif
+#endif*/
 
 Matrix4x4 Matrix4x4::orthographic(float left, float right, float bottom, float top, float znear, float zfar) {
   float w = right / 2.0f;
