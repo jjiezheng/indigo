@@ -137,6 +137,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
 
       Matrix4x4 lightViewProj = (*light)->projection() * (*light)->viewTransform();
       lightEffect_->setUniform(lightViewProj, "LightViewProj");
+      lightEffect_->setUniform(lightViewProj.inverse(), "LightViewProjInv");
 
       lightEffect_->setUniform((*light)->position(), "LightPosition");
       lightEffect_->setUniform((*light)->direction(), "LightDirection");
@@ -149,6 +150,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
       lightEffect_->beginDraw();
       GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);
       lightEffect_->endDraw();
+
       GraphicsInterface::endPerformanceEvent();
     }
 
