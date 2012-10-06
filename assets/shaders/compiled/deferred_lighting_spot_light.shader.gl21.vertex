@@ -19,8 +19,10 @@
 //semantic LightColor
 //semantic ViewProjInv
 //semantic LightViewProj
+//semantic LightViewProjInv
 //semantic WorldViewProj
 //semantic NormalMatrix
+//semantic ShadowMapSize
 //semantic ShadowsEnabled
 //var float4 position : $vin.POSITION : ATTR0 : 0 : 1
 //var float4 vs.position : $vout.POSITION : HPOS : -1 : 1

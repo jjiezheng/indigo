@@ -14,6 +14,7 @@
 
 #include "maths/Trigonometry.h"
 #include "maths/Matrix3x3.h"
+#include "maths/Vector2.h"
 
 #include "DeferredInitRenderStage.h"
 
@@ -122,6 +123,12 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
 
       Matrix4x4 lightViewProj = (*light)->projection() * (*light)->viewTransform();
       lightEffect_->setUniform(lightViewProj, "LightViewProj");
+      lightEffect_->setUniform(lightViewProj.inverse(), "LightViewProjRaw");
+
+      CSize shadowMapResolution = (*light)->shadowMapResolution();
+      Vector2 shadowMapSize(1.0f/shadowMapResolution.width, 1.0f/shadowMapResolution.height);
+      lightEffect_->setUniform(shadowMapSize, "ShadowMapSize");
+
 
       lightEffect_->setUniform((*light)->position(), "LightPosition");
       lightEffect_->setUniform((*light)->direction(), "LightDirection");

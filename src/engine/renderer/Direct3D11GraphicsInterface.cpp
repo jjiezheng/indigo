@@ -297,27 +297,30 @@ void Direct3D11GraphicsInterface::setTexture(unsigned int slotIndex, ID3D11Sampl
   DirectXTexture texture = textures_[textureId];
   ID3D11ShaderResourceView* resourceView = texture.resourceView;
 
-  deviceConnection_->PSSetShaderResources(slotIndex, 1, &resourceView);
-  deviceConnection_->PSSetSamplers(slotIndex, 1, &samplerState);
+  
 
   {
     D3D11_SAMPLER_DESC samplerDesc;
     ZeroMemory(&samplerDesc, sizeof(D3D11_SAMPLER_DESC));
 
-    samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
-    samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
-    samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+    samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
+    samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
+    samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
 
-    samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+    samplerDesc.Filter = D3D11_FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT;
+    samplerDesc.ComparisonFunc = D3D11_COMPARISON_LESS;
 
     ID3D11SamplerState* samplerState = 0;
     HRESULT result = device_->CreateSamplerState(&samplerDesc, &samplerState);
     assert(SUCCEEDED(result));
 
-    deviceConnection_->PSSetSamplers(0, 1, &samplerState);
-    deviceConnection_->PSSetSamplers(1, 1, &samplerState);
+    //deviceConnection_->PSSetSamplers(0, 1, &samplerState);
+    //deviceConnection_->PSSetSamplers(1, 1, &samplerState);
     deviceConnection_->PSSetSamplers(2, 1, &samplerState);
   }
+
+  deviceConnection_->PSSetShaderResources(slotIndex, 1, &resourceView);
+  deviceConnection_->PSSetSamplers(slotIndex, 1, &samplerState);
 }
 
 void Direct3D11GraphicsInterface::resetGraphicsState(bool cullBack) {

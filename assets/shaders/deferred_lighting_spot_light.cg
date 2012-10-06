@@ -18,8 +18,11 @@ uniform float3 LightColor;
 
 uniform float4x4 ViewProjInv;
 uniform float4x4 LightViewProj;
+uniform float4x4 LightViewProjInv;
 uniform float4x4 WorldViewProj;
 uniform float3x3 NormalMatrix;
+
+uniform float2 ShadowMapSize;
 
 uniform int ShadowsEnabled;
 
@@ -30,14 +33,9 @@ struct VOutput {
 
 VOutput vs(float4 position : POSITION) {
     VOutput OUT;
-    OUT.position = position;// mul(WorldViewProj, position);
+    OUT.position = position;
     OUT.screenPosition = OUT.position;
     return OUT;
-}
-
-float2 texOffset(int u, int v)
-{
-	return float2(u * 1.0f/1024, v * 1.0f/1024 );
 }
 
 float4 ps(float4 position 		: POSITION,
@@ -69,7 +67,7 @@ float4 ps(float4 position 		: POSITION,
 	//------------------------------------------------------------
 
 	float distance = length(LightDirection);
-  	//distance = distance * distance;
+  	distance = distance * distance;
 
 	// diffuse
 	float3 directionToLight = normalize(LightPosition.xyz - positionWorld.xyz);
@@ -112,19 +110,15 @@ float4 ps(float4 position 		: POSITION,
 	// // shadows
 	// //------------------------------------------------------------
 
-	if (ShadowsEnabled) {
-		float4 pixelPositionFromLightRaw = mul(LightViewProj, positionWorld);
-		float3 pixelPositionFromLight = pixelPositionFromLightRaw.xyz / pixelPositionFromLightRaw.w;
+	float4 pixelPositionFromLightRaw = mul(LightViewProj, positionWorld);
+	float4 pixelPositionFromLight = pixelPositionFromLightRaw / pixelPositionFromLightRaw.w;
 
-		float2 shadowCoord = (pixelPositionFromLight.xy * 0.5f) + 0.5f;
-		shadowCoord.y = 1.0f - shadowCoord.y;
+	float2 shadowCoord = (pixelPositionFromLight.xy * 0.5f) + 0.5f;
+	shadowCoord.y = 1.0f - shadowCoord.y;
 
-		float lightDepth = unpackDepth(ShadowMap, shadowCoord).x;
+	float shadowFactor = shadowPCF(ShadowMap, shadowCoord, pixelPositionFromLight.z, ShadowMapSize);
 
-		if (lightDepth + 0.0005f < pixelPositionFromLight.z) {
-			diffuseContribution = 0;
-		}
-	}
+	diffuseContribution *= shadowFactor;
 
 	return float4(diffuseContribution, 0);
 } 
