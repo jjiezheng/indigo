@@ -17,6 +17,7 @@
 #include "maths/Vector2.h"
 
 #include "DeferredInitRenderStage.h"
+#include "IDeferredRenderTargetContainer.h"
 
 #include "serialization/BinaryModelDeserializer.h"
 #include "io/Path.h"
@@ -24,6 +25,7 @@
 void DeferredSpotLightsPass::init(const CSize& screenSize) {
   shadowMapEffect_ = IEffect::effectFromFile("shaders/compiled/deferred_depth.shader");
   lightEffect_ = IEffect::effectFromFile("shaders/compiled/deferred_lighting_spot_light.shader");
+  lightEffect_->setSamplerState(2, UV_ADDRESS_WRAP, FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT, COMPARISON_LESS);
 
   gaussianBlur_.init(screenSize, 16);
 
@@ -172,4 +174,8 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
   }
 
   GraphicsInterface::endPerformanceEvent();
+}
+
+void DeferredSpotLightsPass::collectRenderTargets(IDeferredRenderTargetContainer* renderTargetContainer) {
+  renderTargetContainer->addRenderTarget("Spot Light", spotLightRenderTexture_);
 }

@@ -14,6 +14,7 @@
 #include "Geometry.h"
 
 #include "DeferredInitRenderStage.h"
+#include "IDeferredRenderTargetContainer.h"
 
 void DeferredDirectionalLightsPass::init(const CSize& screenSize) {
   directionalLightEffect_ = IEffect::effectFromFile("shaders/compiled/deferred_lighting_directional_light.shader");
@@ -74,4 +75,8 @@ void DeferredDirectionalLightsPass::render(IViewer* viewer, World& world, const 
   }
 
   GraphicsInterface::endPerformanceEvent();
+}
+
+void DeferredDirectionalLightsPass::collectRenderTargets(IDeferredRenderTargetContainer* renderTargetContainer) {
+  renderTargetContainer->addRenderTarget("Directional Light", directionalLightRenderTexture_);
 }

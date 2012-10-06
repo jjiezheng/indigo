@@ -17,10 +17,13 @@ void DeferredInitRenderStage::init(const CSize& screenSize) {
   normalMapTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R8G8B8A8);
   normalRenderTarget_ = GraphicsInterface::createRenderTarget(normalMapTexture_);
 
+  depthMapTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R32G32B32A32);
+  depthRenderTarget_ = GraphicsInterface::createRenderTarget(depthMapTexture_);
+
   IDeferredPass* clearBuffersPass = new DeferredClearBuffersPass(colorRenderTarget_, normalRenderTarget_);
   passes_.push_back(clearBuffersPass);
 
-  IDeferredPass* geometryPass = new DeferredGeometryPass(colorRenderTarget_, normalRenderTarget_);
+  IDeferredPass* geometryPass = new DeferredGeometryPass(colorRenderTarget_, normalRenderTarget_, depthRenderTarget_);
   passes_.push_back(geometryPass);
 }
 
@@ -37,5 +40,6 @@ void DeferredInitRenderStage::render(IViewer* viewer, World& world, const SceneC
 void DeferredInitRenderStage::collectRenderTargets(IDeferredRenderTargetContainer* renderTargetContainer) {
   renderTargetContainer->addRenderTarget("Color", colorMapTexture_);
   renderTargetContainer->addRenderTarget("Normal", normalMapTexture_);
+  renderTargetContainer->addRenderTarget("Normal", depthMapTexture_);
   renderTargetContainer->addRenderTarget("Depth", GraphicsInterface::depthBufferTexture());
 }

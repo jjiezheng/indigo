@@ -41,6 +41,8 @@ public:
   
   Matrix4x4 inverse() const;
 
+  Matrix4x4 transpose() const;
+
   Matrix3x3 mat3x3() const;
   
 public:

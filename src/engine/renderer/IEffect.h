@@ -12,6 +12,21 @@ class Vector2;
 class Vector3;
 class Vector4;
 
+enum SAMPLER_UV_ADDRESS_MODE {
+  UV_ADDRESS_CLAMP,
+  UV_ADDRESS_WRAP
+};
+
+enum SAMPLER_COMPARISON_FILTER {
+  FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT,
+  FILTER_MIN_MAG_MIP_POINT
+};
+
+enum SAMPLER_COMPARISON_FUNC {
+  COMPARISON_LESS
+};
+
+
 class IEffect {
 
 public:
@@ -59,7 +74,8 @@ public:
   virtual void setUniform(float uniformData, const char* uniformName) const = 0;
 
   virtual void setTexture(unsigned int textureId, const char* uniformName) = 0;
-
+  
+  virtual void setSamplerState(unsigned int samplerSlot, SAMPLER_UV_ADDRESS_MODE addressMode, SAMPLER_COMPARISON_FILTER comparisonFilter, SAMPLER_COMPARISON_FUNC compartisonFunction) = 0;
 };
 
 #endif

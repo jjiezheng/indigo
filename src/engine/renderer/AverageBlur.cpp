@@ -16,10 +16,12 @@ void AverageBlur::init(const CSize& bufferSize) {
   }
 
   quadVbo_ = Geometry::screenPlane();
-  //effect_ = IEffect::effectFromFile("cgfx/average_blur.hlsl");
+  effect_ = IEffect::effectFromFile("shaders/compiled/average_blur.shader");
 }
 
 void AverageBlur::render(unsigned int sourceTexture) {
+  GraphicsInterface::beginPerformanceEvent("Average Blur", Color4::BLUE);
+
   GraphicsInterface::setRenderState(true);
 
   {
@@ -35,4 +37,5 @@ void AverageBlur::render(unsigned int sourceTexture) {
   }
 
   //GraphicsInterface::generateMipMaps(outputRenderTexture_);
+  GraphicsInterface::endPerformanceEvent();
 }

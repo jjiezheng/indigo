@@ -8,6 +8,11 @@
 #include "Vector4.h"
 #include "Matrix3x3.h"
 
+#include "glm/glm.hpp"
+#include "glm/gtx/projection.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/matrix_inverse.hpp"
+
 Matrix4x4 Matrix4x4::IDENTITY = Matrix4x4(1.0f, 0.0f, 0.0f, 0.0f,
                                           0.0f, 1.0f, 0.0f, 0.0f,
                                           0.0f, 0.0f, 1.0f, 0.0f,
@@ -44,8 +49,6 @@ Matrix4x4 Matrix4x4::scale(const Vector4& v) {
   return Matrix4x4(Matrix3x3::scale(v.vec3()));
 }
 
-//#ifdef PLATFORM_WINDOWS
-
 // x: -1 to 1, y: -1 to 1, z: 0 to 1
 Matrix4x4 Matrix4x4::perspective(float fovDegrees, float aspect, float zNear, float zFar) {
   float fovY = toRadians(fovDegrees);
@@ -65,28 +68,24 @@ Matrix4x4 Matrix4x4::perspective(float fovDegrees, float aspect, float zNear, fl
   return result;
 }
 
-/*#else
-
 // x: -1 to 1, y: -1 to 1, z: -1 to 1
-Matrix4x4 Matrix4x4::perspective(float fovDegrees, float aspect, float zNear, float zFar) {
-  float fovY = toRadians(fovDegrees);
-
-  float f = 1.0f / tanf(0.5f * fovY);
-  float e = (zNear - zFar);
-  
-  float a = (zFar + zNear) / e;
-  float b = (2.0f * zFar * zNear) / e;
-
-  Matrix4x4 result = Matrix4x4(
-    f/aspect, 0,       0,       0,
-    0,        f,       0,       0,
-    0,        0,       a,       b,
-    0,        0,       -1,      0);
-
-  return result;
-}
-
-#endif*/
+// Matrix4x4 Matrix4x4::perspective(float fovDegrees, float aspect, float zNear, float zFar) {
+//   float fovY = toRadians(fovDegrees);
+// 
+//   float f = 1.0f / tanf(0.5f * fovY);
+//   float e = (zNear - zFar);
+//   
+//   float a = (zFar + zNear) / e;
+//   float b = (2.0f * zFar * zNear) / e;
+// 
+//   Matrix4x4 result = Matrix4x4(
+//     f/aspect, 0,       0,       0,
+//     0,        f,       0,       0,
+//     0,        0,       a,       b,
+//     0,        0,       -1,      0);
+// 
+//   return result;
+// }
 
 Matrix4x4 Matrix4x4::orthographic(float left, float right, float bottom, float top, float znear, float zfar) {
   float w = right / 2.0f;
@@ -174,55 +173,27 @@ std::string Matrix4x4::toString() const {
 }
 
 Matrix4x4 Matrix4x4::inverse() const {
-	float subFactor00 = m33_ * m44_ - m34_ * m43_;
-	float subFactor01 = m23_ * m44_ - m24_ * m43_;
-	float subFactor02 = m23_ * m34_ - m24_ * m33_;
-	float subFactor03 = m13_ * m44_ - m14_ * m43_;
-	float subFactor04 = m13_ * m34_ - m14_ * m33_;
-	float subFactor05 = m13_ * m24_ - m14_ * m23_;
-	float subFactor06 = m32_ * m44_ - m34_ * m42_;
-	float subFactor07 = m22_ * m44_ - m24_ * m42_;
-	float subFactor08 = m22_ * m34_ - m24_ * m32_;
-	float subFactor09 = m12_ * m44_ - m14_ * m42_;
-	float subFactor10 = m12_ * m34_ - m14_ * m32_;
-	float subFactor11 = m22_ * m44_ - m24_ * m42_;
-	float subFactor12 = m12_ * m24_ - m14_ * m22_;
-	float subFactor13 = m32_ * m43_ - m33_ * m42_;
-	float subFactor14 = m22_ * m43_ - m23_ * m42_;
-	float subFactor15 = m22_ * m33_ - m23_ * m32_;
-	float subFactor16 = m12_ * m43_ - m13_ * m42_;
-	float subFactor17 = m12_ * m33_ - m13_ * m32_;
-	float subFactor18 = m12_ * m23_ - m13_ * m22_;
+  glm::mat4 mat(m11_, m12_, m13_, m14_,
+    m21_, m22_, m23_, m24_,
+    m31_, m32_, m33_, m34_,
+    m41_, m42_, m43_, m44_);
+  glm::mat4 inv = glm::inverse(mat);
+  return Matrix4x4(inv[0][0], inv[0][1], inv[0][2], inv[0][3],
+    inv[1][0], inv[1][1], inv[1][2], inv[1][3],
+    inv[2][0], inv[2][1], inv[2][2], inv[2][3],
+    inv[3][0], inv[3][1], inv[3][2], inv[3][3]);
+}
 
-	Matrix4x4 inverse(
-		+ m22_ * subFactor00 - m32_ * subFactor01 + m42_ * subFactor02,
-		- m12_ * subFactor00 + m32_ * subFactor03 - m42_ * subFactor04,
-		+ m12_ * subFactor01 - m22_ * subFactor03 + m42_ * subFactor05,
-		- m12_ * subFactor02 + m22_ * subFactor04 - m32_ * subFactor05,
-
-		- m21_ * subFactor00 + m31_ * subFactor01 - m41_ * subFactor02,
-		+ m11_ * subFactor00 - m31_ * subFactor03 + m41_ * subFactor04,
-		- m11_ * subFactor01 + m21_ * subFactor03 - m41_ * subFactor05,
-		+ m11_ * subFactor02 - m21_ * subFactor04 + m31_ * subFactor05,
-
-		+ m21_ * subFactor06 - m31_ * subFactor07 + m41_ * subFactor08,
-		- m11_ * subFactor06 + m31_ * subFactor09 - m41_ * subFactor10,
-		+ m11_ * subFactor11 - m21_ * subFactor09 + m41_ * subFactor12,
-		- m11_ * subFactor08 + m21_ * subFactor10 - m31_ * subFactor12,
-
-		- m21_ * subFactor13 + m31_ * subFactor14 - m41_ * subFactor15,
-		+ m11_ * subFactor13 - m31_ * subFactor16 + m41_ * subFactor17,
-		- m11_ * subFactor14 + m21_ * subFactor16 - m41_ * subFactor18,
-		+ m11_ * subFactor15 - m21_ * subFactor17 + m31_ * subFactor18);
-
-	float determinant = 
-		+ m11_ * inverse.m11_ 
-		+ m21_ * inverse.m12_ 
-		+ m31_ * inverse.m13_ 
-		+ m41_ * inverse.m14_;
-
-	inverse /= determinant;
-	return inverse;
+Matrix4x4 Matrix4x4::transpose() const {
+  glm::mat4 mat(m11_, m12_, m13_, m14_,
+    m21_, m22_, m23_, m24_,
+    m31_, m32_, m33_, m34_,
+    m41_, m42_, m43_, m44_);
+  glm::mat4 inv = glm::transpose(mat);
+  return Matrix4x4(inv[0][0], inv[0][1], inv[0][2], inv[0][3],
+    inv[1][0], inv[1][1], inv[1][2], inv[1][3],
+    inv[2][0], inv[2][1], inv[2][2], inv[2][3],
+    inv[3][0], inv[3][1], inv[3][2], inv[3][3]);
 }
 
 Matrix3x3 Matrix4x4::mat3x3() const {

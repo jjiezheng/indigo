@@ -14,14 +14,8 @@ void DeferredLightingRenderStage::init(const CSize& screenSize) {
     lightMapTexture_ = GraphicsInterface::createTexture(screenSize);
     lightRenderTarget_ = GraphicsInterface::createRenderTarget(lightMapTexture_);
 
-    IDeferredLightingPass* skyboxPass = new DeferredSkyBoxPass();
-    passes_.push_back(skyboxPass);
-
     IDeferredLightingPass* directionalLightingPass = new DeferredDirectionalLightsPass();
     passes_.push_back(directionalLightingPass);
-
-    /*IDeferredPass* pointLightingPass = new DeferredPointLightsPass();
-    passes_.push_back(pointLightingPass);*/
 
     IDeferredLightingPass* spotLightingPass = new DeferredSpotLightsPass();
     passes_.push_back(spotLightingPass);
@@ -44,5 +38,9 @@ void DeferredLightingRenderStage::render(IViewer* viewer, World& world, const Sc
 }
 
 void DeferredLightingRenderStage::collectRenderTargets(IDeferredRenderTargetContainer* renderTargetContainer) {
-  renderTargetContainer->addRenderTarget("LightMap", lightMapTexture_);
+  for (std::vector<IDeferredLightingPass*>::iterator i = passes_.begin(); i != passes_.end(); ++i) {
+    (*i)->collectRenderTargets(renderTargetContainer);
+  }
+
+  renderTargetContainer->addRenderTarget("Final LightMap", lightMapTexture_);
 }

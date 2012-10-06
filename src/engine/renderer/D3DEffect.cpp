@@ -219,6 +219,10 @@ void D3DEffect::beginDraw() {
     context_->PSSetConstantBuffers(i, 1, &pixelShaderConstantBuffers_[i].GPUBuffer);
   }
 
+  for (std::map<unsigned int, ID3D11SamplerState*>::iterator i = pixelShaderSamplers_.begin(); i != pixelShaderSamplers_.end(); ++i) {
+    context_->PSSetSamplers((*i).first, 1, &(*i).second);
+  }
+
   context_->IASetInputLayout(layout_);
 }
 
@@ -298,4 +302,48 @@ void D3DEffect::setTexture(unsigned int textureId, const char* uniformName) {
     ID3D11SamplerState* samplerState = pixelShaderSamplers_[textureSlot];
     directXGraphicsInterface->setTexture(textureSlot, samplerState, textureId);
   }
+}
+
+void D3DEffect::setSamplerState(unsigned int samplerSlot, SAMPLER_UV_ADDRESS_MODE addressMode, SAMPLER_COMPARISON_FILTER comparisonFilter, SAMPLER_COMPARISON_FUNC compartisonFunction) {
+  assert(samplerSlot < pixelShaderSamplers_.size());
+
+
+  D3D11_SAMPLER_DESC samplerDesc;
+  ZeroMemory(&samplerDesc, sizeof(D3D11_SAMPLER_DESC));
+
+  switch (addressMode) {
+    case UV_ADDRESS_CLAMP:
+      samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
+      samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
+      samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
+      break;
+
+    case UV_ADDRESS_WRAP: 
+      samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+      samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+      samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+      break;
+  }
+
+  switch(comparisonFilter) {
+    case FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT:
+      samplerDesc.Filter = D3D11_FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT;
+      break;
+
+    case FILTER_MIN_MAG_MIP_POINT:
+      samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
+      break;
+  }
+
+  switch(compartisonFunction) {
+    case COMPARISON_LESS:
+      samplerDesc.ComparisonFunc = D3D11_COMPARISON_LESS;
+      break;
+  }
+
+  ID3D11SamplerState* samplerState = 0;
+  HRESULT result = device_->CreateSamplerState(&samplerDesc, &samplerState);
+  assert(SUCCEEDED(result));
+
+  pixelShaderSamplers_[samplerSlot] = samplerState;
 }

@@ -1,7 +1,7 @@
 // ps_4_0 output by Cg compiler
 // cgc version 3.1.0013, build date Apr 18 2012
-// command line args: -q -profile ps_5_0
-// source file: deferred_ssao_combine.shader
+// command line args: -q -unroll all -profile ps_5_0
+// source file: deferred_ssao_combine.cg
 //vendor NVIDIA Corporation
 //version 3.1.0.13
 //profile ps_5_0

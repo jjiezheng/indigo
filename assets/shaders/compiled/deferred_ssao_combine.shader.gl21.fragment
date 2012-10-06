@@ -1,7 +1,7 @@
 // glslf output by Cg compiler
 // cgc version 3.1.0013, build date Apr 18 2012
 // command line args: -q -profile glslf
-// source file: deferred_ssao_combine.shader
+// source file: deferred_ssao_combine.cg
 //vendor NVIDIA Corporation
 //version 3.1.0.13
 //profile glslf

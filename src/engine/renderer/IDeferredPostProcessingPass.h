@@ -4,9 +4,9 @@
 #include "GraphicsInterface.h"
 
 class CSize;
-class DeferredLightingRenderStage;
 class DeferredInitRenderStage;
 class IViewer;
+class IDeferredRenderTargetContainer;
 
 class IDeferredPostProcessingPass {
 
@@ -21,6 +21,8 @@ public:
   virtual std::string passName() const = 0;
 
   virtual GraphicsInterface::TextureId passMap() const = 0;
+
+  virtual void collectRenderTargets(IDeferredRenderTargetContainer* renderTargetContainer) = 0;
 
 };
 

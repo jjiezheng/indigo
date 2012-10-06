@@ -1,7 +1,7 @@
 // glslv output by Cg compiler
 // cgc version 3.1.0013, build date Apr 18 2012
 // command line args: -q -profile glslv
-// source file: deferred_ssao.shader
+// source file: deferred_ssao.cg
 //vendor NVIDIA Corporation
 //version 3.1.0.13
 //profile glslv
@@ -11,11 +11,13 @@
 //semantic Kernel
 //semantic Far
 //semantic Near
-//semantic NormalMap : TEXUNIT0
-//semantic DepthMap : TEXUNIT1
-//semantic NoiseMap : TEXUNIT2
+//semantic NoiseMap : TEXUNIT0
+//semantic NormalMap : TEXUNIT1
+//semantic DepthMap : TEXUNIT2
+//semantic LinearDepthMap : TEXUNIT3
 //semantic Projection
 //semantic ProjInv
+//semantic View
 //semantic NormalMatrix
 //var float4 position : $vin.POSITION : ATTR0 : 0 : 1
 //var float2 texCoord : $vin.TEXCOORD0 : ATTR8 : 1 : 1

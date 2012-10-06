@@ -69,6 +69,8 @@ public:
 
   void setTexture(unsigned int textureId, const char* uniformName);
 
+  void setSamplerState(unsigned int samplerSlot, SAMPLER_UV_ADDRESS_MODE addressMode, SAMPLER_COMPARISON_FILTER comparisonFilter, SAMPLER_COMPARISON_FUNC compartisonFunction);
+
 private:
 
   static ID3D11Device* device_;
@@ -98,7 +100,7 @@ private:
 
   void fillConstantBuffer(ID3D10Blob* programData, std::vector<ConstantBuffer>& constantBufferList, std::map<std::string, ShaderTexture>& shaderTextures);
 
-  void commitShaderConstantBuffers(const std::vector<ConstantBuffer>& shaderConstantBuffers);
+  void commitShaderConstantBuffers(const std::vector<ConstantBuffer>& shaderConstantBuffers);  
 
 };
 

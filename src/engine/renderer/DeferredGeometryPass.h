@@ -7,9 +7,10 @@ class DeferredGeometryPass : public IDeferredPass {
 
 public:
 
-  DeferredGeometryPass(unsigned int colorRenderTarget, unsigned int normalRenderTarget)
+  DeferredGeometryPass(unsigned int colorRenderTarget, unsigned int normalRenderTarget, unsigned int depthRenderTarget)
     : colorRenderTarget_(colorRenderTarget)
-    , normalRenderTarget_(normalRenderTarget) { }
+    , normalRenderTarget_(normalRenderTarget)
+    , depthRenderTarget_(depthRenderTarget) { }
 
 public:
 
@@ -21,6 +22,7 @@ private:
 
   unsigned int colorRenderTarget_;
   unsigned int normalRenderTarget_;
+  unsigned int depthRenderTarget_;
 
 };
 

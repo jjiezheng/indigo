@@ -20,10 +20,11 @@ public:
     : ssaoEffect_(0)
     , combineEffect_(0)
     , quadVbo_(0)
-    , ssaoMapTexture_(0)
-    , ssaoRenderTarget_(0)
+    , ssaoRawTexture_(0)
+    , ssaoRawRenderTarget_(0)
     , noiseTexture_(0)
-    , ssaoRenderTexture_(0) { }
+    , ssaoColorBlurCombinedTexture_(0)
+    , ssaoColorBlurCombinedRenderTarget_(0) { }
 
 public:
 
@@ -37,6 +38,8 @@ public:
 
   GraphicsInterface::TextureId passMap() const;
 
+  void collectRenderTargets(IDeferredRenderTargetContainer* renderTargetContainer);
+
 private:
 
   IEffect* ssaoEffect_;
@@ -44,12 +47,13 @@ private:
 
   unsigned int quadVbo_;
 
-  GraphicsInterface::TextureId ssaoMapTexture_;
-  unsigned int ssaoRenderTarget_;
-
+  GraphicsInterface::TextureId ssaoRawTexture_;
+  GraphicsInterface::RenderTarget ssaoRawRenderTarget_;
+  
   GraphicsInterface::TextureId noiseTexture_;
-
-  GraphicsInterface::TextureId ssaoRenderTexture_;
+  
+  GraphicsInterface::TextureId ssaoColorBlurCombinedTexture_;
+  GraphicsInterface::RenderTarget ssaoColorBlurCombinedRenderTarget_;
 
   AverageBlur blur_;
 
@@ -62,7 +66,7 @@ inline std::string DeferredSSAOPass::passName() const {
 }
 
 inline GraphicsInterface::TextureId DeferredSSAOPass::passMap() const {
-  return ssaoRenderTexture_;// blur_.outputTexture();
+  return ssaoColorBlurCombinedRenderTarget_;
 }
 
 #endif

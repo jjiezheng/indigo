@@ -34,6 +34,6 @@ void DeferredPostProcessingStage::render(IViewer* viewer, unsigned int inputMap,
 
 void DeferredPostProcessingStage::collectRenderTargets(IDeferredRenderTargetContainer* renderTargetContainer) {
   for (std::vector<IDeferredPostProcessingPass*>::iterator i = passes_.begin(); i != passes_.end(); ++i) {
-    renderTargetContainer->addRenderTarget((*i)->passName(), (*i)->passMap());
+    (*i)->collectRenderTargets(renderTargetContainer);
   }
 }

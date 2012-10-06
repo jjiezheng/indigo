@@ -26,6 +26,8 @@ public:
 
   void render(IViewer* viewer, World& world, const SceneContext& sceneContext, unsigned int lightMapRenderTarget, const DeferredInitRenderStage& initStage);
 
+  void collectRenderTargets(IDeferredRenderTargetContainer* renderTargetContainer);
+
 private:
 
   unsigned int spotLightRenderTarget_;

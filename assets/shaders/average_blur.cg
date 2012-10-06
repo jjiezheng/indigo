@@ -1,0 +1,33 @@
+sampler2D SourceMap : TEXUNIT0;
+
+uniform float2 TexelSize;
+
+struct VOutput {
+      float4 position 			: POSITION;
+      float2 texCoord			: TEXCOORD0;
+};
+
+VOutput vs(float4 position : POSITION,
+		   float2 texCoord : TEXCOORD0) {
+    VOutput OUT;
+    OUT.position = position;
+    OUT.texCoord = texCoord;
+    return OUT;
+}
+
+float4 ps(float4 position 		: POSITION,
+		  float2 texCoord		: TEXCOORD0) : COLOR0 {
+
+	float4 result = float4(0);
+
+	for (int i = 0; i < 4; ++i) {
+		for (int j = 0; j < 4; ++j) {
+			float2 offset = float2(TexelSize.x * float(j), TexelSize.y * float(i));
+			result += tex2D(SourceMap, texCoord + offset).r;
+		}
+	}
+	
+	result = result * 0.0625;
+
+	return result;
+}
