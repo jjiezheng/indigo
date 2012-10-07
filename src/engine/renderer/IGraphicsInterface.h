@@ -46,7 +46,7 @@ public:
 
   int exitCode() const;
 
-  CSize screenSize() const;
+  CSize backBufferSize() const;
 
 public:
 
@@ -116,7 +116,7 @@ protected:
 
 };
 
-inline CSize IGraphicsInterface::screenSize() const {
+inline CSize IGraphicsInterface::backBufferSize() const {
   return screenSize_;
 }
 

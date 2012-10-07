@@ -11,7 +11,7 @@
 
 void DeferredFullScreenBlurPass::init() {
   blur_.setRenderTarget(blurRenderTarget_);
-  blur_.init(GraphicsInterface::screenSize(), 4);
+  blur_.init(GraphicsInterface::backBufferSize(), 4);
 }
 
 void DeferredFullScreenBlurPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {

@@ -18,6 +18,8 @@ public:
   
   void mainLoop();
 
+  void destroy();
+
 public:
 
   void keyUp(int keyCode);

@@ -20,8 +20,15 @@
 #include "DeferredLightingRenderStage.h"
 #include "IDeferredRenderTargetContainer.h"
 
+#include "memory/Allocation.h"
+
 static const int kKernelSize = 16;
 static const int kNoisePixelLine = 4;
+
+void DeferredSSAOPass::destroy() {
+  SAFE_DELETE(ssaoEffect_);
+  SAFE_DELETE(combineEffect_);
+}
 
 void DeferredSSAOPass::init(const CSize& screenSize) {
   ssaoEffect_ = IEffect::effectFromFile("shaders/compiled/deferred_ssao.shader");
@@ -36,10 +43,10 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
   ssaoRawTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R32G32B32A32);
   ssaoRawRenderTarget_ = GraphicsInterface::createRenderTarget(ssaoRawTexture_);
 
-  ssaoColorBlurCombinedTexture_ = GraphicsInterface::createTexture(GraphicsInterface::screenSize());
+  ssaoColorBlurCombinedTexture_ = GraphicsInterface::createTexture(GraphicsInterface::backBufferSize());
   ssaoColorBlurCombinedRenderTarget_ = GraphicsInterface::createRenderTarget(ssaoColorBlurCombinedTexture_);
 
-  blur_.init(GraphicsInterface::screenSize());
+  blur_.init(GraphicsInterface::backBufferSize());
 
   // generate noise texture
   

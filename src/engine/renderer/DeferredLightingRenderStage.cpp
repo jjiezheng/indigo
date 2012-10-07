@@ -10,6 +10,12 @@
 #include "IDeferredLightingPass.h"
 #include "IDeferredRenderTargetContainer.h"
 
+void DeferredLightingRenderStage::destroy() {
+  for (std::vector<IDeferredLightingPass*>::iterator i = passes_.begin(); i != passes_.end(); ++i) {
+    (*i)->destroy();
+  }
+}
+
 void DeferredLightingRenderStage::init(const CSize& screenSize) {
     lightMapTexture_ = GraphicsInterface::createTexture(screenSize);
     lightRenderTarget_ = GraphicsInterface::createRenderTarget(lightMapTexture_);

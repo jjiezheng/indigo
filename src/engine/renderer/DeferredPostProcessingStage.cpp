@@ -8,10 +8,21 @@
 #include "DeferredFXAAPass.h"
 #include "IDeferredRenderTargetContainer.h"
 
+#include "memory/Allocation.h"
+
+void DeferredPostProcessingStage::destroy() {
+  for (std::vector<IDeferredPostProcessingPass*>::iterator i = passes_.begin(); i != passes_.end();) {
+    (*i)->destroy();
+
+    SAFE_DELETE((*i));
+    i = passes_.erase(i);
+  }
+}
+
 void DeferredPostProcessingStage::init(const CSize& screenSize) {    
   IDeferredPostProcessingPass* ssaoPass = new DeferredSSAOPass();
   passes_.push_back(ssaoPass);
-
+ 
   IDeferredPostProcessingPass* fxaaPass = new DeferredFXAAPass();
   passes_.push_back(fxaaPass);
 

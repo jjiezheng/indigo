@@ -9,6 +9,10 @@ class AverageBlur {
 
 public:
 
+  ~AverageBlur();
+
+public:
+
   AverageBlur()
     : outputRenderTarget_(0)
     , outputRenderTexture_(0)

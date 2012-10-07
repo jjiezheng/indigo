@@ -60,6 +60,35 @@
         },
         {
           "type" : "spot",
+          "innerangle" : 10,
+          "outerangle" : 12,
+          "decay" : 0.2,
+          "length" : 20.5,
+          "intensity" : 1.0,
+          "castsshadows" : true,
+          "position" : {
+            "x" : -10,
+            "y" : 40,
+            "z" : 40
+          },
+          "orientation" : {
+            "x" : 0,
+            "y" : 0,
+            "z" : 0
+          },
+          "color" : {
+            "r" : 1.1,
+            "g" : 1.1,
+            "b" : 1.1
+          },
+          "direction" : {
+            "x" : 0.0,
+            "y" : -0.7,
+            "z" : -1.0
+          }
+        },
+        {
+          "type" : "spot",
           "innerangle" : 40,
           "outerangle" : 70,
           "decay" : 0.2,

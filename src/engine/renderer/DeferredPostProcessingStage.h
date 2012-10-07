@@ -22,6 +22,10 @@ public:
 
   void init(const CSize& screenSize);
 
+  void destroy();
+
+public:
+
   void render(IViewer* viewer, unsigned int inputMap, const DeferredInitRenderStage& initStage);
 
 public:

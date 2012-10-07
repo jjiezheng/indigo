@@ -8,6 +8,12 @@
 
 #include "GraphicsInterface.h"
 
+#include "memory/Allocation.h"
+
+void DeferredPresentStage::destroy() {
+  SAFE_DELETE(effect_);
+}
+
 void DeferredPresentStage::init(const CSize& screenSize) {
   effect_ = IEffect::effectFromFile(IEffect::SHADER_FULLSCREEN_TEXTURE);
   quadVbo_ = Geometry::screenPlane();
@@ -17,7 +23,7 @@ void DeferredPresentStage::render(unsigned int presentTextureId, unsigned int de
   GraphicsInterface::beginPerformanceEvent("Present", Color4::GREEN);
 
   GraphicsInterface::resetRenderTarget(false);
-  GraphicsInterface::setViewport(GraphicsInterface::screenSize());
+  GraphicsInterface::setViewport(GraphicsInterface::backBufferSize());
   GraphicsInterface::clearBuffer(Color4::NOTHING);
 
   effect_->setTexture(presentTextureId, "ColorMap");

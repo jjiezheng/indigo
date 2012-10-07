@@ -30,15 +30,15 @@ float GraphicsInterface::aspectRatio() {
 }
 
 int GraphicsInterface::screenWidth() {
-  return screenSize().width;
+  return backBufferSize().width;
 }
 
 int GraphicsInterface::screenHeight() {
-  return screenSize().height;
+  return backBufferSize().height;
 }
 
-CSize GraphicsInterface::screenSize() {
-  return graphicsInterface_->screenSize();
+CSize GraphicsInterface::backBufferSize() {
+  return graphicsInterface_->backBufferSize();
 }
 
 bool GraphicsInterface::windowClosed() {

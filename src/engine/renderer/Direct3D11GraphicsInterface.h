@@ -19,7 +19,7 @@ public:
   Direct3D11GraphicsInterface()
     : swapChain_(0)
     , device_(0)
-    , deviceConnection_(0)
+    , context_(0)
     , backBuffer_(0)
     , depthBuffer_(0)
     , depthBufferTexture_(0)
@@ -95,30 +95,28 @@ private:
 
   void createGraphicsContext(HWND hWnd, int width, int height, unsigned int multiSamples);
 
-  void createInputContext(HWND hWnd);
+  void createBlendStates();
 
 private:
 
   IDXGISwapChain *swapChain_;
   ID3D11Device *device_;
-  ID3D11DeviceContext *deviceConnection_;
+  ID3D11DeviceContext *context_;
+
+private:
+
   ID3D11RenderTargetView* backBuffer_;
+  ID3D11DepthStencilView* depthBuffer_;
+  unsigned int depthBufferTexture_;
   
 private:
 
   std::vector<ID3D11Buffer*> vertexBuffers_;
   std::vector<DirectXTexture> textures_;
   std::vector<ID3D11RenderTargetView*> renderTargets_;
-  unsigned int multiSamples_;
-
-private:
-
   std::vector<ID3D11BlendState*> blendStates_;
 
-private:
-
-  ID3D11DepthStencilView* depthBuffer_;
-  unsigned int depthBufferTexture_;
+  unsigned int multiSamples_;  
 
 };
 

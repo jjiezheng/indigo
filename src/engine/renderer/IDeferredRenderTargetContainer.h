@@ -7,6 +7,10 @@ class IDeferredRenderTargetContainer {
 
 public:
 
+  virtual ~IDeferredRenderTargetContainer() { }
+
+public:
+
   virtual void addRenderTarget(const std::string& renderTargetName, unsigned int renderTargetId) = 0;
 
 };

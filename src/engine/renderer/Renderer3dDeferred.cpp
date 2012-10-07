@@ -14,6 +14,13 @@
 
 #include "Color4.h"
 
+void Renderer3dDeferred::destroy() {
+  initStage_.destroy();
+  lightingStage_.destroy();
+  postProcessingStage_.destroy();
+  presentStage_.destroy();
+}
+
 void Renderer3dDeferred::init(const CSize& screenSize) {
   initStage_.init(screenSize);
   initStage_.collectRenderTargets(this);
@@ -34,11 +41,11 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
 }
 
 void Renderer3dDeferred::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
-  initStage_.render(viewer, world, sceneContext);
-  lightingStage_.render(viewer, world, sceneContext, initStage_);
-  /*skyStage_.render(viewer, world, lightingStage_);*/
-  postProcessingStage_.render(viewer, lightingStage_.lightMap(), initStage_);
-
+   initStage_.render(viewer, world, sceneContext);
+   lightingStage_.render(viewer, world, sceneContext, initStage_);
+   /*skyStage_.render(viewer, world, lightingStage_);*/
+   postProcessingStage_.render(viewer, lightingStage_.lightMap(), initStage_);
+ 
   DeferredRenderTarget renderTargetToPresent = renderTargets_[activeRenderTargetIndex_];
   presentStage_.render(renderTargetToPresent.renderTargetId, GraphicsInterface::depthBufferTexture());
 }

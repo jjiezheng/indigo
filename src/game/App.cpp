@@ -20,6 +20,9 @@ int App::run(const char* sceneFile) {
     quit = GraphicsInterface::windowClosed();
   }
 
+  game_.destroy();
+
   GraphicsInterface::destroy();
+
   return GraphicsInterface::closeWindow();
 }

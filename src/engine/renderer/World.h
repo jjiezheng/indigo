@@ -5,10 +5,15 @@
 
 #include "SkyDome.h"
 #include "Model.h"
+#include "memory/Allocation.h"
 
 class Vector3;
 
 class World {
+
+public:
+
+  void destroy();
 
 public:
 
@@ -62,6 +67,13 @@ inline std::vector<Model*>::iterator World::end() {
 inline bool World::hasSkyDome() const {
   return hasSkyDome_;
 }
+
+inline void World::destroy() {
+  for (std::vector<Model*>::iterator i = models_.begin(); i != models_.end(); ++i) {
+    SAFE_DELETE((*i));
+  }
+}
+
 
 
 #endif

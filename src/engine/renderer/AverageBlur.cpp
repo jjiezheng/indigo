@@ -7,6 +7,12 @@
 #include "Color4.h"
 #include "IEffect.h"
 
+#include "memory/Allocation.h"
+
+AverageBlur::~AverageBlur() {
+  SAFE_DELETE(effect_);
+}
+
 void AverageBlur::init(const CSize& bufferSize) {
   bufferSize_ = bufferSize;
 

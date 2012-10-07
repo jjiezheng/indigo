@@ -10,6 +10,13 @@
 
 #include "IDeferredRenderTargetContainer.h"
 
+#include "memory/Allocation.h"
+
+void DeferredFXAAPass::destroy() {
+  SAFE_DELETE(fxaaEffect_);
+  SAFE_DELETE(colorLumaEffect_);
+}
+
 void DeferredFXAAPass::init(const CSize& screenSize) {
   colorLumaTexture_ = GraphicsInterface::createTexture(screenSize);
   colorLumaTarget_ = GraphicsInterface::createRenderTarget(colorLumaTexture_);
@@ -47,7 +54,7 @@ unsigned int DeferredFXAAPass::render(IViewer* viewer, unsigned int inputMap, co
 
     fxaaEffect_->setTexture(colorLumaTexture_, "FinalMap");
 
-    CSize screenSize = GraphicsInterface::screenSize();
+    CSize screenSize = GraphicsInterface::backBufferSize();
     Vector2 screenSizeInv;
     screenSizeInv.x = 1.0f / screenSize.width;
     screenSizeInv.y = 1.0f / screenSize.height;

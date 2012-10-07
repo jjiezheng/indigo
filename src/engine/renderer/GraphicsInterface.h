@@ -42,7 +42,7 @@ public:
   
   static int screenHeight();
   
-  static CSize screenSize();
+  static CSize backBufferSize();
 
   static bool windowClosed();
 

@@ -30,6 +30,10 @@ public:
 
   void init(const CSize &screenSize);
 
+  void destroy() { };
+
+public:
+
   void render(IViewer* viewer, World& world, DeferredLightingRenderStage& lightingStage);
 
 public:

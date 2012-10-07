@@ -29,9 +29,17 @@ struct ConstantBuffer {
   unsigned int size;
   ID3D11Buffer* GPUBuffer;
   char* CPUBuffer;
+
+  ConstantBuffer()
+    : CPUBuffer(0) 
+    , GPUBuffer(0) { }
 };
 
 class D3DEffect : public IEffect {
+
+public:
+
+  ~D3DEffect();
 
 public:
 
@@ -81,8 +89,12 @@ private:
   ID3D11VertexShader* vertexShader_;
   ID3D11PixelShader* pixelShader_;
 
+private:
+
   std::map<std::string, ShaderTexture> vertexShaderTextures_;
   std::vector<ConstantBuffer> vertexShaderConstantBuffers_;
+
+private:
 
   std::vector<ConstantBuffer> pixelShaderConstantBuffers_;
   std::map<std::string, ShaderTexture> pixelShaderTextures_;
@@ -98,7 +110,7 @@ private:
 
   void setConstantBufferValue(const std::vector<ConstantBuffer>& constantBuffer, const std::string& uniformName, void* uniformData) const;
 
-  void fillConstantBuffer(ID3D10Blob* programData, std::vector<ConstantBuffer>& constantBufferList, std::map<std::string, ShaderTexture>& shaderTextures);
+  void fillConstantBuffer(ID3D10Blob* programData, std::vector<ConstantBuffer>& constantBufferList, std::map<std::string, ShaderTexture>& shaderTextures, std::map<unsigned int, ID3D11SamplerState*>& samplers);
 
   void commitShaderConstantBuffers(const std::vector<ConstantBuffer>& shaderConstantBuffers);  
 

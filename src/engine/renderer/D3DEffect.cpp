@@ -23,12 +23,37 @@
 
 #include "Direct3D11GraphicsInterface.h"
 
+#include "memory/Allocation.h"
+
 ID3D11Device* D3DEffect::device_ = NULL;
 ID3D11DeviceContext* D3DEffect::context_ = NULL;
 
 #define D3D_COMPILE_STANDARD_FILE_INCLUDE ((ID3DInclude*)(UINT_PTR)1)
 
-void D3DEffect::fillConstantBuffer(ID3D10Blob* programData, std::vector<ConstantBuffer>& constantBufferList, std::map<std::string, ShaderTexture>& shaderTextures) {
+D3DEffect::~D3DEffect() {
+  vertexShader_->Release();
+  pixelShader_->Release();
+  layout_->Release();
+
+  for (std::vector<ConstantBuffer>::iterator i = pixelShaderConstantBuffers_.begin(); i != pixelShaderConstantBuffers_.end();) {
+    SAFE_DELETE((*i).CPUBuffer);
+    (*i).GPUBuffer->Release();
+    i = pixelShaderConstantBuffers_.erase(i);
+  }
+
+  for (std::map<unsigned int, ID3D11SamplerState*>::iterator i = pixelShaderSamplers_.begin(); i != pixelShaderSamplers_.end();) {
+    (*i).second->Release();
+    i = pixelShaderSamplers_.erase(i);
+  }
+
+  for (std::vector<ConstantBuffer>::iterator i = vertexShaderConstantBuffers_.begin(); i != vertexShaderConstantBuffers_.end();) {
+    SAFE_DELETE((*i).CPUBuffer);
+    (*i).GPUBuffer->Release();
+    i = vertexShaderConstantBuffers_.erase(i);
+  }
+}
+
+void D3DEffect::fillConstantBuffer(ID3D10Blob* programData, std::vector<ConstantBuffer>& constantBufferList, std::map<std::string, ShaderTexture>& shaderTextures, std::map<unsigned int, ID3D11SamplerState*>& samplers) {
   ID3D11ShaderReflection* shaderReflection = NULL;
   HRESULT result = D3DReflect(programData->GetBufferPointer(), programData->GetBufferSize(), IID_ID3D11ShaderReflection, (void**) &shaderReflection);
   assert(SUCCEEDED(result) && shaderReflection);
@@ -37,7 +62,6 @@ void D3DEffect::fillConstantBuffer(ID3D10Blob* programData, std::vector<Constant
     D3D11_SHADER_DESC shaderDesc;
     HRESULT result = shaderReflection->GetDesc(&shaderDesc);
     assert(SUCCEEDED(result));
-
 
     unsigned int constantBuffers = shaderDesc.ConstantBuffers;
     for (unsigned int i = 0; i < constantBuffers; i++) {
@@ -106,7 +130,13 @@ void D3DEffect::fillConstantBuffer(ID3D10Blob* programData, std::vector<Constant
       ID3D11SamplerState* samplerState = 0;
       result = device_->CreateSamplerState(&samplerDesc, &samplerState);
       assert(SUCCEEDED(result));
-      pixelShaderSamplers_[bindDesc.BindPoint] = samplerState;
+
+      std::map<unsigned int, ID3D11SamplerState*>::iterator samplerIt = samplers.find(bindDesc.BindPoint);
+      if (samplerIt != samplers.end()) {
+        (*samplerIt).second->Release();
+      }
+
+      samplers[bindDesc.BindPoint] = samplerState;
     }
   }
 }
@@ -134,7 +164,7 @@ void D3DEffect::load(const std::string& filePath) {
       }
 
       {
-          fillConstantBuffer(vertexProgram, vertexShaderConstantBuffers_, vertexShaderTextures_);
+        fillConstantBuffer(vertexProgram, vertexShaderConstantBuffers_, vertexShaderTextures_, pixelShaderSamplers_);
       }
     }
 
@@ -158,6 +188,7 @@ void D3DEffect::load(const std::string& filePath) {
     }
   }
 
+    
   std::string fullPixelShaderFilePath = filePath + ".dx11.fragment";
 
   {
@@ -179,7 +210,7 @@ void D3DEffect::load(const std::string& filePath) {
     }
 
     {
-      fillConstantBuffer(pixelProgram, pixelShaderConstantBuffers_, pixelShaderTextures_);
+      fillConstantBuffer(pixelProgram, pixelShaderConstantBuffers_, pixelShaderTextures_, pixelShaderSamplers_);
     }
 
     {
@@ -196,7 +227,6 @@ void D3DEffect::commitShaderConstantBuffers(const std::vector<ConstantBuffer>& s
      assert(SUCCEEDED(result));
 
      memcpy((char*)resource.pData, (*constantBufferIt).CPUBuffer, (*constantBufferIt).size);
-
      context_->Unmap((*constantBufferIt).GPUBuffer, 0);
    }
 }
@@ -350,6 +380,12 @@ void D3DEffect::setSamplerState(unsigned int samplerSlot, SAMPLER_UV_ADDRESS_MOD
   ID3D11SamplerState* samplerState = 0;
   HRESULT result = device_->CreateSamplerState(&samplerDesc, &samplerState);
   assert(SUCCEEDED(result));
+
+  std::map<unsigned int, ID3D11SamplerState*>::iterator pixelShaderSamplersIt = pixelShaderSamplers_.find(samplerSlot);
+
+  if (pixelShaderSamplersIt != pixelShaderSamplers_.end()) {
+    (*pixelShaderSamplersIt).second->Release();
+  }
 
   pixelShaderSamplers_[samplerSlot] = samplerState;
 }

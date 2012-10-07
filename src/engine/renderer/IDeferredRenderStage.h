@@ -14,6 +14,8 @@ public:
 
   virtual void init(const CSize &screenSize) = 0;
 
+  virtual void destroy() = 0;
+
 };
 
 #endif

@@ -14,7 +14,7 @@ void Game::init(const char* sceneFile) {
   Mouse::init();
   Keyboard::init();
 
-  renderer_.init(GraphicsInterface::screenSize());
+  renderer_.init(GraphicsInterface::backBufferSize());
 
   clock_.init();
   
@@ -45,4 +45,9 @@ void Game::keyUp(int keyCode) {
 	  int renderTargetgId = keyCode - 49 + 5;
 	  renderer_.presentRenderTarget(renderTargetgId);
   }
+}
+
+void Game::destroy() {
+  renderer_.destroy();
+  world_.destroy();
 }
