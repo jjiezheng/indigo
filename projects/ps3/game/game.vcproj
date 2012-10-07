@@ -39,11 +39,12 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="-g -Xc+=exceptions"
+				AdditionalOptions="-g -Xc+=exceptions -Xquit=1"
 				AdditionalIncludeDirectories="../../../src/engine;../../../libs"
 				PreprocessorDefinitions="SN_TARGET_PS3;_DEBUG;__SNC__;__CELL_ASSERT__"
 				ProgramDataBaseFileName=""
 				CompileAs="0"
+				DisableSpecificWarnings="613;1011"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -157,7 +158,7 @@
 	<References>
 		<ProjectReference
 			ReferencedProjectIdentifier="{03593DC7-BBAA-4186-B5EF-5526C75147EA}"
-			RelativePathToProject=".\engine\engine.vcproj"
+			RelativePathToProject="..\engine\engine.vcproj"
 		/>
 	</References>
 	<Files>

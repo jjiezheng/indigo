@@ -39,11 +39,12 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="-g -Xc+=exceptions"
+				AdditionalOptions="-g -Xc+=exceptions -Xquit=1"
 				AdditionalIncludeDirectories="C:\usr\local\cell\target\ppu\include;../../../src/engine;../../../libs;../../../libs/assimp/include;../../../libs/freeimage"
 				PreprocessorDefinitions="SN_TARGET_PS3;_DEBUG;__SNC__;__CELL_ASSERT__"
 				ProgramDataBaseFileName=""
 				CompileAs="0"
+				DisableSpecificWarnings="613;1011"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
