@@ -47,11 +47,11 @@ float4 ps(float4 position 		: POSITION,
 	// world position
 	//------------------------------------------------------------
 
-	float4 normalData = unpackNormal(NormalMap, texCoord);
-	float3 normal = normalize(normalData.xyz);
+	float3 normalData = unpackNormal(NormalMap, texCoord);
+	float3 normal = normalize(normalData);
 
-	float diffusePower = normalData.w * 255; // 0-1 -> 0-255
-
+	// these need to be fed through in a render target
+	float diffusePower = 255;// normalData.w * 255; // 0-1 -> 0-255
 	float specularPower = 1;//depthSpec.z;
 	float specularIntensity = 1;//depthSpec.w;
 

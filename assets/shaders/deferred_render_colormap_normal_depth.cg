@@ -50,12 +50,12 @@ POutput ps(float4 position			: POSITION,
 	POutput OUT;
 	
 	OUT.color = tex2D(ColorMap, texCoord);				
-	OUT.normal = packNormal(float4(normal, DiffusePower));
+	OUT.normal = float4(packNormal(normal), 0);
 
 	float depthLinear = linearize(depth.z, Near, Far);
 
 	float3 packedDepth = packDepth(depthLinear);
-	OUT.depth = float4(depthLinear, depthLinear, depthLinear, 0);// float4(packedDepth, 0);
+	OUT.depth = float4(packedDepth, 0);
 
 	return OUT;
 }

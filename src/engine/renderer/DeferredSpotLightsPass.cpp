@@ -27,8 +27,6 @@ void DeferredSpotLightsPass::init(const CSize& screenSize) {
   lightEffect_ = IEffect::effectFromFile("shaders/compiled/deferred_lighting_spot_light.shader");
   lightEffect_->setSamplerState(2, UV_ADDRESS_CLAMP, FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT, COMPARISON_LESS);
 
-  gaussianBlur_.init(screenSize, 16);
-
   spotLightRenderTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R8G8B8A8);
   spotLightRenderTarget_ = GraphicsInterface::createRenderTarget(spotLightRenderTexture_);
 
@@ -87,12 +85,6 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
 
         GraphicsInterface::endPerformanceEvent();
       }
-
-//       {
-//         GraphicsInterface::beginPerformanceEvent("Blur", Color4::GREY);
-//         gaussianBlur_.render((*light)->shadowMapTexture());
-//         GraphicsInterface::endPerformanceEvent();
-//       }
 
       GraphicsInterface::endPerformanceEvent();
     }

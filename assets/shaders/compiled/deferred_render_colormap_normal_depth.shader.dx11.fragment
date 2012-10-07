@@ -16,7 +16,6 @@
 //semantic Far
 //semantic Near
 //var sampler2D ColorMap :  : _ColorMap : -1 : 1
-//var float DiffusePower :  : _DiffusePower : -1 : 1
 //var float Far :  : _Far : -1 : 1
 //var float Near :  : _Near : -1 : 1
 //var float3 normal : $vin.TEXCOORD0 :  : 1 : 1
@@ -48,10 +47,12 @@ struct X1X {
     float3 _TEXCOORD2 : TEXCOORD2;
 };
 
-static float4 _unPackedNormal0003;
-Texture2D<float4> _TMP10;
+static float2 _TMP1;
+static float3 _TMP0;
+static float3 _color0011;
+static float3 _unit0011;
+Texture2D<float4> _TMP12;
 SamplerState _ColorMap;
-uniform float _DiffusePower;
 uniform float _Far;
 uniform float _Near;
 
@@ -68,10 +69,17 @@ POutput main( in X1X cin)
     _normal2 = cin._TEXCOORD0;
     _texCoord = cin._TEXCOORD1;
     _depth4 = cin._TEXCOORD2;
-    _OUT._color1 = _TMP10.Sample(_ColorMap, _texCoord);
-    _unPackedNormal0003 = float4(_normal2.x, _normal2.y, _normal2.z, _DiffusePower);
-    _OUT._normal1 =  5.00000000000000000E-001f + _unPackedNormal0003* 5.00000000000000000E-001f;
+    _OUT._color1 = _TMP12.Sample(_ColorMap, _texCoord);
+    _TMP0 =  5.00000000000000000E-001f + _normal2* 5.00000000000000000E-001f;
+    _OUT._normal1 = float4(_TMP0.x, _TMP0.y, _TMP0.z,  0.00000000000000000E000f);
     _depthLinear = (-_depth4.z - _Near)/(_Far - _Near);
-    _OUT._depth3 = float4(_depthLinear, _depthLinear, _depthLinear,  0.00000000000000000E000f);
+    _unit0011 = _depthLinear.xxx;
+    _TMP1 = floor(_depthLinear.xx/float2(  3.90625046566128730E-003f,  1.52587908814894040E-005f));
+    _unit0011.yz = _depthLinear.xx - _TMP1*float2(  3.90625046566128730E-003f,  1.52587908814894040E-005f);
+    _color0011 = _unit0011*float3(  1.00000000000000000E000f,  2.56000000000000000E002f,  6.55360000000000000E004f);
+    _color0011 = frac(_color0011);
+    _color0011 = _color0011* 1.00392162799835210E000f;
+    _color0011.xy = _color0011.xy - _color0011.yz/ 2.56000000000000000E002f;
+    _OUT._depth3 = float4(_color0011.x, _color0011.y, _color0011.z,  0.00000000000000000E000f);
     return _OUT;
 } // main end

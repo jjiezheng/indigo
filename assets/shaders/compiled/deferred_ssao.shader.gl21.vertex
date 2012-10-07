@@ -13,8 +13,8 @@
 //semantic Near
 //semantic NormalMap : TEXUNIT0
 //semantic NoiseMap : TEXUNIT1
-//semantic DepthMap : TEXUNIT2
-//semantic LinearDepthMap : TEXUNIT3
+//semantic LinearDepthMap : TEXUNIT2
+//semantic DepthMap : TEXUNIT3
 //semantic Projection
 //semantic ProjInv
 //semantic View

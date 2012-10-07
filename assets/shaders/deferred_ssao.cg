@@ -11,8 +11,8 @@ uniform float Near;
 
 sampler2D NormalMap : TEXUNIT0;
 sampler2D NoiseMap : TEXUNIT1;
-sampler2D DepthMap : TEXUNIT2;
-sampler2D LinearDepthMap : TEXUNIT3;
+sampler2D LinearDepthMap : TEXUNIT2;
+sampler2D DepthMap : TEXUNIT3;
 
 uniform float4x4 Projection;
 uniform float4x4 ProjInv;
@@ -34,8 +34,8 @@ VOutput vs(float4 position 	: POSITION,
 float4 ps(float4 position 		: POSITION,
 		  float2 texCoord 		: TEXCOORD0) : COLOR0 {
 
-	float4 normalData = unpackNormal(NormalMap, texCoord);
-	float3 normalViewSpace = mul(View, normalData).xyz;
+	float3 normalData = unpackNormal(NormalMap, texCoord);
+	float3 normalViewSpace = mul(View, float4(normalData, 0.0f)).xyz;
 	float3 normal = normalize(normalViewSpace);
 
 	float depth = unpackDepth(DepthMap, texCoord);

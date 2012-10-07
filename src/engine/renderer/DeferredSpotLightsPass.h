@@ -3,8 +3,6 @@
 
 #include "IDeferredLightingPass.h"
 
-#include "GaussianBlur.h"
-
 class IEffect;
 class Model;
 
@@ -34,8 +32,6 @@ private:
   unsigned int spotLightRenderTexture_;
 
   unsigned int quadVbo_;
-
-  GaussianBlur gaussianBlur_;
 
   IEffect* lightEffect_;
   IEffect* shadowMapEffect_;

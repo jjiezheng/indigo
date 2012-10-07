@@ -1,13 +1,13 @@
 #include "depth.h"
 
-float4 packNormal(float4 unPackedNormal) {
+float3 packNormal(float3 unPackedNormal) {
 	return 0.5f + unPackedNormal * 0.5f;
 }
 
-float4 unpackNormal(sampler2D normalSampler, float2 texCoord) {
+float3 unpackNormal(sampler2D normalSampler, float2 texCoord) {
 	float4 normalData = tex2D(normalSampler, texCoord);
   	float4 unPackedNormal = (normalData * 2.0f) - 1.0f;
-  	return unPackedNormal;
+  	return unPackedNormal.xyz;
 }
 
 float shadowPCF(sampler2D shadowMap, float2 shadowCoord, float zToCompare, float2 shadowMapSize) {
@@ -17,7 +17,7 @@ float shadowPCF(sampler2D shadowMap, float2 shadowCoord, float zToCompare, float
 	for (y = -1.5; y <= 1.5; y += 1.0) {
 		for (x = -1.5; x <= 1.5; x += 1.0) {
 			float2 shadowCoordOffset = shadowCoord + float2(x * shadowMapSize.x, y * shadowMapSize.y);
-			sum += tex2Dproj(shadowMap, float4(shadowCoordOffset, zToCompare - 0.0005f, 1)).r;
+			sum += tex2Dproj(shadowMap, float4(shadowCoordOffset, zToCompare, 1)).r;
 		}
 	}
 

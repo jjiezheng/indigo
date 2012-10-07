@@ -17,7 +17,7 @@ void DeferredInitRenderStage::init(const CSize& screenSize) {
   normalMapTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R8G8B8A8);
   normalRenderTarget_ = GraphicsInterface::createRenderTarget(normalMapTexture_);
 
-  depthMapTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R32G32B32A32);
+  depthMapTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R8G8B8A8);
   depthRenderTarget_ = GraphicsInterface::createRenderTarget(depthMapTexture_);
 
   IDeferredPass* clearBuffersPass = new DeferredClearBuffersPass(colorRenderTarget_, normalRenderTarget_);

@@ -79,7 +79,7 @@ float3 packDepth(float depth) {
 
 float unpackARGB8Depth(sampler2D depthSampler, float2 texCoord) {
     float3 color = tex2D(depthSampler, texCoord).rgb;
-    return color.r;//ColorToUnit24New(color);
+    return ColorToUnit24New(color);
 }
 
 float unpackDepth(sampler2D depthSampler, float2 texCoord) {
