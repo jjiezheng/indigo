@@ -43,6 +43,7 @@ void DeferredGeometryPass::render(IViewer* viewer, World& world, const SceneCont
 
     effect->setUniform(viewer->nearDistance(), "Near");
     effect->setUniform(viewer->farDistance(), "Far");
+    effect->setSamplerState(0, UV_ADDRESS_WRAP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_NONE);
 
     std::vector<Mesh*> effectMeshes = (*i).second;
     for (std::vector<Mesh*>::iterator meshIt = effectMeshes.begin(); meshIt != effectMeshes.end(); ++meshIt) {

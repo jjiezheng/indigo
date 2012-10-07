@@ -11,14 +11,13 @@
 //semantic Kernel
 //semantic Far
 //semantic Near
-//semantic NoiseMap : TEXUNIT0
-//semantic NormalMap : TEXUNIT1
+//semantic NormalMap : TEXUNIT0
+//semantic NoiseMap : TEXUNIT1
 //semantic DepthMap : TEXUNIT2
 //semantic LinearDepthMap : TEXUNIT3
 //semantic Projection
 //semantic ProjInv
 //semantic View
-//semantic NormalMatrix
 //var float4 position : $vin.POSITION : POSITION : 0 : 1
 //var float2 texCoord : $vin.TEXCOORD0 : TEXCOORD0 : 1 : 1
 //var float4 vs.position : $vout.POSITION :  : -1 : 1

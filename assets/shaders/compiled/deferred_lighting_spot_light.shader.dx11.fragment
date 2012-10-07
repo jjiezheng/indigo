@@ -9,7 +9,6 @@
 //semantic DepthMap : TEXUNIT0
 //semantic NormalMap : TEXUNIT1
 //semantic ShadowMap : TEXUNIT2
-//semantic DepthMap2 : TEXUNIT3
 //semantic LightInnerAngle
 //semantic LightOuterAngle
 //semantic LightDecay
@@ -23,7 +22,6 @@
 //semantic WorldViewProj
 //semantic NormalMatrix
 //semantic ShadowMapSize
-//semantic ShadowsEnabled
 //var sampler2D DepthMap : TEXUNIT0 : _DepthMap 0 : -1 : 1
 //var sampler2D NormalMap : TEXUNIT1 : _NormalMap 1 : -1 : 1
 //var sampler2D ShadowMap : TEXUNIT2 : _ShadowMap 2 : -1 : 1

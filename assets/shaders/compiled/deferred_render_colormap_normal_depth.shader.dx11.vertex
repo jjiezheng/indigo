@@ -1,16 +1,15 @@
 // vs_4_0 output by Cg compiler
 // cgc version 3.1.0013, build date Apr 18 2012
 // command line args: -q -unroll all -profile vs_5_0
-// source file: deferred_render_color_normal_depth.cg
+// source file: deferred_render_colormap_normal_depth.cg
 //vendor NVIDIA Corporation
 //version 3.1.0.13
 //profile vs_5_0
 //program vs
-//semantic NormalMatrix
+//semantic ColorMap
 //semantic WorldViewProj
 //semantic WorldView
-//semantic DiffuseColor
-//semantic AmbientColor
+//semantic NormalMatrix
 //semantic DiffusePower
 //semantic SpecularPower
 //semantic SpecularIntensity
@@ -20,16 +19,19 @@
 //var float4x4 WorldView :  : _WorldView[0], 4 : -1 : 1
 //var float4 position : $vin.POSITION : POSITION : 0 : 1
 //var float3 normal : $vin.NORMAL : NORMAL : 1 : 1
+//var float2 texCoord : $vin.TEXCOORD0 : TEXCOORD0 : 2 : 1
 //var float4 vs.position : $vout.POSITION :  : -1 : 1
 //var float3 vs.normal : $vout.TEXCOORD0 :  : -1 : 1
-//var float3 vs.depth : $vout.TEXCOORD1 :  : -1 : 1
+//var float2 vs.texCoord : $vout.TEXCOORD1 :  : -1 : 1
+//var float3 vs.depth : $vout.TEXCOORD2 :  : -1 : 1
 
 #pragma pack_matrix(row_major)
 
 struct VOutput {
     float4 _position1 : POSITION;
     float3 _normal1 : TEXCOORD0;
-    float3 _depth : TEXCOORD1;
+    float2 _texCoord1 : TEXCOORD1;
+    float3 _depth : TEXCOORD2;
 };
 
 struct POutput {
@@ -41,7 +43,8 @@ struct POutput {
 struct X1X {
     float4 _POSITION : SV_Position;
     float3 _TEXCOORD0 : TEXCOORD0;
-    float3 _TEXCOORD1 : TEXCOORD1;
+    float2 _TEXCOORD1 : TEXCOORD1;
+    float3 _TEXCOORD2 : TEXCOORD2;
 };
 
 static float4 _r0001;
@@ -51,7 +54,7 @@ uniform float4x4 _WorldViewProj;
 uniform float4x4 _WorldView;
 
  // main procedure, the original name was vs
-X1X main(in float4 _position : POSITION, in float3 _normal : NORMAL0)
+X1X main(in float4 _position : POSITION, in float3 _normal : NORMAL0, in float2 _texCoord : TEXCOORD0)
 {
 
     VOutput _OUT;
@@ -62,12 +65,14 @@ X1X main(in float4 _position : POSITION, in float3 _normal : NORMAL0)
     _r0001.w = dot(_WorldViewProj._41_42_43_44, _position);
     _OUT._position1 = _r0001;
     _OUT._normal1 = _normal;
+    _OUT._texCoord1 = _texCoord;
     _OUT._depth.x = _r0001.z;
     _OUT._depth.y = _r0001.w;
     _r0003.z = dot(_WorldView._31_32_33_34, _position);
     _OUT._depth.z = _r0003.z;
     cout._POSITION = _OUT._position1;
     cout._TEXCOORD0 = _OUT._normal1;
-    cout._TEXCOORD1 = _OUT._depth;
+    cout._TEXCOORD1 = _OUT._texCoord1;
+    cout._TEXCOORD2 = _OUT._depth;
     return cout;
 } // main end

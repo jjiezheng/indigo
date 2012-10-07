@@ -305,7 +305,9 @@ void D3DEffect::setTexture(unsigned int textureId, const char* uniformName) {
 }
 
 void D3DEffect::setSamplerState(unsigned int samplerSlot, SAMPLER_UV_ADDRESS_MODE addressMode, SAMPLER_COMPARISON_FILTER comparisonFilter, SAMPLER_COMPARISON_FUNC compartisonFunction) {
-  assert(samplerSlot < pixelShaderSamplers_.size());
+  if (samplerSlot + 1 > pixelShaderSamplers_.size()) {
+    return;
+  }
 
 
   D3D11_SAMPLER_DESC samplerDesc;
@@ -332,6 +334,10 @@ void D3DEffect::setSamplerState(unsigned int samplerSlot, SAMPLER_UV_ADDRESS_MOD
 
     case FILTER_MIN_MAG_MIP_POINT:
       samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
+      break;
+
+    case FILTER_MIN_MAG_MIP_LINEAR:
+      samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
       break;
   }
 

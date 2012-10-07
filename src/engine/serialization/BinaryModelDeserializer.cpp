@@ -37,6 +37,8 @@ std::string BinaryModelDeserializer::readString(std::ifstream& input) {
 
   std::string result(stringRaw);
 
+  delete stringRaw;
+
   return result;
 }
 

@@ -25,7 +25,7 @@
 void DeferredSpotLightsPass::init(const CSize& screenSize) {
   shadowMapEffect_ = IEffect::effectFromFile("shaders/compiled/deferred_depth.shader");
   lightEffect_ = IEffect::effectFromFile("shaders/compiled/deferred_lighting_spot_light.shader");
-  lightEffect_->setSamplerState(2, UV_ADDRESS_WRAP, FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT, COMPARISON_LESS);
+  lightEffect_->setSamplerState(2, UV_ADDRESS_CLAMP, FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT, COMPARISON_LESS);
 
   gaussianBlur_.init(screenSize, 16);
 

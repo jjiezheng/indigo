@@ -4,7 +4,6 @@
 sampler2D DepthMap : TEXUNIT0;
 sampler2D NormalMap : TEXUNIT1;
 sampler2D ShadowMap : TEXUNIT2;
-sampler2D DepthMap2 : TEXUNIT3;
 
 uniform float LightInnerAngle;
 uniform float LightOuterAngle;
@@ -23,8 +22,6 @@ uniform float4x4 WorldViewProj;
 uniform float3x3 NormalMatrix;
 
 uniform float2 ShadowMapSize;
-
-uniform int ShadowsEnabled;
 
 struct VOutput {
       float4 position 			: POSITION;

@@ -1,27 +1,27 @@
 // glslf output by Cg compiler
 // cgc version 3.1.0013, build date Apr 18 2012
 // command line args: -q -profile glslf
-// source file: deferred_render_color_normal_depth.cg
+// source file: deferred_render_colormap_normal_depth.cg
 //vendor NVIDIA Corporation
 //version 3.1.0.13
 //profile glslf
 //program ps
-//semantic NormalMatrix
+//semantic ColorMap
 //semantic WorldViewProj
 //semantic WorldView
-//semantic DiffuseColor
-//semantic AmbientColor
+//semantic NormalMatrix
 //semantic DiffusePower
 //semantic SpecularPower
 //semantic SpecularIntensity
 //semantic Far
 //semantic Near
-//var float3 DiffuseColor :  : _DiffuseColor : -1 : 1
+//var sampler2D ColorMap :  : _ColorMap : -1 : 1
 //var float DiffusePower :  : _DiffusePower : -1 : 1
 //var float Far :  : _Far : -1 : 1
 //var float Near :  : _Near : -1 : 1
 //var float3 normal : $vin.TEXCOORD0 : TEX0 : 1 : 1
-//var float3 depth : $vin.TEXCOORD1 : TEX1 : 2 : 1
+//var float2 texCoord : $vin.TEXCOORD1 : TEX1 : 2 : 1
+//var float3 depth : $vin.TEXCOORD2 : TEX2 : 3 : 1
 //var float4 ps.color : $vout.COLOR0 : COL : -1 : 1
 //var float4 ps.normal : $vout.COLOR1 : COL1 : -1 : 1
 //var float4 ps.depth : $vout.COLOR2 : COL2 : -1 : 1
@@ -32,6 +32,7 @@
 
 struct VOutput {
     vec3 _normal3;
+    vec2 _texCoord2;
     vec3 _depth5;
 };
 
@@ -42,7 +43,7 @@ struct POutput {
 };
 
 vec4 _unPackedNormal0014;
-uniform vec3 _DiffuseColor;
+uniform sampler2D _ColorMap;
 uniform float _DiffusePower;
 uniform float _Far;
 uniform float _Near;
@@ -54,10 +55,10 @@ void main()
     POutput _OUT;
     float _depthLinear;
 
-    _OUT._color1 = vec4(_DiffuseColor.x, _DiffuseColor.y, _DiffuseColor.z, 1.00000000E+000);
+    _OUT._color1 = texture2D(_ColorMap, gl_TexCoord[1].xy);
     _unPackedNormal0014 = vec4(gl_TexCoord[0].x, gl_TexCoord[0].y, gl_TexCoord[0].z, _DiffusePower);
     _OUT._normal4 = 5.00000000E-001 + _unPackedNormal0014*5.00000000E-001;
-    _depthLinear = (-gl_TexCoord[1].z - _Near)/(_Far - _Near);
+    _depthLinear = (-gl_TexCoord[2].z - _Near)/(_Far - _Near);
     _OUT._depth6 = vec4(_depthLinear, _depthLinear, _depthLinear, 0.00000000E+000);
     gl_FragData[1] = _OUT._normal4;
     gl_FragData[2] = _OUT._depth6;

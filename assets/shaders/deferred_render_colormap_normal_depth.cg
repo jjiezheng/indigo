@@ -1,11 +1,10 @@
 #include "standard.h"
 
-uniform	float3x3 NormalMatrix;
-uniform	float4x4 WorldViewProj;
-uniform	float4x4 WorldView;
+sampler2D ColorMap;
 
-uniform	float3 DiffuseColor;
-uniform	float3 AmbientColor;
+uniform float4x4 WorldViewProj;
+uniform float4x4 WorldView;
+uniform float3x3 NormalMatrix;
 
 uniform float DiffusePower;
 uniform float SpecularPower;
@@ -17,16 +16,17 @@ uniform float Near;
 struct VOutput {
 	float4 position			: POSITION;
 	float3 normal			: TEXCOORD0;
-	float3 depth			: TEXCOORD1;
+	float2 texCoord			: TEXCOORD1;
+	float3 depth			: TEXCOORD2;
 };
 
 VOutput vs(float4 position 		: POSITION,
-		   float3 normal 		: NORMAL) {
-
+		   float3 normal 		: NORMAL,
+		   float2 texCoord 		: TEXCOORD0) {
 	VOutput OUT;
 	OUT.position = mul(WorldViewProj, position);
 	OUT.normal = normal;// mul(NormalMatrix, normal);
-
+	OUT.texCoord = texCoord;
 
 	OUT.depth.x = OUT.position.z;
 	OUT.depth.y = OUT.position.w;
@@ -45,17 +45,17 @@ struct POutput {
 
 POutput ps(float4 position			: POSITION,
 		   float3 normal			: TEXCOORD0,
-		   float3 depth 			: TEXCOORD1) {
-
+		   float2 texCoord			: TEXCOORD1,
+		   float3 depth 			: TEXCOORD2) {
 	POutput OUT;
 	
-	OUT.color = float4(DiffuseColor, 1);
+	OUT.color = tex2D(ColorMap, texCoord);				
 	OUT.normal = packNormal(float4(normal, DiffusePower));
 
 	float depthLinear = linearize(depth.z, Near, Far);
-	
+
 	float3 packedDepth = packDepth(depthLinear);
 	OUT.depth = float4(depthLinear, depthLinear, depthLinear, 0);// float4(packedDepth, 0);
-	
+
 	return OUT;
 }

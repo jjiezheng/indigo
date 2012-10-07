@@ -1,27 +1,27 @@
 // ps_4_0 output by Cg compiler
 // cgc version 3.1.0013, build date Apr 18 2012
 // command line args: -q -unroll all -profile ps_5_0
-// source file: deferred_render_color_normal_depth.cg
+// source file: deferred_render_colormap_normal_depth.cg
 //vendor NVIDIA Corporation
 //version 3.1.0.13
 //profile ps_5_0
 //program ps
-//semantic NormalMatrix
+//semantic ColorMap
 //semantic WorldViewProj
 //semantic WorldView
-//semantic DiffuseColor
-//semantic AmbientColor
+//semantic NormalMatrix
 //semantic DiffusePower
 //semantic SpecularPower
 //semantic SpecularIntensity
 //semantic Far
 //semantic Near
-//var float3 DiffuseColor :  : _DiffuseColor : -1 : 1
+//var sampler2D ColorMap :  : _ColorMap : -1 : 1
 //var float DiffusePower :  : _DiffusePower : -1 : 1
 //var float Far :  : _Far : -1 : 1
 //var float Near :  : _Near : -1 : 1
 //var float3 normal : $vin.TEXCOORD0 :  : 1 : 1
-//var float3 depth : $vin.TEXCOORD1 :  : 2 : 1
+//var float2 texCoord : $vin.TEXCOORD1 :  : 2 : 1
+//var float3 depth : $vin.TEXCOORD2 :  : 3 : 1
 //var float4 ps.color : $vout.COLOR0 : COLOR0 : -1 : 1
 //var float4 ps.normal : $vout.COLOR1 : COLOR1 : -1 : 1
 //var float4 ps.depth : $vout.COLOR2 : COLOR2 : -1 : 1
@@ -31,7 +31,8 @@
 struct VOutput {
     float4 _position1 : SV_Position;
     float3 _normal3 : TEXCOORD0;
-    float3 _depth5 : TEXCOORD1;
+    float2 _texCoord1 : TEXCOORD1;
+    float3 _depth5 : TEXCOORD2;
 };
 
 struct POutput {
@@ -43,11 +44,13 @@ struct POutput {
 struct X1X {
     float4 _POSITION : SV_Position;
     float3 _TEXCOORD0 : TEXCOORD0;
-    float3 _TEXCOORD1 : TEXCOORD1;
+    float2 _TEXCOORD1 : TEXCOORD1;
+    float3 _TEXCOORD2 : TEXCOORD2;
 };
 
-static float4 _unPackedNormal0004;
-uniform float3 _DiffuseColor;
+static float4 _unPackedNormal0003;
+Texture2D<float4> _TMP10;
+SamplerState _ColorMap;
 uniform float _DiffusePower;
 uniform float _Far;
 uniform float _Near;
@@ -57,15 +60,17 @@ POutput main( in X1X cin)
 {
 
     float3 _normal2;
+    float2 _texCoord;
     float3 _depth4;
     POutput _OUT;
     float _depthLinear;
 
     _normal2 = cin._TEXCOORD0;
-    _depth4 = cin._TEXCOORD1;
-    _OUT._color1 = float4(_DiffuseColor.x, _DiffuseColor.y, _DiffuseColor.z,  1.00000000000000000E000f);
-    _unPackedNormal0004 = float4(_normal2.x, _normal2.y, _normal2.z, _DiffusePower);
-    _OUT._normal1 =  5.00000000000000000E-001f + _unPackedNormal0004* 5.00000000000000000E-001f;
+    _texCoord = cin._TEXCOORD1;
+    _depth4 = cin._TEXCOORD2;
+    _OUT._color1 = _TMP10.Sample(_ColorMap, _texCoord);
+    _unPackedNormal0003 = float4(_normal2.x, _normal2.y, _normal2.z, _DiffusePower);
+    _OUT._normal1 =  5.00000000000000000E-001f + _unPackedNormal0003* 5.00000000000000000E-001f;
     _depthLinear = (-_depth4.z - _Near)/(_Far - _Near);
     _OUT._depth3 = float4(_depthLinear, _depthLinear, _depthLinear,  0.00000000000000000E000f);
     return _OUT;

@@ -9,7 +9,6 @@
 //semantic DepthMap : TEXUNIT0
 //semantic NormalMap : TEXUNIT1
 //semantic ShadowMap : TEXUNIT2
-//semantic DepthMap2 : TEXUNIT3
 //semantic LightInnerAngle
 //semantic LightOuterAngle
 //semantic LightDecay
@@ -23,7 +22,6 @@
 //semantic WorldViewProj
 //semantic NormalMatrix
 //semantic ShadowMapSize
-//semantic ShadowsEnabled
 //var float4 position : $vin.POSITION : POSITION : 0 : 1
 //var float4 vs.position : $vout.POSITION :  : -1 : 1
 //var float4 vs.screenPosition : $vout.TEXCOORD0 :  : -1 : 1

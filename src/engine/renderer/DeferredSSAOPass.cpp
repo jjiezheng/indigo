@@ -25,7 +25,9 @@ static const int kNoisePixelLine = 4;
 
 void DeferredSSAOPass::init(const CSize& screenSize) {
   ssaoEffect_ = IEffect::effectFromFile("shaders/compiled/deferred_ssao.shader");
-  ssaoEffect_->setSamplerState(0, UV_ADDRESS_WRAP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_LESS);
+  ssaoEffect_->setSamplerState(0, UV_ADDRESS_WRAP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_LESS);
+   ssaoEffect_->setSamplerState(2, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_LESS);
+   ssaoEffect_->setSamplerState(3, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_LESS);
 
   combineEffect_ = IEffect::effectFromFile("shaders/compiled/deferred_ssao_combine.shader");
   quadVbo_ = Geometry::screenPlane();
@@ -97,7 +99,7 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
     ssaoEffect_->setTexture(initStage.depthMap(), "LinearDepthMap");
     ssaoEffect_->setTexture(noiseTexture_, "NoiseMap");
 
-    ssaoEffect_->setUniform(0.2f, "Radius");
+    ssaoEffect_->setUniform(0.1f, "Radius");
 
     ssaoEffect_->setUniform(kernel, kKernelSize * sizeof(float) * 4, "Kernel");
     ssaoEffect_->setUniform(kKernelSize, "KernelSize");

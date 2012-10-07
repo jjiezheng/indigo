@@ -23,7 +23,7 @@ void Material::bind(const Matrix4x4& projection, const Matrix4x4& view, const Ma
   Matrix4x4 viewProjection = projection * view;
   effect->setUniform(viewProjection, "ViewProj");
 
-  //Matrix4x4 normalMatrix = view.mat3x3().inverseTranspose();
+  //worldView.inverse().transpose().mat3x3()
   effect->setUniform(Matrix4x4::IDENTITY.mat3x3(), "NormalMatrix");
  
   std::map<std::string, Texture>::const_iterator tit = textures_.begin(); 
