@@ -141,6 +141,7 @@ void BinaryModelDeserializer::deserializeMaterial(Material& material, std::ifstr
     
     Texture texture;
     texture.init(texturePath);
+    LOG(LOG_CHANNEL_WORLDLOADER, "%s", texturePath.c_str());
     material.addTexture(textureKey, texture);
   }
 }
