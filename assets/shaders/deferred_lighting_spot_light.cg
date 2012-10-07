@@ -51,7 +51,7 @@ float4 ps(float4 position 		: POSITION,
 	float3 normal = normalize(normalData);
 
 	// these need to be fed through in a render target
-	float diffusePower = 255;// normalData.w * 255; // 0-1 -> 0-255
+	float diffusePower = 0.01f * 255;// normalData.w * 255; // 0-1 -> 0-255
 	float specularPower = 1;//depthSpec.z;
 	float specularIntensity = 1;//depthSpec.w;
 
@@ -87,7 +87,7 @@ float4 ps(float4 position 		: POSITION,
 		diffuseStrength = max(0.0f, saturate(dot(normal, normalize(lightVectorViewSpace))));
 	}
 	
-	float3 diffuseContribution = LightColor * diffuseStrength * diffusePower / distance;
+	float3 diffuseContribution = LightColor * diffuseStrength * diffusePower;// / distance;
 
 	//specular
 	float specularContribution = 0;
