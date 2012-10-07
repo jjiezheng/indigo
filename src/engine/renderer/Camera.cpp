@@ -165,10 +165,10 @@ void Camera::setPerspective(float fov, float aspectRatio, float nearDistance, fl
   farDistance_ = farDistance;
 	projection_ = Matrix4x4::perspective(fov, aspectRatio, nearDistance_, farDistance_);
 
-  Matrix4x4 dxProjection = Matrix4x4::perspective(fov, aspectRatio, nearDistance, farDistance);
-  Vector4 dxNear(0, 0, -nearDistance, 1.0f);
-  dxNear = dxProjection * dxNear;
-  dxNear /= dxNear.w;
+//   Matrix4x4 dxProjection = Matrix4x4::perspective(fov, aspectRatio, nearDistance, farDistance);
+//   Vector4 dxNear(0, 0, -nearDistance, 1.0f);
+//   dxNear = dxProjection * dxNear;
+//   dxNear /= dxNear.w;
 
 
 //   Matrix4x4 gcmProjection = Matrix4x4::perspective(fov, aspectRatio, nearDistance, farDistance);
@@ -177,13 +177,11 @@ void Camera::setPerspective(float fov, float aspectRatio, float nearDistance, fl
 //   gcmNear /= gcmNear.w;
 
 
-  Vector4 dxFar(0, 0, -farDistance, 1.0f);
-  dxFar = dxProjection * dxFar;
-  dxFar /= dxFar.w;
+//   Vector4 dxFar(0, 0, -farDistance, 1.0f);
+//   dxFar = dxProjection * dxFar;
+//   dxFar /= dxFar.w;
 
 //   Vector4 gcmFar(0, 0, -farDistance, 1.0f);
 //   gcmFar = gcmProjection * gcmFar;
 //   gcmFar /= gcmFar.w;
-
-  int a = 1;
 }

@@ -23,8 +23,6 @@
 
 #define BASED_ALIGN	128
 
-static const uint32_t sLabelId = 128;
-
 static uint32_t local_mem_heap = 0;
 
 static void *localMemoryAlloc(const uint32_t size)  {
@@ -70,23 +68,9 @@ void PS3GCMGraphicsInterface::openWindow(int width, int height, unsigned int mul
   videocfg.format = CELL_VIDEO_OUT_BUFFER_COLOR_FORMAT_X8R8G8B8;
   videocfg.pitch = colorPitch;
 
-  float aspectRatio = 0;
-
   // set video out configuration with waitForEvent set to 0 (4th parameter)
   CELL_GCMUTIL_CHECK_ASSERT(cellVideoOutConfigure(CELL_VIDEO_OUT_PRIMARY, &videocfg, NULL, 0));
   CELL_GCMUTIL_CHECK_ASSERT(cellVideoOutGetState(CELL_VIDEO_OUT_PRIMARY, 0, &videoState));
-
-  switch (videoState.displayMode.aspect){
-    case CELL_VIDEO_OUT_ASPECT_4_3:
-      aspectRatio = 4.0f / 3.0f;
-      break;
-    case CELL_VIDEO_OUT_ASPECT_16_9:
-      aspectRatio = 16.0f / 9.0f;
-      break;
-    default:
-      printf("unknown aspect ratio %x\n", videoState.displayMode.aspect);
-      aspectRatio = 16.0f / 9.0f;
-  }
 
   cellGcmSetFlipMode(CELL_GCM_DISPLAY_HSYNC);
 
@@ -110,7 +94,7 @@ void PS3GCMGraphicsInterface::openWindow(int width, int height, unsigned int mul
     CellGcmTexture depthTexture;
     memset(&depthTexture, 0, sizeof(CellGcmTexture));
 
-    int gcmTextureFormat = 0;
+    //int gcmTextureFormat = 0;
 
     depthTexture.format = CELL_GCM_TEXTURE_A8R8G8B8 | CELL_GCM_TEXTURE_LN | CELL_GCM_TEXTURE_NR;
     depthTexture.mipmap = 1;
@@ -173,8 +157,6 @@ void PS3GCMGraphicsInterface::endPerformanceEvent() {
 }
 
 void PS3GCMGraphicsInterface::swapBuffers() {  
-  static int first = 1;
-
   cell::Gcm::cellGcmFlush();
 
   if (cell::Gcm::cellGcmSetFlip(bufferFrameIndex_) != CELL_OK) {
@@ -203,7 +185,7 @@ unsigned int PS3GCMGraphicsInterface::createVertexBuffer(VertexDef* vertexData, 
 }
 
 void PS3GCMGraphicsInterface::clearActiveRenderTargets(const Color4& color) {
-  unsigned int argb = ((char)color.a * 255) << 24 | ((char)color.r * 255) << 16 | ((char)color.g * 255) << 8 | ((char)color.b * 255) << 0;
+  //unsigned int argb = ((char)color.a * 255) << 24 | ((char)color.r * 255) << 16 | ((char)color.g * 255) << 8 | ((char)color.b * 255) << 0;
   cell::Gcm::cellGcmSetClearColor(0xff0000);
   cell::Gcm::cellGcmSetClearSurface(CELL_GCM_CLEAR_R | CELL_GCM_CLEAR_G | CELL_GCM_CLEAR_B | CELL_GCM_CLEAR_A);
 }
@@ -289,7 +271,6 @@ unsigned int PS3GCMGraphicsInterface::createTexture(const CSize& dimensions, Tex
   texture.location = CELL_GCM_LOCATION_LOCAL;
 
   void* textureBaseAddress = localAllocate(64, textureSize);
-  unsigned int textureOffset = 0;
   CELL_GCMUTIL_CHECK_ASSERT(cellGcmAddressToOffset(textureBaseAddress, &texture.offset));
 
   unsigned int textureId = textures_.size();
@@ -476,8 +457,6 @@ unsigned int PS3GCMGraphicsInterface::createDepthTexture(const CSize& dimensions
 
   CellGcmTexture depthTexture;
   memset(&depthTexture, 0, sizeof(CellGcmTexture));
-
-  int gcmTextureFormat = 0;
 
   depthTexture.format = CELL_GCM_TEXTURE_A8R8G8B8 | CELL_GCM_TEXTURE_LN | CELL_GCM_TEXTURE_NR;
   depthTexture.mipmap = 1;

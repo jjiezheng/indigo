@@ -12,6 +12,10 @@ class IDeferredLightingPass {
 
 public:
 
+  virtual ~IDeferredLightingPass() { };
+
+public:
+
   virtual void init(const CSize& screenSize) = 0;
 
 public:

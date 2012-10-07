@@ -233,3 +233,8 @@ void PS3GCMCGEffect::setTexture(unsigned int textureId, const char* uniformName)
     graphicsInterface->setTexture(textureUnit, textureId);
   }
 }
+
+void PS3GCMCGEffect::setSamplerState(unsigned int samplerSlot, SAMPLER_UV_ADDRESS_MODE addressMode, SAMPLER_COMPARISON_FILTER comparisonFilter, SAMPLER_COMPARISON_FUNC compartisonFunction) {
+ 
+}
+

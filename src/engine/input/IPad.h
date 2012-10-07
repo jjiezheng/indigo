@@ -5,7 +5,7 @@ class IPad {
   
 public:
   
-  ~IPad() { };
+  virtual ~IPad() { };
   
 public:
   

@@ -50,7 +50,7 @@ void PS3Keyboard::update() {
 }
 
 bool PS3Keyboard::keyState(char keyCode) {
-
+  return keyStates_[keyCode];
 }
 
 void PS3Keyboard::setKeydownListener(IKeyboardListener* keyDownListener) {

@@ -7,7 +7,7 @@ class IKeyboard {
   
 public:
   
-  ~IKeyboard() { };
+  virtual ~IKeyboard() { };
   
 public:
   

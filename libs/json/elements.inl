@@ -88,6 +88,7 @@ public:
 
 class UnknownElement::CastVisitor : public Visitor
 {
+protected:
    virtual void Visit(Array& array) {}
    virtual void Visit(Object& object) {}
    virtual void Visit(Number& number) {}

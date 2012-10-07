@@ -13,6 +13,8 @@ Author: Terry Caton
 #include <string>
 #include <stdexcept>
 
+#pragma 
+
 /*  
 
 TODO:

@@ -12,6 +12,10 @@ class IDeferredRenderStage {
 
 public:
 
+  virtual ~IDeferredRenderStage() { };
+
+public:
+
   virtual void init(const CSize &screenSize) = 0;
 
 };

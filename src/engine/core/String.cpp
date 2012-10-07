@@ -38,10 +38,6 @@ String String::withFormat(const char* format, ...) {
   va_end(args);
   return String(buffer);
 #endif
-
-  assert(false);
-
-  return String();
 }
 
 String String::pathExtension() const {

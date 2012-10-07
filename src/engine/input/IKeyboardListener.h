@@ -5,6 +5,10 @@ class IKeyboardListener {
 
 public:
 
+  virtual ~IKeyboardListener() { };
+
+public:
+
   virtual void keyUp(int keyCode) = 0;
 
 };

@@ -4,6 +4,10 @@
 class IEffect;
 
 class MaterialParameter {
+
+public:
+
+  virtual ~MaterialParameter() { };
   
 public:
   

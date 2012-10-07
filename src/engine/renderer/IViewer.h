@@ -8,7 +8,7 @@ class IViewer {
 
 public:
 
-  ~IViewer() { };
+  virtual ~IViewer() { };
   
 public:
   
