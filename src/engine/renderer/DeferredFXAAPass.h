@@ -30,6 +30,8 @@ public:
 
   GraphicsInterface::TextureId passMap() const;
 
+  void collectRenderTargets(IDeferredRenderTargetContainer* renderTargetContainer);
+
 private:
 
   unsigned int quadVbo_;

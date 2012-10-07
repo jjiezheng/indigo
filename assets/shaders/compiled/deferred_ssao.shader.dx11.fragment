@@ -18,7 +18,6 @@
 //semantic Projection
 //semantic ProjInv
 //semantic View
-//var float Radius :  : _Radius : -1 : 1
 //var float2 NoiseScale :  : _NoiseScale : -1 : 1
 //var float4 Kernel[0] :  : _Kernel[0] : -1 : 1
 //var float4 Kernel[1] :  : _Kernel[1] : -1 : 1
@@ -84,7 +83,6 @@ Texture2D<float4> _TMP40 : register(t0);
 Texture2D<float4> _TMP41 : register(t3);
 Texture2D<float4> _TMP42 : register(t2);
 Texture2D<float4> _TMP43 : register(t1);
-uniform float _Radius;
 uniform float2 _NoiseScale;
 uniform float4 _Kernel[16];
 uniform float _Far;
@@ -147,7 +145,7 @@ float4 main( in X1X cin) : SV_Target0
     _TMP8 = rsqrt(_TMP7);
     _tangent = _TMP8*_v0029;
     _bitangent = _tangent.yzx*_normal.zxy - _tangent.zxy*_normal.yzx;
-    _sample1 = _Kernel[0].xyz*_Radius;
+    _sample1 = _Kernel[0].xyz* 2.00000002980232240E-001f;
     _r0033 = _sample1.x*_tangent;
     _r0033 = _r0033 + _sample1.y*_bitangent;
     _r0033 = _r0033 + _sample1.z*_normal;
@@ -164,19 +162,19 @@ float4 main( in X1X cin) : SV_Target0
     _TMP10 = _TMP42.Sample(_LinearDepthMap, _sampleTexCoord1);
     _TMP36 = dot(_TMP10.xyz, float3(  9.96093809604644780E-001f,  3.89099144376814370E-003f,  1.51991853272193110E-005f));
     _TMP5 = abs(_TMP22 - _TMP36);
-    if (_TMP5 < _Radius) { // if begin
+    if (_TMP5 <  2.00000002980232240E-001f) { // if begin
         _TMP4 =  1.00000000000000000E000f;
     } else {
         _TMP4 =  0.00000000000000000E000f;
     } // end if
     _rangeCheck1 = (float) _TMP4;
-    if (_TMP36 <= _sampleAtViewPositionZ1) { // if begin
-        _TMP6 =  1.00000000000000000E000f;
+    if (_TMP36 <= _sampleAtViewPositionZ1 -  4.99999987368937580E-006f) { // if begin
+        _TMP6 =  1.29999995231628420E000f;
     } else {
         _TMP6 =  0.00000000000000000E000f;
     } // end if
     _occlusionContribution = (float) _TMP6*_rangeCheck1;
-    _sample1 = _Kernel[1].xyz*_Radius;
+    _sample1 = _Kernel[1].xyz* 2.00000002980232240E-001f;
     _r0033 = _sample1.x*_tangent;
     _r0033 = _r0033 + _sample1.y*_bitangent;
     _r0033 = _r0033 + _sample1.z*_normal;
@@ -193,19 +191,19 @@ float4 main( in X1X cin) : SV_Target0
     _TMP10 = _TMP42.Sample(_LinearDepthMap, _sampleTexCoord1);
     _TMP36 = dot(_TMP10.xyz, float3(  9.96093809604644780E-001f,  3.89099144376814370E-003f,  1.51991853272193110E-005f));
     _TMP5 = abs(_TMP22 - _TMP36);
-    if (_TMP5 < _Radius) { // if begin
+    if (_TMP5 <  2.00000002980232240E-001f) { // if begin
         _TMP4 =  1.00000000000000000E000f;
     } else {
         _TMP4 =  0.00000000000000000E000f;
     } // end if
     _rangeCheck1 = (float) _TMP4;
-    if (_TMP36 <= _sampleAtViewPositionZ1) { // if begin
-        _TMP6 =  1.00000000000000000E000f;
+    if (_TMP36 <= _sampleAtViewPositionZ1 -  4.99999987368937580E-006f) { // if begin
+        _TMP6 =  1.29999995231628420E000f;
     } else {
         _TMP6 =  0.00000000000000000E000f;
     } // end if
     _occlusionContribution = _occlusionContribution + (float) _TMP6*_rangeCheck1;
-    _sample1 = _Kernel[2].xyz*_Radius;
+    _sample1 = _Kernel[2].xyz* 2.00000002980232240E-001f;
     _r0033 = _sample1.x*_tangent;
     _r0033 = _r0033 + _sample1.y*_bitangent;
     _r0033 = _r0033 + _sample1.z*_normal;
@@ -222,19 +220,19 @@ float4 main( in X1X cin) : SV_Target0
     _TMP10 = _TMP42.Sample(_LinearDepthMap, _sampleTexCoord1);
     _TMP36 = dot(_TMP10.xyz, float3(  9.96093809604644780E-001f,  3.89099144376814370E-003f,  1.51991853272193110E-005f));
     _TMP5 = abs(_TMP22 - _TMP36);
-    if (_TMP5 < _Radius) { // if begin
+    if (_TMP5 <  2.00000002980232240E-001f) { // if begin
         _TMP4 =  1.00000000000000000E000f;
     } else {
         _TMP4 =  0.00000000000000000E000f;
     } // end if
     _rangeCheck1 = (float) _TMP4;
-    if (_TMP36 <= _sampleAtViewPositionZ1) { // if begin
-        _TMP6 =  1.00000000000000000E000f;
+    if (_TMP36 <= _sampleAtViewPositionZ1 -  4.99999987368937580E-006f) { // if begin
+        _TMP6 =  1.29999995231628420E000f;
     } else {
         _TMP6 =  0.00000000000000000E000f;
     } // end if
     _occlusionContribution = _occlusionContribution + (float) _TMP6*_rangeCheck1;
-    _sample1 = _Kernel[3].xyz*_Radius;
+    _sample1 = _Kernel[3].xyz* 2.00000002980232240E-001f;
     _r0033 = _sample1.x*_tangent;
     _r0033 = _r0033 + _sample1.y*_bitangent;
     _r0033 = _r0033 + _sample1.z*_normal;
@@ -251,19 +249,19 @@ float4 main( in X1X cin) : SV_Target0
     _TMP10 = _TMP42.Sample(_LinearDepthMap, _sampleTexCoord1);
     _TMP36 = dot(_TMP10.xyz, float3(  9.96093809604644780E-001f,  3.89099144376814370E-003f,  1.51991853272193110E-005f));
     _TMP5 = abs(_TMP22 - _TMP36);
-    if (_TMP5 < _Radius) { // if begin
+    if (_TMP5 <  2.00000002980232240E-001f) { // if begin
         _TMP4 =  1.00000000000000000E000f;
     } else {
         _TMP4 =  0.00000000000000000E000f;
     } // end if
     _rangeCheck1 = (float) _TMP4;
-    if (_TMP36 <= _sampleAtViewPositionZ1) { // if begin
-        _TMP6 =  1.00000000000000000E000f;
+    if (_TMP36 <= _sampleAtViewPositionZ1 -  4.99999987368937580E-006f) { // if begin
+        _TMP6 =  1.29999995231628420E000f;
     } else {
         _TMP6 =  0.00000000000000000E000f;
     } // end if
     _occlusionContribution = _occlusionContribution + (float) _TMP6*_rangeCheck1;
-    _sample1 = _Kernel[4].xyz*_Radius;
+    _sample1 = _Kernel[4].xyz* 2.00000002980232240E-001f;
     _r0033 = _sample1.x*_tangent;
     _r0033 = _r0033 + _sample1.y*_bitangent;
     _r0033 = _r0033 + _sample1.z*_normal;
@@ -280,19 +278,19 @@ float4 main( in X1X cin) : SV_Target0
     _TMP10 = _TMP42.Sample(_LinearDepthMap, _sampleTexCoord1);
     _TMP36 = dot(_TMP10.xyz, float3(  9.96093809604644780E-001f,  3.89099144376814370E-003f,  1.51991853272193110E-005f));
     _TMP5 = abs(_TMP22 - _TMP36);
-    if (_TMP5 < _Radius) { // if begin
+    if (_TMP5 <  2.00000002980232240E-001f) { // if begin
         _TMP4 =  1.00000000000000000E000f;
     } else {
         _TMP4 =  0.00000000000000000E000f;
     } // end if
     _rangeCheck1 = (float) _TMP4;
-    if (_TMP36 <= _sampleAtViewPositionZ1) { // if begin
-        _TMP6 =  1.00000000000000000E000f;
+    if (_TMP36 <= _sampleAtViewPositionZ1 -  4.99999987368937580E-006f) { // if begin
+        _TMP6 =  1.29999995231628420E000f;
     } else {
         _TMP6 =  0.00000000000000000E000f;
     } // end if
     _occlusionContribution = _occlusionContribution + (float) _TMP6*_rangeCheck1;
-    _sample1 = _Kernel[5].xyz*_Radius;
+    _sample1 = _Kernel[5].xyz* 2.00000002980232240E-001f;
     _r0033 = _sample1.x*_tangent;
     _r0033 = _r0033 + _sample1.y*_bitangent;
     _r0033 = _r0033 + _sample1.z*_normal;
@@ -309,19 +307,19 @@ float4 main( in X1X cin) : SV_Target0
     _TMP10 = _TMP42.Sample(_LinearDepthMap, _sampleTexCoord1);
     _TMP36 = dot(_TMP10.xyz, float3(  9.96093809604644780E-001f,  3.89099144376814370E-003f,  1.51991853272193110E-005f));
     _TMP5 = abs(_TMP22 - _TMP36);
-    if (_TMP5 < _Radius) { // if begin
+    if (_TMP5 <  2.00000002980232240E-001f) { // if begin
         _TMP4 =  1.00000000000000000E000f;
     } else {
         _TMP4 =  0.00000000000000000E000f;
     } // end if
     _rangeCheck1 = (float) _TMP4;
-    if (_TMP36 <= _sampleAtViewPositionZ1) { // if begin
-        _TMP6 =  1.00000000000000000E000f;
+    if (_TMP36 <= _sampleAtViewPositionZ1 -  4.99999987368937580E-006f) { // if begin
+        _TMP6 =  1.29999995231628420E000f;
     } else {
         _TMP6 =  0.00000000000000000E000f;
     } // end if
     _occlusionContribution = _occlusionContribution + (float) _TMP6*_rangeCheck1;
-    _sample1 = _Kernel[6].xyz*_Radius;
+    _sample1 = _Kernel[6].xyz* 2.00000002980232240E-001f;
     _r0033 = _sample1.x*_tangent;
     _r0033 = _r0033 + _sample1.y*_bitangent;
     _r0033 = _r0033 + _sample1.z*_normal;
@@ -338,19 +336,19 @@ float4 main( in X1X cin) : SV_Target0
     _TMP10 = _TMP42.Sample(_LinearDepthMap, _sampleTexCoord1);
     _TMP36 = dot(_TMP10.xyz, float3(  9.96093809604644780E-001f,  3.89099144376814370E-003f,  1.51991853272193110E-005f));
     _TMP5 = abs(_TMP22 - _TMP36);
-    if (_TMP5 < _Radius) { // if begin
+    if (_TMP5 <  2.00000002980232240E-001f) { // if begin
         _TMP4 =  1.00000000000000000E000f;
     } else {
         _TMP4 =  0.00000000000000000E000f;
     } // end if
     _rangeCheck1 = (float) _TMP4;
-    if (_TMP36 <= _sampleAtViewPositionZ1) { // if begin
-        _TMP6 =  1.00000000000000000E000f;
+    if (_TMP36 <= _sampleAtViewPositionZ1 -  4.99999987368937580E-006f) { // if begin
+        _TMP6 =  1.29999995231628420E000f;
     } else {
         _TMP6 =  0.00000000000000000E000f;
     } // end if
     _occlusionContribution = _occlusionContribution + (float) _TMP6*_rangeCheck1;
-    _sample1 = _Kernel[7].xyz*_Radius;
+    _sample1 = _Kernel[7].xyz* 2.00000002980232240E-001f;
     _r0033 = _sample1.x*_tangent;
     _r0033 = _r0033 + _sample1.y*_bitangent;
     _r0033 = _r0033 + _sample1.z*_normal;
@@ -367,19 +365,19 @@ float4 main( in X1X cin) : SV_Target0
     _TMP10 = _TMP42.Sample(_LinearDepthMap, _sampleTexCoord1);
     _TMP36 = dot(_TMP10.xyz, float3(  9.96093809604644780E-001f,  3.89099144376814370E-003f,  1.51991853272193110E-005f));
     _TMP5 = abs(_TMP22 - _TMP36);
-    if (_TMP5 < _Radius) { // if begin
+    if (_TMP5 <  2.00000002980232240E-001f) { // if begin
         _TMP4 =  1.00000000000000000E000f;
     } else {
         _TMP4 =  0.00000000000000000E000f;
     } // end if
     _rangeCheck1 = (float) _TMP4;
-    if (_TMP36 <= _sampleAtViewPositionZ1) { // if begin
-        _TMP6 =  1.00000000000000000E000f;
+    if (_TMP36 <= _sampleAtViewPositionZ1 -  4.99999987368937580E-006f) { // if begin
+        _TMP6 =  1.29999995231628420E000f;
     } else {
         _TMP6 =  0.00000000000000000E000f;
     } // end if
     _occlusionContribution = _occlusionContribution + (float) _TMP6*_rangeCheck1;
-    _sample1 = _Kernel[8].xyz*_Radius;
+    _sample1 = _Kernel[8].xyz* 2.00000002980232240E-001f;
     _r0033 = _sample1.x*_tangent;
     _r0033 = _r0033 + _sample1.y*_bitangent;
     _r0033 = _r0033 + _sample1.z*_normal;
@@ -396,19 +394,19 @@ float4 main( in X1X cin) : SV_Target0
     _TMP10 = _TMP42.Sample(_LinearDepthMap, _sampleTexCoord1);
     _TMP36 = dot(_TMP10.xyz, float3(  9.96093809604644780E-001f,  3.89099144376814370E-003f,  1.51991853272193110E-005f));
     _TMP5 = abs(_TMP22 - _TMP36);
-    if (_TMP5 < _Radius) { // if begin
+    if (_TMP5 <  2.00000002980232240E-001f) { // if begin
         _TMP4 =  1.00000000000000000E000f;
     } else {
         _TMP4 =  0.00000000000000000E000f;
     } // end if
     _rangeCheck1 = (float) _TMP4;
-    if (_TMP36 <= _sampleAtViewPositionZ1) { // if begin
-        _TMP6 =  1.00000000000000000E000f;
+    if (_TMP36 <= _sampleAtViewPositionZ1 -  4.99999987368937580E-006f) { // if begin
+        _TMP6 =  1.29999995231628420E000f;
     } else {
         _TMP6 =  0.00000000000000000E000f;
     } // end if
     _occlusionContribution = _occlusionContribution + (float) _TMP6*_rangeCheck1;
-    _sample1 = _Kernel[9].xyz*_Radius;
+    _sample1 = _Kernel[9].xyz* 2.00000002980232240E-001f;
     _r0033 = _sample1.x*_tangent;
     _r0033 = _r0033 + _sample1.y*_bitangent;
     _r0033 = _r0033 + _sample1.z*_normal;
@@ -425,19 +423,19 @@ float4 main( in X1X cin) : SV_Target0
     _TMP10 = _TMP42.Sample(_LinearDepthMap, _sampleTexCoord1);
     _TMP36 = dot(_TMP10.xyz, float3(  9.96093809604644780E-001f,  3.89099144376814370E-003f,  1.51991853272193110E-005f));
     _TMP5 = abs(_TMP22 - _TMP36);
-    if (_TMP5 < _Radius) { // if begin
+    if (_TMP5 <  2.00000002980232240E-001f) { // if begin
         _TMP4 =  1.00000000000000000E000f;
     } else {
         _TMP4 =  0.00000000000000000E000f;
     } // end if
     _rangeCheck1 = (float) _TMP4;
-    if (_TMP36 <= _sampleAtViewPositionZ1) { // if begin
-        _TMP6 =  1.00000000000000000E000f;
+    if (_TMP36 <= _sampleAtViewPositionZ1 -  4.99999987368937580E-006f) { // if begin
+        _TMP6 =  1.29999995231628420E000f;
     } else {
         _TMP6 =  0.00000000000000000E000f;
     } // end if
     _occlusionContribution = _occlusionContribution + (float) _TMP6*_rangeCheck1;
-    _sample1 = _Kernel[10].xyz*_Radius;
+    _sample1 = _Kernel[10].xyz* 2.00000002980232240E-001f;
     _r0033 = _sample1.x*_tangent;
     _r0033 = _r0033 + _sample1.y*_bitangent;
     _r0033 = _r0033 + _sample1.z*_normal;
@@ -454,19 +452,19 @@ float4 main( in X1X cin) : SV_Target0
     _TMP10 = _TMP42.Sample(_LinearDepthMap, _sampleTexCoord1);
     _TMP36 = dot(_TMP10.xyz, float3(  9.96093809604644780E-001f,  3.89099144376814370E-003f,  1.51991853272193110E-005f));
     _TMP5 = abs(_TMP22 - _TMP36);
-    if (_TMP5 < _Radius) { // if begin
+    if (_TMP5 <  2.00000002980232240E-001f) { // if begin
         _TMP4 =  1.00000000000000000E000f;
     } else {
         _TMP4 =  0.00000000000000000E000f;
     } // end if
     _rangeCheck1 = (float) _TMP4;
-    if (_TMP36 <= _sampleAtViewPositionZ1) { // if begin
-        _TMP6 =  1.00000000000000000E000f;
+    if (_TMP36 <= _sampleAtViewPositionZ1 -  4.99999987368937580E-006f) { // if begin
+        _TMP6 =  1.29999995231628420E000f;
     } else {
         _TMP6 =  0.00000000000000000E000f;
     } // end if
     _occlusionContribution = _occlusionContribution + (float) _TMP6*_rangeCheck1;
-    _sample1 = _Kernel[11].xyz*_Radius;
+    _sample1 = _Kernel[11].xyz* 2.00000002980232240E-001f;
     _r0033 = _sample1.x*_tangent;
     _r0033 = _r0033 + _sample1.y*_bitangent;
     _r0033 = _r0033 + _sample1.z*_normal;
@@ -483,19 +481,19 @@ float4 main( in X1X cin) : SV_Target0
     _TMP10 = _TMP42.Sample(_LinearDepthMap, _sampleTexCoord1);
     _TMP36 = dot(_TMP10.xyz, float3(  9.96093809604644780E-001f,  3.89099144376814370E-003f,  1.51991853272193110E-005f));
     _TMP5 = abs(_TMP22 - _TMP36);
-    if (_TMP5 < _Radius) { // if begin
+    if (_TMP5 <  2.00000002980232240E-001f) { // if begin
         _TMP4 =  1.00000000000000000E000f;
     } else {
         _TMP4 =  0.00000000000000000E000f;
     } // end if
     _rangeCheck1 = (float) _TMP4;
-    if (_TMP36 <= _sampleAtViewPositionZ1) { // if begin
-        _TMP6 =  1.00000000000000000E000f;
+    if (_TMP36 <= _sampleAtViewPositionZ1 -  4.99999987368937580E-006f) { // if begin
+        _TMP6 =  1.29999995231628420E000f;
     } else {
         _TMP6 =  0.00000000000000000E000f;
     } // end if
     _occlusionContribution = _occlusionContribution + (float) _TMP6*_rangeCheck1;
-    _sample1 = _Kernel[12].xyz*_Radius;
+    _sample1 = _Kernel[12].xyz* 2.00000002980232240E-001f;
     _r0033 = _sample1.x*_tangent;
     _r0033 = _r0033 + _sample1.y*_bitangent;
     _r0033 = _r0033 + _sample1.z*_normal;
@@ -512,19 +510,19 @@ float4 main( in X1X cin) : SV_Target0
     _TMP10 = _TMP42.Sample(_LinearDepthMap, _sampleTexCoord1);
     _TMP36 = dot(_TMP10.xyz, float3(  9.96093809604644780E-001f,  3.89099144376814370E-003f,  1.51991853272193110E-005f));
     _TMP5 = abs(_TMP22 - _TMP36);
-    if (_TMP5 < _Radius) { // if begin
+    if (_TMP5 <  2.00000002980232240E-001f) { // if begin
         _TMP4 =  1.00000000000000000E000f;
     } else {
         _TMP4 =  0.00000000000000000E000f;
     } // end if
     _rangeCheck1 = (float) _TMP4;
-    if (_TMP36 <= _sampleAtViewPositionZ1) { // if begin
-        _TMP6 =  1.00000000000000000E000f;
+    if (_TMP36 <= _sampleAtViewPositionZ1 -  4.99999987368937580E-006f) { // if begin
+        _TMP6 =  1.29999995231628420E000f;
     } else {
         _TMP6 =  0.00000000000000000E000f;
     } // end if
     _occlusionContribution = _occlusionContribution + (float) _TMP6*_rangeCheck1;
-    _sample1 = _Kernel[13].xyz*_Radius;
+    _sample1 = _Kernel[13].xyz* 2.00000002980232240E-001f;
     _r0033 = _sample1.x*_tangent;
     _r0033 = _r0033 + _sample1.y*_bitangent;
     _r0033 = _r0033 + _sample1.z*_normal;
@@ -541,19 +539,19 @@ float4 main( in X1X cin) : SV_Target0
     _TMP10 = _TMP42.Sample(_LinearDepthMap, _sampleTexCoord1);
     _TMP36 = dot(_TMP10.xyz, float3(  9.96093809604644780E-001f,  3.89099144376814370E-003f,  1.51991853272193110E-005f));
     _TMP5 = abs(_TMP22 - _TMP36);
-    if (_TMP5 < _Radius) { // if begin
+    if (_TMP5 <  2.00000002980232240E-001f) { // if begin
         _TMP4 =  1.00000000000000000E000f;
     } else {
         _TMP4 =  0.00000000000000000E000f;
     } // end if
     _rangeCheck1 = (float) _TMP4;
-    if (_TMP36 <= _sampleAtViewPositionZ1) { // if begin
-        _TMP6 =  1.00000000000000000E000f;
+    if (_TMP36 <= _sampleAtViewPositionZ1 -  4.99999987368937580E-006f) { // if begin
+        _TMP6 =  1.29999995231628420E000f;
     } else {
         _TMP6 =  0.00000000000000000E000f;
     } // end if
     _occlusionContribution = _occlusionContribution + (float) _TMP6*_rangeCheck1;
-    _sample1 = _Kernel[14].xyz*_Radius;
+    _sample1 = _Kernel[14].xyz* 2.00000002980232240E-001f;
     _r0033 = _sample1.x*_tangent;
     _r0033 = _r0033 + _sample1.y*_bitangent;
     _r0033 = _r0033 + _sample1.z*_normal;
@@ -570,19 +568,19 @@ float4 main( in X1X cin) : SV_Target0
     _TMP10 = _TMP42.Sample(_LinearDepthMap, _sampleTexCoord1);
     _TMP36 = dot(_TMP10.xyz, float3(  9.96093809604644780E-001f,  3.89099144376814370E-003f,  1.51991853272193110E-005f));
     _TMP5 = abs(_TMP22 - _TMP36);
-    if (_TMP5 < _Radius) { // if begin
+    if (_TMP5 <  2.00000002980232240E-001f) { // if begin
         _TMP4 =  1.00000000000000000E000f;
     } else {
         _TMP4 =  0.00000000000000000E000f;
     } // end if
     _rangeCheck1 = (float) _TMP4;
-    if (_TMP36 <= _sampleAtViewPositionZ1) { // if begin
-        _TMP6 =  1.00000000000000000E000f;
+    if (_TMP36 <= _sampleAtViewPositionZ1 -  4.99999987368937580E-006f) { // if begin
+        _TMP6 =  1.29999995231628420E000f;
     } else {
         _TMP6 =  0.00000000000000000E000f;
     } // end if
     _occlusionContribution = _occlusionContribution + (float) _TMP6*_rangeCheck1;
-    _sample1 = _Kernel[15].xyz*_Radius;
+    _sample1 = _Kernel[15].xyz* 2.00000002980232240E-001f;
     _r0033 = _sample1.x*_tangent;
     _r0033 = _r0033 + _sample1.y*_bitangent;
     _r0033 = _r0033 + _sample1.z*_normal;
@@ -599,14 +597,14 @@ float4 main( in X1X cin) : SV_Target0
     _TMP10 = _TMP42.Sample(_LinearDepthMap, _sampleTexCoord1);
     _TMP36 = dot(_TMP10.xyz, float3(  9.96093809604644780E-001f,  3.89099144376814370E-003f,  1.51991853272193110E-005f));
     _TMP5 = abs(_TMP22 - _TMP36);
-    if (_TMP5 < _Radius) { // if begin
+    if (_TMP5 <  2.00000002980232240E-001f) { // if begin
         _TMP4 =  1.00000000000000000E000f;
     } else {
         _TMP4 =  0.00000000000000000E000f;
     } // end if
     _rangeCheck1 = (float) _TMP4;
-    if (_TMP36 <= _sampleAtViewPositionZ1) { // if begin
-        _TMP6 =  1.00000000000000000E000f;
+    if (_TMP36 <= _sampleAtViewPositionZ1 -  4.99999987368937580E-006f) { // if begin
+        _TMP6 =  1.29999995231628420E000f;
     } else {
         _TMP6 =  0.00000000000000000E000f;
     } // end if

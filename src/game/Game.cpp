@@ -42,7 +42,7 @@ void Game::mainLoop() {
 
 void Game::keyUp(int keyCode) {
   if (keyCode > 47 && keyCode < 59) {
-	  int renderTargetgId = keyCode - 49;
+	  int renderTargetgId = keyCode - 49 + 5;
 	  renderer_.presentRenderTarget(renderTargetgId);
   }
 }

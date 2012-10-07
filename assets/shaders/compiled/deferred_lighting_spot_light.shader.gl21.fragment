@@ -101,6 +101,7 @@ void main()
     vec3 _diffuseContribution;
     vec4 _pixelPositionFromLight;
     vec2 _shadowCoord1;
+    float _shadowFactor1;
 
     _screenPositionHom = gl_TexCoord[0]/gl_TexCoord[0].w;
     _TMP11 = vec3(_screenPositionHom.x, -_screenPositionHom.y, _screenPositionHom.z);
@@ -185,7 +186,11 @@ void main()
         _sum0163 = _sum0163 + _TMP15.x;
     } // end for
     _shadowFactor0163 = _sum0163/1.60000000E+001;
-    _diffuseContribution = _diffuseContribution*_shadowFactor0163;
+    _shadowFactor1 = _shadowFactor0163;
+    if (_shadowFactor0163 < 1.00000000E+000) { // if begin
+        _shadowFactor1 = _shadowFactor0163 + 1.00000001E-001;
+    } // end if
+    _diffuseContribution = _diffuseContribution*_shadowFactor1;
     _ret_0 = vec4(_diffuseContribution.x, _diffuseContribution.y, _diffuseContribution.z, 0.00000000E+000);
     gl_FragColor = _ret_0;
     return;

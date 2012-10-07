@@ -1,0 +1,32 @@
+// glslv output by Cg compiler
+// cgc version 3.1.0013, build date Apr 18 2012
+// command line args: -q -profile glslv
+// source file: fxaa_color_luma.cg
+//vendor NVIDIA Corporation
+//version 3.1.0.13
+//profile glslv
+//program vs
+//semantic InputMap
+//semantic ScreenSizeInv
+//var float4 position : $vin.POSITION : ATTR0 : 0 : 1
+//var float2 texCoord : $vin.TEXCOORD0 : ATTR8 : 1 : 1
+//var float4 vs.position : $vout.POSITION : HPOS : -1 : 1
+//var float2 vs.texCoord : $vout.TEXCOORD0 : TEX0 : -1 : 1
+
+#version 110
+
+struct VOutput {
+    vec4 _position2;
+    vec2 _texCoord2;
+};
+
+
+ // main procedure, the original name was vs
+void main()
+{
+
+
+    gl_TexCoord[0].xy = gl_MultiTexCoord0.xy;
+    gl_Position = gl_Vertex;
+    return;
+} // main end

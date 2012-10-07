@@ -8,6 +8,8 @@
 
 #include "maths/Vector2.h"
 
+#include "IDeferredRenderTargetContainer.h"
+
 void DeferredFXAAPass::init(const CSize& screenSize) {
   colorLumaTexture_ = GraphicsInterface::createTexture(screenSize);
   colorLumaTarget_ = GraphicsInterface::createRenderTarget(colorLumaTexture_);
@@ -15,8 +17,8 @@ void DeferredFXAAPass::init(const CSize& screenSize) {
   fxaaRenderTexture_ = GraphicsInterface::createTexture(screenSize);
   fxaaRenderTarget_ = GraphicsInterface::createRenderTarget(fxaaRenderTexture_);
 
-  fxaaEffect_ = IEffect::effectFromFile("cgfx/fxaa_main.hlsl");
-  colorLumaEffect_ = IEffect::effectFromFile("cgfx/fxaa_color_luma.hlsl");
+  fxaaEffect_ = IEffect::effectFromFile("shaders/compiled/fxaa_main.shader");
+  colorLumaEffect_ = IEffect::effectFromFile("shaders/compiled/fxaa_color_luma.shader");
 
   quadVbo_ = Geometry::screenPlane();
 }
@@ -61,4 +63,8 @@ unsigned int DeferredFXAAPass::render(IViewer* viewer, unsigned int inputMap, co
   GraphicsInterface::endPerformanceEvent();
 
   return fxaaRenderTexture_;
+}
+
+void DeferredFXAAPass::collectRenderTargets(IDeferredRenderTargetContainer* renderTargetContainer) {
+  renderTargetContainer->addRenderTarget("FXAA", fxaaRenderTexture_);
 }

@@ -1,0 +1,33 @@
+#define FXAA_PC 1
+#define FXAA_HLSL_3 1
+#define FXAA_QUALITY__PRESET 39
+#include "Fxaa3_11.h"
+
+sampler2D FinalMap;
+
+uniform float2 ScreenSizeInv;
+
+struct VOutput {
+	float4 position			: POSITION;
+	float2 texCoord			: TEXCOORD0;
+};
+
+VOutput vs(float4 position 		: POSITION,
+		   float2 texCoord 		: TEXCOORD0) {
+	VOutput OUT;
+	OUT.position = position;
+	OUT.texCoord = texCoord;
+ 	return OUT;
+}
+
+float4 ps(float4 position : POSITION,
+		  float2 texCoord : TEXCOORD0) : COLOR0 {
+
+	float4 origin = float4(0.0f, 0.0f, 0.0f, 1.0f);
+
+	return FxaaPixelShader(
+		texCoord, origin, FinalMap, FinalMap, FinalMap, ScreenSizeInv, 
+		origin, origin, origin,
+		1.0f, 0.063f, 0.0312f, 2.0f, 
+		0.0f, 0.0f, origin);
+}

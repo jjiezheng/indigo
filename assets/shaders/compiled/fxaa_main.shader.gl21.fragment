@@ -1,0 +1,758 @@
+// glslf output by Cg compiler
+// cgc version 3.1.0013, build date Apr 18 2012
+// command line args: -q -profile glslf
+// source file: fxaa_main.cg
+//vendor NVIDIA Corporation
+//version 3.1.0.13
+//profile glslf
+//program ps
+//semantic FinalMap
+//semantic ScreenSizeInv
+//var sampler2D FinalMap :  : _FinalMap : -1 : 1
+//var float2 ScreenSizeInv :  : _ScreenSizeInv : -1 : 1
+//var float2 texCoord : $vin.TEXCOORD0 : TEX0 : 1 : 1
+//var float4 ps : $vout.COLOR0 : COL : -1 : 1
+
+#version 110
+
+struct VOutput {
+    vec2 _texCoord2;
+};
+
+vec4 _TMP67;
+float _TMP66;
+bool _TMP65;
+float _TMP64;
+float _TMP63;
+vec4 _TMP62;
+vec4 _TMP61;
+float _TMP60;
+float _TMP59;
+vec4 _TMP58;
+vec4 _TMP57;
+float _TMP56;
+float _TMP55;
+vec4 _TMP54;
+vec4 _TMP53;
+float _TMP52;
+float _TMP51;
+vec4 _TMP50;
+vec4 _TMP49;
+float _TMP48;
+float _TMP47;
+vec4 _TMP46;
+vec4 _TMP45;
+float _TMP44;
+float _TMP43;
+vec4 _TMP42;
+vec4 _TMP41;
+float _TMP40;
+float _TMP39;
+vec4 _TMP38;
+vec4 _TMP37;
+float _TMP36;
+float _TMP35;
+vec4 _TMP34;
+vec4 _TMP33;
+float _TMP32;
+float _TMP31;
+vec4 _TMP30;
+vec4 _TMP29;
+float _TMP28;
+float _TMP27;
+vec4 _TMP26;
+vec4 _TMP25;
+float _TMP24;
+float _TMP23;
+vec4 _TMP22;
+vec4 _TMP21;
+float _TMP20;
+float _TMP19;
+float _TMP18;
+float _TMP68;
+float _TMP17;
+float _TMP16;
+float _TMP15;
+float _TMP14;
+float _TMP13;
+float _TMP12;
+float _TMP11;
+float _TMP10;
+float _TMP9;
+float _TMP8;
+vec4 _TMP7;
+vec4 _TMP6;
+vec4 _TMP5;
+vec4 _TMP4;
+vec4 _TMP3;
+vec4 _TMP2;
+vec4 _TMP1;
+vec4 _TMP0;
+vec4 _TMP104;
+vec2 _posM0105;
+vec4 _rgbyM0105;
+vec2 _TMP1020105;
+float _lumaS0105;
+vec2 _TMP1010105;
+vec2 _TMP1000105;
+float _lumaN0105;
+vec2 _TMP990105;
+float _maxSM0105;
+float _minSM0105;
+float _maxESM0105;
+float _minESM0105;
+float _maxWN0105;
+float _minWN0105;
+float _rangeMax0105;
+float _rangeMin0105;
+float _rangeMaxScaled0105;
+float _range0105;
+float _rangeMaxClamped0105;
+bool _earlyExit0105;
+vec2 _TMP980105;
+vec2 _TMP970105;
+vec2 _TMP960105;
+vec2 _TMP950105;
+float _lumaNS0105;
+float _lumaWE0105;
+float _subpixRcpRange0105;
+float _subpixNSWE0105;
+float _edgeHorz10105;
+float _edgeVert10105;
+float _lumaNESE0105;
+float _lumaNWNE0105;
+float _edgeHorz20105;
+float _edgeVert20105;
+float _lumaNWSW0105;
+float _lumaSWSE0105;
+float _edgeHorz40105;
+float _edgeVert40105;
+float _edgeHorz30105;
+float _edgeVert30105;
+float _edgeHorz0105;
+float _edgeVert0105;
+float _subpixNWSWNESE0105;
+float _lengthSign0105;
+bool _horzSpan0105;
+float _subpixA0105;
+float _subpixB0105;
+float _gradientN0105;
+float _gradientS0105;
+float _lumaNN0105;
+float _lumaSS0105;
+bool _pairN0105;
+float _gradient0105;
+vec2 _posB0105;
+vec2 _posN0105;
+vec2 _posP0105;
+float _subpixD0105;
+float _lumaEndN0105;
+float _subpixE0105;
+float _lumaEndP0105;
+float _gradientScaled0105;
+float _lumaMM0105;
+float _subpixF0105;
+bool _lumaMLTZero0105;
+bool _doneN0105;
+bool _doneP0105;
+bool _doneNP0105;
+float _dstN0105;
+float _dstP0105;
+bool _goodSpanN0105;
+float _spanLength0105;
+bool _goodSpanP0105;
+float _spanLengthRcp0105;
+bool _directionN0105;
+float _dst0105;
+float _subpixG0105;
+float _pixelOffset0105;
+float _pixelOffsetSubpix0105;
+bool _TMP106;
+vec4 _c0108;
+vec4 _c0110;
+vec4 _c0114;
+vec4 _c0118;
+vec4 _c0122;
+vec4 _c0144;
+vec4 _c0148;
+vec4 _c0152;
+vec4 _c0156;
+float _x0184;
+float _TMP185;
+vec4 _c0192;
+vec4 _c0196;
+vec4 _c0204;
+vec4 _c0208;
+vec4 _c0216;
+vec4 _c0220;
+vec4 _c0228;
+vec4 _c0232;
+vec4 _c0240;
+vec4 _c0244;
+vec4 _c0252;
+vec4 _c0256;
+vec4 _c0264;
+vec4 _c0268;
+vec4 _c0276;
+vec4 _c0280;
+vec4 _c0288;
+vec4 _c0292;
+vec4 _c0300;
+vec4 _c0304;
+vec4 _c0312;
+vec4 _c0316;
+vec4 _c0328;
+uniform sampler2D _FinalMap;
+uniform vec2 _ScreenSizeInv;
+
+ // main procedure, the original name was ps
+void main()
+{
+
+
+    _TMP106 = true;
+    _posM0105.x = gl_TexCoord[0].x;
+    _posM0105.y = gl_TexCoord[0].y;
+    _c0108 = vec4(gl_TexCoord[0].x, gl_TexCoord[0].y, 0.00000000E+000, 0.00000000E+000);
+    _rgbyM0105 = texture2DLod(_FinalMap, vec2(_c0108.x, _c0108.y), _c0108.w);
+    _TMP1020105 = _posM0105 + vec2( 0.00000000E+000, 1.00000000E+000)*_ScreenSizeInv.xy;
+    _c0110 = vec4(_TMP1020105.x, _TMP1020105.y, 0.00000000E+000, 0.00000000E+000);
+    _TMP0 = texture2DLod(_FinalMap, vec2(_c0110.x, _c0110.y), _c0110.w);
+    _lumaS0105 = _TMP0.w;
+    _TMP1010105 = _posM0105 + vec2( 1.00000000E+000, 0.00000000E+000)*_ScreenSizeInv.xy;
+    _c0114 = vec4(_TMP1010105.x, _TMP1010105.y, 0.00000000E+000, 0.00000000E+000);
+    _TMP1 = texture2DLod(_FinalMap, vec2(_c0114.x, _c0114.y), _c0114.w);
+    _TMP1000105 = _posM0105 + vec2( 0.00000000E+000, -1.00000000E+000)*_ScreenSizeInv.xy;
+    _c0118 = vec4(_TMP1000105.x, _TMP1000105.y, 0.00000000E+000, 0.00000000E+000);
+    _TMP2 = texture2DLod(_FinalMap, vec2(_c0118.x, _c0118.y), _c0118.w);
+    _lumaN0105 = _TMP2.w;
+    _TMP990105 = _posM0105 + vec2( -1.00000000E+000, 0.00000000E+000)*_ScreenSizeInv.xy;
+    _c0122 = vec4(_TMP990105.x, _TMP990105.y, 0.00000000E+000, 0.00000000E+000);
+    _TMP3 = texture2DLod(_FinalMap, vec2(_c0122.x, _c0122.y), _c0122.w);
+    _maxSM0105 = max(_TMP0.w, _rgbyM0105.w);
+    _minSM0105 = min(_TMP0.w, _rgbyM0105.w);
+    _maxESM0105 = max(_TMP1.w, _maxSM0105);
+    _minESM0105 = min(_TMP1.w, _minSM0105);
+    _maxWN0105 = max(_TMP2.w, _TMP3.w);
+    _minWN0105 = min(_TMP2.w, _TMP3.w);
+    _rangeMax0105 = max(_maxWN0105, _maxESM0105);
+    _rangeMin0105 = min(_minWN0105, _minESM0105);
+    _rangeMaxScaled0105 = _rangeMax0105*6.30000010E-002;
+    _range0105 = _rangeMax0105 - _rangeMin0105;
+    _rangeMaxClamped0105 = max(3.11999992E-002, _rangeMaxScaled0105);
+    _earlyExit0105 = _range0105 < _rangeMaxClamped0105;
+    if (_earlyExit0105) { // if begin
+        _TMP104 = _rgbyM0105;
+        _TMP106 = false;
+    } // end if
+    if (_TMP106) { // if begin
+        _TMP980105 = _posM0105 + -_ScreenSizeInv.xy;
+        _c0144 = vec4(_TMP980105.x, _TMP980105.y, 0.00000000E+000, 0.00000000E+000);
+        _TMP4 = texture2DLod(_FinalMap, vec2(_c0144.x, _c0144.y), _c0144.w);
+        _TMP970105 = _posM0105 + _ScreenSizeInv.xy;
+        _c0148 = vec4(_TMP970105.x, _TMP970105.y, 0.00000000E+000, 0.00000000E+000);
+        _TMP5 = texture2DLod(_FinalMap, vec2(_c0148.x, _c0148.y), _c0148.w);
+        _TMP960105 = _posM0105 + vec2( 1.00000000E+000, -1.00000000E+000)*_ScreenSizeInv.xy;
+        _c0152 = vec4(_TMP960105.x, _TMP960105.y, 0.00000000E+000, 0.00000000E+000);
+        _TMP6 = texture2DLod(_FinalMap, vec2(_c0152.x, _c0152.y), _c0152.w);
+        _TMP950105 = _posM0105 + vec2( -1.00000000E+000, 1.00000000E+000)*_ScreenSizeInv.xy;
+        _c0156 = vec4(_TMP950105.x, _TMP950105.y, 0.00000000E+000, 0.00000000E+000);
+        _TMP7 = texture2DLod(_FinalMap, vec2(_c0156.x, _c0156.y), _c0156.w);
+        _lumaNS0105 = _TMP2.w + _TMP0.w;
+        _lumaWE0105 = _TMP3.w + _TMP1.w;
+        _subpixRcpRange0105 = 1.00000000E+000/_range0105;
+        _subpixNSWE0105 = _lumaNS0105 + _lumaWE0105;
+        _edgeHorz10105 = -2.00000000E+000*_rgbyM0105.w + _lumaNS0105;
+        _edgeVert10105 = -2.00000000E+000*_rgbyM0105.w + _lumaWE0105;
+        _lumaNESE0105 = _TMP6.w + _TMP5.w;
+        _lumaNWNE0105 = _TMP4.w + _TMP6.w;
+        _edgeHorz20105 = -2.00000000E+000*_TMP1.w + _lumaNESE0105;
+        _edgeVert20105 = -2.00000000E+000*_TMP2.w + _lumaNWNE0105;
+        _lumaNWSW0105 = _TMP4.w + _TMP7.w;
+        _lumaSWSE0105 = _TMP7.w + _TMP5.w;
+        _TMP8 = abs(_edgeHorz10105);
+        _TMP9 = abs(_edgeHorz20105);
+        _edgeHorz40105 = _TMP8*2.00000000E+000 + _TMP9;
+        _TMP10 = abs(_edgeVert10105);
+        _TMP11 = abs(_edgeVert20105);
+        _edgeVert40105 = _TMP10*2.00000000E+000 + _TMP11;
+        _edgeHorz30105 = -2.00000000E+000*_TMP3.w + _lumaNWSW0105;
+        _edgeVert30105 = -2.00000000E+000*_TMP0.w + _lumaSWSE0105;
+        _TMP12 = abs(_edgeHorz30105);
+        _edgeHorz0105 = _TMP12 + _edgeHorz40105;
+        _TMP13 = abs(_edgeVert30105);
+        _edgeVert0105 = _TMP13 + _edgeVert40105;
+        _subpixNWSWNESE0105 = _lumaNWSW0105 + _lumaNESE0105;
+        _lengthSign0105 = _ScreenSizeInv.x;
+        _horzSpan0105 = _edgeHorz0105 >= _edgeVert0105;
+        _subpixA0105 = _subpixNSWE0105*2.00000000E+000 + _subpixNWSWNESE0105;
+        if (!_horzSpan0105) { // if begin
+            _lumaN0105 = _TMP3.w;
+        } // end if
+        if (!_horzSpan0105) { // if begin
+            _lumaS0105 = _TMP1.w;
+        } // end if
+        if (_horzSpan0105) { // if begin
+            _lengthSign0105 = _ScreenSizeInv.y;
+        } // end if
+        _subpixB0105 = _subpixA0105*8.33333358E-002 - _rgbyM0105.w;
+        _gradientN0105 = _lumaN0105 - _rgbyM0105.w;
+        _gradientS0105 = _lumaS0105 - _rgbyM0105.w;
+        _lumaNN0105 = _lumaN0105 + _rgbyM0105.w;
+        _lumaSS0105 = _lumaS0105 + _rgbyM0105.w;
+        _TMP14 = abs(_gradientN0105);
+        _TMP15 = abs(_gradientS0105);
+        _pairN0105 = _TMP14 >= _TMP15;
+        _TMP16 = abs(_gradientN0105);
+        _TMP17 = abs(_gradientS0105);
+        _gradient0105 = max(_TMP16, _TMP17);
+        if (_pairN0105) { // if begin
+            _lengthSign0105 = -_lengthSign0105;
+        } // end if
+        _TMP18 = abs(_subpixB0105);
+        _x0184 = _TMP18*_subpixRcpRange0105;
+        _TMP68 = min(1.00000000E+000, _x0184);
+        _TMP185 = max(0.00000000E+000, _TMP68);
+        _posB0105.x = gl_TexCoord[0].x;
+        _posB0105.y = gl_TexCoord[0].y;
+        if (!_horzSpan0105) { // if begin
+            _TMP19 = 0.00000000E+000;
+        } else {
+            _TMP19 = _ScreenSizeInv.x;
+        } // end if
+        if (_horzSpan0105) { // if begin
+            _TMP20 = 0.00000000E+000;
+        } else {
+            _TMP20 = _ScreenSizeInv.y;
+        } // end if
+        if (!_horzSpan0105) { // if begin
+            _posB0105.x = gl_TexCoord[0].x + _lengthSign0105*5.00000000E-001;
+        } // end if
+        if (_horzSpan0105) { // if begin
+            _posB0105.y = gl_TexCoord[0].y + _lengthSign0105*5.00000000E-001;
+        } // end if
+        _posN0105.x = _posB0105.x - _TMP19;
+        _posN0105.y = _posB0105.y - _TMP20;
+        _posP0105.x = _posB0105.x + _TMP19;
+        _posP0105.y = _posB0105.y + _TMP20;
+        _subpixD0105 = -2.00000000E+000*_TMP185 + 3.00000000E+000;
+        _c0192 = vec4(_posN0105.x, _posN0105.y, 0.00000000E+000, 0.00000000E+000);
+        _TMP21 = texture2DLod(_FinalMap, vec2(_c0192.x, _c0192.y), _c0192.w);
+        _subpixE0105 = _TMP185*_TMP185;
+        _c0196 = vec4(_posP0105.x, _posP0105.y, 0.00000000E+000, 0.00000000E+000);
+        _TMP22 = texture2DLod(_FinalMap, vec2(_c0196.x, _c0196.y), _c0196.w);
+        if (!_pairN0105) { // if begin
+            _lumaNN0105 = _lumaSS0105;
+        } // end if
+        _gradientScaled0105 = _gradient0105/4.00000000E+000;
+        _lumaMM0105 = _rgbyM0105.w - _lumaNN0105*5.00000000E-001;
+        _subpixF0105 = _subpixD0105*_subpixE0105;
+        _lumaMLTZero0105 = _lumaMM0105 < 0.00000000E+000;
+        _lumaEndN0105 = _TMP21.w - _lumaNN0105*5.00000000E-001;
+        _lumaEndP0105 = _TMP22.w - _lumaNN0105*5.00000000E-001;
+        _TMP23 = abs(_lumaEndN0105);
+        _doneN0105 = _TMP23 >= _gradientScaled0105;
+        _TMP24 = abs(_lumaEndP0105);
+        _doneP0105 = _TMP24 >= _gradientScaled0105;
+        if (!_doneN0105) { // if begin
+            _posN0105.x = _posN0105.x - _TMP19;
+        } // end if
+        if (!_doneN0105) { // if begin
+            _posN0105.y = _posN0105.y - _TMP20;
+        } // end if
+        _doneNP0105 = !_doneN0105 || !_doneP0105;
+        if (!_doneP0105) { // if begin
+            _posP0105.x = _posP0105.x + _TMP19;
+        } // end if
+        if (!_doneP0105) { // if begin
+            _posP0105.y = _posP0105.y + _TMP20;
+        } // end if
+        if (_doneNP0105) { // if begin
+            if (!_doneN0105) { // if begin
+                _c0204 = vec4(_posN0105.x, _posN0105.y, 0.00000000E+000, 0.00000000E+000);
+                _TMP25 = texture2DLod(_FinalMap, vec2(_c0204.x, _c0204.y), _c0204.w);
+                _lumaEndN0105 = _TMP25.w;
+            } // end if
+            if (!_doneP0105) { // if begin
+                _c0208 = vec4(_posP0105.x, _posP0105.y, 0.00000000E+000, 0.00000000E+000);
+                _TMP26 = texture2DLod(_FinalMap, vec2(_c0208.x, _c0208.y), _c0208.w);
+                _lumaEndP0105 = _TMP26.w;
+            } // end if
+            if (!_doneN0105) { // if begin
+                _lumaEndN0105 = _lumaEndN0105 - _lumaNN0105*5.00000000E-001;
+            } // end if
+            if (!_doneP0105) { // if begin
+                _lumaEndP0105 = _lumaEndP0105 - _lumaNN0105*5.00000000E-001;
+            } // end if
+            _TMP27 = abs(_lumaEndN0105);
+            _doneN0105 = _TMP27 >= _gradientScaled0105;
+            _TMP28 = abs(_lumaEndP0105);
+            _doneP0105 = _TMP28 >= _gradientScaled0105;
+            if (!_doneN0105) { // if begin
+                _posN0105.x = _posN0105.x - _TMP19;
+            } // end if
+            if (!_doneN0105) { // if begin
+                _posN0105.y = _posN0105.y - _TMP20;
+            } // end if
+            _doneNP0105 = !_doneN0105 || !_doneP0105;
+            if (!_doneP0105) { // if begin
+                _posP0105.x = _posP0105.x + _TMP19;
+            } // end if
+            if (!_doneP0105) { // if begin
+                _posP0105.y = _posP0105.y + _TMP20;
+            } // end if
+            if (_doneNP0105) { // if begin
+                if (!_doneN0105) { // if begin
+                    _c0216 = vec4(_posN0105.x, _posN0105.y, 0.00000000E+000, 0.00000000E+000);
+                    _TMP29 = texture2DLod(_FinalMap, vec2(_c0216.x, _c0216.y), _c0216.w);
+                    _lumaEndN0105 = _TMP29.w;
+                } // end if
+                if (!_doneP0105) { // if begin
+                    _c0220 = vec4(_posP0105.x, _posP0105.y, 0.00000000E+000, 0.00000000E+000);
+                    _TMP30 = texture2DLod(_FinalMap, vec2(_c0220.x, _c0220.y), _c0220.w);
+                    _lumaEndP0105 = _TMP30.w;
+                } // end if
+                if (!_doneN0105) { // if begin
+                    _lumaEndN0105 = _lumaEndN0105 - _lumaNN0105*5.00000000E-001;
+                } // end if
+                if (!_doneP0105) { // if begin
+                    _lumaEndP0105 = _lumaEndP0105 - _lumaNN0105*5.00000000E-001;
+                } // end if
+                _TMP31 = abs(_lumaEndN0105);
+                _doneN0105 = _TMP31 >= _gradientScaled0105;
+                _TMP32 = abs(_lumaEndP0105);
+                _doneP0105 = _TMP32 >= _gradientScaled0105;
+                if (!_doneN0105) { // if begin
+                    _posN0105.x = _posN0105.x - _TMP19;
+                } // end if
+                if (!_doneN0105) { // if begin
+                    _posN0105.y = _posN0105.y - _TMP20;
+                } // end if
+                _doneNP0105 = !_doneN0105 || !_doneP0105;
+                if (!_doneP0105) { // if begin
+                    _posP0105.x = _posP0105.x + _TMP19;
+                } // end if
+                if (!_doneP0105) { // if begin
+                    _posP0105.y = _posP0105.y + _TMP20;
+                } // end if
+                if (_doneNP0105) { // if begin
+                    if (!_doneN0105) { // if begin
+                        _c0228 = vec4(_posN0105.x, _posN0105.y, 0.00000000E+000, 0.00000000E+000);
+                        _TMP33 = texture2DLod(_FinalMap, vec2(_c0228.x, _c0228.y), _c0228.w);
+                        _lumaEndN0105 = _TMP33.w;
+                    } // end if
+                    if (!_doneP0105) { // if begin
+                        _c0232 = vec4(_posP0105.x, _posP0105.y, 0.00000000E+000, 0.00000000E+000);
+                        _TMP34 = texture2DLod(_FinalMap, vec2(_c0232.x, _c0232.y), _c0232.w);
+                        _lumaEndP0105 = _TMP34.w;
+                    } // end if
+                    if (!_doneN0105) { // if begin
+                        _lumaEndN0105 = _lumaEndN0105 - _lumaNN0105*5.00000000E-001;
+                    } // end if
+                    if (!_doneP0105) { // if begin
+                        _lumaEndP0105 = _lumaEndP0105 - _lumaNN0105*5.00000000E-001;
+                    } // end if
+                    _TMP35 = abs(_lumaEndN0105);
+                    _doneN0105 = _TMP35 >= _gradientScaled0105;
+                    _TMP36 = abs(_lumaEndP0105);
+                    _doneP0105 = _TMP36 >= _gradientScaled0105;
+                    if (!_doneN0105) { // if begin
+                        _posN0105.x = _posN0105.x - _TMP19;
+                    } // end if
+                    if (!_doneN0105) { // if begin
+                        _posN0105.y = _posN0105.y - _TMP20;
+                    } // end if
+                    _doneNP0105 = !_doneN0105 || !_doneP0105;
+                    if (!_doneP0105) { // if begin
+                        _posP0105.x = _posP0105.x + _TMP19;
+                    } // end if
+                    if (!_doneP0105) { // if begin
+                        _posP0105.y = _posP0105.y + _TMP20;
+                    } // end if
+                    if (_doneNP0105) { // if begin
+                        if (!_doneN0105) { // if begin
+                            _c0240 = vec4(_posN0105.x, _posN0105.y, 0.00000000E+000, 0.00000000E+000);
+                            _TMP37 = texture2DLod(_FinalMap, vec2(_c0240.x, _c0240.y), _c0240.w);
+                            _lumaEndN0105 = _TMP37.w;
+                        } // end if
+                        if (!_doneP0105) { // if begin
+                            _c0244 = vec4(_posP0105.x, _posP0105.y, 0.00000000E+000, 0.00000000E+000);
+                            _TMP38 = texture2DLod(_FinalMap, vec2(_c0244.x, _c0244.y), _c0244.w);
+                            _lumaEndP0105 = _TMP38.w;
+                        } // end if
+                        if (!_doneN0105) { // if begin
+                            _lumaEndN0105 = _lumaEndN0105 - _lumaNN0105*5.00000000E-001;
+                        } // end if
+                        if (!_doneP0105) { // if begin
+                            _lumaEndP0105 = _lumaEndP0105 - _lumaNN0105*5.00000000E-001;
+                        } // end if
+                        _TMP39 = abs(_lumaEndN0105);
+                        _doneN0105 = _TMP39 >= _gradientScaled0105;
+                        _TMP40 = abs(_lumaEndP0105);
+                        _doneP0105 = _TMP40 >= _gradientScaled0105;
+                        if (!_doneN0105) { // if begin
+                            _posN0105.x = _posN0105.x - _TMP19*1.50000000E+000;
+                        } // end if
+                        if (!_doneN0105) { // if begin
+                            _posN0105.y = _posN0105.y - _TMP20*1.50000000E+000;
+                        } // end if
+                        _doneNP0105 = !_doneN0105 || !_doneP0105;
+                        if (!_doneP0105) { // if begin
+                            _posP0105.x = _posP0105.x + _TMP19*1.50000000E+000;
+                        } // end if
+                        if (!_doneP0105) { // if begin
+                            _posP0105.y = _posP0105.y + _TMP20*1.50000000E+000;
+                        } // end if
+                        if (_doneNP0105) { // if begin
+                            if (!_doneN0105) { // if begin
+                                _c0252 = vec4(_posN0105.x, _posN0105.y, 0.00000000E+000, 0.00000000E+000);
+                                _TMP41 = texture2DLod(_FinalMap, vec2(_c0252.x, _c0252.y), _c0252.w);
+                                _lumaEndN0105 = _TMP41.w;
+                            } // end if
+                            if (!_doneP0105) { // if begin
+                                _c0256 = vec4(_posP0105.x, _posP0105.y, 0.00000000E+000, 0.00000000E+000);
+                                _TMP42 = texture2DLod(_FinalMap, vec2(_c0256.x, _c0256.y), _c0256.w);
+                                _lumaEndP0105 = _TMP42.w;
+                            } // end if
+                            if (!_doneN0105) { // if begin
+                                _lumaEndN0105 = _lumaEndN0105 - _lumaNN0105*5.00000000E-001;
+                            } // end if
+                            if (!_doneP0105) { // if begin
+                                _lumaEndP0105 = _lumaEndP0105 - _lumaNN0105*5.00000000E-001;
+                            } // end if
+                            _TMP43 = abs(_lumaEndN0105);
+                            _doneN0105 = _TMP43 >= _gradientScaled0105;
+                            _TMP44 = abs(_lumaEndP0105);
+                            _doneP0105 = _TMP44 >= _gradientScaled0105;
+                            if (!_doneN0105) { // if begin
+                                _posN0105.x = _posN0105.x - _TMP19*2.00000000E+000;
+                            } // end if
+                            if (!_doneN0105) { // if begin
+                                _posN0105.y = _posN0105.y - _TMP20*2.00000000E+000;
+                            } // end if
+                            _doneNP0105 = !_doneN0105 || !_doneP0105;
+                            if (!_doneP0105) { // if begin
+                                _posP0105.x = _posP0105.x + _TMP19*2.00000000E+000;
+                            } // end if
+                            if (!_doneP0105) { // if begin
+                                _posP0105.y = _posP0105.y + _TMP20*2.00000000E+000;
+                            } // end if
+                            if (_doneNP0105) { // if begin
+                                if (!_doneN0105) { // if begin
+                                    _c0264 = vec4(_posN0105.x, _posN0105.y, 0.00000000E+000, 0.00000000E+000);
+                                    _TMP45 = texture2DLod(_FinalMap, vec2(_c0264.x, _c0264.y), _c0264.w);
+                                    _lumaEndN0105 = _TMP45.w;
+                                } // end if
+                                if (!_doneP0105) { // if begin
+                                    _c0268 = vec4(_posP0105.x, _posP0105.y, 0.00000000E+000, 0.00000000E+000);
+                                    _TMP46 = texture2DLod(_FinalMap, vec2(_c0268.x, _c0268.y), _c0268.w);
+                                    _lumaEndP0105 = _TMP46.w;
+                                } // end if
+                                if (!_doneN0105) { // if begin
+                                    _lumaEndN0105 = _lumaEndN0105 - _lumaNN0105*5.00000000E-001;
+                                } // end if
+                                if (!_doneP0105) { // if begin
+                                    _lumaEndP0105 = _lumaEndP0105 - _lumaNN0105*5.00000000E-001;
+                                } // end if
+                                _TMP47 = abs(_lumaEndN0105);
+                                _doneN0105 = _TMP47 >= _gradientScaled0105;
+                                _TMP48 = abs(_lumaEndP0105);
+                                _doneP0105 = _TMP48 >= _gradientScaled0105;
+                                if (!_doneN0105) { // if begin
+                                    _posN0105.x = _posN0105.x - _TMP19*2.00000000E+000;
+                                } // end if
+                                if (!_doneN0105) { // if begin
+                                    _posN0105.y = _posN0105.y - _TMP20*2.00000000E+000;
+                                } // end if
+                                _doneNP0105 = !_doneN0105 || !_doneP0105;
+                                if (!_doneP0105) { // if begin
+                                    _posP0105.x = _posP0105.x + _TMP19*2.00000000E+000;
+                                } // end if
+                                if (!_doneP0105) { // if begin
+                                    _posP0105.y = _posP0105.y + _TMP20*2.00000000E+000;
+                                } // end if
+                                if (_doneNP0105) { // if begin
+                                    if (!_doneN0105) { // if begin
+                                        _c0276 = vec4(_posN0105.x, _posN0105.y, 0.00000000E+000, 0.00000000E+000);
+                                        _TMP49 = texture2DLod(_FinalMap, vec2(_c0276.x, _c0276.y), _c0276.w);
+                                        _lumaEndN0105 = _TMP49.w;
+                                    } // end if
+                                    if (!_doneP0105) { // if begin
+                                        _c0280 = vec4(_posP0105.x, _posP0105.y, 0.00000000E+000, 0.00000000E+000);
+                                        _TMP50 = texture2DLod(_FinalMap, vec2(_c0280.x, _c0280.y), _c0280.w);
+                                        _lumaEndP0105 = _TMP50.w;
+                                    } // end if
+                                    if (!_doneN0105) { // if begin
+                                        _lumaEndN0105 = _lumaEndN0105 - _lumaNN0105*5.00000000E-001;
+                                    } // end if
+                                    if (!_doneP0105) { // if begin
+                                        _lumaEndP0105 = _lumaEndP0105 - _lumaNN0105*5.00000000E-001;
+                                    } // end if
+                                    _TMP51 = abs(_lumaEndN0105);
+                                    _doneN0105 = _TMP51 >= _gradientScaled0105;
+                                    _TMP52 = abs(_lumaEndP0105);
+                                    _doneP0105 = _TMP52 >= _gradientScaled0105;
+                                    if (!_doneN0105) { // if begin
+                                        _posN0105.x = _posN0105.x - _TMP19*2.00000000E+000;
+                                    } // end if
+                                    if (!_doneN0105) { // if begin
+                                        _posN0105.y = _posN0105.y - _TMP20*2.00000000E+000;
+                                    } // end if
+                                    _doneNP0105 = !_doneN0105 || !_doneP0105;
+                                    if (!_doneP0105) { // if begin
+                                        _posP0105.x = _posP0105.x + _TMP19*2.00000000E+000;
+                                    } // end if
+                                    if (!_doneP0105) { // if begin
+                                        _posP0105.y = _posP0105.y + _TMP20*2.00000000E+000;
+                                    } // end if
+                                    if (_doneNP0105) { // if begin
+                                        if (!_doneN0105) { // if begin
+                                            _c0288 = vec4(_posN0105.x, _posN0105.y, 0.00000000E+000, 0.00000000E+000);
+                                            _TMP53 = texture2DLod(_FinalMap, vec2(_c0288.x, _c0288.y), _c0288.w);
+                                            _lumaEndN0105 = _TMP53.w;
+                                        } // end if
+                                        if (!_doneP0105) { // if begin
+                                            _c0292 = vec4(_posP0105.x, _posP0105.y, 0.00000000E+000, 0.00000000E+000);
+                                            _TMP54 = texture2DLod(_FinalMap, vec2(_c0292.x, _c0292.y), _c0292.w);
+                                            _lumaEndP0105 = _TMP54.w;
+                                        } // end if
+                                        if (!_doneN0105) { // if begin
+                                            _lumaEndN0105 = _lumaEndN0105 - _lumaNN0105*5.00000000E-001;
+                                        } // end if
+                                        if (!_doneP0105) { // if begin
+                                            _lumaEndP0105 = _lumaEndP0105 - _lumaNN0105*5.00000000E-001;
+                                        } // end if
+                                        _TMP55 = abs(_lumaEndN0105);
+                                        _doneN0105 = _TMP55 >= _gradientScaled0105;
+                                        _TMP56 = abs(_lumaEndP0105);
+                                        _doneP0105 = _TMP56 >= _gradientScaled0105;
+                                        if (!_doneN0105) { // if begin
+                                            _posN0105.x = _posN0105.x - _TMP19*2.00000000E+000;
+                                        } // end if
+                                        if (!_doneN0105) { // if begin
+                                            _posN0105.y = _posN0105.y - _TMP20*2.00000000E+000;
+                                        } // end if
+                                        _doneNP0105 = !_doneN0105 || !_doneP0105;
+                                        if (!_doneP0105) { // if begin
+                                            _posP0105.x = _posP0105.x + _TMP19*2.00000000E+000;
+                                        } // end if
+                                        if (!_doneP0105) { // if begin
+                                            _posP0105.y = _posP0105.y + _TMP20*2.00000000E+000;
+                                        } // end if
+                                        if (_doneNP0105) { // if begin
+                                            if (!_doneN0105) { // if begin
+                                                _c0300 = vec4(_posN0105.x, _posN0105.y, 0.00000000E+000, 0.00000000E+000);
+                                                _TMP57 = texture2DLod(_FinalMap, vec2(_c0300.x, _c0300.y), _c0300.w);
+                                                _lumaEndN0105 = _TMP57.w;
+                                            } // end if
+                                            if (!_doneP0105) { // if begin
+                                                _c0304 = vec4(_posP0105.x, _posP0105.y, 0.00000000E+000, 0.00000000E+000);
+                                                _TMP58 = texture2DLod(_FinalMap, vec2(_c0304.x, _c0304.y), _c0304.w);
+                                                _lumaEndP0105 = _TMP58.w;
+                                            } // end if
+                                            if (!_doneN0105) { // if begin
+                                                _lumaEndN0105 = _lumaEndN0105 - _lumaNN0105*5.00000000E-001;
+                                            } // end if
+                                            if (!_doneP0105) { // if begin
+                                                _lumaEndP0105 = _lumaEndP0105 - _lumaNN0105*5.00000000E-001;
+                                            } // end if
+                                            _TMP59 = abs(_lumaEndN0105);
+                                            _doneN0105 = _TMP59 >= _gradientScaled0105;
+                                            _TMP60 = abs(_lumaEndP0105);
+                                            _doneP0105 = _TMP60 >= _gradientScaled0105;
+                                            if (!_doneN0105) { // if begin
+                                                _posN0105.x = _posN0105.x - _TMP19*4.00000000E+000;
+                                            } // end if
+                                            if (!_doneN0105) { // if begin
+                                                _posN0105.y = _posN0105.y - _TMP20*4.00000000E+000;
+                                            } // end if
+                                            _doneNP0105 = !_doneN0105 || !_doneP0105;
+                                            if (!_doneP0105) { // if begin
+                                                _posP0105.x = _posP0105.x + _TMP19*4.00000000E+000;
+                                            } // end if
+                                            if (!_doneP0105) { // if begin
+                                                _posP0105.y = _posP0105.y + _TMP20*4.00000000E+000;
+                                            } // end if
+                                            if (_doneNP0105) { // if begin
+                                                if (!_doneN0105) { // if begin
+                                                    _c0312 = vec4(_posN0105.x, _posN0105.y, 0.00000000E+000, 0.00000000E+000);
+                                                    _TMP61 = texture2DLod(_FinalMap, vec2(_c0312.x, _c0312.y), _c0312.w);
+                                                    _lumaEndN0105 = _TMP61.w;
+                                                } // end if
+                                                if (!_doneP0105) { // if begin
+                                                    _c0316 = vec4(_posP0105.x, _posP0105.y, 0.00000000E+000, 0.00000000E+000);
+                                                    _TMP62 = texture2DLod(_FinalMap, vec2(_c0316.x, _c0316.y), _c0316.w);
+                                                    _lumaEndP0105 = _TMP62.w;
+                                                } // end if
+                                                if (!_doneN0105) { // if begin
+                                                    _lumaEndN0105 = _lumaEndN0105 - _lumaNN0105*5.00000000E-001;
+                                                } // end if
+                                                if (!_doneP0105) { // if begin
+                                                    _lumaEndP0105 = _lumaEndP0105 - _lumaNN0105*5.00000000E-001;
+                                                } // end if
+                                                _TMP63 = abs(_lumaEndN0105);
+                                                _doneN0105 = _TMP63 >= _gradientScaled0105;
+                                                _TMP64 = abs(_lumaEndP0105);
+                                                _doneP0105 = _TMP64 >= _gradientScaled0105;
+                                                if (!_doneN0105) { // if begin
+                                                    _posN0105.x = _posN0105.x - _TMP19*8.00000000E+000;
+                                                } // end if
+                                                if (!_doneN0105) { // if begin
+                                                    _posN0105.y = _posN0105.y - _TMP20*8.00000000E+000;
+                                                } // end if
+                                                if (!_doneP0105) { // if begin
+                                                    _posP0105.x = _posP0105.x + _TMP19*8.00000000E+000;
+                                                } // end if
+                                                if (!_doneP0105) { // if begin
+                                                    _posP0105.y = _posP0105.y + _TMP20*8.00000000E+000;
+                                                } // end if
+                                            } // end if
+                                        } // end if
+                                    } // end if
+                                } // end if
+                            } // end if
+                        } // end if
+                    } // end if
+                } // end if
+            } // end if
+        } // end if
+        _dstN0105 = gl_TexCoord[0].x - _posN0105.x;
+        _dstP0105 = _posP0105.x - gl_TexCoord[0].x;
+        if (!_horzSpan0105) { // if begin
+            _dstN0105 = gl_TexCoord[0].y - _posN0105.y;
+        } // end if
+        if (!_horzSpan0105) { // if begin
+            _dstP0105 = _posP0105.y - gl_TexCoord[0].y;
+        } // end if
+        _goodSpanN0105 = _lumaEndN0105 < 0.00000000E+000 != _lumaMLTZero0105;
+        _spanLength0105 = _dstP0105 + _dstN0105;
+        _goodSpanP0105 = _lumaEndP0105 < 0.00000000E+000 != _lumaMLTZero0105;
+        _spanLengthRcp0105 = 1.00000000E+000/_spanLength0105;
+        _directionN0105 = _dstN0105 < _dstP0105;
+        _dst0105 = min(_dstN0105, _dstP0105);
+        if (_directionN0105) { // if begin
+            _TMP65 = _goodSpanN0105;
+        } else {
+            _TMP65 = _goodSpanP0105;
+        } // end if
+        _subpixG0105 = _subpixF0105*_subpixF0105;
+        _pixelOffset0105 = _dst0105*-_spanLengthRcp0105 + 5.00000000E-001;
+        if (_TMP65) { // if begin
+            _TMP66 = _pixelOffset0105;
+        } else {
+            _TMP66 = 0.00000000E+000;
+        } // end if
+        _pixelOffsetSubpix0105 = max(_TMP66, _subpixG0105);
+        if (!_horzSpan0105) { // if begin
+            _posM0105.x = gl_TexCoord[0].x + _pixelOffsetSubpix0105*_lengthSign0105;
+        } // end if
+        if (_horzSpan0105) { // if begin
+            _posM0105.y = gl_TexCoord[0].y + _pixelOffsetSubpix0105*_lengthSign0105;
+        } // end if
+        _c0328 = vec4(_posM0105.x, _posM0105.y, 0.00000000E+000, 0.00000000E+000);
+        _TMP67 = texture2DLod(_FinalMap, vec2(_c0328.x, _c0328.y), _c0328.w);
+        _TMP104 = vec4(_TMP67.x, _TMP67.y, _TMP67.z, _rgbyM0105.w);
+    } // end if
+    gl_FragColor = _TMP104;
+    return;
+} // main end

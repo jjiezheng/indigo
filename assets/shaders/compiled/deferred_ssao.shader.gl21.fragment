@@ -18,7 +18,6 @@
 //semantic Projection
 //semantic ProjInv
 //semantic View
-//var float Radius :  : _Radius : -1 : 1
 //var float2 NoiseScale :  : _NoiseScale : -1 : 1
 //var float4 Kernel[0] :  : _Kernel[0] : -1 : 1
 //var float4 Kernel[1] :  : _Kernel[1] : -1 : 1
@@ -76,7 +75,6 @@ vec4 _r0083;
 vec4 _v0083;
 float _TMP96;
 float _a0101;
-uniform float _Radius;
 uniform vec2 _NoiseScale;
 uniform vec4 _Kernel[16];
 uniform float _Far;
@@ -137,7 +135,7 @@ void main()
     _TMP8 = inversesqrt(_TMP7);
     _tangent = _TMP8*_v0073;
     _bitangent = _tangent.yzx*_normal.zxy - _tangent.zxy*_normal.yzx;
-    _sample1 = _Kernel[0].xyz*_Radius;
+    _sample1 = _Kernel[0].xyz*2.00000003E-001;
     _r0081 = _sample1.x*_tangent;
     _r0081 = _r0081 + _sample1.y*_bitangent;
     _r0081 = _r0081 + _sample1.z*_normal;
@@ -155,19 +153,19 @@ void main()
     _TMP96 = dot(_TMP10.xyz, vec3( 9.96093810E-001, 3.89099144E-003, 1.51991853E-005));
     _a0101 = _TMP54 - _TMP96;
     _TMP5 = abs(_a0101);
-    if (_TMP5 < _Radius) { // if begin
+    if (_TMP5 < 2.00000003E-001) { // if begin
         _TMP4 = 1.00000000E+000;
     } else {
         _TMP4 = 0.00000000E+000;
     } // end if
     _rangeCheck1 = float(_TMP4);
-    if (_TMP96 <= _sampleAtViewPositionZ1) { // if begin
-        _TMP6 = 1.00000000E+000;
+    if (_TMP96 <= _sampleAtViewPositionZ1 - 4.99999987E-006) { // if begin
+        _TMP6 = 1.29999995E+000;
     } else {
         _TMP6 = 0.00000000E+000;
     } // end if
     _occlusionContribution = float(_TMP6)*_rangeCheck1;
-    _sample1 = _Kernel[1].xyz*_Radius;
+    _sample1 = _Kernel[1].xyz*2.00000003E-001;
     _r0081 = _sample1.x*_tangent;
     _r0081 = _r0081 + _sample1.y*_bitangent;
     _r0081 = _r0081 + _sample1.z*_normal;
@@ -185,19 +183,19 @@ void main()
     _TMP96 = dot(_TMP10.xyz, vec3( 9.96093810E-001, 3.89099144E-003, 1.51991853E-005));
     _a0101 = _TMP54 - _TMP96;
     _TMP5 = abs(_a0101);
-    if (_TMP5 < _Radius) { // if begin
+    if (_TMP5 < 2.00000003E-001) { // if begin
         _TMP4 = 1.00000000E+000;
     } else {
         _TMP4 = 0.00000000E+000;
     } // end if
     _rangeCheck1 = float(_TMP4);
-    if (_TMP96 <= _sampleAtViewPositionZ1) { // if begin
-        _TMP6 = 1.00000000E+000;
+    if (_TMP96 <= _sampleAtViewPositionZ1 - 4.99999987E-006) { // if begin
+        _TMP6 = 1.29999995E+000;
     } else {
         _TMP6 = 0.00000000E+000;
     } // end if
     _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
-    _sample1 = _Kernel[2].xyz*_Radius;
+    _sample1 = _Kernel[2].xyz*2.00000003E-001;
     _r0081 = _sample1.x*_tangent;
     _r0081 = _r0081 + _sample1.y*_bitangent;
     _r0081 = _r0081 + _sample1.z*_normal;
@@ -215,19 +213,19 @@ void main()
     _TMP96 = dot(_TMP10.xyz, vec3( 9.96093810E-001, 3.89099144E-003, 1.51991853E-005));
     _a0101 = _TMP54 - _TMP96;
     _TMP5 = abs(_a0101);
-    if (_TMP5 < _Radius) { // if begin
+    if (_TMP5 < 2.00000003E-001) { // if begin
         _TMP4 = 1.00000000E+000;
     } else {
         _TMP4 = 0.00000000E+000;
     } // end if
     _rangeCheck1 = float(_TMP4);
-    if (_TMP96 <= _sampleAtViewPositionZ1) { // if begin
-        _TMP6 = 1.00000000E+000;
+    if (_TMP96 <= _sampleAtViewPositionZ1 - 4.99999987E-006) { // if begin
+        _TMP6 = 1.29999995E+000;
     } else {
         _TMP6 = 0.00000000E+000;
     } // end if
     _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
-    _sample1 = _Kernel[3].xyz*_Radius;
+    _sample1 = _Kernel[3].xyz*2.00000003E-001;
     _r0081 = _sample1.x*_tangent;
     _r0081 = _r0081 + _sample1.y*_bitangent;
     _r0081 = _r0081 + _sample1.z*_normal;
@@ -245,19 +243,19 @@ void main()
     _TMP96 = dot(_TMP10.xyz, vec3( 9.96093810E-001, 3.89099144E-003, 1.51991853E-005));
     _a0101 = _TMP54 - _TMP96;
     _TMP5 = abs(_a0101);
-    if (_TMP5 < _Radius) { // if begin
+    if (_TMP5 < 2.00000003E-001) { // if begin
         _TMP4 = 1.00000000E+000;
     } else {
         _TMP4 = 0.00000000E+000;
     } // end if
     _rangeCheck1 = float(_TMP4);
-    if (_TMP96 <= _sampleAtViewPositionZ1) { // if begin
-        _TMP6 = 1.00000000E+000;
+    if (_TMP96 <= _sampleAtViewPositionZ1 - 4.99999987E-006) { // if begin
+        _TMP6 = 1.29999995E+000;
     } else {
         _TMP6 = 0.00000000E+000;
     } // end if
     _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
-    _sample1 = _Kernel[4].xyz*_Radius;
+    _sample1 = _Kernel[4].xyz*2.00000003E-001;
     _r0081 = _sample1.x*_tangent;
     _r0081 = _r0081 + _sample1.y*_bitangent;
     _r0081 = _r0081 + _sample1.z*_normal;
@@ -275,19 +273,19 @@ void main()
     _TMP96 = dot(_TMP10.xyz, vec3( 9.96093810E-001, 3.89099144E-003, 1.51991853E-005));
     _a0101 = _TMP54 - _TMP96;
     _TMP5 = abs(_a0101);
-    if (_TMP5 < _Radius) { // if begin
+    if (_TMP5 < 2.00000003E-001) { // if begin
         _TMP4 = 1.00000000E+000;
     } else {
         _TMP4 = 0.00000000E+000;
     } // end if
     _rangeCheck1 = float(_TMP4);
-    if (_TMP96 <= _sampleAtViewPositionZ1) { // if begin
-        _TMP6 = 1.00000000E+000;
+    if (_TMP96 <= _sampleAtViewPositionZ1 - 4.99999987E-006) { // if begin
+        _TMP6 = 1.29999995E+000;
     } else {
         _TMP6 = 0.00000000E+000;
     } // end if
     _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
-    _sample1 = _Kernel[5].xyz*_Radius;
+    _sample1 = _Kernel[5].xyz*2.00000003E-001;
     _r0081 = _sample1.x*_tangent;
     _r0081 = _r0081 + _sample1.y*_bitangent;
     _r0081 = _r0081 + _sample1.z*_normal;
@@ -305,19 +303,19 @@ void main()
     _TMP96 = dot(_TMP10.xyz, vec3( 9.96093810E-001, 3.89099144E-003, 1.51991853E-005));
     _a0101 = _TMP54 - _TMP96;
     _TMP5 = abs(_a0101);
-    if (_TMP5 < _Radius) { // if begin
+    if (_TMP5 < 2.00000003E-001) { // if begin
         _TMP4 = 1.00000000E+000;
     } else {
         _TMP4 = 0.00000000E+000;
     } // end if
     _rangeCheck1 = float(_TMP4);
-    if (_TMP96 <= _sampleAtViewPositionZ1) { // if begin
-        _TMP6 = 1.00000000E+000;
+    if (_TMP96 <= _sampleAtViewPositionZ1 - 4.99999987E-006) { // if begin
+        _TMP6 = 1.29999995E+000;
     } else {
         _TMP6 = 0.00000000E+000;
     } // end if
     _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
-    _sample1 = _Kernel[6].xyz*_Radius;
+    _sample1 = _Kernel[6].xyz*2.00000003E-001;
     _r0081 = _sample1.x*_tangent;
     _r0081 = _r0081 + _sample1.y*_bitangent;
     _r0081 = _r0081 + _sample1.z*_normal;
@@ -335,19 +333,19 @@ void main()
     _TMP96 = dot(_TMP10.xyz, vec3( 9.96093810E-001, 3.89099144E-003, 1.51991853E-005));
     _a0101 = _TMP54 - _TMP96;
     _TMP5 = abs(_a0101);
-    if (_TMP5 < _Radius) { // if begin
+    if (_TMP5 < 2.00000003E-001) { // if begin
         _TMP4 = 1.00000000E+000;
     } else {
         _TMP4 = 0.00000000E+000;
     } // end if
     _rangeCheck1 = float(_TMP4);
-    if (_TMP96 <= _sampleAtViewPositionZ1) { // if begin
-        _TMP6 = 1.00000000E+000;
+    if (_TMP96 <= _sampleAtViewPositionZ1 - 4.99999987E-006) { // if begin
+        _TMP6 = 1.29999995E+000;
     } else {
         _TMP6 = 0.00000000E+000;
     } // end if
     _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
-    _sample1 = _Kernel[7].xyz*_Radius;
+    _sample1 = _Kernel[7].xyz*2.00000003E-001;
     _r0081 = _sample1.x*_tangent;
     _r0081 = _r0081 + _sample1.y*_bitangent;
     _r0081 = _r0081 + _sample1.z*_normal;
@@ -365,19 +363,19 @@ void main()
     _TMP96 = dot(_TMP10.xyz, vec3( 9.96093810E-001, 3.89099144E-003, 1.51991853E-005));
     _a0101 = _TMP54 - _TMP96;
     _TMP5 = abs(_a0101);
-    if (_TMP5 < _Radius) { // if begin
+    if (_TMP5 < 2.00000003E-001) { // if begin
         _TMP4 = 1.00000000E+000;
     } else {
         _TMP4 = 0.00000000E+000;
     } // end if
     _rangeCheck1 = float(_TMP4);
-    if (_TMP96 <= _sampleAtViewPositionZ1) { // if begin
-        _TMP6 = 1.00000000E+000;
+    if (_TMP96 <= _sampleAtViewPositionZ1 - 4.99999987E-006) { // if begin
+        _TMP6 = 1.29999995E+000;
     } else {
         _TMP6 = 0.00000000E+000;
     } // end if
     _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
-    _sample1 = _Kernel[8].xyz*_Radius;
+    _sample1 = _Kernel[8].xyz*2.00000003E-001;
     _r0081 = _sample1.x*_tangent;
     _r0081 = _r0081 + _sample1.y*_bitangent;
     _r0081 = _r0081 + _sample1.z*_normal;
@@ -395,19 +393,19 @@ void main()
     _TMP96 = dot(_TMP10.xyz, vec3( 9.96093810E-001, 3.89099144E-003, 1.51991853E-005));
     _a0101 = _TMP54 - _TMP96;
     _TMP5 = abs(_a0101);
-    if (_TMP5 < _Radius) { // if begin
+    if (_TMP5 < 2.00000003E-001) { // if begin
         _TMP4 = 1.00000000E+000;
     } else {
         _TMP4 = 0.00000000E+000;
     } // end if
     _rangeCheck1 = float(_TMP4);
-    if (_TMP96 <= _sampleAtViewPositionZ1) { // if begin
-        _TMP6 = 1.00000000E+000;
+    if (_TMP96 <= _sampleAtViewPositionZ1 - 4.99999987E-006) { // if begin
+        _TMP6 = 1.29999995E+000;
     } else {
         _TMP6 = 0.00000000E+000;
     } // end if
     _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
-    _sample1 = _Kernel[9].xyz*_Radius;
+    _sample1 = _Kernel[9].xyz*2.00000003E-001;
     _r0081 = _sample1.x*_tangent;
     _r0081 = _r0081 + _sample1.y*_bitangent;
     _r0081 = _r0081 + _sample1.z*_normal;
@@ -425,19 +423,19 @@ void main()
     _TMP96 = dot(_TMP10.xyz, vec3( 9.96093810E-001, 3.89099144E-003, 1.51991853E-005));
     _a0101 = _TMP54 - _TMP96;
     _TMP5 = abs(_a0101);
-    if (_TMP5 < _Radius) { // if begin
+    if (_TMP5 < 2.00000003E-001) { // if begin
         _TMP4 = 1.00000000E+000;
     } else {
         _TMP4 = 0.00000000E+000;
     } // end if
     _rangeCheck1 = float(_TMP4);
-    if (_TMP96 <= _sampleAtViewPositionZ1) { // if begin
-        _TMP6 = 1.00000000E+000;
+    if (_TMP96 <= _sampleAtViewPositionZ1 - 4.99999987E-006) { // if begin
+        _TMP6 = 1.29999995E+000;
     } else {
         _TMP6 = 0.00000000E+000;
     } // end if
     _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
-    _sample1 = _Kernel[10].xyz*_Radius;
+    _sample1 = _Kernel[10].xyz*2.00000003E-001;
     _r0081 = _sample1.x*_tangent;
     _r0081 = _r0081 + _sample1.y*_bitangent;
     _r0081 = _r0081 + _sample1.z*_normal;
@@ -455,19 +453,19 @@ void main()
     _TMP96 = dot(_TMP10.xyz, vec3( 9.96093810E-001, 3.89099144E-003, 1.51991853E-005));
     _a0101 = _TMP54 - _TMP96;
     _TMP5 = abs(_a0101);
-    if (_TMP5 < _Radius) { // if begin
+    if (_TMP5 < 2.00000003E-001) { // if begin
         _TMP4 = 1.00000000E+000;
     } else {
         _TMP4 = 0.00000000E+000;
     } // end if
     _rangeCheck1 = float(_TMP4);
-    if (_TMP96 <= _sampleAtViewPositionZ1) { // if begin
-        _TMP6 = 1.00000000E+000;
+    if (_TMP96 <= _sampleAtViewPositionZ1 - 4.99999987E-006) { // if begin
+        _TMP6 = 1.29999995E+000;
     } else {
         _TMP6 = 0.00000000E+000;
     } // end if
     _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
-    _sample1 = _Kernel[11].xyz*_Radius;
+    _sample1 = _Kernel[11].xyz*2.00000003E-001;
     _r0081 = _sample1.x*_tangent;
     _r0081 = _r0081 + _sample1.y*_bitangent;
     _r0081 = _r0081 + _sample1.z*_normal;
@@ -485,19 +483,19 @@ void main()
     _TMP96 = dot(_TMP10.xyz, vec3( 9.96093810E-001, 3.89099144E-003, 1.51991853E-005));
     _a0101 = _TMP54 - _TMP96;
     _TMP5 = abs(_a0101);
-    if (_TMP5 < _Radius) { // if begin
+    if (_TMP5 < 2.00000003E-001) { // if begin
         _TMP4 = 1.00000000E+000;
     } else {
         _TMP4 = 0.00000000E+000;
     } // end if
     _rangeCheck1 = float(_TMP4);
-    if (_TMP96 <= _sampleAtViewPositionZ1) { // if begin
-        _TMP6 = 1.00000000E+000;
+    if (_TMP96 <= _sampleAtViewPositionZ1 - 4.99999987E-006) { // if begin
+        _TMP6 = 1.29999995E+000;
     } else {
         _TMP6 = 0.00000000E+000;
     } // end if
     _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
-    _sample1 = _Kernel[12].xyz*_Radius;
+    _sample1 = _Kernel[12].xyz*2.00000003E-001;
     _r0081 = _sample1.x*_tangent;
     _r0081 = _r0081 + _sample1.y*_bitangent;
     _r0081 = _r0081 + _sample1.z*_normal;
@@ -515,19 +513,19 @@ void main()
     _TMP96 = dot(_TMP10.xyz, vec3( 9.96093810E-001, 3.89099144E-003, 1.51991853E-005));
     _a0101 = _TMP54 - _TMP96;
     _TMP5 = abs(_a0101);
-    if (_TMP5 < _Radius) { // if begin
+    if (_TMP5 < 2.00000003E-001) { // if begin
         _TMP4 = 1.00000000E+000;
     } else {
         _TMP4 = 0.00000000E+000;
     } // end if
     _rangeCheck1 = float(_TMP4);
-    if (_TMP96 <= _sampleAtViewPositionZ1) { // if begin
-        _TMP6 = 1.00000000E+000;
+    if (_TMP96 <= _sampleAtViewPositionZ1 - 4.99999987E-006) { // if begin
+        _TMP6 = 1.29999995E+000;
     } else {
         _TMP6 = 0.00000000E+000;
     } // end if
     _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
-    _sample1 = _Kernel[13].xyz*_Radius;
+    _sample1 = _Kernel[13].xyz*2.00000003E-001;
     _r0081 = _sample1.x*_tangent;
     _r0081 = _r0081 + _sample1.y*_bitangent;
     _r0081 = _r0081 + _sample1.z*_normal;
@@ -545,19 +543,19 @@ void main()
     _TMP96 = dot(_TMP10.xyz, vec3( 9.96093810E-001, 3.89099144E-003, 1.51991853E-005));
     _a0101 = _TMP54 - _TMP96;
     _TMP5 = abs(_a0101);
-    if (_TMP5 < _Radius) { // if begin
+    if (_TMP5 < 2.00000003E-001) { // if begin
         _TMP4 = 1.00000000E+000;
     } else {
         _TMP4 = 0.00000000E+000;
     } // end if
     _rangeCheck1 = float(_TMP4);
-    if (_TMP96 <= _sampleAtViewPositionZ1) { // if begin
-        _TMP6 = 1.00000000E+000;
+    if (_TMP96 <= _sampleAtViewPositionZ1 - 4.99999987E-006) { // if begin
+        _TMP6 = 1.29999995E+000;
     } else {
         _TMP6 = 0.00000000E+000;
     } // end if
     _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
-    _sample1 = _Kernel[14].xyz*_Radius;
+    _sample1 = _Kernel[14].xyz*2.00000003E-001;
     _r0081 = _sample1.x*_tangent;
     _r0081 = _r0081 + _sample1.y*_bitangent;
     _r0081 = _r0081 + _sample1.z*_normal;
@@ -575,19 +573,19 @@ void main()
     _TMP96 = dot(_TMP10.xyz, vec3( 9.96093810E-001, 3.89099144E-003, 1.51991853E-005));
     _a0101 = _TMP54 - _TMP96;
     _TMP5 = abs(_a0101);
-    if (_TMP5 < _Radius) { // if begin
+    if (_TMP5 < 2.00000003E-001) { // if begin
         _TMP4 = 1.00000000E+000;
     } else {
         _TMP4 = 0.00000000E+000;
     } // end if
     _rangeCheck1 = float(_TMP4);
-    if (_TMP96 <= _sampleAtViewPositionZ1) { // if begin
-        _TMP6 = 1.00000000E+000;
+    if (_TMP96 <= _sampleAtViewPositionZ1 - 4.99999987E-006) { // if begin
+        _TMP6 = 1.29999995E+000;
     } else {
         _TMP6 = 0.00000000E+000;
     } // end if
     _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
-    _sample1 = _Kernel[15].xyz*_Radius;
+    _sample1 = _Kernel[15].xyz*2.00000003E-001;
     _r0081 = _sample1.x*_tangent;
     _r0081 = _r0081 + _sample1.y*_bitangent;
     _r0081 = _r0081 + _sample1.z*_normal;
@@ -605,14 +603,14 @@ void main()
     _TMP96 = dot(_TMP10.xyz, vec3( 9.96093810E-001, 3.89099144E-003, 1.51991853E-005));
     _a0101 = _TMP54 - _TMP96;
     _TMP5 = abs(_a0101);
-    if (_TMP5 < _Radius) { // if begin
+    if (_TMP5 < 2.00000003E-001) { // if begin
         _TMP4 = 1.00000000E+000;
     } else {
         _TMP4 = 0.00000000E+000;
     } // end if
     _rangeCheck1 = float(_TMP4);
-    if (_TMP96 <= _sampleAtViewPositionZ1) { // if begin
-        _TMP6 = 1.00000000E+000;
+    if (_TMP96 <= _sampleAtViewPositionZ1 - 4.99999987E-006) { // if begin
+        _TMP6 = 1.29999995E+000;
     } else {
         _TMP6 = 0.00000000E+000;
     } // end if
