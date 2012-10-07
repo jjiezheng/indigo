@@ -1,10 +1,10 @@
 #include "DeferredFXAAPass.h"
 
-#include "IEffect.h"
-
 #include "GraphicsInterface.h"
 #include "SceneContext.h"
 #include "Geometry.h"
+#include "EffectCache.h"
+#include "IEffect.h"
 
 #include "maths/Vector2.h"
 
@@ -12,10 +12,6 @@
 
 #include "memory/Allocation.h"
 
-void DeferredFXAAPass::destroy() {
-  SAFE_DELETE(fxaaEffect_);
-  SAFE_DELETE(colorLumaEffect_);
-}
 
 void DeferredFXAAPass::init(const CSize& screenSize) {
   colorLumaTexture_ = GraphicsInterface::createTexture(screenSize);
@@ -24,8 +20,8 @@ void DeferredFXAAPass::init(const CSize& screenSize) {
   fxaaRenderTexture_ = GraphicsInterface::createTexture(screenSize);
   fxaaRenderTarget_ = GraphicsInterface::createRenderTarget(fxaaRenderTexture_);
 
-  fxaaEffect_ = IEffect::effectFromFile("shaders/compiled/fxaa_main.shader");
-  colorLumaEffect_ = IEffect::effectFromFile("shaders/compiled/fxaa_color_luma.shader");
+  fxaaEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/fxaa_main.shader");
+  colorLumaEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/fxaa_color_luma.shader");
 
   quadVbo_ = Geometry::screenPlane();
 }

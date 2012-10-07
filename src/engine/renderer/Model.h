@@ -22,7 +22,7 @@ public:
 
   void render() const;
 
-  void visit(hash_map<int, std::vector<Mesh*> >& meshes);
+  void visit(hash_map<IEffect*, std::vector<Mesh*> >& meshes);
     
   void setMaterial(unsigned int meshIndex, const Material& material);
   

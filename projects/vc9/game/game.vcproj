@@ -42,7 +42,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="../../../src/engine;../../../libs"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;PROFILING"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -62,7 +62,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="Effects11.lib d3dcompiler.lib dxguid.lib dinput8.lib d3d9.lib d3d11.lib cg.lib cgGL.lib OpenGL32.lib glu32.lib assimp.lib FreeImage.lib glew32.lib d3dx10d.lib d3dx11d.lib"
+				AdditionalDependencies="d3dcompiler.lib dxguid.lib dinput8.lib d3d9.lib d3d11.lib d3dx10d.lib d3dx11d.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="../../../libs/dxfx/Release;../../../libs/glew/lib;../../../libs/glfw/lib;../../../libs/assimp/lib;../../../libs/freeimage"
 				GenerateDebugInformation="true"
@@ -120,7 +120,7 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="../../../src/engine;../../../libs"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;PROFILING"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
@@ -138,7 +138,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="Effects11.lib d3dcompiler.lib dxguid.lib dinput8.lib d3d9.lib d3d11.lib cg.lib cgGL.lib OpenGL32.lib glu32.lib assimp.lib FreeImage.lib glew32.lib d3dx10.lib d3dx11.lib"
+				AdditionalDependencies="d3dcompiler.lib dxguid.lib dinput8.lib d3d9.lib d3d11.lib d3dx10.lib d3dx11.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="../../../libs/dxfx/Release;../../../libs/glew/lib;../../../libs/glfw/lib;../../../libs/assimp/lib;../../../libs/freeimage"
 				GenerateDebugInformation="true"

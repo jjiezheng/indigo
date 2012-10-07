@@ -18,8 +18,6 @@ public:
 
   virtual void init(const CSize& screenSize) = 0;
 
-  virtual void destroy() = 0;
-
 public:
 
   virtual unsigned int render(IViewer* viewer, unsigned int inputMap, const DeferredInitRenderStage& initStage) = 0;

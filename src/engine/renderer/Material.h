@@ -19,7 +19,7 @@ class Material {
 public:
 
   Material() 
-    : effectId_(0) { }
+    : effect_(0) { }
   
 public:
   
@@ -29,24 +29,24 @@ public:
   
   void addTexture(const std::string& type, const Texture& texture);
 
-  void setEffect(unsigned int effectId);
+  void setEffect(IEffect* effect);
 
-  unsigned int effect() const;
+  IEffect* effect() const;
   
 private:
   
   std::vector<MaterialParameter*> parameters_;
   std::map<std::string, Texture> textures_;
   
-  unsigned int effectId_;
+  IEffect* effect_;
 };
 
-inline unsigned int Material::effect() const {
-  return effectId_;
+inline IEffect* Material::effect() const {
+  return effect_;
 }
 
-inline void Material::setEffect(unsigned int effectId) {
-  effectId_ = effectId;
+inline void Material::setEffect(IEffect* effect) {
+  effect_ = effect;
 }
 
 inline void Material::setParameter(MaterialParameter* parameter) {

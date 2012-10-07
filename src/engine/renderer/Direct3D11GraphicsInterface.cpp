@@ -3,24 +3,23 @@
 #include <D3DX10.h>
 #include <d3d9.h>
 #include <D3DX11.h>
-#include <d3dx11effect.h>
 #include <assert.h>
 
-#include "platform/WindowsUtils.h"
-#include "renderer/D3DEffect.h"
-#include "io/Log.h"
-#include "renderer/Color4.h"
-#include "VertexDefinition.h"
-#include "DirectxVertexDataFormatter.h"
+#include <comdef.h>
 
-#include "ShaderSemantics.h"
+#include "platform/WindowsUtils.h"
 
 #include "io/dds.h"
 #include "io/DDSImage.h"
 #include "io/DDSMipLevel.h"
+#include "io/Log.h"
 
-#include <comdef.h>
-#include <assert.h>
+#include "D3DEffect.h"
+#include "Color4.h"
+#include "VertexDefinition.h"
+#include "DirectxVertexDataFormatter.h"
+#include "ShaderSemantics.h"
+
 
 void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, int height, unsigned int multiSamples) {
   multiSamples_ = multiSamples;
@@ -124,6 +123,16 @@ void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, in
   D3DEffect::setDevice(device_, context_);
 }
 
+void Direct3D11GraphicsInterface::createPerformanceMarkerColors() {
+  performanceMarkerColors_.push_back(D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f));
+  performanceMarkerColors_.push_back(D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f));
+  performanceMarkerColors_.push_back(D3DXCOLOR(1.0f, 0.0f, 1.0f, 1.0f));
+  performanceMarkerColors_.push_back(D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f));
+  performanceMarkerColors_.push_back(D3DXCOLOR(1.0f, 0.84f, 0.0f, 1.0f));
+  performanceMarkerColors_.push_back(D3DXCOLOR(0.39f, 0.58f, 0.93f, 1.0f));
+  performanceMarkerColors_.push_back(D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
+}
+
 void Direct3D11GraphicsInterface::setViewport(const CSize& dimensions) {
   D3D11_VIEWPORT viewport;
   ZeroMemory(&viewport, sizeof(D3D11_VIEWPORT));
@@ -135,7 +144,6 @@ void Direct3D11GraphicsInterface::setViewport(const CSize& dimensions) {
 
   context_->RSSetViewports(1, &viewport);
 }
-
 
 void Direct3D11GraphicsInterface::destroy() {
   for (std::vector<ID3D11BlendState*>::iterator i = blendStates_.begin(); i != blendStates_.end(); ) {
@@ -171,6 +179,7 @@ void Direct3D11GraphicsInterface::openWindow(int width, int height, unsigned int
   HWND hWnd = WindowsUtils::createWindow(width, height);
   createGraphicsContext(hWnd, width, height, multiSamples);
   createBlendStates();
+  createPerformanceMarkerColors();
 }
 
 void Direct3D11GraphicsInterface::swapBuffers() {
@@ -451,14 +460,24 @@ void Direct3D11GraphicsInterface::fillTexture(unsigned int textureId, void* data
 }
 
 void Direct3D11GraphicsInterface::beginPerformanceEvent(const std::string& eventName, const Color4& color) {
+#ifdef PROFILING
   int stringLength = MultiByteToWideChar(CP_ACP, 0, eventName.data(), eventName.length(), 0, 0);
   std::wstring wstr(stringLength, 0);
   MultiByteToWideChar(CP_ACP, 0,  eventName.data(), eventName.length(), &wstr[0], stringLength);
-  D3DPERF_BeginEvent(D3DXCOLOR(color.r, color.g, color.b, color.a), wstr.c_str());
+
+  assert(performanceMarkerLevel_ < performanceMarkerColors_.size());
+
+  D3DXCOLOR markerColor = performanceMarkerColors_[performanceMarkerLevel_++];
+  D3DPERF_BeginEvent(markerColor, wstr.c_str());
+#endif
 }
 
 void Direct3D11GraphicsInterface::endPerformanceEvent() {
+#ifdef PROFILING
+  assert(performanceMarkerLevel_ > 0);
+  performanceMarkerLevel_--;
   D3DPERF_EndEvent();
+#endif
 }
 
 unsigned int Direct3D11GraphicsInterface::createDepthTexture(const CSize& dimensions) {
@@ -480,6 +499,7 @@ unsigned int Direct3D11GraphicsInterface::createDepthTexture(const CSize& dimens
 
   ID3D11Texture2D* depthStencilTexture;
   result = device_->CreateTexture2D(&depthDesc, NULL, &depthStencilTexture);
+
   if (result != S_OK) {
     assert(false);
   }
@@ -493,6 +513,7 @@ unsigned int Direct3D11GraphicsInterface::createDepthTexture(const CSize& dimens
 
   ID3D11DepthStencilView* depthStencilView;
   result = device_->CreateDepthStencilView(depthStencilTexture, &depthStencilViewDesc, &depthStencilView);
+
   if (result != S_OK) {
     assert(false);
   }
@@ -508,6 +529,8 @@ unsigned int Direct3D11GraphicsInterface::createDepthTexture(const CSize& dimens
   ID3D11ShaderResourceView* depthResourceView;
   result = device_->CreateShaderResourceView(depthStencilTexture, &depthResourceViewDesc, &depthResourceView);
   assert(result == S_OK);
+
+  depthStencilTexture->Release();
 
   unsigned int textureId = textures_.size();
   DirectXTexture textureContainer;

@@ -7,6 +7,14 @@
     "terrain": [],
     "objects": [
         {
+            "model": "actors/texturedcube/texturedcube.modelbinary",
+            "position": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+            }
+        },
+        {
             "model": "actors/floor/floor.modelbinary",
             "position": {
                 "x": 0,

@@ -12,18 +12,19 @@ public:
 
   static EffectCache* instance();
 
+  static void destroy();
+
 public:
 
-  int loadEffect(const std::string& filename);
+  IEffect* loadEffect(const std::string& filename);
 
-  IEffect* getEffect(unsigned int effectId) const;
+  void purgeCache();
 
 private:
 
   static EffectCache* effectCache_;
 
-  std::map<std::string, unsigned int> effectIds_;
-  std::vector<IEffect*> effects_;
+  std::map<std::string, IEffect*> effects_;
 
 };
 

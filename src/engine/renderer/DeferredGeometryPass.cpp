@@ -28,19 +28,16 @@ void DeferredGeometryPass::render(IViewer* viewer, World& world, const SceneCont
 
   GraphicsInterface::setRenderState(true);
 
-  hash_map<int, std::vector<Mesh*> > effects;
+  hash_map<IEffect*, std::vector<Mesh*> > effects;
 
   std::vector<Model*>::iterator it = world.begin();
   for (; it != world.end(); ++it) {
     (*it)->visit(effects);
   }
 
-  hash_map<int, std::vector<Mesh*> >::iterator i = effects.begin();
+  hash_map<IEffect*, std::vector<Mesh*> >::iterator i = effects.begin();
   for (; i != effects.end(); ++i) {
-
-    unsigned int effectId = (*i).first;
-    IEffect* effect = EffectCache::instance()->getEffect(effectId);
-
+    IEffect* effect = (*i).first;
     effect->setUniform(viewer->nearDistance(), "Near");
     effect->setUniform(viewer->farDistance(), "Far");
     effect->setSamplerState(0, UV_ADDRESS_WRAP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_NONE);

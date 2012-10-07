@@ -13,12 +13,12 @@
 #include "Geometry.h"
 
 #include "Color4.h"
+#include "EffectCache.h"
 
 void Renderer3dDeferred::destroy() {
   initStage_.destroy();
-  lightingStage_.destroy();
-  postProcessingStage_.destroy();
   presentStage_.destroy();
+  EffectCache::destroy();
 }
 
 void Renderer3dDeferred::init(const CSize& screenSize) {

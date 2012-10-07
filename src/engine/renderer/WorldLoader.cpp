@@ -290,9 +290,9 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
         }
       }
 
-      sceneContext.addSpotLight(light); 
-    }
-  }
+       sceneContext.addSpotLight(light); 
+     }
+   }
 }
 
 void WorldLoader::loadSceneItem(const json::Object& objectItem, World& world) {
@@ -473,8 +473,8 @@ Material WorldLoader::loadMaterial(const json::Object& materialObject) {
 
 void WorldLoader::loadEffect(Material& material, const std::string &shaderFilePath) { 
   std::string fullEffectPath = Path::pathForFile(shaderFilePath);
-  int effectId = EffectCache::instance()->loadEffect(fullEffectPath);
-  material.setEffect(effectId);
+  IEffect* effect = EffectCache::instance()->loadEffect(fullEffectPath);
+  material.setEffect(effect);
 }
 
 void WorldLoader::loadTerrain(const json::Object& objectItem, World& world) {

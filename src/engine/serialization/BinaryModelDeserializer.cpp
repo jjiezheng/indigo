@@ -109,9 +109,8 @@ Model* BinaryModelDeserializer::deserialize(const std::string& modelFilePath) {
 
 void BinaryModelDeserializer::deserializeMaterial(Material& material, std::ifstream& input) {
   std::string effectFile = readString(input);
-  std::string fullEffectPath = Path::pathForFile(effectFile);
-  int effectId = EffectCache::instance()->loadEffect(fullEffectPath);
-  material.setEffect(effectId);
+  IEffect* effect = EffectCache::instance()->loadEffect(effectFile);
+  material.setEffect(effect);
 
   unsigned int parameterCount = readUINT(input);
 

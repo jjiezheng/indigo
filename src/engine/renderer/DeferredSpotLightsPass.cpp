@@ -21,24 +21,19 @@
 
 #include "serialization/BinaryModelDeserializer.h"
 #include "io/Path.h"
+#include "EffectCache.h"
 
 #include "memory/Allocation.h"
 
-void DeferredSpotLightsPass::destroy() {
-  SAFE_DELETE(shadowMapEffect_);
-  SAFE_DELETE(lightEffect_);
-  SAFE_DELETE(accumulationEffect_);
-}
-
 void DeferredSpotLightsPass::init(const CSize& screenSize) {
-  shadowMapEffect_ = IEffect::effectFromFile("shaders/compiled/deferred_depth.shader");
-  lightEffect_ = IEffect::effectFromFile("shaders/compiled/deferred_lighting_spot_light.shader");
+  shadowMapEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_depth.shader");
+  lightEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_lighting_spot_light.shader");
   lightEffect_->setSamplerState(2, UV_ADDRESS_CLAMP, FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT, COMPARISON_LESS);
  
   spotLightRenderTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R8G8B8A8);
   spotLightRenderTarget_ = GraphicsInterface::createRenderTarget(spotLightRenderTexture_);
 
-  accumulationEffect_ = IEffect::effectFromFile("shaders/compiled/deferred_light_composition.shader");
+  accumulationEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_light_composition.shader");
   quadVbo_ = Geometry::screenPlane();
 }
 
@@ -54,7 +49,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
     GraphicsInterface::endPerformanceEvent();
   }
 
-  hash_map<int, std::vector<Mesh*> > meshes;
+  hash_map<IEffect*, std::vector<Mesh*> > meshes;
   std::vector<Model*>::iterator it = world.begin();
   for (; it != world.end(); ++it) {
     (*it)->visit(meshes);
@@ -76,7 +71,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
         GraphicsInterface::clearRenderTarget((*light)->shadowMapRenderTarget(), Color4::WHITE);
         GraphicsInterface::clearDepthTarget((*light)->shadowMapDepthTexture());
 
-        hash_map<int, std::vector<Mesh*> >::iterator i = meshes.begin();
+        hash_map<IEffect*, std::vector<Mesh*> >::iterator i = meshes.begin();
         for (; i != meshes.end(); ++i) {
           std::vector<Mesh*> effectMeshes = (*i).second;
           for (std::vector<Mesh*>::iterator meshIt = effectMeshes.begin(); meshIt != effectMeshes.end(); ++meshIt) {

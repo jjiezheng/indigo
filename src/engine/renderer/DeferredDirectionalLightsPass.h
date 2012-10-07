@@ -21,8 +21,6 @@ public:
 
   void init(const CSize& screenSize);
 
-  void destroy();
-
 public:
 
   void render(IViewer* viewer, World& world, const SceneContext& sceneContext, unsigned int lightMapTexture, const DeferredInitRenderStage& initStage);

@@ -5,6 +5,7 @@
 #include "GraphicsInterface.h"
 #include "Geometry.h"
 #include "Color4.h"
+#include "EffectCache.h"
 #include "IEffect.h"
 
 #include "memory/Allocation.h"
@@ -22,7 +23,7 @@ void AverageBlur::init(const CSize& bufferSize) {
   }
 
   quadVbo_ = Geometry::screenPlane();
-  effect_ = IEffect::effectFromFile("shaders/compiled/average_blur.shader");
+  effect_ = EffectCache::instance()->loadEffect("shaders/compiled/average_blur.shader");
 }
 
 void AverageBlur::render(unsigned int sourceTexture) {

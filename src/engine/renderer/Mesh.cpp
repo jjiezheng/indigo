@@ -13,9 +13,8 @@ void Mesh::render() const {
   GraphicsInterface::drawVertexBuffer(vertexBuffer_, numVertices_, vertexFormat_);
 }
 
-void Mesh::visit(hash_map<int, std::vector<Mesh*> >& meshes) {
-  unsigned int effectId = material_.effect();
-  meshes[effectId].push_back(this);
+void Mesh::visit(hash_map<IEffect*, std::vector<Mesh*> >& meshes) {
+  meshes[material().effect()].push_back(this);
 }
 
 Matrix4x4 Mesh::localToWorld() const {

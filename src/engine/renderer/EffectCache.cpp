@@ -3,7 +3,15 @@
 #include "GraphicsInterface.h"
 #include "IEffect.h"
 
+#include "memory/Allocation.h"
+#include "io/Path.h"
+
 EffectCache* EffectCache::effectCache_ = 0;
+
+void EffectCache::destroy() {
+  instance()->purgeCache();
+  SAFE_DELETE(effectCache_);
+}
 
 EffectCache* EffectCache::instance() {
   if (!effectCache_) {
@@ -12,18 +20,21 @@ EffectCache* EffectCache::instance() {
   return effectCache_;
 }
 
-int EffectCache::loadEffect(const std::string& filename) {
-  if (effectIds_.find(filename) == effectIds_.end()) {
+IEffect* EffectCache::loadEffect(const std::string& filename) {
+  if (effects_.find(filename) == effects_.end()) {
     IEffect* effect = GraphicsInterface::createEffect();
-    effect->load(filename);
-    unsigned int effectId = (unsigned int)effects_.size();
-    effects_.push_back(effect);
-    effectIds_[filename] = effectId;
+    std::string fullEffectPath = Path::pathForFile(filename);
+    effect->load(fullEffectPath);
+    effects_[filename] = effect;
   }
-  unsigned int effectId = effectIds_[filename]; 
-  return effectId;
+  IEffect* effect = effects_[filename];
+  return effect;
 }
 
-IEffect* EffectCache::getEffect(unsigned int effectId) const {
-  return effects_[effectId];
+void EffectCache::purgeCache() {
+  for (std::map<std::string, IEffect*>::iterator i = effects_.begin(); i != effects_.end();) {
+    IEffect* effect = (*i).second;
+    SAFE_DELETE(effect);
+    i = effects_.erase(i);
+  }
 }

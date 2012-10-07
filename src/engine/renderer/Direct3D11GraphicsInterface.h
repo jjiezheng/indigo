@@ -5,6 +5,7 @@
 
 #include <windows.h>
 #include <D3D11.h>
+#include <D3DX10.h>
 #include <vector>
 
 #include "DirectXTexture.h"
@@ -23,7 +24,8 @@ public:
     , backBuffer_(0)
     , depthBuffer_(0)
     , depthBufferTexture_(0)
-    , multiSamples_(0) { }
+    , multiSamples_(0)
+    , performanceMarkerLevel_(0) { }
 
 public:
 
@@ -96,7 +98,7 @@ private:
   void createGraphicsContext(HWND hWnd, int width, int height, unsigned int multiSamples);
 
   void createBlendStates();
-
+  void createPerformanceMarkerColors();
 private:
 
   IDXGISwapChain *swapChain_;
@@ -115,8 +117,10 @@ private:
   std::vector<DirectXTexture> textures_;
   std::vector<ID3D11RenderTargetView*> renderTargets_;
   std::vector<ID3D11BlendState*> blendStates_;
+  std::vector<D3DXCOLOR> performanceMarkerColors_;
 
   unsigned int multiSamples_;  
+  unsigned int performanceMarkerLevel_;
 
 };
 
