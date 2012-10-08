@@ -20,7 +20,7 @@ void DeferredPresentStage::init(const CSize& screenSize) {
 }
 
 void DeferredPresentStage::render(unsigned int presentTextureId, unsigned int depthTextureId) {
-  GraphicsInterface::beginPerformanceEvent("Present", Color4::GREEN);
+  GraphicsInterface::beginPerformanceEvent("Present");
 
   GraphicsInterface::resetRenderTarget(false);
   GraphicsInterface::setViewport(GraphicsInterface::backBufferSize());

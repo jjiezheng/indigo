@@ -28,7 +28,7 @@ void DeferredInitRenderStage::init(const CSize& screenSize) {
 }
 
 void DeferredInitRenderStage::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
-  GraphicsInterface::beginPerformanceEvent("Init", Color4::GREEN);
+  GraphicsInterface::beginPerformanceEvent("Init");
 
   for (std::vector<IDeferredPass*>::iterator i = passes_.begin(); i != passes_.end(); ++i) {
     (*i)->render(viewer, world, sceneContext);

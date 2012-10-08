@@ -27,10 +27,10 @@ void DeferredFXAAPass::init(const CSize& screenSize) {
 }
 
 unsigned int DeferredFXAAPass::render(IViewer* viewer, unsigned int inputMap, const DeferredInitRenderStage& initStage) {
-  GraphicsInterface::beginPerformanceEvent("FXAA", Color4::ORANGE);
+  GraphicsInterface::beginPerformanceEvent("FXAA");
 
   {
-    GraphicsInterface::beginPerformanceEvent("Color Luma", Color4::MAGENTA);
+    GraphicsInterface::beginPerformanceEvent("Color Luma");
 
     GraphicsInterface::setRenderTarget(colorLumaTarget_, false);
 
@@ -44,7 +44,7 @@ unsigned int DeferredFXAAPass::render(IViewer* viewer, unsigned int inputMap, co
   }
 
   {
-    GraphicsInterface::beginPerformanceEvent("FXAA", Color4::MAGENTA);
+    GraphicsInterface::beginPerformanceEvent("FXAA");
 
     GraphicsInterface::setRenderTarget(fxaaRenderTarget_, false);
 

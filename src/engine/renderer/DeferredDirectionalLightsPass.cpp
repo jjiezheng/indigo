@@ -32,10 +32,10 @@ void DeferredDirectionalLightsPass::init(const CSize& screenSize) {
 }
 
 void DeferredDirectionalLightsPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext, unsigned int lightMapRenderTarget, const DeferredInitRenderStage& initStage) {
-  GraphicsInterface::beginPerformanceEvent("Directional", Color4::GREEN);
+  GraphicsInterface::beginPerformanceEvent("Directional");
   
   {
-    GraphicsInterface::beginPerformanceEvent("Lighting", Color4::ORANGE);
+    GraphicsInterface::beginPerformanceEvent("Lighting");
 
     GraphicsInterface::setRenderTarget(directionalLightRenderTarget_, false);
 
@@ -64,7 +64,7 @@ void DeferredDirectionalLightsPass::render(IViewer* viewer, World& world, const 
   }
 
   {
-    GraphicsInterface::beginPerformanceEvent("Accumulation", Color4::ORANGE);
+    GraphicsInterface::beginPerformanceEvent("Accumulation");
 
     GraphicsInterface::setBlendState(IGraphicsInterface::ADDITIVE);
     GraphicsInterface::setRenderTarget(lightMapRenderTarget, false);

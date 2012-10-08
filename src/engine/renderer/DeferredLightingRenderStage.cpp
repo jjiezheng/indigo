@@ -26,7 +26,7 @@ void DeferredLightingRenderStage::init(const CSize& screenSize) {
 }
 
 void DeferredLightingRenderStage::render(IViewer* viewer, World& world, const SceneContext& sceneContext, const DeferredInitRenderStage& initStage) {
-  GraphicsInterface::beginPerformanceEvent("Lighting", Color4::GREEN);
+  GraphicsInterface::beginPerformanceEvent("Lighting");
 
   GraphicsInterface::clearRenderTarget(lightRenderTarget_, Color4::TRANSPAREN);
 

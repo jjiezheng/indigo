@@ -38,10 +38,10 @@ void DeferredSpotLightsPass::init(const CSize& screenSize) {
 }
 
 void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext, unsigned int lightMapRenderTarget, const DeferredInitRenderStage& initStage) {
-  GraphicsInterface::beginPerformanceEvent("Spot", Color4::ORANGE);
+  GraphicsInterface::beginPerformanceEvent("Spot");
 
   {
-    GraphicsInterface::beginPerformanceEvent("Clear", Color4::MAGENTA);
+    GraphicsInterface::beginPerformanceEvent("Clear");
 
     GraphicsInterface::setRenderTarget(spotLightRenderTarget_, false);
     GraphicsInterface::clearRenderTarget(spotLightRenderTarget_, Color4::NOTHING);
@@ -58,13 +58,13 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
   std::vector<SpotLight*> spotLights = sceneContext.spotLights();
   for (std::vector<SpotLight*>::iterator light = spotLights.begin(); light != spotLights.end(); ++light) {
 
-    GraphicsInterface::beginPerformanceEvent("Light", Color4::MAGENTA);
+    GraphicsInterface::beginPerformanceEvent("Light");
 
     if ((*light)->castsShadows()) {
-      GraphicsInterface::beginPerformanceEvent("Shadow Map", Color4::BLUE);
+      GraphicsInterface::beginPerformanceEvent("Shadow Map");
       
       {
-        GraphicsInterface::beginPerformanceEvent("Depth", Color4::GREY);
+        GraphicsInterface::beginPerformanceEvent("Depth");
 
         GraphicsInterface::setViewport((*light)->shadowMapResolution());
         GraphicsInterface::setRenderTarget((*light)->shadowMapRenderTarget(), true, (*light)->shadowMapDepthTexture());
@@ -94,7 +94,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
 
     // render lighting
     {
-      GraphicsInterface::beginPerformanceEvent("Lighting", Color4::BLUE);
+      GraphicsInterface::beginPerformanceEvent("Lighting");
 
       GraphicsInterface::setRenderTarget(spotLightRenderTarget_, false);
 
@@ -150,7 +150,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
     // accumulate into lightmap
     {
   
-      GraphicsInterface::beginPerformanceEvent("Accumulation", Color4::BLUE);
+      GraphicsInterface::beginPerformanceEvent("Accumulation");
 
       GraphicsInterface::setBlendState(IGraphicsInterface::ADDITIVE);
       GraphicsInterface::setRenderTarget(lightMapRenderTarget, false);

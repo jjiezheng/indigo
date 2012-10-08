@@ -459,7 +459,7 @@ void Direct3D11GraphicsInterface::generateMipMaps(unsigned int textureId) {
 void Direct3D11GraphicsInterface::fillTexture(unsigned int textureId, void* data, unsigned int dataSize) {
 }
 
-void Direct3D11GraphicsInterface::beginPerformanceEvent(const std::string& eventName, const Color4& color) {
+void Direct3D11GraphicsInterface::beginPerformanceEvent(const std::string& eventName) {
 #ifdef PROFILING
   int stringLength = MultiByteToWideChar(CP_ACP, 0, eventName.data(), eventName.length(), 0, 0);
   std::wstring wstr(stringLength, 0);

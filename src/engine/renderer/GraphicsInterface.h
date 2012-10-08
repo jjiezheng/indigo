@@ -60,7 +60,7 @@ public:
 
 public:
 
-  static void beginPerformanceEvent(const std::string& eventName, const Color4& color);
+  static void beginPerformanceEvent(const std::string& eventName);
 
   static void endPerformanceEvent();
 

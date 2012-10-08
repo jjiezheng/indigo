@@ -79,10 +79,10 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
 }
 
  GraphicsInterface::TextureId DeferredSSAOPass::render(IViewer* viewer, unsigned int inputMap, const DeferredInitRenderStage& initStage) {
-  GraphicsInterface::beginPerformanceEvent("SSAO", Color4::ORANGE);
+  GraphicsInterface::beginPerformanceEvent("SSAO");
 
   {
-    GraphicsInterface::beginPerformanceEvent("Depth", Color4::MAGENTA);
+    GraphicsInterface::beginPerformanceEvent("Depth");
 
     GraphicsInterface::setRenderTarget(ssaoRawRenderTarget_, false);
     GraphicsInterface::clearRenderTarget(ssaoRawRenderTarget_, Color4::BLACK);
@@ -123,7 +123,7 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
   }
   
    {
-     GraphicsInterface::beginPerformanceEvent("Combine", Color4::MAGENTA);
+     GraphicsInterface::beginPerformanceEvent("Combine");
  
      GraphicsInterface::setRenderTarget(ssaoColorBlurCombinedRenderTarget_, false);
      

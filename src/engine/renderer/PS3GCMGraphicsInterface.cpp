@@ -148,7 +148,7 @@ void PS3GCMGraphicsInterface::destroy() {
 
 }
 
-void PS3GCMGraphicsInterface::beginPerformanceEvent(const std::string& eventName, const Color4& color) {
+void PS3GCMGraphicsInterface::beginPerformanceEvent(const std::string& eventName) {
   cell::Gcm::cellGcmSetPerfMonPushMarker(eventName.c_str());
 }
 

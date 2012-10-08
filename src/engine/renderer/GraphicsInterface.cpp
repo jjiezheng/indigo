@@ -125,9 +125,9 @@ void GraphicsInterface::fillTexture(unsigned int textureId, void* data, unsigned
   graphicsInterface_->fillTexture(textureId, data, dataSize);
 }
 
-void GraphicsInterface::beginPerformanceEvent(const std::string& eventName, const Color4& color) {
+void GraphicsInterface::beginPerformanceEvent(const std::string& eventName) {
 #ifndef MASTER
-  graphicsInterface_->beginPerformanceEvent(eventName, color);
+  graphicsInterface_->beginPerformanceEvent(eventName);
 #endif
 }
 

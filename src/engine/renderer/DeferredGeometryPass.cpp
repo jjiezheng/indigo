@@ -15,7 +15,7 @@
 #include "Color4.h"
 
 void DeferredGeometryPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
-  GraphicsInterface::beginPerformanceEvent("G-Buffer", Color4::GREEN);
+  GraphicsInterface::beginPerformanceEvent("G-Buffer");
 
   GraphicsInterface::resetRenderTarget(true);
 

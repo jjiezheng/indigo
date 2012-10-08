@@ -27,7 +27,7 @@ void AverageBlur::init(const CSize& bufferSize) {
 }
 
 void AverageBlur::render(unsigned int sourceTexture) {
-  GraphicsInterface::beginPerformanceEvent("Average Blur", Color4::BLUE);
+  GraphicsInterface::beginPerformanceEvent("Average Blur");
 
   GraphicsInterface::setRenderState(true);
 

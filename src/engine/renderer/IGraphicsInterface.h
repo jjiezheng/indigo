@@ -56,7 +56,7 @@ public:
 
 public:
 
-  virtual void beginPerformanceEvent(const std::string& eventName, const Color4& color) = 0;
+  virtual void beginPerformanceEvent(const std::string& eventName) = 0;
 
   virtual void endPerformanceEvent() = 0;
 

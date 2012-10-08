@@ -19,10 +19,10 @@ void DeferredSkyRenderStage::init(const CSize &screenSize) {
 }
 
 void DeferredSkyRenderStage::render(IViewer* viewer, World& world, DeferredLightingRenderStage& lightingStage) {
-  GraphicsInterface::beginPerformanceEvent("Sky", Color4::GREEN);
+  GraphicsInterface::beginPerformanceEvent("Sky");
 
   {
-    GraphicsInterface::beginPerformanceEvent("SkyDome", Color4::MAGENTA);
+    GraphicsInterface::beginPerformanceEvent("SkyDome");
 
     GraphicsInterface::clearRenderTarget(skyRenderTarget_, Color4::TRANSPAREN);
 
@@ -36,7 +36,7 @@ void DeferredSkyRenderStage::render(IViewer* viewer, World& world, DeferredLight
   }
 
   {
-    GraphicsInterface::beginPerformanceEvent("Composite", Color4::MAGENTA);
+    GraphicsInterface::beginPerformanceEvent("Composite");
 
     GraphicsInterface::setRenderTarget(skyRenderTarget_, false);
 

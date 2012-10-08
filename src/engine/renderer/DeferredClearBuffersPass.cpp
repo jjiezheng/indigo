@@ -5,7 +5,7 @@
 #include "SceneContext.h"
 
 void DeferredClearBuffersPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
-  GraphicsInterface::beginPerformanceEvent("Clear", Color4::GREEN);
+  GraphicsInterface::beginPerformanceEvent("Clear");
 
   //GraphicsInterface::setRenderState(true);
   //GraphicsInterface::resetRenderTarget();

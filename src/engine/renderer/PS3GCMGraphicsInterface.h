@@ -24,7 +24,7 @@ public:
 
 public:
 
-  void beginPerformanceEvent(const std::string& eventName, const Color4& color);
+  void beginPerformanceEvent(const std::string& eventName);
 
   void endPerformanceEvent();
 

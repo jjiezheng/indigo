@@ -23,7 +23,7 @@ void DeferredPostProcessingStage::init(const CSize& screenSize) {
 }
 
 void DeferredPostProcessingStage::render(IViewer* viewer, unsigned int inputMap, const DeferredInitRenderStage& initStage) {
-  GraphicsInterface::beginPerformanceEvent("Post Processing", Color4::GREEN);
+  GraphicsInterface::beginPerformanceEvent("Post Processing");
 
   finalComposition_ = inputMap;
 
