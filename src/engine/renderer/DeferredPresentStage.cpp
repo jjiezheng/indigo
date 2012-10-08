@@ -9,13 +9,11 @@
 #include "GraphicsInterface.h"
 
 #include "memory/Allocation.h"
+#include "EffectCache.h"
 
-void DeferredPresentStage::destroy() {
-  SAFE_DELETE(effect_);
-}
 
 void DeferredPresentStage::init(const CSize& screenSize) {
-  effect_ = IEffect::effectFromFile(IEffect::SHADER_FULLSCREEN_TEXTURE);
+  effect_ = EffectCache::instance()->loadEffect(IEffect::SHADER_FULLSCREEN_TEXTURE);
   quadVbo_ = Geometry::screenPlane();
 }
 
@@ -24,7 +22,7 @@ void DeferredPresentStage::render(unsigned int presentTextureId, unsigned int de
 
   GraphicsInterface::resetRenderTarget(false);
   GraphicsInterface::setViewport(GraphicsInterface::backBufferSize());
-  GraphicsInterface::clearBuffer(Color4::NOTHING);
+  GraphicsInterface::clearActiveColorBuffers(Color4::NOTHING);
 
   effect_->setTexture(presentTextureId, "ColorMap");
   effect_->setTexture(depthTextureId, "DepthMap");

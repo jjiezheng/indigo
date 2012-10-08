@@ -4,6 +4,19 @@
 #include "IEffect.h"
 
 #include <cell/gcm.h>
+#include <map>
+
+struct GCMSamplerState {
+  uint8_t addressU;
+  uint8_t addressV;
+  uint8_t addressW;
+
+  uint8_t minFilter;
+  uint8_t magFilter;
+
+  uint8_t comparisonFunc;
+};
+
 
 class PS3GCMCGEffect : public IEffect {
 
@@ -11,7 +24,8 @@ public:
 
   PS3GCMCGEffect()
     : vertexPositionIndex_(0)
-    , normalIndex_(0) { }
+    , normalIndex_(0)
+    , uvIndex_(0) { }
 
 public:
 
@@ -69,6 +83,10 @@ private:
 
   void* vertexProgramAddress_;
   unsigned int fragmentProgramOffset_;
+
+private:
+
+  std::map<unsigned int, GCMSamplerState> samplerStates_;
 
 };
 

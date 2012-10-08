@@ -1,6 +1,6 @@
 // glslf output by Cg compiler
 // cgc version 3.1.0013, build date Apr 18 2012
-// command line args: -q -profile glslf
+// command line args: -DGL21=1 -q -profile glslf
 // source file: deferred_ssao.cg
 //vendor NVIDIA Corporation
 //version 3.1.0.13
@@ -11,8 +11,8 @@
 //semantic Kernel
 //semantic Far
 //semantic Near
-//semantic NormalMap : TEXUNIT0
-//semantic NoiseMap : TEXUNIT1
+//semantic NoiseMap : TEXUNIT0
+//semantic NormalMap : TEXUNIT1
 //semantic LinearDepthMap : TEXUNIT2
 //semantic DepthMap : TEXUNIT3
 //semantic Projection
@@ -37,8 +37,8 @@
 //var float4 Kernel[15] :  : _Kernel[15] : -1 : 1
 //var float Far :  : _Far : -1 : 1
 //var float Near :  : _Near : -1 : 1
-//var sampler2D NormalMap : TEXUNIT0 : _NormalMap 0 : -1 : 1
-//var sampler2D NoiseMap : TEXUNIT1 : _NoiseMap 1 : -1 : 1
+//var sampler2D NoiseMap : TEXUNIT0 : _NoiseMap 0 : -1 : 1
+//var sampler2D NormalMap : TEXUNIT1 : _NormalMap 1 : -1 : 1
 //var sampler2D LinearDepthMap : TEXUNIT2 : _LinearDepthMap 2 : -1 : 1
 //var sampler2D DepthMap : TEXUNIT3 : _DepthMap 3 : -1 : 1
 //var float4x4 Projection :  : _Projection[0], 4 : -1 : 1
@@ -79,8 +79,8 @@ uniform vec2 _NoiseScale;
 uniform vec4 _Kernel[16];
 uniform float _Far;
 uniform float _Near;
-uniform sampler2D _NormalMap;
 uniform sampler2D _NoiseMap;
+uniform sampler2D _NormalMap;
 uniform sampler2D _LinearDepthMap;
 uniform sampler2D _DepthMap;
 uniform vec4 _Projection[4];

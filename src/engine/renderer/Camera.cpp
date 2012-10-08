@@ -51,12 +51,12 @@ void Camera::update(float dt) {
 
   float rightStickX = Pad::rightStickX();
   if (rightStickX != 0.0f) {
-    rotateY(10 * speed * rightStickX);
+    rotateY(30 * speed * rightStickX);
   }
 
   float rightStickY = Pad::rightStickY();
   if (rightStickY != 0.0f) {
-    rotateX(10 * speed * -rightStickY); // inv look
+    rotateX(30 * speed * -rightStickY); // inv look
   }
 
   bool leftShoulder = Pad::leftShoulder();

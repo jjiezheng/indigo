@@ -1,6 +1,6 @@
 // ps_4_0 output by Cg compiler
 // cgc version 3.1.0013, build date Apr 18 2012
-// command line args: -q -unroll all -profile ps_5_0
+// command line args: -DDX11=1 -q -unroll all -profile ps_5_0
 // source file: deferred_lighting_spot_light.cg
 //vendor NVIDIA Corporation
 //version 3.1.0.13
@@ -69,9 +69,9 @@ static float3 _v0038;
 static float3 _v0042;
 static float _y0046;
 static float4 _r0052;
-static float _shadowFactor0054;
 static float2 _shadowCoordOffset10054;
 static float _sum0054;
+static float _shadowFactor0054;
 static float4 _t0056;
 Texture2D<float4> _TMP57 : register(t0);
 Texture2D<float4> _TMP58 : register(t1);

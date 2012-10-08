@@ -1,6 +1,6 @@
 // vs_4_0 output by Cg compiler
 // cgc version 3.1.0013, build date Apr 18 2012
-// command line args: -q -unroll all -profile vs_5_0
+// command line args: -DDX11=1 -q -unroll all -profile vs_5_0
 // source file: deferred_ssao.cg
 //vendor NVIDIA Corporation
 //version 3.1.0.13
@@ -11,8 +11,8 @@
 //semantic Kernel
 //semantic Far
 //semantic Near
-//semantic NormalMap : TEXUNIT0
-//semantic NoiseMap : TEXUNIT1
+//semantic NoiseMap : TEXUNIT0
+//semantic NormalMap : TEXUNIT1
 //semantic LinearDepthMap : TEXUNIT2
 //semantic DepthMap : TEXUNIT3
 //semantic Projection

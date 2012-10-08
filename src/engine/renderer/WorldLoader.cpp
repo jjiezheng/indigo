@@ -276,7 +276,7 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
         if (castsShadows) {
           light->setCastsShadows(castsShadows);
 
-          CSize shadowMapSize = CSize(1024, 1024) * 4;
+          CSize shadowMapSize = GraphicsInterface::backBufferSize() * 1;
           light->setShadowMapResolution(shadowMapSize);
 
           unsigned int shadowMapDepthTexture = GraphicsInterface::createDepthTexture(shadowMapSize);

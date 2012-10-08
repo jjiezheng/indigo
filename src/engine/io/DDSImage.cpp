@@ -1,10 +1,13 @@
 #include "DDSImage.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "core/String.h"
 #include "io/Path.h"
 #include "io/dds.h"
+#include "io/Endian.h"
+
 #include "DDSMipLevel.h"
 
 #pragma warning(disable:4996) 
@@ -35,19 +38,20 @@ void DDSImage::load(const std::string& filePath) {
   
   fread(&header, 124, 1, fp); 
   
-  unsigned int height = *(unsigned int*)&(header[8 ]);
-  unsigned int width = *(unsigned int*)&(header[12]);
-  unsigned int linearSize = *(unsigned int*)&(header[16]);
+  unsigned int height = swap_uint32(*(unsigned int*)&(header[8]));
+  unsigned int width = swap_uint32(*(unsigned int*)&(header[12]));
+  unsigned int linearSize = swap_uint32(*(unsigned int*)&(header[16]));
   
-  numMipLevels = *(unsigned int*)&(header[24]);
-  fourCC = *(unsigned int*)&(header[80]);
+  numMipLevels = swap_uint32(*(unsigned int*)&(header[24]));
+  fourCC = swap_uint32(*(unsigned int*)&(header[80]));
   
   dataSize = numMipLevels > 1 ? linearSize * 2 : linearSize;
-  data = (unsigned char*)malloc(dataSize * sizeof(unsigned char));
+  unsigned int textureDataSize = dataSize * sizeof(unsigned char);
+  data = (unsigned char*)malloc(textureDataSize);
   
   fread(data, 1, dataSize, fp);
   fclose(fp);
-  
+
   unsigned int blockSize = (fourCC == FOURCC_DXT1) ? 8 : 16;
   unsigned int offset = 0;
   

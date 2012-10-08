@@ -40,6 +40,6 @@ void DeferredInitRenderStage::render(IViewer* viewer, World& world, const SceneC
 void DeferredInitRenderStage::collectRenderTargets(IDeferredRenderTargetContainer* renderTargetContainer) {
   renderTargetContainer->addRenderTarget("Color", colorMapTexture_);
   renderTargetContainer->addRenderTarget("Normal", normalMapTexture_);
-  renderTargetContainer->addRenderTarget("Normal", depthMapTexture_);
-  renderTargetContainer->addRenderTarget("Depth", GraphicsInterface::depthBufferTexture());
+  renderTargetContainer->addRenderTarget("Depth A", depthMapTexture_);
+  renderTargetContainer->addRenderTarget("Depth Buffer", GraphicsInterface::depthBufferTexture());
 }

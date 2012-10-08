@@ -57,7 +57,7 @@ IEffect* GraphicsInterface::createEffect() {
   return graphicsInterface_->createEffect();
 }
 
-void GraphicsInterface::clearBuffer(const Color4& clearColor) {
+void GraphicsInterface::clearActiveColorBuffers(const Color4& clearColor) {
   graphicsInterface_->clearActiveRenderTargets(clearColor);
 }
 
@@ -82,11 +82,12 @@ unsigned int GraphicsInterface::createTexture(const CSize& dimensions, IGraphics
 }
 
 unsigned int GraphicsInterface::createTexture(const CSize& dimensions, IGraphicsInterface::TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels) {
-  return createTexture(dimensions, textureFormat, multisamples, mipLevels, NULL, 0);
+  unsigned int pitch = dimensions.width * sizeof(float);
+  return createTexture(dimensions, textureFormat, multisamples, mipLevels, NULL, pitch);
 }
 
-unsigned int GraphicsInterface::createTexture(const CSize& dimensions, IGraphicsInterface::TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize) {
-  return graphicsInterface_->createTexture(dimensions, textureFormat, multisamples, mipLevels, textureData, textureLineSize);
+unsigned int GraphicsInterface::createTexture(const CSize& dimensions, IGraphicsInterface::TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int pitch) {
+  return graphicsInterface_->createTexture(dimensions, textureFormat, multisamples, mipLevels, textureData, pitch);
 }
 
 void GraphicsInterface::setRenderTarget(unsigned int renderTargetId, bool useDepthBuffer) { 
@@ -145,8 +146,8 @@ unsigned int GraphicsInterface::createDepthTexture(const CSize& dimensions) {
   return graphicsInterface_->createDepthTexture(dimensions);
 }
 
-void GraphicsInterface::clearDepthTarget(unsigned int textureId) {
-  graphicsInterface_->clearDepthTarget(textureId);
+void GraphicsInterface::clearActiveDepthBuffer() {
+  graphicsInterface_->clearActiveDepthBuffer(0);
 }
 
 void GraphicsInterface::setViewport(const CSize& dimensions) {

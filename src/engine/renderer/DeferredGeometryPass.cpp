@@ -15,7 +15,7 @@
 #include "Color4.h"
 
 void DeferredGeometryPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
-  GraphicsInterface::beginPerformanceEvent("G-Buffer");
+   GraphicsInterface::beginPerformanceEvent("G-Buffer");
 
   GraphicsInterface::resetRenderTarget(true);
 
@@ -23,8 +23,9 @@ void DeferredGeometryPass::render(IViewer* viewer, World& world, const SceneCont
   GraphicsInterface::setRenderTarget(renderTargets, 3, true);
 
   GraphicsInterface::setViewport(GraphicsInterface::backBufferSize());
-  GraphicsInterface::clearBuffer(Color4::CORNFLOWERBLUE);
-  GraphicsInterface::clearDepthTarget(GraphicsInterface::depthBufferTexture());
+
+  GraphicsInterface::clearActiveColorBuffers(Color4::NOTHING);
+  GraphicsInterface::clearActiveDepthBuffer();
 
   GraphicsInterface::setRenderState(true);
 
@@ -49,12 +50,11 @@ void DeferredGeometryPass::render(IViewer* viewer, World& world, const SceneCont
       Matrix4x4 localToWorld = (*meshIt)->localToWorld();
       Material material = (*meshIt)->material();
       material.bind(projection, viewTransform, localToWorld, effect);
-      effect->beginDraw();
-      (*meshIt)->render();
+       effect->beginDraw();
+       (*meshIt)->render();
+       effect->endDraw();
     }
-
-    effect->endDraw();
   }
 
-   GraphicsInterface::endPerformanceEvent();
+    GraphicsInterface::endPerformanceEvent();
 }

@@ -33,7 +33,7 @@ void AverageBlur::render(unsigned int sourceTexture) {
 
   {
     GraphicsInterface::setRenderTarget(outputRenderTarget_, false);
-    GraphicsInterface::clearRenderTarget(outputRenderTarget_, Color4::WHITE);
+    GraphicsInterface::clearActiveColorBuffers(Color4::WHITE);
 
     Vector2 texelSize(1.0f / GraphicsInterface::screenWidth(), 1.0f / GraphicsInterface::screenHeight());
     effect_->setUniform(texelSize, "TexelSize");

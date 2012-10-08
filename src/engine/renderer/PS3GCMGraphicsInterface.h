@@ -62,7 +62,7 @@ public:
 
   unsigned int createDepthTexture(const CSize& dimensions);
 
-  void clearDepthTarget(unsigned int textureId);
+  void clearActiveDepthBuffer(unsigned int textureId);
 
   unsigned int depthBufferTexture() const;
 

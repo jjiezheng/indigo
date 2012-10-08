@@ -21,8 +21,6 @@ private:
   
 private:
   
-  static unsigned int swap_uint32(unsigned int val);
-  
   static std::string readString(std::ifstream& input);
   
   static unsigned int readUINT(std::ifstream& input);

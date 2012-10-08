@@ -1,6 +1,6 @@
 // ps_4_0 output by Cg compiler
 // cgc version 3.1.0013, build date Apr 18 2012
-// command line args: -q -unroll all -profile ps_5_0
+// command line args: -DDX11=1 -q -unroll all -profile ps_5_0
 // source file: deferred_ssao.cg
 //vendor NVIDIA Corporation
 //version 3.1.0.13
@@ -11,8 +11,8 @@
 //semantic Kernel
 //semantic Far
 //semantic Near
-//semantic NormalMap : TEXUNIT0
-//semantic NoiseMap : TEXUNIT1
+//semantic NoiseMap : TEXUNIT0
+//semantic NormalMap : TEXUNIT1
 //semantic LinearDepthMap : TEXUNIT2
 //semantic DepthMap : TEXUNIT3
 //semantic Projection
@@ -37,8 +37,8 @@
 //var float4 Kernel[15] :  : _Kernel[15] : -1 : 1
 //var float Far :  : _Far : -1 : 1
 //var float Near :  : _Near : -1 : 1
-//var sampler2D NormalMap : TEXUNIT0 : _NormalMap 0 : -1 : 1
-//var sampler2D NoiseMap : TEXUNIT1 : _NoiseMap 1 : -1 : 1
+//var sampler2D NoiseMap : TEXUNIT0 : _NoiseMap 0 : -1 : 1
+//var sampler2D NormalMap : TEXUNIT1 : _NormalMap 1 : -1 : 1
 //var sampler2D LinearDepthMap : TEXUNIT2 : _LinearDepthMap 2 : -1 : 1
 //var sampler2D DepthMap : TEXUNIT3 : _DepthMap 3 : -1 : 1
 //var float4x4 Projection :  : _Projection[0], 4 : -1 : 1
@@ -79,16 +79,16 @@ static float3 _r0033;
 static float4 _r0035;
 static float4 _v0035;
 static float _TMP36;
-Texture2D<float4> _TMP40 : register(t0);
+Texture2D<float4> _TMP40 : register(t1);
 Texture2D<float4> _TMP41 : register(t3);
 Texture2D<float4> _TMP42 : register(t2);
-Texture2D<float4> _TMP43 : register(t1);
+Texture2D<float4> _TMP43 : register(t0);
 uniform float2 _NoiseScale;
 uniform float4 _Kernel[16];
 uniform float _Far;
 uniform float _Near;
-SamplerState _NormalMap : TEXUNIT0;
-SamplerState _NoiseMap : TEXUNIT1;
+SamplerState _NoiseMap : TEXUNIT0;
+SamplerState _NormalMap : TEXUNIT1;
 SamplerState _LinearDepthMap : TEXUNIT2;
 SamplerState _DepthMap : TEXUNIT3;
 uniform float4x4 _Projection;

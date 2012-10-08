@@ -1,15 +1,15 @@
 #!/bin/bash
 function dx11 {
-	cgc -q -unroll all -profile vs_5_0 -entry vs -o compiled/${f%.*}.shader.dx11.vertex $f
-	cgc -q -unroll all -profile ps_5_0 -entry ps -o compiled/${f%.*}.shader.dx11.fragment $f
+	cgc -DDX11=1 -q -unroll all -profile vs_5_0 -entry vs -o compiled/${f%.*}.shader.dx11.vertex $f
+	cgc -DDX11=1 -q -unroll all -profile ps_5_0 -entry ps -o compiled/${f%.*}.shader.dx11.fragment $f
 }
 function gl21 {
-	cgc -q -profile glslv -entry vs -o compiled/${f%.*}.shader.gl21.vertex $f
-	cgc -q -profile glslf -entry ps -o compiled/${f%.*}.shader.gl21.fragment $f
+	cgc -DGL21=1 -q -profile glslv -entry vs -o compiled/${f%.*}.shader.gl21.vertex $f
+	cgc -DGL21=1 -q -profile glslf -entry ps -o compiled/${f%.*}.shader.gl21.fragment $f
 }
 function gcm {
-	sce-cgc -DGCM=1 -q -p sce_vp_rsx -e vs -o compiled/${f%.*}.shader.gcm.vertex $f
-	sce-cgc -DGCM=1 -q -p sce_fp_rsx -e ps -o compiled/${f%.*}.shader.gcm.fragment $f
+	sce-cgc --fenable-bx2 --fastmath --fastprecision --nofloatbindings -DGCM=1 -q -p sce_vp_rsx -e vs -o compiled/${f%.*}.shader.gcm.vertex $f
+	sce-cgc --fenable-bx2 --fastmath --fastprecision --nofloatbindings -DGCM=1 -q -p sce_fp_rsx -e ps -o compiled/${f%.*}.shader.gcm.fragment $f
 }
 function shader {
 	dx11

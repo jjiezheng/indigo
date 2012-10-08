@@ -28,7 +28,9 @@
 void DeferredSpotLightsPass::init(const CSize& screenSize) {
   shadowMapEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_depth.shader");
   lightEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_lighting_spot_light.shader");
-  lightEffect_->setSamplerState(2, UV_ADDRESS_CLAMP, FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT, COMPARISON_LESS);
+  lightEffect_->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_NONE);
+  lightEffect_->setSamplerState(1, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_NONE);
+  lightEffect_->setSamplerState(2, UV_ADDRESS_CLAMP, FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT, COMPARISON_NONE);
  
   spotLightRenderTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R8G8B8A8);
   spotLightRenderTarget_ = GraphicsInterface::createRenderTarget(spotLightRenderTexture_);
@@ -44,7 +46,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
     GraphicsInterface::beginPerformanceEvent("Clear");
 
     GraphicsInterface::setRenderTarget(spotLightRenderTarget_, false);
-    GraphicsInterface::clearRenderTarget(spotLightRenderTarget_, Color4::NOTHING);
+    GraphicsInterface::clearActiveColorBuffers(Color4::NOTHING);
 
     GraphicsInterface::endPerformanceEvent();
   }
@@ -67,9 +69,11 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
         GraphicsInterface::beginPerformanceEvent("Depth");
 
         GraphicsInterface::setViewport((*light)->shadowMapResolution());
+
         GraphicsInterface::setRenderTarget((*light)->shadowMapRenderTarget(), true, (*light)->shadowMapDepthTexture());
-        GraphicsInterface::clearRenderTarget((*light)->shadowMapRenderTarget(), Color4::WHITE);
-        GraphicsInterface::clearDepthTarget((*light)->shadowMapDepthTexture());
+
+        GraphicsInterface::clearActiveColorBuffers(Color4::WHITE);
+        GraphicsInterface::clearActiveDepthBuffer();
 
         hash_map<IEffect*, std::vector<Mesh*> >::iterator i = meshes.begin();
         for (; i != meshes.end(); ++i) {
@@ -97,8 +101,6 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
       GraphicsInterface::beginPerformanceEvent("Lighting");
 
       GraphicsInterface::setRenderTarget(spotLightRenderTarget_, false);
-
-      lightEffect_->setUniform((*light)->castsShadows(), "ShadowsEnabled");
 
       Matrix4x4 viewProjection = viewer->projection() * viewer->viewTransform();
       lightEffect_->setUniform(viewer->viewTransform(), "View");

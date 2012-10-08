@@ -11,8 +11,8 @@
 #include "memory/Allocation.h"
 
 void DeferredPostProcessingStage::init(const CSize& screenSize) {    
-  IDeferredPostProcessingPass* ssaoPass = new DeferredSSAOPass();
-  passes_.push_back(ssaoPass);
+//   IDeferredPostProcessingPass* ssaoPass = new DeferredSSAOPass();
+//   passes_.push_back(ssaoPass);
  
   IDeferredPostProcessingPass* fxaaPass = new DeferredFXAAPass();
   passes_.push_back(fxaaPass);

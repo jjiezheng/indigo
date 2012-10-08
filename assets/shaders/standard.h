@@ -11,6 +11,14 @@ float3 unpackNormal(sampler2D normalSampler, float2 texCoord) {
 }
 
 float shadowPCF(sampler2D shadowMap, float2 shadowCoord, float zToCompare, float2 shadowMapSize) {
+	float shadowFactor = 1.0f;
+#ifdef GCM
+	float lightDepth = unpackDepth(shadowMap, shadowCoord);
+
+	if (lightDepth + 0.0005f < zToCompare) {
+		shadowFactor = 0.0f;
+	}
+#else
 	float sum = 0;
 	float x, y;
 
@@ -21,7 +29,8 @@ float shadowPCF(sampler2D shadowMap, float2 shadowCoord, float zToCompare, float
 		}
 	}
 
-	float shadowFactor = sum / 16.0f;
+	shadowFactor = sum / 16.0f;
+#endif
 	return shadowFactor;
 }
 

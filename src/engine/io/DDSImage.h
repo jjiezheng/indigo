@@ -3,6 +3,9 @@
 
 #include <string>
 
+#include "dds.h"
+#include "DDSMipLevel.h"
+
 class DDSMipLevel;
 
 class DDSImage {

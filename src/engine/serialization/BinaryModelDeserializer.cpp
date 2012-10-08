@@ -12,14 +12,7 @@
 #include "renderer/EffectCache.h"
 
 #include "io/Path.h"
-
-
-//! Byte swap unsigned int
-unsigned int BinaryModelDeserializer::swap_uint32( unsigned int val )
-{
-	val = ((val << 8) & 0xFF00FF00 ) | ((val >> 8) & 0xFF00FF ); 
-	return (val << 16) | (val >> 16);
-}
+#include "io/Endian.h"
 
 enum MaterialParameterType {
   PARAMETER_TYPE_UNKNOWN = 0,

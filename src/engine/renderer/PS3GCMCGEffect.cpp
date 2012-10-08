@@ -102,6 +102,12 @@ void PS3GCMCGEffect::beginDraw() {
   IGraphicsInterface* rawInterface = GraphicsInterface::rawInterface();
   PS3GCMGraphicsInterface* graphicsInterface = static_cast<PS3GCMGraphicsInterface*>(rawInterface);
   graphicsInterface->setEffect(this);
+
+  for (std::map<unsigned int, GCMSamplerState>::iterator i = samplerStates_.begin(); i != samplerStates_.end(); ++i) {
+    GCMSamplerState samplerState = (*i).second;
+    cellGcmSetTextureAddress((*i).first, samplerState.addressU, samplerState.addressV, samplerState.addressW, CELL_GCM_TEXTURE_UNSIGNED_REMAP_NORMAL, samplerState.comparisonFunc, 0);
+    cellGcmSetTextureFilter((*i).first, 0, samplerState.minFilter, samplerState.magFilter, CELL_GCM_TEXTURE_CONVOLUTION_QUINCUNX);
+  }
 }
 
 void PS3GCMCGEffect::endDraw() {
@@ -237,6 +243,49 @@ void PS3GCMCGEffect::setTexture(unsigned int textureId, const char* uniformName)
 }
 
 void PS3GCMCGEffect::setSamplerState(unsigned int samplerSlot, SAMPLER_UV_ADDRESS_MODE addressMode, SAMPLER_COMPARISON_FILTER comparisonFilter, SAMPLER_COMPARISON_FUNC compartisonFunction) {
- 
+
+  GCMSamplerState samplerState;
+
+  switch (compartisonFunction) {
+    case COMPARISON_NONE:
+      samplerState.comparisonFunc = CELL_GCM_TEXTURE_ZFUNC_NEVER;
+      break;
+    case COMPARISON_LESS:
+      samplerState.comparisonFunc = CELL_GCM_TEXTURE_ZFUNC_LESS;
+      break;
+  }
+
+  switch (addressMode) {
+    case UV_ADDRESS_CLAMP:
+      samplerState.addressU = CELL_GCM_TEXTURE_CLAMP;
+      samplerState.addressV = CELL_GCM_TEXTURE_CLAMP;
+      samplerState.addressW = CELL_GCM_TEXTURE_CLAMP_TO_EDGE;
+      break;
+
+    case UV_ADDRESS_WRAP: 
+      samplerState.addressU = CELL_GCM_TEXTURE_WRAP;
+      samplerState.addressV = CELL_GCM_TEXTURE_WRAP;
+      samplerState.addressW = CELL_GCM_TEXTURE_CLAMP_TO_EDGE;
+      break;
+  } 
+
+  switch(comparisonFilter) {
+    case FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT:
+      samplerState.minFilter = CELL_GCM_TEXTURE_LINEAR_NEAREST;
+      samplerState.magFilter = CELL_GCM_TEXTURE_LINEAR_NEAREST;
+      break;
+
+    case FILTER_MIN_MAG_MIP_POINT:
+      samplerState.minFilter = CELL_GCM_TEXTURE_NEAREST;
+      samplerState.magFilter = CELL_GCM_TEXTURE_NEAREST;
+      break;
+
+    case FILTER_MIN_MAG_MIP_LINEAR:
+      samplerState.minFilter = CELL_GCM_TEXTURE_LINEAR;
+      samplerState.magFilter = CELL_GCM_TEXTURE_LINEAR;
+      break;
+  }
+
+  samplerStates_[samplerSlot] = samplerState;
 }
 

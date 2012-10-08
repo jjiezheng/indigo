@@ -1,6 +1,6 @@
 // glslf output by Cg compiler
 // cgc version 3.1.0013, build date Apr 18 2012
-// command line args: -q -profile glslf
+// command line args: -DGL21=1 -q -profile glslf
 // source file: deferred_lighting_spot_light.cg
 //vendor NVIDIA Corporation
 //version 3.1.0.13
@@ -67,10 +67,10 @@ float _x0111;
 float _TMP112;
 float _TMP128;
 vec4 _r0153;
+float _shadowFactor0163;
 float _sum0163;
 float _y0163;
 vec2 _shadowCoordOffset10163;
-float _shadowFactor0163;
 vec4 _c0165;
 uniform sampler2D _DepthMap;
 uniform sampler2D _NormalMap;

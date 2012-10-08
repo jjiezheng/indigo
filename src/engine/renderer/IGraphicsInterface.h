@@ -100,7 +100,7 @@ public:
 
   virtual unsigned int createDepthTexture(const CSize& dimensions) = 0;
 
-  virtual void clearDepthTarget(unsigned int textureId) = 0;
+  virtual void clearActiveDepthBuffer(unsigned int textureId) = 0;
 
   virtual unsigned int depthBufferTexture() const = 0;
 

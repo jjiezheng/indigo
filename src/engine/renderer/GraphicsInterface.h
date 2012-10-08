@@ -34,7 +34,7 @@ public:
 
   static void swapBuffers();
 
-  static void clearBuffer(const Color4& clearColor);
+  static void clearActiveColorBuffers(const Color4& clearColor);
 
   static float aspectRatio();
   
@@ -98,7 +98,7 @@ public:
 
 public:
 
-  static void clearDepthTarget(unsigned int textureId);
+  static void clearActiveDepthBuffer();
 
   static unsigned int createDepthTexture(const CSize& dimensions);
 

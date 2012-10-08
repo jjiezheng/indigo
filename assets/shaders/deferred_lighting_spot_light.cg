@@ -103,9 +103,9 @@ float4 ps(float4 position 		: POSITION,
 		specularContribution = i * specularIntensity / distance;
 	}
 
-	// //------------------------------------------------------------
-	// // shadows
-	// //------------------------------------------------------------
+	//------------------------------------------------------------
+	// shadows
+	//------------------------------------------------------------
 
 	float4 pixelPositionFromLightRaw = mul(LightViewProj, positionWorld);
 	float4 pixelPositionFromLight = pixelPositionFromLightRaw / pixelPositionFromLightRaw.w;

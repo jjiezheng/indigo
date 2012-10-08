@@ -24,19 +24,19 @@
 #include "memory/Allocation.h"
 
 static const int kKernelSize = 16;
-static const int kNoisePixelLine = 4;
+static const int kNoisePixelWidth = 4;
 
 void DeferredSSAOPass::init(const CSize& screenSize) {
   ssaoEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_ssao.shader");
-  ssaoEffect_->setSamplerState(0, UV_ADDRESS_WRAP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_NONE);
-  ssaoEffect_->setSamplerState(1, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_NONE);
-  ssaoEffect_->setSamplerState(2, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_NONE);
+  ssaoEffect_->setSamplerState(0, UV_ADDRESS_WRAP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
+  ssaoEffect_->setSamplerState(1, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
+  ssaoEffect_->setSamplerState(2, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
   ssaoEffect_->setSamplerState(3, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
 
   combineEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_ssao_combine.shader");
   quadVbo_ = Geometry::screenPlane();
 
-  ssaoRawTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R32G32B32A32);
+  ssaoRawTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R8G8B8A8);
   ssaoRawRenderTarget_ = GraphicsInterface::createRenderTarget(ssaoRawTexture_);
 
   ssaoColorBlurCombinedTexture_ = GraphicsInterface::createTexture(GraphicsInterface::backBufferSize());
@@ -46,17 +46,19 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
 
   // generate noise texture
   
-  const unsigned int noiseSize = kNoisePixelLine * kNoisePixelLine;
+  const unsigned int noiseSize = kNoisePixelWidth * kNoisePixelWidth;
   Vector4 noise[noiseSize];
   for (unsigned i = 0; i < noiseSize; ++i) {
+    float a = 0;
     float x = Random::random(-1.0f, 1.0f);
     float y = Random::random(-1.0f, 1.0f);
     float z = 0;
-    Vector4 noiseV(x, y, z, 0.0f);
+    Vector4 noiseV(x, y, z, a);
 	  Vector4 noiseN = noiseV.normalize();
     noise[i] = noiseN;
   }
 
+   noiseTexture_ = GraphicsInterface::createTexture(CSize(kNoisePixelWidth, kNoisePixelWidth), IGraphicsInterface::R32G32B32A32, 1, 1, &noise, sizeof(Vector4) * kNoisePixelWidth);  
 
   for (unsigned i = 0; i < kKernelSize; i++) {
     float x = Random::random(-1.0f, 1.0f);
@@ -73,9 +75,6 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
     scale = lerp(0.1f, 1.0f, scale * scale);
     kernel[i] = kernel[i] * scale;
   }
-
-
-  noiseTexture_ = GraphicsInterface::createTexture(CSize(kNoisePixelLine, kNoisePixelLine), IGraphicsInterface::R32G32B32A32, 1, 1, &noise, sizeof(Vector4) * kNoisePixelLine);  
 }
 
  GraphicsInterface::TextureId DeferredSSAOPass::render(IViewer* viewer, unsigned int inputMap, const DeferredInitRenderStage& initStage) {
@@ -85,7 +84,7 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
     GraphicsInterface::beginPerformanceEvent("Depth");
 
     GraphicsInterface::setRenderTarget(ssaoRawRenderTarget_, false);
-    GraphicsInterface::clearRenderTarget(ssaoRawRenderTarget_, Color4::BLACK);
+    GraphicsInterface::clearActiveColorBuffers(Color4::BLACK);
 
     Matrix4x4 projection = viewer->projection();
     ssaoEffect_->setUniform(projection, "Projection");
@@ -108,7 +107,7 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
     ssaoEffect_->setUniform(kernel, kKernelSize * sizeof(float) * 4, "Kernel");
     ssaoEffect_->setUniform(kKernelSize, "KernelSize");
 
-    Vector2 noiseScale = Vector2(GraphicsInterface::screenWidth() / float(kNoisePixelLine), GraphicsInterface::screenHeight() / float(kNoisePixelLine));
+    Vector2 noiseScale = Vector2(GraphicsInterface::screenWidth() / float(kNoisePixelWidth), GraphicsInterface::screenHeight() / float(kNoisePixelWidth));
     ssaoEffect_->setUniform(noiseScale, "NoiseScale");
 
     ssaoEffect_->beginDraw();

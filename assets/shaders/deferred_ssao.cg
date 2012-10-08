@@ -9,8 +9,8 @@ uniform float4 Kernel[16];
 uniform float Far;
 uniform float Near;
 
-sampler2D NormalMap : TEXUNIT0;
-sampler2D NoiseMap : TEXUNIT1;
+sampler2D NoiseMap : TEXUNIT0;
+sampler2D NormalMap : TEXUNIT1;
 sampler2D LinearDepthMap : TEXUNIT2;
 sampler2D DepthMap : TEXUNIT3;
 
@@ -52,7 +52,7 @@ float4 ps(float4 position 		: POSITION,
 
 	float2 noiseTexCoords = texCoord * NoiseScale;
 	float3 rvec = tex2D(NoiseMap, noiseTexCoords).rgb;
-
+	
 	float3 tangent = normalize(rvec - normal * dot(rvec, normal));
 	float3 bitangent = cross(tangent, normal);
 	float3x3 normalBasis = float3x3(tangent, bitangent, normal);

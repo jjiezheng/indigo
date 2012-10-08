@@ -37,7 +37,7 @@ void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, in
     swapChainDesc.SampleDesc.Count = multiSamples;                   // how many multisamples
     swapChainDesc.Windowed = TRUE;                                    // windowed/full-screen mode 
 
-    D3D_FEATURE_LEVEL featureLevels = D3D_FEATURE_LEVEL_11_0;
+    D3D_FEATURE_LEVEL featureLevels = D3D_FEATURE_LEVEL_10_0;
 
     HRESULT result = D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, NULL, NULL, NULL,
       D3D11_SDK_VERSION, &swapChainDesc, &swapChain_, &device_, NULL, &context_);
@@ -108,6 +108,7 @@ void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, in
     assert(result == S_OK);
 
     depthBufferTexture_ = textures_.size();
+    activeDepthBuffer_ = depthBufferTexture_;
     DirectXTexture textureContainer;
     textureContainer.textureData = 0;
     textureContainer.mipLevels = 1;
@@ -320,11 +321,11 @@ void Direct3D11GraphicsInterface::resetGraphicsState(bool cullBack) {
   }
 }
 
-unsigned int Direct3D11GraphicsInterface::createTexture(const CSize& dimensions, IGraphicsInterface::TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize) {
+unsigned int Direct3D11GraphicsInterface::createTexture(const CSize& dimensions, IGraphicsInterface::TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int pitch) {
   D3D11_SUBRESOURCE_DATA data;
   ZeroMemory(&data, sizeof(D3D11_SUBRESOURCE_DATA));
   data.pSysMem = textureData;
-  data.SysMemPitch = textureLineSize;
+  data.SysMemPitch = pitch;
 
   D3D11_TEXTURE2D_DESC textureDesc;
   ZeroMemory(&textureDesc, sizeof(D3D11_TEXTURE2D_DESC));
@@ -390,6 +391,7 @@ unsigned int Direct3D11GraphicsInterface::createTexture(const CSize& dimensions,
 }
 
 void Direct3D11GraphicsInterface::setRenderTarget(unsigned int* renderTargetIds, unsigned int renderTargetCount, bool useDepthBuffer, unsigned int depthTextureId) {  
+  activeDepthBuffer_ = depthTextureId;
   std::vector<ID3D11RenderTargetView*> renderTargetViews;
 
   for (unsigned int i = 0; i < renderTargetCount; i++) {
@@ -541,9 +543,9 @@ unsigned int Direct3D11GraphicsInterface::createDepthTexture(const CSize& dimens
   return textureId;
 }
 
-void Direct3D11GraphicsInterface::clearDepthTarget(unsigned int textureId) {
+void Direct3D11GraphicsInterface::clearActiveDepthBuffer(unsigned int textureId) {
   assert(textureId < textures_.size());
-  DirectXTexture texture = textures_[textureId];
+  DirectXTexture texture = textures_[activeDepthBuffer_];
   context_->ClearDepthStencilView(texture.depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 }
 

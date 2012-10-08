@@ -44,13 +44,13 @@ void DLOG(const char* channel, const char* format, ...) {
 }
 #else
 void DLOG(const char* channel, const char* fmt, ...) {
-  
-  /*va_list args;
-  va_start(args, fmt);
   printf("%s: ", channel);
-  vfprintf(stderr, fmt, args);
+
+  va_list args;
+  va_start(args, fmt);
+  vfprintf(stdout, fmt, args);
+  va_end(args);
   printf("\n");
-  va_end(args);*/
 };
 #endif
 

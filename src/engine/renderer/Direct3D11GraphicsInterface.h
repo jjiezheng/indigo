@@ -25,7 +25,8 @@ public:
     , depthBuffer_(0)
     , depthBufferTexture_(0)
     , multiSamples_(0)
-    , performanceMarkerLevel_(0) { }
+    , performanceMarkerLevel_(0)
+    , activeDepthBuffer_(0) { }
 
 public:
 
@@ -85,7 +86,7 @@ public:
 
   unsigned int createDepthTexture(const CSize& dimensions);
 
-  void clearDepthTarget(unsigned int textureId);
+  void clearActiveDepthBuffer(unsigned int textureId);
 
   unsigned int depthBufferTexture() const;
 
@@ -98,7 +99,9 @@ private:
   void createGraphicsContext(HWND hWnd, int width, int height, unsigned int multiSamples);
 
   void createBlendStates();
+
   void createPerformanceMarkerColors();
+
 private:
 
   IDXGISwapChain *swapChain_;
@@ -121,6 +124,7 @@ private:
 
   unsigned int multiSamples_;  
   unsigned int performanceMarkerLevel_;
+  unsigned int activeDepthBuffer_;
 
 };
 
