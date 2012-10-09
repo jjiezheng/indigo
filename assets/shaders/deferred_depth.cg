@@ -1,18 +1,18 @@
-uniform half4x4 WorldViewProj;
+uniform float4x4 WorldViewProj;
 
 struct VOutput {
-	half4 position		: POSITION;
-	half depth			: TEXCOORD0;
+	float4 position		: POSITION;
+	float depth			: TEXCOORD0;
 };
 
-VOutput vs(half4 position : POSITION) {
+VOutput vs(float4 position : POSITION) {
 	VOutput OUT;
 	OUT.position = mul(WorldViewProj, position);
 	OUT.depth = OUT.position.z;
  	return OUT;
 }
 
-half4 ps(half4 position		: POSITION,
-		 half depth 		: TEXCOORD0) : COLOR0 {
-	return half4(depth, depth, depth, 1.0f);
+float4 ps(float4 position		: POSITION,
+		  float depth 			: TEXCOORD0) : COLOR0 {
+	return float4(depth, depth, depth, 1.0f);
 }

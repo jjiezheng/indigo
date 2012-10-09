@@ -7,7 +7,7 @@
 //profile glslv
 //program vs
 //semantic WorldViewProj
-//var half4x4 WorldViewProj :  : _WorldViewProj[0], 4 : -1 : 1
+//var float4x4 WorldViewProj :  : _WorldViewProj[0], 4 : -1 : 1
 //var float4 position : $vin.POSITION : ATTR0 : 0 : 1
 //var float4 vs.position : $vout.POSITION : HPOS : -1 : 1
 //var float vs.depth : $vout.TEXCOORD0 : TEX0 : -1 : 1
@@ -19,9 +19,7 @@ struct VOutput {
     float _depth;
 };
 
-vec4 _position1;
-float _TMP0;
-vec4 _r0003;
+vec4 _r0002;
 uniform vec4 _WorldViewProj[4];
 
  // main procedure, the original name was vs
@@ -29,16 +27,11 @@ void main()
 {
 
 
-    _position1 = vec4(float(gl_Vertex.x), float(gl_Vertex.y), float(gl_Vertex.z), float(gl_Vertex.w));
-    _TMP0 = dot(vec4(float(_WorldViewProj[0].x), float(_WorldViewProj[0].y), float(_WorldViewProj[0].z), float(_WorldViewProj[0].w)), vec4(float(_position1.x), float(_position1.y), float(_position1.z), float(_position1.w)));
-    _r0003.x = float(_TMP0);
-    _TMP0 = dot(vec4(float(_WorldViewProj[1].x), float(_WorldViewProj[1].y), float(_WorldViewProj[1].z), float(_WorldViewProj[1].w)), vec4(float(_position1.x), float(_position1.y), float(_position1.z), float(_position1.w)));
-    _r0003.y = float(_TMP0);
-    _TMP0 = dot(vec4(float(_WorldViewProj[2].x), float(_WorldViewProj[2].y), float(_WorldViewProj[2].z), float(_WorldViewProj[2].w)), vec4(float(_position1.x), float(_position1.y), float(_position1.z), float(_position1.w)));
-    _r0003.z = float(_TMP0);
-    _TMP0 = dot(vec4(float(_WorldViewProj[3].x), float(_WorldViewProj[3].y), float(_WorldViewProj[3].z), float(_WorldViewProj[3].w)), vec4(float(_position1.x), float(_position1.y), float(_position1.z), float(_position1.w)));
-    _r0003.w = float(_TMP0);
-    gl_TexCoord[0].x = float(_r0003.z);
-    gl_Position = vec4(float(_r0003.x), float(_r0003.y), float(_r0003.z), float(_r0003.w));
+    _r0002.x = dot(_WorldViewProj[0], gl_Vertex);
+    _r0002.y = dot(_WorldViewProj[1], gl_Vertex);
+    _r0002.z = dot(_WorldViewProj[2], gl_Vertex);
+    _r0002.w = dot(_WorldViewProj[3], gl_Vertex);
+    gl_TexCoord[0].x = _r0002.z;
+    gl_Position = _r0002;
     return;
 } // main end

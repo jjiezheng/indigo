@@ -7,7 +7,7 @@
 //profile vs_5_0
 //program vs
 //semantic WorldViewProj
-//var half4x4 WorldViewProj :  : _WorldViewProj[0], 4 : -1 : 1
+//var float4x4 WorldViewProj :  : _WorldViewProj[0], 4 : -1 : 1
 //var float4 position : $vin.POSITION : POSITION : 0 : 1
 //var float4 vs.position : $vout.POSITION :  : -1 : 1
 //var float vs.depth : $vout.TEXCOORD0 :  : -1 : 1
@@ -24,11 +24,7 @@ struct X1X {
     float _TEXCOORD0 : TEXCOORD0;
 };
 
-static float _TMP3;
-static float _TMP2;
-static float _TMP1;
-static float _TMP0;
-static float4 _r0005;
+static float4 _r0001;
 static X1X cout;
 uniform float4x4 _WorldViewProj;
 
@@ -38,17 +34,13 @@ X1X main(in float4 _position : POSITION)
 
     VOutput _OUT;
 
-    _TMP0 = dot((float4) _WorldViewProj._11_12_13_14, (float4) _position);
-    _r0005.x = (float) _TMP0;
-    _TMP1 = dot((float4) _WorldViewProj._21_22_23_24, (float4) _position);
-    _r0005.y = (float) _TMP1;
-    _TMP2 = dot((float4) _WorldViewProj._31_32_33_34, (float4) _position);
-    _r0005.z = (float) _TMP2;
-    _TMP3 = dot((float4) _WorldViewProj._41_42_43_44, (float4) _position);
-    _r0005.w = (float) _TMP3;
-    _OUT._position1 = _r0005;
-    _OUT._depth = _r0005.z;
-    cout._POSITION = (float4) _OUT._position1;
-    cout._TEXCOORD0 = (float) _OUT._depth;
+    _r0001.x = dot(_WorldViewProj._11_12_13_14, _position);
+    _r0001.y = dot(_WorldViewProj._21_22_23_24, _position);
+    _r0001.z = dot(_WorldViewProj._31_32_33_34, _position);
+    _r0001.w = dot(_WorldViewProj._41_42_43_44, _position);
+    _OUT._position1 = _r0001;
+    _OUT._depth = _r0001.z;
+    cout._POSITION = _OUT._position1;
+    cout._TEXCOORD0 = _OUT._depth;
     return cout;
 } // main end

@@ -29,6 +29,6 @@ float4 main( in X1X cin) : SV_Target0
 
     float _depth;
 
-    _depth = (float) cin._TEXCOORD0;
-    return float4(_depth, _depth, _depth,  1.00000000000000000E000h);
+    _depth = cin._TEXCOORD0;
+    return float4(_depth, _depth, _depth,  1.00000000000000000E000f);
 } // main end
