@@ -1,9 +1,0 @@
-struct VS_OUTPUT  {
-	float4 vPosition : POSITION;
-};
-
-VS_OUTPUT main(float4 position : POSITION) {
-	VS_OUTPUT vout;
-	vout.vPosition = position;
-	return vout;
-}

@@ -13,31 +13,31 @@
 //semantic LightOuterAngle
 //semantic LightDecay
 //semantic LightDistance
-//semantic ViewerPosition
+//semantic ShadowMapSize
 //semantic LightDirection
-//semantic DirectionToLight
 //semantic LightPosition
 //semantic LightColor
+//semantic DirectionToLight
+//semantic ViewerPosition
 //semantic ViewProjInv
 //semantic LightViewProj
 //semantic LightViewProjInv
 //semantic WorldViewProj
 //semantic NormalMatrix
-//semantic ShadowMapSize
 //var sampler2D DepthMap : TEXUNIT0 : _DepthMap 0 : -1 : 1
 //var sampler2D NormalMap : TEXUNIT1 : _NormalMap 1 : -1 : 1
 //var sampler2D ShadowMap : TEXUNIT2 : _ShadowMap 2 : -1 : 1
 //var half LightInnerAngle :  : _LightInnerAngle : -1 : 1
 //var half LightOuterAngle :  : _LightOuterAngle : -1 : 1
 //var half LightDistance :  : _LightDistance : -1 : 1
-//var half3 ViewerPosition :  : _ViewerPosition : -1 : 1
+//var half2 ShadowMapSize :  : _ShadowMapSize : -1 : 1
 //var half3 LightDirection :  : _LightDirection : -1 : 1
-//var half3 DirectionToLight :  : _DirectionToLight : -1 : 1
 //var half3 LightPosition :  : _LightPosition : -1 : 1
 //var half3 LightColor :  : _LightColor : -1 : 1
+//var half3 DirectionToLight :  : _DirectionToLight : -1 : 1
+//var half3 ViewerPosition :  : _ViewerPosition : -1 : 1
 //var half4x4 ViewProjInv :  : _ViewProjInv[0], 4 : -1 : 1
 //var half4x4 LightViewProj :  : _LightViewProj[0], 4 : -1 : 1
-//var half2 ShadowMapSize :  : _ShadowMapSize : -1 : 1
 //var float3 screenPosition : $vin.TEXCOORD0 :  : 1 : 1
 //var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
 
@@ -90,14 +90,14 @@ SamplerComparisonState _ShadowMap : TEXUNIT2;
 uniform float _LightInnerAngle;
 uniform float _LightOuterAngle;
 uniform float _LightDistance;
-uniform float3 _ViewerPosition;
+uniform float2 _ShadowMapSize;
 uniform float3 _LightDirection;
-uniform float3 _DirectionToLight;
 uniform float3 _LightPosition;
 uniform float3 _LightColor;
+uniform float3 _DirectionToLight;
+uniform float3 _ViewerPosition;
 uniform float4x4 _ViewProjInv;
 uniform float4x4 _LightViewProj;
-uniform float2 _ShadowMapSize;
 
  // main procedure, the original name was ps
 float4 main( in X1X cin) : SV_Target0

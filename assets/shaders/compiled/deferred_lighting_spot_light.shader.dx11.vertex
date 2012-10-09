@@ -13,17 +13,17 @@
 //semantic LightOuterAngle
 //semantic LightDecay
 //semantic LightDistance
-//semantic ViewerPosition
+//semantic ShadowMapSize
 //semantic LightDirection
-//semantic DirectionToLight
 //semantic LightPosition
 //semantic LightColor
+//semantic DirectionToLight
+//semantic ViewerPosition
 //semantic ViewProjInv
 //semantic LightViewProj
 //semantic LightViewProjInv
 //semantic WorldViewProj
 //semantic NormalMatrix
-//semantic ShadowMapSize
 //var float4 position : $vin.POSITION : POSITION : 0 : 1
 //var float4 vs.position : $vout.POSITION :  : -1 : 1
 //var float3 vs.screenPosition : $vout.TEXCOORD0 :  : -1 : 1

@@ -1,7 +1,7 @@
 #include "standard.h"
 #include "utils.h"
 
-sampler2D DepthMap : TEXUNIT0;
+sampler2D DepthMap 	: TEXUNIT0;
 sampler2D NormalMap : TEXUNIT1;
 sampler2D ShadowMap : TEXUNIT2;
 
@@ -10,20 +10,20 @@ uniform half LightOuterAngle;
 uniform half LightDecay;
 uniform half LightDistance;
 
-uniform half3 ViewerPosition;
+uniform half2 ShadowMapSize;
 
 uniform half3 LightDirection;
-uniform half3 DirectionToLight;
 uniform half3 LightPosition;
 uniform half3 LightColor;
+
+uniform half3 DirectionToLight;
+uniform half3 ViewerPosition;
 
 uniform half4x4 ViewProjInv;
 uniform half4x4 LightViewProj;
 uniform half4x4 LightViewProjInv;
 uniform half4x4 WorldViewProj;
 uniform half3x3 NormalMatrix;
-
-uniform half2 ShadowMapSize;
 
 struct VOutput {
       half4 position 			: POSITION;
