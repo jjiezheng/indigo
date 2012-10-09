@@ -27,7 +27,6 @@ VOutput vs(float4 position 		: POSITION,
 	OUT.position = mul(WorldViewProj, position);
 	OUT.normal = normal;// mul(NormalMatrix, normal);
 
-
 	OUT.depth.x = OUT.position.z;
 	OUT.depth.y = OUT.position.w;
 
@@ -38,9 +37,9 @@ VOutput vs(float4 position 		: POSITION,
 }
 
 struct POutput {
-	float4 color 	: COLOR0;
-	float4 normal 	: COLOR1;
-	float4 depth 	: COLOR2;
+	float3 color 	: COLOR0;
+	float3 normal 	: COLOR1;
+	float3 depth 	: COLOR2;
 };
 
 POutput ps(float4 position			: POSITION,
@@ -49,13 +48,13 @@ POutput ps(float4 position			: POSITION,
 
 	POutput OUT;
 	
-	OUT.color = float4(DiffuseColor, 1);
-	OUT.normal = float4(packNormal(normal), 0);
+	OUT.color = DiffuseColor;
+	OUT.normal = packNormal(normal);
 
 	float depthLinear = linearize(depth.z, Near, Far);
 	
 	float3 packedDepth = packDepth(depthLinear);
-	OUT.depth = float4(packedDepth, 0);
+	OUT.depth = packedDepth;
 	
 	return OUT;
 }

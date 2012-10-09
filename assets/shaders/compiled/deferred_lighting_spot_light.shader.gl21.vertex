@@ -35,15 +35,13 @@ struct VOutput {
     vec3 _screenPosition;
 };
 
-vec4 _position1;
 
  // main procedure, the original name was vs
 void main()
 {
 
 
-    _position1 = vec4(float(gl_Vertex.x), float(gl_Vertex.y), float(gl_Vertex.z), float(gl_Vertex.w));
-    gl_TexCoord[0].xyz = vec3(float(_position1.x), float(_position1.y), float(_position1.w));
-    gl_Position = vec4(float(_position1.x), float(_position1.y), float(_position1.z), float(_position1.w));
+    gl_TexCoord[0].xyz = gl_Vertex.xyw;
+    gl_Position = gl_Vertex;
     return;
 } // main end

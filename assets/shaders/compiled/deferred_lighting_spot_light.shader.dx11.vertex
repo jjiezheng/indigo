@@ -50,7 +50,7 @@ X1X main(in float4 _position : POSITION)
 
     _OUT._position1 = _position;
     _OUT._screenPosition = _position.xyw;
-    cout._POSITION = (float4) _OUT._position1;
-    cout._TEXCOORD0 = (float3) _OUT._screenPosition;
+    cout._POSITION = _OUT._position1;
+    cout._TEXCOORD0 = _OUT._screenPosition;
     return cout;
 } // main end

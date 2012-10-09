@@ -28,8 +28,8 @@
 void DeferredSpotLightsPass::init(const CSize& screenSize) {
   shadowMapEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_depth.shader");
   lightEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_lighting_spot_light.shader");
-  lightEffect_->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_NONE);
-  lightEffect_->setSamplerState(1, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_NONE);
+  lightEffect_->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
+  lightEffect_->setSamplerState(1, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
   lightEffect_->setSamplerState(2, UV_ADDRESS_CLAMP, FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT, COMPARISON_LESS);
  
   spotLightRenderTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R8G8B8A8);

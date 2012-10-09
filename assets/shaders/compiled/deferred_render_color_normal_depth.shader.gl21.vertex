@@ -33,9 +33,9 @@ struct VOutput {
 };
 
 struct POutput {
-    vec4 _color;
-    vec4 _normal3;
-    vec4 _depth1;
+    vec3 _color;
+    vec3 _normal3;
+    vec3 _depth1;
 };
 
 vec4 _r0011;
