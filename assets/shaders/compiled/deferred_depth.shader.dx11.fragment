@@ -7,19 +7,19 @@
 //profile ps_5_0
 //program ps
 //semantic WorldViewProj
-//var float2 depth : $vin.TEXCOORD0 :  : 1 : 1
+//var float depth : $vin.TEXCOORD0 :  : 1 : 1
 //var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
 
 #pragma pack_matrix(row_major)
 
 struct VOutput {
     float4 _position1 : SV_Position;
-    float2 _depth1 : TEXCOORD0;
+    float _depth1 : TEXCOORD0;
 };
 
 struct X1X {
     float4 _POSITION : SV_Position;
-    float2 _TEXCOORD0 : TEXCOORD0;
+    float _TEXCOORD0 : TEXCOORD0;
 };
 
 
@@ -27,8 +27,8 @@ struct X1X {
 float4 main( in X1X cin) : SV_Target0
 {
 
-    float2 _depth;
+    float _depth;
 
-    _depth = cin._TEXCOORD0;
-    return float4(_depth.x, _depth.x, _depth.x,  1.00000000000000000E000f);
+    _depth = (float) cin._TEXCOORD0;
+    return float4(_depth, _depth, _depth,  1.00000000000000000E000h);
 } // main end

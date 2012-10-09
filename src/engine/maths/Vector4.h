@@ -41,6 +41,8 @@ public:
 
   float length() const;
 
+  Vector4 inverse() const;
+
   Vector4 normalize() const;
 
 public:

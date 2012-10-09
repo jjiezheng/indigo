@@ -5,121 +5,133 @@ sampler2D DepthMap : TEXUNIT0;
 sampler2D NormalMap : TEXUNIT1;
 sampler2D ShadowMap : TEXUNIT2;
 
-uniform float LightInnerAngle;
-uniform float LightOuterAngle;
-uniform float LightDecay;
+uniform half LightInnerAngle;
+uniform half LightOuterAngle;
+uniform half LightDecay;
+uniform half LightDistance;
 
-uniform float4 ViewPosition;
+uniform half3 ViewerPosition;
 
-uniform float4 LightDirection;
-uniform float4 LightPosition;
-uniform float3 LightColor;
+uniform half3 LightDirection;
+uniform half3 DirectionToLight;
+uniform half3 LightPosition;
+uniform half3 LightColor;
 
-uniform float4x4 ViewProjInv;
-uniform float4x4 LightViewProj;
-uniform float4x4 LightViewProjInv;
-uniform float4x4 WorldViewProj;
-uniform float3x3 NormalMatrix;
+uniform half4x4 ViewProjInv;
+uniform half4x4 LightViewProj;
+uniform half4x4 LightViewProjInv;
+uniform half4x4 WorldViewProj;
+uniform half3x3 NormalMatrix;
 
-uniform float2 ShadowMapSize;
+uniform half2 ShadowMapSize;
 
 struct VOutput {
-      float4 position 			: POSITION;
-      float4 screenPosition 	: TEXCOORD0;
+      half4 position 			: POSITION;
+      half3 screenPosition 		: TEXCOORD0;
 };
 
-VOutput vs(float4 position : POSITION) {
+VOutput vs(half4 position : POSITION) {
     VOutput OUT;
     OUT.position = position;
-    OUT.screenPosition = OUT.position;
+    OUT.screenPosition = OUT.position.xyw;
     return OUT;
 }
 
-float4 ps(float4 position 		: POSITION,
-		  float4 screenPosition : TEXCOORD0) : COLOR0 {
+half4 ps(half4 position 		: POSITION,
+		 half3 screenPosition 	: TEXCOORD0) : COLOR0 {
 
-	float4 screenPositionHom = screenPosition / screenPosition.w;
-	float2 texCoord = contract(screenPositionHom.xyz).xy;
+	// these need to be fed through in a texture
+	half diffusePower = 0.01f * 255;// normalData.w * 255; // 0-1 -> 0-255
+	half specularPower = 1;//depthSpec.z;
+	half specularIntensity = 1;//depthSpec.w;
 
-	float depth = unpackDepth(DepthMap, texCoord);
+	half2 screenPositionClip = screenPosition.xy / screenPosition.z;// -> w
+	half2 texCoord = contract(screenPositionClip);
+
+	//------------------------------------------------------------
+	// depth
+	//------------------------------------------------------------
+
+	half depth = unpackDepth(DepthMap, texCoord);
+
+	//------------------------------------------------------------
+	// normal
+	//------------------------------------------------------------
+
+	half3 normalData = unpackNormal(NormalMap, texCoord);
+	half3 normal = normalize(normalData);
 
 	//------------------------------------------------------------
 	// world position
 	//------------------------------------------------------------
 
-	float3 normalData = unpackNormal(NormalMap, texCoord);
-	float3 normal = normalize(normalData);
-
-	// these need to be fed through in a render target
-	float diffusePower = 0.01f * 255;// normalData.w * 255; // 0-1 -> 0-255
-	float specularPower = 1;//depthSpec.z;
-	float specularIntensity = 1;//depthSpec.w;
-
-	float4 positionScreen = float4(screenPositionHom.xy, depth, 1.0f);
-	float4 positionWorldRaw = mul(ViewProjInv, positionScreen);
-	float4 positionWorld = positionWorldRaw / positionWorldRaw.w;
+	half4 positionScreen = half4(screenPositionClip, depth, 1.0f);
+	half4 positionWorldRaw = mul(ViewProjInv, positionScreen);
+	half3 positionWorld = positionWorldRaw.xyz / positionWorldRaw.w;
 
 	//------------------------------------------------------------
 	// spot light
 	//------------------------------------------------------------
 
-	float distance = length(LightDirection);
-  	distance = distance * distance;
+	half4 lightContribution = float4(0);
 
+	//------------------------------------------------------------
 	// diffuse
-	float3 directionToLight = normalize(LightPosition.xyz - positionWorld.xyz);
-	float lightDirectionDot = dot(normalize(LightDirection.xyz), -directionToLight);
+	// -----------------------------------------------------------
 
-	float diffuseStrength = 0.0f;
+	half3 pixelToLight = normalize(positionWorld - LightPosition);
+	half lightDirectionDot = dot(LightDirection, pixelToLight);
 
-	float3 lightVector = normalize(-LightDirection.xyz);
-  	float3 lightVectorViewSpace = lightVector;//normalize(mul(NormalMatrix, lightVector));
+	half diffuseStrength = 0.0f;
 
-	float lightOuterCos = cos(LightOuterAngle);
-	float lightInnerCos = cos(LightInnerAngle);	
+	half3 lightVector = DirectionToLight;
+  	half3 lightVectorViewSpace = DirectionToLight;//normalize(mul(NormalMatrix, lightVector));
+
+	half lightOuterCos = cos(LightOuterAngle);
+	half lightInnerCos = cos(LightInnerAngle);	
 
 	if (lightDirectionDot > lightOuterCos) {
-		diffuseStrength = max(0.0f, saturate(dot(normal, normalize(lightVectorViewSpace))));
+		diffuseStrength = saturate(dot(normal, lightVectorViewSpace));
 		diffuseStrength *= smoothstep(lightOuterCos, lightInnerCos, lightDirectionDot);	
 	}
 
 	if (lightDirectionDot > lightInnerCos) {
-		diffuseStrength = max(0.0f, saturate(dot(normal, normalize(lightVectorViewSpace))));
+		diffuseStrength = saturate(dot(normal, lightVectorViewSpace));
 	}
 	
-	float3 diffuseContribution = LightColor * diffuseStrength * diffusePower;// / distance;
+	lightContribution.xyz = LightColor * diffuseStrength * diffusePower * LightDistance;
 
-	//specular
-	float specularContribution = 0;
+	//------------------------------------------------------------
+	// specular
+	// -----------------------------------------------------------
+
+	half specularContribution = 0;
 
 	if (diffuseStrength > 0) {
-		float4 viewDirectionRaw = ViewPosition - positionWorld;
-		float3 viewDirection = normalize(viewDirectionRaw.xyz);
+		half3 viewerDirectionUnNormalized = ViewerPosition - positionWorld;
+		half3 viewDirection = normalize(viewerDirectionUnNormalized);
 
-		float3 halfVectorRaw = lightVector + viewDirection;
-		float3 halfVector = halfVectorRaw;//normalize(mul(NormalMatrix, halfVectorRaw));
+		half3 halfVectorRaw = lightVector + viewDirection;
+		half3 halfVector = halfVectorRaw;//normalize(mul(NormalMatrix, halfVectorRaw));
 
-		float i = pow(saturate(dot(normal, halfVector)), specularPower);
-		specularContribution = i * specularIntensity / distance;
+		half incidence = pow(saturate(dot(normal, halfVector)), specularPower);
+
+		lightContribution.w = incidence * specularIntensity * LightDistance;
 	}
 
 	//------------------------------------------------------------
-	// shadows
+	// shadow
 	//------------------------------------------------------------
 
-	float4 pixelPositionFromLightRaw = mul(LightViewProj, positionWorld);
-	float4 pixelPositionFromLight = pixelPositionFromLightRaw / pixelPositionFromLightRaw.w;
+	half4 pixelPositionFromLightRaw = mul(LightViewProj, float4(positionWorld, 1));
+	half3 pixelPositionFromLight = pixelPositionFromLightRaw.xyz / pixelPositionFromLightRaw.w;
 
-	float2 shadowCoord = (pixelPositionFromLight.xy * 0.5f) + 0.5f;
+	half2 shadowCoord =  0.5f + pixelPositionFromLight.xy * 0.5f;
 	shadowCoord.y = 1.0f - shadowCoord.y;
 
-	float shadowFactor = shadowPCF(ShadowMap, shadowCoord, pixelPositionFromLight.z, ShadowMapSize);
+	half shadowFactor = shadowPCF(ShadowMap, shadowCoord, pixelPositionFromLight.z, ShadowMapSize);
 
-	if (shadowFactor < 1) {
-		shadowFactor += 0.1;
-	}
+	lightContribution *= shadowFactor;
 
-	diffuseContribution *= shadowFactor;
-
-	return float4(diffuseContribution, 0);
+	return lightContribution;
 } 

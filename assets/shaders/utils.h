@@ -1,16 +1,16 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-float3 flipY(float3 vec) {
-	return float3(vec.x, -vec.y, vec.z);
+float2 flipY(float2 vec) {
+	return float2(vec.x, -vec.y);
 }
 
 float3 expand(float3 vec) {
 	return 2.0f * (vec - 1.0f);
 }
 
-float3 contract(float3 vec) {
-	return 0.5f * (flipY(vec) + float3(1.0f, 1.0f, 0.0f));
+float2 contract(float2 vec) {
+	return 0.5f * (flipY(vec) + float2(1.0f, 1.0f));
 }
 
 float linstep(float min, float max, float v) {

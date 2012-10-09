@@ -110,3 +110,7 @@ Vector4 Vector4::normalize() const {
   length = length ? length : 1.0f;
   return Vector4(x / length, y / length, z / length, 1.0f);
 }
+
+Vector4 Vector4::inverse() const {
+  return Vector4(-x, -y, -z, -w);
+}

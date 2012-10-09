@@ -27,6 +27,8 @@ public:
 
   Vector3 normalize() const;
 
+  Vector3 inverse() const;
+
   float length() const;
 
 public:

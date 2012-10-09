@@ -249,7 +249,7 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
         json::Number zNumber = directionObject["z"];
         float z = zNumber.Value();
 
-        Vector4 direction(x, y, z, 1.0f);
+        Vector3 direction(x, y, z);
 
         light->setDirection(direction);
       }

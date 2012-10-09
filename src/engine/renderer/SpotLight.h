@@ -2,6 +2,7 @@
 #define SPOTLIGHT_H
 
 #include "maths/Vector4.h"
+#include "maths/Vector3.h"
 #include "maths/Matrix4x4.h"
 #include "core/Size.h"
 
@@ -48,9 +49,9 @@ public:
 
 public:
 
-  void setDirection(const Vector4& direction);
+  void setDirection(const Vector3& direction);
 
-  Vector4 direction() const;
+  Vector3 direction() const;
 
 public:
 
@@ -119,7 +120,7 @@ public:
 private:
 
   Matrix4x4 orientation_;
-  Vector4 direction_;
+  Vector3 direction_;
   Vector4 position_;
   Color3 color_;
   float innerAngle_;
@@ -177,11 +178,11 @@ inline Color3 SpotLight::color() const {
   return color_;
 }
 
-inline Vector4 SpotLight::direction() const {
+inline Vector3 SpotLight::direction() const {
   return direction_;
 }
 
-inline void SpotLight::setDirection(const Vector4& direction) {
+inline void SpotLight::setDirection(const Vector3& direction) {
   direction_ = direction;
 }
 

@@ -12,8 +12,10 @@
 //semantic LightInnerAngle
 //semantic LightOuterAngle
 //semantic LightDecay
-//semantic ViewPosition
+//semantic LightDistance
+//semantic ViewerPosition
 //semantic LightDirection
+//semantic DirectionToLight
 //semantic LightPosition
 //semantic LightColor
 //semantic ViewProjInv
@@ -24,22 +26,24 @@
 //semantic ShadowMapSize
 //var float4 position : $vin.POSITION : ATTR0 : 0 : 1
 //var float4 vs.position : $vout.POSITION : HPOS : -1 : 1
-//var float4 vs.screenPosition : $vout.TEXCOORD0 : TEX0 : -1 : 1
+//var float3 vs.screenPosition : $vout.TEXCOORD0 : TEX0 : -1 : 1
 
 #version 110
 
 struct VOutput {
     vec4 _position2;
-    vec4 _screenPosition;
+    vec3 _screenPosition;
 };
 
+vec4 _position1;
 
  // main procedure, the original name was vs
 void main()
 {
 
 
-    gl_TexCoord[0] = gl_Vertex;
-    gl_Position = gl_Vertex;
+    _position1 = vec4(float(gl_Vertex.x), float(gl_Vertex.y), float(gl_Vertex.z), float(gl_Vertex.w));
+    gl_TexCoord[0].xyz = vec3(float(_position1.x), float(_position1.y), float(_position1.w));
+    gl_Position = vec4(float(_position1.x), float(_position1.y), float(_position1.z), float(_position1.w));
     return;
 } // main end

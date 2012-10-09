@@ -12,8 +12,10 @@
 //semantic LightInnerAngle
 //semantic LightOuterAngle
 //semantic LightDecay
-//semantic ViewPosition
+//semantic LightDistance
+//semantic ViewerPosition
 //semantic LightDirection
+//semantic DirectionToLight
 //semantic LightPosition
 //semantic LightColor
 //semantic ViewProjInv
@@ -24,18 +26,18 @@
 //semantic ShadowMapSize
 //var float4 position : $vin.POSITION : POSITION : 0 : 1
 //var float4 vs.position : $vout.POSITION :  : -1 : 1
-//var float4 vs.screenPosition : $vout.TEXCOORD0 :  : -1 : 1
+//var float3 vs.screenPosition : $vout.TEXCOORD0 :  : -1 : 1
 
 #pragma pack_matrix(row_major)
 
 struct VOutput {
     float4 _position1 : POSITION;
-    float4 _screenPosition : TEXCOORD0;
+    float3 _screenPosition : TEXCOORD0;
 };
 
 struct X1X {
     float4 _POSITION : SV_Position;
-    float4 _TEXCOORD0 : TEXCOORD0;
+    float3 _TEXCOORD0 : TEXCOORD0;
 };
 
 static X1X cout;
@@ -47,8 +49,8 @@ X1X main(in float4 _position : POSITION)
     VOutput _OUT;
 
     _OUT._position1 = _position;
-    _OUT._screenPosition = _position;
-    cout._POSITION = _OUT._position1;
-    cout._TEXCOORD0 = _OUT._screenPosition;
+    _OUT._screenPosition = _position.xyw;
+    cout._POSITION = (float4) _OUT._position1;
+    cout._TEXCOORD0 = (float3) _OUT._screenPosition;
     return cout;
 } // main end

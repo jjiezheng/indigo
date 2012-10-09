@@ -66,3 +66,7 @@ Vector3 Vector3::normalize() const {
 float Vector3::length() const {
   return sqrt(x * x + y * y + z * z);
 }
+
+Vector3 Vector3::inverse() const {
+  return -(*this);
+}

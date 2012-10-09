@@ -30,7 +30,7 @@ void DeferredSpotLightsPass::init(const CSize& screenSize) {
   lightEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_lighting_spot_light.shader");
   lightEffect_->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_NONE);
   lightEffect_->setSamplerState(1, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_NONE);
-  lightEffect_->setSamplerState(2, UV_ADDRESS_CLAMP, FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT, COMPARISON_NONE);
+  lightEffect_->setSamplerState(2, UV_ADDRESS_CLAMP, FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT, COMPARISON_LESS);
  
   spotLightRenderTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R8G8B8A8);
   spotLightRenderTarget_ = GraphicsInterface::createRenderTarget(spotLightRenderTexture_);
@@ -112,7 +112,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
       Matrix4x4 normalMatrix = viewer->viewTransform().mat3x3().inverseTranspose();
       //lightEffect_->setUniform(normalMatrix, "NormalMatrix"); 
 
-      lightEffect_->setUniform(viewer->position(), "ViewPosition");
+      lightEffect_->setUniform(viewer->position(), "ViewerPosition");
 
       Matrix4x4 worldViewProj = viewer->projection() * viewer->viewTransform() * (*light)->transform();
       lightEffect_->setUniform(worldViewProj, "WorldViewProj");
@@ -128,9 +128,14 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
       Vector2 shadowMapSize(1.0f/shadowMapResolution.width, 1.0f/shadowMapResolution.height);
       lightEffect_->setUniform(shadowMapSize, "ShadowMapSize");
 
+      float lightDistance = (*light)->direction().length();
+      float lightDistanceSquared = lightDistance * lightDistance;
+      lightEffect_->setUniform(1.0f / lightDistanceSquared, "LightDistance");
+
+      lightEffect_->setUniform((*light)->direction().inverse().normalize(), "DirectionToLight");
 
       lightEffect_->setUniform((*light)->position(), "LightPosition");
-      lightEffect_->setUniform((*light)->direction(), "LightDirection");
+      lightEffect_->setUniform((*light)->direction().normalize(), "LightDirection");
       lightEffect_->setUniform((*light)->color(), "LightColor");
 
       lightEffect_->setUniform((*light)->outerAngle(), "LightOuterAngle");
