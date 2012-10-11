@@ -73,19 +73,19 @@ public:
 public:
   
   static Matrix4x4 IDENTITY;
-    
-private:
+
+public:
   
-  float m11_, m12_, m13_, m14_, 
-        m21_, m22_, m23_, m24_, 
-        m31_, m32_, m33_, m34_, 
-        m41_, m42_, m43_, m44_;
+  float m11, m12, m13, m14, 
+        m21, m22, m23, m24, 
+        m31, m32, m33, m34, 
+        m41, m42, m43, m44;
   
 };
 
 inline
 float const * Matrix4x4::valuePtr() const {
-  return &(m11_);
+  return &(m11);
 }
 
 #endif

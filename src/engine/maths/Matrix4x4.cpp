@@ -102,128 +102,128 @@ Matrix4x4 Matrix4x4::orthographic(float left, float right, float bottom, float t
 }
 
 Matrix4x4::Matrix4x4()
-: m11_(1.0f), m12_(0.0f), m13_(0.0f), m14_(0.0f), 
-  m21_(0.0f), m22_(1.0f), m23_(0.0f), m24_(0.0f),
-  m31_(0.0f), m32_(0.0f), m33_(1.0f), m34_(0.0f),
-  m41_(0.0f), m42_(0.0f), m43_(0.0f), m44_(1.0f) { }
+: m11(1.0f), m12(0.0f), m13(0.0f), m14(0.0f), 
+  m21(0.0f), m22(1.0f), m23(0.0f), m24(0.0f),
+  m31(0.0f), m32(0.0f), m33(1.0f), m34(0.0f),
+  m41(0.0f), m42(0.0f), m43(0.0f), m44(1.0f) { }
 
 Matrix4x4::Matrix4x4(float m11, float m12, float m13, float m14,
                      float m21, float m22, float m23, float m24,
                      float m31, float m32, float m33, float m34,
                      float m41, float m42, float m43, float m44)
-: m11_(m11), m12_(m12), m13_(m13), m14_(m14), 
-  m21_(m21), m22_(m22), m23_(m23), m24_(m24), 
-  m31_(m31), m32_(m32), m33_(m33), m34_(m34),
-  m41_(m41), m42_(m42), m43_(m43), m44_(m44) { }
+: m11(m11), m12(m12), m13(m13), m14(m14), 
+  m21(m21), m22(m22), m23(m23), m24(m24), 
+  m31(m31), m32(m32), m33(m33), m34(m34),
+  m41(m41), m42(m42), m43(m43), m44(m44) { }
 
 Matrix4x4::Matrix4x4(const Matrix3x3& m)
-: m11_(m.m11), m12_(m.m12), m13_(m.m13), m14_(0.0f), 
-  m21_(m.m21), m22_(m.m22), m23_(m.m23), m24_(0.0f), 
-  m31_(m.m31), m32_(m.m32), m33_(m.m33), m34_(0.0f),
-  m41_(0.0f),  m42_(0.0f),  m43_(0.0f),  m44_(1.0f) { }
+: m11(m.m11), m12(m.m12), m13(m.m13), m14(0.0f), 
+  m21(m.m21), m22(m.m22), m23(m.m23), m24(0.0f), 
+  m31(m.m31), m32(m.m32), m33(m.m33), m34(0.0f),
+  m41(0.0f),  m42(0.0f),  m43(0.0f),  m44(1.0f) { }
 
 Matrix4x4::Matrix4x4(const Vector4& m1, const Vector4& m2, const Vector4& m3, const Vector4& m4) 
-: m11_(m1.x), m12_(m2.x), m13_(m3.x), m14_(m4.x), 
-  m21_(m1.y), m22_(m2.y), m23_(m3.y), m24_(m4.y), 
-  m31_(m1.z), m32_(m2.z), m33_(m3.z), m34_(m4.z),
-  m41_(0.0f), m42_(0.0f), m43_(0.0f), m44_(1.0f) { }
+: m11(m1.x), m12(m2.x), m13(m3.x), m14(m4.x), 
+  m21(m1.y), m22(m2.y), m23(m3.y), m24(m4.y), 
+  m31(m1.z), m32(m2.z), m33(m3.z), m34(m4.z),
+  m41(0.0f), m42(0.0f), m43(0.0f), m44(1.0f) { }
 
 
 Vector4 Matrix4x4::operator * (const Vector4& b) const {
-  return Vector4(m11_ * b.x + m12_ * b.y + m13_ * b.z + m14_ * b.w,
-    m21_ * b.x + m22_ * b.y + m23_ * b.z + m24_ * b.w,
-    m31_ * b.x + m32_ * b.y + m33_ * b.z + m34_ * b.w,
-    m41_ * b.x + m42_ * b.y + m43_ * b.z + m44_ * b.w);
+  return Vector4(m11 * b.x + m12 * b.y + m13 * b.z + m14 * b.w,
+    m21 * b.x + m22 * b.y + m23 * b.z + m24 * b.w,
+    m31 * b.x + m32 * b.y + m33 * b.z + m34 * b.w,
+    m41 * b.x + m42 * b.y + m43 * b.z + m44 * b.w);
 }
 
 Matrix4x4 Matrix4x4::operator * (const Matrix4x4& other) const {
-  return Matrix4x4(m11_ * other.m11_ + m12_ * other.m21_ + m13_ * other.m31_ + m14_ * other.m41_,
-    m11_ * other.m12_ + m12_ * other.m22_ + m13_ * other.m32_ + m14_ * other.m42_,
-    m11_ * other.m13_ + m12_ * other.m23_ + m13_ * other.m33_ + m14_ * other.m43_,
-    m11_ * other.m14_ + m12_ * other.m24_ + m13_ * other.m34_ + m14_ * other.m44_,
+  return Matrix4x4(m11 * other.m11 + m12 * other.m21 + m13 * other.m31 + m14 * other.m41,
+    m11 * other.m12 + m12 * other.m22 + m13 * other.m32 + m14 * other.m42,
+    m11 * other.m13 + m12 * other.m23 + m13 * other.m33 + m14 * other.m43,
+    m11 * other.m14 + m12 * other.m24 + m13 * other.m34 + m14 * other.m44,
 
-    m21_ * other.m11_ + m22_ * other.m21_ + m23_ * other.m31_ + m24_ * other.m41_,
-    m21_ * other.m12_ + m22_ * other.m22_ + m23_ * other.m32_ + m24_ * other.m42_,
-    m21_ * other.m13_ + m22_ * other.m23_ + m23_ * other.m33_ + m24_ * other.m43_,
-    m21_ * other.m14_ + m22_ * other.m24_ + m23_ * other.m34_ + m24_ * other.m44_,
+    m21 * other.m11 + m22 * other.m21 + m23 * other.m31 + m24 * other.m41,
+    m21 * other.m12 + m22 * other.m22 + m23 * other.m32 + m24 * other.m42,
+    m21 * other.m13 + m22 * other.m23 + m23 * other.m33 + m24 * other.m43,
+    m21 * other.m14 + m22 * other.m24 + m23 * other.m34 + m24 * other.m44,
 
-    m31_ * other.m11_ + m32_ * other.m21_ + m33_ * other.m31_ + m34_ * other.m41_,
-    m31_ * other.m12_ + m32_ * other.m22_ + m33_ * other.m32_ + m34_ * other.m42_,
-    m31_ * other.m13_ + m32_ * other.m23_ + m33_ * other.m33_ + m34_ * other.m43_,
-    m31_ * other.m14_ + m32_ * other.m24_ + m33_ * other.m34_ + m34_ * other.m44_,
+    m31 * other.m11 + m32 * other.m21 + m33 * other.m31 + m34 * other.m41,
+    m31 * other.m12 + m32 * other.m22 + m33 * other.m32 + m34 * other.m42,
+    m31 * other.m13 + m32 * other.m23 + m33 * other.m33 + m34 * other.m43,
+    m31 * other.m14 + m32 * other.m24 + m33 * other.m34 + m34 * other.m44,
 
-    m41_ * other.m11_ + m42_ * other.m21_ + m43_ * other.m31_ + m44_ * other.m41_,
-    m41_ * other.m12_ + m42_ * other.m22_ + m43_ * other.m32_ + m44_ * other.m42_,
-    m41_ * other.m13_ + m42_ * other.m23_ + m43_ * other.m33_ + m44_ * other.m43_,
-    m41_ * other.m14_ + m42_ * other.m24_ + m43_ * other.m34_ + m44_ * other.m44_);
+    m41 * other.m11 + m42 * other.m21 + m43 * other.m31 + m44 * other.m41,
+    m41 * other.m12 + m42 * other.m22 + m43 * other.m32 + m44 * other.m42,
+    m41 * other.m13 + m42 * other.m23 + m43 * other.m33 + m44 * other.m43,
+    m41 * other.m14 + m42 * other.m24 + m43 * other.m34 + m44 * other.m44);
 }
 
 std::string Matrix4x4::toString() const {
   std::stringstream ss;
-  ss << m11_ << " " << m12_ << " " << m13_ << " " << m14_ << std::endl;
-  ss << m21_ << " " << m22_ << " " << m23_ << " " << m24_ << std::endl;
-  ss << m31_ << " " << m32_ << " " << m33_ << " " << m34_ << std::endl;
-  ss << m41_ << " " << m42_ << " " << m43_ << " " << m44_;
+  ss << m11 << " " << m12 << " " << m13 << " " << m14 << std::endl;
+  ss << m21 << " " << m22 << " " << m23 << " " << m24 << std::endl;
+  ss << m31 << " " << m32 << " " << m33 << " " << m34 << std::endl;
+  ss << m41 << " " << m42 << " " << m43 << " " << m44;
   return ss.str();
 }
 
 
 Matrix4x4 Matrix4x4::inverse() const {
-  float subFactor00 = m33_ * m44_ - m34_ * m43_;
-  float subFactor01 = m23_ * m44_ - m24_ * m43_;
-  float subFactor02 = m23_ * m34_ - m24_ * m33_;
-  float subFactor03 = m13_ * m44_ - m14_ * m43_;
-  float subFactor04 = m13_ * m34_ - m14_ * m33_;
-  float subFactor05 = m13_ * m24_ - m14_ * m23_;
-  float subFactor06 = m32_ * m44_ - m34_ * m42_;
-  float subFactor07 = m22_ * m44_ - m24_ * m42_;
-  float subFactor08 = m22_ * m34_ - m24_ * m32_;
-  float subFactor09 = m12_ * m44_ - m14_ * m42_;
-  float subFactor10 = m12_ * m34_ - m14_ * m32_;
-  float subFactor11 = m22_ * m44_ - m24_ * m42_;
-  float subFactor12 = m12_ * m24_ - m14_ * m22_;
-  float subFactor13 = m32_ * m43_ - m33_ * m42_;
-  float subFactor14 = m22_ * m43_ - m23_ * m42_;
-  float subFactor15 = m22_ * m33_ - m23_ * m32_;
-  float subFactor16 = m12_ * m43_ - m13_ * m42_;
-  float subFactor17 = m12_ * m33_ - m13_ * m32_;
-  float subFactor18 = m12_ * m23_ - m13_ * m22_;
+  float subFactor00 = m33 * m44 - m34 * m43;
+  float subFactor01 = m23 * m44 - m24 * m43;
+  float subFactor02 = m23 * m34 - m24 * m33;
+  float subFactor03 = m13 * m44 - m14 * m43;
+  float subFactor04 = m13 * m34 - m14 * m33;
+  float subFactor05 = m13 * m24 - m14 * m23;
+  float subFactor06 = m32 * m44 - m34 * m42;
+  float subFactor07 = m22 * m44 - m24 * m42;
+  float subFactor08 = m22 * m34 - m24 * m32;
+  float subFactor09 = m12 * m44 - m14 * m42;
+  float subFactor10 = m12 * m34 - m14 * m32;
+  float subFactor11 = m22 * m44 - m24 * m42;
+  float subFactor12 = m12 * m24 - m14 * m22;
+  float subFactor13 = m32 * m43 - m33 * m42;
+  float subFactor14 = m22 * m43 - m23 * m42;
+  float subFactor15 = m22 * m33 - m23 * m32;
+  float subFactor16 = m12 * m43 - m13 * m42;
+  float subFactor17 = m12 * m33 - m13 * m32;
+  float subFactor18 = m12 * m23 - m13 * m22;
 
   Matrix4x4 inverse(
-    + m22_ * subFactor00 - m32_ * subFactor01 + m42_ * subFactor02,
-    - m12_ * subFactor00 + m32_ * subFactor03 - m42_ * subFactor04,
-    + m12_ * subFactor01 - m22_ * subFactor03 + m42_ * subFactor05,
-    - m12_ * subFactor02 + m22_ * subFactor04 - m32_ * subFactor05,
+    + m22 * subFactor00 - m32 * subFactor01 + m42 * subFactor02,
+    - m12 * subFactor00 + m32 * subFactor03 - m42 * subFactor04,
+    + m12 * subFactor01 - m22 * subFactor03 + m42 * subFactor05,
+    - m12 * subFactor02 + m22 * subFactor04 - m32 * subFactor05,
 
-    - m21_ * subFactor00 + m31_ * subFactor01 - m41_ * subFactor02,
-    + m11_ * subFactor00 - m31_ * subFactor03 + m41_ * subFactor04,
-    - m11_ * subFactor01 + m21_ * subFactor03 - m41_ * subFactor05,
-    + m11_ * subFactor02 - m21_ * subFactor04 + m31_ * subFactor05,
+    - m21 * subFactor00 + m31 * subFactor01 - m41 * subFactor02,
+    + m11 * subFactor00 - m31 * subFactor03 + m41 * subFactor04,
+    - m11 * subFactor01 + m21 * subFactor03 - m41 * subFactor05,
+    + m11 * subFactor02 - m21 * subFactor04 + m31 * subFactor05,
 
-    + m21_ * subFactor06 - m31_ * subFactor07 + m41_ * subFactor08,
-    - m11_ * subFactor06 + m31_ * subFactor09 - m41_ * subFactor10,
-    + m11_ * subFactor11 - m21_ * subFactor09 + m41_ * subFactor12,
-    - m11_ * subFactor08 + m21_ * subFactor10 - m31_ * subFactor12,
+    + m21 * subFactor06 - m31 * subFactor07 + m41 * subFactor08,
+    - m11 * subFactor06 + m31 * subFactor09 - m41 * subFactor10,
+    + m11 * subFactor11 - m21 * subFactor09 + m41 * subFactor12,
+    - m11 * subFactor08 + m21 * subFactor10 - m31 * subFactor12,
 
-    - m21_ * subFactor13 + m31_ * subFactor14 - m41_ * subFactor15,
-    + m11_ * subFactor13 - m31_ * subFactor16 + m41_ * subFactor17,
-    - m11_ * subFactor14 + m21_ * subFactor16 - m41_ * subFactor18,
-    + m11_ * subFactor15 - m21_ * subFactor17 + m31_ * subFactor18);
+    - m21 * subFactor13 + m31 * subFactor14 - m41 * subFactor15,
+    + m11 * subFactor13 - m31 * subFactor16 + m41 * subFactor17,
+    - m11 * subFactor14 + m21 * subFactor16 - m41 * subFactor18,
+    + m11 * subFactor15 - m21 * subFactor17 + m31 * subFactor18);
 
   float determinant = 
-    + m11_ * inverse.m11_ 
-    + m21_ * inverse.m12_ 
-    + m31_ * inverse.m13_ 
-    + m41_ * inverse.m14_;
+    + m11 * inverse.m11 
+    + m21 * inverse.m12 
+    + m31 * inverse.m13 
+    + m41 * inverse.m14;
 
   inverse /= determinant;
   return inverse;
 }
 
 Matrix3x3 Matrix4x4::mat3x3() const {
-  return Matrix3x3(m11_, m12_, m13_,
-    m21_, m22_, m23_,
-    m31_, m32_, m33_);
+  return Matrix3x3(m11, m12, m13,
+    m21, m22, m23,
+    m31, m32, m33);
 }
 
 Matrix4x4 Matrix4x4::lookAt(const Vector4& eye, const Vector4& target, const Vector4& worldUp) {
@@ -253,32 +253,32 @@ Matrix4x4 Matrix4x4::lookAt(const Vector4& eye, const Vector4& target, const Vec
 
 bool Matrix4x4::operator==(const Matrix4x4& other) const {
   return 
-    m11_ == other.m11_ && m12_ == other.m12_ && m13_ == other.m13_ && m14_ == other.m14_ && 
-    m21_ == other.m21_ && m22_ == other.m22_ && m23_ == other.m23_ && m24_ == other.m24_ && 
-    m31_ == other.m31_ && m32_ == other.m32_ && m33_ == other.m33_ && m34_ == other.m34_ && 
-    m41_ == other.m41_ && m42_ == other.m42_ && m43_ == other.m43_ && m44_ == other.m44_;
+    m11 == other.m11 && m12 == other.m12 && m13 == other.m13 && m14 == other.m14 && 
+    m21 == other.m21 && m22 == other.m22 && m23 == other.m23 && m24 == other.m24 && 
+    m31 == other.m31 && m32 == other.m32 && m33 == other.m33 && m34 == other.m34 && 
+    m41 == other.m41 && m42 == other.m42 && m43 == other.m43 && m44 == other.m44;
 }
 
 void Matrix4x4::operator /= (float scalar) {
 	scalar = (scalar == 0.0f) ? 1.0f : scalar;
 
-	m11_ /= scalar;
-	m12_ /= scalar;
-	m13_ /= scalar;
-	m14_ /= scalar;
+	m11 /= scalar;
+	m12 /= scalar;
+	m13 /= scalar;
+	m14 /= scalar;
 
-	m21_ /= scalar;
-	m22_ /= scalar;
-	m23_ /= scalar;
-	m24_ /= scalar;
+	m21 /= scalar;
+	m22 /= scalar;
+	m23 /= scalar;
+	m24 /= scalar;
 
-	m31_ /= scalar;
-	m32_ /= scalar;
-	m33_ /= scalar;
-	m34_ /= scalar;
+	m31 /= scalar;
+	m32 /= scalar;
+	m33 /= scalar;
+	m34 /= scalar;
 
-	m41_ /= scalar;
-	m42_ /= scalar;
-	m43_ /= scalar;
-	m44_ /= scalar;
+	m41 /= scalar;
+	m42 /= scalar;
+	m43 /= scalar;
+	m44 /= scalar;
 }

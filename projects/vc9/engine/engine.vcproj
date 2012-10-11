@@ -703,6 +703,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\engine\maths\Frustum.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\engine\maths\Frustum.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\engine\maths\Interpolation.cpp"
 				>
 			</File>
@@ -724,6 +732,14 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\engine\maths\Matrix4x4.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\engine\maths\Plane.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\engine\maths\Plane.h"
 				>
 			</File>
 			<File

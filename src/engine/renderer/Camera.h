@@ -4,6 +4,7 @@
 #include "maths/Matrix4x4.h"
 #include "maths/Vector3.h"
 #include "maths/Vector4.h"
+#include "maths/Frustum.h"
 
 #include "IViewer.h"
 
@@ -57,9 +58,13 @@ public:
   
 public:
 
-  void setPerspective(float fov, float aspectRatio, float nearDistance, float farDistance);
+  void setProjection(float fov, float aspectRatio, float nearDistance, float farDistance);
   
   Matrix4x4 projection() const;
+
+public:
+
+  bool insideFrustum(const Vector3& point, float radius);
 
 public:
 
@@ -74,7 +79,11 @@ private:
   void moveUp(float speed);
   
   void moveRight(float speed);
-  
+
+private:
+
+  void rebuildFrustum();
+
 private:
   
   Vector3 forward_;
@@ -95,22 +104,15 @@ private:
   
   int lastMouseX_;
   int lastMouseY_;
+
+  bool viewChanged_;
+
+  Frustum frustum_;
+
 };
 
 inline Matrix4x4 Camera::projection() const {
   return projection_;
-}
-
-inline void Camera::translateY(float amount) {
-  position_.y += amount;
-}
-
-inline void Camera::translateZ(float amount) {
-  position_.z += amount;
-}
-
-inline void Camera::translateX(float amount) {
-  position_.x += amount;
 }
 
 inline Vector4 Camera::position() const {

@@ -9,10 +9,24 @@
 #include "input/Mouse.h"
 #include "input/Keyboard.h"
 
+#include "maths/Plane.h"
+
 void Game::init(const char* sceneFile) {
   Pad::init();
   Mouse::init();
   Keyboard::init();
+
+  Plane p;
+  p.a = 10;
+  p.b = 0;
+  p.c = 0;
+  p.d = 0;
+
+  float result = p.normal().dot(Vector3(10, 0, 0)) + p.d;
+
+//   Camera camera;
+//   camera.setProjection(45, GraphicsInterface::aspectRatio(), 1.0f, 2.0f);
+//   bool result = camera.insideFrustum(Vector3(0, 0, 0), 0.1f);
 
   renderer_.init(GraphicsInterface::backBufferSize());
 
@@ -22,7 +36,7 @@ void Game::init(const char* sceneFile) {
   camera_.translateY(0.0f);
   //camera_.rotateX(toRadians(-90));
   
-  camera_.setPerspective(45.0f, GraphicsInterface::aspectRatio(), 1.0f, 1000.0f);
+  camera_.setProjection(45.0f, GraphicsInterface::aspectRatio(), 1.0f, 1000.0f);
 
   if (sceneFile) {
     WorldLoader loader; 
