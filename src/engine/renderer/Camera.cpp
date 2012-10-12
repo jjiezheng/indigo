@@ -24,7 +24,8 @@ Camera::Camera()
   , rotationY_(0)
   , rotationZ_(0)
   , lastMouseX_(0)
-  , lastMouseY_(0) { }
+  , lastMouseY_(0)
+  , viewChanged_(false) { }
 
 Camera* Camera::camera() {
   Camera* camera = new Camera();
@@ -111,28 +112,37 @@ void Camera::update(float dt) {
   
   lastMouseX_ = mousePoint.x;
   lastMouseY_ = mousePoint.y;
+
+  if (viewChanged_) {
+    rebuildFrustum();
+  }
 }
 
 void Camera::moveUp(float speed) {
   position_ = position_ + (up_ * speed);
+  viewChanged_ = true;
 }
 
 void Camera::moveForward(float speed) {
   position_ = position_ + (forward_ * speed);
+  viewChanged_ = true;
 }
 
 void Camera::moveRight(float speed) {
   position_ = position_ + (right_ * speed);
+  viewChanged_ = true;
 }
 
 void Camera::rotateY(float radians) {
   rotationY_ += radians;
   forward_ = forward_.rotateY(radians);
   right_ = right_.rotateY(radians);
+  viewChanged_ = true;
 }
 
 void Camera::rotateX(float degrees) {
   rotationX_ += degrees;
+  viewChanged_ = true;
 }
 
 Matrix4x4 Camera::rotation() const {
@@ -158,30 +168,36 @@ Matrix4x4 Camera::viewTransform() const {
   return viewTransform;
 }
 
-void Camera::setPerspective(float fov, float aspectRatio, float nearDistance, float farDistance) {
+void Camera::setProjection(float fov, float aspectRatio, float nearDistance, float farDistance) {
 	fov_ = fov;
 	aspectRatio_ = aspectRatio;
 	nearDistance_ = nearDistance;
   farDistance_ = farDistance;
 	projection_ = Matrix4x4::perspective(fov, aspectRatio, nearDistance_, farDistance_);
+  frustum_.rebuild(projection_);
+}
 
-//   Matrix4x4 dxProjection = Matrix4x4::perspective(fov, aspectRatio, nearDistance, farDistance);
-//   Vector4 dxNear(0, 0, -nearDistance, 1.0f);
-//   dxNear = dxProjection * dxNear;
-//   dxNear /= dxNear.w;
+void Camera::rebuildFrustum() {
+  Matrix4x4 viewProjection = projection() * viewTransform();
+  frustum_.rebuild(viewProjection);
+  viewChanged_ = false;
+}
 
+void Camera::translateY(float amount) {
+  position_.y += amount;
+  viewChanged_ = true;
+}
 
-//   Matrix4x4 gcmProjection = Matrix4x4::perspective(fov, aspectRatio, nearDistance, farDistance);
-//   Vector4 gcmNear(0, 0, -nearDistance, 1.0f);
-//   gcmNear = gcmProjection * gcmNear;
-//   gcmNear /= gcmNear.w;
+void Camera::translateZ(float amount) {
+  position_.z += amount;
+  viewChanged_ = true;
+}
 
+void Camera::translateX(float amount) {
+  position_.x += amount;
+  viewChanged_ = true;
+}
 
-//   Vector4 dxFar(0, 0, -farDistance, 1.0f);
-//   dxFar = dxProjection * dxFar;
-//   dxFar /= dxFar.w;
-
-//   Vector4 gcmFar(0, 0, -farDistance, 1.0f);
-//   gcmFar = gcmProjection * gcmFar;
-//   gcmFar /= gcmFar.w;
+bool Camera::insideFrustum(const Vector3& point, float radius) {
+  return frustum_.testIntersect(point, radius);
 }

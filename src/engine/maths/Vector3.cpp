@@ -70,3 +70,7 @@ float Vector3::length() const {
 Vector3 Vector3::inverse() const {
   return -(*this);
 }
+
+float Vector3::dot(const Vector3& other) const {
+  return x * other.x + y * other.y + z * other.z;
+}
