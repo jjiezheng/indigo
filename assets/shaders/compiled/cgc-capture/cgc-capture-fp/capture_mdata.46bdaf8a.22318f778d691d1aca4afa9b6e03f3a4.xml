@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<shader>
+	<cgc-vers version="version 2.0.r12074 (SDK 4.2.0), build date Jun 15 2012 11:35:34." />
+	<hash hash="46bdaf8a" />
+	<cwd path="C_drive/cygwin/home/GBkosteni/Development/game/assets/shaders" />
+	<full_cmdline cmdline="C:\usr\local\cell\host-win32\Cg\bin\sce-cgc.exe -debug -fenable-bx2 -fastmath -fastprecision -nofloatbindings -define GCM=1 -quiet -profile sce_fp_rsx -entry ps -output compiled/deferred_lighting_spot_light.shader.gcm.fragment  deferred_lighting_spot_light.cg " />
+	<culled_cmdline cmdline="sce_cgc -debug -fenable-bx2 -fastmath -fastprecision -nofloatbindings -define GCM=1 -quiet -profile sce_fp_rsx -entry ps  &quot;deferred_lighting_spot_light.cg&quot; -output &quot;compiled/deferred_lighting_spot_light.shader.gcm.fragment&quot;" />
+	<src path="deferred_lighting_spot_light.cg" hash="17ed5f22cfa5ec2183c0e4d2c41bdf4b" />
+	<include path="standard.h" hash="38dd95c04b355ee3ac883101c9894f4f" string="standard.h" />
+	<include path="depth.h" hash="3d623e6df4f7d43b545e7d71495eef0e" string="depth.h" />
+	<include path="utils.h" hash="6b1e957b925e0024322069ae95f4f7dd" string="utils.h" />
+	<binary path="compiled/deferred_lighting_spot_light.shader.gcm.fragment" hash="776d2eefd65c35a76ee339e45034508c" />
+</shader>

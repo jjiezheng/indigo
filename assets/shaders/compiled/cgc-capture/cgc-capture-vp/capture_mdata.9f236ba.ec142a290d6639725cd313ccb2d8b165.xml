@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<shader>
+	<cgc-vers version="version 2.0.r12074 (SDK 4.2.0), build date Jun 15 2012 11:35:34." />
+	<hash hash="9f236ba" />
+	<cwd path="C_drive/cygwin/home/GBkosteni/Development/game/assets/shaders" />
+	<full_cmdline cmdline="C:\usr\local\cell\host-win32\Cg\bin\sce-cgc.exe -debug -fenable-bx2 -fastmath -fastprecision -nofloatbindings -define GCM=1 -quiet -profile sce_vp_rsx -entry vs -output compiled/deferred_render_color_normal_depth.shader.gcm.vertex  deferred_render_color_normal_depth.cg " />
+	<culled_cmdline cmdline="sce_cgc -debug -fenable-bx2 -fastmath -fastprecision -nofloatbindings -define GCM=1 -quiet -profile sce_vp_rsx -entry vs  &quot;deferred_render_color_normal_depth.cg&quot; -output &quot;compiled/deferred_render_color_normal_depth.shader.gcm.vertex&quot;" />
+	<src path="deferred_render_color_normal_depth.cg" hash="49fee6c071a9e532a304f794e1a7c5b8" />
+	<include path="standard.h" hash="38dd95c04b355ee3ac883101c9894f4f" string="standard.h" />
+	<include path="depth.h" hash="90e95d37d8518a754a2ad328cd91842d" string="depth.h" />
+	<binary path="compiled/deferred_render_color_normal_depth.shader.gcm.vertex" hash="bd413c4295c289da378d6d9e1e1095ec" />
+</shader>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<shader>
+	<cgc-vers version="version 2.0.r12074 (SDK 4.2.0), build date Jun 15 2012 11:35:34." />
+	<hash hash="12c08469" />
+	<cwd path="C_drive/cygwin/home/GBkosteni/Development/game/assets/shaders" />
+	<full_cmdline cmdline="C:\usr\local\cell\host-win32\Cg\bin\sce-cgc.exe -debug -fenable-bx2 -fastmath -fastprecision -nofloatbindings -define GCM=1 -quiet -profile sce_fp_rsx -entry ps -output compiled/deferred_fullscreen_texture.shader.gcm.fragment  deferred_fullscreen_texture.cg " />
+	<culled_cmdline cmdline="sce_cgc -debug -fenable-bx2 -fastmath -fastprecision -nofloatbindings -define GCM=1 -quiet -profile sce_fp_rsx -entry ps  &quot;deferred_fullscreen_texture.cg&quot; -output &quot;compiled/deferred_fullscreen_texture.shader.gcm.fragment&quot;" />
+	<src path="deferred_fullscreen_texture.cg" hash="5062b6c0fc56bd0e3ec28eca68a2d282" />
+	<include path="standard.h" hash="38dd95c04b355ee3ac883101c9894f4f" string="standard.h" />
+	<include path="depth.h" hash="90e95d37d8518a754a2ad328cd91842d" string="depth.h" />
+	<binary path="compiled/deferred_fullscreen_texture.shader.gcm.fragment" hash="21607cb8b8c457d8c4f3c64959dd8f1e" />
+</shader>

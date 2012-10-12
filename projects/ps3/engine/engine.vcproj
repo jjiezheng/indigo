@@ -596,6 +596,30 @@
 			Name="io"
 			>
 			<File
+				RelativePath="..\..\..\src\engine\io\dds.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\engine\io\DDSImage.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\engine\io\DDSImage.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\engine\io\DDSMipLevel.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\engine\io\Endian.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\engine\io\Endian.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\engine\io\File.cpp"
 				>
 			</File>

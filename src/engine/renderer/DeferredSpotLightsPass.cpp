@@ -101,6 +101,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
       GraphicsInterface::beginPerformanceEvent("Lighting");
 
       GraphicsInterface::setRenderTarget(spotLightRenderTarget_, false);
+      GraphicsInterface::clearActiveColorBuffers(Color4::CORNFLOWERBLUE);
 
       Matrix4x4 viewProjection = viewer->projection() * viewer->viewTransform();
       lightEffect_->setUniform(viewer->viewTransform(), "View");

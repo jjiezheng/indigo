@@ -111,7 +111,10 @@ void PS3GCMCGEffect::beginDraw() {
 }
 
 void PS3GCMCGEffect::endDraw() {
-
+  static const unsigned int TEXTURE_SAMPLER_COUNT = 15;
+  for (unsigned int i = 0; i < TEXTURE_SAMPLER_COUNT; i++) {
+    cellGcmSetTextureControl(i, CELL_GCM_FALSE, 1*0xff, 1*0xff, CELL_GCM_TEXTURE_MAX_ANISO_1);
+  }
 }
 
 void PS3GCMCGEffect::setUniform(const Matrix3x3& uniformData, const char* uniformName) const {
@@ -207,7 +210,7 @@ void PS3GCMCGEffect::setUniform(const Vector4& uniformData, const char* uniformN
 void PS3GCMCGEffect::setUniform(const Vector4* uniformData, unsigned int uniformDataSize, const char* uniformName) const {
   CGparameter parameter = cellGcmCgGetNamedParameter(vertexProgram_, uniformName);
   if (parameter) {
-    //cellGcmSetVertexProgramParameter(parameter, (float*)uniformData);
+    cellGcmSetVertexProgramParameter(parameter, (float*)uniformData);
   }
 }
 

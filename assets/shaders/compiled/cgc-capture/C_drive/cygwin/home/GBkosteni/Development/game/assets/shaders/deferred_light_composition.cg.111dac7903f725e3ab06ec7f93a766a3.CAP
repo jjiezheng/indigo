@@ -1,0 +1,25 @@
+sampler2D ColorMap : TEXUNIT0;
+sampler2D LightSourceMap : TEXUNIT1;
+
+struct VOutput {
+  float4 position     : POSITION;
+  float2 texCoord     : TEXCOORD0;
+};
+
+VOutput vs(float4 position    : POSITION,
+           float2 texCoord    : TEXCOORD0) {
+  VOutput OUT;
+  OUT.position = position;
+  OUT.texCoord = texCoord;
+  return OUT;
+}
+
+float4 ps(float4 position : POSITION,
+          float2 texCoord : TEXCOORD0) : COLOR0 {
+  float4 diffuseColor = tex2D(ColorMap, texCoord);
+  float4 diffuseLight = tex2D(LightSourceMap, texCoord);
+  float3 finalColor = diffuseColor.rgb * diffuseLight.rgb;// + diffuseLight.w;
+  return float4(finalColor, diffuseColor.a);
+}
+
+// need to additive blend here

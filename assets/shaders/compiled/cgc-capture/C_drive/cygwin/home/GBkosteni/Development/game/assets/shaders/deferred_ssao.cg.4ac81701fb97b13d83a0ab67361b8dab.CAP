@@ -1,0 +1,87 @@
+#include "standard.h"
+
+static const float KernelSize = 16;
+
+uniform float Radius;
+uniform float2 NoiseScale;
+uniform float4 Kernel[16];
+
+uniform float Far;
+uniform float Near;
+
+sampler2D NoiseMap : TEXUNIT0;
+sampler2D NormalMap : TEXUNIT1;
+sampler2D LinearDepthMap : TEXUNIT2;
+sampler2D DepthMap : TEXUNIT3;
+
+uniform float4x4 Projection;
+uniform float4x4 ProjInv;
+uniform float4x4 View;
+
+struct VOutput {
+      float4 position 		: POSITION;
+      float2 texCoord		: TEXCOORD0;
+};
+
+VOutput vs(float4 position 	: POSITION,
+		   float2 texCoord 	: TEXCOORD0) {
+    VOutput OUT;
+    OUT.position = position;
+    OUT.texCoord = texCoord;
+    return OUT;
+}
+
+float4 ps(float4 position 		: POSITION,
+		  float2 texCoord 		: TEXCOORD0) : COLOR0 {
+
+	float3 normalData = unpackNormal(NormalMap, texCoord);
+	float3 normalViewSpace = mul(View, float4(normalData, 0.0f)).xyz;
+	float3 normal = normalize(normalViewSpace);
+
+	float depth = unpackDepth(DepthMap, texCoord);
+	float linearDepth = unpackARGB8Depth(LinearDepthMap, texCoord);
+
+	float4 positionScreen = float4(0, 0, 0, 1);
+	positionScreen.xy = texCoord.xy * 2.0f - 1.0f;
+	positionScreen.y = -positionScreen.y;
+	positionScreen.z = depth;
+	positionScreen.w = 1.0f;
+
+	float4 positionViewRaw = mul(ProjInv, positionScreen);
+	float4 positionView = positionViewRaw / positionViewRaw.w;
+
+	float2 noiseTexCoords = texCoord * NoiseScale;
+	float3 rvec = tex2D(NoiseMap, noiseTexCoords).rgb;
+	
+	float3 tangent = normalize(rvec - normal * dot(rvec, normal));
+	float3 bitangent = cross(tangent, normal);
+	float3x3 normalBasis = float3x3(tangent, bitangent, normal);
+
+	float occlusionContribution = 0;
+
+	Radius = 0.2;
+
+	for (int i = 0; i < 16; i++) {
+		float3 sample = Kernel[i].xyz * Radius;
+
+		float3 sampleAtNormalBasis = mul(sample, normalBasis);
+		float3 sampleAtViewPosition = positionView.xyz + sampleAtNormalBasis;
+
+		float sampleAtViewPositionZ = (-sampleAtViewPosition.z - Near) / (Far - Near);
+
+		float4 sampleClip = mul(Projection, float4(sampleAtViewPosition, 1));
+		float4 sampleScreen = sampleClip / sampleClip.w;
+
+		float2 sampleTexCoord = (sampleScreen.xy * 0.5f) + 0.5f;
+		sampleTexCoord.y = 1.0f - sampleTexCoord.y;
+
+		float sampleDepth = unpackARGB8Depth(LinearDepthMap, sampleTexCoord);
+
+		float rangeCheck = abs(linearDepth - sampleDepth) < Radius ? 1.0 : 0.0;
+		occlusionContribution += (sampleDepth <= sampleAtViewPositionZ - 0.000005f ? 1.3 : 0.0) * rangeCheck;
+	}
+
+	float occlusion = 1.0f - (occlusionContribution / 16.0f);
+
+	return float4(occlusion, occlusion, occlusion, 1.0f);
+}

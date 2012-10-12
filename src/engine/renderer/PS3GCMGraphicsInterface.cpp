@@ -81,6 +81,8 @@ void PS3GCMGraphicsInterface::openWindow(int width, int height, unsigned int mul
 
   cellGcmSetFlipMode(CELL_GCM_DISPLAY_VSYNC);
 
+  cellGcmSetDitherEnable(false);
+
   CellGcmConfig config;
   cellGcmGetConfiguration(&config);
   local_mem_heap = (uint32_t)config.localAddress;

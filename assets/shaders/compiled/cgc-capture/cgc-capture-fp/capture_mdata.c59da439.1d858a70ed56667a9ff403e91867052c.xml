@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<shader>
+	<cgc-vers version="version 2.0.r12074 (SDK 4.2.0), build date Apr 17 2012 11:29:57." />
+	<hash hash="c59da439" />
+	<cwd path="C_drive/Program Files (x86)/SCE/GPAD" />
+	<culled_cmdline cmdline="libcgc -debug -fenable-bx2 -fastmath -fastprecision -nofloatbindings -define GCM=1  -entry ps  -profile sce_fp_rsx &quot;src.cg&quot; -output &quot;ucode.fpo&quot;" />
+	<src path="src.cg" hash="25571db4fca01515429887d9beb4c93c" />
+	<binary path="ucode.fpo" hash="605c1fdff19a306e81817291abc42759" />
+</shader>

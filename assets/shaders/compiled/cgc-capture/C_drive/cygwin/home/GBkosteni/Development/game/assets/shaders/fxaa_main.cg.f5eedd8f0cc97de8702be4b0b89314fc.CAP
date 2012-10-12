@@ -1,0 +1,65 @@
+#ifdef GCM
+#define FXAA_PS3 1
+#define FXAA_QUALITY__PRESET 39
+#define FXAA_SUBPIX_SHIFT 0.5
+#define FXAA_EARLY_EXIT 1
+#define FXAA_CONSOLE__PS3_EDGE_SHARPNESS 4.0	// default is 8.0, only 8, 4, 2 allowed (see header).
+#define FXAA_CONSOLE__PS3_EDGE_THRESHOLD 0.125
+#endif
+
+#ifdef GL21
+#define FXAA_PC 1
+#define FXAA_GLSL_120 1
+#define FXAA_QUALITY__PRESET 39
+#endif
+
+#ifdef DX11
+#define FXAA_PC 1
+#define FXAA_HLSL_3 1
+#define FXAA_QUALITY__PRESET 39
+#endif
+
+#include "Fxaa3_11.h"
+
+sampler2D FinalMap;
+
+uniform float2 ScreenSizeInv;
+
+
+struct VOutput {
+	float4 position			: POSITION;
+	float2 texCoord			: TEXCOORD0;
+};
+
+VOutput vs(float4 position 		: POSITION,
+		   float2 texCoord 		: TEXCOORD0) {
+	VOutput OUT;
+	OUT.position = position;
+	OUT.texCoord = texCoord;
+ 	return OUT;
+}
+
+float4 ps(float4 position : POSITION,
+		  float2 texCoord : TEXCOORD0) : COLOR0 {
+
+	float4 origin = float4(0.0f, 0.0f, 0.0f, 0.0f);
+
+#ifdef GCM
+	float2 pixelCentreOffset = (ScreenSizeInv * FXAA_SUBPIX_SHIFT);
+	float4 posPos = float4(0.0f);
+	posPos.xy = texCoord.xy - pixelCentreOffset;
+    posPos.zw = texCoord.xy + pixelCentreOffset;
+
+	return FxaaPixelShader(texCoord, posPos, FinalMap, FinalMap, FinalMap, 
+					ScreenSizeInv, origin, origin, origin,
+					0.0f, 0.166f, 0.0833f, FXAA_CONSOLE__PS3_EDGE_SHARPNESS, FXAA_CONSOLE__PS3_EDGE_THRESHOLD, 
+					0.05f, origin );
+#else
+	
+	return FxaaPixelShader(
+		texCoord, origin, FinalMap, FinalMap, FinalMap, ScreenSizeInv, 
+		origin, origin, origin,
+		1.0f, 0.063f, 0.0312f, 2.0f, 
+		0.0f, 0.0f, origin);
+#endif
+}
