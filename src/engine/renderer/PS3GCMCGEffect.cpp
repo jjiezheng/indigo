@@ -256,6 +256,12 @@ void PS3GCMCGEffect::setSamplerState(unsigned int samplerSlot, SAMPLER_UV_ADDRES
     case COMPARISON_LESS:
       samplerState.comparisonFunc = CELL_GCM_TEXTURE_ZFUNC_LESS;
       break;
+    case COMPARISON_GREATERTHAN_OR_EQUAL:
+      samplerState.comparisonFunc = CELL_GCM_TEXTURE_ZFUNC_GEQUAL;
+      break;
+    case COMPARISON_LESS_SHADOW:
+      samplerState.comparisonFunc = CELL_GCM_TEXTURE_ZFUNC_GREATER;
+      break;
   }
 
   switch (addressMode) {

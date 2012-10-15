@@ -375,6 +375,14 @@ void D3DEffect::setSamplerState(unsigned int samplerSlot, SAMPLER_UV_ADDRESS_MOD
     case COMPARISON_LESS:
       samplerDesc.ComparisonFunc = D3D11_COMPARISON_LESS;
       break;
+
+    case COMPARISON_LESS_SHADOW:
+      samplerDesc.ComparisonFunc = D3D11_COMPARISON_LESS;
+      break;
+
+    case COMPARISON_GREATERTHAN_OR_EQUAL:
+      samplerDesc.ComparisonFunc = D3D11_COMPARISON_GREATER_EQUAL;
+      break;
   }
 
   ID3D11SamplerState* samplerState = 0;

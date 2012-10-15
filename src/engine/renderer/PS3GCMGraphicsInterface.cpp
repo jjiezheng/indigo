@@ -530,7 +530,7 @@ unsigned int PS3GCMGraphicsInterface::createDepthTexture(const CSize& dimensions
   CellGcmTexture depthTexture;
   memset(&depthTexture, 0, sizeof(CellGcmTexture));
 
-  depthTexture.format = CELL_GCM_TEXTURE_A8R8G8B8 | CELL_GCM_TEXTURE_LN | CELL_GCM_TEXTURE_NR;
+  depthTexture.format = CELL_GCM_TEXTURE_DEPTH24_D8 | CELL_GCM_TEXTURE_LN | CELL_GCM_TEXTURE_NR;
   depthTexture.mipmap = 1;
   depthTexture.dimension = CELL_GCM_TEXTURE_DIMENSION_2;
   depthTexture.cubemap = CELL_GCM_FALSE;

@@ -173,19 +173,19 @@ void main()
     _y0129 = -1.50000000E+000;
     for (; _y0129 <= 1.50000000E+000; _y0129 = _y0129 + 1.00000000E+000) { // for begin
         _shadowCoordOffset10129 = _shadowCoord1 + vec2(-1.50000000E+000*_ShadowMapSize.x, _y0129*_ShadowMapSize.y);
-        _c0131 = vec4(_shadowCoordOffset10129.x, _shadowCoordOffset10129.y, _pixelPositionFromLight.z - 7.00000019E-005, 1.00000000E+000);
+        _c0131 = vec4(_shadowCoordOffset10129.x, _shadowCoordOffset10129.y, _pixelPositionFromLight.z - 5.00000024E-004, 1.00000000E+000);
         _TMP9 = shadow2DProj(_ShadowMap, _c0131);
         _sum0129 = _sum0129 + _TMP9.x;
         _shadowCoordOffset10129 = _shadowCoord1 + vec2(-5.00000000E-001*_ShadowMapSize.x, _y0129*_ShadowMapSize.y);
-        _c0131 = vec4(_shadowCoordOffset10129.x, _shadowCoordOffset10129.y, _pixelPositionFromLight.z - 7.00000019E-005, 1.00000000E+000);
+        _c0131 = vec4(_shadowCoordOffset10129.x, _shadowCoordOffset10129.y, _pixelPositionFromLight.z - 5.00000024E-004, 1.00000000E+000);
         _TMP9 = shadow2DProj(_ShadowMap, _c0131);
         _sum0129 = _sum0129 + _TMP9.x;
         _shadowCoordOffset10129 = _shadowCoord1 + vec2(5.00000000E-001*_ShadowMapSize.x, _y0129*_ShadowMapSize.y);
-        _c0131 = vec4(_shadowCoordOffset10129.x, _shadowCoordOffset10129.y, _pixelPositionFromLight.z - 7.00000019E-005, 1.00000000E+000);
+        _c0131 = vec4(_shadowCoordOffset10129.x, _shadowCoordOffset10129.y, _pixelPositionFromLight.z - 5.00000024E-004, 1.00000000E+000);
         _TMP9 = shadow2DProj(_ShadowMap, _c0131);
         _sum0129 = _sum0129 + _TMP9.x;
         _shadowCoordOffset10129 = _shadowCoord1 + vec2(1.50000000E+000*_ShadowMapSize.x, _y0129*_ShadowMapSize.y);
-        _c0131 = vec4(_shadowCoordOffset10129.x, _shadowCoordOffset10129.y, _pixelPositionFromLight.z - 7.00000019E-005, 1.00000000E+000);
+        _c0131 = vec4(_shadowCoordOffset10129.x, _shadowCoordOffset10129.y, _pixelPositionFromLight.z - 5.00000024E-004, 1.00000000E+000);
         _TMP9 = shadow2DProj(_ShadowMap, _c0131);
         _sum0129 = _sum0129 + _TMP9.x;
     } // end for

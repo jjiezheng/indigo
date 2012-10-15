@@ -12,25 +12,23 @@ float3 unpackNormal(sampler2D normalSampler, float2 texCoord) {
 
 float shadowPCF(sampler2D shadowMap, float2 shadowCoord, float zToCompare, float2 shadowMapSize) {
 	float shadowFactor = 1.0f;
-#ifdef GCM
-	float lightDepth = unpackDepth(shadowMap, shadowCoord);
+	float shadowBias = 0.0005f;
 
-	if (lightDepth + 0.0005f < zToCompare) {
-		shadowFactor = 0.0f;
-	}
-#else
 	float sum = 0;
 	float x, y;
 
 	for (y = -1.5; y <= 1.5; y += 1.0) {
 		for (x = -1.5; x <= 1.5; x += 1.0) {
 			float2 shadowCoordOffset = shadowCoord + float2(x * shadowMapSize.x, y * shadowMapSize.y);
-			sum += tex2Dproj(shadowMap, float4(shadowCoordOffset, zToCompare - 0.00007f, 1)).r;
+#ifdef GCM
+			sum += texDepth2D(shadowMap, float3(shadowCoordOffset, zToCompare - shadowBias));
+#else	
+			sum += tex2Dproj(shadowMap, float4(shadowCoordOffset, zToCompare - shadowBias, 1)).r;
+#endif
 		}
 	}
 
 	shadowFactor = sum / 16.0f;
-#endif
 	return shadowFactor;
 }
 
