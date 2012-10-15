@@ -15,3 +15,4 @@
 *.log
 *.idb
 *.filters
+assets/shaders/compiled/cgc-capture

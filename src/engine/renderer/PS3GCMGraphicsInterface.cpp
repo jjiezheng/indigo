@@ -117,15 +117,15 @@ void PS3GCMGraphicsInterface::openWindow(int width, int height, unsigned int mul
     depthTexture.depth = 1;
     depthTexture.location = CELL_GCM_LOCATION_LOCAL;
 
-    depthTexture.remap =
+    depthTexture.remap = 
       CELL_GCM_TEXTURE_REMAP_REMAP << 14 |
       CELL_GCM_TEXTURE_REMAP_REMAP << 12 |
       CELL_GCM_TEXTURE_REMAP_REMAP << 10 |
-      CELL_GCM_TEXTURE_REMAP_REMAP << 8  |
-      CELL_GCM_TEXTURE_REMAP_FROM_B << 6 |
-      CELL_GCM_TEXTURE_REMAP_FROM_G << 4 |
-      CELL_GCM_TEXTURE_REMAP_FROM_R << 2 |
-      CELL_GCM_TEXTURE_REMAP_FROM_A;
+      CELL_GCM_TEXTURE_REMAP_REMAP << 8 |
+      CELL_GCM_TEXTURE_REMAP_FROM_G << 6 |
+      CELL_GCM_TEXTURE_REMAP_FROM_R << 4 |
+      CELL_GCM_TEXTURE_REMAP_FROM_A << 2 |
+      CELL_GCM_TEXTURE_REMAP_FROM_B;
 
     void* depthAddr = localAllocate(64, depthSize);
     CELL_GCMUTIL_CHECK_ASSERT(cellGcmAddressToOffset(depthAddr, &depthTexture.offset));
@@ -542,15 +542,15 @@ unsigned int PS3GCMGraphicsInterface::createDepthTexture(const CSize& dimensions
   depthTexture.depth = 1;
   depthTexture.location = CELL_GCM_LOCATION_LOCAL;
 
-  depthTexture.remap =
+  depthTexture.remap = 
     CELL_GCM_TEXTURE_REMAP_REMAP << 14 |
     CELL_GCM_TEXTURE_REMAP_REMAP << 12 |
     CELL_GCM_TEXTURE_REMAP_REMAP << 10 |
     CELL_GCM_TEXTURE_REMAP_REMAP << 8 |
-    CELL_GCM_TEXTURE_REMAP_FROM_B << 6 |
-    CELL_GCM_TEXTURE_REMAP_FROM_G << 4 |
-    CELL_GCM_TEXTURE_REMAP_FROM_R << 2 |
-    CELL_GCM_TEXTURE_REMAP_FROM_A;
+    CELL_GCM_TEXTURE_REMAP_FROM_G << 6 |
+    CELL_GCM_TEXTURE_REMAP_FROM_R << 4 |
+    CELL_GCM_TEXTURE_REMAP_FROM_A << 2 |
+    CELL_GCM_TEXTURE_REMAP_FROM_B;
 
   void* depthAddr = localAllocate(64, depthSize);
   CELL_GCMUTIL_CHECK_ASSERT(cellGcmAddressToOffset(depthAddr, &depthTexture.offset));
