@@ -24,11 +24,9 @@ public:
   
 public:
 
-  static void init();
+  static void init(int width, int height, unsigned int multiSamples);
 
   static void destroy();
-
-  static bool openWindow(int width, int height, unsigned int multiSamples);
 
   static int closeWindow();
 

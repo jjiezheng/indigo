@@ -4,17 +4,13 @@
 
 IGraphicsInterface* GraphicsInterface::graphicsInterface_ = 0;
 
-void GraphicsInterface::init() {
+void GraphicsInterface::init(int width, int height, unsigned int multiSamples) {
   graphicsInterface_ = IGraphicsInterface::createInterface();
+  graphicsInterface_->openWindow(width, height, multiSamples);
 }
 
 void GraphicsInterface::destroy() {
   graphicsInterface_->destroy();
-}
-
-bool GraphicsInterface::openWindow(int width, int height, unsigned int multiSamples) {
-  graphicsInterface_->openWindow(width, height, multiSamples);
-  return true;
 }
 
 int GraphicsInterface::closeWindow() {
