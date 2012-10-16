@@ -2,9 +2,12 @@
 #define DEFERRED_SPOT_LIGHTS_PASS_H
 
 #include "IDeferredLightingPass.h"
+#include "core/HashMap.h"
 
 class IEffect;
 class Model;
+class SpotLight;
+class Mesh;
 
 class DeferredSpotLightsPass : public IDeferredLightingPass {
 
@@ -14,8 +17,8 @@ public:
     : spotLightRenderTarget_(0)
     , spotLightRenderTexture_(0)
     , quadVbo_(0)
-    , lightEffect_(0)
-    , shadowMapEffect_(0)
+    , lightEffectNoShadow_(0)
+    , shadowDepthEffect_(0)
     , accumulationEffect_(0) { }
 
 public:
@@ -30,13 +33,24 @@ public:
 
 private:
 
+  void renderLight(SpotLight* light, IEffect* lightEffect, IViewer* viewer, unsigned int normalMap);
+
+  void accumulateLight(SpotLight* light, unsigned int colorMap, unsigned int lightMapRenderTarget);
+
+  void renderShadowMap(SpotLight* light, hash_map<IEffect*, std::vector<Mesh*> >& meshes);
+
+private:
+
   unsigned int spotLightRenderTarget_;
   unsigned int spotLightRenderTexture_;
 
   unsigned int quadVbo_;
 
-  IEffect* lightEffect_;
-  IEffect* shadowMapEffect_;
+  IEffect* lightEffectNoShadow_;
+  IEffect* lightEffectShadow_;
+
+
+  IEffect* shadowDepthEffect_;
   IEffect* accumulationEffect_;
 
 };

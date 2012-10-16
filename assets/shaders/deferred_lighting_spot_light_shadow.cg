@@ -3,11 +3,14 @@
 
 sampler2D DepthMap 	: TEXUNIT0;
 sampler2D NormalMap : TEXUNIT1;
+sampler2D ShadowMap : TEXUNIT2;
 
 uniform float LightInnerAngle;
 uniform float LightOuterAngle;
 uniform float LightDecay;
 uniform float LightDistance;
+
+uniform float2 ShadowMapSize;
 
 uniform float3 LightDirection;
 uniform float3 LightPosition;
@@ -115,6 +118,20 @@ float4 ps(float4 position 		: POSITION,
 
 		lightContribution.w = incidence * specularIntensity * LightDistance;
 	}
+
+	//------------------------------------------------------------
+	// shadow
+	//------------------------------------------------------------
+
+	float4 pixelPositionFromLightRaw = mul(LightViewProj, float4(positionWorld, 1));
+	float3 pixelPositionFromLight = pixelPositionFromLightRaw.xyz / pixelPositionFromLightRaw.w;
+
+	float2 shadowCoord =  0.5f + pixelPositionFromLight.xy * 0.5f;
+	shadowCoord.y = 1.0f - shadowCoord.y;
+
+	float shadowFactor = shadowPCF(ShadowMap, shadowCoord, pixelPositionFromLight.z, ShadowMapSize);
+
+	lightContribution *= shadowFactor;
 
 	return lightContribution;
 } 

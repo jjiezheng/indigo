@@ -8,12 +8,10 @@
 //program ps
 //semantic DepthMap : TEXUNIT0
 //semantic NormalMap : TEXUNIT1
-//semantic ShadowMap : TEXUNIT2
 //semantic LightInnerAngle
 //semantic LightOuterAngle
 //semantic LightDecay
 //semantic LightDistance
-//semantic ShadowMapSize
 //semantic LightDirection
 //semantic LightPosition
 //semantic LightColor
@@ -26,18 +24,15 @@
 //semantic NormalMatrix
 //var sampler2D DepthMap : TEXUNIT0 : _DepthMap 0 : -1 : 1
 //var sampler2D NormalMap : TEXUNIT1 : _NormalMap 1 : -1 : 1
-//var sampler2D ShadowMap : TEXUNIT2 : _ShadowMap 2 : -1 : 1
 //var float LightInnerAngle :  : _LightInnerAngle : -1 : 1
 //var float LightOuterAngle :  : _LightOuterAngle : -1 : 1
 //var float LightDistance :  : _LightDistance : -1 : 1
-//var float2 ShadowMapSize :  : _ShadowMapSize : -1 : 1
 //var float3 LightDirection :  : _LightDirection : -1 : 1
 //var float3 LightPosition :  : _LightPosition : -1 : 1
 //var float3 LightColor :  : _LightColor : -1 : 1
 //var float3 DirectionToLight :  : _DirectionToLight : -1 : 1
 //var float3 ViewerPosition :  : _ViewerPosition : -1 : 1
 //var float4x4 ViewProjInv :  : _ViewProjInv[0], 4 : -1 : 1
-//var float4x4 LightViewProj :  : _LightViewProj[0], 4 : -1 : 1
 //var float3 screenPosition : $vin.TEXCOORD0 :  : 1 : 1
 //var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
 
@@ -53,7 +48,6 @@ struct X1X {
     float3 _TEXCOORD0 : TEXCOORD0;
 };
 
-static float4 _TMP9;
 static float _TMP4;
 static float _TMP3;
 static float _TMP8;
@@ -63,35 +57,24 @@ static float _TMP1;
 static float _TMP0;
 static float4 _TMP6;
 static float2 _TMP5;
-static float4 _unPackedNormal0020;
-static float4 _normalData0020;
-static float4 _r0024;
-static float3 _v0026;
-static float _y0028;
-static float4 _r0032;
-static float4 _v0032;
-static float2 _shadowCoordOffset10034;
-static float _depthToCompare0034;
-static float _sum0034;
-static float _shadowFactor0034;
-static float4 _t0036;
-Texture2D<float4> _TMP37 : register(t0);
-Texture2D<float4> _TMP38 : register(t1);
-Texture2D<float4> _TMP39 : register(t2);
+static float4 _unPackedNormal0017;
+static float4 _normalData0017;
+static float4 _r0021;
+static float3 _v0023;
+static float _y0025;
+Texture2D<float4> _TMP28 : register(t0);
+Texture2D<float4> _TMP29 : register(t1);
 SamplerState _DepthMap : TEXUNIT0;
 SamplerState _NormalMap : TEXUNIT1;
-SamplerComparisonState _ShadowMap : TEXUNIT2;
 uniform float _LightInnerAngle;
 uniform float _LightOuterAngle;
 uniform float _LightDistance;
-uniform float2 _ShadowMapSize;
 uniform float3 _LightDirection;
 uniform float3 _LightPosition;
 uniform float3 _LightColor;
 uniform float3 _DirectionToLight;
 uniform float3 _ViewerPosition;
 uniform float4x4 _ViewProjInv;
-uniform float4x4 _LightViewProj;
 
  // main procedure, the original name was ps
 float4 main( in X1X cin) : SV_Target0
@@ -112,30 +95,28 @@ float4 main( in X1X cin) : SV_Target0
     float3 _viewerDirectionUnNormalized1;
     float3 _viewDirection1;
     float3 _floatVectorRaw1;
-    float3 _pixelPositionFromLight;
-    float2 _shadowCoord1;
 
     _screenPosition = cin._TEXCOORD0;
     _screenPositionClip = _screenPosition.xy/_screenPosition.z;
     _TMP5 = float2(_screenPositionClip.x, -_screenPositionClip.y);
     _texCoord2 =  5.00000000000000000E-001f*(_TMP5 + float2(  1.00000000000000000E000f,  1.00000000000000000E000f));
-    _TMP6 = _TMP37.Sample(_DepthMap, _texCoord2);
-    _normalData0020 = _TMP38.Sample(_NormalMap, _texCoord2);
-    _unPackedNormal0020 = _normalData0020* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _TMP7 = dot(_unPackedNormal0020.xyz, _unPackedNormal0020.xyz);
+    _TMP6 = _TMP28.Sample(_DepthMap, _texCoord2);
+    _normalData0017 = _TMP29.Sample(_NormalMap, _texCoord2);
+    _unPackedNormal0017 = _normalData0017* 2.00000000000000000E000f -  1.00000000000000000E000f;
+    _TMP7 = dot(_unPackedNormal0017.xyz, _unPackedNormal0017.xyz);
     _TMP8 = rsqrt(_TMP7);
-    _normal = _TMP8*_unPackedNormal0020.xyz;
+    _normal = _TMP8*_unPackedNormal0017.xyz;
     _positionScreen = float4(_screenPositionClip.x, _screenPositionClip.y, _TMP6.x,  1.00000000000000000E000f);
-    _r0024.x = dot(_ViewProjInv._11_12_13_14, _positionScreen);
-    _r0024.y = dot(_ViewProjInv._21_22_23_24, _positionScreen);
-    _r0024.z = dot(_ViewProjInv._31_32_33_34, _positionScreen);
-    _r0024.w = dot(_ViewProjInv._41_42_43_44, _positionScreen);
-    _positionWorld = _r0024.xyz/_r0024.w;
+    _r0021.x = dot(_ViewProjInv._11_12_13_14, _positionScreen);
+    _r0021.y = dot(_ViewProjInv._21_22_23_24, _positionScreen);
+    _r0021.z = dot(_ViewProjInv._31_32_33_34, _positionScreen);
+    _r0021.w = dot(_ViewProjInv._41_42_43_44, _positionScreen);
+    _positionWorld = _r0021.xyz/_r0021.w;
     _lightContribution = float4(  0.00000000000000000E000f,  0.00000000000000000E000f,  0.00000000000000000E000f,  0.00000000000000000E000f);
-    _v0026 = _positionWorld - _LightPosition;
-    _TMP7 = dot(_v0026, _v0026);
+    _v0023 = _positionWorld - _LightPosition;
+    _TMP7 = dot(_v0023, _v0023);
     _TMP8 = rsqrt(_TMP7);
-    _pixelToLight = _TMP8*_v0026;
+    _pixelToLight = _TMP8*_v0023;
     _lightDirectionDot = dot(_LightDirection, _pixelToLight);
     _diffuseStrength =  0.00000000000000000E000f;
     _lightOuterCos = cos(_LightOuterAngle);
@@ -143,8 +124,8 @@ float4 main( in X1X cin) : SV_Target0
     if (_lightDirectionDot > _lightOuterCos) { // if begin
         _TMP0 = dot(_normal, _DirectionToLight);
         _diffuseStrength = saturate(_TMP0);
-        _y0028 = saturate((_lightDirectionDot - _lightOuterCos)/(_lightInnerCos - _lightOuterCos));
-        _TMP1 = _y0028*_y0028*( 3.00000000000000000E000f -  2.00000000000000000E000f*_y0028);
+        _y0025 = saturate((_lightDirectionDot - _lightOuterCos)/(_lightInnerCos - _lightOuterCos));
+        _TMP1 = _y0025*_y0025*( 3.00000000000000000E000f -  2.00000000000000000E000f*_y0025);
         _diffuseStrength = _diffuseStrength*_TMP1;
     } // end if
     if (_lightDirectionDot > _lightInnerCos) { // if begin
@@ -162,80 +143,5 @@ float4 main( in X1X cin) : SV_Target0
         _TMP4 = saturate(_TMP3);
         _lightContribution.w = _TMP4*_LightDistance;
     } // end if
-    _v0032 = float4(_positionWorld.x, _positionWorld.y, _positionWorld.z,  1.00000000000000000E000f);
-    _r0032.x = dot(_LightViewProj._11_12_13_14, _v0032);
-    _r0032.y = dot(_LightViewProj._21_22_23_24, _v0032);
-    _r0032.z = dot(_LightViewProj._31_32_33_34, _v0032);
-    _r0032.w = dot(_LightViewProj._41_42_43_44, _v0032);
-    _pixelPositionFromLight = _r0032.xyz/_r0032.w;
-    _shadowCoord1 =  5.00000000000000000E-001f + _pixelPositionFromLight.xy* 5.00000000000000000E-001f;
-    _shadowCoord1.y =  1.00000000000000000E000f - _shadowCoord1.y;
-    _depthToCompare0034 = _pixelPositionFromLight.z -  5.00000023748725650E-004f;
-    _shadowCoordOffset10034 = _shadowCoord1 + float2(-1.50000000000000000E000f*_ShadowMapSize.x, -1.50000000000000000E000f*_ShadowMapSize.y);
-    _t0036 = float4(_shadowCoordOffset10034.x, _shadowCoordOffset10034.y, _depthToCompare0034,  1.00000000000000000E000f);
-    _TMP9 = _TMP39.SampleCmp(_ShadowMap, (_t0036.xyz/_t0036.w).xy, (_t0036.xyz/_t0036.w).z);
-    _sum0034 = _TMP9.x;
-    _shadowCoordOffset10034 = _shadowCoord1 + float2(-5.00000000000000000E-001f*_ShadowMapSize.x, -1.50000000000000000E000f*_ShadowMapSize.y);
-    _t0036 = float4(_shadowCoordOffset10034.x, _shadowCoordOffset10034.y, _depthToCompare0034,  1.00000000000000000E000f);
-    _TMP9 = _TMP39.SampleCmp(_ShadowMap, (_t0036.xyz/_t0036.w).xy, (_t0036.xyz/_t0036.w).z);
-    _sum0034 = _sum0034 + _TMP9.x;
-    _shadowCoordOffset10034 = _shadowCoord1 + float2( 5.00000000000000000E-001f*_ShadowMapSize.x, -1.50000000000000000E000f*_ShadowMapSize.y);
-    _t0036 = float4(_shadowCoordOffset10034.x, _shadowCoordOffset10034.y, _depthToCompare0034,  1.00000000000000000E000f);
-    _TMP9 = _TMP39.SampleCmp(_ShadowMap, (_t0036.xyz/_t0036.w).xy, (_t0036.xyz/_t0036.w).z);
-    _sum0034 = _sum0034 + _TMP9.x;
-    _shadowCoordOffset10034 = _shadowCoord1 + float2( 1.50000000000000000E000f*_ShadowMapSize.x, -1.50000000000000000E000f*_ShadowMapSize.y);
-    _t0036 = float4(_shadowCoordOffset10034.x, _shadowCoordOffset10034.y, _depthToCompare0034,  1.00000000000000000E000f);
-    _TMP9 = _TMP39.SampleCmp(_ShadowMap, (_t0036.xyz/_t0036.w).xy, (_t0036.xyz/_t0036.w).z);
-    _sum0034 = _sum0034 + _TMP9.x;
-    _shadowCoordOffset10034 = _shadowCoord1 + float2(-1.50000000000000000E000f*_ShadowMapSize.x, -5.00000000000000000E-001f*_ShadowMapSize.y);
-    _t0036 = float4(_shadowCoordOffset10034.x, _shadowCoordOffset10034.y, _depthToCompare0034,  1.00000000000000000E000f);
-    _TMP9 = _TMP39.SampleCmp(_ShadowMap, (_t0036.xyz/_t0036.w).xy, (_t0036.xyz/_t0036.w).z);
-    _sum0034 = _sum0034 + _TMP9.x;
-    _shadowCoordOffset10034 = _shadowCoord1 + float2(-5.00000000000000000E-001f*_ShadowMapSize.x, -5.00000000000000000E-001f*_ShadowMapSize.y);
-    _t0036 = float4(_shadowCoordOffset10034.x, _shadowCoordOffset10034.y, _depthToCompare0034,  1.00000000000000000E000f);
-    _TMP9 = _TMP39.SampleCmp(_ShadowMap, (_t0036.xyz/_t0036.w).xy, (_t0036.xyz/_t0036.w).z);
-    _sum0034 = _sum0034 + _TMP9.x;
-    _shadowCoordOffset10034 = _shadowCoord1 + float2( 5.00000000000000000E-001f*_ShadowMapSize.x, -5.00000000000000000E-001f*_ShadowMapSize.y);
-    _t0036 = float4(_shadowCoordOffset10034.x, _shadowCoordOffset10034.y, _depthToCompare0034,  1.00000000000000000E000f);
-    _TMP9 = _TMP39.SampleCmp(_ShadowMap, (_t0036.xyz/_t0036.w).xy, (_t0036.xyz/_t0036.w).z);
-    _sum0034 = _sum0034 + _TMP9.x;
-    _shadowCoordOffset10034 = _shadowCoord1 + float2( 1.50000000000000000E000f*_ShadowMapSize.x, -5.00000000000000000E-001f*_ShadowMapSize.y);
-    _t0036 = float4(_shadowCoordOffset10034.x, _shadowCoordOffset10034.y, _depthToCompare0034,  1.00000000000000000E000f);
-    _TMP9 = _TMP39.SampleCmp(_ShadowMap, (_t0036.xyz/_t0036.w).xy, (_t0036.xyz/_t0036.w).z);
-    _sum0034 = _sum0034 + _TMP9.x;
-    _shadowCoordOffset10034 = _shadowCoord1 + float2(-1.50000000000000000E000f*_ShadowMapSize.x,  5.00000000000000000E-001f*_ShadowMapSize.y);
-    _t0036 = float4(_shadowCoordOffset10034.x, _shadowCoordOffset10034.y, _depthToCompare0034,  1.00000000000000000E000f);
-    _TMP9 = _TMP39.SampleCmp(_ShadowMap, (_t0036.xyz/_t0036.w).xy, (_t0036.xyz/_t0036.w).z);
-    _sum0034 = _sum0034 + _TMP9.x;
-    _shadowCoordOffset10034 = _shadowCoord1 + float2(-5.00000000000000000E-001f*_ShadowMapSize.x,  5.00000000000000000E-001f*_ShadowMapSize.y);
-    _t0036 = float4(_shadowCoordOffset10034.x, _shadowCoordOffset10034.y, _depthToCompare0034,  1.00000000000000000E000f);
-    _TMP9 = _TMP39.SampleCmp(_ShadowMap, (_t0036.xyz/_t0036.w).xy, (_t0036.xyz/_t0036.w).z);
-    _sum0034 = _sum0034 + _TMP9.x;
-    _shadowCoordOffset10034 = _shadowCoord1 + float2( 5.00000000000000000E-001f*_ShadowMapSize.x,  5.00000000000000000E-001f*_ShadowMapSize.y);
-    _t0036 = float4(_shadowCoordOffset10034.x, _shadowCoordOffset10034.y, _depthToCompare0034,  1.00000000000000000E000f);
-    _TMP9 = _TMP39.SampleCmp(_ShadowMap, (_t0036.xyz/_t0036.w).xy, (_t0036.xyz/_t0036.w).z);
-    _sum0034 = _sum0034 + _TMP9.x;
-    _shadowCoordOffset10034 = _shadowCoord1 + float2( 1.50000000000000000E000f*_ShadowMapSize.x,  5.00000000000000000E-001f*_ShadowMapSize.y);
-    _t0036 = float4(_shadowCoordOffset10034.x, _shadowCoordOffset10034.y, _depthToCompare0034,  1.00000000000000000E000f);
-    _TMP9 = _TMP39.SampleCmp(_ShadowMap, (_t0036.xyz/_t0036.w).xy, (_t0036.xyz/_t0036.w).z);
-    _sum0034 = _sum0034 + _TMP9.x;
-    _shadowCoordOffset10034 = _shadowCoord1 + float2(-1.50000000000000000E000f*_ShadowMapSize.x,  1.50000000000000000E000f*_ShadowMapSize.y);
-    _t0036 = float4(_shadowCoordOffset10034.x, _shadowCoordOffset10034.y, _depthToCompare0034,  1.00000000000000000E000f);
-    _TMP9 = _TMP39.SampleCmp(_ShadowMap, (_t0036.xyz/_t0036.w).xy, (_t0036.xyz/_t0036.w).z);
-    _sum0034 = _sum0034 + _TMP9.x;
-    _shadowCoordOffset10034 = _shadowCoord1 + float2(-5.00000000000000000E-001f*_ShadowMapSize.x,  1.50000000000000000E000f*_ShadowMapSize.y);
-    _t0036 = float4(_shadowCoordOffset10034.x, _shadowCoordOffset10034.y, _depthToCompare0034,  1.00000000000000000E000f);
-    _TMP9 = _TMP39.SampleCmp(_ShadowMap, (_t0036.xyz/_t0036.w).xy, (_t0036.xyz/_t0036.w).z);
-    _sum0034 = _sum0034 + _TMP9.x;
-    _shadowCoordOffset10034 = _shadowCoord1 + float2( 5.00000000000000000E-001f*_ShadowMapSize.x,  1.50000000000000000E000f*_ShadowMapSize.y);
-    _t0036 = float4(_shadowCoordOffset10034.x, _shadowCoordOffset10034.y, _depthToCompare0034,  1.00000000000000000E000f);
-    _TMP9 = _TMP39.SampleCmp(_ShadowMap, (_t0036.xyz/_t0036.w).xy, (_t0036.xyz/_t0036.w).z);
-    _sum0034 = _sum0034 + _TMP9.x;
-    _shadowCoordOffset10034 = _shadowCoord1 + float2( 1.50000000000000000E000f*_ShadowMapSize.x,  1.50000000000000000E000f*_ShadowMapSize.y);
-    _t0036 = float4(_shadowCoordOffset10034.x, _shadowCoordOffset10034.y, _depthToCompare0034,  1.00000000000000000E000f);
-    _TMP9 = _TMP39.SampleCmp(_ShadowMap, (_t0036.xyz/_t0036.w).xy, (_t0036.xyz/_t0036.w).z);
-    _sum0034 = _sum0034 + _TMP9.x;
-    _shadowFactor0034 = _sum0034/ 1.60000000000000000E001f;
-    _lightContribution = _lightContribution*_shadowFactor0034;
     return _lightContribution;
 } // main end

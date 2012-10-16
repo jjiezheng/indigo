@@ -1,17 +1,19 @@
 // glslv output by Cg compiler
 // cgc version 3.1.0013, build date Apr 18 2012
 // command line args: -DGL21=1 -q -profile glslv
-// source file: deferred_lighting_spot_light.cg
+// source file: deferred_lighting_spot_light_shadow.cg
 //vendor NVIDIA Corporation
 //version 3.1.0.13
 //profile glslv
 //program vs
 //semantic DepthMap : TEXUNIT0
 //semantic NormalMap : TEXUNIT1
+//semantic ShadowMap : TEXUNIT2
 //semantic LightInnerAngle
 //semantic LightOuterAngle
 //semantic LightDecay
 //semantic LightDistance
+//semantic ShadowMapSize
 //semantic LightDirection
 //semantic LightPosition
 //semantic LightColor
