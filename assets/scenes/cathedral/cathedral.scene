@@ -67,7 +67,7 @@
           "intensity" : 1.0,
           "castsshadows" : true,
           "position" : {
-            "x" : -10,
+            "x" : -20,
             "y" : 40,
             "z" : 40
           },

@@ -1,7 +1,6 @@
 #include "DeferredInitRenderStage.h"
 
 #include "IDeferredRenderTargetContainer.h"
-#include "DeferredClearBuffersPass.h"
 #include "DeferredGeometryPass.h"
 
 #include "GraphicsInterface.h"
@@ -11,17 +10,14 @@
 #include <stdio.h>
 
 void DeferredInitRenderStage::init(const CSize& screenSize) {
-  colorMapTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R8G8B8A8, 1, 1);
+  colorMapTexture_ = GraphicsInterface::createTexture(GraphicsInterface::backBufferSize(), IGraphicsInterface::R8G8B8A8, 1, 1);
   colorRenderTarget_ = GraphicsInterface::createRenderTarget(colorMapTexture_);
 
-  normalMapTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R8G8B8A8);
+  normalMapTexture_ = GraphicsInterface::createTexture(GraphicsInterface::backBufferSize(), IGraphicsInterface::R8G8B8A8);
   normalRenderTarget_ = GraphicsInterface::createRenderTarget(normalMapTexture_);
 
-  depthMapTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R8G8B8A8);
+  depthMapTexture_ = GraphicsInterface::createTexture(GraphicsInterface::backBufferSize(), IGraphicsInterface::R8G8B8A8);
   depthRenderTarget_ = GraphicsInterface::createRenderTarget(depthMapTexture_);
-
-  IDeferredPass* clearBuffersPass = new DeferredClearBuffersPass(colorRenderTarget_, normalRenderTarget_);
-  passes_.push_back(clearBuffersPass);
 
   IDeferredPass* geometryPass = new DeferredGeometryPass(colorRenderTarget_, normalRenderTarget_, depthRenderTarget_);
   passes_.push_back(geometryPass);

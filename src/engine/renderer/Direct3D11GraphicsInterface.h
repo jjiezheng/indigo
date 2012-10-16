@@ -70,7 +70,7 @@ public:
 
 public:
 
-  void setRenderTarget(unsigned int* renderTargetId, unsigned int renderTargetCount, bool useDepthBuffer, unsigned int depthTextureId);
+  void setRenderTarget(unsigned int* renderTargetId, unsigned int renderTargetCount, bool useDepthBuffer, const CSize& dimensions, unsigned int depthTextureId);
 
   void resetRenderTarget(bool useDepthBuffer);
 

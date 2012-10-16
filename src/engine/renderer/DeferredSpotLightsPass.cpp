@@ -70,7 +70,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
 
         GraphicsInterface::setViewport((*light)->shadowMapResolution());
 
-        GraphicsInterface::setRenderTarget((*light)->shadowMapRenderTarget(), true, (*light)->shadowMapDepthTexture());
+        GraphicsInterface::setRenderTarget((*light)->shadowMapRenderTarget(), true, (*light)->shadowMapResolution(), (*light)->shadowMapDepthTexture());
 
         GraphicsInterface::clearActiveColorBuffers(Color4::WHITE);
         GraphicsInterface::clearActiveDepthBuffer();

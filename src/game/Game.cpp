@@ -16,18 +16,6 @@ void Game::init(const char* sceneFile) {
   Mouse::init();
   Keyboard::init();
 
-  Plane p;
-  p.a = 10;
-  p.b = 0;
-  p.c = 0;
-  p.d = 0;
-
-  float result = p.normal().dot(Vector3(10, 0, 0)) + p.d;
-
-//   Camera camera;
-//   camera.setProjection(45, GraphicsInterface::aspectRatio(), 1.0f, 2.0f);
-//   bool result = camera.insideFrustum(Vector3(0, 0, 0), 0.1f);
-
   renderer_.init(GraphicsInterface::backBufferSize());
 
   clock_.init();

@@ -21,12 +21,10 @@ void DeferredPresentStage::render(unsigned int presentTextureId, unsigned int de
   GraphicsInterface::beginPerformanceEvent("Present");
 
   GraphicsInterface::resetRenderTarget(false);
-  GraphicsInterface::setViewport(GraphicsInterface::backBufferSize());
+  GraphicsInterface::setViewport(GraphicsInterface::screenSize());
   GraphicsInterface::clearActiveColorBuffers(Color4::NOTHING);
 
   effect_->setTexture(presentTextureId, "ColorMap");
-  effect_->setTexture(depthTextureId, "DepthMap");
-  effect_->setUniform(Color3::CORNFLOWERBLUE, "BackgroundColor");
   GraphicsInterface::setRenderState(true);
 
   effect_->beginDraw();

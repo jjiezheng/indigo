@@ -38,9 +38,11 @@ public:
 
   static float aspectRatio();
   
-  static int screenWidth();
+  static int backBufferWidth();
   
-  static int screenHeight();
+  static int backBufferHeight();
+
+  static CSize screenSize();
   
   static CSize backBufferSize();
 
@@ -70,11 +72,15 @@ public:
 
   static void setRenderTarget(unsigned int renderTargetId, bool useDepthBuffer);
 
-  static void setRenderTarget(unsigned int renderTargetId, bool useDepthBuffer, unsigned int depthTextureId);
+  static void setRenderTarget(unsigned int renderTargetId, bool useDepthBuffer, const CSize& dimensions);
+
+  static void setRenderTarget(unsigned int renderTargetId, bool useDepthBuffer, const CSize& dimensions, unsigned int depthTextureId);
 
   static void setRenderTarget(unsigned int* renderTargetId, unsigned int renderTargetCount, bool useDepthBuffer);
 
-  static void setRenderTarget(unsigned int* renderTargetId, unsigned int renderTargetCount, bool useDepthBuffer, unsigned int depthTextureId);
+  static void setRenderTarget(unsigned int* renderTargetId, unsigned int renderTargetCount, bool useDepthBuffer, const CSize& dimensions);
+
+  static void setRenderTarget(unsigned int* renderTargetId, unsigned int renderTargetCount, bool useDepthBuffer, const CSize& dimensions, unsigned int depthTextureId);
 
   static void resetRenderTarget(bool useDepthBuffer);
 

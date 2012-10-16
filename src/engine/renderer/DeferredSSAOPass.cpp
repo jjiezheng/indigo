@@ -107,7 +107,7 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
     ssaoEffect_->setUniform(kernel, kKernelSize * sizeof(float) * 4, "Kernel");
     ssaoEffect_->setUniform(kKernelSize, "KernelSize");
 
-    Vector2 noiseScale = Vector2(GraphicsInterface::screenWidth() / float(kNoisePixelWidth), GraphicsInterface::screenHeight() / float(kNoisePixelWidth));
+    Vector2 noiseScale = Vector2(GraphicsInterface::backBufferWidth() / float(kNoisePixelWidth), GraphicsInterface::backBufferHeight() / float(kNoisePixelWidth));
     ssaoEffect_->setUniform(noiseScale, "NoiseScale");
 
     ssaoEffect_->beginDraw();

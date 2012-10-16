@@ -46,7 +46,11 @@ public:
 
   int exitCode() const;
 
+public:
+
   CSize backBufferSize() const;
+
+  CSize screenSize() const;
 
 public:
 
@@ -88,7 +92,7 @@ public:
 
 public:
 
-  virtual void setRenderTarget(unsigned int* textureId, unsigned int renderTargetCount, bool useDepthBuffer, unsigned int depthTextureId) = 0;
+  virtual void setRenderTarget(unsigned int* textureId, unsigned int renderTargetCount, bool useDepthBuffer, const CSize& dimensions, unsigned int depthTextureId) = 0;
 
   virtual void resetRenderTarget(bool useDepthBuffer) = 0;
 
@@ -112,11 +116,17 @@ protected:
 
   bool windowClosed_;
   int exitCode_;
+
+  CSize backbufferSize_;
   CSize screenSize_;
 
 };
 
 inline CSize IGraphicsInterface::backBufferSize() const {
+  return backbufferSize_;
+}
+
+inline CSize IGraphicsInterface::screenSize() const {
   return screenSize_;
 }
 

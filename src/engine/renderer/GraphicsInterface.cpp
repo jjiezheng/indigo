@@ -26,14 +26,14 @@ void GraphicsInterface::swapBuffers() {
 }
 
 float GraphicsInterface::aspectRatio() {
-  return (float)screenWidth()/(float)screenHeight();
+  return (float)backBufferWidth()/(float)backBufferHeight();
 }
 
-int GraphicsInterface::screenWidth() {
+int GraphicsInterface::backBufferWidth() {
   return backBufferSize().width;
 }
 
-int GraphicsInterface::screenHeight() {
+int GraphicsInterface::backBufferHeight() {
   return backBufferSize().height;
 }
 
@@ -91,19 +91,27 @@ unsigned int GraphicsInterface::createTexture(const CSize& dimensions, IGraphics
 }
 
 void GraphicsInterface::setRenderTarget(unsigned int renderTargetId, bool useDepthBuffer) { 
-  return graphicsInterface_->setRenderTarget(&renderTargetId, 1, useDepthBuffer, GraphicsInterface::depthBufferTexture());
+  return setRenderTarget(&renderTargetId, 1, useDepthBuffer, GraphicsInterface::backBufferSize(), GraphicsInterface::depthBufferTexture());
 }
 
-void GraphicsInterface::setRenderTarget(unsigned int renderTargetId, bool useDepthBuffer, unsigned int depthTextureId) {
-  return graphicsInterface_->setRenderTarget(&renderTargetId, 1, useDepthBuffer, depthTextureId);
+void GraphicsInterface::setRenderTarget(unsigned int renderTargetId, bool useDepthBuffer, const CSize& dimensions) {
+  return setRenderTarget(renderTargetId, useDepthBuffer, dimensions, GraphicsInterface::depthBufferTexture());
+}
+
+void GraphicsInterface::setRenderTarget(unsigned int renderTargetId, bool useDepthBuffer, const CSize& dimensions, unsigned int depthTextureId) {
+  return setRenderTarget(&renderTargetId, 1, useDepthBuffer, dimensions, depthTextureId);
 }
 
 void GraphicsInterface::setRenderTarget(unsigned int* renderTargetId, unsigned int renderTargetCount, bool useDepthBuffer) {
-  return graphicsInterface_->setRenderTarget(renderTargetId, renderTargetCount, useDepthBuffer, GraphicsInterface::depthBufferTexture());
+  return setRenderTarget(renderTargetId, renderTargetCount, useDepthBuffer, GraphicsInterface::backBufferSize());
 }
 
-void GraphicsInterface::setRenderTarget(unsigned int* renderTargetId, unsigned int renderTargetCount, bool useDepthBuffer, unsigned int depthTextureId) {
-  return graphicsInterface_->setRenderTarget(renderTargetId, renderTargetCount, useDepthBuffer, depthTextureId);
+void GraphicsInterface::setRenderTarget(unsigned int* renderTargetId, unsigned int renderTargetCount, bool useDepthBuffer, const CSize& dimensions) {
+  return setRenderTarget(renderTargetId, renderTargetCount, useDepthBuffer, dimensions, GraphicsInterface::depthBufferTexture());
+}
+
+void GraphicsInterface::setRenderTarget(unsigned int* renderTargetId, unsigned int renderTargetCount, bool useDepthBuffer, const CSize& dimensions, unsigned int depthTextureId) {
+  return graphicsInterface_->setRenderTarget(renderTargetId, renderTargetCount, useDepthBuffer, dimensions, depthTextureId);
 }
 
 unsigned int GraphicsInterface::createRenderTarget(unsigned int textureId) {
@@ -156,4 +164,8 @@ void GraphicsInterface::setViewport(const CSize& dimensions) {
 
 void GraphicsInterface::setBlendState(IGraphicsInterface::BlendState blendState) {
   graphicsInterface_->setBlendState(blendState);
+}
+
+CSize GraphicsInterface::screenSize() {
+  return graphicsInterface_->screenSize();
 }

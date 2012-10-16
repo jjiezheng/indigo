@@ -4,6 +4,7 @@
 #include "renderer/IGraphicsInterface.h"
 
 #include "maths/Vector2.h"
+#include "core/Size.h"
 
 #include <cell/gcm.h>
 #include <vector>
@@ -11,6 +12,15 @@
 class PS3GCMCGEffect;
 
 class GraphicsInterface;
+
+struct CellGcmRenderTarget {
+  CellGcmRenderTarget()
+    : renderTargetOffset(0)
+    , pitch(0) { }
+
+  unsigned int pitch;
+  unsigned int renderTargetOffset;
+};
 
 class PS3GCMGraphicsInterface : public IGraphicsInterface {
 
@@ -50,7 +60,7 @@ public:
 
   void setRenderTarget(unsigned int* textureId, unsigned int renderTargetCount, bool useDepthBuffer);
 
-  void setRenderTarget(unsigned int* textureId, unsigned int renderTargetCount, bool useDepthBuffer, unsigned int depthTextureId);
+  void setRenderTarget(unsigned int* textureId, unsigned int renderTargetCount, bool useDepthBuffer, const CSize& dimensions, unsigned int depthTextureId);
 
   void resetRenderTarget(bool useDepthBuffer);
 
@@ -79,8 +89,8 @@ public:
 private:
 
   unsigned int bufferFrameIndex_;
-
   unsigned int depthBufferTexture_;
+  unsigned int backBufferPitch_;
 
 private:
 
@@ -88,7 +98,7 @@ private:
 
   std::vector<unsigned int> vertexBuffers_;
   std::vector<CellGcmTexture> textures_;
-  std::vector<unsigned int> renderTargets_;
+  std::vector<CellGcmRenderTarget> renderTargets_;
 
 };
 

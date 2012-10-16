@@ -215,7 +215,18 @@ void PS3GCMCGEffect::setUniform(const Vector4* uniformData, unsigned int uniform
 }
 
 void PS3GCMCGEffect::setUniform(int uniformData, const char* uniformName) const {
-
+  {
+    CGparameter parameter = cellGcmCgGetNamedParameter(vertexProgram_, uniformName);
+    if (parameter) {
+      cellGcmSetVertexProgramParameter(parameter, (float*)&uniformData);
+    }
+  }
+  {
+    CGparameter parameter = cellGcmCgGetNamedParameter(fragmentProgram_, uniformName);
+    if (parameter) {
+      cellGcmSetFragmentProgramParameter(fragmentProgram_, parameter, (float*)&uniformData, fragmentProgramOffset_);
+    }
+  }
 }
 
 void PS3GCMCGEffect::setUniform(float uniformData, const char* uniformName) const {

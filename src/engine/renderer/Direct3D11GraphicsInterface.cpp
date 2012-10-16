@@ -177,6 +177,8 @@ void Direct3D11GraphicsInterface::destroy() {
 
 void Direct3D11GraphicsInterface::openWindow(int width, int height, unsigned int multiSamples) {
   screenSize_ = CSize(width, height);
+  backbufferSize_ = screenSize_;
+
   HWND hWnd = WindowsUtils::createWindow(width, height);
   createGraphicsContext(hWnd, width, height, multiSamples);
   createBlendStates();
@@ -390,7 +392,7 @@ unsigned int Direct3D11GraphicsInterface::createTexture(const CSize& dimensions,
   return textureId;
 }
 
-void Direct3D11GraphicsInterface::setRenderTarget(unsigned int* renderTargetIds, unsigned int renderTargetCount, bool useDepthBuffer, unsigned int depthTextureId) {  
+void Direct3D11GraphicsInterface::setRenderTarget(unsigned int* renderTargetIds, unsigned int renderTargetCount, bool useDepthBuffer, const CSize& dimensions, unsigned int depthTextureId) {  
   activeDepthBuffer_ = depthTextureId;
   std::vector<ID3D11RenderTargetView*> renderTargetViews;
 

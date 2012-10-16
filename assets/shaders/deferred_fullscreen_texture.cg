@@ -1,15 +1,14 @@
 #include "standard.h"
 
 uniform sampler2D ColorMap : TEXUNIT0;
-uniform sampler2D DepthMap : TEXUNIT1;
 
 struct VOutput {
 	float4 position			: POSITION;
 	float2 texCoord			: TEXCOORD0;
 };
 
-VOutput vs(float4 position 		: POSITION,
-		   		 float2 texCoord 		: TEXCOORD0) {
+VOutput vs(float4 position 			: POSITION,
+		   		 float2 texCoord : TEXCOORD0) {
 	VOutput OUT;
 	OUT.position = position;
 	OUT.texCoord = texCoord;
@@ -18,11 +17,5 @@ VOutput vs(float4 position 		: POSITION,
 
 float4 ps(float4 position : POSITION,
 		  float2 texCoord : TEXCOORD0) : COLOR0 {
-	float depth = unpackDepth(DepthMap, texCoord);
-
-	// if (depth >= 1.0f) {
-	// 	discard;
-	// }
-
 	return tex2D(ColorMap, texCoord);;
 } 
