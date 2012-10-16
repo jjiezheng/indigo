@@ -47,13 +47,6 @@ void DeferredSpotLightsPass::init(const CSize& screenSize) {
 void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext, unsigned int lightMapRenderTarget, const DeferredInitRenderStage& initStage) {
   GraphicsInterface::beginPerformanceEvent("Spot");
 
-  { // Clear - Do we need?
-    GraphicsInterface::beginPerformanceEvent("Clear");
-    GraphicsInterface::setRenderTarget(spotLightRenderTarget_, false);
-    GraphicsInterface::clearActiveColorBuffers(Color4::NOTHING);
-    GraphicsInterface::endPerformanceEvent();
-  }
-
   { // Shadow Map
     hash_map<IEffect*, std::vector<Mesh*> > meshes;
     std::vector<Model*>::iterator it = world.begin();

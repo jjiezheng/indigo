@@ -21,7 +21,7 @@ void DeferredFXAAPass::init(const CSize& screenSize) {
   fxaaRenderTexture_ = GraphicsInterface::createTexture(GraphicsInterface::screenSize());
   fxaaRenderTarget_ = GraphicsInterface::createRenderTarget(fxaaRenderTexture_);
   fxaaEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/fxaa_main.shader");
-  fxaaEffect_->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT, COMPARISON_LESS);
+  fxaaEffect_->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
 
   quadVbo_ = Geometry::screenPlane();
 }
