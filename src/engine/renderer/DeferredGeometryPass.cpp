@@ -22,6 +22,8 @@ void DeferredGeometryPass::render(IViewer* viewer, World& world, const SceneCont
   unsigned int renderTargets[] = {colorRenderTarget_, normalRenderTarget_, depthRenderTarget_};
   GraphicsInterface::setRenderTarget(renderTargets, 3, true);
 
+	GraphicsInterface::setBlendState(IGraphicsInterface::NOBLEND);
+
   GraphicsInterface::setViewport(GraphicsInterface::backBufferSize());
 
   GraphicsInterface::clearActiveColorBuffers(Color4::NOTHING);

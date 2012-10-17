@@ -301,7 +301,7 @@ void PS3GCMCGEffect::setSamplerState(unsigned int samplerSlot, SAMPLER_UV_ADDRES
       break;
 
     case FILTER_MIN_MAG_MIP_LINEAR:
-      samplerState.minFilter = CELL_GCM_TEXTURE_LINEAR;
+      samplerState.minFilter = CELL_GCM_TEXTURE_LINEAR_LINEAR;
       samplerState.magFilter = CELL_GCM_TEXTURE_LINEAR;
       break;
   }

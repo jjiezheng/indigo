@@ -36,7 +36,7 @@
           "decay" : 0.2,
           "length" : 205,
           "intensity" : 1.0,
-          "castsshadows" : true,
+          "castsshadows" : false,
           "position" : {
             "x" : 7,
             "y" : 18,
@@ -65,7 +65,7 @@
           "decay" : 0.2,
           "length" : 20.5,
           "intensity" : 1.0,
-          "castsshadows" : true,
+          "castsshadows" : false,
           "position" : {
             "x" : -20,
             "y" : 40,

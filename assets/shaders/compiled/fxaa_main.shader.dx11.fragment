@@ -7,6 +7,7 @@
 //profile ps_5_0
 //program ps
 //semantic FinalMap
+//semantic ScreenSize
 //semantic ScreenSizeInv
 //var sampler2D FinalMap :  : _FinalMap : -1 : 1
 //var float2 ScreenSizeInv :  : _ScreenSizeInv : -1 : 1

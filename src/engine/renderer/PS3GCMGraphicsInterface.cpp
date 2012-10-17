@@ -47,7 +47,7 @@ void PS3GCMGraphicsInterface::destroy() {
   cellGcmFinish(1);
 }
 
-void PS3GCMGraphicsInterface::openWindow(int widtha, int heighta, unsigned int multiSamples) {
+void PS3GCMGraphicsInterface::openWindow(int width, int height, unsigned int multiSamples) {
   void *host_addr = memalign(0x100000, HOST_SIZE);
   CELL_GCMUTIL_ASSERTS(host_addr != NULL,"memalign()");
   CELL_GCMUTIL_CHECK_ASSERT(cellGcmInit(COMMAND_BUFFER_SIZE, HOST_SIZE, host_addr));
@@ -76,7 +76,7 @@ void PS3GCMGraphicsInterface::openWindow(int widtha, int heighta, unsigned int m
 
   cellGcmSetFlipMode(CELL_GCM_DISPLAY_VSYNC);
 
-  cellGcmSetDitherEnable(false);
+  cellGcmSetDitherEnable(CELL_GCM_TRUE);
 
   CellGcmConfig config;
   cellGcmGetConfiguration(&config);
@@ -96,8 +96,8 @@ void PS3GCMGraphicsInterface::openWindow(int widtha, int heighta, unsigned int m
     }
   }
 
-  backbufferSize_.width = 1280;
-  backbufferSize_.height = 720;
+  backbufferSize_.width = width;
+  backbufferSize_.height = height;
  
   { // depth buffer
     CellGcmTexture depthTexture;
@@ -242,16 +242,14 @@ unsigned int PS3GCMGraphicsInterface::loadTexture(const std::string& filePath) {
     totalSize += mipLevel.size;
   }
 
-  //
-
-  texture.format = CELL_GCM_TEXTURE_LN | CELL_GCM_TEXTURE_NR | format;
+  texture.format = CELL_GCM_TEXTURE_SZ | CELL_GCM_TEXTURE_NR | format;
   texture.mipmap = image.numMipLevels;
   texture.dimension = CELL_GCM_TEXTURE_DIMENSION_2;
   texture.cubemap = CELL_GCM_FALSE;         
   texture.width = firstMipLevel.width;
   texture.height = firstMipLevel.height;
   texture.depth = 1;	                
-  texture.pitch = firstMipLevel.width * sizeof(float);
+  texture.pitch =  0; // power of two
   texture.location = CELL_GCM_LOCATION_LOCAL;
 
   texture.remap = 
@@ -568,13 +566,19 @@ void PS3GCMGraphicsInterface::setBlendState(IGraphicsInterface::BlendState blend
 
   switch(blendState) {
     case IGraphicsInterface::ADDITIVE:
+				cellGcmSetBlendEnable(CELL_GCM_TRUE);
         cellGcmSetBlendEquation(CELL_GCM_FUNC_ADD, CELL_GCM_FUNC_ADD);
         cellGcmSetBlendFunc(CELL_GCM_ONE, CELL_GCM_ONE, CELL_GCM_ONE, CELL_GCM_ONE);
-        cellGcmSetBlendEnable(CELL_GCM_TRUE);
+				cellGcmSetLineSmoothEnable(CELL_GCM_TRUE);
+				cellGcmSetPolySmoothEnable(CELL_GCM_TRUE);
       break;
 
     case IGraphicsInterface::NOBLEND:
-        cellGcmSetBlendEnable(CELL_GCM_FALSE);
+				cellGcmSetBlendEnable(CELL_GCM_TRUE);
+				cellGcmSetBlendEquation(CELL_GCM_FUNC_ADD, CELL_GCM_FUNC_ADD);
+				cellGcmSetBlendFunc(CELL_GCM_ONE, CELL_GCM_ZERO, CELL_GCM_ONE, CELL_GCM_ZERO);
+				cellGcmSetLineSmoothEnable(CELL_GCM_TRUE);
+				cellGcmSetPolySmoothEnable(CELL_GCM_TRUE);
       break;
   }
 }

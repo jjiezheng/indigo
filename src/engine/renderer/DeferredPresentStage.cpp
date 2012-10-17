@@ -14,6 +14,7 @@
 
 void DeferredPresentStage::init(const CSize& screenSize) {
   effect_ = EffectCache::instance()->loadEffect(IEffect::SHADER_FULLSCREEN_TEXTURE);
+	effect_->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_NONE);
   quadVbo_ = Geometry::screenPlane();
 }
 

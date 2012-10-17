@@ -17,11 +17,12 @@ void DeferredFXAAPass::init(const CSize& screenSize) {
   colorLumaTexture_ = GraphicsInterface::createTexture(GraphicsInterface::screenSize());
   colorLumaTarget_ = GraphicsInterface::createRenderTarget(colorLumaTexture_);
   colorLumaEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/fxaa_color_luma.shader");
+	colorLumaEffect_->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_NONE);
 
   fxaaRenderTexture_ = GraphicsInterface::createTexture(GraphicsInterface::screenSize());
   fxaaRenderTarget_ = GraphicsInterface::createRenderTarget(fxaaRenderTexture_);
   fxaaEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/fxaa_main.shader");
-  fxaaEffect_->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
+  fxaaEffect_->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_NONE);
 
   quadVbo_ = Geometry::screenPlane();
 }
@@ -62,6 +63,8 @@ unsigned int DeferredFXAAPass::render(IViewer* viewer, unsigned int inputMap, co
     screenSizeInv.y = 1.0f / screenSize.height;
     fxaaEffect_->setUniform(screenSizeInv, "ScreenSizeInv");
 
+		fxaaEffect_->setUniform(Vector2(screenSize.width, screenSize.height), "ScreenSize");
+
     GraphicsInterface::setRenderState(true);
 
     fxaaEffect_->beginDraw();
@@ -77,6 +80,4 @@ unsigned int DeferredFXAAPass::render(IViewer* viewer, unsigned int inputMap, co
 }
 
 void DeferredFXAAPass::collectRenderTargets(IDeferredRenderTargetContainer* renderTargetContainer) {
-  renderTargetContainer->addRenderTarget("FXAA Luma", colorLumaTexture_);
-  renderTargetContainer->addRenderTarget("FXAA Final", fxaaRenderTexture_);
 }
