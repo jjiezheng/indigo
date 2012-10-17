@@ -63,7 +63,7 @@ unsigned int DeferredFXAAPass::render(IViewer* viewer, unsigned int inputMap, co
     screenSizeInv.y = 1.0f / screenSize.height;
     fxaaEffect_->setUniform(screenSizeInv, "ScreenSizeInv");
 
-		fxaaEffect_->setUniform(Vector2(screenSize.width, screenSize.height), "ScreenSize");
+		fxaaEffect_->setUniform(Vector2((float)screenSize.width, (float)screenSize.height), "ScreenSize");
 
     GraphicsInterface::setRenderState(true);
 

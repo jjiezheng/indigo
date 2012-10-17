@@ -343,6 +343,9 @@ void D3DEffect::setSamplerState(unsigned int samplerSlot, SAMPLER_UV_ADDRESS_MOD
   D3D11_SAMPLER_DESC samplerDesc;
   ZeroMemory(&samplerDesc, sizeof(D3D11_SAMPLER_DESC));
 
+  samplerDesc.MinLOD = 0;
+  samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
+
   switch (addressMode) {
     case UV_ADDRESS_CLAMP:
       samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
