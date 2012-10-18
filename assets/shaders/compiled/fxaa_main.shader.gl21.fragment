@@ -10,7 +10,7 @@
 //semantic ScreenSize
 //semantic ScreenSizeInv
 //var sampler2D FinalMap :  : _FinalMap : -1 : 1
-//var float2 ScreenSizeInv :  : _ScreenSizeInv : -1 : 1
+//var float2 ScreenSize :  : _ScreenSize : -1 : 1
 //var float2 texCoord : $vin.TEXCOORD0 : TEX0 : 1 : 1
 //var float4 ps : $vout.COLOR0 : COL : -1 : 1
 
@@ -60,6 +60,7 @@ float _TMP9;
 float _TMP8;
 vec4 _TMP74;
 vec2 _posM0075;
+vec2 _fxaaQualityRcpFrame0075;
 float _lumaS0075;
 float _lumaN0075;
 float _maxSM0075;
@@ -204,30 +205,31 @@ vec4 _c0346;
 vec4 _TMP357;
 vec4 _c0360;
 uniform sampler2D _FinalMap;
-uniform vec2 _ScreenSizeInv;
+uniform vec2 _ScreenSize;
 
  // main procedure, the original name was ps
 void main()
 {
 
 
+    _fxaaQualityRcpFrame0075 = vec2(1.00000000E+000/_ScreenSize.x, 1.00000000E+000/_ScreenSize.y);
     _TMP76 = true;
     _posM0075.x = gl_TexCoord[0].x;
     _posM0075.y = gl_TexCoord[0].y;
     _c0080 = vec4(gl_TexCoord[0].x, gl_TexCoord[0].y, 0.00000000E+000, 0.00000000E+000);
     _TMP77 = texture2DLod(_FinalMap, vec2(_c0080.x, _c0080.y), _c0080.w);
-    _c0082 = _posM0075 + vec2( 0.00000000E+000, 1.00000000E+000)*_ScreenSizeInv.xy;
+    _c0082 = _posM0075 + vec2( 0.00000000E+000, 1.00000000E+000)*_fxaaQualityRcpFrame0075.xy;
     _c0084 = vec4(_c0082.x, _c0082.y, 0.00000000E+000, 0.00000000E+000);
     _TMP81 = texture2DLod(_FinalMap, vec2(_c0084.x, _c0084.y), _c0084.w);
     _lumaS0075 = _TMP81.w;
-    _c0088 = _posM0075 + vec2( 1.00000000E+000, 0.00000000E+000)*_ScreenSizeInv.xy;
+    _c0088 = _posM0075 + vec2( 1.00000000E+000, 0.00000000E+000)*_fxaaQualityRcpFrame0075.xy;
     _c0090 = vec4(_c0088.x, _c0088.y, 0.00000000E+000, 0.00000000E+000);
     _TMP87 = texture2DLod(_FinalMap, vec2(_c0090.x, _c0090.y), _c0090.w);
-    _c0094 = _posM0075 + vec2( 0.00000000E+000, -1.00000000E+000)*_ScreenSizeInv.xy;
+    _c0094 = _posM0075 + vec2( 0.00000000E+000, -1.00000000E+000)*_fxaaQualityRcpFrame0075.xy;
     _c0096 = vec4(_c0094.x, _c0094.y, 0.00000000E+000, 0.00000000E+000);
     _TMP93 = texture2DLod(_FinalMap, vec2(_c0096.x, _c0096.y), _c0096.w);
     _lumaN0075 = _TMP93.w;
-    _c0100 = _posM0075 + vec2( -1.00000000E+000, 0.00000000E+000)*_ScreenSizeInv.xy;
+    _c0100 = _posM0075 + vec2( -1.00000000E+000, 0.00000000E+000)*_fxaaQualityRcpFrame0075.xy;
     _c0102 = vec4(_c0100.x, _c0100.y, 0.00000000E+000, 0.00000000E+000);
     _TMP99 = texture2DLod(_FinalMap, vec2(_c0102.x, _c0102.y), _c0102.w);
     _maxSM0075 = max(_TMP81.w, _TMP77.w);
@@ -238,25 +240,25 @@ void main()
     _minWN0075 = min(_TMP93.w, _TMP99.w);
     _rangeMax0075 = max(_maxWN0075, _maxESM0075);
     _rangeMin0075 = min(_minWN0075, _minESM0075);
-    _rangeMaxScaled0075 = _rangeMax0075*6.30000010E-002;
+    _rangeMaxScaled0075 = _rangeMax0075*1.25000000E-001;
     _range0075 = _rangeMax0075 - _rangeMin0075;
-    _rangeMaxClamped0075 = max(3.11999992E-002, _rangeMaxScaled0075);
+    _rangeMaxClamped0075 = max(6.25000000E-002, _rangeMaxScaled0075);
     _earlyExit0075 = _range0075 < _rangeMaxClamped0075;
     if (_earlyExit0075) { // if begin
         _TMP74 = _TMP77;
         _TMP76 = false;
     } // end if
     if (_TMP76) { // if begin
-        _c0124 = _posM0075 + -_ScreenSizeInv.xy;
+        _c0124 = _posM0075 + -_fxaaQualityRcpFrame0075.xy;
         _c0126 = vec4(_c0124.x, _c0124.y, 0.00000000E+000, 0.00000000E+000);
         _TMP123 = texture2DLod(_FinalMap, vec2(_c0126.x, _c0126.y), _c0126.w);
-        _c0130 = _posM0075 + _ScreenSizeInv.xy;
+        _c0130 = _posM0075 + _fxaaQualityRcpFrame0075.xy;
         _c0132 = vec4(_c0130.x, _c0130.y, 0.00000000E+000, 0.00000000E+000);
         _TMP129 = texture2DLod(_FinalMap, vec2(_c0132.x, _c0132.y), _c0132.w);
-        _c0136 = _posM0075 + vec2( 1.00000000E+000, -1.00000000E+000)*_ScreenSizeInv.xy;
+        _c0136 = _posM0075 + vec2( 1.00000000E+000, -1.00000000E+000)*_fxaaQualityRcpFrame0075.xy;
         _c0138 = vec4(_c0136.x, _c0136.y, 0.00000000E+000, 0.00000000E+000);
         _TMP135 = texture2DLod(_FinalMap, vec2(_c0138.x, _c0138.y), _c0138.w);
-        _c0142 = _posM0075 + vec2( -1.00000000E+000, 1.00000000E+000)*_ScreenSizeInv.xy;
+        _c0142 = _posM0075 + vec2( -1.00000000E+000, 1.00000000E+000)*_fxaaQualityRcpFrame0075.xy;
         _c0144 = vec4(_c0142.x, _c0142.y, 0.00000000E+000, 0.00000000E+000);
         _TMP141 = texture2DLod(_FinalMap, vec2(_c0144.x, _c0144.y), _c0144.w);
         _lumaNS0075 = _TMP93.w + _TMP81.w;
@@ -284,7 +286,7 @@ void main()
         _TMP13 = abs(_edgeVert30075);
         _edgeVert0075 = _TMP13 + _edgeVert40075;
         _subpixNWSWNESE0075 = _lumaNWSW0075 + _lumaNESE0075;
-        _lengthSign0075 = _ScreenSizeInv.x;
+        _lengthSign0075 = _fxaaQualityRcpFrame0075.x;
         _horzSpan0075 = _edgeHorz0075 >= _edgeVert0075;
         _subpixA0075 = _subpixNSWE0075*2.00000000E+000 + _subpixNWSWNESE0075;
         if (!_horzSpan0075) { // if begin
@@ -294,7 +296,7 @@ void main()
             _lumaS0075 = _TMP87.w;
         } // end if
         if (_horzSpan0075) { // if begin
-            _lengthSign0075 = _ScreenSizeInv.y;
+            _lengthSign0075 = _fxaaQualityRcpFrame0075.y;
         } // end if
         _subpixB0075 = _subpixA0075*8.33333358E-002 - _TMP77.w;
         _gradientN0075 = _lumaN0075 - _TMP77.w;
@@ -319,12 +321,12 @@ void main()
         if (!_horzSpan0075) { // if begin
             _TMP19 = 0.00000000E+000;
         } else {
-            _TMP19 = _ScreenSizeInv.x;
+            _TMP19 = _fxaaQualityRcpFrame0075.x;
         } // end if
         if (_horzSpan0075) { // if begin
             _TMP20 = 0.00000000E+000;
         } else {
-            _TMP20 = _ScreenSizeInv.y;
+            _TMP20 = _fxaaQualityRcpFrame0075.y;
         } // end if
         if (!_horzSpan0075) { // if begin
             _posB0075.x = gl_TexCoord[0].x + _lengthSign0075*5.00000000E-001;

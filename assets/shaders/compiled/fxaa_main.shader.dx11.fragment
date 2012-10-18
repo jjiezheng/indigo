@@ -10,7 +10,7 @@
 //semantic ScreenSize
 //semantic ScreenSizeInv
 //var sampler2D FinalMap :  : _FinalMap : -1 : 1
-//var float2 ScreenSizeInv :  : _ScreenSizeInv : -1 : 1
+//var float2 ScreenSize :  : _ScreenSize : -1 : 1
 //var float2 texCoord : $vin.TEXCOORD0 :  : 1 : 1
 //var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
 
@@ -167,6 +167,7 @@ static float _lumaS0102;
 static float4 _rgbyM0102;
 static float2 _posM0102;
 static float2 _TMP990102;
+static float2 _fxaaQualityRcpFrame0102;
 static float2 _TMP980102;
 static float2 _TMP970102;
 static float2 _TMP960102;
@@ -177,7 +178,7 @@ static float2 _TMP920102;
 static bool _TMP103;
 Texture2D<float4> _TMP164;
 SamplerState _FinalMap;
-uniform float2 _ScreenSizeInv;
+uniform float2 _ScreenSize;
 
  // main procedure, the original name was ps
 float4 main( in X1X cin) : SV_Target0
@@ -186,19 +187,20 @@ float4 main( in X1X cin) : SV_Target0
     float2 _texCoord;
 
     _texCoord = cin._TEXCOORD0;
+    _fxaaQualityRcpFrame0102 = float2( 1.00000000000000000E000f/_ScreenSize.x,  1.00000000000000000E000f/_ScreenSize.y);
     _TMP103 = true;
     _posM0102.x = _texCoord.x;
     _posM0102.y = _texCoord.y;
     _rgbyM0102 = _TMP164.SampleLevel(_FinalMap, float4(_texCoord.x, _texCoord.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_texCoord.x, _texCoord.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
-    _TMP990102 = _posM0102 + float2(  0.00000000000000000E000f,  1.00000000000000000E000f)*_ScreenSizeInv.xy;
+    _TMP990102 = _posM0102 + float2(  0.00000000000000000E000f,  1.00000000000000000E000f)*_fxaaQualityRcpFrame0102.xy;
     _TMP0 = _TMP164.SampleLevel(_FinalMap, float4(_TMP990102.x, _TMP990102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_TMP990102.x, _TMP990102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
     _lumaS0102 = _TMP0.w;
-    _TMP980102 = _posM0102 + float2(  1.00000000000000000E000f,  0.00000000000000000E000f)*_ScreenSizeInv.xy;
+    _TMP980102 = _posM0102 + float2(  1.00000000000000000E000f,  0.00000000000000000E000f)*_fxaaQualityRcpFrame0102.xy;
     _TMP1 = _TMP164.SampleLevel(_FinalMap, float4(_TMP980102.x, _TMP980102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_TMP980102.x, _TMP980102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
-    _TMP970102 = _posM0102 + float2(  0.00000000000000000E000f, -1.00000000000000000E000f)*_ScreenSizeInv.xy;
+    _TMP970102 = _posM0102 + float2(  0.00000000000000000E000f, -1.00000000000000000E000f)*_fxaaQualityRcpFrame0102.xy;
     _TMP2 = _TMP164.SampleLevel(_FinalMap, float4(_TMP970102.x, _TMP970102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_TMP970102.x, _TMP970102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
     _lumaN0102 = _TMP2.w;
-    _TMP960102 = _posM0102 + float2( -1.00000000000000000E000f,  0.00000000000000000E000f)*_ScreenSizeInv.xy;
+    _TMP960102 = _posM0102 + float2( -1.00000000000000000E000f,  0.00000000000000000E000f)*_fxaaQualityRcpFrame0102.xy;
     _TMP3 = _TMP164.SampleLevel(_FinalMap, float4(_TMP960102.x, _TMP960102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_TMP960102.x, _TMP960102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
     _maxSM0102 = max(_TMP0.w, _rgbyM0102.w);
     _minSM0102 = min(_TMP0.w, _rgbyM0102.w);
@@ -208,22 +210,22 @@ float4 main( in X1X cin) : SV_Target0
     _minWN0102 = min(_TMP2.w, _TMP3.w);
     _rangeMax0102 = max(_maxWN0102, _maxESM0102);
     _rangeMin0102 = min(_minWN0102, _minESM0102);
-    _rangeMaxScaled0102 = _rangeMax0102* 6.30000010132789610E-002f;
+    _rangeMaxScaled0102 = _rangeMax0102* 1.25000000000000000E-001f;
     _range0102 = _rangeMax0102 - _rangeMin0102;
-    _rangeMaxClamped0102 = max( 3.11999991536140440E-002f, _rangeMaxScaled0102);
+    _rangeMaxClamped0102 = max( 6.25000000000000000E-002f, _rangeMaxScaled0102);
     _earlyExit0102 = _range0102 < _rangeMaxClamped0102;
     if (_earlyExit0102) { // if begin
         _TMP101 = _rgbyM0102;
         _TMP103 = false;
     } // end if
     if (_TMP103) { // if begin
-        _TMP950102 = _posM0102 + -_ScreenSizeInv.xy;
+        _TMP950102 = _posM0102 + -_fxaaQualityRcpFrame0102.xy;
         _TMP4 = _TMP164.SampleLevel(_FinalMap, float4(_TMP950102.x, _TMP950102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_TMP950102.x, _TMP950102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
-        _TMP940102 = _posM0102 + _ScreenSizeInv.xy;
+        _TMP940102 = _posM0102 + _fxaaQualityRcpFrame0102.xy;
         _TMP5 = _TMP164.SampleLevel(_FinalMap, float4(_TMP940102.x, _TMP940102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_TMP940102.x, _TMP940102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
-        _TMP930102 = _posM0102 + float2(  1.00000000000000000E000f, -1.00000000000000000E000f)*_ScreenSizeInv.xy;
+        _TMP930102 = _posM0102 + float2(  1.00000000000000000E000f, -1.00000000000000000E000f)*_fxaaQualityRcpFrame0102.xy;
         _TMP6 = _TMP164.SampleLevel(_FinalMap, float4(_TMP930102.x, _TMP930102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_TMP930102.x, _TMP930102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
-        _TMP920102 = _posM0102 + float2( -1.00000000000000000E000f,  1.00000000000000000E000f)*_ScreenSizeInv.xy;
+        _TMP920102 = _posM0102 + float2( -1.00000000000000000E000f,  1.00000000000000000E000f)*_fxaaQualityRcpFrame0102.xy;
         _TMP7 = _TMP164.SampleLevel(_FinalMap, float4(_TMP920102.x, _TMP920102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_TMP920102.x, _TMP920102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
         _lumaNS0102 = _TMP2.w + _TMP0.w;
         _lumaWE0102 = _TMP3.w + _TMP1.w;
@@ -250,7 +252,7 @@ float4 main( in X1X cin) : SV_Target0
         _TMP13 = abs(_edgeVert30102);
         _edgeVert0102 = _TMP13 + _edgeVert40102;
         _subpixNWSWNESE0102 = _lumaNWSW0102 + _lumaNESE0102;
-        _lengthSign0102 = _ScreenSizeInv.x;
+        _lengthSign0102 = _fxaaQualityRcpFrame0102.x;
         _horzSpan0102 = _edgeHorz0102 >= _edgeVert0102;
         _subpixA0102 = _subpixNSWE0102* 2.00000000000000000E000f + _subpixNWSWNESE0102;
         if (!_horzSpan0102) { // if begin
@@ -260,7 +262,7 @@ float4 main( in X1X cin) : SV_Target0
             _lumaS0102 = _TMP1.w;
         } // end if
         if (_horzSpan0102) { // if begin
-            _lengthSign0102 = _ScreenSizeInv.y;
+            _lengthSign0102 = _fxaaQualityRcpFrame0102.y;
         } // end if
         _subpixB0102 = _subpixA0102* 8.33333358168601990E-002f - _rgbyM0102.w;
         _gradientN0102 = _lumaN0102 - _rgbyM0102.w;
@@ -283,12 +285,12 @@ float4 main( in X1X cin) : SV_Target0
         if (!_horzSpan0102) { // if begin
             _TMP19 =  0.00000000000000000E000f;
         } else {
-            _TMP19 = _ScreenSizeInv.x;
+            _TMP19 = _fxaaQualityRcpFrame0102.x;
         } // end if
         if (_horzSpan0102) { // if begin
             _TMP20 =  0.00000000000000000E000f;
         } else {
-            _TMP20 = _ScreenSizeInv.y;
+            _TMP20 = _fxaaQualityRcpFrame0102.y;
         } // end if
         if (!_horzSpan0102) { // if begin
             _posB0102.x = _texCoord.x + _lengthSign0102* 5.00000000000000000E-001f;
