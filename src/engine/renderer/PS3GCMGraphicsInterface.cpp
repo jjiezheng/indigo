@@ -515,7 +515,7 @@ void PS3GCMGraphicsInterface::clearRenderTarget(unsigned int renderTargetId, con
 void PS3GCMGraphicsInterface::setTexture(unsigned int textureUnit, unsigned int textureId) {
   CellGcmTexture texture = textures_[textureId];
   cellGcmSetTexture(textureUnit, &texture);
-  cellGcmSetTextureControl(textureUnit, CELL_GCM_TRUE, 1*0xff, 1*0xff, CELL_GCM_TEXTURE_MAX_ANISO_1);
+  cellGcmSetTextureControl(textureUnit, CELL_GCM_TRUE, 0<<8, 12<<8, CELL_GCM_TEXTURE_MAX_ANISO_1);
 }
 
 void PS3GCMGraphicsInterface::clearActiveDepthBuffer(unsigned int textureId) {

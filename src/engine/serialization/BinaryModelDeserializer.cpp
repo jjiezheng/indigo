@@ -132,7 +132,7 @@ void BinaryModelDeserializer::deserializeMaterial(Material& material, std::ifstr
     std::string texturePath = readString(input);
     
     Texture texture;
-    texture.init(texturePath);
+    texture.init("debug/mipmap_debug.dds");
     material.addTexture(textureKey, texture);
   }
 }
