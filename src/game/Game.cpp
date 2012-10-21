@@ -11,6 +11,8 @@
 
 #include "maths/Plane.h"
 
+#include "renderer/Label.h"
+
 void Game::init(const char* sceneFile) {
   Pad::init();
   Mouse::init();
@@ -30,6 +32,10 @@ void Game::init(const char* sceneFile) {
     WorldLoader loader; 
     loader.loadFromSceneFile(sceneFile, world_, sceneContext_);
   }
+
+  Label* label = Label::labelWithFont("fonts/arial.fnt");
+  label->setText("Hello World!");
+  ui_.addLabel(label);
   
   Keyboard::setKeydownListener(this);
 }
@@ -40,6 +46,7 @@ void Game::mainLoop() {
   Pad::update();
   Keyboard::update();
   renderer_.render(&camera_, world_, sceneContext_);
+  ui_.render();
 }
 
 void Game::keyUp(int keyCode) {

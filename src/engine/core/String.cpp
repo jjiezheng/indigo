@@ -101,6 +101,26 @@ std::vector<String> String::split(char delimeter) const {
   return lines;  
 }
 
+std::vector<std::string> String::split(const std::string& sourceString, const std::string& delimeter) {
+  std::vector<std::string> output;
+
+  std::string::size_type prev_pos = 0, pos = 0;
+
+  while((pos = sourceString.find(delimeter, pos)) != std::string::npos)
+  {
+    std::string substring(sourceString.substr(prev_pos, pos-prev_pos));
+
+    output.push_back(substring);
+
+    prev_pos = ++pos;
+  }
+
+  output.push_back(sourceString.substr(prev_pos, pos-prev_pos)); // Last word
+
+  return output;
+}
+
+
 std::vector<String> String::lines() const {
   return split('\n');
 }
@@ -133,6 +153,18 @@ String String::replace(const String& source, const String& destination) const {
     next += destination.length();
   }
   
+  return result;
+}
+
+std::string String::replace(const std::string& original, const std::string& source, const std::string& destination) {
+  std::string result = original;
+  std::string::size_type next;
+
+  for (next = result.find(source); next != std::string::npos; next = result.find(source, next)) {
+    result.replace(next, source.length(), destination);
+    next += destination.length();
+  }
+
   return result;
 }
 

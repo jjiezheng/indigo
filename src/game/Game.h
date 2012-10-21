@@ -7,6 +7,7 @@
 #include "renderer/SceneContext.h"
 #include "renderer/Renderer3dDeferred.h"
 #include "renderer/Camera.h"
+#include "renderer/UI.h"
 
 #include "input/IKeyboardListener.h"
 
@@ -26,6 +27,7 @@ public:
   
 private:
   
+  UI ui_;
   Camera camera_;
   Renderer3dDeferred renderer_;
   Clock clock_;

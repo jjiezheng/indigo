@@ -3,12 +3,20 @@
 
 #include "core/Standard.h"
 
+#include <string>
+
 class String {
 
 public:
   
   typedef std::string::const_iterator ConstIterator;
   typedef std::string::iterator Iterator;
+
+public:
+
+  static std::vector<std::string> split(const std::string& sourceString, const std::string& delimeter);
+
+  static std::string replace(const std::string& original, const std::string& source, const std::string& destination);
   
 public:
   

@@ -626,6 +626,38 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="UI"
+				>
+				<File
+					RelativePath="..\..\..\src\engine\renderer\Font.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\renderer\Font.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\renderer\FontCharacter.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\renderer\Label.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\renderer\Label.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\renderer\UI.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\renderer\UI.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="core"
@@ -718,6 +750,34 @@
 				RelativePath="..\..\..\src\engine\io\Path.h"
 				>
 			</File>
+			<Filter
+				Name="FNT"
+				>
+				<File
+					RelativePath="..\..\..\src\engine\io\CharFntLineParser.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\io\CharFntLineParser.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\io\FntFileParser.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\io\FntFileParser.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\io\ICharFntTokenParser.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\src\engine\io\IFntLineParser.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="maths"
