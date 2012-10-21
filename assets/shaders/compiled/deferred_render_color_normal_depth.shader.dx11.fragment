@@ -17,26 +17,21 @@
 //semantic Far
 //semantic Near
 //var float3 DiffuseColor :  : _DiffuseColor : -1 : 1
-//var float Far :  : _Far : -1 : 1
-//var float Near :  : _Near : -1 : 1
 //var float3 normal : $vin.TEXCOORD0 :  : 1 : 1
-//var float3 depth : $vin.TEXCOORD1 :  : 2 : 1
+//var float3 depth : $vin.TEXCOORD1 :  : 2 : 0
 //var float3 ps.color : $vout.COLOR0 : COLOR0 : -1 : 1
 //var float3 ps.normal : $vout.COLOR1 : COLOR1 : -1 : 1
-//var float3 ps.depth : $vout.COLOR2 : COLOR2 : -1 : 1
 
 #pragma pack_matrix(row_major)
 
 struct VOutput {
     float4 _position1 : SV_Position;
-    float3 _normal3 : TEXCOORD0;
-    float3 _depth5 : TEXCOORD1;
+    float3 _normal2 : TEXCOORD0;
 };
 
 struct POutput {
-    float3 _color1 : SV_Target0;
-    float3 _normal1 : SV_Target1;
-    float3 _depth3 : SV_Target2;
+    float3 _color : SV_Target0;
+    float3 _normal : SV_Target1;
 };
 
 struct X1X {
@@ -45,34 +40,17 @@ struct X1X {
     float3 _TEXCOORD1 : TEXCOORD1;
 };
 
-static float2 _TMP0;
-static float3 _color0008;
-static float3 _unit0008;
 uniform float3 _DiffuseColor;
-uniform float _Far;
-uniform float _Near;
 
  // main procedure, the original name was ps
 POutput main( in X1X cin)
 {
 
-    float3 _normal2;
-    float3 _depth4;
+    float3 _normal1;
     POutput _OUT;
-    float _depthLinear;
 
-    _normal2 = cin._TEXCOORD0;
-    _depth4 = cin._TEXCOORD1;
-    _OUT._color1 = _DiffuseColor;
-    _OUT._normal1 =  5.00000000000000000E-001f + _normal2* 5.00000000000000000E-001f;
-    _depthLinear = (-_depth4.z - _Near)/(_Far - _Near);
-    _unit0008 = _depthLinear.xxx;
-    _TMP0 = floor(_depthLinear.xx/float2(  3.90625046566128730E-003f,  1.52587908814894040E-005f));
-    _unit0008.yz = _depthLinear.xx - _TMP0*float2(  3.90625046566128730E-003f,  1.52587908814894040E-005f);
-    _color0008 = _unit0008*float3(  1.00000000000000000E000f,  2.56000000000000000E002f,  6.55360000000000000E004f);
-    _color0008 = frac(_color0008);
-    _color0008 = _color0008* 1.00392162799835210E000f;
-    _color0008.xy = _color0008.xy - _color0008.yz/ 2.56000000000000000E002f;
-    _OUT._depth3 = _color0008;
+    _normal1 = cin._TEXCOORD0;
+    _OUT._color = _DiffuseColor;
+    _OUT._normal =  5.00000000000000000E-001f + _normal1* 5.00000000000000000E-001f;
     return _OUT;
 } // main end

@@ -17,48 +17,36 @@
 //semantic Far
 //semantic Near
 //var float4x4 WorldViewProj :  : _WorldViewProj[0], 4 : -1 : 1
-//var float4x4 WorldView :  : _WorldView[0], 4 : -1 : 1
 //var float4 position : $vin.POSITION : ATTR0 : 0 : 1
 //var float3 normal : $vin.NORMAL : ATTR2 : 1 : 1
 //var float4 vs.position : $vout.POSITION : HPOS : -1 : 1
 //var float3 vs.normal : $vout.TEXCOORD0 : TEX0 : -1 : 1
-//var float3 vs.depth : $vout.TEXCOORD1 : TEX1 : -1 : 1
 
 #version 110
 
 struct VOutput {
     vec4 _position2;
     vec3 _normal2;
-    vec3 _depth;
 };
 
 struct POutput {
     vec3 _color;
     vec3 _normal3;
-    vec3 _depth1;
 };
 
 vec4 _r0011;
-vec4 _r0021;
 uniform vec4 _WorldViewProj[4];
-uniform vec4 _WorldView[4];
 
  // main procedure, the original name was vs
 void main()
 {
 
-    VOutput _OUT;
 
     _r0011.x = dot(_WorldViewProj[0], gl_Vertex);
     _r0011.y = dot(_WorldViewProj[1], gl_Vertex);
     _r0011.z = dot(_WorldViewProj[2], gl_Vertex);
     _r0011.w = dot(_WorldViewProj[3], gl_Vertex);
-    _OUT._depth.x = _r0011.z;
-    _OUT._depth.y = _r0011.w;
-    _r0021.z = dot(_WorldView[2], gl_Vertex);
-    _OUT._depth.z = _r0021.z;
     gl_TexCoord[0].xyz = gl_Normal;
-    gl_TexCoord[1].xyz = _OUT._depth;
     gl_Position = _r0011;
     return;
 } // main end

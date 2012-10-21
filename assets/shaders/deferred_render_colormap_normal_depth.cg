@@ -17,7 +17,6 @@ struct VOutput {
 	float4 position			: POSITION;
 	float3 normal			: TEXCOORD0;
 	float2 texCoord			: TEXCOORD1;
-	float3 depth			: TEXCOORD2;
 };
 
 VOutput vs(float4 position 		: POSITION,
@@ -28,34 +27,21 @@ VOutput vs(float4 position 		: POSITION,
 	OUT.normal = normal;// mul(NormalMatrix, normal);
 	OUT.texCoord = texCoord;
 
-	OUT.depth.x = OUT.position.z;
-	OUT.depth.y = OUT.position.w;
-
-	float4 positionView = mul(WorldView, position);
- 	OUT.depth.z = positionView.z;
-
  	return OUT;
 }
 
 struct POutput {
 	float4 color 	: COLOR0;
 	float4 normal 	: COLOR1;
-	float4 depth 	: COLOR2;
 };
 
 POutput ps(float4 position			: POSITION,
 		   float3 normal			: TEXCOORD0,
-		   float2 texCoord			: TEXCOORD1,
-		   float3 depth 			: TEXCOORD2) {
+		   float2 texCoord			: TEXCOORD1) {
 	POutput OUT;
 	
 	OUT.color = tex2D(ColorMap, texCoord);				
 	OUT.normal = float4(packNormal(normal), 0);
-
-	float depthLinear = linearize(depth.z, Near, Far);
-
-	float3 packedDepth = packDepth(depthLinear);
-	OUT.depth = float4(packedDepth, 0);
 
 	return OUT;
 }

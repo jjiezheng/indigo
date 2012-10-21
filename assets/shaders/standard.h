@@ -22,11 +22,7 @@ float shadowPCF(sampler2D shadowMap, float2 shadowCoord, float zToCompare, float
 	for (y = -1.5; y <= 1.5; y += 1.0) {
 		for (x = -1.5; x <= 1.5; x += 1.0) {
 			float2 shadowCoordOffset = shadowCoord + float2(x * shadowMapSize.x, y * shadowMapSize.y);
-#ifdef GCM
-			sum += texDepth2D_precise(shadowMap, float3(shadowCoordOffset, depthToCompare));
-#else	
-			sum += tex2Dproj(shadowMap, float4(shadowCoordOffset, depthToCompare, 1)).r;
-#endif
+			sum += depthCompare(shadowMap, shadowCoordOffset, depthToCompare);
 		}
 	}
 

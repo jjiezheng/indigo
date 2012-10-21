@@ -80,4 +80,6 @@ unsigned int DeferredFXAAPass::render(IViewer* viewer, unsigned int inputMap, co
 }
 
 void DeferredFXAAPass::collectRenderTargets(IDeferredRenderTargetContainer* renderTargetContainer) {
+  renderTargetContainer->addRenderTarget("FXAA Luma", colorLumaTexture_);
+  renderTargetContainer->addRenderTarget("FXAA Final", fxaaRenderTexture_);
 }

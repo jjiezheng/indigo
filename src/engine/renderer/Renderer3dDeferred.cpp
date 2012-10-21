@@ -43,10 +43,10 @@ void Renderer3dDeferred::render(IViewer* viewer, World& world, const SceneContex
   initStage_.render(viewer, world, sceneContext);
   lightingStage_.render(viewer, world, sceneContext, initStage_);
   /*skyStage_.render(viewer, world, lightingStage_);*/
+  postProcessingStage_.render(viewer, lightingStage_.lightMap(), initStage_);
   
   DeferredRenderTarget renderTargetToPresent = renderTargets_[activeRenderTargetIndex_];
-	postProcessingStage_.render(viewer, renderTargetToPresent.renderTargetId, initStage_);
-  presentStage_.render(postProcessingStage_.finalComposition(), GraphicsInterface::depthBufferTexture());
+  presentStage_.render(renderTargetToPresent.renderTargetId, GraphicsInterface::depthBufferTexture());
 }
 
 void Renderer3dDeferred::addRenderTarget(const std::string& renderTargetName, unsigned int renderTargetId) {

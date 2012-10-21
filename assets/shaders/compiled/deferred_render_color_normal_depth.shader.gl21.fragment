@@ -17,56 +17,34 @@
 //semantic Far
 //semantic Near
 //var float3 DiffuseColor :  : _DiffuseColor : -1 : 1
-//var float Far :  : _Far : -1 : 1
-//var float Near :  : _Near : -1 : 1
 //var float3 normal : $vin.TEXCOORD0 : TEX0 : 1 : 1
-//var float3 depth : $vin.TEXCOORD1 : TEX1 : 2 : 1
+//var float3 depth : $vin.TEXCOORD1 :  : 2 : 0
 //var float3 ps.color : $vout.COLOR0 : COL : -1 : 1
 //var float3 ps.normal : $vout.COLOR1 : COL1 : -1 : 1
-//var float3 ps.depth : $vout.COLOR2 : COL2 : -1 : 1
 
 #version 110
 
 #extension GL_ARB_draw_buffers : enable
 
 struct VOutput {
-    vec3 _normal3;
-    vec3 _depth5;
+    vec3 _normal2;
 };
 
 struct POutput {
-    vec3 _color1;
-    vec3 _normal4;
-    vec3 _depth6;
+    vec3 _color;
+    vec3 _normal3;
 };
 
-vec2 _TMP0;
-vec3 _unit0018;
-vec3 _color0018;
-vec2 _x0020;
 uniform vec3 _DiffuseColor;
-uniform float _Far;
-uniform float _Near;
 
  // main procedure, the original name was ps
 void main()
 {
 
     POutput _OUT;
-    float _depthLinear;
 
-    _OUT._normal4 = 5.00000000E-001 + gl_TexCoord[0].xyz*5.00000000E-001;
-    _depthLinear = (-gl_TexCoord[1].z - _Near)/(_Far - _Near);
-    _unit0018 = vec3(_depthLinear, _depthLinear, _depthLinear);
-    _x0020 = vec2(_depthLinear, _depthLinear)/vec2( 3.90625047E-003, 1.52587909E-005);
-    _TMP0 = floor(_x0020);
-    _unit0018.yz = vec2(_depthLinear, _depthLinear) - _TMP0*vec2( 3.90625047E-003, 1.52587909E-005);
-    _color0018 = _unit0018*vec3( 1.00000000E+000, 2.56000000E+002, 6.55360000E+004);
-    _color0018 = fract(_color0018);
-    _color0018 = _color0018*1.00392163E+000;
-    _color0018.xy = _color0018.xy - _color0018.yz/2.56000000E+002;
-    gl_FragData[1].xyz = _OUT._normal4;
-    gl_FragData[2].xyz = _color0018;
+    _OUT._normal3 = 5.00000000E-001 + gl_TexCoord[0].xyz*5.00000000E-001;
+    gl_FragData[1].xyz = _OUT._normal3;
     gl_FragData[0].xyz = _DiffuseColor;
     return;
 } // main end
