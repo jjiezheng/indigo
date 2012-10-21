@@ -26,7 +26,7 @@ public:
 
 public:
 
-  GraphicsInterface::TextureId render(IViewer* viewer, unsigned int inputMap, const DeferredInitRenderStage& initStage);
+  GraphicsInterface::TextureId render(IViewer* viewer, unsigned int inputMap, const SceneContext& sceneContext, const DeferredInitRenderStage& initStage);
 
 public:
 

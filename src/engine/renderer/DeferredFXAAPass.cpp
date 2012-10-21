@@ -27,7 +27,7 @@ void DeferredFXAAPass::init(const CSize& screenSize) {
   quadVbo_ = Geometry::screenPlane();
 }
 
-unsigned int DeferredFXAAPass::render(IViewer* viewer, unsigned int inputMap, const DeferredInitRenderStage& initStage) {
+unsigned int DeferredFXAAPass::render(IViewer* viewer, unsigned int inputMap, const SceneContext& sceneContext, const DeferredInitRenderStage& initStage) {
   GraphicsInterface::beginPerformanceEvent("FXAA");
 
   GraphicsInterface::setViewport(GraphicsInterface::screenSize());

@@ -77,7 +77,7 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
   }
 }
 
- GraphicsInterface::TextureId DeferredSSAOPass::render(IViewer* viewer, unsigned int inputMap, const DeferredInitRenderStage& initStage) {
+ GraphicsInterface::TextureId DeferredSSAOPass::render(IViewer* viewer, unsigned int inputMap, const SceneContext& sceneContext, const DeferredInitRenderStage& initStage) {
   GraphicsInterface::beginPerformanceEvent("SSAO");
 
   {

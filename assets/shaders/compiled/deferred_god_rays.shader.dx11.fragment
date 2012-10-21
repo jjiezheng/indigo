@@ -1,0 +1,32 @@
+// ps_4_0 output by Cg compiler
+// cgc version 3.1.0013, build date Apr 18 2012
+// command line args: -DDX11=1 -q -unroll all -profile ps_5_0
+// source file: deferred_god_rays.cg
+//vendor NVIDIA Corporation
+//version 3.1.0.13
+//profile ps_5_0
+//program ps
+//semantic ColorMap
+//var float2 texCoord : $vin.TEXCOORD0 :  : 1 : 0
+//var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
+
+#pragma pack_matrix(row_major)
+
+struct VOutput {
+    float4 _position1 : SV_Position;
+    float2 _texCoord1 : TEXCOORD0;
+};
+
+struct X1X {
+    float4 _POSITION : SV_Position;
+    float2 _TEXCOORD0 : TEXCOORD0;
+};
+
+
+ // main procedure, the original name was ps
+float4 main() : SV_Target0
+{
+
+
+    return float4(  1.00000000000000000E000f,  1.00000000000000000E000f,  1.00000000000000000E000f,  1.00000000000000000E000f);
+} // main end

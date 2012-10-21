@@ -5,14 +5,18 @@
 #include "Color4.h"
 
 #include "DeferredSSAOPass.h"
+#include "DeferredGodRaysPass.h"
 #include "DeferredFXAAPass.h"
 #include "IDeferredRenderTargetContainer.h"
 
 #include "memory/Allocation.h"
 
-void DeferredPostProcessingStage::init(const CSize& screenSize) {    
+void DeferredPostProcessingStage::init(const CSize& screenSize) { 
   IDeferredPostProcessingPass* ssaoPass = new DeferredSSAOPass();
   passes_.push_back(ssaoPass);
+
+//   IDeferredPostProcessingPass* godRaysPass = new DeferredGodRaysPass();
+//   passes_.push_back(godRaysPass);
  
   IDeferredPostProcessingPass* fxaaPass = new DeferredFXAAPass();
   passes_.push_back(fxaaPass);
@@ -22,13 +26,13 @@ void DeferredPostProcessingStage::init(const CSize& screenSize) {
   }
 }
 
-void DeferredPostProcessingStage::render(IViewer* viewer, unsigned int inputMap, const DeferredInitRenderStage& initStage) {
+void DeferredPostProcessingStage::render(IViewer* viewer, unsigned int inputMap, const SceneContext& sceneContext, const DeferredInitRenderStage& initStage) {
   GraphicsInterface::beginPerformanceEvent("Post Processing");
 
   finalComposition_ = inputMap;
 
   for (std::vector<IDeferredPostProcessingPass*>::iterator i = passes_.begin(); i != passes_.end(); ++i) {
-    finalComposition_ = (*i)->render(viewer, finalComposition_, initStage);
+    finalComposition_ = (*i)->render(viewer, finalComposition_, sceneContext, initStage);
   }
 
   GraphicsInterface::endPerformanceEvent();

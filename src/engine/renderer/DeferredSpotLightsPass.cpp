@@ -65,10 +65,11 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
   }
   
   { // Lighting
+    unsigned int lightIndex = 0;
     std::vector<SpotLight*> spotLights = sceneContext.spotLights();
     for (std::vector<SpotLight*>::iterator light = spotLights.begin(); light != spotLights.end(); ++light) {
 
-      GraphicsInterface::beginPerformanceEvent("Light");
+      GraphicsInterface::beginPerformanceEvent("Light " + lightIndex);
 
       SpotLight* spotLight = (*light);
       

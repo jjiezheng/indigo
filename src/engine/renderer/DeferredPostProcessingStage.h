@@ -7,6 +7,7 @@ class IDeferredPostProcessingPass;
 class DeferredLightingRenderStage;
 class DeferredInitRenderStage;
 class IDeferredRenderTargetContainer;
+class SceneContext;
 
 class CSize;
 class IViewer;
@@ -24,7 +25,7 @@ public:
 
 public:
 
-  void render(IViewer* viewer, unsigned int inputMap, const DeferredInitRenderStage& initStage);
+  void render(IViewer* viewer, unsigned int inputMap, const SceneContext& sceneContext, const DeferredInitRenderStage& initStage);
 
 public:
 

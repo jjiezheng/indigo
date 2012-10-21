@@ -18,6 +18,7 @@
 //semantic Projection
 //semantic ProjInv
 //semantic View
+//var float Radius :  : _Radius : -1 : 1
 //var float2 NoiseScale :  : _NoiseScale : -1 : 1
 //var float4 Kernel[0] :  : _Kernel[0] : -1 : 1
 //var float4 Kernel[1] :  : _Kernel[1] : -1 : 1
@@ -77,6 +78,7 @@ Texture2D<float4> _TMP34 : register(t1);
 Texture2D<float4> _TMP35 : register(t3);
 Texture2D<float4> _TMP36 : register(t0);
 Texture2D<float4> _TMP37 : register(t2);
+uniform float _Radius;
 uniform float2 _NoiseScale;
 uniform float4 _Kernel[16];
 SamplerState _NoiseMap : TEXUNIT0;
@@ -133,7 +135,7 @@ float4 main( in X1X cin) : SV_Target0
     _TMP5 = rsqrt(_TMP4);
     _tangent = _TMP5*_v0023;
     _bitangent = _tangent.yzx*_normal.zxy - _tangent.zxy*_normal.yzx;
-    _sample1 = _Kernel[0].xyz* 2.00000002980232240E-001f;
+    _sample1 = _Kernel[0].xyz*_Radius;
     _r0027 = _sample1.x*_tangent;
     _r0027 = _r0027 + _sample1.y*_bitangent;
     _r0027 = _r0027 + _sample1.z*_normal;
@@ -149,7 +151,7 @@ float4 main( in X1X cin) : SV_Target0
     _t0033 = float4(_sampleTexCoord1.x, _sampleTexCoord1.y, _sampleScreen1.z,  1.00000000000000000E000f);
     _TMP7 = _TMP37.SampleCmp(_SSAODepthMap, (_t0033.xyz/_t0033.w).xy, (_t0033.xyz/_t0033.w).z);
     _occlusionContribution = _TMP7.x;
-    _sample1 = _Kernel[1].xyz* 2.00000002980232240E-001f;
+    _sample1 = _Kernel[1].xyz*_Radius;
     _r0027 = _sample1.x*_tangent;
     _r0027 = _r0027 + _sample1.y*_bitangent;
     _r0027 = _r0027 + _sample1.z*_normal;
@@ -165,7 +167,7 @@ float4 main( in X1X cin) : SV_Target0
     _t0033 = float4(_sampleTexCoord1.x, _sampleTexCoord1.y, _sampleScreen1.z,  1.00000000000000000E000f);
     _TMP7 = _TMP37.SampleCmp(_SSAODepthMap, (_t0033.xyz/_t0033.w).xy, (_t0033.xyz/_t0033.w).z);
     _occlusionContribution = _occlusionContribution + _TMP7.x;
-    _sample1 = _Kernel[2].xyz* 2.00000002980232240E-001f;
+    _sample1 = _Kernel[2].xyz*_Radius;
     _r0027 = _sample1.x*_tangent;
     _r0027 = _r0027 + _sample1.y*_bitangent;
     _r0027 = _r0027 + _sample1.z*_normal;
@@ -181,7 +183,7 @@ float4 main( in X1X cin) : SV_Target0
     _t0033 = float4(_sampleTexCoord1.x, _sampleTexCoord1.y, _sampleScreen1.z,  1.00000000000000000E000f);
     _TMP7 = _TMP37.SampleCmp(_SSAODepthMap, (_t0033.xyz/_t0033.w).xy, (_t0033.xyz/_t0033.w).z);
     _occlusionContribution = _occlusionContribution + _TMP7.x;
-    _sample1 = _Kernel[3].xyz* 2.00000002980232240E-001f;
+    _sample1 = _Kernel[3].xyz*_Radius;
     _r0027 = _sample1.x*_tangent;
     _r0027 = _r0027 + _sample1.y*_bitangent;
     _r0027 = _r0027 + _sample1.z*_normal;
@@ -197,7 +199,7 @@ float4 main( in X1X cin) : SV_Target0
     _t0033 = float4(_sampleTexCoord1.x, _sampleTexCoord1.y, _sampleScreen1.z,  1.00000000000000000E000f);
     _TMP7 = _TMP37.SampleCmp(_SSAODepthMap, (_t0033.xyz/_t0033.w).xy, (_t0033.xyz/_t0033.w).z);
     _occlusionContribution = _occlusionContribution + _TMP7.x;
-    _sample1 = _Kernel[4].xyz* 2.00000002980232240E-001f;
+    _sample1 = _Kernel[4].xyz*_Radius;
     _r0027 = _sample1.x*_tangent;
     _r0027 = _r0027 + _sample1.y*_bitangent;
     _r0027 = _r0027 + _sample1.z*_normal;
@@ -213,7 +215,7 @@ float4 main( in X1X cin) : SV_Target0
     _t0033 = float4(_sampleTexCoord1.x, _sampleTexCoord1.y, _sampleScreen1.z,  1.00000000000000000E000f);
     _TMP7 = _TMP37.SampleCmp(_SSAODepthMap, (_t0033.xyz/_t0033.w).xy, (_t0033.xyz/_t0033.w).z);
     _occlusionContribution = _occlusionContribution + _TMP7.x;
-    _sample1 = _Kernel[5].xyz* 2.00000002980232240E-001f;
+    _sample1 = _Kernel[5].xyz*_Radius;
     _r0027 = _sample1.x*_tangent;
     _r0027 = _r0027 + _sample1.y*_bitangent;
     _r0027 = _r0027 + _sample1.z*_normal;
@@ -229,7 +231,7 @@ float4 main( in X1X cin) : SV_Target0
     _t0033 = float4(_sampleTexCoord1.x, _sampleTexCoord1.y, _sampleScreen1.z,  1.00000000000000000E000f);
     _TMP7 = _TMP37.SampleCmp(_SSAODepthMap, (_t0033.xyz/_t0033.w).xy, (_t0033.xyz/_t0033.w).z);
     _occlusionContribution = _occlusionContribution + _TMP7.x;
-    _sample1 = _Kernel[6].xyz* 2.00000002980232240E-001f;
+    _sample1 = _Kernel[6].xyz*_Radius;
     _r0027 = _sample1.x*_tangent;
     _r0027 = _r0027 + _sample1.y*_bitangent;
     _r0027 = _r0027 + _sample1.z*_normal;
@@ -245,7 +247,7 @@ float4 main( in X1X cin) : SV_Target0
     _t0033 = float4(_sampleTexCoord1.x, _sampleTexCoord1.y, _sampleScreen1.z,  1.00000000000000000E000f);
     _TMP7 = _TMP37.SampleCmp(_SSAODepthMap, (_t0033.xyz/_t0033.w).xy, (_t0033.xyz/_t0033.w).z);
     _occlusionContribution = _occlusionContribution + _TMP7.x;
-    _sample1 = _Kernel[7].xyz* 2.00000002980232240E-001f;
+    _sample1 = _Kernel[7].xyz*_Radius;
     _r0027 = _sample1.x*_tangent;
     _r0027 = _r0027 + _sample1.y*_bitangent;
     _r0027 = _r0027 + _sample1.z*_normal;
@@ -261,7 +263,7 @@ float4 main( in X1X cin) : SV_Target0
     _t0033 = float4(_sampleTexCoord1.x, _sampleTexCoord1.y, _sampleScreen1.z,  1.00000000000000000E000f);
     _TMP7 = _TMP37.SampleCmp(_SSAODepthMap, (_t0033.xyz/_t0033.w).xy, (_t0033.xyz/_t0033.w).z);
     _occlusionContribution = _occlusionContribution + _TMP7.x;
-    _sample1 = _Kernel[8].xyz* 2.00000002980232240E-001f;
+    _sample1 = _Kernel[8].xyz*_Radius;
     _r0027 = _sample1.x*_tangent;
     _r0027 = _r0027 + _sample1.y*_bitangent;
     _r0027 = _r0027 + _sample1.z*_normal;
@@ -277,7 +279,7 @@ float4 main( in X1X cin) : SV_Target0
     _t0033 = float4(_sampleTexCoord1.x, _sampleTexCoord1.y, _sampleScreen1.z,  1.00000000000000000E000f);
     _TMP7 = _TMP37.SampleCmp(_SSAODepthMap, (_t0033.xyz/_t0033.w).xy, (_t0033.xyz/_t0033.w).z);
     _occlusionContribution = _occlusionContribution + _TMP7.x;
-    _sample1 = _Kernel[9].xyz* 2.00000002980232240E-001f;
+    _sample1 = _Kernel[9].xyz*_Radius;
     _r0027 = _sample1.x*_tangent;
     _r0027 = _r0027 + _sample1.y*_bitangent;
     _r0027 = _r0027 + _sample1.z*_normal;
@@ -293,7 +295,7 @@ float4 main( in X1X cin) : SV_Target0
     _t0033 = float4(_sampleTexCoord1.x, _sampleTexCoord1.y, _sampleScreen1.z,  1.00000000000000000E000f);
     _TMP7 = _TMP37.SampleCmp(_SSAODepthMap, (_t0033.xyz/_t0033.w).xy, (_t0033.xyz/_t0033.w).z);
     _occlusionContribution = _occlusionContribution + _TMP7.x;
-    _sample1 = _Kernel[10].xyz* 2.00000002980232240E-001f;
+    _sample1 = _Kernel[10].xyz*_Radius;
     _r0027 = _sample1.x*_tangent;
     _r0027 = _r0027 + _sample1.y*_bitangent;
     _r0027 = _r0027 + _sample1.z*_normal;
@@ -309,7 +311,7 @@ float4 main( in X1X cin) : SV_Target0
     _t0033 = float4(_sampleTexCoord1.x, _sampleTexCoord1.y, _sampleScreen1.z,  1.00000000000000000E000f);
     _TMP7 = _TMP37.SampleCmp(_SSAODepthMap, (_t0033.xyz/_t0033.w).xy, (_t0033.xyz/_t0033.w).z);
     _occlusionContribution = _occlusionContribution + _TMP7.x;
-    _sample1 = _Kernel[11].xyz* 2.00000002980232240E-001f;
+    _sample1 = _Kernel[11].xyz*_Radius;
     _r0027 = _sample1.x*_tangent;
     _r0027 = _r0027 + _sample1.y*_bitangent;
     _r0027 = _r0027 + _sample1.z*_normal;
@@ -325,7 +327,7 @@ float4 main( in X1X cin) : SV_Target0
     _t0033 = float4(_sampleTexCoord1.x, _sampleTexCoord1.y, _sampleScreen1.z,  1.00000000000000000E000f);
     _TMP7 = _TMP37.SampleCmp(_SSAODepthMap, (_t0033.xyz/_t0033.w).xy, (_t0033.xyz/_t0033.w).z);
     _occlusionContribution = _occlusionContribution + _TMP7.x;
-    _sample1 = _Kernel[12].xyz* 2.00000002980232240E-001f;
+    _sample1 = _Kernel[12].xyz*_Radius;
     _r0027 = _sample1.x*_tangent;
     _r0027 = _r0027 + _sample1.y*_bitangent;
     _r0027 = _r0027 + _sample1.z*_normal;
@@ -341,7 +343,7 @@ float4 main( in X1X cin) : SV_Target0
     _t0033 = float4(_sampleTexCoord1.x, _sampleTexCoord1.y, _sampleScreen1.z,  1.00000000000000000E000f);
     _TMP7 = _TMP37.SampleCmp(_SSAODepthMap, (_t0033.xyz/_t0033.w).xy, (_t0033.xyz/_t0033.w).z);
     _occlusionContribution = _occlusionContribution + _TMP7.x;
-    _sample1 = _Kernel[13].xyz* 2.00000002980232240E-001f;
+    _sample1 = _Kernel[13].xyz*_Radius;
     _r0027 = _sample1.x*_tangent;
     _r0027 = _r0027 + _sample1.y*_bitangent;
     _r0027 = _r0027 + _sample1.z*_normal;
@@ -357,7 +359,7 @@ float4 main( in X1X cin) : SV_Target0
     _t0033 = float4(_sampleTexCoord1.x, _sampleTexCoord1.y, _sampleScreen1.z,  1.00000000000000000E000f);
     _TMP7 = _TMP37.SampleCmp(_SSAODepthMap, (_t0033.xyz/_t0033.w).xy, (_t0033.xyz/_t0033.w).z);
     _occlusionContribution = _occlusionContribution + _TMP7.x;
-    _sample1 = _Kernel[14].xyz* 2.00000002980232240E-001f;
+    _sample1 = _Kernel[14].xyz*_Radius;
     _r0027 = _sample1.x*_tangent;
     _r0027 = _r0027 + _sample1.y*_bitangent;
     _r0027 = _r0027 + _sample1.z*_normal;
@@ -373,7 +375,7 @@ float4 main( in X1X cin) : SV_Target0
     _t0033 = float4(_sampleTexCoord1.x, _sampleTexCoord1.y, _sampleScreen1.z,  1.00000000000000000E000f);
     _TMP7 = _TMP37.SampleCmp(_SSAODepthMap, (_t0033.xyz/_t0033.w).xy, (_t0033.xyz/_t0033.w).z);
     _occlusionContribution = _occlusionContribution + _TMP7.x;
-    _sample1 = _Kernel[15].xyz* 2.00000002980232240E-001f;
+    _sample1 = _Kernel[15].xyz*_Radius;
     _r0027 = _sample1.x*_tangent;
     _r0027 = _r0027 + _sample1.y*_bitangent;
     _r0027 = _r0027 + _sample1.z*_normal;

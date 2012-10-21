@@ -1,0 +1,27 @@
+#include "standard.h"
+
+sampler2D ColorMap;
+
+uniform float4 LightPositionScreenSpace;
+uniform float4x4 WorldViewProj;
+
+struct VOutput {
+	float4 position			: POSITION;
+	float2 texCoord			: TEXCOORD0;
+};
+
+VOutput vs(float4 position 		: POSITION,
+		   float2 texCoord 		: TEXCOORD0) {
+	VOutput OUT;
+	OUT.position = position;
+	OUT.texCoord = texCoord;
+ 	return OUT;
+}
+
+float4 ps(float4 position	: POSITION,
+		  float2 texCoord	: TEXCOORD0) : COLOR0 {
+
+	float4 lightPositionScreenSpace = mul(WorldViewProj, )
+
+	return float4(1, 1, 1, 1);
+};

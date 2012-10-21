@@ -18,6 +18,7 @@
 //semantic Projection
 //semantic ProjInv
 //semantic View
+//var float Radius :  : _Radius : -1 : 1
 //var float2 NoiseScale :  : _NoiseScale : -1 : 1
 //var float4 Kernel[0] :  : _Kernel[0] : -1 : 1
 //var float4 Kernel[1] :  : _Kernel[1] : -1 : 1
@@ -68,6 +69,7 @@ vec3 _r0071;
 vec4 _r0073;
 vec4 _v0073;
 vec4 _c0085;
+uniform float _Radius;
 uniform vec2 _NoiseScale;
 uniform vec4 _Kernel[16];
 uniform sampler2D _NoiseMap;
@@ -122,7 +124,7 @@ void main()
     _TMP5 = inversesqrt(_TMP4);
     _tangent = _TMP5*_v0063;
     _bitangent = _tangent.yzx*_normal.zxy - _tangent.zxy*_normal.yzx;
-    _sample1 = _Kernel[0].xyz*2.00000003E-001;
+    _sample1 = _Kernel[0].xyz*_Radius;
     _r0071 = _sample1.x*_tangent;
     _r0071 = _r0071 + _sample1.y*_bitangent;
     _r0071 = _r0071 + _sample1.z*_normal;
@@ -138,7 +140,7 @@ void main()
     _c0085 = vec4(_sampleTexCoord1.x, _sampleTexCoord1.y, _sampleScreen1.z, 1.00000000E+000);
     _TMP7 = shadow2DProj(_SSAODepthMap, _c0085);
     _occlusionContribution = _TMP7.x;
-    _sample1 = _Kernel[1].xyz*2.00000003E-001;
+    _sample1 = _Kernel[1].xyz*_Radius;
     _r0071 = _sample1.x*_tangent;
     _r0071 = _r0071 + _sample1.y*_bitangent;
     _r0071 = _r0071 + _sample1.z*_normal;
@@ -154,7 +156,7 @@ void main()
     _c0085 = vec4(_sampleTexCoord1.x, _sampleTexCoord1.y, _sampleScreen1.z, 1.00000000E+000);
     _TMP7 = shadow2DProj(_SSAODepthMap, _c0085);
     _occlusionContribution = _occlusionContribution + _TMP7.x;
-    _sample1 = _Kernel[2].xyz*2.00000003E-001;
+    _sample1 = _Kernel[2].xyz*_Radius;
     _r0071 = _sample1.x*_tangent;
     _r0071 = _r0071 + _sample1.y*_bitangent;
     _r0071 = _r0071 + _sample1.z*_normal;
@@ -170,7 +172,7 @@ void main()
     _c0085 = vec4(_sampleTexCoord1.x, _sampleTexCoord1.y, _sampleScreen1.z, 1.00000000E+000);
     _TMP7 = shadow2DProj(_SSAODepthMap, _c0085);
     _occlusionContribution = _occlusionContribution + _TMP7.x;
-    _sample1 = _Kernel[3].xyz*2.00000003E-001;
+    _sample1 = _Kernel[3].xyz*_Radius;
     _r0071 = _sample1.x*_tangent;
     _r0071 = _r0071 + _sample1.y*_bitangent;
     _r0071 = _r0071 + _sample1.z*_normal;
@@ -186,7 +188,7 @@ void main()
     _c0085 = vec4(_sampleTexCoord1.x, _sampleTexCoord1.y, _sampleScreen1.z, 1.00000000E+000);
     _TMP7 = shadow2DProj(_SSAODepthMap, _c0085);
     _occlusionContribution = _occlusionContribution + _TMP7.x;
-    _sample1 = _Kernel[4].xyz*2.00000003E-001;
+    _sample1 = _Kernel[4].xyz*_Radius;
     _r0071 = _sample1.x*_tangent;
     _r0071 = _r0071 + _sample1.y*_bitangent;
     _r0071 = _r0071 + _sample1.z*_normal;
@@ -202,7 +204,7 @@ void main()
     _c0085 = vec4(_sampleTexCoord1.x, _sampleTexCoord1.y, _sampleScreen1.z, 1.00000000E+000);
     _TMP7 = shadow2DProj(_SSAODepthMap, _c0085);
     _occlusionContribution = _occlusionContribution + _TMP7.x;
-    _sample1 = _Kernel[5].xyz*2.00000003E-001;
+    _sample1 = _Kernel[5].xyz*_Radius;
     _r0071 = _sample1.x*_tangent;
     _r0071 = _r0071 + _sample1.y*_bitangent;
     _r0071 = _r0071 + _sample1.z*_normal;
@@ -218,7 +220,7 @@ void main()
     _c0085 = vec4(_sampleTexCoord1.x, _sampleTexCoord1.y, _sampleScreen1.z, 1.00000000E+000);
     _TMP7 = shadow2DProj(_SSAODepthMap, _c0085);
     _occlusionContribution = _occlusionContribution + _TMP7.x;
-    _sample1 = _Kernel[6].xyz*2.00000003E-001;
+    _sample1 = _Kernel[6].xyz*_Radius;
     _r0071 = _sample1.x*_tangent;
     _r0071 = _r0071 + _sample1.y*_bitangent;
     _r0071 = _r0071 + _sample1.z*_normal;
@@ -234,7 +236,7 @@ void main()
     _c0085 = vec4(_sampleTexCoord1.x, _sampleTexCoord1.y, _sampleScreen1.z, 1.00000000E+000);
     _TMP7 = shadow2DProj(_SSAODepthMap, _c0085);
     _occlusionContribution = _occlusionContribution + _TMP7.x;
-    _sample1 = _Kernel[7].xyz*2.00000003E-001;
+    _sample1 = _Kernel[7].xyz*_Radius;
     _r0071 = _sample1.x*_tangent;
     _r0071 = _r0071 + _sample1.y*_bitangent;
     _r0071 = _r0071 + _sample1.z*_normal;
@@ -250,7 +252,7 @@ void main()
     _c0085 = vec4(_sampleTexCoord1.x, _sampleTexCoord1.y, _sampleScreen1.z, 1.00000000E+000);
     _TMP7 = shadow2DProj(_SSAODepthMap, _c0085);
     _occlusionContribution = _occlusionContribution + _TMP7.x;
-    _sample1 = _Kernel[8].xyz*2.00000003E-001;
+    _sample1 = _Kernel[8].xyz*_Radius;
     _r0071 = _sample1.x*_tangent;
     _r0071 = _r0071 + _sample1.y*_bitangent;
     _r0071 = _r0071 + _sample1.z*_normal;
@@ -266,7 +268,7 @@ void main()
     _c0085 = vec4(_sampleTexCoord1.x, _sampleTexCoord1.y, _sampleScreen1.z, 1.00000000E+000);
     _TMP7 = shadow2DProj(_SSAODepthMap, _c0085);
     _occlusionContribution = _occlusionContribution + _TMP7.x;
-    _sample1 = _Kernel[9].xyz*2.00000003E-001;
+    _sample1 = _Kernel[9].xyz*_Radius;
     _r0071 = _sample1.x*_tangent;
     _r0071 = _r0071 + _sample1.y*_bitangent;
     _r0071 = _r0071 + _sample1.z*_normal;
@@ -282,7 +284,7 @@ void main()
     _c0085 = vec4(_sampleTexCoord1.x, _sampleTexCoord1.y, _sampleScreen1.z, 1.00000000E+000);
     _TMP7 = shadow2DProj(_SSAODepthMap, _c0085);
     _occlusionContribution = _occlusionContribution + _TMP7.x;
-    _sample1 = _Kernel[10].xyz*2.00000003E-001;
+    _sample1 = _Kernel[10].xyz*_Radius;
     _r0071 = _sample1.x*_tangent;
     _r0071 = _r0071 + _sample1.y*_bitangent;
     _r0071 = _r0071 + _sample1.z*_normal;
@@ -298,7 +300,7 @@ void main()
     _c0085 = vec4(_sampleTexCoord1.x, _sampleTexCoord1.y, _sampleScreen1.z, 1.00000000E+000);
     _TMP7 = shadow2DProj(_SSAODepthMap, _c0085);
     _occlusionContribution = _occlusionContribution + _TMP7.x;
-    _sample1 = _Kernel[11].xyz*2.00000003E-001;
+    _sample1 = _Kernel[11].xyz*_Radius;
     _r0071 = _sample1.x*_tangent;
     _r0071 = _r0071 + _sample1.y*_bitangent;
     _r0071 = _r0071 + _sample1.z*_normal;
@@ -314,7 +316,7 @@ void main()
     _c0085 = vec4(_sampleTexCoord1.x, _sampleTexCoord1.y, _sampleScreen1.z, 1.00000000E+000);
     _TMP7 = shadow2DProj(_SSAODepthMap, _c0085);
     _occlusionContribution = _occlusionContribution + _TMP7.x;
-    _sample1 = _Kernel[12].xyz*2.00000003E-001;
+    _sample1 = _Kernel[12].xyz*_Radius;
     _r0071 = _sample1.x*_tangent;
     _r0071 = _r0071 + _sample1.y*_bitangent;
     _r0071 = _r0071 + _sample1.z*_normal;
@@ -330,7 +332,7 @@ void main()
     _c0085 = vec4(_sampleTexCoord1.x, _sampleTexCoord1.y, _sampleScreen1.z, 1.00000000E+000);
     _TMP7 = shadow2DProj(_SSAODepthMap, _c0085);
     _occlusionContribution = _occlusionContribution + _TMP7.x;
-    _sample1 = _Kernel[13].xyz*2.00000003E-001;
+    _sample1 = _Kernel[13].xyz*_Radius;
     _r0071 = _sample1.x*_tangent;
     _r0071 = _r0071 + _sample1.y*_bitangent;
     _r0071 = _r0071 + _sample1.z*_normal;
@@ -346,7 +348,7 @@ void main()
     _c0085 = vec4(_sampleTexCoord1.x, _sampleTexCoord1.y, _sampleScreen1.z, 1.00000000E+000);
     _TMP7 = shadow2DProj(_SSAODepthMap, _c0085);
     _occlusionContribution = _occlusionContribution + _TMP7.x;
-    _sample1 = _Kernel[14].xyz*2.00000003E-001;
+    _sample1 = _Kernel[14].xyz*_Radius;
     _r0071 = _sample1.x*_tangent;
     _r0071 = _r0071 + _sample1.y*_bitangent;
     _r0071 = _r0071 + _sample1.z*_normal;
@@ -362,7 +364,7 @@ void main()
     _c0085 = vec4(_sampleTexCoord1.x, _sampleTexCoord1.y, _sampleScreen1.z, 1.00000000E+000);
     _TMP7 = shadow2DProj(_SSAODepthMap, _c0085);
     _occlusionContribution = _occlusionContribution + _TMP7.x;
-    _sample1 = _Kernel[15].xyz*2.00000003E-001;
+    _sample1 = _Kernel[15].xyz*_Radius;
     _r0071 = _sample1.x*_tangent;
     _r0071 = _r0071 + _sample1.y*_bitangent;
     _r0071 = _r0071 + _sample1.z*_normal;

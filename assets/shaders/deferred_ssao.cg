@@ -58,8 +58,6 @@ float4 ps(float4 position 		: POSITION,
 
 	float occlusionContribution = 0;
 
-	Radius = 0.2;
-
 	for (int i = 0; i < 16; i++) {
 		//int i = 0;
 		float3 sample = Kernel[i].xyz * Radius;

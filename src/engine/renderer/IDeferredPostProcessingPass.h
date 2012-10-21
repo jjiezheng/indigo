@@ -7,6 +7,7 @@ class CSize;
 class DeferredInitRenderStage;
 class IViewer;
 class IDeferredRenderTargetContainer;
+class SceneContext;
 
 class IDeferredPostProcessingPass {
 
@@ -20,7 +21,7 @@ public:
 
 public:
 
-  virtual unsigned int render(IViewer* viewer, unsigned int inputMap, const DeferredInitRenderStage& initStage) = 0;
+  virtual unsigned int render(IViewer* viewer, unsigned int inputMap, const SceneContext& sceneContext, const DeferredInitRenderStage& initStage) = 0;
 
 public:
 
