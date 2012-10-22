@@ -3,20 +3,11 @@
 sampler2D ColorMap;
 
 uniform float4x4 WorldViewProj;
-uniform float4x4 WorldView;
-uniform float3x3 NormalMatrix;
-
-uniform float DiffusePower;
-uniform float SpecularPower;
-uniform float SpecularIntensity;
-
-uniform float Far;
-uniform float Near;
 
 struct VOutput {
-	float4 position			: POSITION;
-	float3 normal			: TEXCOORD0;
-	float2 texCoord			: TEXCOORD1;
+	half4 position			: POSITION;
+	half3 normal			: TEXCOORD0;
+	half2 texCoord			: TEXCOORD1;
 };
 
 VOutput vs(float4 position 		: POSITION,
@@ -31,13 +22,13 @@ VOutput vs(float4 position 		: POSITION,
 }
 
 struct POutput {
-	float4 color 	: COLOR0;
-	float4 normal 	: COLOR1;
+	half4 color 	: COLOR0;
+	half4 normal 	: COLOR1;
 };
 
-POutput ps(float4 position			: POSITION,
-		   float3 normal			: TEXCOORD0,
-		   float2 texCoord			: TEXCOORD1) {
+POutput ps(half4 position		: POSITION,
+		   half3 normal			: TEXCOORD0,
+		   half2 texCoord		: TEXCOORD1) {
 	POutput OUT;
 	
 	OUT.color = tex2D(ColorMap, texCoord);				

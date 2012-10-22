@@ -13,6 +13,15 @@ class DDSImage {
 public:
   
   ~DDSImage();
+
+public:
+
+	DDSImage()
+		: numMipLevels(0)
+		, data(0)
+		, dataSize(0)
+		, fourCC(0) { }
+
   
   void load(const std::string& filePath);
   

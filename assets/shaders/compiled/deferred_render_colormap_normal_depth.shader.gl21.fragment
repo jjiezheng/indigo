@@ -8,13 +8,6 @@
 //program ps
 //semantic ColorMap
 //semantic WorldViewProj
-//semantic WorldView
-//semantic NormalMatrix
-//semantic DiffusePower
-//semantic SpecularPower
-//semantic SpecularIntensity
-//semantic Far
-//semantic Near
 //var sampler2D ColorMap :  : _ColorMap : -1 : 1
 //var float3 normal : $vin.TEXCOORD0 : TEX0 : 1 : 1
 //var float2 texCoord : $vin.TEXCOORD1 : TEX1 : 2 : 1
@@ -35,7 +28,12 @@ struct POutput {
     vec4 _normal3;
 };
 
-vec3 _TMP0;
+vec3 _TMP1;
+vec3 _normal1;
+vec4 _TMP0;
+vec2 _texCoord1;
+vec2 _c0006;
+vec3 _unPackedNormal0008;
 uniform sampler2D _ColorMap;
 
  // main procedure, the original name was ps
@@ -44,10 +42,15 @@ void main()
 
     POutput _OUT;
 
-    _OUT._color = texture2D(_ColorMap, gl_TexCoord[1].xy);
-    _TMP0 = 5.00000000E-001 + gl_TexCoord[0].xyz*5.00000000E-001;
-    _OUT._normal3 = vec4(_TMP0.x, _TMP0.y, _TMP0.z, 0.00000000E+000);
-    gl_FragData[1] = _OUT._normal3;
-    gl_FragData[0] = _OUT._color;
+    _normal1 = vec3(float(gl_TexCoord[0].x), float(gl_TexCoord[0].y), float(gl_TexCoord[0].z));
+    _texCoord1 = vec2(float(gl_TexCoord[1].x), float(gl_TexCoord[1].y));
+    _c0006 = vec2(float(_texCoord1.x), float(_texCoord1.y));
+    _TMP0 = texture2D(_ColorMap, _c0006);
+    _OUT._color = vec4(float(_TMP0.x), float(_TMP0.y), float(_TMP0.z), float(_TMP0.w));
+    _unPackedNormal0008 = vec3(float(_normal1.x), float(_normal1.y), float(_normal1.z));
+    _TMP1 = 5.00000000E-001 + _unPackedNormal0008*5.00000000E-001;
+    _OUT._normal3 = vec4(float(_TMP1.x), float(_TMP1.y), float(_TMP1.z), 0.00000000E+000);
+    gl_FragData[1] = vec4(float(_OUT._normal3.x), float(_OUT._normal3.y), float(_OUT._normal3.z), float(_OUT._normal3.w));
+    gl_FragData[0] = vec4(float(_OUT._color.x), float(_OUT._color.y), float(_OUT._color.z), float(_OUT._color.w));
     return;
 } // main end

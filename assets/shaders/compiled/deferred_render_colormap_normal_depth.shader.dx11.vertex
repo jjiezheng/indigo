@@ -8,13 +8,6 @@
 //program vs
 //semantic ColorMap
 //semantic WorldViewProj
-//semantic WorldView
-//semantic NormalMatrix
-//semantic DiffusePower
-//semantic SpecularPower
-//semantic SpecularIntensity
-//semantic Far
-//semantic Near
 //var float4x4 WorldViewProj :  : _WorldViewProj[0], 4 : -1 : 1
 //var float4 position : $vin.POSITION : POSITION : 0 : 1
 //var float3 normal : $vin.NORMAL : NORMAL : 1 : 1
@@ -42,7 +35,7 @@ struct X1X {
     float2 _TEXCOORD1 : TEXCOORD1;
 };
 
-static float4 _r0001;
+static float4 _r0002;
 static X1X cout;
 uniform float4x4 _WorldViewProj;
 
@@ -52,15 +45,15 @@ X1X main(in float4 _position : POSITION, in float3 _normal : NORMAL0, in float2 
 
     VOutput _OUT;
 
-    _r0001.x = dot(_WorldViewProj._11_12_13_14, _position);
-    _r0001.y = dot(_WorldViewProj._21_22_23_24, _position);
-    _r0001.z = dot(_WorldViewProj._31_32_33_34, _position);
-    _r0001.w = dot(_WorldViewProj._41_42_43_44, _position);
-    _OUT._position1 = _r0001;
-    _OUT._normal1 = _normal;
-    _OUT._texCoord1 = _texCoord;
-    cout._POSITION = _OUT._position1;
-    cout._TEXCOORD0 = _OUT._normal1;
-    cout._TEXCOORD1 = _OUT._texCoord1;
+    _r0002.x = dot(_WorldViewProj._11_12_13_14, _position);
+    _r0002.y = dot(_WorldViewProj._21_22_23_24, _position);
+    _r0002.z = dot(_WorldViewProj._31_32_33_34, _position);
+    _r0002.w = dot(_WorldViewProj._41_42_43_44, _position);
+    _OUT._position1 = (float4) _r0002;
+    _OUT._normal1 = (float3) _normal;
+    _OUT._texCoord1 = (float2) _texCoord;
+    cout._POSITION = (float4) _OUT._position1;
+    cout._TEXCOORD0 = (float3) _OUT._normal1;
+    cout._TEXCOORD1 = (float2) _OUT._texCoord1;
     return cout;
 } // main end

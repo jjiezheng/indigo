@@ -8,13 +8,6 @@
 //program vs
 //semantic ColorMap
 //semantic WorldViewProj
-//semantic WorldView
-//semantic NormalMatrix
-//semantic DiffusePower
-//semantic SpecularPower
-//semantic SpecularIntensity
-//semantic Far
-//semantic Near
 //var float4x4 WorldViewProj :  : _WorldViewProj[0], 4 : -1 : 1
 //var float4 position : $vin.POSITION : ATTR0 : 0 : 1
 //var float3 normal : $vin.NORMAL : ATTR2 : 1 : 1
@@ -36,20 +29,24 @@ struct POutput {
     vec4 _normal3;
 };
 
-vec4 _r0010;
+vec4 _r0004;
 uniform vec4 _WorldViewProj[4];
 
  // main procedure, the original name was vs
 void main()
 {
 
+    VOutput _OUT;
 
-    _r0010.x = dot(_WorldViewProj[0], gl_Vertex);
-    _r0010.y = dot(_WorldViewProj[1], gl_Vertex);
-    _r0010.z = dot(_WorldViewProj[2], gl_Vertex);
-    _r0010.w = dot(_WorldViewProj[3], gl_Vertex);
-    gl_TexCoord[0].xyz = gl_Normal;
-    gl_TexCoord[1].xy = gl_MultiTexCoord0.xy;
-    gl_Position = _r0010;
+    _r0004.x = dot(_WorldViewProj[0], gl_Vertex);
+    _r0004.y = dot(_WorldViewProj[1], gl_Vertex);
+    _r0004.z = dot(_WorldViewProj[2], gl_Vertex);
+    _r0004.w = dot(_WorldViewProj[3], gl_Vertex);
+    _OUT._position2 = vec4(float(_r0004.x), float(_r0004.y), float(_r0004.z), float(_r0004.w));
+    _OUT._normal2 = vec3(float(gl_Normal.x), float(gl_Normal.y), float(gl_Normal.z));
+    _OUT._texCoord2 = vec2(float(gl_MultiTexCoord0.x), float(gl_MultiTexCoord0.y));
+    gl_TexCoord[0].xyz = vec3(float(_OUT._normal2.x), float(_OUT._normal2.y), float(_OUT._normal2.z));
+    gl_TexCoord[1].xy = vec2(float(_OUT._texCoord2.x), float(_OUT._texCoord2.y));
+    gl_Position = vec4(float(_OUT._position2.x), float(_OUT._position2.y), float(_OUT._position2.z), float(_OUT._position2.w));
     return;
 } // main end

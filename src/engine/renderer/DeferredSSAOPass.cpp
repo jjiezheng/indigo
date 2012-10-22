@@ -36,7 +36,7 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
   combineEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_ssao_combine.shader");
   quadVbo_ = Geometry::screenPlane();
 
-  ssaoRawTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R32G32B32A32);
+  ssaoRawTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R8G8B8A8);
   ssaoRawRenderTarget_ = GraphicsInterface::createRenderTarget(ssaoRawTexture_);
 
   ssaoColorBlurCombinedTexture_ = GraphicsInterface::createTexture(GraphicsInterface::backBufferSize());

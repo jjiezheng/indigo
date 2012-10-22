@@ -19,8 +19,8 @@ void DeferredGeometryPass::render(IViewer* viewer, World& world, const SceneCont
 
   GraphicsInterface::resetRenderTarget(true);
 
-  unsigned int renderTargets[] = {colorRenderTarget_, normalRenderTarget_, depthRenderTarget_};
-  GraphicsInterface::setRenderTarget(renderTargets, 3, true);
+  unsigned int renderTargets[] = {colorRenderTarget_, normalRenderTarget_};
+  GraphicsInterface::setRenderTarget(renderTargets, 2, true);
 
 	GraphicsInterface::setBlendState(IGraphicsInterface::NOBLEND);
 
@@ -43,7 +43,7 @@ void DeferredGeometryPass::render(IViewer* viewer, World& world, const SceneCont
     IEffect* effect = (*i).first;
     effect->setUniform(viewer->nearDistance(), "Near");
     effect->setUniform(viewer->farDistance(), "Far");
-    effect->setSamplerState(0, UV_ADDRESS_WRAP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_NONE);
+    effect->setSamplerState(0, UV_ADDRESS_WRAP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
 
     std::vector<Mesh*> effectMeshes = (*i).second;
     for (std::vector<Mesh*>::iterator meshIt = effectMeshes.begin(); meshIt != effectMeshes.end(); ++meshIt) {

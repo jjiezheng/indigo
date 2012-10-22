@@ -14,8 +14,6 @@ public:
   DeferredInitRenderStage()
     : colorMapTexture_(0)
     , colorRenderTarget_(0)
-    , depthMapTexture_(0)
-    , depthRenderTarget_(0) 
     , normalMapTexture_(0)
     , normalRenderTarget_(0) { }
 
@@ -49,16 +47,9 @@ private:
   unsigned int normalMapTexture_;
   unsigned int normalRenderTarget_;
 
-  unsigned int depthMapTexture_;
-  unsigned int depthRenderTarget_;
-
   std::vector<IDeferredPass*> passes_;
 
 };
-
-inline unsigned int DeferredInitRenderStage::depthMap() const {
-  return depthMapTexture_;
-}
 
 inline unsigned int DeferredInitRenderStage::normalMap() const {
   return normalMapTexture_;

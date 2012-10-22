@@ -1,26 +1,16 @@
 #include "standard.h"
 
-uniform	float3x3 NormalMatrix;
 uniform	float4x4 WorldViewProj;
-uniform	float4x4 WorldView;
 
 uniform	float3 DiffuseColor;
-uniform	float3 AmbientColor;
-
-uniform float DiffusePower;
-uniform float SpecularPower;
-uniform float SpecularIntensity;
-
-uniform float Far;
-uniform float Near;
 
 struct VOutput {
-	float4 position			: POSITION;
-	float3 normal			: TEXCOORD0;
+	half4 position			: POSITION;
+	half3 normal			: TEXCOORD0;
 };
 
-VOutput vs(float4 position 		: POSITION,
-		   float3 normal 		: NORMAL) {
+VOutput vs(half4 position 		: POSITION,
+		   half3 normal 		: NORMAL) {
 
 	VOutput OUT;
 	OUT.position = mul(WorldViewProj, position);
@@ -30,18 +20,18 @@ VOutput vs(float4 position 		: POSITION,
 }
 
 struct POutput {
-	float3 color 	: COLOR0;
-	float3 normal 	: COLOR1;
+	half3 color 	: COLOR0;
+	half4 normal 	: COLOR1;
 };
 
-POutput ps(float4 position			: POSITION,
-		   float3 normal			: TEXCOORD0,
-		   float3 depth 			: TEXCOORD1) {
+POutput ps(half4 position			: POSITION,
+		   half3 normal			: TEXCOORD0,
+		   half3 depth 			: TEXCOORD1) {
 
 	POutput OUT;
 	
 	OUT.color = DiffuseColor;
-	OUT.normal = packNormal(normal);
+	OUT.normal = float4(packNormal(normal), 0);
 	
 	return OUT;
 }

@@ -74,7 +74,7 @@ void PS3GCMGraphicsInterface::openWindow(int width, int height, unsigned int mul
   CELL_GCMUTIL_CHECK_ASSERT(cellVideoOutConfigure(CELL_VIDEO_OUT_PRIMARY, &videocfg, NULL, 0));
   CELL_GCMUTIL_CHECK_ASSERT(cellVideoOutGetState(CELL_VIDEO_OUT_PRIMARY, 0, &videoState));
 
-  cellGcmSetFlipMode(CELL_GCM_DISPLAY_VSYNC);
+  cellGcmSetFlipMode(CELL_GCM_DISPLAY_HSYNC);
 
   cellGcmSetDitherEnable(CELL_GCM_TRUE);
 
@@ -569,15 +569,15 @@ void PS3GCMGraphicsInterface::setBlendState(IGraphicsInterface::BlendState blend
 				cellGcmSetBlendEnable(CELL_GCM_TRUE);
         cellGcmSetBlendEquation(CELL_GCM_FUNC_ADD, CELL_GCM_FUNC_ADD);
         cellGcmSetBlendFunc(CELL_GCM_ONE, CELL_GCM_ONE, CELL_GCM_ONE, CELL_GCM_ONE);
-				cellGcmSetLineSmoothEnable(CELL_GCM_TRUE);
+				//cellGcmSetLineSmoothEnable(CELL_GCM_TRUE);
 				cellGcmSetPolySmoothEnable(CELL_GCM_TRUE);
       break;
 
     case IGraphicsInterface::NOBLEND:
-				cellGcmSetBlendEnable(CELL_GCM_TRUE);
+				cellGcmSetBlendEnable(CELL_GCM_FALSE);
 				cellGcmSetBlendEquation(CELL_GCM_FUNC_ADD, CELL_GCM_FUNC_ADD);
 				cellGcmSetBlendFunc(CELL_GCM_ONE, CELL_GCM_ZERO, CELL_GCM_ONE, CELL_GCM_ZERO);
-				cellGcmSetLineSmoothEnable(CELL_GCM_TRUE);
+				//cellGcmSetLineSmoothEnable(CELL_GCM_TRUE);
 				cellGcmSetPolySmoothEnable(CELL_GCM_TRUE);
       break;
   }
