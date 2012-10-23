@@ -95,9 +95,9 @@ Matrix4x4 Matrix4x4::orthographic(float left, float right, float bottom, float t
   float f = zfar;
 
   return Matrix4x4(
-    2.0f / (r - l) , 0,                 0,                0,
-    0,               2.0f / (t - b) ,   0,                0,
-    0,               0,                -(2.0f / (n - f)), 0,
+    2.0f / (r - l),  0,                 0,                -1,
+    0,               2.0f / (t - b) ,   0,                -1,
+    0,               0,                -2.0f / (n - f),   0,
     0,               0,                 0,                1);  
 }
 

@@ -6,19 +6,33 @@
 
 #include "Font.h"
 
+class IEffect;
+class Matrix4x4;
+
 class Label {
 
 public:
 
-  static Label* labelWithFont(const std::string& fontFilePath);
+  Label()
+    : labelEffect_(NULL) { };
 
 public:
+
+  static Label* labelWithFont(const std::string& text, const std::string& fontFilePath);
+
+private:
+
+  void init();
+
+private:
 
   void setText(const std::string& text);
 
+  void generateVertexBuffers();
+
 public:
 
-  void render() const;
+  void render(const Matrix4x4& projection) const;
 
 private:
 
@@ -26,9 +40,15 @@ private:
 
 private:
 
+  IEffect* labelEffect_;
+
+private:
+
   Font font_;
 
   std::vector<FontCharacter> characters_;
+
+  std::vector<unsigned int> vertexBuffers_;
 
 };
 

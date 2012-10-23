@@ -25,7 +25,7 @@ Font FntFileParser::parseFile(const std::string& filePath) {
 
     if (lineToken.compare("page") == 0) {
       std::string lineTokenString = line.substr(line.find(" "), line.length() - line.find(" "));
-      
+
       std::vector<std::string> lineTokens = String::split(lineTokenString, " ");
       for (std::vector<std::string>::const_iterator i = lineTokens.begin(); i != lineTokens.end(); ++i) {
         if ((*i).compare("") == 0) continue;
@@ -44,6 +44,31 @@ Font FntFileParser::parseFile(const std::string& filePath) {
         }
       }
     }
+
+    if (lineToken.compare("common") == 0) {
+      std::string lineTokenString = line.substr(line.find(" "), line.length() - line.find(" "));
+
+      CSize textureSize;
+
+      std::vector<std::string> lineTokens = String::split(lineTokenString, " ");
+      for (std::vector<std::string>::const_iterator i = lineTokens.begin(); i != lineTokens.end(); ++i) {
+        if ((*i).compare("") == 0) continue;
+
+        std::vector<std::string> paramTokens = String::split((*i), "=");
+
+        if (paramTokens.front().compare("scaleW") == 0) {
+          textureSize.width = atoi(paramTokens.back().c_str());
+        }
+
+        if (paramTokens.front().compare("scaleH") == 0) {
+          textureSize.height = atoi(paramTokens.back().c_str());
+        }
+      }
+
+      font.setTextureSize(textureSize);
+    }
+
+
   }
 
   return font;

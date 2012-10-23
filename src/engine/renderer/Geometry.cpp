@@ -5,7 +5,10 @@
 #include "VertexFormat.h"
 
 int Geometry::SCREEN_PLANE_VERTEX_COUNT = 6;
-VertexFormat Geometry::SCREEN_PLANE_VERTEX_FORMAT =  TRIANGLE_LIST;
+VertexFormat Geometry::SCREEN_PLANE_VERTEX_FORMAT = TRIANGLE_LIST;
+
+int Geometry::FONT_PLANE_VERTEX_COUNT = 6;
+VertexFormat Geometry::FONT_PLANE_VERTEX_FORMAT = TRIANGLE_LIST;
 
 unsigned int Geometry::screenPlane() {
   VertexDef quadVertices[6];
@@ -31,5 +34,33 @@ unsigned int Geometry::screenPlane() {
   quadVertices[5].uv = Vector2(1.0f, 0.0f);
 
   GraphicsInterface::VertexBuffer vbo = GraphicsInterface::createVertexBuffer(quadVertices, SCREEN_PLANE_VERTEX_COUNT);
+  return vbo;
+}
+
+unsigned int Geometry::fontCharacter(const CSize& characterSize) {
+  VertexDef quadVertices[6];
+  quadVertices[0].vertex = Vector3(0.0f,                       (float)characterSize.height, 0.0f);
+  quadVertices[1].vertex = Vector3(0.0f,                        0.0f,                       0.0f);
+  quadVertices[2].vertex = Vector3((float)characterSize.width, (float)characterSize.height, 0.0f);
+  
+  quadVertices[3].vertex = Vector3((float)characterSize.width,  (float)characterSize.height,  0.0f);
+  quadVertices[4].vertex = Vector3(0.0f,                        0.0f,                         0.0f);
+  quadVertices[5].vertex = Vector3((float)characterSize.width,  0.0f,                         0.0f);
+
+  quadVertices[0].normal = Vector3(0.0f, 0.0f, 1.0f);
+  quadVertices[1].normal = Vector3(0.0f, 0.0f, 1.0f);
+  quadVertices[2].normal = Vector3(0.0f, 0.0f, 1.0f);
+  quadVertices[3].normal = Vector3(0.0f, 0.0f, 1.0f);
+  quadVertices[4].normal = Vector3(0.0f, 0.0f, 1.0f);
+  quadVertices[5].normal = Vector3(0.0f, 0.0f, 1.0f);
+
+  quadVertices[0].uv = Vector2(0.0f, 1.0f);
+  quadVertices[1].uv = Vector2(1.0f, 0.0f);
+  quadVertices[2].uv = Vector2(0.0f, 0.0f);
+  quadVertices[3].uv = Vector2(0.0f, 1.0f);
+  quadVertices[4].uv = Vector2(1.0f, 1.0f);
+  quadVertices[5].uv = Vector2(1.0f, 0.0f);
+
+  GraphicsInterface::VertexBuffer vbo = GraphicsInterface::createVertexBuffer(quadVertices, FONT_PLANE_VERTEX_COUNT);
   return vbo;
 }

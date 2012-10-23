@@ -19,6 +19,7 @@ void Game::init(const char* sceneFile) {
   Keyboard::init();
 
   renderer_.init(GraphicsInterface::backBufferSize());
+  ui_.init(GraphicsInterface::backBufferSize());
 
   clock_.init();
   
@@ -33,8 +34,7 @@ void Game::init(const char* sceneFile) {
     loader.loadFromSceneFile(sceneFile, world_, sceneContext_);
   }
 
-  Label* label = Label::labelWithFont("fonts/arial.fnt");
-  label->setText("Hello World!");
+  Label* label = Label::labelWithFont("Hello World!", "fonts/arial.fnt");
   ui_.addLabel(label);
   
   Keyboard::setKeydownListener(this);
