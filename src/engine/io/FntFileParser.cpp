@@ -34,13 +34,14 @@ Font FntFileParser::parseFile(const std::string& filePath) {
         std::vector<std::string> paramTokens = String::split((*i), "=");
 
         if (paramTokens.front().compare("file") == 0) {
-          std::string fileName = String::replace(paramTokens.back(), "\"", "");
+					std::string fileNameTrimmed = paramTokens.back().substr(0, paramTokens.back().length() - 1);
+          std::string fileName = String::replace(fileNameTrimmed, "\"", "");
 
-          std::string textureFilePath = "fonts/";
-          textureFilePath.append(fileName);
-          std::string fullTextureFilePath = Path::pathForFile(textureFilePath);
+          std::string filePath = "fonts/";
+          filePath.append(fileName);
+          std::string fullFilePath = Path::pathForFile(filePath);
 
-          unsigned int textureId = GraphicsInterface::loadTexture(fullTextureFilePath.c_str());
+          unsigned int textureId = GraphicsInterface::loadTexture(fullFilePath.c_str());
           font.setTexture(textureId);
         }
       }
