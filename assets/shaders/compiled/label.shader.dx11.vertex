@@ -7,7 +7,6 @@
 //profile vs_5_0
 //program vs
 //semantic ModelProjection
-//semantic TextureUV
 //semantic ColorMap
 //var float4x4 ModelProjection :  : _ModelProjection[0], 4 : -1 : 1
 //var float4 position : $vin.POSITION : POSITION : 0 : 1

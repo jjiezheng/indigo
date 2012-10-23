@@ -1,7 +1,5 @@
 uniform float4x4 ModelProjection;
 
-uniform float2 TextureUV;
-
 sampler2D ColorMap;
 
 struct VOutput {
@@ -9,8 +7,8 @@ struct VOutput {
 	float2 texCoord 	: TEXCOORD0;
 };
 
-VOutput vs(	float4 position : POSITION,
-		 	float2 texCoord : TEXCOORD0) {
+VOutput vs(float4 position : POSITION,
+		 	     float2 texCoord : TEXCOORD0) {
 	VOutput OUT;
 	OUT.position = mul(ModelProjection, position);
 	OUT.texCoord = texCoord;
@@ -18,7 +16,6 @@ VOutput vs(	float4 position : POSITION,
 }
 
 float4 ps(float4 position		: POSITION,
-			float2 texCoord 	: TEXCOORD0) : COLOR0 {
-	float2 fontTexCoord = TextureUV;
-	return tex2D(ColorMap, fontTexCoord);
+		      float2 texCoord 	: TEXCOORD0) : COLOR0 {
+	return tex2D(ColorMap, texCoord);
 }

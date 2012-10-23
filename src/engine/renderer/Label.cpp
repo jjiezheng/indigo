@@ -45,22 +45,16 @@ void Label::render(const Matrix4x4& projection) const {
     Matrix4x4 modelProjection = projection * model;
 
     labelEffect_->setUniform(modelProjection, "ModelProjection");
-
-    Vector2 fontTextureScale(1.0f / font_.textureSize().width, 1.0f / font_.textureSize().height);
-    Vector2 textureOffset((float)character.x, (float)character.y);
-    Vector2 textureOffsetUV = fontTextureScale * textureOffset;
-
-    labelEffect_->setUniform(textureOffsetUV, "TextureUV");
-
     labelEffect_->setTexture(font_.texture(), "ColorMap");
 
-    GraphicsInterface::resetRenderTarget(true);
+    GraphicsInterface::resetRenderTarget(false);
+		GraphicsInterface::setBlendState(IGraphicsInterface::ALPHA);
+
     labelEffect_->beginDraw();
     GraphicsInterface::drawVertexBuffer(vertexBuffer, Geometry::FONT_PLANE_VERTEX_COUNT, Geometry::FONT_PLANE_VERTEX_FORMAT);
     labelEffect_->endDraw();
-
     
-    nextCharacterOffset += character.width + 1;
+    nextCharacterOffset += character.width;
   }
 }
 
@@ -72,7 +66,8 @@ void Label::generateVertexBuffers() {
   for (std::vector<FontCharacter>::iterator i = characters_.begin(); i != characters_.end(); ++i) {
     FontCharacter character = (*i);
     CSize characterSize(character.width, character.height);
-    unsigned int vertexBuffer = Geometry::fontCharacter(characterSize);
+		CSize characterOffset(character.x, character.y);
+    unsigned int vertexBuffer = Geometry::fontCharacter(characterSize, characterOffset, font_.textureSize());
     vertexBuffers_.push_back(vertexBuffer);
   }  
 }

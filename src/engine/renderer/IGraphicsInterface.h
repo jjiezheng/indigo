@@ -25,6 +25,7 @@ public:
 
   enum BlendState {
     NOBLEND,
+		ALPHA,
     ADDITIVE
   };
 

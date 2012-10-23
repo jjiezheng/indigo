@@ -16,7 +16,9 @@ public:
 
   static std::vector<std::string> split(const std::string& sourceString, const std::string& delimeter);
 
-  static std::string replace(const std::string& original, const std::string& source, const std::string& destination);
+  static std::string replace(std::string original, const std::string& source, const std::string& destination);
+
+	static std::string erase(std::string original, const std::string& source);
   
 public:
   

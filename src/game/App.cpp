@@ -7,7 +7,7 @@
 int App::run(const char* sceneFile) {
   Random::seed();
   
-  GraphicsInterface::init(1920, 1080, 1);
+  GraphicsInterface::init(1280, 720, 1);
 
   game_.init(sceneFile);
 

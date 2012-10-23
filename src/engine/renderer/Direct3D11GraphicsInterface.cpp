@@ -581,6 +581,29 @@ void Direct3D11GraphicsInterface::createBlendStates() {
     blendStates_.push_back(noBlendState);
   }
 
+	{
+		D3D11_BLEND_DESC noBlendDesc;
+		ZeroMemory(&noBlendDesc, sizeof(D3D11_BLEND_DESC));
+
+		noBlendDesc.RenderTarget[0].BlendEnable = true;
+
+		noBlendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+		noBlendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+		noBlendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+
+		noBlendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+		noBlendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_SRC_ALPHA;
+		noBlendDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_INV_SRC_ALPHA;
+
+		noBlendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+		ID3D11BlendState* alphaBlendState;
+		HRESULT result = device_->CreateBlendState(&noBlendDesc, &alphaBlendState);
+		assert(SUCCEEDED(result));
+
+		blendStates_.push_back(alphaBlendState);
+	}
+
   {
     D3D11_BLEND_DESC additiveBlendDesc;
     ZeroMemory(&additiveBlendDesc, sizeof(D3D11_BLEND_DESC));

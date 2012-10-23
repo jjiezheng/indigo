@@ -156,16 +156,20 @@ String String::replace(const String& source, const String& destination) const {
   return result;
 }
 
-std::string String::replace(const std::string& original, const std::string& source, const std::string& destination) {
-  std::string result = original;
+std::string String::replace(std::string original, const std::string& source, const std::string& destination) {
   std::string::size_type next;
 
-  for (next = result.find(source); next != std::string::npos; next = result.find(source, next)) {
-    result.replace(next, source.length(), destination);
-    next += destination.length();
+  for (next = original.find(source); next != std::string::npos; next = original.find(source, next)) {
+    original.replace(next, source.length(), destination);
+		next += destination.length();
   }
 
-  return result;
+  return original;
+}
+
+std::string String::erase(std::string original, const std::string& source) 
+{
+
 }
 
 String String::operator + (const String& other) const {
@@ -216,3 +220,4 @@ unsigned char String::charAt(int index) const {
 String String::first_word() {
   return string_.substr(0, string_.find(' '));
 }
+

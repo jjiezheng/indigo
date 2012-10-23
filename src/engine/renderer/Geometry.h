@@ -10,7 +10,7 @@ public:
 
   static unsigned int screenPlane();
 
-  static unsigned int fontCharacter(const CSize& characterSize);
+  static unsigned int fontCharacter(const CSize& characterSize, const CSize& uvOffset, const CSize& fontTextureSize);
 
   static int SCREEN_PLANE_VERTEX_COUNT;
   

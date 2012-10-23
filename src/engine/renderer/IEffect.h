@@ -77,6 +77,8 @@ public:
 
   virtual void setUniform(float uniformData, const char* uniformName) const = 0;
 
+public:
+
   virtual void setTexture(unsigned int textureId, const char* uniformName) = 0;
   
   virtual void setSamplerState(unsigned int samplerSlot, SAMPLER_UV_ADDRESS_MODE addressMode, SAMPLER_COMPARISON_FILTER comparisonFilter, SAMPLER_COMPARISON_FUNC compartisonFunction) = 0;

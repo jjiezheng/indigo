@@ -7,7 +7,6 @@
 //profile glslv
 //program vs
 //semantic ModelProjection
-//semantic TextureUV
 //semantic ColorMap
 //var float4x4 ModelProjection :  : _ModelProjection[0], 4 : -1 : 1
 //var float4 position : $vin.POSITION : ATTR0 : 0 : 1
@@ -22,7 +21,7 @@ struct VOutput {
     vec2 _texCoord2;
 };
 
-vec4 _r0004;
+vec4 _r0003;
 uniform vec4 _ModelProjection[4];
 
  // main procedure, the original name was vs
@@ -30,11 +29,11 @@ void main()
 {
 
 
-    _r0004.x = dot(_ModelProjection[0], gl_Vertex);
-    _r0004.y = dot(_ModelProjection[1], gl_Vertex);
-    _r0004.z = dot(_ModelProjection[2], gl_Vertex);
-    _r0004.w = dot(_ModelProjection[3], gl_Vertex);
+    _r0003.x = dot(_ModelProjection[0], gl_Vertex);
+    _r0003.y = dot(_ModelProjection[1], gl_Vertex);
+    _r0003.z = dot(_ModelProjection[2], gl_Vertex);
+    _r0003.w = dot(_ModelProjection[3], gl_Vertex);
     gl_TexCoord[0].xy = gl_MultiTexCoord0.xy;
-    gl_Position = _r0004;
+    gl_Position = _r0003;
     return;
 } // main end
