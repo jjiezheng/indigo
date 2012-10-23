@@ -12,7 +12,9 @@ public:
     , width(0)
     , height(0)
     , xoffset(0)
-    , yoffset(0) { }
+    , yoffset(0)
+    , vertexBuffer(0)
+    , xadvance(0) { }
 
 public:
 
@@ -24,8 +26,12 @@ public:
   unsigned int width;
   unsigned int height;
 
-  unsigned int xoffset;
-  unsigned int yoffset;
+  int xoffset;
+  int yoffset;
+
+  int xadvance;
+
+  unsigned int vertexBuffer;
 
 };
 

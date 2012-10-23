@@ -35,6 +35,7 @@ void Game::init(const char* sceneFile) {
   }
 
   Label* label = Label::labelWithFont("Hello World!", "fonts/arial.fnt");
+  label->setPosition(0, 2);
   ui_.addLabel(label);
   
   Keyboard::setKeydownListener(this);
@@ -45,6 +46,8 @@ void Game::mainLoop() {
   camera_.update(dt);
   Pad::update();
   Keyboard::update();
+  ui_.update(dt);
+
   renderer_.render(&camera_, world_, sceneContext_);
   ui_.render();
 }

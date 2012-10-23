@@ -65,6 +65,11 @@ Font FntFileParser::parseFile(const std::string& filePath) {
         if (paramTokens.front().compare("scaleH") == 0) {
           textureSize.height = atoi(paramTokens.back().c_str());
         }
+
+        if (paramTokens.front().compare("lineHeight") == 0) {
+          unsigned int lineHeight = atoi(paramTokens.back().c_str());
+          font.setLineHeight(lineHeight);
+        }
       }
 
       font.setTextureSize(textureSize);

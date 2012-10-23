@@ -10,7 +10,6 @@
 //semantic DiffuseColor
 //var float3 DiffuseColor :  : _DiffuseColor : -1 : 1
 //var float3 normal : $vin.TEXCOORD0 :  : 1 : 1
-//var float3 depth : $vin.TEXCOORD1 :  : 2 : 0
 //var float3 ps.color : $vout.COLOR0 : COLOR0 : -1 : 1
 //var float4 ps.normal : $vout.COLOR1 : COLOR1 : -1 : 1
 
@@ -29,7 +28,6 @@ struct POutput {
 struct X1X {
     float4 _POSITION : SV_Position;
     float3 _TEXCOORD0 : TEXCOORD0;
-    float3 _TEXCOORD1 : TEXCOORD1;
 };
 
 static float3 _TMP0;

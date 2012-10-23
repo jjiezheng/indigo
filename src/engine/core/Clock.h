@@ -10,8 +10,7 @@ class Clock {
 public:
   
   Clock() 
-    : lastDeltaTime_(0)
-    , lastTime_(0)
+    : lastTime_(0)
     , resolution_(0)
   {
     
@@ -21,17 +20,17 @@ public:
   
   float delta_time();
 
-  int fps() const;
+  static int fps();
 
-  int averageFPS();
+  static int averageFPS();
   
 private:
   
-  double lastDeltaTime_;
+  static double lastDeltaTime_;
   double lastTime_;
   double resolution_;
 
-  std::vector<int> fpsHistory_;
+  static std::vector<int> fpsHistory_;
   
 };
 

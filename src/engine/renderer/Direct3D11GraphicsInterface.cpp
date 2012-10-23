@@ -167,8 +167,6 @@ void Direct3D11GraphicsInterface::destroy() {
     i = vertexBuffers_.erase(i);
   }
 
-  
-
   backBuffer_->Release();
   swapChain_->Release();
   context_->Release();

@@ -11,4 +11,3 @@ void Font::addCharacter(const FontCharacter& character) {
 FontCharacter Font::getCharacter(char character) {
   return characters_[character];
 }
-

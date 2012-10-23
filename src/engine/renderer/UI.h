@@ -15,6 +15,8 @@ public:
   void init(const CSize& backBufferSize);
 
   void render() const;
+  
+  void update(float dt);
 
 public:
 

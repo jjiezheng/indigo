@@ -14,7 +14,8 @@ class Label {
 public:
 
   Label()
-    : labelEffect_(NULL) { };
+    : labelEffect_(NULL)
+    , lastDeltaTime_(1.0f/60.0f) { };
 
 public:
 
@@ -28,11 +29,15 @@ private:
 
   void setText(const std::string& text);
 
-  void generateVertexBuffers();
+public:
+
+  void setPosition(int x, int y);
 
 public:
 
   void render(const Matrix4x4& projection) const;
+
+  void update(float dt);
 
 private:
 
@@ -47,9 +52,18 @@ private:
   Font font_;
 
   std::vector<FontCharacter> characters_;
-
   std::vector<unsigned int> vertexBuffers_;
 
+  float lastDeltaTime_;
+
+  int x_;
+  int y_;
+
 };
+
+inline void Label::setPosition(int x, int y) {
+  x_ = x;
+  y_ = y;
+}
 
 #endif

@@ -10,7 +10,6 @@
 //semantic DiffuseColor
 //var float3 DiffuseColor :  : _DiffuseColor : -1 : 1
 //var float3 normal : $vin.TEXCOORD0 : TEX0 : 1 : 1
-//var float3 depth : $vin.TEXCOORD1 :  : 2 : 0
 //var float3 ps.color : $vout.COLOR0 : COL : -1 : 1
 //var float4 ps.normal : $vout.COLOR1 : COL1 : -1 : 1
 

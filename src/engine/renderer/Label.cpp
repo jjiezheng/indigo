@@ -1,5 +1,7 @@
 #include "Label.h"
 
+#include "EffectCache.h"
+
 #include "io/FntFileParser.h"
 
 #include "maths/Matrix4x4.h"
@@ -9,15 +11,18 @@
 #include "IEffect.h"
 #include "Geometry.h"
 
-
 #include "GraphicsInterface.h"
+
+#include "core/Clock.h"
+
+#include <sstream>
+#include <stdio.h>
 
 Label* Label::labelWithFont(const std::string& text, const std::string& fontFilePath) {
   Label* label = new Label();
   label->loadFont(fontFilePath);
   label->init();
   label->setText(text);
-  label->generateVertexBuffers();
   return label;
 }
 
@@ -35,12 +40,11 @@ void Label::setText(const std::string& text) {
 
 void Label::render(const Matrix4x4& projection) const {
   unsigned int nextCharacterOffset = 0;
+  for (std::vector<FontCharacter>::const_iterator i = characters_.begin(); i != characters_.end(); ++i) {
 
-  for (unsigned int i = 0; i < vertexBuffers_.size(); i++) {
-    unsigned int vertexBuffer = vertexBuffers_[i];
-    FontCharacter character = characters_[i];
-
-    Matrix4x4 model = Matrix4x4::translation(Vector4((float)nextCharacterOffset, 0.0f, 0.0f, 1.0f));
+    int x = nextCharacterOffset + (*i).xoffset +  x_;
+    int y = font_.lineHeight() - (*i).height - (*i).yoffset + y_;
+    Matrix4x4 model = Matrix4x4::translation(Vector4((float)x, (float)y, 0.0f, 1.0f));
 
     Matrix4x4 modelProjection = projection * model;
 
@@ -51,23 +55,33 @@ void Label::render(const Matrix4x4& projection) const {
 		GraphicsInterface::setBlendState(IGraphicsInterface::ALPHA);
 
     labelEffect_->beginDraw();
-    GraphicsInterface::drawVertexBuffer(vertexBuffer, Geometry::FONT_PLANE_VERTEX_COUNT, Geometry::FONT_PLANE_VERTEX_FORMAT);
+    GraphicsInterface::drawVertexBuffer((*i).vertexBuffer, Geometry::FONT_PLANE_VERTEX_COUNT, Geometry::FONT_PLANE_VERTEX_FORMAT);
     labelEffect_->endDraw();
     
-    nextCharacterOffset += character.width;
+    nextCharacterOffset += (*i).xadvance;
   }
 }
 
 void Label::init() {
-  labelEffect_ = IEffect::effectFromFile("shaders/compiled/label.shader");
+  labelEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/label.shader");
+  labelEffect_->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_NONE);
 }
 
-void Label::generateVertexBuffers() {
-  for (std::vector<FontCharacter>::iterator i = characters_.begin(); i != characters_.end(); ++i) {
-    FontCharacter character = (*i);
-    CSize characterSize(character.width, character.height);
-		CSize characterOffset(character.x, character.y);
-    unsigned int vertexBuffer = Geometry::fontCharacter(characterSize, characterOffset, font_.textureSize());
-    vertexBuffers_.push_back(vertexBuffer);
-  }  
+void Label::update(float dt) {
+  std::stringstream data;
+
+  {
+    data << Clock::averageFPS() << " fps";
+  }
+
+  data << " - ";
+
+  {
+    float milliseconds = dt * 1000;
+    char millisecondsString[25];
+    sprintf(millisecondsString, "%.1fms", milliseconds);
+    data << millisecondsString << " per frame.";
+  }
+  
+  setText(data.str());
 }

@@ -2,6 +2,9 @@
 
 #include "platform/PlatformDefs.h"
 
+double Clock::lastDeltaTime_ = 0;
+std::vector<int> Clock::fpsHistory_;
+
 #ifdef PLATFORM_PS3
 
 #include <sys/sys_time.h>
@@ -42,6 +45,10 @@ float Clock::delta_time() {
   double deltaTime = dt * resolution_;
   lastDeltaTime_ = deltaTime;
 
+  if (deltaTime > 1) {
+    deltaTime = 1.0f / 60.0f;
+  }
+
   return (float)deltaTime;
 }
 
@@ -75,7 +82,7 @@ float Clock::delta_time() {
 int Clock::averageFPS() {
   fpsHistory_.push_back(fps());
 
-  static unsigned int kAvgFPSElements = 10;
+  static unsigned int kAvgFPSElements = 50;
   if (fpsHistory_.size() > kAvgFPSElements) {
     fpsHistory_.erase(fpsHistory_.begin());
   }
@@ -89,7 +96,7 @@ int Clock::averageFPS() {
 	return avgFps;
 }
 
-int Clock::fps() const {
+int Clock::fps() {
   int fps = (int)(1.0f / lastDeltaTime_);
   return fps;
 }

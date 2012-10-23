@@ -19,23 +19,43 @@ public:
 
   FontCharacter getCharacter(char character);
 
-  unsigned int texture() const;
+public:
 
-  CSize textureSize() const;
+  unsigned int texture() const;
 
   void setTexture(unsigned int textureId);
 
+public:
+
+  CSize textureSize() const;
+
   void setTextureSize(const CSize& textureSize);
+
+public:
+
+  unsigned int lineHeight() const;
+
+  void setLineHeight(unsigned int lineHeight);
 
 private:
 
   unsigned int texture_;
+
+  unsigned int lineHeight_;
 
   std::map<unsigned int, FontCharacter> characters_;
 
   CSize textureSize_;
 
 };
+
+inline unsigned int Font::lineHeight() const {
+  return lineHeight_;
+}
+
+inline void Font::setLineHeight(unsigned int lineHeight) {
+  lineHeight_ = lineHeight;
+}
 
 inline void Font::setTexture(unsigned int texture) {
   texture_ = texture;
