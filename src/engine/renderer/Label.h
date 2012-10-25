@@ -19,13 +19,13 @@ public:
 
 public:
 
-  static Label* labelWithFont(const std::string& text, const std::string& fontFilePath);
+  static Label* labelWithFont(const std::string& fontFilePath);
 
 private:
 
   void init();
 
-private:
+public:
 
   void setText(const std::string& text);
 
@@ -36,8 +36,6 @@ public:
 public:
 
   void render(const Matrix4x4& projection) const;
-
-  void update(float dt);
 
 private:
 

@@ -64,3 +64,8 @@ void Renderer3dDeferred::presentRenderTarget(unsigned int renderTargetIndex) {
     activeRenderTargetIndex_ = renderTargetsSize - 1;
   }
 }
+
+std::string Renderer3dDeferred::getActiveRenderChannel() const {
+	DeferredRenderTarget renderTargetToPresent = renderTargets_[activeRenderTargetIndex_];
+	return renderTargetToPresent.name;
+}

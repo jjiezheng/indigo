@@ -16,6 +16,7 @@ void PS3Keyboard::setup() {
   if (ret != CELL_OK) {
     LOG(LOG_CHANNEL_INPUT, "Failed to init pad");
   }
+	memset(keyStates_, 0, sizeof(bool) * 256);
 }
 
 void PS3Keyboard::update() {

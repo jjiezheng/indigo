@@ -50,6 +50,12 @@ public:
 
 public:
 
+	static void enableSmoothing();
+
+	static void disableSmoothing();
+
+public:
+
   static IEffect* createEffect();
 
   static unsigned int createVertexBuffer(VertexDef* vertexData, int numVertices);

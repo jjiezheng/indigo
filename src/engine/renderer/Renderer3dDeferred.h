@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "IDeferredRenderTargetContainer.h"
+#include "services/IRenderChannelInfoService.h"
 
 #include "DeferredInitRenderStage.h"
 #include "DeferredLightingRenderStage.h"
@@ -21,7 +22,7 @@ class IDeferredRenderStage;
 
 class IEffect;
 
-class Renderer3dDeferred : public IDeferredRenderTargetContainer {
+class Renderer3dDeferred : public IDeferredRenderTargetContainer, public IRenderChannelInfoService {
 
 public:
 
@@ -49,6 +50,10 @@ public:
 public:
 
   void presentRenderTarget(unsigned int renderTargetIndex);
+
+public:
+
+	std::string getActiveRenderChannel() const;
 
 private:
 

@@ -11,7 +11,8 @@
 
 #include "maths/Plane.h"
 
-#include "renderer/Label.h"
+#include "ui/FPSStats.h"
+#include "ui/RenderChannelInfo.h"
 
 void Game::init(const char* sceneFile) {
   Pad::init();
@@ -34,9 +35,11 @@ void Game::init(const char* sceneFile) {
     loader.loadFromSceneFile(sceneFile, world_, sceneContext_);
   }
 
-  Label* label = Label::labelWithFont("Hello World!", "fonts/arial.fnt");
-  label->setPosition(0, 2);
-  ui_.addLabel(label);
+	FPSStats* fpsStats = FPSStats::stats();
+	ui_.addControl(fpsStats);
+
+	RenderChannelInfo* renderChannelInfo = RenderChannelInfo::info(&renderer_);
+	ui_.addControl(renderChannelInfo);
   
   Keyboard::setKeydownListener(this);
 }

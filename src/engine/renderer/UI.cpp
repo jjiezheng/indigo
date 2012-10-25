@@ -1,11 +1,14 @@
 #include "UI.h"
 
-#include "Label.h"
+#include "GraphicsInterface.h"
+#include "Control.h"
 
 void UI::render() const {
-  for (std::vector<Label*>::const_iterator i = labels_.begin(); i != labels_.end(); ++i) {
+	GraphicsInterface::beginPerformanceEvent("UI");
+  for (std::vector<Control*>::const_iterator i = controls_.begin(); i != controls_.end(); ++i) {
     (*i)->render(projection_);
   }
+	GraphicsInterface::endPerformanceEvent();
 }
 
 void UI::init(const CSize& backBufferSize) {
@@ -13,7 +16,7 @@ void UI::init(const CSize& backBufferSize) {
 }
 
 void UI::update(float dt) {
-  for (std::vector<Label*>::const_iterator i = labels_.begin(); i != labels_.end(); ++i) {
+  for (std::vector<Control*>::const_iterator i = controls_.begin(); i != controls_.end(); ++i) {
     (*i)->update(dt);
   }
 }

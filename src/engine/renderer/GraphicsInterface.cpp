@@ -1,6 +1,7 @@
 #include "GraphicsInterface.h"
 
 #include "IGraphicsInterface.h"
+#include "io/Path.h"
 
 IGraphicsInterface* GraphicsInterface::graphicsInterface_ = 0;
 
@@ -164,4 +165,12 @@ void GraphicsInterface::setBlendState(IGraphicsInterface::BlendState blendState)
 
 CSize GraphicsInterface::screenSize() {
   return graphicsInterface_->screenSize();
+}
+
+void GraphicsInterface::enableSmoothing() {
+	graphicsInterface_->enableSmoothing();
+}
+
+void GraphicsInterface::disableSmoothing() {
+	graphicsInterface_->disableSmoothing();
 }

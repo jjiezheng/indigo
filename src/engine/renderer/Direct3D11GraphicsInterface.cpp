@@ -13,6 +13,7 @@
 #include "io/DDSImage.h"
 #include "io/DDSMipLevel.h"
 #include "io/Log.h"
+#include "io/Path.h"
 
 #include "D3DEffect.h"
 #include "Color4.h"
@@ -54,6 +55,13 @@ void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, in
     device_->CreateRenderTargetView(backBufferTexture, NULL, &backBuffer_);
     backBufferTexture->Release();
   }
+
+
+	// default texture
+	{
+		std::string debugTexturePath = Path::pathForFile("debug/mipmap_debug.dds");
+		loadTexture(debugTexturePath.c_str());
+	}
 
   // depth buffer
   {
@@ -624,4 +632,12 @@ void Direct3D11GraphicsInterface::createBlendStates() {
 
     blendStates_.push_back(additiveBlendState);
   }
+}
+
+void Direct3D11GraphicsInterface::enableSmoothing() {
+
+}
+
+void Direct3D11GraphicsInterface::disableSmoothing() {
+
 }

@@ -13,14 +13,18 @@ void Clock::init() {
 }
 
 float Clock::delta_time() {
-  /*system_time_t timeMicroSeconds = sys_time_get_system_time();
-  float currentTime = timeMicroSeconds / 100000000.0f;
+  system_time_t timeMicroSeconds = sys_time_get_system_time();
+  float currentTime = timeMicroSeconds / 1000000.0f;
 
   float dt = currentTime - lastTime_;
   lastTime_ = currentTime;
-  lastDeltaTime_ = dt;*/
+  lastDeltaTime_ = dt;
 
-  return 0.1f * (1.0f/60.0f);// dt;
+	if (lastDeltaTime_ > 1) {
+		lastDeltaTime_ = 1.0f / 30.0f;
+	}
+
+  return lastDeltaTime_;
 }
 #endif
 
@@ -42,14 +46,13 @@ float Clock::delta_time() {
   dt = (double)(currentTime - lastTime_);
   lastTime_ = (double)currentTime;
 
-  double deltaTime = dt * resolution_;
-  lastDeltaTime_ = deltaTime;
+  lastDeltaTime_ =  dt * resolution_;
 
-  if (deltaTime > 1) {
-    deltaTime = 1.0f / 60.0f;
+  if (lastDeltaTime_ > 1) {
+    lastDeltaTime_ = 1.0f / 60.0f;
   }
 
-  return (float)deltaTime;
+  return (float)lastDeltaTime_;
 }
 
 #endif

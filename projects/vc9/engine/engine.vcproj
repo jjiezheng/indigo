@@ -983,6 +983,34 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="ui"
+			>
+			<File
+				RelativePath="..\..\..\src\engine\ui\FPSStats.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\engine\ui\FPSStats.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\engine\ui\RenderChannelInfo.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\engine\ui\RenderChannelInfo.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="services"
+			>
+			<File
+				RelativePath="..\..\..\src\engine\services\IRenderChannelInfoService.h"
+				>
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>

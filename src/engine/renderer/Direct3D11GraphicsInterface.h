@@ -102,6 +102,12 @@ private:
 
   void createPerformanceMarkerColors();
 
+public:
+
+	void enableSmoothing();
+
+	void disableSmoothing();
+
 private:
 
   IDXGISwapChain *swapChain_;

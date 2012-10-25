@@ -7,6 +7,7 @@
 #include "maths/Matrix4x4.h"
 
 class Label;
+class Control;
 
 class UI {
 
@@ -20,18 +21,18 @@ public:
 
 public:
 
-  void addLabel(Label* label);
+	void addControl(Control* control);
 
 private:
 
-  std::vector<Label*> labels_;
+	std::vector<Control*> controls_;
 
   Matrix4x4 projection_;
 
 };
 
-inline void UI::addLabel(Label* label) {
-  labels_.push_back(label);
+inline void UI::addControl(Control* control) {
+  controls_.push_back(control);
 }
 
 #endif

@@ -4,6 +4,7 @@
 #include "VertexDefinition.h"
 
 #include "io/Log.h"
+#include "io/Path.h"
 #include "io/DDSImage.h"
 
 #include <stddef.h>
@@ -98,6 +99,12 @@ void PS3GCMGraphicsInterface::openWindow(int width, int height, unsigned int mul
 
   backbufferSize_.width = width;
   backbufferSize_.height = height;
+
+	// default texture
+	{
+		std::string debugTexturePath = Path::pathForFile("debug/mipmap_debug.dds");
+		loadTexture(debugTexturePath.c_str());
+	}
  
   { // depth buffer
     CellGcmTexture depthTexture;
@@ -233,21 +240,12 @@ unsigned int PS3GCMGraphicsInterface::loadTexture(const std::string& filePath) {
   CellGcmTexture texture;
   memset(&texture, 0, sizeof(CellGcmTexture));
 
-  DDSMipLevel firstMipLevel = *image.mipLevels[0];
-
-  unsigned int totalSize = 0;
-
-  for (unsigned int i = 0; i < image.numMipLevels; i++) {
-    DDSMipLevel mipLevel = *image.mipLevels[i];
-    totalSize += mipLevel.size;
-  }
-
   texture.format = CELL_GCM_TEXTURE_SZ | CELL_GCM_TEXTURE_NR | format;
   texture.mipmap = image.numMipLevels;
   texture.dimension = CELL_GCM_TEXTURE_DIMENSION_2;
   texture.cubemap = CELL_GCM_FALSE;         
-  texture.width = firstMipLevel.width;
-  texture.height = firstMipLevel.height;
+  texture.width = image.firstMipWidth;
+  texture.height = image.firstMipHeight;
   texture.depth = 1;	                
   texture.pitch =  0; // power of two
   texture.location = CELL_GCM_LOCATION_LOCAL;
@@ -262,12 +260,10 @@ unsigned int PS3GCMGraphicsInterface::loadTexture(const std::string& filePath) {
     CELL_GCM_TEXTURE_REMAP_FROM_R << 2 |
     CELL_GCM_TEXTURE_REMAP_FROM_A;
 
- // unsigned int textureSize = firstMipLevel.width * firstMipLevel.height * sizeof(float);
-
-  void* textureBaseAddress = localAllocate(64, totalSize);
+  void* textureBaseAddress = localAllocate(64, image.totalSize);
   CELL_GCMUTIL_CHECK_ASSERT(cellGcmAddressToOffset(textureBaseAddress, &texture.offset));
 
-  memcpy(textureBaseAddress, image.data, totalSize);
+  memcpy(textureBaseAddress, image.data, image.totalSize);
 
   unsigned int textureId = textures_.size();
   textures_.push_back(texture);
@@ -563,22 +559,32 @@ unsigned int PS3GCMGraphicsInterface::createDepthTexture(const CSize& dimensions
 }
 
 void PS3GCMGraphicsInterface::setBlendState(IGraphicsInterface::BlendState blendState) {
-
   switch(blendState) {
     case IGraphicsInterface::ADDITIVE:
 				cellGcmSetBlendEnable(CELL_GCM_TRUE);
         cellGcmSetBlendEquation(CELL_GCM_FUNC_ADD, CELL_GCM_FUNC_ADD);
         cellGcmSetBlendFunc(CELL_GCM_ONE, CELL_GCM_ONE, CELL_GCM_ONE, CELL_GCM_ONE);
-				//cellGcmSetLineSmoothEnable(CELL_GCM_TRUE);
-				cellGcmSetPolySmoothEnable(CELL_GCM_TRUE);
       break;
+
+		case IGraphicsInterface::ALPHA:
+			cellGcmSetBlendEnable(CELL_GCM_TRUE);
+			cellGcmSetBlendEquation(CELL_GCM_FUNC_ADD, CELL_GCM_FUNC_ADD);
+			cellGcmSetBlendFunc(CELL_GCM_SRC_ALPHA, CELL_GCM_ONE_MINUS_SRC_ALPHA, CELL_GCM_SRC_ALPHA, CELL_GCM_ONE_MINUS_SRC_ALPHA);
+			cellGcmSetPolySmoothEnable(CELL_GCM_TRUE);
+			break;
 
     case IGraphicsInterface::NOBLEND:
 				cellGcmSetBlendEnable(CELL_GCM_FALSE);
 				cellGcmSetBlendEquation(CELL_GCM_FUNC_ADD, CELL_GCM_FUNC_ADD);
 				cellGcmSetBlendFunc(CELL_GCM_ONE, CELL_GCM_ZERO, CELL_GCM_ONE, CELL_GCM_ZERO);
-				//cellGcmSetLineSmoothEnable(CELL_GCM_TRUE);
-				cellGcmSetPolySmoothEnable(CELL_GCM_TRUE);
       break;
   }
+}
+
+void PS3GCMGraphicsInterface::enableSmoothing() {
+	cellGcmSetPolySmoothEnable(CELL_GCM_TRUE);
+}
+
+void PS3GCMGraphicsInterface::disableSmoothing() {
+	cellGcmSetPolySmoothEnable(CELL_GCM_FALSE);
 }

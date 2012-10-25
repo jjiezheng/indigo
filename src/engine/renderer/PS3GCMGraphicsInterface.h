@@ -70,6 +70,12 @@ public:
 
 public:
 
+	void enableSmoothing();
+
+	void disableSmoothing();
+
+public:
+
   unsigned int createDepthTexture(const CSize& dimensions);
 
   void clearActiveDepthBuffer(unsigned int textureId);

@@ -20,7 +20,6 @@ DDSImage::~DDSImage() {
 }
 
 void DDSImage::load(const std::string& filePath) {
-	this->filePath = filePath;
 	unsigned char header[124];
 
 	FILE *fp = fopen(filePath.c_str(), "rb");
@@ -38,14 +37,18 @@ void DDSImage::load(const std::string& filePath) {
 
 	fread(&header, 124, 1, fp); 
 
-	unsigned int height = swap_uint32(*(unsigned int*)&(header[8]));
-	unsigned int width = swap_uint32(*(unsigned int*)&(header[12]));
+	firstMipWidth = swap_uint32(*(unsigned int*)&(header[12]));
+	firstMipHeight = swap_uint32(*(unsigned int*)&(header[8]));
+	
 	unsigned int linearSize = swap_uint32(*(unsigned int*)&(header[16]));
 
 	numMipLevels = swap_uint32(*(unsigned int*)&(header[24]));
+	numMipLevels = numMipLevels ? numMipLevels : 1;
+
 	fourCC = swap_uint32(*(unsigned int*)&(header[80]));
 
 	dataSize = numMipLevels > 1 ? linearSize * 2 : linearSize;
+
 	unsigned int textureDataSize = dataSize * sizeof(unsigned char);
 	data = (unsigned char*)malloc(textureDataSize);
 
@@ -55,9 +58,10 @@ void DDSImage::load(const std::string& filePath) {
 	unsigned int blockSize = (fourCC == FOURCC_DXT1) ? 8 : 16;
 	unsigned int offset = 0;
 
-	numMipLevels = numMipLevels ? numMipLevels : 1;
-
 	mipLevels = new DDSMipLevel*[numMipLevels];
+
+	unsigned int width = firstMipWidth;
+	unsigned int height = firstMipHeight;
 
 	for (unsigned int level = 0; level < numMipLevels && (width || height); ++level) {
 		unsigned int size = ((width+3)/4)*((height+3)/4)*blockSize;
@@ -67,6 +71,7 @@ void DDSImage::load(const std::string& filePath) {
 		mipLevel->height = height;
 		mipLevel->offset = offset;
 		mipLevels[level] = mipLevel;
+		totalSize += size;
 		offset += size;
 		width  /= 2;
 		height /= 2;

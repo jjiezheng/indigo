@@ -7,6 +7,17 @@ class PS3Pad : public IPad {
 
 public:
 
+	PS3Pad() 
+		: leftStickY_(0.0f)
+		, leftStickX_(0.0f)
+		, rightStickX_(0.0f)
+		, rightStickY_(0.0f)
+		, leftShoulder_(false)
+		, rightShoulder_(false) { };
+
+
+public:
+
   void setup();
 
   void update();
