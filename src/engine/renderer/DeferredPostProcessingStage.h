@@ -3,6 +3,8 @@
 
 #include <vector>
 
+#include "memory/STLAllocators.h"
+
 class IDeferredPostProcessingPass;
 class DeferredLightingRenderStage;
 class DeferredInitRenderStage;
@@ -39,7 +41,7 @@ private:
 
   unsigned int finalComposition_;
 
-  std::vector<IDeferredPostProcessingPass*> passes_;
+  std::vector<IDeferredPostProcessingPass*, resident_vector_allocator<IDeferredPostProcessingPass*> > passes_;
 
 };
 

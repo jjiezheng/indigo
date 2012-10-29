@@ -2,6 +2,9 @@
 #define DEFERRED_INIT_RENDER_STAGE_H
 
 #include <vector>
+
+#include "memory/STLAllocators.h"
+
 #include "IDeferredRenderStage.h"
 
 class IDeferredPass;
@@ -47,7 +50,7 @@ private:
   unsigned int normalMapTexture_;
   unsigned int normalRenderTarget_;
 
-  std::vector<IDeferredPass*> passes_;
+  std::vector<IDeferredPass*, resident_vector_allocator<IDeferredPass*>> passes_;
 
 };
 

@@ -5,8 +5,8 @@
 
 IGraphicsInterface* GraphicsInterface::graphicsInterface_ = 0;
 
-void GraphicsInterface::init(int width, int height, unsigned int multiSamples) {
-  graphicsInterface_ = IGraphicsInterface::createInterface();
+void GraphicsInterface::init(ScopeStack* systemStack, int width, int height, unsigned int multiSamples) {
+  graphicsInterface_ = IGraphicsInterface::createInterface(systemStack);
   graphicsInterface_->openWindow(width, height, multiSamples);
 }
 

@@ -4,11 +4,13 @@
 class IKeyboard;
 class IKeyboardListener;
 
+class ScopeStack;
+
 class Keyboard {
   
 public:
   
-  static void init();
+  static void init(ScopeStack* scopeStack);
   
 public:
   

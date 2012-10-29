@@ -2,6 +2,7 @@
 #define EFFECTCACHE_H
 
 #include <vector>
+#include <string>
 #include <map>
 
 class IEffect;

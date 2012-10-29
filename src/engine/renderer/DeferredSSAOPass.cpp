@@ -67,7 +67,7 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
 
     Vector4 kernelV(x, y, z, 0.0f);
     Vector4 kernelN = kernelV.normalize();
-    kernel[i] = kernelV;
+    kernel[i] = kernelN;
 
     kernel[i] = kernel[i] * Random::random(0.0f, 1.0f);
 

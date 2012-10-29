@@ -14,55 +14,58 @@
 #include "ui/FPSStats.h"
 #include "ui/RenderChannelInfo.h"
 
-void Game::init(const char* sceneFile) {
-  Pad::init();
-  Mouse::init();
-  Keyboard::init();
+void Game::init(ScopeStack* systemStack, const char* sceneFile) {
+  Pad::init(systemStack);
+  Mouse::init(systemStack);
+  Keyboard::init(systemStack);
 
   renderer_.init(GraphicsInterface::backBufferSize());
-  ui_.init(GraphicsInterface::backBufferSize());
+//  ui_.init(GraphicsInterface::backBufferSize());
+//
+//  clock_.init();
+//  
+//  camera_.translateZ(5.5f);
+//  camera_.translateY(0.0f);
+//  //camera_.rotateX(toRadians(-90));
+//  
+//  camera_.setProjection(45.0f, GraphicsInterface::aspectRatio(), 1.0f, 1000.0f);
 
-  clock_.init();
-  
-  camera_.translateZ(5.5f);
-  camera_.translateY(0.0f);
-  //camera_.rotateX(toRadians(-90));
-  
-  camera_.setProjection(45.0f, GraphicsInterface::aspectRatio(), 1.0f, 1000.0f);
+//
+//	FPSStats* fpsStats = FPSStats::stats();
+//	ui_.addControl(fpsStats);
+//
+//	RenderChannelInfo* renderChannelInfo = RenderChannelInfo::info(&renderer_);
+//	ui_.addControl(renderChannelInfo);
+//
+//  Keyboard::setKeydownListener(this);
 
-  if (sceneFile) {
-    WorldLoader loader; 
-    loader.loadFromSceneFile(sceneFile, world_, sceneContext_);
-  }
 
-	FPSStats* fpsStats = FPSStats::stats();
-	ui_.addControl(fpsStats);
-
-	RenderChannelInfo* renderChannelInfo = RenderChannelInfo::info(&renderer_);
-	ui_.addControl(renderChannelInfo);
-  
-  Keyboard::setKeydownListener(this);
+//  if (sceneFile) {
+//    WorldLoader loader; 
+//    loader.loadFromSceneFile(sceneFile, world_, sceneContext_);
+//  }
+//
 }
  
 void Game::mainLoop() {
-  float dt = clock_.delta_time();
-  camera_.update(dt);
-  Pad::update();
-  Keyboard::update();
-  ui_.update(dt);
-
-  renderer_.render(&camera_, world_, sceneContext_);
-  ui_.render();
+//  float dt = clock_.delta_time();
+//  camera_.update(dt);
+//  Pad::update();
+//  Keyboard::update();
+//  ui_.update(dt);
+//
+//  renderer_.render(&camera_, world_, sceneContext_);
+//  ui_.render();
 }
 
 void Game::keyUp(int keyCode) {
-  if (keyCode > 47 && keyCode < 59) {
-	  int renderTargetgId = keyCode - 49;// + 5;
-	  renderer_.presentRenderTarget(renderTargetgId);
-  }
+//  if (keyCode > 47 && keyCode < 59) {
+//	  int renderTargetgId = keyCode - 49;// + 5;
+//	  renderer_.presentRenderTarget(renderTargetgId);
+//  }
 }
 
 void Game::destroy() {
-  renderer_.destroy();
-  world_.destroy();
+//  renderer_.destroy();
+//  world_.destroy();
 }

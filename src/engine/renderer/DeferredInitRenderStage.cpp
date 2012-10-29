@@ -1,5 +1,7 @@
 #include "DeferredInitRenderStage.h"
 
+#include "memory/Allocation.h"
+
 #include "IDeferredRenderTargetContainer.h"
 #include "DeferredGeometryPass.h"
 
@@ -16,7 +18,7 @@ void DeferredInitRenderStage::init(const CSize& screenSize) {
   normalMapTexture_ = GraphicsInterface::createTexture(GraphicsInterface::backBufferSize(), IGraphicsInterface::R8G8B8A8);
   normalRenderTarget_ = GraphicsInterface::createRenderTarget(normalMapTexture_);
 
-  IDeferredPass* geometryPass = new DeferredGeometryPass(colorRenderTarget_, normalRenderTarget_);
+  IDeferredPass* geometryPass = new (&Allocation::resident_allocator) DeferredGeometryPass(colorRenderTarget_, normalRenderTarget_);
   passes_.push_back(geometryPass);
 }
 

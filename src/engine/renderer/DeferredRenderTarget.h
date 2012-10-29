@@ -1,6 +1,8 @@
 #ifndef DEFERRED_RENDER_TARGET_H
 #define DEFERRED_RENDER_TARGET_H
 
+#include <string>
+
 struct DeferredRenderTarget {
 
 public:

@@ -7,6 +7,7 @@
 #include "VertexFormat.h"
 #include "core/Size.h"
 
+class ScopeStack;
 class IEffect;
 class Color4;
 class VertexDef;
@@ -35,7 +36,7 @@ public:
 
 public:
 
-  static IGraphicsInterface* createInterface();
+  static IGraphicsInterface* createInterface(ScopeStack* systemStack);
 
 public:
 
@@ -83,7 +84,7 @@ public:
 
 public:
 
-	virtual void enableSmoothing() = 0;;
+	virtual void enableSmoothing() = 0;
 
 	virtual void disableSmoothing() = 0;
 

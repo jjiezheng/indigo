@@ -4,7 +4,7 @@
 #include "IPad.h"
 
 class NullPad : public IPad {
-  
+      
 public:
   
   void setup();

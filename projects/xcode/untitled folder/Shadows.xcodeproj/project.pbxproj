@@ -71,6 +71,16 @@
 		4C4D2C04155E50CB005EE885 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C4D2BFF155E50CB005EE885 /* InfoPlist.strings */; };
 		4C4D2C05155E50CB005EE885 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C4D2C01155E50CB005EE885 /* MainMenu.xib */; };
 		4C6CBA69161113E600D4A7C7 /* Mouse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C6CBA68161113E600D4A7C7 /* Mouse.cpp */; };
+		4C8BFFCD163D5A47003A0324 /* Frustum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C8BFFCB163D5A47003A0324 /* Frustum.cpp */; };
+		4C8BFFD9163D5AB3003A0324 /* Font.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C8BFFD2163D5AB3003A0324 /* Font.cpp */; };
+		4C8BFFDA163D5AB3003A0324 /* Label.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C8BFFD5163D5AB3003A0324 /* Label.cpp */; };
+		4C8BFFDB163D5AB3003A0324 /* UI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C8BFFD7163D5AB3003A0324 /* UI.cpp */; };
+		4C8BFFE4163D5AD1003A0324 /* CharFntLineParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C8BFFDC163D5AD1003A0324 /* CharFntLineParser.cpp */; };
+		4C8BFFE5163D5AD1003A0324 /* Endian.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C8BFFDE163D5AD1003A0324 /* Endian.cpp */; };
+		4C8BFFE6163D5AD1003A0324 /* FntFileParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C8BFFE0163D5AD1003A0324 /* FntFileParser.cpp */; };
+		4C8BFFEC163D5AFB003A0324 /* FPSStats.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C8BFFE8163D5AFB003A0324 /* FPSStats.cpp */; };
+		4C8BFFED163D5AFB003A0324 /* RenderChannelInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C8BFFEA163D5AFB003A0324 /* RenderChannelInfo.cpp */; };
+		4C8BFFF1163D5B11003A0324 /* Plane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C8BFFEE163D5B10003A0324 /* Plane.cpp */; };
 		4C8E100714F03D450095F390 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C8E100614F03D450095F390 /* QuartzCore.framework */; };
 		4C94129A1438203800D9357E /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9412991438203800D9357E /* ApplicationServices.framework */; };
 		4C96E81616184532000D227F /* elements.inl in Resources */ = {isa = PBXBuildFile; fileRef = 4C96E81316184532000D227F /* elements.inl */; };
@@ -257,6 +267,33 @@
 		4C6783671436F0F500F39B80 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		4C6CBA671611138600D4A7C7 /* Mouse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Mouse.h; path = input/Mouse.h; sourceTree = "<group>"; };
 		4C6CBA68161113E600D4A7C7 /* Mouse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Mouse.cpp; path = input/Mouse.cpp; sourceTree = "<group>"; };
+		4C8BFFC9163D57CC003A0324 /* DefaultGraphicsInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DefaultGraphicsInterface.h; sourceTree = "<group>"; };
+		4C8BFFCB163D5A47003A0324 /* Frustum.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Frustum.cpp; sourceTree = "<group>"; };
+		4C8BFFCC163D5A47003A0324 /* Frustum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Frustum.h; sourceTree = "<group>"; };
+		4C8BFFCF163D5A75003A0324 /* Allocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Allocation.h; path = memory/Allocation.h; sourceTree = "<group>"; };
+		4C8BFFD1163D5AB3003A0324 /* Control.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Control.h; sourceTree = "<group>"; };
+		4C8BFFD2163D5AB3003A0324 /* Font.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Font.cpp; sourceTree = "<group>"; };
+		4C8BFFD3163D5AB3003A0324 /* Font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Font.h; sourceTree = "<group>"; };
+		4C8BFFD4163D5AB3003A0324 /* FontCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontCharacter.h; sourceTree = "<group>"; };
+		4C8BFFD5163D5AB3003A0324 /* Label.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Label.cpp; sourceTree = "<group>"; };
+		4C8BFFD6163D5AB3003A0324 /* Label.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Label.h; sourceTree = "<group>"; };
+		4C8BFFD7163D5AB3003A0324 /* UI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UI.cpp; sourceTree = "<group>"; };
+		4C8BFFD8163D5AB3003A0324 /* UI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UI.h; sourceTree = "<group>"; };
+		4C8BFFDC163D5AD1003A0324 /* CharFntLineParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CharFntLineParser.cpp; sourceTree = "<group>"; };
+		4C8BFFDD163D5AD1003A0324 /* CharFntLineParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharFntLineParser.h; sourceTree = "<group>"; };
+		4C8BFFDE163D5AD1003A0324 /* Endian.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Endian.cpp; sourceTree = "<group>"; };
+		4C8BFFDF163D5AD1003A0324 /* Endian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Endian.h; sourceTree = "<group>"; };
+		4C8BFFE0163D5AD1003A0324 /* FntFileParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FntFileParser.cpp; sourceTree = "<group>"; };
+		4C8BFFE1163D5AD1003A0324 /* FntFileParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FntFileParser.h; sourceTree = "<group>"; };
+		4C8BFFE2163D5AD1003A0324 /* ICharFntTokenParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICharFntTokenParser.h; sourceTree = "<group>"; };
+		4C8BFFE3163D5AD1003A0324 /* IFntLineParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFntLineParser.h; sourceTree = "<group>"; };
+		4C8BFFE8163D5AFB003A0324 /* FPSStats.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FPSStats.cpp; path = ui/FPSStats.cpp; sourceTree = "<group>"; };
+		4C8BFFE9163D5AFB003A0324 /* FPSStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FPSStats.h; path = ui/FPSStats.h; sourceTree = "<group>"; };
+		4C8BFFEA163D5AFB003A0324 /* RenderChannelInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RenderChannelInfo.cpp; path = ui/RenderChannelInfo.cpp; sourceTree = "<group>"; };
+		4C8BFFEB163D5AFB003A0324 /* RenderChannelInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RenderChannelInfo.h; path = ui/RenderChannelInfo.h; sourceTree = "<group>"; };
+		4C8BFFEE163D5B10003A0324 /* Plane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Plane.cpp; sourceTree = "<group>"; };
+		4C8BFFEF163D5B10003A0324 /* Plane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Plane.h; sourceTree = "<group>"; };
+		4C8BFFF0163D5B11003A0324 /* Point.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Point.h; sourceTree = "<group>"; };
 		4C8E100614F03D450095F390 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4C9412991438203800D9357E /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		4C96E81316184532000D227F /* elements.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = elements.inl; sourceTree = "<group>"; };
@@ -372,6 +409,8 @@
 		4C74AB1E154892F40008271B /* engine */ = {
 			isa = PBXGroup;
 			children = (
+				4C8BFFE7163D5AF2003A0324 /* ui */,
+				4C8BFFCE163D5A69003A0324 /* memory */,
 				4CD90F93161104CD00D5F1B3 /* input */,
 				4CD90F8F1611036200D5F1B3 /* serialization */,
 				4C74AB23154892F40008271B /* core */,
@@ -403,6 +442,14 @@
 		4C74AB3F154892F40008271B /* io */ = {
 			isa = PBXGroup;
 			children = (
+				4C8BFFDC163D5AD1003A0324 /* CharFntLineParser.cpp */,
+				4C8BFFDD163D5AD1003A0324 /* CharFntLineParser.h */,
+				4C8BFFDE163D5AD1003A0324 /* Endian.cpp */,
+				4C8BFFDF163D5AD1003A0324 /* Endian.h */,
+				4C8BFFE0163D5AD1003A0324 /* FntFileParser.cpp */,
+				4C8BFFE1163D5AD1003A0324 /* FntFileParser.h */,
+				4C8BFFE2163D5AD1003A0324 /* ICharFntTokenParser.h */,
+				4C8BFFE3163D5AD1003A0324 /* IFntLineParser.h */,
 				4C3920CF160FD7BC005F5775 /* dds.h */,
 				4C3920D0160FD7BC005F5775 /* DDSImage.cpp */,
 				4C3920D1160FD7BC005F5775 /* DDSImage.h */,
@@ -422,6 +469,11 @@
 		4C74AB47154892F40008271B /* maths */ = {
 			isa = PBXGroup;
 			children = (
+				4C8BFFEE163D5B10003A0324 /* Plane.cpp */,
+				4C8BFFEF163D5B10003A0324 /* Plane.h */,
+				4C8BFFF0163D5B11003A0324 /* Point.h */,
+				4C8BFFCB163D5A47003A0324 /* Frustum.cpp */,
+				4C8BFFCC163D5A47003A0324 /* Frustum.h */,
 				4C392006160FD737005F5775 /* Angles.cpp */,
 				4C392007160FD737005F5775 /* Angles.h */,
 				4C392008160FD737005F5775 /* Interpolation.cpp */,
@@ -455,6 +507,7 @@
 		4C74AB5C154892F40008271B /* renderer */ = {
 			isa = PBXGroup;
 			children = (
+				4C8BFFD0163D5A8E003A0324 /* ui */,
 				4CD90FA016110A5E00D5F1B3 /* OpenGL21GraphicsInterface.cpp */,
 				4CD90FA116110A5E00D5F1B3 /* OpenGL21GraphicsInterface.h */,
 				4C39201F160FD758005F5775 /* AverageBlur.cpp */,
@@ -563,6 +616,7 @@
 				4C39209A160FD758005F5775 /* World.h */,
 				4C39209B160FD758005F5775 /* WorldLoader.cpp */,
 				4C39209C160FD758005F5775 /* WorldLoader.h */,
+				4C8BFFC9163D57CC003A0324 /* DefaultGraphicsInterface.h */,
 			);
 			path = renderer;
 			sourceTree = "<group>";
@@ -577,6 +631,40 @@
 				4C4D2B7D155E46E2005EE885 /* main.cpp */,
 			);
 			path = game;
+			sourceTree = "<group>";
+		};
+		4C8BFFCE163D5A69003A0324 /* memory */ = {
+			isa = PBXGroup;
+			children = (
+				4C8BFFCF163D5A75003A0324 /* Allocation.h */,
+			);
+			name = memory;
+			sourceTree = "<group>";
+		};
+		4C8BFFD0163D5A8E003A0324 /* ui */ = {
+			isa = PBXGroup;
+			children = (
+				4C8BFFD1163D5AB3003A0324 /* Control.h */,
+				4C8BFFD2163D5AB3003A0324 /* Font.cpp */,
+				4C8BFFD3163D5AB3003A0324 /* Font.h */,
+				4C8BFFD4163D5AB3003A0324 /* FontCharacter.h */,
+				4C8BFFD5163D5AB3003A0324 /* Label.cpp */,
+				4C8BFFD6163D5AB3003A0324 /* Label.h */,
+				4C8BFFD7163D5AB3003A0324 /* UI.cpp */,
+				4C8BFFD8163D5AB3003A0324 /* UI.h */,
+			);
+			name = ui;
+			sourceTree = "<group>";
+		};
+		4C8BFFE7163D5AF2003A0324 /* ui */ = {
+			isa = PBXGroup;
+			children = (
+				4C8BFFE8163D5AFB003A0324 /* FPSStats.cpp */,
+				4C8BFFE9163D5AFB003A0324 /* FPSStats.h */,
+				4C8BFFEA163D5AFB003A0324 /* RenderChannelInfo.cpp */,
+				4C8BFFEB163D5AFB003A0324 /* RenderChannelInfo.h */,
+			);
+			name = ui;
 			sourceTree = "<group>";
 		};
 		4CB8D3031436F03A0079949A = {
@@ -853,6 +941,16 @@
 				4CD90FA216110A5E00D5F1B3 /* OpenGL21GraphicsInterface.cpp in Sources */,
 				4CD90FA516110E7600D5F1B3 /* Keyboard.cpp in Sources */,
 				4C6CBA69161113E600D4A7C7 /* Mouse.cpp in Sources */,
+				4C8BFFCD163D5A47003A0324 /* Frustum.cpp in Sources */,
+				4C8BFFD9163D5AB3003A0324 /* Font.cpp in Sources */,
+				4C8BFFDA163D5AB3003A0324 /* Label.cpp in Sources */,
+				4C8BFFDB163D5AB3003A0324 /* UI.cpp in Sources */,
+				4C8BFFE4163D5AD1003A0324 /* CharFntLineParser.cpp in Sources */,
+				4C8BFFE5163D5AD1003A0324 /* Endian.cpp in Sources */,
+				4C8BFFE6163D5AD1003A0324 /* FntFileParser.cpp in Sources */,
+				4C8BFFEC163D5AFB003A0324 /* FPSStats.cpp in Sources */,
+				4C8BFFED163D5AFB003A0324 /* RenderChannelInfo.cpp in Sources */,
+				4C8BFFF1163D5B11003A0324 /* Plane.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

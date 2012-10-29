@@ -1,13 +1,15 @@
 #ifndef PAD_H
 #define PAD_H
 
+class ScopeStack;
+
 class IPad;
 
 class Pad {
  
 public:
   
-  static void init();
+  static void init(ScopeStack* scopeStack);
   
   static void update();
   
@@ -28,7 +30,6 @@ public:
 private:
   
   static IPad* pad_;
-
   
 };
 

@@ -1,6 +1,8 @@
 #ifndef DEFERRED_SPOT_LIGHTS_PASS_H
 #define DEFERRED_SPOT_LIGHTS_PASS_H
 
+#include <vector>
+
 #include "IDeferredLightingPass.h"
 #include "core/HashMap.h"
 

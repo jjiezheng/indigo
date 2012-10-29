@@ -21,4 +21,12 @@
   #define PLATFORM_POSIX 1 
 #endif
 
+#if defined (PLATFORM_PS3)
+  #define PLATFORM_RESIDENT_MEMORY 1024*1024*256 // 256mb
+#endif
+
+#if defined (PLATFORM_WINDOWS) || (PLATFORM_MAC)
+  #define PLATFORM_RESIDENT_MEMORY 1024*1024*1024 // 1 gig
+#endif
+
 #endif

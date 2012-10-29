@@ -4,16 +4,16 @@
    version = "1.0">
    <FileBreakpoints>
       <FileBreakpoint
-         shouldBeEnabled = "No"
+         shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "../../src/engine/renderer/CGShader.cpp"
-         timestampString = "358896342.848702"
+         filePath = "../../src/engine/memory/ScopeStack.h"
+         timestampString = "373162389.580267"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "62"
-         endingLineNumber = "62"
-         landmarkName = "CGShader::load(const char* vertexShaderPath, const char* fragmentShaderPath)"
+         startingLineNumber = "39"
+         endingLineNumber = "39"
+         landmarkName = "~ScopeStack()"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

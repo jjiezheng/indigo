@@ -3,9 +3,10 @@
 
 #include <vector>
 
-#include "IDeferredRenderTargetContainer.h"
+#include "memory/STLAllocators.h"
 #include "services/IRenderChannelInfoService.h"
 
+#include "IDeferredRenderTargetContainer.h"
 #include "DeferredInitRenderStage.h"
 #include "DeferredLightingRenderStage.h"
 #include "DeferredSkyRenderStage.h"
@@ -65,7 +66,7 @@ private:
 
 private:
 
-  std::vector<DeferredRenderTarget> renderTargets_;
+  std::vector<DeferredRenderTarget, resident_vector_allocator<DeferredRenderTarget> > renderTargets_;
   unsigned int activeRenderTargetIndex_;
 
 private:

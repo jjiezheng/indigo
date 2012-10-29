@@ -9,6 +9,7 @@
 
 #include "VertexFormat.h"
 
+class ScopeStack;
 class IEffect;
 class Color4;
 class VertexDef;
@@ -24,7 +25,7 @@ public:
   
 public:
 
-  static void init(int width, int height, unsigned int multiSamples);
+  static void init(ScopeStack* systemStack, int width, int height, unsigned int multiSamples);
 
   static void destroy();
 

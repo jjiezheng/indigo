@@ -1,6 +1,7 @@
 #include "Keyboard.h"
 
 #include "platform/PlatformDefs.h"
+#include "memory/ScopeStack.h"
 
 #include "IKeyboard.h"
 
@@ -16,13 +17,13 @@
 
 IKeyboard* Keyboard::keyboard_ = 0;
 
-void Keyboard::init() {
+void Keyboard::init(ScopeStack* scopeStack) {
 #ifdef PLATFORM_WINDOWS
-  keyboard_ = new WindowsKeyboard();
+  keyboard_ = new (&Allocation::resident_allocator) WindowsKeyboard();
 #elif PLATFORM_PS3
-  keyboard_ = new PS3Keyboard();
+  keyboard_ = new (&Allocation::resident_allocator) PS3Keyboard();
 #else
-  keyboard_ = new NullKeyboard();
+  keyboard_ = scopeStack->create<NullKeyboard>();
 #endif
   keyboard_->setup();
 };

@@ -1,6 +1,7 @@
 #include "Mouse.h"
 
 #include "platform/PlatformDefs.h"
+#include "memory/ScopeStack.h"
 
 #ifdef PLATFORM_WINDOWS
 #include "WindowsMouse.h"
@@ -10,11 +11,11 @@
 
 IMouse* Mouse::mouse_ = 0;
 
-void Mouse::init() {
+void Mouse::init(ScopeStack* scopeStack) {
 #ifdef PLATFORM_WINDOWS
   mouse_ = new WindowsMouse();
 #else
-  mouse_ = new NullMouse();
+  mouse_ = scopeStack->create<NullMouse>();
 #endif
   mouse_->setup();
 }
