@@ -17,6 +17,7 @@ public:
   static VertexFormat SCREEN_PLANE_VERTEX_FORMAT;
 
   static int FONT_PLANE_VERTEX_COUNT;
+  
   static VertexFormat FONT_PLANE_VERTEX_FORMAT;
 
 };

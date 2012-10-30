@@ -18,9 +18,9 @@
 #include "IViewer.h"
 
 void DeferredShadowPass::init() {
-  shadowMapEffect_ = IEffect::effectFromFile("cgfx/deferred_depth.cgfx");
-  shadowLightEffect_ = IEffect::effectFromFile("cgfx/deferred_lighting_shadow_light.cgfx");
-  quadVbo_ = Geometry::screenPlane();
+//  shadowMapEffect_ = IEffect::effectFromFile("cgfx/deferred_depth.cgfx");
+//  shadowLightEffect_ = IEffect::effectFromFile("cgfx/deferred_lighting_shadow_light.cgfx");
+//  quadVbo_ = Geometry::screenPlane();
 }
 
 void DeferredShadowPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {

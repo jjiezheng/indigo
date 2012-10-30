@@ -6,8 +6,8 @@
 #include "Material.h"
 
 void SkyDome::load(const std::string& skyDomeModelPath) {
-  skyEffect_ = IEffect::effectFromFile("cgfx/colormap.hlsl");
-  skyDomeModel_ = Model::modelFromFile(skyDomeModelPath);
+//  skyEffect_ = IEffect::effectFromFile("cgfx/colormap.hlsl");
+//  skyDomeModel_ = Model::modelFromFile(skyDomeModelPath);
 }
 
 void SkyDome::render(const Matrix4x4& projection, const Matrix4x4& view, const Matrix4x4& model) {

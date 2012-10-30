@@ -14,17 +14,17 @@
 
 
 void DeferredFXAAPass::init(const CSize& screenSize) {
-  colorLumaTexture_ = GraphicsInterface::createTexture(GraphicsInterface::screenSize());
-  colorLumaTarget_ = GraphicsInterface::createRenderTarget(colorLumaTexture_);
-  colorLumaEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/fxaa_color_luma.shader");
-	colorLumaEffect_->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_NONE);
-
-  fxaaRenderTexture_ = GraphicsInterface::createTexture(GraphicsInterface::screenSize());
-  fxaaRenderTarget_ = GraphicsInterface::createRenderTarget(fxaaRenderTexture_);
-  fxaaEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/fxaa_main.shader");
-  fxaaEffect_->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_NONE);
-
-  quadVbo_ = Geometry::screenPlane();
+//  colorLumaTexture_ = GraphicsInterface::createTexture(GraphicsInterface::screenSize());
+//  colorLumaTarget_ = GraphicsInterface::createRenderTarget(colorLumaTexture_);
+//  colorLumaEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/fxaa_color_luma.shader");
+//	colorLumaEffect_->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_NONE);
+//
+//  fxaaRenderTexture_ = GraphicsInterface::createTexture(GraphicsInterface::screenSize());
+//  fxaaRenderTarget_ = GraphicsInterface::createRenderTarget(fxaaRenderTexture_);
+//  fxaaEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/fxaa_main.shader");
+//  fxaaEffect_->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_NONE);
+//
+//  quadVbo_ = Geometry::screenPlane();
 }
 
 unsigned int DeferredFXAAPass::render(IViewer* viewer, unsigned int inputMap, const SceneContext& sceneContext, const DeferredInitRenderStage& initStage) {

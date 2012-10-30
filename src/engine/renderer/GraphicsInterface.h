@@ -57,7 +57,7 @@ public:
 
 public:
 
-  static IEffect* createEffect();
+  static IEffect* createEffect(ScopeStack* scopeStack);
 
   static unsigned int createVertexBuffer(VertexDef* vertexData, int numVertices);
 

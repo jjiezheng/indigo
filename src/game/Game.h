@@ -1,7 +1,6 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "memory/ScopeStack.h"
 #include "core/Clock.h"
 
 #include "renderer/World.h"
@@ -12,11 +11,19 @@
 
 #include "input/IKeyboardListener.h"
 
+class ScopeStack;
+
 class Game : public IKeyboardListener {
-    
+  
 public:
   
-  void init(ScopeStack* systemStack, const char* sceneFile);
+  Game(ScopeStack* systemStack)
+    : systemStack_(systemStack)
+    , renderer_(systemStack) { }
+  
+public:
+  
+  void init(const char* sceneFile);
   
   void mainLoop();
 
@@ -28,6 +35,7 @@ public:
   
 private:
   
+  ScopeStack* systemStack_;
   UI ui_;
   Camera camera_;
   Renderer3dDeferred renderer_;

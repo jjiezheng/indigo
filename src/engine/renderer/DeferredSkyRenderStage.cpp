@@ -10,12 +10,12 @@
 #include "DeferredLightingRenderStage.h"
 
 void DeferredSkyRenderStage::init(const CSize &screenSize) {
-  skyRenderTexture_ = GraphicsInterface::createTexture(screenSize);
-  skyRenderTarget_ = GraphicsInterface::createRenderTarget(skyRenderTexture_);
-
-  compositeEffect_ = IEffect::effectFromFile("cgfx/composite.hlsl");
-
-  quadVBO_ = Geometry::screenPlane();
+//  skyRenderTexture_ = GraphicsInterface::createTexture(screenSize);
+//  skyRenderTarget_ = GraphicsInterface::createRenderTarget(skyRenderTexture_);
+//
+//  compositeEffect_ = IEffect::effectFromFile("cgfx/composite.hlsl");
+//
+//  quadVBO_ = Geometry::screenPlane();
 }
 
 void DeferredSkyRenderStage::render(IViewer* viewer, World& world, DeferredLightingRenderStage& lightingStage) {

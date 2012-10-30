@@ -26,22 +26,22 @@
 #include "memory/Allocation.h"
 
 void DeferredSpotLightsPass::init(const CSize& screenSize) {
-  shadowDepthEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_depth.shader");
-
-  lightEffectNoShadow_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_lighting_spot_light.shader");
-  lightEffectNoShadow_->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
-  lightEffectNoShadow_->setSamplerState(1, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
-
-  lightEffectShadow_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_lighting_spot_light_shadow.shader");
-  lightEffectShadow_->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
-  lightEffectShadow_->setSamplerState(1, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
-  lightEffectShadow_->setSamplerState(2, UV_ADDRESS_CLAMP, FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT, COMPARISON_LESS_SHADOW);
- 
-  spotLightRenderTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R8G8B8A8);
-  spotLightRenderTarget_ = GraphicsInterface::createRenderTarget(spotLightRenderTexture_);
-
-  accumulationEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_light_composition.shader");
-  quadVbo_ = Geometry::screenPlane();
+//  shadowDepthEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_depth.shader");
+//
+//  lightEffectNoShadow_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_lighting_spot_light.shader");
+//  lightEffectNoShadow_->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
+//  lightEffectNoShadow_->setSamplerState(1, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
+//
+//  lightEffectShadow_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_lighting_spot_light_shadow.shader");
+//  lightEffectShadow_->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
+//  lightEffectShadow_->setSamplerState(1, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
+//  lightEffectShadow_->setSamplerState(2, UV_ADDRESS_CLAMP, FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT, COMPARISON_LESS_SHADOW);
+// 
+//  spotLightRenderTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R8G8B8A8);
+//  spotLightRenderTarget_ = GraphicsInterface::createRenderTarget(spotLightRenderTexture_);
+//
+//  accumulationEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_light_composition.shader");
+//  quadVbo_ = Geometry::screenPlane();
 }
 
 void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext, unsigned int lightMapRenderTarget, const DeferredInitRenderStage& initStage) {

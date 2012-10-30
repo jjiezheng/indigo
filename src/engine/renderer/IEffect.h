@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+class ScopeStack;
+
 class Matrix4x4;
 class Matrix3x3;
 class Color3;
@@ -42,8 +44,8 @@ public:
   virtual ~IEffect() { };
 
 public:
-
-  static IEffect* effectFromFile(const std::string& relativeFilePath);
+  
+  static IEffect* effectFromFile(ScopeStack* scopeStack, const std::string& relativeFilePath);
 
 public:
 

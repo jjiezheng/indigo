@@ -78,8 +78,10 @@ public:
 
 public:
 
-  virtual IEffect* createEffect() = 0;
+  virtual IEffect* createEffect(ScopeStack* scopeStack) = 0;
 
+public:
+  
   virtual void resetGraphicsState(bool cullBack) = 0;
 
 public:

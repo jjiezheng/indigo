@@ -472,9 +472,9 @@ Material WorldLoader::loadMaterial(const json::Object& materialObject) {
 }
 
 void WorldLoader::loadEffect(Material& material, const std::string &shaderFilePath) { 
-  std::string fullEffectPath = Path::pathForFile(shaderFilePath);
-  IEffect* effect = EffectCache::instance()->loadEffect(fullEffectPath);
-  material.setEffect(effect);
+//  std::string fullEffectPath = Path::pathForFile(shaderFilePath);
+//  IEffect* effect = EffectCache::instance()->loadEffect(fullEffectPath);
+//  material.setEffect(effect);
 }
 
 void WorldLoader::loadTerrain(const json::Object& objectItem, World& world) {

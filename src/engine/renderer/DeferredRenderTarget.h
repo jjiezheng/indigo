@@ -6,6 +6,8 @@
 struct DeferredRenderTarget {
 
 public:
+  
+  DeferredRenderTarget() { };
 
   DeferredRenderTarget(const std::string& name_, unsigned int renderTargetId_)
     : name(name_)

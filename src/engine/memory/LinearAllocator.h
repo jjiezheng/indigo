@@ -10,7 +10,7 @@ class LinearAllocator {
 public:
   
   LinearAllocator(void* memory)
-    : memory_(memory)
+    : memory_((u8*)memory)
     , position_(0) { }
   
 public:
@@ -19,7 +19,7 @@ public:
   
 private:
   
-  void* memory_;
+  u8* memory_;
   u32 position_;
   
 };

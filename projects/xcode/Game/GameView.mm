@@ -18,6 +18,7 @@
   
   // Synchronize buffer swaps with vertical refresh rate
   GLint swapInt = 1;
+  
   [[self openGLContext] setValues:&swapInt forParameter:NSOpenGLCPSwapInterval];
   
   // Create a display link capable of being used with all active displays

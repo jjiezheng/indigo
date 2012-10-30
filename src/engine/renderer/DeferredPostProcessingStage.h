@@ -41,7 +41,7 @@ private:
 
   unsigned int finalComposition_;
 
-  std::vector<IDeferredPostProcessingPass*, resident_vector_allocator<IDeferredPostProcessingPass*> > passes_;
+  std::vector<IDeferredPostProcessingPass*, vec_alloc<IDeferredPostProcessingPass*> > passes_;
 
 };
 

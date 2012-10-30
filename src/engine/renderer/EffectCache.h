@@ -6,6 +6,7 @@
 #include <map>
 
 class IEffect;
+class ScopeStack;
 
 class EffectCache {
 
@@ -17,8 +18,8 @@ public:
 
 public:
 
-  IEffect* loadEffect(const std::string& filename);
-
+  IEffect* loadEffect(ScopeStack* scopeStack, const std::string& filename);
+  
   void purgeCache();
 
 private:

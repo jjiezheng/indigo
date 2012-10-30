@@ -14,21 +14,21 @@
 #include "ui/FPSStats.h"
 #include "ui/RenderChannelInfo.h"
 
-void Game::init(ScopeStack* systemStack, const char* sceneFile) {
-  Pad::init(systemStack);
-  Mouse::init(systemStack);
-  Keyboard::init(systemStack);
+void Game::init(const char* sceneFile) {
+  Pad::init(systemStack_);
+  Mouse::init(systemStack_);
+  Keyboard::init(systemStack_);
 
   renderer_.init(GraphicsInterface::backBufferSize());
 //  ui_.init(GraphicsInterface::backBufferSize());
 //
-//  clock_.init();
-//  
-//  camera_.translateZ(5.5f);
-//  camera_.translateY(0.0f);
-//  //camera_.rotateX(toRadians(-90));
-//  
-//  camera_.setProjection(45.0f, GraphicsInterface::aspectRatio(), 1.0f, 1000.0f);
+  clock_.init();
+
+  camera_.translateZ(5.5f);
+  camera_.translateY(0.0f);
+  //camera_.rotateX(toRadians(-90));
+  
+  camera_.setProjection(45.0f, GraphicsInterface::aspectRatio(), 1.0f, 1000.0f);
 
 //
 //	FPSStats* fpsStats = FPSStats::stats();
@@ -37,14 +37,14 @@ void Game::init(ScopeStack* systemStack, const char* sceneFile) {
 //	RenderChannelInfo* renderChannelInfo = RenderChannelInfo::info(&renderer_);
 //	ui_.addControl(renderChannelInfo);
 //
-//  Keyboard::setKeydownListener(this);
+  Keyboard::setKeydownListener(this);
 
 
-//  if (sceneFile) {
-//    WorldLoader loader; 
-//    loader.loadFromSceneFile(sceneFile, world_, sceneContext_);
-//  }
-//
+  if (sceneFile) {
+    WorldLoader loader; 
+    loader.loadFromSceneFile(sceneFile, world_, sceneContext_);
+  }
+
 }
  
 void Game::mainLoop() {

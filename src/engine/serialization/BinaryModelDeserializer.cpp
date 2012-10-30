@@ -101,38 +101,38 @@ Model* BinaryModelDeserializer::deserialize(const std::string& modelFilePath) {
 }
 
 void BinaryModelDeserializer::deserializeMaterial(Material& material, std::ifstream& input) {
-  std::string effectFile = readString(input);
-  IEffect* effect = EffectCache::instance()->loadEffect(effectFile);
-  material.setEffect(effect);
-
-  unsigned int parameterCount = readUINT(input);
-
-  for (unsigned int i = 0; i < parameterCount; i++) {
-    std::string parameterKey = readString(input);
-   
-    MaterialParameterType parameterType = (MaterialParameterType)readINT(input);
-
-    if (parameterType == PARAMETER_TYPE_FLOAT) {
-      float parameterValue = readFloat(input);
-      MaterialParameter* parameter = new FloatMaterialParameter(parameterKey, parameterValue);
-      material.setParameter(parameter);
-    }
-
-    if (parameterType == PARAMETER_TYPE_VECTOR3) {
-      Vector3 parameterValue = readVector3(input);
-      MaterialParameter* parameter = new Vector3MaterialParameter(parameterKey, parameterValue);
-      material.setParameter(parameter);
-    }
-  }
-
-  unsigned int textureCount = readUINT(input);
-
-  for (unsigned int i = 0; i < textureCount; i++) {
-    std::string textureKey = readString(input);
-    std::string texturePath = readString(input);
-    
-    Texture texture;
-    texture.init(texturePath);
-    material.addTexture(textureKey, texture);
-  }
+//  std::string effectFile = readString(input);
+////  IEffect* effect = EffectCache::instance()->loadEffect(effectFile);
+//  material.setEffect(effect);
+//
+//  unsigned int parameterCount = readUINT(input);
+//
+//  for (unsigned int i = 0; i < parameterCount; i++) {
+//    std::string parameterKey = readString(input);
+//   
+//    MaterialParameterType parameterType = (MaterialParameterType)readINT(input);
+//
+//    if (parameterType == PARAMETER_TYPE_FLOAT) {
+//      float parameterValue = readFloat(input);
+//      MaterialParameter* parameter = new FloatMaterialParameter(parameterKey, parameterValue);
+//      material.setParameter(parameter);
+//    }
+//
+//    if (parameterType == PARAMETER_TYPE_VECTOR3) {
+//      Vector3 parameterValue = readVector3(input);
+//      MaterialParameter* parameter = new Vector3MaterialParameter(parameterKey, parameterValue);
+//      material.setParameter(parameter);
+//    }
+//  }
+//
+//  unsigned int textureCount = readUINT(input);
+//
+//  for (unsigned int i = 0; i < textureCount; i++) {
+//    std::string textureKey = readString(input);
+//    std::string texturePath = readString(input);
+//    
+//    Texture texture;
+//    texture.init(texturePath);
+//    material.addTexture(textureKey, texture);
+//  }
 }

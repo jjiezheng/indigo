@@ -12,7 +12,8 @@ class App {
 public:
   
   App()
-    : systemStack_(&rootMemory_) { }
+    : systemStack_(&rootMemory_)
+    , game_(&systemStack_) { }
   
 public:
   

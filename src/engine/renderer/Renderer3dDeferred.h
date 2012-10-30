@@ -31,8 +31,12 @@ public:
 
 public:
 
-  Renderer3dDeferred()
-    : activeRenderTargetIndex_(0) { };
+  explicit
+  Renderer3dDeferred(ScopeStack* systemStack)
+    : activeRenderTargetIndex_(0)
+    , initStage_(systemStack)
+    , presentStage_(systemStack)
+    , renderTargets_(vec_alloc<DeferredRenderTarget>(systemStack)){ };
 
 public:
 
@@ -66,7 +70,7 @@ private:
 
 private:
 
-  std::vector<DeferredRenderTarget, resident_vector_allocator<DeferredRenderTarget> > renderTargets_;
+  std::vector<DeferredRenderTarget, vec_alloc<DeferredRenderTarget> > renderTargets_;
   unsigned int activeRenderTargetIndex_;
 
 private:

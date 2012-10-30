@@ -21,14 +21,14 @@
 #include "EffectCache.h"
 
 void DeferredDirectionalLightsPass::init(const CSize& screenSize) {
-  directionalLightEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_lighting_directional_light.shader");
-  quadVbo_ = Geometry::screenPlane();
-
-  directionalLightRenderTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R8G8B8A8);
-  directionalLightRenderTarget_ = GraphicsInterface::createRenderTarget(directionalLightRenderTexture_);
-
-  accumulationEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_light_composition.shader");
-  quadVbo_ = Geometry::screenPlane();
+//  directionalLightEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_lighting_directional_light.shader");
+//  quadVbo_ = Geometry::screenPlane();
+//
+//  directionalLightRenderTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R8G8B8A8);
+//  directionalLightRenderTarget_ = GraphicsInterface::createRenderTarget(directionalLightRenderTexture_);
+//
+//  accumulationEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_light_composition.shader");
+//  quadVbo_ = Geometry::screenPlane();
 }
 
 void DeferredDirectionalLightsPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext, unsigned int lightMapRenderTarget, const DeferredInitRenderStage& initStage) {

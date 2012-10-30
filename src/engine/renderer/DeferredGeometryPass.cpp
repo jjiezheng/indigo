@@ -38,6 +38,9 @@ void DeferredGeometryPass::render(IViewer* viewer, World& world, const SceneCont
 	for (; it != world.end(); ++it) {
 		(*it)->visit(effects);
 	}
+  
+  Matrix4x4 projection = viewer->projection();
+  Matrix4x4 viewTransform = viewer->viewTransform();
 
 	hash_map<IEffect*, std::vector<Mesh*> >::iterator i = effects.begin();
 	for (; i != effects.end(); ++i) {
@@ -48,12 +51,12 @@ void DeferredGeometryPass::render(IViewer* viewer, World& world, const SceneCont
 
 		std::vector<Mesh*> effectMeshes = (*i).second;
 		for (std::vector<Mesh*>::iterator meshIt = effectMeshes.begin(); meshIt != effectMeshes.end(); ++meshIt) {
-			Matrix4x4 projection = viewer->projection();
-			Matrix4x4 viewTransform = viewer->viewTransform();
 			Matrix4x4 localToWorld = (*meshIt)->localToWorld();
 			Material material = (*meshIt)->material();
+
 			material.bind(projection, viewTransform, localToWorld, effect);
-			effect->beginDraw();
+			
+      effect->beginDraw();
 			(*meshIt)->render();
 			effect->endDraw();
 		}

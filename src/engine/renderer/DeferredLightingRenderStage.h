@@ -38,7 +38,7 @@ private:
   unsigned int lightMapTexture_;
   unsigned int lightRenderTarget_;
 
-  std::vector<IDeferredLightingPass*, resident_vector_allocator<IDeferredLightingPass*> > passes_;
+  std::vector<IDeferredLightingPass*, vec_alloc<IDeferredLightingPass*> > passes_;
 
 };
 

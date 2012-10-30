@@ -10,8 +10,14 @@
 
 #include "Allocation.h"
 
+#include "ScopeStack.h"
+
 template <class T>
-class resident_vector_allocator {
+class vec_alloc {
+  
+private:
+  
+  ScopeStack* scopeStack_;
   
 public:
   
@@ -26,7 +32,7 @@ public:
   // rebind allocator to type U
   template <class U>
   struct rebind {
-    typedef resident_vector_allocator<U> other;
+    typedef vec_alloc<U> other;
   };
   
   // return address of values
@@ -41,14 +47,16 @@ public:
   /* constructors and destructor
    * - nothing to do because the allocator has no state
    */
-  resident_vector_allocator() throw() { }
+  vec_alloc() throw() : scopeStack_(0) { }
   
-  resident_vector_allocator(const resident_vector_allocator&) throw() { }
+  vec_alloc(ScopeStack* scopeStack) throw() : scopeStack_(scopeStack) { }
   
-  template <class U>
-  resident_vector_allocator (const resident_vector_allocator<U>&) throw() { }
+//  vec_alloc(const vec_alloc&) throw() { }
   
-  ~resident_vector_allocator() throw() { }
+//  template <class U>
+//  vec_alloc (const vec_alloc<U>&) throw()  { }
+//  
+  ~vec_alloc() throw() { }
   
   // return maximum number of elements that can be allocated
   size_type max_size () const throw() {
@@ -59,7 +67,7 @@ public:
   pointer allocate (size_type num, const void* = 0) {
     // print message and allocate memory with global new
     std::cerr << "allocate " << num << " element(s)" << " of size " << sizeof(T) << std::endl;
-    pointer ret = (pointer)Allocation::resident_allocator.allocate(num * sizeof(T));
+    pointer ret = (pointer)scopeStack_->allocate(num * sizeof(T));
     std::cerr << " allocated at: " << (void*)ret << std::endl;
     return ret;
   }
@@ -78,22 +86,19 @@ public:
   
   // deallocate storage p of deleted elements
   void deallocate (pointer p, size_type num) {
-    assert(false && "Attempting to dealloc from the stack, reserve more meory up front");
-    // print message and deallocate memory with global delete
-//    std::cerr << "deallocate " << num << " element(s)" << " of size " << sizeof(T) << " at: " << (void*)p << std::endl;
-//    Allocation::resident_allocator.deallocate(p);
+    // we will blow the memory away when the stack unwinds
   }
   
 };
 
 // return that all specializations of this allocator are interchangeable
 template <class T1, class T2>
-bool operator== (const resident_vector_allocator<T1>&, const resident_vector_allocator<T2>&) throw() {
+bool operator== (const vec_alloc<T1>&, const vec_alloc<T2>&) throw() {
   return true;
 }
 
 template <class T1, class T2>
-bool operator!= (const resident_vector_allocator<T1>&, const resident_vector_allocator<T2>&) throw() {
+bool operator!= (const vec_alloc<T1>&, const vec_alloc<T2>&) throw() {
   return false;
 }
 

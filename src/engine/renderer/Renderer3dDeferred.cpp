@@ -20,9 +20,7 @@ void Renderer3dDeferred::destroy() {
   EffectCache::destroy();
 }
 
-void Renderer3dDeferred::init(const CSize& screenSize) {
-  renderTargets_.reserve(20);
-  
+void Renderer3dDeferred::init(const CSize& screenSize) {  
   initStage_.init(screenSize);
   initStage_.collectRenderTargets(this);
 
@@ -35,14 +33,14 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
 //  postProcessingStage_.init(screenSize);
 //  postProcessingStage_.collectRenderTargets(this);
 
-//  presentStage_.init(screenSize);
+  presentStage_.init(screenSize);
 
-//  unsigned int renderTargetsSize = (unsigned int)renderTargets_.size();
-//  presentRenderTarget(renderTargetsSize - 1);
+  unsigned int renderTargetsSize = (unsigned int)renderTargets_.size();
+  presentRenderTarget(renderTargetsSize - 1);
 }
 
 void Renderer3dDeferred::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
-//  initStage_.render(viewer, world, sceneContext);
+  initStage_.render(viewer, world, sceneContext);
 //  lightingStage_.render(viewer, world, sceneContext, initStage_);
   /*skyStage_.render(viewer, world, lightingStage_);*/
 //  postProcessingStage_.render(viewer, lightingStage_.lightMap(), sceneContext, initStage_);

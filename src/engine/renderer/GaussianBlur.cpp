@@ -8,23 +8,23 @@
 #include "core/String.h"
 
 void GaussianBlur::init(const CSize& bufferSize, int tapSize) {
-  bufferSize_ = bufferSize;
-
-  if (!outputRenderTarget_) {
-    outputRenderTexture_ = GraphicsInterface::createTexture(bufferSize);
-    outputRenderTarget_ = GraphicsInterface::createRenderTarget(outputRenderTexture_);
-  }
-
-  gaussianHorizontalMapTexture_ = GraphicsInterface::createTexture(bufferSize);
-  gaussianHorizontalRenderTarget_ = GraphicsInterface::createRenderTarget(gaussianHorizontalMapTexture_);
-
-  quadVbo_ = Geometry::screenPlane();
-
-  String horizontalFilename = String::withFormat("shaders/compiled/gaussian_blur_horizontal_%d_tap.shader", tapSize);
-  gaussianBlurHorizontalEffect_ = IEffect::effectFromFile(horizontalFilename.c_str());
-
-  String verticalFilename = String::withFormat("shaders/compiled/gaussian_blur_vertical_%d_tap.shader", tapSize);
-  gaussianBluVerticalEffect_ = IEffect::effectFromFile(verticalFilename.c_str());
+//  bufferSize_ = bufferSize;
+//
+//  if (!outputRenderTarget_) {
+//    outputRenderTexture_ = GraphicsInterface::createTexture(bufferSize);
+//    outputRenderTarget_ = GraphicsInterface::createRenderTarget(outputRenderTexture_);
+//  }
+//
+//  gaussianHorizontalMapTexture_ = GraphicsInterface::createTexture(bufferSize);
+//  gaussianHorizontalRenderTarget_ = GraphicsInterface::createRenderTarget(gaussianHorizontalMapTexture_);
+//
+//  quadVbo_ = Geometry::screenPlane();
+//
+//  String horizontalFilename = String::withFormat("shaders/compiled/gaussian_blur_horizontal_%d_tap.shader", tapSize);
+//  gaussianBlurHorizontalEffect_ = IEffect::effectFromFile(horizontalFilename.c_str());
+//
+//  String verticalFilename = String::withFormat("shaders/compiled/gaussian_blur_vertical_%d_tap.shader", tapSize);
+//  gaussianBluVerticalEffect_ = IEffect::effectFromFile(verticalFilename.c_str());
 }
 
 void GaussianBlur::render(unsigned int sourceTexture) {

@@ -20,9 +20,9 @@ EffectCache* EffectCache::instance() {
   return effectCache_;
 }
 
-IEffect* EffectCache::loadEffect(const std::string& filename) {
+IEffect* EffectCache::loadEffect(ScopeStack* scopeStack, const std::string& filename) {
   if (effects_.find(filename) == effects_.end()) {
-    IEffect* effect = GraphicsInterface::createEffect();
+    IEffect* effect = GraphicsInterface::createEffect(scopeStack);
     std::string fullEffectPath = Path::pathForFile(filename);
     effect->load(fullEffectPath);
     effects_[filename] = effect;

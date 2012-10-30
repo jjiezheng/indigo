@@ -45,7 +45,7 @@ public:
   
 public:
   
-  IEffect* createEffect() { return NULL; };
+  IEffect* createEffect(ScopeStack* scopeStack) { return NULL; };
   
   void resetGraphicsState(bool cullBack) { };
   

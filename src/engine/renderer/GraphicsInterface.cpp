@@ -50,8 +50,9 @@ void GraphicsInterface::drawVertexBuffer(int vertexBuffer, int vertexCount, Vert
   graphicsInterface_->drawVertexBuffer(vertexBuffer, vertexCount, vertexFormat);
 }
 
-IEffect* GraphicsInterface::createEffect() {
-  return graphicsInterface_->createEffect();
+IEffect* GraphicsInterface::createEffect(ScopeStack* scopeStack) {
+  return graphicsInterface_->createEffect(scopeStack);
+  
 }
 
 void GraphicsInterface::clearActiveColorBuffers(const Color4& clearColor) {

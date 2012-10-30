@@ -3,14 +3,16 @@
 
 class CSize;
 class IEffect;
+class ScopeStack;
 
 class DeferredPresentStage {
 
 public:
 
-  DeferredPresentStage() 
+  DeferredPresentStage(ScopeStack* systemStack)
     : quadVbo_(0) 
-    , effect_(0) { }
+    , effect_(0)
+    , systemStack_(systemStack) { }
 
 public:
 
@@ -24,7 +26,9 @@ private:
 
   unsigned int quadVbo_;
 
-  IEffect* effect_;  
+  IEffect* effect_;
+  
+  ScopeStack* systemStack_;
 
 };
 

@@ -61,6 +61,6 @@ void Label::render(const Matrix4x4& projection) const {
 }
 
 void Label::init() {
-	labelEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/label.shader");
-	labelEffect_->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_NONE);
+//	labelEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/label.shader");
+//	labelEffect_->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_NONE);
 }

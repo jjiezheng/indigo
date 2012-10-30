@@ -23,7 +23,7 @@ void AverageBlur::init(const CSize& bufferSize) {
   }
 
   quadVbo_ = Geometry::screenPlane();
-  effect_ = EffectCache::instance()->loadEffect("shaders/compiled/average_blur.shader");
+//  effect_ = EffectCache::instance()->loadEffect("shaders/compiled/average_blur.shader");
 }
 
 void AverageBlur::render(unsigned int sourceTexture) {

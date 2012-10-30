@@ -7,13 +7,13 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "../../src/engine/memory/ScopeStack.h"
-         timestampString = "373162389.580267"
+         filePath = "../../src/engine/renderer/WorldLoader.cpp"
+         timestampString = "373332754.627483"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "39"
-         endingLineNumber = "39"
-         landmarkName = "~ScopeStack()"
+         startingLineNumber = "49"
+         endingLineNumber = "49"
+         landmarkName = "WorldLoader::loadFromSceneFile(const std::string&amp; filePath, World&amp; world, SceneContext&amp; sceneContext)"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

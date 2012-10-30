@@ -61,6 +61,30 @@ public:
     return t;
   };
   
+  template<class T, class U, class V>
+  T* create(U u, V v) {
+    void* memoryWithFinalizer = allocator_.allocate(sizeof(T) + sizeof(Finalizer));
+    
+    void* objectMemory = (u8*)memoryWithFinalizer + sizeof(Finalizer);
+    T* t = new (objectMemory) T(u, v);
+    
+    Finalizer* finalizer = (Finalizer*)memoryWithFinalizer;
+    
+    finalizer->chain = finalizerChain_;
+    finalizer->destructor = &destructor<T>;
+    
+    finalizerChain_ = finalizer;
+    
+    return t;
+  };
+  
+public:
+  
+  void* allocate(size_t size) {
+    void* rawMemory = allocator_.allocate(size);
+    return rawMemory;
+  }
+
 private:
   
   LinearAllocator allocator_;

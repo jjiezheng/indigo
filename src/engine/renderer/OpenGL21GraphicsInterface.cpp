@@ -1,6 +1,6 @@
 #include "OpenGL21GraphicsInterface.h"
 
-#include "memory/Allocation.h"
+#include "memory/ScopeStack.h"
 
 #include "OpenGL21Effect.h"
 
@@ -10,7 +10,11 @@ void OpenGL21GraphicsInterface::destroy() {
 
 
 void OpenGL21GraphicsInterface::openWindow(int width, int height, unsigned int multiSamples) {
+  backbufferSize_.width = width;
+  backbufferSize_.height = height;
   
+  screenSize_.width = width;
+  screenSize_.height = height;
 }
 
 void OpenGL21GraphicsInterface::setViewport(const CSize& dimensions) {
@@ -41,8 +45,9 @@ void OpenGL21GraphicsInterface::clearActiveRenderTargets(const Color4& color) {
 
 }
 
-IEffect* OpenGL21GraphicsInterface::createEffect() {
-  return new (&Allocation::resident_allocator) OpenGL21Effect();
+IEffect* OpenGL21GraphicsInterface::createEffect(ScopeStack* scopeStack) {
+  IEffect* effect = scopeStack->create<OpenGL21Effect>();
+  return effect;
 }
 
 void OpenGL21GraphicsInterface::resetGraphicsState(bool cullBack) {
