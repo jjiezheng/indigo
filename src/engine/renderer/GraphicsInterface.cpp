@@ -174,3 +174,7 @@ void GraphicsInterface::enableSmoothing() {
 void GraphicsInterface::disableSmoothing() {
 	graphicsInterface_->disableSmoothing();
 }
+
+Vector2 GraphicsInterface::halfPixel() {
+	return graphicsInterface_->halfPixel();
+}

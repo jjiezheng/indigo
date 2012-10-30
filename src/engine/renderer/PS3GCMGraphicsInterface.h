@@ -92,6 +92,10 @@ public:
 
   void setBlendState(IGraphicsInterface::BlendState blendState);
 
+public:
+
+	Vector2 halfPixel() const;
+
 private:
 
   unsigned int bufferFrameIndex_;

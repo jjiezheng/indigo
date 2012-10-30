@@ -2,6 +2,8 @@
 
 uniform sampler2D ColorMap : TEXUNIT0;
 
+uniform float2 HalfPixel;
+
 struct VOutput {
 	float4 position			: POSITION;
 	float2 texCoord			: TEXCOORD0;
@@ -17,5 +19,5 @@ VOutput vs(float4 position 			: POSITION,
 
 float4 ps(float4 position : POSITION,
 		  float2 texCoord : TEXCOORD0) : COLOR0 {
-	return tex2D(ColorMap, texCoord);;
+	return tex2D(ColorMap, texCoord + HalfPixel);
 } 

@@ -6,6 +6,7 @@
 //version 3.1.0.13
 //profile glslv
 //program vs
+//semantic HalfPixel
 //semantic Radius
 //semantic NoiseScale
 //semantic Kernel

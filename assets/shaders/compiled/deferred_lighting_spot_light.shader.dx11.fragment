@@ -12,6 +12,7 @@
 //semantic LightOuterAngle
 //semantic LightDecay
 //semantic LightDistance
+//semantic HalfPixel
 //semantic LightDirection
 //semantic LightPosition
 //semantic LightColor
@@ -27,6 +28,7 @@
 //var float LightInnerAngle :  : _LightInnerAngle : -1 : 1
 //var float LightOuterAngle :  : _LightOuterAngle : -1 : 1
 //var float LightDistance :  : _LightDistance : -1 : 1
+//var float2 HalfPixel :  : _HalfPixel : -1 : 1
 //var float3 LightDirection :  : _LightDirection : -1 : 1
 //var float3 LightPosition :  : _LightPosition : -1 : 1
 //var float3 LightColor :  : _LightColor : -1 : 1
@@ -57,8 +59,10 @@ static float _TMP1;
 static float _TMP0;
 static float4 _TMP6;
 static float2 _TMP5;
+static float2 _texCoord0015;
 static float4 _unPackedNormal0017;
 static float4 _normalData0017;
+static float2 _texCoord0017;
 static float4 _r0021;
 static float3 _v0023;
 static float _y0025;
@@ -69,6 +73,7 @@ SamplerState _NormalMap : TEXUNIT1;
 uniform float _LightInnerAngle;
 uniform float _LightOuterAngle;
 uniform float _LightDistance;
+uniform float2 _HalfPixel;
 uniform float3 _LightDirection;
 uniform float3 _LightPosition;
 uniform float3 _LightColor;
@@ -100,8 +105,10 @@ float4 main( in X1X cin) : SV_Target0
     _screenPositionClip = _screenPosition.xy/_screenPosition.z;
     _TMP5 = float2(_screenPositionClip.x, -_screenPositionClip.y);
     _texCoord2 =  5.00000000000000000E-001f*(_TMP5 + float2(  1.00000000000000000E000f,  1.00000000000000000E000f));
-    _TMP6 = _TMP28.Sample(_DepthMap, _texCoord2);
-    _normalData0017 = _TMP29.Sample(_NormalMap, _texCoord2);
+    _texCoord0015 = _texCoord2 + _HalfPixel;
+    _TMP6 = _TMP28.Sample(_DepthMap, _texCoord0015);
+    _texCoord0017 = _texCoord2 + _HalfPixel;
+    _normalData0017 = _TMP29.Sample(_NormalMap, _texCoord0017);
     _unPackedNormal0017 = _normalData0017* 2.00000000000000000E000f -  1.00000000000000000E000f;
     _TMP7 = dot(_unPackedNormal0017.xyz, _unPackedNormal0017.xyz);
     _TMP8 = rsqrt(_TMP7);

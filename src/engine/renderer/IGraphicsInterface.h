@@ -6,6 +6,7 @@
 #include "GraphicsAPIType.h"
 #include "VertexFormat.h"
 #include "core/Size.h"
+#include "maths/Vector2.h"
 
 class IEffect;
 class Color4;
@@ -118,6 +119,10 @@ public:
 public:
 
   virtual void setBlendState(IGraphicsInterface::BlendState blendState) = 0;
+
+public:
+
+	virtual Vector2 halfPixel() const = 0;
   
 protected:
 

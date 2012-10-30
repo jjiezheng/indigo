@@ -169,6 +169,8 @@ void DeferredSpotLightsPass::renderLight(SpotLight* light, IEffect* lightEffect,
   lightEffect->setUniform(light->outerAngle(), "LightOuterAngle");
   lightEffect->setUniform(light->innerAngle(), "LightInnerAngle");
 
+	lightEffect->setUniform(GraphicsInterface::halfPixel(), "HalfPixel");
+
   unsigned int depthBufferId = GraphicsInterface::depthBufferTexture();
   lightEffect->setTexture(depthBufferId, "DepthMap");
 
@@ -189,6 +191,9 @@ void DeferredSpotLightsPass::accumulateLight(SpotLight* light, unsigned int colo
   GraphicsInterface::setRenderTarget(lightMapRenderTarget, false);
   accumulationEffect_->setTexture(spotLightRenderTexture_, "LightSourceMap");
   accumulationEffect_->setTexture(colorMap, "ColorMap");
+	
+	accumulationEffect_->setUniform(GraphicsInterface::halfPixel(), "HalfPixel");
+
   GraphicsInterface::setRenderState(true);
   accumulationEffect_->beginDraw();
   GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);

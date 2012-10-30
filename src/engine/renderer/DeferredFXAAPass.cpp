@@ -38,6 +38,7 @@ unsigned int DeferredFXAAPass::render(IViewer* viewer, unsigned int inputMap, co
     GraphicsInterface::setRenderTarget(colorLumaTarget_, false, GraphicsInterface::screenSize());
     GraphicsInterface::clearActiveColorBuffers(Color4::TRANSPAREN);
 
+		colorLumaEffect_->setUniform(GraphicsInterface::halfPixel(), "HalfPixel");
     colorLumaEffect_->setTexture(inputMap, "InputMap");
 
     GraphicsInterface::setRenderState(true);
@@ -64,6 +65,8 @@ unsigned int DeferredFXAAPass::render(IViewer* viewer, unsigned int inputMap, co
     fxaaEffect_->setUniform(screenSizeInv, "ScreenSizeInv");
 
 		fxaaEffect_->setUniform(Vector2((float)screenSize.width, (float)screenSize.height), "ScreenSize");
+
+		fxaaEffect_->setUniform(GraphicsInterface::halfPixel(), "HalfPixel");
 
     GraphicsInterface::setRenderState(true);
 

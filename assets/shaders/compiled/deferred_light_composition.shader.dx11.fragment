@@ -8,8 +8,10 @@
 //program ps
 //semantic ColorMap : TEXUNIT0
 //semantic LightSourceMap : TEXUNIT1
+//semantic HalfPixel
 //var sampler2D ColorMap : TEXUNIT0 : _ColorMap 0 : -1 : 1
 //var sampler2D LightSourceMap : TEXUNIT1 : _LightSourceMap 1 : -1 : 1
+//var float2 HalfPixel :  : _HalfPixel : -1 : 1
 //var float2 texCoord : $vin.TEXCOORD0 :  : 1 : 1
 //var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
 
@@ -29,6 +31,7 @@ Texture2D<float4> _TMP1 : register(t0);
 Texture2D<float4> _TMP2 : register(t1);
 SamplerState _ColorMap : TEXUNIT0;
 SamplerState _LightSourceMap : TEXUNIT1;
+uniform float2 _HalfPixel;
 
  // main procedure, the original name was ps
 float4 main( in X1X cin) : SV_Target0
@@ -40,8 +43,8 @@ float4 main( in X1X cin) : SV_Target0
     float3 _finalColor;
 
     _texCoord = cin._TEXCOORD0;
-    _diffuseColor = _TMP1.Sample(_ColorMap, _texCoord);
-    _diffuseLight = _TMP2.Sample(_LightSourceMap, _texCoord);
+    _diffuseColor = _TMP1.Sample(_ColorMap, _texCoord + _HalfPixel);
+    _diffuseLight = _TMP2.Sample(_LightSourceMap, _texCoord + _HalfPixel);
     _finalColor = _diffuseColor.xyz*_diffuseLight.xyz;
     return float4(_finalColor.x, _finalColor.y, _finalColor.z, _diffuseColor.w);
 } // main end

@@ -7,8 +7,10 @@
 //profile ps_5_0
 //program ps
 //semantic InputMap
+//semantic HalfPixel
 //semantic ScreenSizeInv
 //var sampler2D InputMap :  : _InputMap : -1 : 1
+//var float2 HalfPixel :  : _HalfPixel : -1 : 1
 //var float2 texCoord : $vin.TEXCOORD0 :  : 1 : 1
 //var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
 
@@ -27,6 +29,7 @@ struct X1X {
 static float4 _TMP0;
 Texture2D<float4> _TMP2;
 SamplerState _InputMap;
+uniform float2 _HalfPixel;
 
  // main procedure, the original name was ps
 float4 main( in X1X cin) : SV_Target0
@@ -36,7 +39,7 @@ float4 main( in X1X cin) : SV_Target0
     float _luma;
 
     _texCoord = cin._TEXCOORD0;
-    _TMP0 = _TMP2.Sample(_InputMap, _texCoord);
+    _TMP0 = _TMP2.Sample(_InputMap, _texCoord + _HalfPixel);
     _luma = dot(_TMP0.xyz, float3(  2.98999994993209840E-001f,  5.87000012397766110E-001f,  1.14000000059604640E-001f));
     return float4(_TMP0.x, _TMP0.y, _TMP0.z, _luma);
 } // main end

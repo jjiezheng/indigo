@@ -7,6 +7,7 @@
 //profile vs_5_0
 //program vs
 //semantic ColorMap : TEXUNIT0
+//semantic HalfPixel
 //var float4 position : $vin.POSITION : POSITION : 0 : 1
 //var float2 texCoord : $vin.TEXCOORD0 : TEXCOORD0 : 1 : 1
 //var float4 vs.position : $vout.POSITION :  : -1 : 1

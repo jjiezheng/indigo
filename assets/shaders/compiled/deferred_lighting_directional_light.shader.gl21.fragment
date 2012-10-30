@@ -9,9 +9,11 @@
 //semantic NormalMap : TEXUNIT0
 //semantic LightDirection
 //semantic LightColor
+//semantic HalfPixel
 //var sampler2D NormalMap : TEXUNIT0 : _NormalMap 0 : -1 : 1
 //var float4 LightDirection :  : _LightDirection : -1 : 1
 //var float3 LightColor :  : _LightColor : -1 : 1
+//var float2 HalfPixel :  : _HalfPixel : -1 : 1
 //var float2 texCoord : $vin.TEXCOORD0 : TEX0 : 1 : 1
 //var float4 ps : $vout.COLOR0 : COL : -1 : 1
 
@@ -26,11 +28,13 @@ float _TMP2;
 vec3 _TMP1;
 float _TMP4;
 float _TMP3;
-vec4 _normalData0010;
-vec4 _unPackedNormal0010;
+vec4 _normalData0011;
+vec2 _texCoord0011;
+vec4 _unPackedNormal0011;
 uniform sampler2D _NormalMap;
 uniform vec4 _LightDirection;
 uniform vec3 _LightColor;
+uniform vec2 _HalfPixel;
 
  // main procedure, the original name was ps
 void main()
@@ -40,13 +44,14 @@ void main()
     float _diffuseStrength;
     vec3 _diffuseContribution;
 
-    _normalData0010 = texture2D(_NormalMap, gl_TexCoord[0].xy);
-    _unPackedNormal0010 = _normalData0010*2.00000000E+000 - 1.00000000E+000;
+    _texCoord0011 = gl_TexCoord[0].xy + _HalfPixel;
+    _normalData0011 = texture2D(_NormalMap, _texCoord0011);
+    _unPackedNormal0011 = _normalData0011*2.00000000E+000 - 1.00000000E+000;
     _TMP3 = dot(_LightDirection.xyz, _LightDirection.xyz);
     _TMP4 = inversesqrt(_TMP3);
     _TMP1 = _TMP4*_LightDirection.xyz;
     _lightVector = -_TMP1;
-    _TMP2 = dot(_unPackedNormal0010.xyz, _lightVector);
+    _TMP2 = dot(_unPackedNormal0011.xyz, _lightVector);
     _diffuseStrength = max(0.00000000E+000, _TMP2);
     _diffuseContribution = _LightColor*_diffuseStrength;
     _ret_0 = vec4(_diffuseContribution.x, _diffuseContribution.y, _diffuseContribution.z, 0.00000000E+000);

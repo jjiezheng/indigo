@@ -9,6 +9,8 @@ uniform float LightOuterAngle;
 uniform float LightDecay;
 uniform float LightDistance;
 
+uniform float2 HalfPixel;
+
 uniform float3 LightDirection;
 uniform float3 LightPosition;
 uniform float3 LightColor;
@@ -49,13 +51,13 @@ float4 ps(float4 position 		: POSITION,
 	// depth
 	//------------------------------------------------------------
 
-	float depth = unpackDepth(DepthMap, texCoord);
+	float depth = unpackDepth(DepthMap, texCoord + HalfPixel);
 
 	//------------------------------------------------------------
 	// normal
 	//------------------------------------------------------------
 
-	float3 normalData = unpackNormal(NormalMap, texCoord);
+	float3 normalData = unpackNormal(NormalMap, texCoord + HalfPixel);
 	float3 normal = normalize(normalData);
 
 	//------------------------------------------------------------

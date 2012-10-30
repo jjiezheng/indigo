@@ -7,7 +7,9 @@
 //profile glslf
 //program ps
 //semantic ColorMap : TEXUNIT0
+//semantic HalfPixel
 //var sampler2D ColorMap : TEXUNIT0 : _ColorMap 0 : -1 : 1
+//var float2 HalfPixel :  : _HalfPixel : -1 : 1
 //var float2 texCoord : $vin.TEXCOORD0 : TEX0 : 1 : 1
 //var float4 ps : $vout.COLOR0 : COL : -1 : 1
 
@@ -18,14 +20,17 @@ struct VOutput {
 };
 
 vec4 _ret_0;
+vec2 _c0003;
 uniform sampler2D _ColorMap;
+uniform vec2 _HalfPixel;
 
  // main procedure, the original name was ps
 void main()
 {
 
 
-    _ret_0 = texture2D(_ColorMap, gl_TexCoord[0].xy);
+    _c0003 = gl_TexCoord[0].xy + _HalfPixel;
+    _ret_0 = texture2D(_ColorMap, _c0003);
     gl_FragColor = _ret_0;
     return;
 } // main end

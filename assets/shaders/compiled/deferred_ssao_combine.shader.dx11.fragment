@@ -8,8 +8,10 @@
 //program ps
 //semantic ColorMap
 //semantic SSAOMap
+//semantic HalfPixel
 //var sampler2D ColorMap :  : _ColorMap : -1 : 1
 //var sampler2D SSAOMap :  : _SSAOMap : -1 : 1
+//var float2 HalfPixel :  : _HalfPixel : -1 : 1
 //var float2 texCoord : $vin.TEXCOORD0 :  : 1 : 1
 //var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
 
@@ -29,6 +31,7 @@ Texture2D<float4> _TMP0;
 Texture2D<float4> _TMP1;
 SamplerState _ColorMap;
 SamplerState _SSAOMap;
+uniform float2 _HalfPixel;
 
  // main procedure, the original name was ps
 float4 main( in X1X cin) : SV_Target0
@@ -40,8 +43,8 @@ float4 main( in X1X cin) : SV_Target0
     float4 _finalColor;
 
     _texCoord = cin._TEXCOORD0;
-    _color = _TMP0.Sample(_ColorMap, _texCoord);
-    _ssao = _TMP1.Sample(_SSAOMap, _texCoord);
+    _color = _TMP0.Sample(_ColorMap, _texCoord + _HalfPixel);
+    _ssao = _TMP1.Sample(_SSAOMap, _texCoord + _HalfPixel);
     _finalColor = _color*_ssao;
     return _finalColor;
 } // main end

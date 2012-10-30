@@ -7,6 +7,7 @@
 //profile glslv
 //program vs
 //semantic InputMap
+//semantic HalfPixel
 //semantic ScreenSizeInv
 //var float4 position : $vin.POSITION : ATTR0 : 0 : 1
 //var float2 texCoord : $vin.TEXCOORD0 : ATTR8 : 1 : 1

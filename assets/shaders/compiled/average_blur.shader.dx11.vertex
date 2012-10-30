@@ -8,6 +8,7 @@
 //program vs
 //semantic SourceMap : TEXUNIT0
 //semantic TexelSize
+//semantic HalfPixel
 //var float4 position : $vin.POSITION : POSITION : 0 : 1
 //var float2 texCoord : $vin.TEXCOORD0 : TEXCOORD0 : 1 : 1
 //var float4 vs.position : $vout.POSITION :  : -1 : 1

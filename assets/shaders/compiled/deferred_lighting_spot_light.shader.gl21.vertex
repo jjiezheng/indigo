@@ -12,6 +12,7 @@
 //semantic LightOuterAngle
 //semantic LightDecay
 //semantic LightDistance
+//semantic HalfPixel
 //semantic LightDirection
 //semantic LightPosition
 //semantic LightColor

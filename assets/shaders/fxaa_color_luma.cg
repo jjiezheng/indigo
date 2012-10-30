@@ -1,5 +1,6 @@
 sampler2D InputMap;
 
+uniform float2 HalfPixel;
 uniform float4 ScreenSizeInv;
 
 struct VOutput {
@@ -17,7 +18,7 @@ VOutput vs(float4 position 		: POSITION,
 
 float4 ps(float4 position : POSITION,
 		  float2 texCoord : TEXCOORD0) : COLOR0 {
-	float3 color = tex2D(InputMap, texCoord).rgb;
+	float3 color = tex2D(InputMap, texCoord + HalfPixel).rgb;
 	float luma =  dot(color, float3(0.299f, 0.587f, 0.114f));
 	return float4(color, luma);
 }

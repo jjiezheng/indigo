@@ -9,8 +9,10 @@
 //semantic FinalMap
 //semantic ScreenSize
 //semantic ScreenSizeInv
+//semantic HalfPixel
 //var sampler2D FinalMap :  : _FinalMap : -1 : 1
 //var float2 ScreenSize :  : _ScreenSize : -1 : 1
+//var float2 HalfPixel :  : _HalfPixel : -1 : 1
 //var float2 texCoord : $vin.TEXCOORD0 :  : 1 : 1
 //var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
 
@@ -166,6 +168,7 @@ static float _lumaN0102;
 static float _lumaS0102;
 static float4 _rgbyM0102;
 static float2 _posM0102;
+static float2 _pos0102;
 static float2 _TMP990102;
 static float2 _fxaaQualityRcpFrame0102;
 static float2 _TMP980102;
@@ -179,6 +182,7 @@ static bool _TMP103;
 Texture2D<float4> _TMP164;
 SamplerState _FinalMap;
 uniform float2 _ScreenSize;
+uniform float2 _HalfPixel;
 
  // main procedure, the original name was ps
 float4 main( in X1X cin) : SV_Target0
@@ -187,11 +191,12 @@ float4 main( in X1X cin) : SV_Target0
     float2 _texCoord;
 
     _texCoord = cin._TEXCOORD0;
+    _pos0102 = _texCoord + _HalfPixel;
     _fxaaQualityRcpFrame0102 = float2( 1.00000000000000000E000f/_ScreenSize.x,  1.00000000000000000E000f/_ScreenSize.y);
     _TMP103 = true;
-    _posM0102.x = _texCoord.x;
-    _posM0102.y = _texCoord.y;
-    _rgbyM0102 = _TMP164.SampleLevel(_FinalMap, float4(_texCoord.x, _texCoord.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_texCoord.x, _texCoord.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
+    _posM0102.x = _pos0102.x;
+    _posM0102.y = _pos0102.y;
+    _rgbyM0102 = _TMP164.SampleLevel(_FinalMap, float4(_pos0102.x, _pos0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_pos0102.x, _pos0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
     _TMP990102 = _posM0102 + float2(  0.00000000000000000E000f,  1.00000000000000000E000f)*_fxaaQualityRcpFrame0102.xy;
     _TMP0 = _TMP164.SampleLevel(_FinalMap, float4(_TMP990102.x, _TMP990102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_TMP990102.x, _TMP990102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
     _lumaS0102 = _TMP0.w;
@@ -280,8 +285,8 @@ float4 main( in X1X cin) : SV_Target0
         } // end if
         _TMP18 = abs(_subpixB0102);
         _subpixC0102 = saturate(_TMP18*_subpixRcpRange0102);
-        _posB0102.x = _texCoord.x;
-        _posB0102.y = _texCoord.y;
+        _posB0102.x = _pos0102.x;
+        _posB0102.y = _pos0102.y;
         if (!_horzSpan0102) { // if begin
             _TMP19 =  0.00000000000000000E000f;
         } else {
@@ -293,10 +298,10 @@ float4 main( in X1X cin) : SV_Target0
             _TMP20 = _fxaaQualityRcpFrame0102.y;
         } // end if
         if (!_horzSpan0102) { // if begin
-            _posB0102.x = _texCoord.x + _lengthSign0102* 5.00000000000000000E-001f;
+            _posB0102.x = _pos0102.x + _lengthSign0102* 5.00000000000000000E-001f;
         } // end if
         if (_horzSpan0102) { // if begin
-            _posB0102.y = _texCoord.y + _lengthSign0102* 5.00000000000000000E-001f;
+            _posB0102.y = _pos0102.y + _lengthSign0102* 5.00000000000000000E-001f;
         } // end if
         _posN0102.x = _posB0102.x - _TMP19;
         _posN0102.y = _posB0102.y - _TMP20;
@@ -661,13 +666,13 @@ float4 main( in X1X cin) : SV_Target0
                 } // end if
             } // end if
         } // end if
-        _dstN0102 = _texCoord.x - _posN0102.x;
-        _dstP0102 = _posP0102.x - _texCoord.x;
+        _dstN0102 = _pos0102.x - _posN0102.x;
+        _dstP0102 = _posP0102.x - _pos0102.x;
         if (!_horzSpan0102) { // if begin
-            _dstN0102 = _texCoord.y - _posN0102.y;
+            _dstN0102 = _pos0102.y - _posN0102.y;
         } // end if
         if (!_horzSpan0102) { // if begin
-            _dstP0102 = _posP0102.y - _texCoord.y;
+            _dstP0102 = _posP0102.y - _pos0102.y;
         } // end if
         _goodSpanN0102 = _lumaEndN0102 <  0.00000000000000000E000f != _lumaMLTZero0102;
         _spanLength0102 = _dstP0102 + _dstN0102;
@@ -689,10 +694,10 @@ float4 main( in X1X cin) : SV_Target0
         } // end if
         _pixelOffsetSubpix0102 = max(_TMP66, _subpixG0102);
         if (!_horzSpan0102) { // if begin
-            _posM0102.x = _texCoord.x + _pixelOffsetSubpix0102*_lengthSign0102;
+            _posM0102.x = _pos0102.x + _pixelOffsetSubpix0102*_lengthSign0102;
         } // end if
         if (_horzSpan0102) { // if begin
-            _posM0102.y = _texCoord.y + _pixelOffsetSubpix0102*_lengthSign0102;
+            _posM0102.y = _pos0102.y + _pixelOffsetSubpix0102*_lengthSign0102;
         } // end if
         _TMP67 = _TMP164.SampleLevel(_FinalMap, float4(_posM0102.x, _posM0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_posM0102.x, _posM0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
         _TMP101 = float4(_TMP67.x, _TMP67.y, _TMP67.z, _rgbyM0102.w);

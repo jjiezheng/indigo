@@ -21,6 +21,7 @@ sampler2D FinalMap;
 
 uniform float2 ScreenSize;
 uniform float2 ScreenSizeInv;
+uniform float2 HalfPixel;
 
 
 struct VOutput {
@@ -44,15 +45,15 @@ float4 ps(float4 position : POSITION,
 #ifdef GCM
 	float2 pixelCentreOffset = (ScreenSizeInv * 0.5f);
 	float4 posPos = float4(0.0f);
-	posPos.xy = texCoord.xy - pixelCentreOffset;
-    posPos.zw = texCoord.xy + pixelCentreOffset;
+	//posPos.xy = texCoord.xy - pixelCentreOffset;
+    //posPos.zw = texCoord.xy + pixelCentreOffset;
 
 return FxaaPixelShader(
     //
     // Use noperspective interpolation here (turn off perspective interpolation).
     // {xy} = center of pixel
     //FxaaFloat2 pos,
-    texCoord,
+    texCoord + HalfPixel,
     //
     // Used only for FXAA Console, and not used on the 360 version.
     // Use noperspective interpolation here (turn off perspective interpolation).
@@ -227,7 +228,7 @@ return FxaaPixelShader(
 	    // Use noperspective interpolation here (turn off perspective interpolation).
 	    // {xy} = center of pixel
 	    //FxaaFloat2 pos,
-	    texCoord,
+	    texCoord + HalfPixel,
 	    //
 	    // Used only for FXAA Console, and not used on the 360 version.
 	    // Use noperspective interpolation here (turn off perspective interpolation).

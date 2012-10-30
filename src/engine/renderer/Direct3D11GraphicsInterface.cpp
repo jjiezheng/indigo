@@ -641,3 +641,8 @@ void Direct3D11GraphicsInterface::enableSmoothing() {
 void Direct3D11GraphicsInterface::disableSmoothing() {
 
 }
+
+
+Vector2 Direct3D11GraphicsInterface::halfPixel() const {
+	return Vector2(0, 0);
+}

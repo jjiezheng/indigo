@@ -75,7 +75,7 @@ void PS3GCMGraphicsInterface::openWindow(int width, int height, unsigned int mul
   CELL_GCMUTIL_CHECK_ASSERT(cellVideoOutConfigure(CELL_VIDEO_OUT_PRIMARY, &videocfg, NULL, 0));
   CELL_GCMUTIL_CHECK_ASSERT(cellVideoOutGetState(CELL_VIDEO_OUT_PRIMARY, 0, &videoState));
 
-  cellGcmSetFlipMode(CELL_GCM_DISPLAY_HSYNC);
+  cellGcmSetFlipMode(CELL_GCM_DISPLAY_VSYNC);
 
   cellGcmSetDitherEnable(CELL_GCM_TRUE);
 
@@ -587,4 +587,15 @@ void PS3GCMGraphicsInterface::enableSmoothing() {
 
 void PS3GCMGraphicsInterface::disableSmoothing() {
 	cellGcmSetPolySmoothEnable(CELL_GCM_FALSE);
+}
+
+Vector2 PS3GCMGraphicsInterface::halfPixel() const {
+	float texelX = 1.0f / backbufferSize_.width;
+	float halfPixelX = texelX * 0.5f;
+
+	float texelY = 1.0f / backbufferSize_.height;
+	float halfPixelY = texelY * 0.5f;
+
+	Vector2 halfPixel(halfPixelX, halfPixelY);
+	return halfPixel;
 }

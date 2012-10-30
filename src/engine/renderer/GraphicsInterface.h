@@ -4,6 +4,8 @@
 #include <string>
 #include "core/Size.h"
 
+#include "maths/Vector2.h"
+
 #include "GraphicsAPIType.h"
 #include "IGraphicsInterface.h"
 
@@ -113,6 +115,10 @@ public:
   static unsigned int createDepthTexture(const CSize& dimensions);
 
   static unsigned int depthBufferTexture();
+
+public:
+
+	static Vector2 halfPixel();
 
 public:
 

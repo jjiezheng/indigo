@@ -2,6 +2,8 @@
 
 static const float KernelSize = 16;
 
+uniform float2 HalfPixel;
+
 uniform float Radius;
 uniform float2 NoiseScale;
 uniform float4 Kernel[16];
@@ -34,11 +36,11 @@ VOutput vs(float4 position 	: POSITION,
 float4 ps(float4 position 		: POSITION,
 		  float2 texCoord 		: TEXCOORD0) : COLOR0 {
 
-	float3 normalData = unpackNormal(NormalMap, texCoord);
+	float3 normalData = unpackNormal(NormalMap, texCoord + HalfPixel);
 	float3 normalViewSpace = mul(View, float4(normalData, 0.0f)).xyz;
 	float3 normal = normalize(normalViewSpace);
 
-	float depth = unpackDepth(DepthMap, texCoord);
+	float depth = unpackDepth(DepthMap, texCoord + HalfPixel);
 
 	float4 positionScreen = float4(0, 0, 0, 1);
 	positionScreen.xy = texCoord.xy * 2.0f - 1.0f;
@@ -71,7 +73,7 @@ float4 ps(float4 position 		: POSITION,
 		float2 sampleTexCoord = (sampleScreen.xy * 0.5f) + 0.5f;
 		sampleTexCoord.y = 1.0f - sampleTexCoord.y;
 
-		float sampleDepth = depthCompare(SSAODepthMap, sampleTexCoord, sampleScreen.z);
+		float sampleDepth = depthCompare(SSAODepthMap, sampleTexCoord + HalfPixel, sampleScreen.z);
 
 		//float rangeCheck = abs(sampleScreen.z - sampleDepth) < Radius ? 1.0 : 0.0; // probably going to need this?
 		occlusionContribution += sampleDepth;

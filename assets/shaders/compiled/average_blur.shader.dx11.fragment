@@ -8,8 +8,10 @@
 //program ps
 //semantic SourceMap : TEXUNIT0
 //semantic TexelSize
+//semantic HalfPixel
 //var sampler2D SourceMap : TEXUNIT0 : _SourceMap 0 : -1 : 1
 //var float2 TexelSize :  : _TexelSize : -1 : 1
+//var float2 HalfPixel :  : _HalfPixel : -1 : 1
 //var float2 texCoord : $vin.TEXCOORD0 :  : 1 : 1
 //var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
 
@@ -29,6 +31,7 @@ static float4 _TMP0;
 Texture2D<float4> _TMP1 : register(t0);
 SamplerState _SourceMap : TEXUNIT0;
 uniform float2 _TexelSize;
+uniform float2 _HalfPixel;
 
  // main procedure, the original name was ps
 float4 main( in X1X cin) : SV_Target0
@@ -39,52 +42,52 @@ float4 main( in X1X cin) : SV_Target0
     float2 _offset1;
 
     _texCoord = cin._TEXCOORD0;
-    _TMP0 = _TMP1.Sample(_SourceMap, _texCoord);
+    _TMP0 = _TMP1.Sample(_SourceMap, _texCoord + _HalfPixel);
     _result = _TMP0.xxxx;
     _offset1 = float2(_TexelSize.x,  0.00000000000000000E000f);
-    _TMP0 = _TMP1.Sample(_SourceMap, _texCoord + _offset1);
+    _TMP0 = _TMP1.Sample(_SourceMap, _texCoord + _offset1 + _HalfPixel);
     _result = _result + _TMP0.x;
     _offset1 = float2(_TexelSize.x* 2.00000000000000000E000f,  0.00000000000000000E000f);
-    _TMP0 = _TMP1.Sample(_SourceMap, _texCoord + _offset1);
+    _TMP0 = _TMP1.Sample(_SourceMap, _texCoord + _offset1 + _HalfPixel);
     _result = _result + _TMP0.x;
     _offset1 = float2(_TexelSize.x* 3.00000000000000000E000f,  0.00000000000000000E000f);
-    _TMP0 = _TMP1.Sample(_SourceMap, _texCoord + _offset1);
+    _TMP0 = _TMP1.Sample(_SourceMap, _texCoord + _offset1 + _HalfPixel);
     _result = _result + _TMP0.x;
     _offset1 = float2( 0.00000000000000000E000f, _TexelSize.y);
-    _TMP0 = _TMP1.Sample(_SourceMap, _texCoord + _offset1);
+    _TMP0 = _TMP1.Sample(_SourceMap, _texCoord + _offset1 + _HalfPixel);
     _result = _result + _TMP0.x;
     _offset1 = float2(_TexelSize.x, _TexelSize.y);
-    _TMP0 = _TMP1.Sample(_SourceMap, _texCoord + _offset1);
+    _TMP0 = _TMP1.Sample(_SourceMap, _texCoord + _offset1 + _HalfPixel);
     _result = _result + _TMP0.x;
     _offset1 = float2(_TexelSize.x* 2.00000000000000000E000f, _TexelSize.y);
-    _TMP0 = _TMP1.Sample(_SourceMap, _texCoord + _offset1);
+    _TMP0 = _TMP1.Sample(_SourceMap, _texCoord + _offset1 + _HalfPixel);
     _result = _result + _TMP0.x;
     _offset1 = float2(_TexelSize.x* 3.00000000000000000E000f, _TexelSize.y);
-    _TMP0 = _TMP1.Sample(_SourceMap, _texCoord + _offset1);
+    _TMP0 = _TMP1.Sample(_SourceMap, _texCoord + _offset1 + _HalfPixel);
     _result = _result + _TMP0.x;
     _offset1 = float2( 0.00000000000000000E000f, _TexelSize.y* 2.00000000000000000E000f);
-    _TMP0 = _TMP1.Sample(_SourceMap, _texCoord + _offset1);
+    _TMP0 = _TMP1.Sample(_SourceMap, _texCoord + _offset1 + _HalfPixel);
     _result = _result + _TMP0.x;
     _offset1 = float2(_TexelSize.x, _TexelSize.y* 2.00000000000000000E000f);
-    _TMP0 = _TMP1.Sample(_SourceMap, _texCoord + _offset1);
+    _TMP0 = _TMP1.Sample(_SourceMap, _texCoord + _offset1 + _HalfPixel);
     _result = _result + _TMP0.x;
     _offset1 = float2(_TexelSize.x* 2.00000000000000000E000f, _TexelSize.y* 2.00000000000000000E000f);
-    _TMP0 = _TMP1.Sample(_SourceMap, _texCoord + _offset1);
+    _TMP0 = _TMP1.Sample(_SourceMap, _texCoord + _offset1 + _HalfPixel);
     _result = _result + _TMP0.x;
     _offset1 = float2(_TexelSize.x* 3.00000000000000000E000f, _TexelSize.y* 2.00000000000000000E000f);
-    _TMP0 = _TMP1.Sample(_SourceMap, _texCoord + _offset1);
+    _TMP0 = _TMP1.Sample(_SourceMap, _texCoord + _offset1 + _HalfPixel);
     _result = _result + _TMP0.x;
     _offset1 = float2( 0.00000000000000000E000f, _TexelSize.y* 3.00000000000000000E000f);
-    _TMP0 = _TMP1.Sample(_SourceMap, _texCoord + _offset1);
+    _TMP0 = _TMP1.Sample(_SourceMap, _texCoord + _offset1 + _HalfPixel);
     _result = _result + _TMP0.x;
     _offset1 = float2(_TexelSize.x, _TexelSize.y* 3.00000000000000000E000f);
-    _TMP0 = _TMP1.Sample(_SourceMap, _texCoord + _offset1);
+    _TMP0 = _TMP1.Sample(_SourceMap, _texCoord + _offset1 + _HalfPixel);
     _result = _result + _TMP0.x;
     _offset1 = float2(_TexelSize.x* 2.00000000000000000E000f, _TexelSize.y* 3.00000000000000000E000f);
-    _TMP0 = _TMP1.Sample(_SourceMap, _texCoord + _offset1);
+    _TMP0 = _TMP1.Sample(_SourceMap, _texCoord + _offset1 + _HalfPixel);
     _result = _result + _TMP0.x;
     _offset1 = float2(_TexelSize.x* 3.00000000000000000E000f, _TexelSize.y* 3.00000000000000000E000f);
-    _TMP0 = _TMP1.Sample(_SourceMap, _texCoord + _offset1);
+    _TMP0 = _TMP1.Sample(_SourceMap, _texCoord + _offset1 + _HalfPixel);
     _result = _result + _TMP0.x;
     _result = _result* 6.25000000000000000E-002f;
     return _result;

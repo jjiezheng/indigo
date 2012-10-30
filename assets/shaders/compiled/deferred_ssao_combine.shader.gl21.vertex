@@ -8,6 +8,7 @@
 //program vs
 //semantic ColorMap
 //semantic SSAOMap
+//semantic HalfPixel
 //var float4 position : $vin.POSITION : ATTR0 : 0 : 1
 //var float2 texCoord : $vin.TEXCOORD0 : ATTR8 : 1 : 1
 //var float4 vs.position : $vout.POSITION : HPOS : -1 : 1

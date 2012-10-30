@@ -3,6 +3,8 @@
 sampler2D ColorMap;
 sampler2D SSAOMap;
 
+uniform float2 HalfPixel;
+
 struct VOutput {
 	float4 position			: POSITION;
 	float2 texCoord			: TEXCOORD0;
@@ -18,8 +20,8 @@ VOutput vs(float4 position 		: POSITION,
 
 float4 ps(float4 position	: POSITION,
 		  float2 texCoord	: TEXCOORD0) : COLOR0 {
-	float4 color = tex2D(ColorMap, texCoord);
-	float4 ssao = tex2D(SSAOMap, texCoord);
+	float4 color = tex2D(ColorMap, texCoord + HalfPixel);
+	float4 ssao = tex2D(SSAOMap, texCoord + HalfPixel);
 	float4 finalColor = color * ssao;
 	return finalColor;
 }

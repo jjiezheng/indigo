@@ -7,8 +7,10 @@
 //profile glslf
 //program ps
 //semantic InputMap
+//semantic HalfPixel
 //semantic ScreenSizeInv
 //var sampler2D InputMap :  : _InputMap : -1 : 1
+//var float2 HalfPixel :  : _HalfPixel : -1 : 1
 //var float2 texCoord : $vin.TEXCOORD0 : TEX0 : 1 : 1
 //var float4 ps : $vout.COLOR0 : COL : -1 : 1
 
@@ -20,7 +22,9 @@ struct VOutput {
 
 vec4 _ret_0;
 vec4 _TMP0;
+vec2 _c0006;
 uniform sampler2D _InputMap;
+uniform vec2 _HalfPixel;
 
  // main procedure, the original name was ps
 void main()
@@ -28,7 +32,8 @@ void main()
 
     float _luma;
 
-    _TMP0 = texture2D(_InputMap, gl_TexCoord[0].xy);
+    _c0006 = gl_TexCoord[0].xy + _HalfPixel;
+    _TMP0 = texture2D(_InputMap, _c0006);
     _luma = dot(_TMP0.xyz, vec3( 2.98999995E-001, 5.87000012E-001, 1.14000000E-001));
     _ret_0 = vec4(_TMP0.x, _TMP0.y, _TMP0.z, _luma);
     gl_FragColor = _ret_0;

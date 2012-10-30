@@ -108,6 +108,10 @@ public:
 
 	void disableSmoothing();
 
+public:
+
+	Vector2 halfPixel() const;
+
 private:
 
   IDXGISwapChain *swapChain_;
