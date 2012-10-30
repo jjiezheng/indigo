@@ -77,8 +77,6 @@ void PS3GCMGraphicsInterface::openWindow(int width, int height, unsigned int mul
 
   cellGcmSetFlipMode(CELL_GCM_DISPLAY_VSYNC);
 
-  cellGcmSetDitherEnable(CELL_GCM_TRUE);
-
   CellGcmConfig config;
   cellGcmGetConfiguration(&config);
   local_mem_heap = (uint32_t)config.localAddress;
@@ -449,6 +447,7 @@ void PS3GCMGraphicsInterface::setRenderTarget(unsigned int* renderTargetIds, uns
 }
 
 void PS3GCMGraphicsInterface::resetRenderTarget(bool useDepthBuffer) {
+	cellGcmSetDitherEnable(CELL_GCM_FALSE);
   cellGcmSetDepthTestEnable(useDepthBuffer);
 
   CellGcmSurface sf;
@@ -583,10 +582,12 @@ void PS3GCMGraphicsInterface::setBlendState(IGraphicsInterface::BlendState blend
 
 void PS3GCMGraphicsInterface::enableSmoothing() {
 	cellGcmSetPolySmoothEnable(CELL_GCM_TRUE);
+	cellGcmSetLineSmoothEnable(CELL_GCM_TRUE);
 }
 
 void PS3GCMGraphicsInterface::disableSmoothing() {
 	cellGcmSetPolySmoothEnable(CELL_GCM_FALSE);
+	cellGcmSetLineSmoothEnable(CELL_GCM_FALSE);
 }
 
 Vector2 PS3GCMGraphicsInterface::halfPixel() const {

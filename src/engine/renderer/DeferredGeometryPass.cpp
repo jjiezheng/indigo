@@ -44,7 +44,9 @@ void DeferredGeometryPass::render(IViewer* viewer, World& world, const SceneCont
 		IEffect* effect = (*i).first;
 		effect->setUniform(viewer->nearDistance(), "Near");
 		effect->setUniform(viewer->farDistance(), "Far");
-		effect->setSamplerState(0, UV_ADDRESS_WRAP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
+		effect->setSamplerState(0, UV_ADDRESS_WRAP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_NONE);
+
+		GraphicsInterface::enableSmoothing();
 
 		std::vector<Mesh*> effectMeshes = (*i).second;
 		for (std::vector<Mesh*>::iterator meshIt = effectMeshes.begin(); meshIt != effectMeshes.end(); ++meshIt) {
@@ -57,6 +59,8 @@ void DeferredGeometryPass::render(IViewer* viewer, World& world, const SceneCont
 			(*meshIt)->render();
 			effect->endDraw();
 		}
+
+		GraphicsInterface::disableSmoothing();
 	}
 
 	GraphicsInterface::disableSmoothing();
