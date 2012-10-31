@@ -581,13 +581,13 @@ void PS3GCMGraphicsInterface::setBlendState(IGraphicsInterface::BlendState blend
 }
 
 void PS3GCMGraphicsInterface::enableSmoothing() {
-	cellGcmSetPolySmoothEnable(CELL_GCM_TRUE);
-	cellGcmSetLineSmoothEnable(CELL_GCM_TRUE);
+	//cellGcmSetPolySmoothEnable(CELL_GCM_TRUE);
+	//cellGcmSetLineSmoothEnable(CELL_GCM_TRUE);
 }
 
 void PS3GCMGraphicsInterface::disableSmoothing() {
-	cellGcmSetPolySmoothEnable(CELL_GCM_FALSE);
-	cellGcmSetLineSmoothEnable(CELL_GCM_FALSE);
+	//cellGcmSetPolySmoothEnable(CELL_GCM_FALSE);
+	//cellGcmSetLineSmoothEnable(CELL_GCM_FALSE);
 }
 
 Vector2 PS3GCMGraphicsInterface::halfPixel() const {

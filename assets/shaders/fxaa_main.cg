@@ -1,8 +1,6 @@
 #ifdef GCM
-// #define FXAA_PS3 1
+#define FXAA_PS3 1
 // #define FXAA_EARLY_EXIT 1
-#define FXAA_PC 1
-#define FXAA_HLSL_3 1
 #endif
 
 #ifdef GL21
@@ -44,7 +42,7 @@ float4 ps(float4 position : POSITION,
 
 	float4 origin = float4(0.0f, 0.0f, 0.0f, 0.0f);
 
-#ifdef GCM
+/*#ifdef GCM
 	float2 pixelCentreOffset = (ScreenSizeInv * 0.5f);
 	float4 posPos = float4(0.0f);
 	//posPos.xy = texCoord.xy - pixelCentreOffset;
@@ -224,7 +222,7 @@ return FxaaPixelShader(
     //FxaaFloat4 fxaaConsole360ConstDir
     float4(0, 0, 0, 0)
 );
-#else
+#else*/
 	return FxaaPixelShader(
 	    //
 	    // Use noperspective interpolation here (turn off perspective interpolation).
@@ -399,5 +397,5 @@ return FxaaPixelShader(
 	    //FxaaFloat4 fxaaConsole360ConstDir
 	    float4(0, 0, 0, 0)
 	);
-#endif
+//#endif
 }
