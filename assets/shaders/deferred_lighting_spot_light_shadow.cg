@@ -123,15 +123,15 @@ float4 ps(float4 position 		: POSITION,
 	// shadow
 	//------------------------------------------------------------
 
-	// float4 pixelPositionFromLightRaw = mul(LightViewProj, float4(positionWorld, 1));
-	// float3 pixelPositionFromLight = pixelPositionFromLightRaw.xyz / pixelPositionFromLightRaw.w;
+	float4 pixelPositionFromLightRaw = mul(LightViewProj, float4(positionWorld, 1));
+	float3 pixelPositionFromLight = pixelPositionFromLightRaw.xyz / pixelPositionFromLightRaw.w;
 
-	// float2 shadowCoord =  0.5f + pixelPositionFromLight.xy * 0.5f;
-	// shadowCoord.y = 1.0f - shadowCoord.y;
+	float2 shadowCoord =  0.5f + pixelPositionFromLight.xy * 0.5f;
+	shadowCoord.y = 1.0f - shadowCoord.y;
 
-	// float shadowFactor = shadowPCF(ShadowMap, shadowCoord, pixelPositionFromLight.z, ShadowMapSize);
+	float shadowFactor = shadowPCF(ShadowMap, shadowCoord, pixelPositionFromLight.z, ShadowMapSize);
 
-	// lightContribution *= shadowFactor;
+	lightContribution *= shadowFactor;
 
 	return lightContribution;
 } 

@@ -118,7 +118,9 @@ public:
 
 public:
 
-	static Vector2 halfPixel();
+	static Vector2 halfBackBufferPixel();
+
+	static Vector2 halfScreenPixel();
 
 public:
 

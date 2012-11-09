@@ -643,6 +643,10 @@ void Direct3D11GraphicsInterface::disableSmoothing() {
 }
 
 
-Vector2 Direct3D11GraphicsInterface::halfPixel() const {
+Vector2 Direct3D11GraphicsInterface::halfScreenPixel() const {
+	return Vector2(0, 0);
+}
+
+Vector2 Direct3D11GraphicsInterface::halfBackBufferPixel() const {
 	return Vector2(0, 0);
 }

@@ -102,7 +102,7 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
     ssaoEffect_->setTexture(GraphicsInterface::depthBufferTexture(), "SSAODepthMap");
     ssaoEffect_->setTexture(noiseTexture_, "NoiseMap");
 
-		ssaoEffect_->setUniform(GraphicsInterface::halfPixel(), "HalfPixel");
+		ssaoEffect_->setUniform(GraphicsInterface::halfBackBufferPixel(), "HalfPixel");
 
     ssaoEffect_->setUniform(0.1f, "Radius");
 
@@ -131,7 +131,7 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
      combineEffect_->setTexture(inputMap, "ColorMap");
      combineEffect_->setTexture(ssaoRawTexture_, "SSAOMap");
 
-		 combineEffect_->setUniform(GraphicsInterface::halfPixel(), "HalfPixel");
+		 combineEffect_->setUniform(GraphicsInterface::halfBackBufferPixel(), "HalfPixel");
  
      combineEffect_->beginDraw();
      GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);

@@ -590,11 +590,22 @@ void PS3GCMGraphicsInterface::disableSmoothing() {
 	//cellGcmSetLineSmoothEnable(CELL_GCM_FALSE);
 }
 
-Vector2 PS3GCMGraphicsInterface::halfPixel() const {
+Vector2 PS3GCMGraphicsInterface::halfBackBufferPixel() const {
 	float texelX = 1.0f / backbufferSize_.width;
 	float halfPixelX = texelX * 0.5f;
 
 	float texelY = 1.0f / backbufferSize_.height;
+	float halfPixelY = texelY * 0.5f;
+
+	Vector2 halfPixel(halfPixelX, halfPixelY);
+	return halfPixel;
+}
+
+Vector2 PS3GCMGraphicsInterface::halfScreenPixel() const {
+	float texelX = 1.0f / screenSize_.width;
+	float halfPixelX = texelX * 0.5f;
+
+	float texelY = 1.0f / screenSize_.height;
 	float halfPixelY = texelY * 0.5f;
 
 	Vector2 halfPixel(halfPixelX, halfPixelY);

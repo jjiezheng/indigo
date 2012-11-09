@@ -26,7 +26,7 @@ void DeferredPresentStage::render(unsigned int presentTextureId, unsigned int de
   GraphicsInterface::setViewport(GraphicsInterface::screenSize());
   GraphicsInterface::clearActiveColorBuffers(Color4::NOTHING);
 
-	effect_->setUniform(GraphicsInterface::halfPixel(), "HalfPixel");
+	effect_->setUniform(GraphicsInterface::halfScreenPixel(), "HalfPixel");
 
   effect_->setTexture(presentTextureId, "ColorMap");
   GraphicsInterface::setRenderState(true);

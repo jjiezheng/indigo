@@ -94,7 +94,9 @@ public:
 
 public:
 
-	Vector2 halfPixel() const;
+	Vector2 halfBackBufferPixel() const;
+
+	Vector2 halfScreenPixel() const;
 
 private:
 

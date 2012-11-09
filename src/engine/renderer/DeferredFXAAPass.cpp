@@ -22,7 +22,7 @@ void DeferredFXAAPass::init(const CSize& screenSize) {
   fxaaRenderTexture_ = GraphicsInterface::createTexture(GraphicsInterface::screenSize());
   fxaaRenderTarget_ = GraphicsInterface::createRenderTarget(fxaaRenderTexture_);
   fxaaEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/fxaa_main.shader");
-  fxaaEffect_->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
+  fxaaEffect_->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_NONE);
 
   quadVbo_ = Geometry::screenPlane();
 }
@@ -38,7 +38,7 @@ unsigned int DeferredFXAAPass::render(IViewer* viewer, unsigned int inputMap, co
     GraphicsInterface::setRenderTarget(colorLumaTarget_, false, GraphicsInterface::screenSize());
     GraphicsInterface::clearActiveColorBuffers(Color4::TRANSPAREN);
 
-		colorLumaEffect_->setUniform(GraphicsInterface::halfPixel(), "HalfPixel");
+		colorLumaEffect_->setUniform(GraphicsInterface::halfScreenPixel(), "HalfPixel");
     colorLumaEffect_->setTexture(inputMap, "InputMap");
 
     GraphicsInterface::setRenderState(true);
@@ -49,8 +49,6 @@ unsigned int DeferredFXAAPass::render(IViewer* viewer, unsigned int inputMap, co
 
     GraphicsInterface::endPerformanceEvent();
   }
-
-	screensize half pixel rather than backbuffer size half pixel
 
   {
     GraphicsInterface::beginPerformanceEvent("FXAA");
@@ -68,7 +66,7 @@ unsigned int DeferredFXAAPass::render(IViewer* viewer, unsigned int inputMap, co
 
 		fxaaEffect_->setUniform(Vector2((float)screenSize.width, (float)screenSize.height), "ScreenSize");
 
-		fxaaEffect_->setUniform(GraphicsInterface::halfPixel(), "HalfPixel");
+		fxaaEffect_->setUniform(GraphicsInterface::halfScreenPixel(), "HalfPixel");
 
     GraphicsInterface::setRenderState(true);
 

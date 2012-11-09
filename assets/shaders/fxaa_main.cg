@@ -1,6 +1,6 @@
 #ifdef GCM
 #define FXAA_PS3 1
-// #define FXAA_EARLY_EXIT 1
+#define FXAA_EARLY_EXIT 0
 #endif
 
 #ifdef GL21

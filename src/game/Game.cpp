@@ -28,7 +28,7 @@ void Game::init(const char* sceneFile) {
   camera_.translateY(0.0f);
   //camera_.rotateX(toRadians(-90));
   
-  camera_.setProjection(45.0f, GraphicsInterface::aspectRatio(), 1.0f, 1000.0f);
+  camera_.setProjection(45.0f, GraphicsInterface::aspectRatio(), 1.0f, 500);
 
   if (sceneFile) {
     WorldLoader loader; 

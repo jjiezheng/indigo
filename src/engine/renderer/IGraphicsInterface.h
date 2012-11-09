@@ -122,7 +122,9 @@ public:
 
 public:
 
-	virtual Vector2 halfPixel() const = 0;
+	virtual Vector2 halfBackBufferPixel() const = 0;
+
+	virtual Vector2 halfScreenPixel() const = 0;
   
 protected:
 
