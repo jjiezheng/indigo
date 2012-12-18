@@ -84,7 +84,7 @@ public:
 
 public:
 
-	virtual void enableSmoothing() = 0;;
+	virtual void enableSmoothing() = 0;
 
 	virtual void disableSmoothing() = 0;
 

@@ -141,8 +141,8 @@ void DeferredSpotLightsPass::renderLight(SpotLight* light, IEffect* lightEffect,
 
   lightEffect->setUniform(viewer->projection().inverse(), "ProjInv");
 
-  Matrix4x4 normalMatrix = viewer->viewTransform().mat3x3().inverseTranspose();
-  //lightEffect_->setUniform(normalMatrix, "NormalMatrix"); 
+//  Matrix4x4 normalMatrix = viewer->viewTransform().mat3x3().inverseTranspose();
+  //lightEffect_->setUniform(normalMatrix, "NormalMatrix");
 
   lightEffect->setUniform(viewer->position(), "ViewerPosition");
 

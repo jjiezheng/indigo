@@ -16,5 +16,18 @@
          landmarkName = "CGShader::load(const char* vertexShaderPath, const char* fragmentShaderPath)"
          landmarkType = "5">
       </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../src/engine/renderer/WorldLoader.cpp"
+         timestampString = "377556160.788481"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "53"
+         endingLineNumber = "53"
+         landmarkName = "WorldLoader::loadFromSceneFile(const std::string&amp; filePath, World&amp; world, SceneContext&amp; sceneContext)"
+         landmarkType = "5">
+      </FileBreakpoint>
    </FileBreakpoints>
 </Bucket>

@@ -48,7 +48,7 @@ void Frustum::rebuild(const Matrix4x4& viewProjection) {
 bool Frustum::testIntersect(const Vector3& point, float radius) {
 
   for (int i = 0; i < 6; i++) {
-    float result = planes_[i].normal().dot(point);
+//    float result = planes_[i].normal().dot(point);
   }
 
   return false;
