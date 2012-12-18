@@ -1,7 +1,7 @@
 #ifndef SCENE_CONTEXT_H
 #define SCENE_CONTEXT_H
 
-#include <vector>
+#include "memory/Pools.h"
 
 #include "DirectionalLight.h"
 #include "PointLight.h"
@@ -14,7 +14,7 @@ class SceneContext {
   
 public:
   
-  SceneContext() 
+  SceneContext()
     : shadowTexture_(0)
     , fogType_(FOG_NONE)
     , fogStart_(0)
@@ -25,19 +25,19 @@ public:
   
   void addDirectionalLight(const DirectionalLight& light);
   
-  std::vector<DirectionalLight> directionalLights() const;
+  syspool::vector<DirectionalLight>::type directionalLights() const;
 
 public:
 
   void addPointLight(const PointLight& light);
 
-  std::vector<PointLight> pointLights() const;
+  syspool::vector<PointLight>::type pointLights() const;
   
 public:
 
   void addSpotLight(SpotLight* light);
 
-  std::vector<SpotLight*> spotLights() const;
+  syspool::vector<SpotLight*>::type spotLights() const;
 
 public:
     
@@ -63,9 +63,9 @@ public:
   
 private:
   
-  std::vector<DirectionalLight> directionalLights_;
-  std::vector<PointLight> pointLights_;
-  std::vector<SpotLight*> spotLights_;
+  syspool::vector<DirectionalLight>::type directionalLights_;
+  syspool::vector<PointLight>::type pointLights_;
+  syspool::vector<SpotLight*>::type spotLights_;
   
   Color4 fogColor_;
   Color4 backgroundColor_;
@@ -119,7 +119,7 @@ inline void SceneContext::addDirectionalLight(const DirectionalLight& light) {
   directionalLights_.push_back(light);
 }
 
-inline std::vector<DirectionalLight> SceneContext::directionalLights() const {
+inline syspool::vector<DirectionalLight>::type SceneContext::directionalLights() const {
   return directionalLights_;
 }
 
@@ -127,7 +127,7 @@ inline void SceneContext::addPointLight(const PointLight& light) {
   pointLights_.push_back(light);
 }
 
-inline std::vector<PointLight> SceneContext::pointLights() const {
+inline syspool::vector<PointLight>::type SceneContext::pointLights() const {
   return pointLights_;
 }
 
@@ -135,7 +135,7 @@ inline void SceneContext::addSpotLight(SpotLight* light) {
   spotLights_.push_back(light);
 }
 
-inline std::vector<SpotLight*> SceneContext::spotLights() const {
+inline syspool::vector<SpotLight*>::type SceneContext::spotLights() const {
   return spotLights_;
 }
 

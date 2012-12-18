@@ -59,7 +59,7 @@ float BinaryModelDeserializer::readFloat(std::ifstream& input) {
   return value;
 }
 
-Model* BinaryModelDeserializer::deserialize(const std::string& modelFilePath) {
+Model* BinaryModelDeserializer::deserialize(const levelpool::string& modelFilePath) {
   Model* model = new Model();
 
   std::ifstream input;

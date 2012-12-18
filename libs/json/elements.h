@@ -256,6 +256,43 @@ private:
 };
 
 
+////////////////////////
+// TrivialType_T members
+
+template <typename DataTypeT>
+TrivialType_T<DataTypeT>::TrivialType_T(const DataTypeT& t) :
+m_tValue(t) {}
+
+template <typename DataTypeT>
+TrivialType_T<DataTypeT>::operator DataTypeT&()
+{
+  return Value();
+}
+
+template <typename DataTypeT>
+TrivialType_T<DataTypeT>::operator const DataTypeT&() const
+{
+  return Value();
+}
+
+template <typename DataTypeT>
+DataTypeT& TrivialType_T<DataTypeT>::Value()
+{
+  return m_tValue;
+}
+
+template <typename DataTypeT>
+const DataTypeT& TrivialType_T<DataTypeT>::Value() const
+{
+  return m_tValue;
+}
+
+template <typename DataTypeT>
+bool TrivialType_T<DataTypeT>::operator == (const TrivialType_T<DataTypeT>& trivial) const
+{
+  return m_tValue == trivial.m_tValue;
+}
+
 
 /////////////////////////////////////////////////////////////////////////////////
 // Null - doesn't do much of anything but satisfy the JSON spec. It is the default
@@ -269,6 +306,3 @@ public:
 
 
 } // End namespace
-
-
-#include "elements.inl"

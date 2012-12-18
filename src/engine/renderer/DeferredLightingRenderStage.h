@@ -1,8 +1,7 @@
 #ifndef DEFERRED_LIGHTING_RENDER_STAGE_H
 #define DEFERRED_LIGHTING_RENDER_STAGE_H
 
-#include "memory/STLAllocators.h"
-
+#include "memory/Pools.h"
 #include "IDeferredRenderStage.h"
 
 class IDeferredLightingPass;
@@ -37,8 +36,8 @@ private:
 
   unsigned int lightMapTexture_;
   unsigned int lightRenderTarget_;
-
-  std::vector<IDeferredLightingPass*, vec_alloc<IDeferredLightingPass*> > passes_;
+  
+  syspool::vector<IDeferredLightingPass*>::type passes_;
 
 };
 

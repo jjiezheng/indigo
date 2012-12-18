@@ -1,7 +1,7 @@
 #include "IGraphicsInterface.h"
 
 #include "platform/PlatformDefs.h"
-#include "memory/ScopeStack.h"
+#include "memory/Pools.h"
 
 #ifdef PLATFORM_WINDOWS
   #include "Direct3D11GraphicsInterface.h"
@@ -17,13 +17,13 @@
 
 #include "DefaultGraphicsInterface.h"
 
-IGraphicsInterface* IGraphicsInterface::createInterface(ScopeStack* systemStack) {
+IGraphicsInterface* IGraphicsInterface::createInterface() {
 #ifdef PLATFORM_WINDOWS
     return new Direct3D11GraphicsInterface();
 #endif
 
 #ifdef PLATFORM_MAC
-  return systemStack->create<OpenGL21GraphicsInterface>();
+  return syspool::stack->create<OpenGL21GraphicsInterface>();
 #endif
 
 #ifdef PLATFORM_PS3

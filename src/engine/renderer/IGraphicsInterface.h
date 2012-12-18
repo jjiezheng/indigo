@@ -7,11 +7,11 @@
 #include "VertexFormat.h"
 #include "core/Size.h"
 
-class ScopeStack;
 class IEffect;
 class Color4;
 class VertexDef;
 class DDSImage;
+class ScopeStack;
 
 class IGraphicsInterface {
 
@@ -36,7 +36,7 @@ public:
 
 public:
 
-  static IGraphicsInterface* createInterface(ScopeStack* systemStack);
+  static IGraphicsInterface* createInterface();
 
 public:
 

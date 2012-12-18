@@ -3,7 +3,6 @@
 
 #include <vector>
 
-#include "memory/STLAllocators.h"
 #include "services/IRenderChannelInfoService.h"
 
 #include "IDeferredRenderTargetContainer.h"
@@ -32,11 +31,8 @@ public:
 public:
 
   explicit
-  Renderer3dDeferred(ScopeStack* systemStack)
-    : activeRenderTargetIndex_(0)
-    , initStage_(systemStack)
-    , presentStage_(systemStack)
-    , renderTargets_(vec_alloc<DeferredRenderTarget>(systemStack)){ };
+  Renderer3dDeferred()
+    : activeRenderTargetIndex_(0) { };
 
 public:
 
@@ -70,7 +66,7 @@ private:
 
 private:
 
-  std::vector<DeferredRenderTarget, vec_alloc<DeferredRenderTarget> > renderTargets_;
+  syspool::vector<DeferredRenderTarget>::type renderTargets_;
   unsigned int activeRenderTargetIndex_;
 
 private:

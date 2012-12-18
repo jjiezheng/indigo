@@ -3,8 +3,7 @@
 
 #include <vector>
 
-#include "memory/STLAllocators.h"
-#include "memory/ScopeStack.h"
+#include "memory/Pools.h"
 
 #include "IDeferredRenderStage.h"
 
@@ -15,13 +14,11 @@ class DeferredInitRenderStage : public IDeferredRenderStage {
 
 public:
 
-  DeferredInitRenderStage(ScopeStack* systemStack)
+  DeferredInitRenderStage()
     : colorMapTexture_(0)
     , colorRenderTarget_(0)
     , normalMapTexture_(0)
-    , normalRenderTarget_(0)
-    , systemStack_(systemStack)
-    , passes_(vec_alloc<IDeferredPass*>(systemStack)) { }
+    , normalRenderTarget_(0) { }
 
 public:
 
@@ -53,8 +50,7 @@ private:
   unsigned int normalMapTexture_;
   unsigned int normalRenderTarget_;
 
-  ScopeStack* systemStack_;
-  std::vector<IDeferredPass*, vec_alloc<IDeferredPass*>> passes_;
+  syspool::vector<IDeferredPass*>::type passes_;
 
 };
 

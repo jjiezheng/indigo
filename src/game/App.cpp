@@ -1,11 +1,13 @@
 #include "App.h"
 
+#include "memory/Pools.h"
 #include "renderer/GraphicsInterface.h"
 #include "maths/Random.h"
 
 void App::init(const char* sceneFile) {  
   Random::seed();
-  GraphicsInterface::init(&systemStack_, 1280, 720, 1);
+  syspool::setStack(&systemStack_);
+  GraphicsInterface::init(1280, 720, 1);
   game_.init(sceneFile);
 }
 

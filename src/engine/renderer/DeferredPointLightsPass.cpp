@@ -23,9 +23,9 @@ void DeferredPointLightsPass::render(IViewer* viewer, World& world, const SceneC
   pointLightEffect_->setTexture(normalMapTexture_, "NormalMap");
   pointLightEffect_->setTexture(depthMapTexture_, "DepthMap");
 
-  std::vector<PointLight> pointLights = sceneContext.pointLights();
+  syspool::vector<PointLight>::type pointLights = sceneContext.pointLights();
 
-  for (std::vector<PointLight>::iterator light = pointLights.begin(); light != pointLights.end(); ++light) {
+  for (syspool::vector<PointLight>::type::iterator light = pointLights.begin(); light != pointLights.end(); ++light) {
     Matrix4x4 worldViewProj = viewer->projection() * viewer->viewTransform() * (*light).transform();
     pointLightEffect_->setUniform(worldViewProj, "WorldViewProj");
 

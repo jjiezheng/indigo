@@ -14,10 +14,12 @@
 #include "ui/FPSStats.h"
 #include "ui/RenderChannelInfo.h"
 
+#include "memory/Pools.h"
+
 void Game::init(const char* sceneFile) {
-  Pad::init(systemStack_);
-  Mouse::init(systemStack_);
-  Keyboard::init(systemStack_);
+  Pad::init();
+  Mouse::init();
+  Keyboard::init();
 
   renderer_.init(GraphicsInterface::backBufferSize());
 //  ui_.init(GraphicsInterface::backBufferSize());
@@ -39,12 +41,13 @@ void Game::init(const char* sceneFile) {
 //
   Keyboard::setKeydownListener(this);
 
-
   if (sceneFile) {
-    WorldLoader loader; 
+    ScopeStack* worldStack = syspool::stack->childStack();
+    levelpool::setStack(worldStack);
+    
+    WorldLoader loader;
     loader.loadFromSceneFile(sceneFile, world_, sceneContext_);
   }
-
 }
  
 void Game::mainLoop() {

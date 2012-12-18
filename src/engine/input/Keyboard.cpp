@@ -1,7 +1,7 @@
 #include "Keyboard.h"
 
 #include "platform/PlatformDefs.h"
-#include "memory/ScopeStack.h"
+#include "memory/Pools.h"
 
 #include "IKeyboard.h"
 
@@ -17,13 +17,13 @@
 
 IKeyboard* Keyboard::keyboard_ = 0;
 
-void Keyboard::init(ScopeStack* scopeStack) {
+void Keyboard::init() {
 #ifdef PLATFORM_WINDOWS
   keyboard_ = new (&Allocation::resident_allocator) WindowsKeyboard();
 #elif PLATFORM_PS3
   keyboard_ = new (&Allocation::resident_allocator) PS3Keyboard();
 #else
-  keyboard_ = scopeStack->create<NullKeyboard>();
+  keyboard_ = syspool::stack->create<NullKeyboard>();
 #endif
   keyboard_->setup();
 };

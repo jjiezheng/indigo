@@ -4,16 +4,17 @@
 #include <string>
 #include <fstream>
 
+#include "memory/Pools.h"
 #include "maths/Vector3.h"
 
 class Model;
 class Material;
 
 class BinaryModelDeserializer {
-
+  
 public:
 
-  static Model* deserialize(const std::string& modelFilePath);
+  Model* deserialize(const levelpool::string& modelFilePath);
 
 private:
 
@@ -29,7 +30,7 @@ private:
   
   static Vector3 readVector3(std::ifstream& input);
   
-  static float readFloat(std::ifstream& input);
+  static float readFloat(std::ifstream& input);  
 
 };
 

@@ -23,7 +23,7 @@ unsigned int DeferredGodRaysPass::render(IViewer* viewer, unsigned int inputMap,
   GraphicsInterface::beginPerformanceEvent("God Rays");
 
   { // Lighting
-    std::vector<SpotLight*> spotLights = sceneContext.spotLights();
+    syspool::vector<SpotLight*>::type spotLights = sceneContext.spotLights();
     for (std::vector<SpotLight*>::iterator light = spotLights.begin(); light != spotLights.end(); ++light) {
       GraphicsInterface::beginPerformanceEvent("Light");
       SpotLight* spotLight = (*light);

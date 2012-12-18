@@ -1,5 +1,7 @@
 #include "DeferredPresentStage.h"
 
+#include "memory/Pools.h"
+
 #include "IEffect.h"
 
 #include "Geometry.h"
@@ -8,12 +10,11 @@
 
 #include "GraphicsInterface.h"
 
-#include "memory/Allocation.h"
 #include "EffectCache.h"
 
 
 void DeferredPresentStage::init(const CSize& screenSize) {
-  effect_ = IEffect::effectFromFile(systemStack_, IEffect::SHADER_FULLSCREEN_TEXTURE);
+  effect_ = IEffect::effectFromFile(syspool::stack, IEffect::SHADER_FULLSCREEN_TEXTURE);
 	effect_->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_NONE);
   quadVbo_ = Geometry::screenPlane();
 }

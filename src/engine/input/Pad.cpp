@@ -1,7 +1,7 @@
 #include "Pad.h"
 
 #include "platform/PlatformDefs.h"
-#include "memory/ScopeStack.h"
+#include "memory/Pools.h"
 
 #include "IPad.h"
 
@@ -13,11 +13,11 @@
 
 IPad* Pad::pad_ = 0;
 
-void Pad::init(ScopeStack* scopeStack) {
+void Pad::init() {
 #ifdef PLATFORM_PS3
   pad_ = new PS3Pad();
 #else
-  pad_ = scopeStack->create<NullPad>();
+  pad_ = syspool::stack->create<NullPad>();
 #endif
   pad_->setup();
 }

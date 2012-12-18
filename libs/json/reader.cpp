@@ -6,6 +6,8 @@ Author: Terry Caton
 
 ***********************************************/
 
+#include "reader.h"
+
 #include <cassert>
 #include <ctype.h>
 #include <set>
@@ -23,12 +25,12 @@ namespace json
 {
 
 
-   inline std::istream& operator >> (std::istream& istr, UnknownElement& elementRoot) {
+   std::istream& operator >> (std::istream& istr, UnknownElement& elementRoot) {
    Reader::Read(elementRoot, istr);
    return istr;
 }
 
-inline Reader::Location::Location() :
+Reader::Location::Location() :
    m_nLine(0),
    m_nLineOffset(0),
    m_nDocOffset(0)
@@ -64,7 +66,7 @@ private:
 };
 
 
-inline char Reader::InputStream::Get()
+char Reader::InputStream::Get()
 {
    assert(m_iStr.eof() == false); // enforce reading of only valid stream data 
    char c = m_iStr.get();
@@ -102,22 +104,22 @@ private:
 };
 
 
-inline Reader::TokenStream::TokenStream(const Tokens& tokens) :
+Reader::TokenStream::TokenStream(const Tokens& tokens) :
    m_Tokens(tokens),
    m_itCurrent(tokens.begin())
 {}
 
-inline const Reader::Token& Reader::TokenStream::Peek() {
+const Reader::Token& Reader::TokenStream::Peek() {
    assert(m_itCurrent != m_Tokens.end());
    return *(m_itCurrent); 
 }
 
-inline const Reader::Token& Reader::TokenStream::Get() {
+const Reader::Token& Reader::TokenStream::Get() {
    assert(m_itCurrent != m_Tokens.end());
    return *(m_itCurrent++); 
 }
 
-inline bool Reader::TokenStream::EOS() const {
+bool Reader::TokenStream::EOS() const {
    return m_itCurrent == m_Tokens.end(); 
 }
 
@@ -125,13 +127,13 @@ inline bool Reader::TokenStream::EOS() const {
 // Reader (finally)
 
 
-inline void Reader::Read(Object& object, std::istream& istr)                { Read_i(object, istr); }
-inline void Reader::Read(Array& array, std::istream& istr)                  { Read_i(array, istr); }
-inline void Reader::Read(String& string, std::istream& istr)                { Read_i(string, istr); }
-inline void Reader::Read(Number& number, std::istream& istr)                { Read_i(number, istr); }
-inline void Reader::Read(Boolean& boolean, std::istream& istr)              { Read_i(boolean, istr); }
-inline void Reader::Read(Null& null, std::istream& istr)                    { Read_i(null, istr); }
-inline void Reader::Read(UnknownElement& unknown, std::istream& istr)       { Read_i(unknown, istr); }
+void Reader::Read(Object& object, std::istream& istr)                { Read_i(object, istr); }
+void Reader::Read(Array& array, std::istream& istr)                  { Read_i(array, istr); }
+void Reader::Read(String& string, std::istream& istr)                { Read_i(string, istr); }
+void Reader::Read(Number& number, std::istream& istr)                { Read_i(number, istr); }
+void Reader::Read(Boolean& boolean, std::istream& istr)              { Read_i(boolean, istr); }
+void Reader::Read(Null& null, std::istream& istr)                    { Read_i(null, istr); }
+void Reader::Read(UnknownElement& unknown, std::istream& istr)       { Read_i(unknown, istr); }
 
 
 template <typename ElementTypeT>   
@@ -155,10 +157,18 @@ void Reader::Read_i(ElementTypeT& element, std::istream& istr)
 }
 
 
-inline void Reader::Scan(Tokens& tokens, InputStream& inputStream)
+void Reader::Scan(Tokens& tokens, InputStream& inputStream)
 {
-   while (EatWhiteSpace(inputStream),              // ignore any leading white space...
-          inputStream.EOS() == false) // ...before checking for EOS
+  // need to strip out all the charcters we dont care about
+//  while (inputStream.EOS() == false) // ...before checking for EOS
+//  {
+//    char c = inputStream.Get();
+//    if (::isspace(c)) continue;
+//    if (c == '\377') continue;
+//    std::clog << c << std::endl;
+//  }
+  EatWhiteSpace(inputStream);
+   while (inputStream.EOS() == false) // ...before checking for EOS
    {
       // if all goes well, we'll create a token each pass
       Token token;
@@ -167,8 +177,12 @@ inline void Reader::Scan(Tokens& tokens, InputStream& inputStream)
       // gives us null-terminated string
       std::string sChar;
       sChar.push_back(inputStream.Peek());
-      
-      switch (sChar[0])
+     
+     char c = sChar[0];
+          
+     std::clog << c << std::endl;
+     
+      switch (c)
       {
          case '{':
             token.sValue = sChar[0];
@@ -223,7 +237,7 @@ inline void Reader::Scan(Tokens& tokens, InputStream& inputStream)
          case '8':
          case '9':
             MatchNumber(token.sValue, inputStream);
-            token.nType = Token::TOKEN_NUMBER;
+            token.nType = Token::TOKEN_NUMBER;  
             break;
 
          case 't':
@@ -253,18 +267,27 @@ inline void Reader::Scan(Tokens& tokens, InputStream& inputStream)
 
       token.locEnd = inputStream.GetLocation();
       tokens.push_back(token);
+     EatWhiteSpace(inputStream);
    }
 }
 
 
-inline void Reader::EatWhiteSpace(InputStream& inputStream)
+void Reader::EatWhiteSpace(InputStream& inputStream)
 {
-   while (inputStream.EOS() == false && 
-          ::isspace(inputStream.Peek()))
+  //; chomp out everything that isnt a recognised character
+  bool endOfStream = inputStream.EOS();
+  bool isSpace = ::isspace(inputStream.Peek());
+  bool isSpecial = inputStream.Peek() == '\377';
+  
+  while (!endOfStream && isSpace && isSpecial) {
       inputStream.Get();
+      endOfStream = inputStream.EOS();
+      isSpace = ::isspace(inputStream.Peek());
+      isSpecial = inputStream.Peek() == '\377';
+  }
 }
 
-inline void Reader::MatchExpectedString(const std::string& sExpected, InputStream& inputStream)
+void Reader::MatchExpectedString(const std::string& sExpected, InputStream& inputStream)
 {
    std::string::const_iterator it(sExpected.begin()),
                                itEnd(sExpected.end());
@@ -281,7 +304,7 @@ inline void Reader::MatchExpectedString(const std::string& sExpected, InputStrea
 }
 
 
-inline void Reader::MatchString(std::string& string, InputStream& inputStream)
+void Reader::MatchString(std::string& string, InputStream& inputStream)
 {
    MatchExpectedString("\"", inputStream);
    
@@ -321,7 +344,7 @@ inline void Reader::MatchString(std::string& string, InputStream& inputStream)
 }
 
 
-inline void Reader::MatchNumber(std::string& sNumber, InputStream& inputStream)
+void Reader::MatchNumber(std::string& sNumber, InputStream& inputStream)
 {
    const char sNumericChars[] = "0123456789.eE-+";
    std::set<char> numericChars;
@@ -335,7 +358,7 @@ inline void Reader::MatchNumber(std::string& sNumber, InputStream& inputStream)
 }
 
 
-inline void Reader::Parse(UnknownElement& element, Reader::TokenStream& tokenStream) 
+void Reader::Parse(UnknownElement& element, Reader::TokenStream& tokenStream) 
 {
    if (tokenStream.EOS()) {
       std::string sMessage = "Unexpected end of token stream";
@@ -396,7 +419,7 @@ inline void Reader::Parse(UnknownElement& element, Reader::TokenStream& tokenStr
 }
 
 
-inline void Reader::Parse(Object& object, Reader::TokenStream& tokenStream)
+void Reader::Parse(Object& object, Reader::TokenStream& tokenStream)
 {
    MatchExpectedToken(Token::TOKEN_OBJECT_BEGIN, tokenStream);
 
@@ -438,7 +461,7 @@ inline void Reader::Parse(Object& object, Reader::TokenStream& tokenStream)
 }
 
 
-inline void Reader::Parse(Array& array, Reader::TokenStream& tokenStream)
+void Reader::Parse(Array& array, Reader::TokenStream& tokenStream)
 {
    MatchExpectedToken(Token::TOKEN_ARRAY_BEGIN, tokenStream);
 
@@ -461,13 +484,13 @@ inline void Reader::Parse(Array& array, Reader::TokenStream& tokenStream)
 }
 
 
-inline void Reader::Parse(String& string, Reader::TokenStream& tokenStream)
+void Reader::Parse(String& string, Reader::TokenStream& tokenStream)
 {
    string = MatchExpectedToken(Token::TOKEN_STRING, tokenStream);
 }
 
 
-inline void Reader::Parse(Number& number, Reader::TokenStream& tokenStream)
+void Reader::Parse(Number& number, Reader::TokenStream& tokenStream)
 {
    const Token& currentToken = tokenStream.Peek(); // might need this later for throwing exception
    const std::string& sValue = MatchExpectedToken(Token::TOKEN_NUMBER, tokenStream);
@@ -487,20 +510,20 @@ inline void Reader::Parse(Number& number, Reader::TokenStream& tokenStream)
 }
 
 
-inline void Reader::Parse(Boolean& boolean, Reader::TokenStream& tokenStream)
+void Reader::Parse(Boolean& boolean, Reader::TokenStream& tokenStream)
 {
    const std::string& sValue = MatchExpectedToken(Token::TOKEN_BOOLEAN, tokenStream);
    boolean = (sValue == "true" ? true : false);
 }
 
 
-inline void Reader::Parse(Null&, Reader::TokenStream& tokenStream)
+void Reader::Parse(Null&, Reader::TokenStream& tokenStream)
 {
    MatchExpectedToken(Token::TOKEN_NULL, tokenStream);
 }
 
 
-inline const std::string& Reader::MatchExpectedToken(Token::Type nExpected, Reader::TokenStream& tokenStream)
+const std::string& Reader::MatchExpectedToken(Token::Type nExpected, Reader::TokenStream& tokenStream)
 {
    if (tokenStream.EOS())
    {

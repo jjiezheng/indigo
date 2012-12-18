@@ -4,13 +4,12 @@
 #include "maths/Point.h"
 
 class IMouse;
-class ScopeStack;
 
 class Mouse {
   
 public:
   
-  static void init(ScopeStack* scopeStack);
+  static void init();
   
   static Point position();
   

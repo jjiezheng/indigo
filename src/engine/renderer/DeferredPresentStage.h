@@ -9,10 +9,9 @@ class DeferredPresentStage {
 
 public:
 
-  DeferredPresentStage(ScopeStack* systemStack)
+  DeferredPresentStage()
     : quadVbo_(0) 
-    , effect_(0)
-    , systemStack_(systemStack) { }
+    , effect_(0) { }
 
 public:
 
@@ -27,8 +26,6 @@ private:
   unsigned int quadVbo_;
 
   IEffect* effect_;
-  
-  ScopeStack* systemStack_;
 
 };
 

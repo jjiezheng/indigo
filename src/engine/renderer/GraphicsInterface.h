@@ -25,7 +25,7 @@ public:
   
 public:
 
-  static void init(ScopeStack* systemStack, int width, int height, unsigned int multiSamples);
+  static void init(int width, int height, unsigned int multiSamples);
 
   static void destroy();
 

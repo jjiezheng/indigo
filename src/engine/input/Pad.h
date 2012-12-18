@@ -1,15 +1,13 @@
 #ifndef PAD_H
 #define PAD_H
 
-class ScopeStack;
-
 class IPad;
 
 class Pad {
  
 public:
   
-  static void init(ScopeStack* scopeStack);
+  static void init();
   
   static void update();
   

@@ -68,7 +68,6 @@
 		4C0838AF163D667E008D5F24 /* IGraphicsInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C08385C163D667E008D5F24 /* IGraphicsInterface.cpp */; };
 		4C0838B0163D667E008D5F24 /* Label.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C083860163D667E008D5F24 /* Label.cpp */; };
 		4C0838B1163D667E008D5F24 /* Light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C083862163D667E008D5F24 /* Light.cpp */; };
-		4C0838B2163D667E008D5F24 /* Light.inl in Resources */ = {isa = PBXBuildFile; fileRef = 4C083864163D667E008D5F24 /* Light.inl */; };
 		4C0838B3163D667E008D5F24 /* Material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C083865163D667E008D5F24 /* Material.cpp */; };
 		4C0838B4163D667E008D5F24 /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C083869163D667E008D5F24 /* Mesh.cpp */; };
 		4C0838B5163D667E008D5F24 /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C08386C163D667E008D5F24 /* Model.cpp */; };
@@ -82,17 +81,21 @@
 		4C0838BF163D667E008D5F24 /* WorldLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C083889163D667E008D5F24 /* WorldLoader.cpp */; };
 		4C0838CE163D6A5A008D5F24 /* Allocation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C0838CD163D6A5A008D5F24 /* Allocation.cpp */; };
 		4C0838D0163D6B2B008D5F24 /* StackAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C0838CF163D6B2B008D5F24 /* StackAllocator.cpp */; };
+		4C7411941646BECD005EA35A /* Pools.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C7411931646BECD005EA35A /* Pools.cpp */; };
+		4C74119E1646D2AA005EA35A /* elements.cpp in Resources */ = {isa = PBXBuildFile; fileRef = 4C74119B1646D2AA005EA35A /* elements.cpp */; };
+		4C74119F1646D2AA005EA35A /* reader.cpp in Resources */ = {isa = PBXBuildFile; fileRef = 4C74119C1646D2AA005EA35A /* reader.cpp */; };
 		4C8B0002163D5D9D003A0324 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C8B0001163D5D9D003A0324 /* Cocoa.framework */; };
 		4C8B000C163D5D9D003A0324 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C8B000A163D5D9D003A0324 /* InfoPlist.strings */; };
 		4C8B000E163D5D9D003A0324 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8B000D163D5D9D003A0324 /* main.m */; };
 		4C8B0012163D5D9D003A0324 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 4C8B0010163D5D9D003A0324 /* Credits.rtf */; };
 		4C8B0015163D5D9D003A0324 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8B0014163D5D9D003A0324 /* AppDelegate.m */; };
 		4C8B0018163D5D9D003A0324 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C8B0016163D5D9D003A0324 /* MainMenu.xib */; };
+		4C9D8C431646D37E00413B9B /* elements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C74119B1646D2AA005EA35A /* elements.cpp */; };
+		4C9D8C441646D37E00413B9B /* reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C74119C1646D2AA005EA35A /* reader.cpp */; };
 		4CA26041163DA3B8005960EA /* OpenGL21Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CA26040163DA3B8005960EA /* OpenGL21Effect.cpp */; };
 		4CC62864163D71FF00FD162B /* DisableNewDelete.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CC62863163D71FF00FD162B /* DisableNewDelete.cpp */; };
 		4CC62870163D8BDB00FD162B /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CC6286E163D8BDB00FD162B /* Game.cpp */; };
 		4CC62873163D8CBF00FD162B /* PlacementNew.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CC62872163D8CBE00FD162B /* PlacementNew.cpp */; };
-		4CC62877163DA34F00FD162B /* OpenGL21Effect.h in Resources */ = {isa = PBXBuildFile; fileRef = 4CC62876163DA34E00FD162B /* OpenGL21Effect.h */; };
 		4CD2F8F3163DD50100A50C44 /* IAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2F8F1163DD50100A50C44 /* IAllocator.cpp */; };
 		4CD2F8F6163DD63F00A50C44 /* AllocatorFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2F8F5163DD63F00A50C44 /* AllocatorFactory.cpp */; };
 		4CD2F8FA163DFADF00A50C44 /* LinearAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2F8F9163DFADE00A50C44 /* LinearAllocator.cpp */; };
@@ -294,10 +297,14 @@
 		4C0838C2163D66E8008D5F24 /* elements.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = elements.h; path = ../../../libs/json/elements.h; sourceTree = "<group>"; };
 		4C0838C4163D66E8008D5F24 /* reader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = reader.h; path = ../../../libs/json/reader.h; sourceTree = "<group>"; };
 		4C0838C6163D66E8008D5F24 /* visitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = visitor.h; path = ../../../libs/json/visitor.h; sourceTree = "<group>"; };
-		4C0838C7163D66E8008D5F24 /* writer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = writer.h; path = ../../../libs/json/writer.h; sourceTree = "<group>"; };
 		4C0838CC163D697E008D5F24 /* StackAllocator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = StackAllocator.h; path = ../../../src/engine/memory/StackAllocator.h; sourceTree = "<group>"; };
 		4C0838CD163D6A5A008D5F24 /* Allocation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Allocation.cpp; path = ../../../src/engine/memory/Allocation.cpp; sourceTree = "<group>"; };
 		4C0838CF163D6B2B008D5F24 /* StackAllocator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StackAllocator.cpp; path = ../../../src/engine/memory/StackAllocator.cpp; sourceTree = "<group>"; };
+		4C7411901646BA35005EA35A /* Pools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Pools.h; path = ../../../src/engine/memory/Pools.h; sourceTree = "<group>"; };
+		4C7411921646BDD4005EA35A /* LevelAllocator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LevelAllocator.h; path = ../../../src/engine/memory/LevelAllocator.h; sourceTree = "<group>"; };
+		4C7411931646BECD005EA35A /* Pools.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Pools.cpp; path = ../../../src/engine/memory/Pools.cpp; sourceTree = "<group>"; };
+		4C74119B1646D2AA005EA35A /* elements.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = elements.cpp; path = ../../../libs/json/elements.cpp; sourceTree = "<group>"; };
+		4C74119C1646D2AA005EA35A /* reader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = reader.cpp; path = ../../../libs/json/reader.cpp; sourceTree = "<group>"; };
 		4C8B0001163D5D9D003A0324 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		4C8B0004163D5D9D003A0324 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		4C8B0005163D5D9D003A0324 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -319,7 +326,6 @@
 		4CC6286F163D8BDB00FD162B /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Game.h; path = ../../../src/game/Game.h; sourceTree = "<group>"; };
 		4CC62871163D8C9400FD162B /* PlacementNew.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PlacementNew.h; path = ../../../src/engine/memory/PlacementNew.h; sourceTree = "<group>"; };
 		4CC62872163D8CBE00FD162B /* PlacementNew.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PlacementNew.cpp; path = ../../../src/engine/memory/PlacementNew.cpp; sourceTree = "<group>"; };
-		4CC62874163D94B100FD162B /* STLAllocators.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = STLAllocators.h; path = ../../../src/engine/memory/STLAllocators.h; sourceTree = "<group>"; };
 		4CC62876163DA34E00FD162B /* OpenGL21Effect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenGL21Effect.h; path = ../../../src/engine/renderer/OpenGL21Effect.h; sourceTree = "<group>"; };
 		4CD2F8F1163DD50100A50C44 /* IAllocator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IAllocator.cpp; path = ../../../src/engine/memory/IAllocator.cpp; sourceTree = "<group>"; };
 		4CD2F8F4163DD5CB00A50C44 /* AllocatorFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AllocatorFactory.h; path = ../../../src/engine/memory/AllocatorFactory.h; sourceTree = "<group>"; };
@@ -462,13 +468,15 @@
 				4CC62865163D7D6800FD162B /* IAllocator.h */,
 				4CC62871163D8C9400FD162B /* PlacementNew.h */,
 				4CC62872163D8CBE00FD162B /* PlacementNew.cpp */,
-				4CC62874163D94B100FD162B /* STLAllocators.h */,
 				4CD2F8F1163DD50100A50C44 /* IAllocator.cpp */,
 				4CD2F8F4163DD5CB00A50C44 /* AllocatorFactory.h */,
 				4CD2F8F5163DD63F00A50C44 /* AllocatorFactory.cpp */,
 				4CD2F8F7163DF5F500A50C44 /* ScopeStack.h */,
 				4CD2F8F8163DF85600A50C44 /* LinearAllocator.h */,
 				4CD2F8F9163DFADE00A50C44 /* LinearAllocator.cpp */,
+				4C7411901646BA35005EA35A /* Pools.h */,
+				4C7411921646BDD4005EA35A /* LevelAllocator.h */,
+				4C7411931646BECD005EA35A /* Pools.cpp */,
 			);
 			name = memory;
 			sourceTree = "<group>";
@@ -669,10 +677,11 @@
 		4C0838C1163D66D7008D5F24 /* json */ = {
 			isa = PBXGroup;
 			children = (
+				4C74119B1646D2AA005EA35A /* elements.cpp */,
+				4C74119C1646D2AA005EA35A /* reader.cpp */,
 				4C0838C2163D66E8008D5F24 /* elements.h */,
 				4C0838C4163D66E8008D5F24 /* reader.h */,
 				4C0838C6163D66E8008D5F24 /* visitor.h */,
-				4C0838C7163D66E8008D5F24 /* writer.h */,
 			);
 			name = json;
 			sourceTree = "<group>";
@@ -747,6 +756,7 @@
 				4C8BFFF9163D5D9D003A0324 /* Sources */,
 				4C8BFFFA163D5D9D003A0324 /* Frameworks */,
 				4C8BFFFB163D5D9D003A0324 /* Resources */,
+				4C7411951646D10B005EA35A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -790,18 +800,36 @@
 				4C8B000C163D5D9D003A0324 /* InfoPlist.strings in Resources */,
 				4C8B0012163D5D9D003A0324 /* Credits.rtf in Resources */,
 				4C8B0018163D5D9D003A0324 /* MainMenu.xib in Resources */,
-				4C0838B2163D667E008D5F24 /* Light.inl in Resources */,
-				4CC62877163DA34F00FD162B /* OpenGL21Effect.h in Resources */,
+				4C74119E1646D2AA005EA35A /* elements.cpp in Resources */,
+				4C74119F1646D2AA005EA35A /* reader.cpp in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4C7411951646D10B005EA35A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#cp -rf ${SOURCE_ROOT}/../../assets/* ${CODESIGNING_FOLDER_PATH}/Contents/Resources";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4C8BFFF9163D5D9D003A0324 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C9D8C431646D37E00413B9B /* elements.cpp in Sources */,
+				4C9D8C441646D37E00413B9B /* reader.cpp in Sources */,
 				4C8B000E163D5D9D003A0324 /* main.m in Sources */,
 				4C8B0015163D5D9D003A0324 /* AppDelegate.m in Sources */,
 				4C083776163D5F32008D5F24 /* App.cpp in Sources */,
@@ -884,6 +912,7 @@
 				4CD2F8F3163DD50100A50C44 /* IAllocator.cpp in Sources */,
 				4CD2F8F6163DD63F00A50C44 /* AllocatorFactory.cpp in Sources */,
 				4CD2F8FA163DFADF00A50C44 /* LinearAllocator.cpp in Sources */,
+				4C7411941646BECD005EA35A /* Pools.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

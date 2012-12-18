@@ -7,13 +7,39 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "../../src/engine/renderer/WorldLoader.cpp"
-         timestampString = "373332754.627483"
+         filePath = "../../libs/json/reader.cpp"
+         timestampString = "373760272.001896"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "49"
-         endingLineNumber = "49"
+         startingLineNumber = "261"
+         endingLineNumber = "261"
+         landmarkName = "Reader::Scan(Tokens&amp; tokens, InputStream&amp; inputStream)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../src/engine/renderer/WorldLoader.cpp"
+         timestampString = "373757934.601907"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "54"
+         endingLineNumber = "54"
          landmarkName = "WorldLoader::loadFromSceneFile(const std::string&amp; filePath, World&amp; world, SceneContext&amp; sceneContext)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../../libs/json/reader.cpp"
+         timestampString = "373760270.589785"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "183"
+         endingLineNumber = "183"
+         landmarkName = "Reader::Scan(Tokens&amp; tokens, InputStream&amp; inputStream)"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

@@ -1,7 +1,5 @@
 #include "DeferredSpotLightsPass.h"
 
-#include <vector>
-
 #include "IViewer.h"
 #include "IEffect.h"
 #include "GraphicsInterface.h"
@@ -54,7 +52,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
       (*it)->visit(meshes);
     }
 
-    std::vector<SpotLight*> spotLights = sceneContext.spotLights();
+    syspool::vector<SpotLight*>::type spotLights = sceneContext.spotLights();
 
     for (std::vector<SpotLight*>::iterator light = spotLights.begin(); light != spotLights.end(); ++light) {
       if ((*light)->castsShadows()) {
@@ -66,7 +64,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
   
   { // Lighting
     unsigned int lightIndex = 0;
-    std::vector<SpotLight*> spotLights = sceneContext.spotLights();
+    syspool::vector<SpotLight*>::type spotLights = sceneContext.spotLights();
     for (std::vector<SpotLight*>::iterator light = spotLights.begin(); light != spotLights.end(); ++light) {
 
       GraphicsInterface::beginPerformanceEvent("Light " + lightIndex);

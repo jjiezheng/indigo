@@ -11,15 +11,7 @@
 
 #include "input/IKeyboardListener.h"
 
-class ScopeStack;
-
 class Game : public IKeyboardListener {
-  
-public:
-  
-  Game(ScopeStack* systemStack)
-    : systemStack_(systemStack)
-    , renderer_(systemStack) { }
   
 public:
   
@@ -35,7 +27,6 @@ public:
   
 private:
   
-  ScopeStack* systemStack_;
   UI ui_;
   Camera camera_;
   Renderer3dDeferred renderer_;

@@ -19,10 +19,9 @@ public:
 private:
   
   void loadSceneItem(const json::Object& objectItem, World& world);
-  void loadTerrain(const json::Object& objectItem, World& world);
-
   Material loadMaterial(const json::Object& materialItem);
   void loadEffect(Material& material, const std::string& shaderFilePath);
+  void loadTerrain(const json::Object& objectItem, World& world);
   
 };
 

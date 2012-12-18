@@ -7,6 +7,12 @@
 #include "io/Path.h"
 #include "io/Log.h"
 
+#include "core/String.h"
+#include "maths/Angles.h"
+
+#include "platform/PlatformDefs.h"
+#include "serialization/BinaryModelDeserializer.h"
+
 #include "Mesh.h"
 #include "maths/Vector4.h"
 #include "VertexDefinition.h"
@@ -19,28 +25,19 @@
 #include "IntegerMaterialParameter.h"
 #include "FloatMaterialParameter.h"
 
-#include "World.h"
-#include "SceneContext.h"
-
-#include "Light.h"
-#include "SkyDome.h"
-#include "Texture.h"
 
 #include "GraphicsInterface.h"
 #include "EffectCache.h"
-#include "core/String.h"
 
 #include "DirectionalLight.h"
 #include "PointLight.h"
 #include "SpotLight.h"
-
-#include "maths/Angles.h"
-
 #include "HeightMap.h"
-
-#include "platform/PlatformDefs.h"
-
-#include "serialization/BinaryModelDeserializer.h"
+#include "Light.h"
+#include "SkyDome.h"
+#include "Texture.h"
+#include "World.h"
+#include "SceneContext.h"
 
 void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, SceneContext& sceneContext) {
   std::string fullFilePath = Path::pathForFile(filePath);
@@ -48,6 +45,7 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
   
   if (!levelFile.is_open()) {
     LOG(LOG_CHANNEL_WORLDLOADER, "Unabled to load scene file %s", filePath.c_str());
+    return;
   }
 
   json::Object sceneObject;
@@ -298,25 +296,25 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
 void WorldLoader::loadSceneItem(const json::Object& objectItem, World& world) {
   json::String modelFilePath = objectItem["model"];
 
-  std::string fullFilePath = Path::pathForFile(modelFilePath);
-  Model* model = BinaryModelDeserializer::deserialize(fullFilePath);
-  
-  json::Object positionObject = objectItem["position"];
-  
-  json::Number xNumber = positionObject["x"];
-  float x = xNumber.Value();
-  
-  json::Number yNumber = positionObject["y"];
-  float y = yNumber.Value();
-  
-  json::Number zNumber = positionObject["z"];
-  float z = zNumber.Value();
-  
-  Vector3 position(x, y, z);
-  Matrix4x4 localToWorld = Matrix4x4::translation(position);
-  model->setLocalToWorld(localToWorld);
-
-  world.addObject(model);
+  levelpool::string fullFilePath = Path::pathForFile(modelFilePath).c_str();
+//  Model* model = BinaryModelDeserializer(worldStack_).deserialize(fullFilePath);
+//
+//  json::Object positionObject = objectItem["position"];
+//  
+//  json::Number xNumber = positionObject["x"];
+//  float x = xNumber.Value();
+//  
+//  json::Number yNumber = positionObject["y"];
+//  float y = yNumber.Value();
+//  
+//  json::Number zNumber = positionObject["z"];
+//  float z = zNumber.Value();
+//  
+//  Vector3 position(x, y, z);
+//  Matrix4x4 localToWorld = Matrix4x4::translation(position);
+//  model->setLocalToWorld(localToWorld);
+//
+//  world.addObject(model);
 }
 
 void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {

@@ -122,4 +122,3 @@ private:
 } // End namespace
 
 
-#include "reader.inl"

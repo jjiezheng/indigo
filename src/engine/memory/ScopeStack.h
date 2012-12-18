@@ -80,6 +80,13 @@ public:
   
 public:
   
+  ScopeStack* childStack() {
+    ScopeStack* scopeStack = new ScopeStack(allocator_);
+    return scopeStack;
+  }
+  
+public:
+  
   void* allocate(size_t size) {
     void* rawMemory = allocator_.allocate(size);
     return rawMemory;

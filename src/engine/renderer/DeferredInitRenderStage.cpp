@@ -20,7 +20,7 @@ void DeferredInitRenderStage::init(const CSize& screenSize) {
   
   passes_.reserve(2);
   
-  IDeferredPass* geometryPass = systemStack_->create<DeferredGeometryPass>(colorRenderTarget_, normalRenderTarget_);
+  IDeferredPass* geometryPass = syspool::stack->create<DeferredGeometryPass>(colorRenderTarget_, normalRenderTarget_);
   passes_.push_back(geometryPass);
 }
 

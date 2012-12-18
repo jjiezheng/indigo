@@ -1,9 +1,7 @@
 #ifndef DEFERRED_POST_PROCESSING_STAGE_H
 #define DEFERRED_POST_PROCESSING_STAGE_H
 
-#include <vector>
-
-#include "memory/STLAllocators.h"
+#include "memory/Pools.h"
 
 class IDeferredPostProcessingPass;
 class DeferredLightingRenderStage;
@@ -41,7 +39,7 @@ private:
 
   unsigned int finalComposition_;
 
-  std::vector<IDeferredPostProcessingPass*, vec_alloc<IDeferredPostProcessingPass*> > passes_;
+  syspool::vector<IDeferredPostProcessingPass*>::type passes_;
 
 };
 

@@ -17,7 +17,9 @@ void Model::render() const {
 }
 
 Model* Model::modelFromFile(const std::string& modelFilePath) {
-  Model* model = new Model();
-  WorldLoader().loadModel(model, modelFilePath);
-  return model;
+//  Model* model = new Model();
+//  WorldLoader().loadModel(model, modelFilePath);
+//  return model;
+//  assert(false);
+  return NULL;
 }

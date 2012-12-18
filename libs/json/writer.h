@@ -53,5 +53,3 @@ private:
 
 } // End namespace
 
-
-#include "writer.inl"
