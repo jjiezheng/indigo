@@ -1,0 +1,7 @@
+{
+	"model": "actors/cauldron/cauldron.model",
+	"materials" : {
+		"pot" : "deferred_lighting_color_normal_depth.cg",
+		"liquid" : "cauldron_liquid.cg"
+	}
+}
