@@ -35,10 +35,10 @@ void main()
     int _i1;
     vec2 _offset1;
 
-    _result = vec4( 0.00000000E+000, 0.00000000E+000, 0.00000000E+000, 0.00000000E+000);
+    _result = vec4( 0.00000000E+00, 0.00000000E+00, 0.00000000E+00, 0.00000000E+00);
     _i1 = 0;
     for (; _i1 < 4; _i1 = _i1 + 1) { // for begin
-        _offset1 = vec2(0.00000000E+000, _TexelSize.y*float(_i1));
+        _offset1 = vec2(0.00000000E+00, _TexelSize.y*float(_i1));
         _c0005 = gl_TexCoord[0].xy + _offset1 + _HalfPixel;
         _TMP0 = texture2D(_SourceMap, _c0005);
         _result = _result + _TMP0.x;
@@ -46,16 +46,16 @@ void main()
         _c0005 = gl_TexCoord[0].xy + _offset1 + _HalfPixel;
         _TMP0 = texture2D(_SourceMap, _c0005);
         _result = _result + _TMP0.x;
-        _offset1 = vec2(_TexelSize.x*2.00000000E+000, _TexelSize.y*float(_i1));
+        _offset1 = vec2(_TexelSize.x*2.00000000E+00, _TexelSize.y*float(_i1));
         _c0005 = gl_TexCoord[0].xy + _offset1 + _HalfPixel;
         _TMP0 = texture2D(_SourceMap, _c0005);
         _result = _result + _TMP0.x;
-        _offset1 = vec2(_TexelSize.x*3.00000000E+000, _TexelSize.y*float(_i1));
+        _offset1 = vec2(_TexelSize.x*3.00000000E+00, _TexelSize.y*float(_i1));
         _c0005 = gl_TexCoord[0].xy + _offset1 + _HalfPixel;
         _TMP0 = texture2D(_SourceMap, _c0005);
         _result = _result + _TMP0.x;
     } // end for
-    _result = _result*6.25000000E-002;
+    _result = _result*6.25000000E-02;
     gl_FragColor = _result;
     return;
 } // main end

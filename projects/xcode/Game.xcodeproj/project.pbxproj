@@ -80,6 +80,7 @@
 		4C0838BE163D667E008D5F24 /* UI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C083883163D667E008D5F24 /* UI.cpp */; };
 		4C0838BF163D667E008D5F24 /* WorldLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C083889163D667E008D5F24 /* WorldLoader.cpp */; };
 		4C7EF0FD168199FE00CAFF27 /* OpenGLEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C7EF0FB168199FE00CAFF27 /* OpenGLEffect.cpp */; };
+		4C7EF10716819BF600CAFF27 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7EF10616819BF600CAFF27 /* OpenGL.framework */; };
 		4C8B0002163D5D9D003A0324 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C8B0001163D5D9D003A0324 /* Cocoa.framework */; };
 		4C8B000C163D5D9D003A0324 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C8B000A163D5D9D003A0324 /* InfoPlist.strings */; };
 		4C8B000E163D5D9D003A0324 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8B000D163D5D9D003A0324 /* main.m */; };
@@ -286,6 +287,7 @@
 		4C0838C6163D66E8008D5F24 /* visitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = visitor.h; path = ../../../libs/json/visitor.h; sourceTree = "<group>"; };
 		4C7EF0FB168199FE00CAFF27 /* OpenGLEffect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OpenGLEffect.cpp; path = ../../../src/engine/renderer/OpenGLEffect.cpp; sourceTree = "<group>"; };
 		4C7EF0FC168199FE00CAFF27 /* OpenGLEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenGLEffect.h; path = ../../../src/engine/renderer/OpenGLEffect.h; sourceTree = "<group>"; };
+		4C7EF10616819BF600CAFF27 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		4C8B0001163D5D9D003A0324 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		4C8B0004163D5D9D003A0324 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		4C8B0005163D5D9D003A0324 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -308,6 +310,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C7EF10716819BF600CAFF27 /* OpenGL.framework in Frameworks */,
 				4C08377C163D63D4008D5F24 /* QuartzCore.framework in Frameworks */,
 				4C8B0002163D5D9D003A0324 /* Cocoa.framework in Frameworks */,
 			);
@@ -637,6 +640,7 @@
 		4C8B0000163D5D9D003A0324 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4C7EF10616819BF600CAFF27 /* OpenGL.framework */,
 				4C08377B163D63D4008D5F24 /* QuartzCore.framework */,
 				4C8B0001163D5D9D003A0324 /* Cocoa.framework */,
 				4C8B0003163D5D9D003A0324 /* Other Frameworks */,
@@ -765,7 +769,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#cp -rf ${SOURCE_ROOT}/../../assets/* ${CODESIGNING_FOLDER_PATH}/Contents/Resources";
+			shellScript = "";
 		};
 /* End PBXShellScriptBuildPhase section */
 

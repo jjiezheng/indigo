@@ -16,8 +16,6 @@ public:
   
 public:
   
-  void load(const std::string& filePath, const char** args);
-  
   void load(const std::string& filePath);
   
 public:

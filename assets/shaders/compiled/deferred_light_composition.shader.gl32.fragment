@@ -1,0 +1,49 @@
+// glslf output by Cg compiler
+// cgc version 3.1.0013, build date Apr 18 2012
+// command line args: -DGL32=1 -q -profileopts version=150 -profile glslf
+// source file: deferred_light_composition.cg
+//vendor NVIDIA Corporation
+//version 3.1.0.13
+//profile glslf
+//program ps
+//semantic ColorMap : TEXUNIT0
+//semantic LightSourceMap : TEXUNIT1
+//semantic HalfPixel
+//var sampler2D ColorMap : TEXUNIT0 : _ColorMap 0 : -1 : 1
+//var sampler2D LightSourceMap : TEXUNIT1 : _LightSourceMap 1 : -1 : 1
+//var float2 HalfPixel :  : _HalfPixel : -1 : 1
+//var float2 texCoord : $vin.TEXCOORD0 : TEXCOORD0 : 1 : 1
+//var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
+
+#version 150
+
+struct VOutput {
+    vec2 _texCoord2;
+};
+
+vec4 _ret_0;
+vec2 _c0005;
+vec2 _c0007;
+uniform sampler2D _ColorMap;
+uniform sampler2D _LightSourceMap;
+uniform vec2 _HalfPixel;
+in vec4 cg_TexCoord0;
+out vec4 cg_FragColor;
+
+ // main procedure, the original name was ps
+void main()
+{
+
+    vec4 _diffuseColor;
+    vec4 _diffuseLight;
+    vec3 _finalColor;
+
+    _c0005 = cg_TexCoord0.xy + _HalfPixel;
+    _diffuseColor = texture(_ColorMap, _c0005);
+    _c0007 = cg_TexCoord0.xy + _HalfPixel;
+    _diffuseLight = texture(_LightSourceMap, _c0007);
+    _finalColor = _diffuseColor.xyz*_diffuseLight.xyz;
+    _ret_0 = vec4(_finalColor.x, _finalColor.y, _finalColor.z, _diffuseColor.w);
+    cg_FragColor = _ret_0;
+    return;
+} // main end

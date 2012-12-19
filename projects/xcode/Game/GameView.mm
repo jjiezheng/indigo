@@ -8,6 +8,32 @@
   [super dealloc];
 }
 
+- (void) awakeFromNib
+{
+  NSOpenGLPixelFormatAttribute attrs[] =
+  {
+    NSOpenGLPFADoubleBuffer,
+    NSOpenGLPFADepthSize, 16,
+    // Must specify the 3.2 Core Profile to use OpenGL 3.2
+    NSOpenGLPFAOpenGLProfile,
+    NSOpenGLProfileVersion3_2Core,
+    0
+  };
+  
+  NSOpenGLPixelFormat *pf = [[[NSOpenGLPixelFormat alloc] initWithAttributes:attrs] autorelease];
+  
+  if (!pf)
+  {
+    NSLog(@"No OpenGL pixel format");
+  }
+  
+  NSOpenGLContext* context = [[[NSOpenGLContext alloc] initWithFormat:pf shareContext:nil] autorelease];
+  
+  [self setPixelFormat:pf];
+  
+  [self setOpenGLContext:context];
+}
+
 - (void)prepareOpenGL {
   [self.window setDelegate:self];
 
@@ -44,7 +70,9 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTime
 
 - (CVReturn)getFrameForTime:(const CVTimeStamp*)outputTime {
   // Add your drawing codes here
+  [[self openGLContext] makeCurrentContext];
   app_.mainLoop();
+  [[self openGLContext] flushBuffer];
   return kCVReturnSuccess;
 }
 

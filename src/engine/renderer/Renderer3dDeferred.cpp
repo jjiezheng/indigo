@@ -24,7 +24,7 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
   initStage_.init(screenSize);
   initStage_.collectRenderTargets(this);
 
-  lightingStage_.init(screenSize);
+  lightingStage_.init(screenSize);  
   lightingStage_.collectRenderTargets(this);
 
   /*skyStage_.init(screenSize);

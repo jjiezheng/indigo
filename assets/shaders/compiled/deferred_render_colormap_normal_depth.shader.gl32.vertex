@@ -1,0 +1,57 @@
+// glslv output by Cg compiler
+// cgc version 3.1.0013, build date Apr 18 2012
+// command line args: -DGL32=1 -q -profileopts version=150 -profile glslv
+// source file: deferred_render_colormap_normal_depth.cg
+//vendor NVIDIA Corporation
+//version 3.1.0.13
+//profile glslv
+//program vs
+//semantic ColorMap
+//semantic WorldViewProj
+//var float4x4 WorldViewProj :  : _WorldViewProj[0], 4 : -1 : 1
+//var float4 position : $vin.POSITION : POSITION : 0 : 1
+//var float3 normal : $vin.NORMAL : NORMAL : 1 : 1
+//var float2 texCoord : $vin.TEXCOORD0 : TEXCOORD0 : 2 : 1
+//var float4 vs.position : $vout.POSITION : HPOS : -1 : 1
+//var float3 vs.normal : $vout.TEXCOORD0 : TEXCOORD0 : -1 : 1
+//var float2 vs.texCoord : $vout.TEXCOORD1 : TEXCOORD1 : -1 : 1
+
+#version 150
+
+struct VOutput {
+    vec4 _position2;
+    vec3 _normal1;
+    vec2 _texCoord1;
+};
+
+struct POutput {
+    vec4 _color;
+    vec4 _normal2;
+};
+
+vec4 _r0004;
+in vec4 NORMAL;
+in vec4 TEXCOORD0;
+uniform vec4 _WorldViewProj[4];
+in vec4 cg_Vertex;
+out vec4 cg_TexCoord1;
+out vec4 cg_TexCoord0;
+
+ // main procedure, the original name was vs
+void main()
+{
+
+    VOutput _OUT;
+
+    _r0004.x = dot(_WorldViewProj[0], cg_Vertex);
+    _r0004.y = dot(_WorldViewProj[1], cg_Vertex);
+    _r0004.z = dot(_WorldViewProj[2], cg_Vertex);
+    _r0004.w = dot(_WorldViewProj[3], cg_Vertex);
+    _OUT._position2 = vec4(float(_r0004.x), float(_r0004.y), float(_r0004.z), float(_r0004.w));
+    _OUT._normal1 = vec3(float(NORMAL.x), float(NORMAL.y), float(NORMAL.z));
+    _OUT._texCoord1 = vec2(float(TEXCOORD0.x), float(TEXCOORD0.y));
+    cg_TexCoord0.xyz = vec3(float(_OUT._normal1.x), float(_OUT._normal1.y), float(_OUT._normal1.z));
+    cg_TexCoord1.xy = vec2(float(_OUT._texCoord1.x), float(_OUT._texCoord1.y));
+    gl_Position = vec4(float(_OUT._position2.x), float(_OUT._position2.y), float(_OUT._position2.z), float(_OUT._position2.w));
+    return;
+} // main end

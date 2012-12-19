@@ -1,0 +1,31 @@
+// glslf output by Cg compiler
+// cgc version 3.1.0013, build date Apr 18 2012
+// command line args: -DGL32=1 -q -profileopts version=150 -profile glslf
+// source file: deferred_depth.cg
+//vendor NVIDIA Corporation
+//version 3.1.0.13
+//profile glslf
+//program ps
+//semantic WorldViewProj
+//var float depth : $vin.TEXCOORD0 : TEXCOORD0 : 1 : 1
+//var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
+
+#version 150
+
+struct VOutput {
+    float _depth2;
+};
+
+vec4 _ret_0;
+in vec4 cg_TexCoord0;
+out vec4 cg_FragColor;
+
+ // main procedure, the original name was ps
+void main()
+{
+
+
+    _ret_0 = vec4(cg_TexCoord0.x, cg_TexCoord0.x, cg_TexCoord0.x, 1.00000000E+00);
+    cg_FragColor = _ret_0;
+    return;
+} // main end

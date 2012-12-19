@@ -1,3 +1,5 @@
+// because we are using CG the FXAA syntax is HLSL 3 for all derivatives, cg then converts this to glsl
+
 #ifdef GCM
 #define FXAA_PS3 1
 #define FXAA_EARLY_EXIT 0
@@ -5,7 +7,12 @@
 
 #ifdef GL21
 #define FXAA_PC 1
-#define FXAA_GLSL_120 1
+#define FXAA_HLSL_3 1
+#endif
+
+#ifdef GL32
+#define FXAA_PC 1
+#define FXAA_HLSL_3 1
 #endif
 
 #ifdef DX11

@@ -28,8 +28,8 @@
 //default weights[3] = 0.03599398
 //default weights[4] = 0.007597324
 //default weights[5] = 0.001028186
-//default weights[6] = 8.92202e-005
-//default weights[7] = 4.964e-006
+//default weights[6] = 8.92202e-05
+//default weights[7] = 4.964e-06
 
 #version 110
 

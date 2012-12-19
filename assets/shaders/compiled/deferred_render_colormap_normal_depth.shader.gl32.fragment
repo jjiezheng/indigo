@@ -1,0 +1,60 @@
+// glslf output by Cg compiler
+// cgc version 3.1.0013, build date Apr 18 2012
+// command line args: -DGL32=1 -q -profileopts version=150 -profile glslf
+// source file: deferred_render_colormap_normal_depth.cg
+//vendor NVIDIA Corporation
+//version 3.1.0.13
+//profile glslf
+//program ps
+//semantic ColorMap
+//semantic WorldViewProj
+//var sampler2D ColorMap :  : _ColorMap : -1 : 1
+//var float3 normal : $vin.TEXCOORD0 : TEXCOORD0 : 1 : 1
+//var float2 texCoord : $vin.TEXCOORD1 : TEXCOORD1 : 2 : 1
+//var float4 ps.color : $vout.COLOR0 : COLOR0 : -1 : 1
+//var float4 ps.normal : $vout.COLOR1 : COLOR1 : -1 : 1
+
+#version 150
+
+#extension GL_ARB_draw_buffers : enable
+
+struct VOutput {
+    vec3 _normal2;
+    vec2 _texCoord2;
+};
+
+struct POutput {
+    vec4 _color;
+    vec4 _normal3;
+};
+
+vec3 _TMP1;
+vec3 _normal1;
+vec4 _TMP0;
+vec2 _texCoord1;
+vec2 _c0006;
+vec3 _unPackedNormal0008;
+uniform sampler2D _ColorMap;
+in vec4 cg_TexCoord1;
+in vec4 cg_TexCoord0;
+out vec4 cg_FragColor;
+out vec4 cg_FragData1;
+
+ // main procedure, the original name was ps
+void main()
+{
+
+    POutput _OUT;
+
+    _normal1 = vec3(float(cg_TexCoord0.x), float(cg_TexCoord0.y), float(cg_TexCoord0.z));
+    _texCoord1 = vec2(float(cg_TexCoord1.x), float(cg_TexCoord1.y));
+    _c0006 = vec2(float(_texCoord1.x), float(_texCoord1.y));
+    _TMP0 = texture(_ColorMap, _c0006);
+    _OUT._color = vec4(float(_TMP0.x), float(_TMP0.y), float(_TMP0.z), float(_TMP0.w));
+    _unPackedNormal0008 = vec3(float(_normal1.x), float(_normal1.y), float(_normal1.z));
+    _TMP1 = 5.00000000E-01 + _unPackedNormal0008*5.00000000E-01;
+    _OUT._normal3 = vec4(float(_TMP1.x), float(_TMP1.y), float(_TMP1.z), 0.00000000E+00);
+    cg_FragData1 = vec4(float(_OUT._normal3.x), float(_OUT._normal3.y), float(_OUT._normal3.z), float(_OUT._normal3.w));
+    cg_FragColor = vec4(float(_OUT._color.x), float(_OUT._color.y), float(_OUT._color.z), float(_OUT._color.w));
+    return;
+} // main end

@@ -1,0 +1,39 @@
+// glslv output by Cg compiler
+// cgc version 3.1.0013, build date Apr 18 2012
+// command line args: -DGL32=1 -q -profileopts version=150 -profile glslv
+// source file: deferred_depth.cg
+//vendor NVIDIA Corporation
+//version 3.1.0.13
+//profile glslv
+//program vs
+//semantic WorldViewProj
+//var float4x4 WorldViewProj :  : _WorldViewProj[0], 4 : -1 : 1
+//var float4 position : $vin.POSITION : POSITION : 0 : 1
+//var float4 vs.position : $vout.POSITION : HPOS : -1 : 1
+//var float vs.depth : $vout.TEXCOORD0 : TEXCOORD0 : -1 : 1
+
+#version 150
+
+struct VOutput {
+    vec4 _position2;
+    float _depth;
+};
+
+vec4 _r0002;
+uniform vec4 _WorldViewProj[4];
+in vec4 cg_Vertex;
+out vec4 cg_TexCoord0;
+
+ // main procedure, the original name was vs
+void main()
+{
+
+
+    _r0002.x = dot(_WorldViewProj[0], cg_Vertex);
+    _r0002.y = dot(_WorldViewProj[1], cg_Vertex);
+    _r0002.z = dot(_WorldViewProj[2], cg_Vertex);
+    _r0002.w = dot(_WorldViewProj[3], cg_Vertex);
+    cg_TexCoord0.x = _r0002.z;
+    gl_Position = _r0002;
+    return;
+} // main end
