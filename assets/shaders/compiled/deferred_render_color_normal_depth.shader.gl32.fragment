@@ -43,8 +43,8 @@ void main()
     _normal1 = vec3(float(cg_TexCoord0.x), float(cg_TexCoord0.y), float(cg_TexCoord0.z));
     _OUT._color = vec3(float(_DiffuseColor.x), float(_DiffuseColor.y), float(_DiffuseColor.z));
     _unPackedNormal0005 = vec3(float(_normal1.x), float(_normal1.y), float(_normal1.z));
-    _TMP0 = 5.00000000E-01 + _unPackedNormal0005*5.00000000E-01;
-    _OUT._normal3 = vec4(float(_TMP0.x), float(_TMP0.y), float(_TMP0.z), 0.00000000E+00);
+    _TMP0 = 5.00000000E-001 + _unPackedNormal0005*5.00000000E-001;
+    _OUT._normal3 = vec4(float(_TMP0.x), float(_TMP0.y), float(_TMP0.z), 0.00000000E+000);
     cg_FragData1 = vec4(float(_OUT._normal3.x), float(_OUT._normal3.y), float(_OUT._normal3.z), float(_OUT._normal3.w));
     cg_FragColor.xyz = vec3(float(_OUT._color.x), float(_OUT._color.y), float(_OUT._color.z));
     return;

@@ -2,7 +2,13 @@
 
 int main(int argc, char **argv) {
   App app;
-  return app.run(argv[1]);
+  app.init(argv[1]);
+  bool quit = false;
+  while(!quit) {
+	  app.mainLoop();
+	  quit = app.wantsToQuit();
+  }
+  app.destroy();
 }
 
 #include "platform/maindef.h"

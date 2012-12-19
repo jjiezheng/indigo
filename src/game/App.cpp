@@ -17,7 +17,7 @@ void App::mainLoop() {
 //  while (!quit) {
     game_.mainLoop();
     GraphicsInterface::swapBuffers();
-//    quit = GraphicsInterface::windowClosed();
+	wantToQuit_ = GraphicsInterface::windowClosed();
 //  }
   
   

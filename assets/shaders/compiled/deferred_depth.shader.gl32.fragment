@@ -25,7 +25,7 @@ void main()
 {
 
 
-    _ret_0 = vec4(cg_TexCoord0.x, cg_TexCoord0.x, cg_TexCoord0.x, 1.00000000E+00);
+    _ret_0 = vec4(cg_TexCoord0.x, cg_TexCoord0.x, cg_TexCoord0.x, 1.00000000E+000);
     cg_FragColor = _ret_0;
     return;
 } // main end

@@ -4,6 +4,12 @@
 #include "Game.h"
 
 class App {
+
+public:
+
+	App()
+		: wantToQuit_(false)
+	{ }
   
 public:
   
@@ -12,11 +18,18 @@ public:
   void mainLoop();
   
   void destroy();
+
+  bool wantsToQuit() const;
     
 private:
   
   Game game_;
+  bool wantToQuit_;
   
 };
+
+inline bool App::wantsToQuit() const {
+	return wantToQuit_;
+}
 
 #endif
