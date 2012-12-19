@@ -48,6 +48,7 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
   
   if (!levelFile.is_open()) {
     LOG(LOG_CHANNEL_WORLDLOADER, "Unabled to load scene file %s", filePath.c_str());
+    return;
   }
   
   json::Object sceneObject;

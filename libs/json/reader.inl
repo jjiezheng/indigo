@@ -167,8 +167,10 @@ inline void Reader::Scan(Tokens& tokens, InputStream& inputStream)
       // gives us null-terminated string
       std::string sChar;
       sChar.push_back(inputStream.Peek());
+     
+     char cChar = sChar[0];
       
-      switch (sChar[0])
+      switch (cChar)
       {
          case '{':
             token.sValue = sChar[0];
@@ -243,7 +245,7 @@ inline void Reader::Scan(Tokens& tokens, InputStream& inputStream)
             MatchExpectedString(token.sValue, inputStream);
             token.nType = Token::TOKEN_NULL;
             break;
-
+          
          default: {
             std::string sErrorMessage = "Unexpected character in stream: " + sChar;
             std::cerr << sErrorMessage << std::endl;
@@ -260,7 +262,7 @@ inline void Reader::Scan(Tokens& tokens, InputStream& inputStream)
 inline void Reader::EatWhiteSpace(InputStream& inputStream)
 {
    while (inputStream.EOS() == false && 
-          ::isspace(inputStream.Peek()))
+          (::isspace(inputStream.Peek()) || inputStream.Peek() == '\xff'))
       inputStream.Get();
 }
 

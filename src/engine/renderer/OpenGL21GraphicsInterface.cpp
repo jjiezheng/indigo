@@ -30,6 +30,8 @@ int OpenGL21GraphicsInterface::exitCode() const {
 
 void OpenGL21GraphicsInterface::openWindow(int width, int height, unsigned int multiSamples) {
   
+  
+  
 }
 
 void OpenGL21GraphicsInterface::setViewport(const CSize& dimensions) {
