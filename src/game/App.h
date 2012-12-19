@@ -7,8 +7,12 @@ class App {
   
 public:
   
-  int run(const char* sceneFile);
+  void init(const char* sceneFile);
   
+  void mainLoop();
+  
+  void destroy();
+    
 private:
   
   Game game_;

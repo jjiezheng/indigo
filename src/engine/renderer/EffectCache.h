@@ -1,6 +1,7 @@
 #ifndef EFFECTCACHE_H
 #define EFFECTCACHE_H
 
+#include <string>
 #include <vector>
 #include <map>
 
