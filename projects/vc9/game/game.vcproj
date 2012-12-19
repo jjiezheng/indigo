@@ -180,22 +180,46 @@
 		/>
 	</References>
 	<Files>
-		<File
-			RelativePath="..\..\..\src\game\App.cpp"
+		<Filter
+			Name="system"
 			>
-		</File>
-		<File
-			RelativePath="..\..\..\src\game\App.h"
+			<File
+				RelativePath="..\..\..\src\game\App.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\game\App.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\game\Game.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\game\Game.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="entity"
 			>
-		</File>
-		<File
-			RelativePath="..\..\..\src\game\Game.cpp"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\src\game\Game.h"
-			>
-		</File>
+			<File
+				RelativePath="..\..\..\src\game\ActorRegistry.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\game\ActorRegistry.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\game\Cauldron.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\game\Cauldron.h"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath="..\..\..\src\game\main.cpp"
 			>

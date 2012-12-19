@@ -23,8 +23,8 @@ public:
   void render() const;
 
   void visit(hash_map<IEffect*, std::vector<Mesh*> >& meshes);
-    
-  void setMaterial(unsigned int meshIndex, const Material& material);
+
+	void setMaterialCallback(const std::string& materialName, Material::MaterialCallback callback);
   
   void setLocalToWorld(const Matrix4x4& localToWorld);
 
@@ -51,10 +51,6 @@ inline void Model::addMesh(Mesh& mesh) {
 
 inline Mesh Model::mesh(unsigned int meshIndex) const {
   return meshes_[meshIndex];
-}
-
-inline void Model::setMaterial(unsigned int meshIndex, const Material& material) {
-  meshes_[meshIndex].setMaterial(material);
 }
 
 inline void Model::setLocalToWorld(const Matrix4x4& localToWorld) {

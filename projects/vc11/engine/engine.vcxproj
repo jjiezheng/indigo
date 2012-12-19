@@ -16,9 +16,11 @@
     <ClInclude Include="..\..\..\src\engine\core\HashMap.h" />
     <ClInclude Include="..\..\..\src\engine\core\Size.h" />
     <ClInclude Include="..\..\..\src\engine\core\Standard.h" />
-    <ClInclude Include="..\..\..\src\engine\core\StandardNamespace.h" />
     <ClInclude Include="..\..\..\src\engine\core\String.h" />
     <ClInclude Include="..\..\..\src\engine\core\Types.h" />
+    <ClInclude Include="..\..\..\src\engine\entity\ActorFactory.h" />
+    <ClInclude Include="..\..\..\src\engine\entity\IActor.h" />
+    <ClInclude Include="..\..\..\src\engine\entity\IActorFactory.h" />
     <ClInclude Include="..\..\..\src\engine\input\IKeyboard.h" />
     <ClInclude Include="..\..\..\src\engine\input\IKeyboardListener.h" />
     <ClInclude Include="..\..\..\src\engine\input\IMouse.h" />
@@ -60,13 +62,10 @@
     <ClInclude Include="..\..\..\src\engine\platform\PlatformDefs.h" />
     <ClInclude Include="..\..\..\src\engine\platform\WindowsUtils.h" />
     <ClInclude Include="..\..\..\src\engine\renderer\AverageBlur.h" />
-    <ClInclude Include="..\..\..\src\engine\renderer\Blah.h" />
     <ClInclude Include="..\..\..\src\engine\renderer\Camera.h" />
     <ClInclude Include="..\..\..\src\engine\renderer\Color3.h" />
     <ClInclude Include="..\..\..\src\engine\renderer\Color4.h" />
-    <ClInclude Include="..\..\..\src\engine\renderer\Control.h" />
     <ClInclude Include="..\..\..\src\engine\renderer\D3DEffect.h" />
-    <ClInclude Include="..\..\..\src\engine\renderer\D3DShader.h" />
     <ClInclude Include="..\..\..\src\engine\renderer\DeferredClearBuffersPass.h" />
     <ClInclude Include="..\..\..\src\engine\renderer\DeferredCompositionPass.h" />
     <ClInclude Include="..\..\..\src\engine\renderer\DeferredDirectionalLightsPass.h" />
@@ -80,7 +79,6 @@
     <ClInclude Include="..\..\..\src\engine\renderer\DeferredPostProcessingStage.h" />
     <ClInclude Include="..\..\..\src\engine\renderer\DeferredPresentStage.h" />
     <ClInclude Include="..\..\..\src\engine\renderer\DeferredRenderTarget.h" />
-    <ClInclude Include="..\..\..\src\engine\renderer\DeferredShadowPass.h" />
     <ClInclude Include="..\..\..\src\engine\renderer\DeferredSkyBoxPass.h" />
     <ClInclude Include="..\..\..\src\engine\renderer\DeferredSkyRenderStage.h" />
     <ClInclude Include="..\..\..\src\engine\renderer\DeferredSpotLightsPass.h" />
@@ -96,7 +94,6 @@
     <ClInclude Include="..\..\..\src\engine\renderer\FontCharacter.h" />
     <ClInclude Include="..\..\..\src\engine\renderer\GaussianBlur.h" />
     <ClInclude Include="..\..\..\src\engine\renderer\Geometry.h" />
-    <ClInclude Include="..\..\..\src\engine\renderer\GLUtilities.h" />
     <ClInclude Include="..\..\..\src\engine\renderer\GraphicsAPIType.h" />
     <ClInclude Include="..\..\..\src\engine\renderer\GraphicsInterface.h" />
     <ClInclude Include="..\..\..\src\engine\renderer\HeightMap.h" />
@@ -138,6 +135,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\src\engine\core\Clock.cpp" />
     <ClCompile Include="..\..\..\src\engine\core\String.cpp" />
+    <ClCompile Include="..\..\..\src\engine\entity\ActorFactory.cpp" />
     <ClCompile Include="..\..\..\src\engine\input\Keyboard.cpp" />
     <ClCompile Include="..\..\..\src\engine\input\Mouse.cpp" />
     <ClCompile Include="..\..\..\src\engine\input\Pad.cpp" />
@@ -167,7 +165,6 @@
     <ClCompile Include="..\..\..\src\engine\renderer\Color3.cpp" />
     <ClCompile Include="..\..\..\src\engine\renderer\Color4.cpp" />
     <ClCompile Include="..\..\..\src\engine\renderer\D3DEffect.cpp" />
-    <ClCompile Include="..\..\..\src\engine\renderer\D3DShader.cpp" />
     <ClCompile Include="..\..\..\src\engine\renderer\DeferredClearBuffersPass.cpp" />
     <ClCompile Include="..\..\..\src\engine\renderer\DeferredCompositionPass.cpp" />
     <ClCompile Include="..\..\..\src\engine\renderer\DeferredDirectionalLightsPass.cpp" />
@@ -180,7 +177,6 @@
     <ClCompile Include="..\..\..\src\engine\renderer\DeferredPointLightsPass.cpp" />
     <ClCompile Include="..\..\..\src\engine\renderer\DeferredPostProcessingStage.cpp" />
     <ClCompile Include="..\..\..\src\engine\renderer\DeferredPresentStage.cpp" />
-    <ClCompile Include="..\..\..\src\engine\renderer\DeferredShadowPass.cpp" />
     <ClCompile Include="..\..\..\src\engine\renderer\DeferredSkyBoxPass.cpp" />
     <ClCompile Include="..\..\..\src\engine\renderer\DeferredSkyRenderStage.cpp" />
     <ClCompile Include="..\..\..\src\engine\renderer\DeferredSpotLightsPass.cpp" />
@@ -207,14 +203,13 @@
     <ClCompile Include="..\..\..\src\engine\renderer\SpotLight.cpp" />
     <ClCompile Include="..\..\..\src\engine\renderer\Texture.cpp" />
     <ClCompile Include="..\..\..\src\engine\renderer\UI.cpp" />
+    <ClCompile Include="..\..\..\src\engine\renderer\World.cpp" />
     <ClCompile Include="..\..\..\src\engine\renderer\WorldLoader.cpp" />
     <ClCompile Include="..\..\..\src\engine\serialization\BinaryModelDeserializer.cpp" />
     <ClCompile Include="..\..\..\src\engine\ui\FPSStats.cpp" />
     <ClCompile Include="..\..\..\src\engine\ui\RenderChannelInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\src\engine\io\Path.mm" />
-    <None Include="..\..\..\src\engine\maths\Matrix4x4.cpp.old" />
     <None Include="..\..\..\src\engine\renderer\Light.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

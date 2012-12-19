@@ -9,6 +9,8 @@
 
 class Vector3;
 
+class IActor;
+
 class World {
 
 public:
@@ -19,10 +21,16 @@ public:
 
   World()
     : hasSkyDome_(false) { }
+
+public:
+
+	void update(float dt);
   
 public:
   
   void addObject(Model* model);
+
+	void addActor(IActor* actor);
   
   void setSkyDome(const SkyDome& skyDome);
 
@@ -38,6 +46,7 @@ public:
 private:
   
   std::vector<Model*> models_;
+	std::vector<IActor*> actors_;
   
   SkyDome skyDome_;
   bool hasSkyDome_;
@@ -74,6 +83,8 @@ inline void World::destroy() {
   }
 }
 
-
+inline void World::addActor(IActor* actor) {
+	actors_.push_back(actor);
+}
 
 #endif

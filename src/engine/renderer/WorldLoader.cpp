@@ -42,7 +42,10 @@
 
 #include "serialization/BinaryModelDeserializer.h"
 
-void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, SceneContext& sceneContext) {
+#include "entity/IActor.h"
+#include "entity/ActorFactory.h"
+
+void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, SceneContext& sceneContext, const ActorFactory& actorFactory) {
   std::string fullFilePath = Path::pathForFile(filePath);
   std::ifstream levelFile(fullFilePath.c_str(), std::ifstream::in);
   
@@ -87,7 +90,7 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
   json::Array::iterator oit = objectsArray.begin();
   
   for (; oit != objectsArray.end(); ++oit) {
-    loadSceneItem((*oit), world);
+    loadSceneItem((*oit), world, actorFactory);
   }
   
   json::Array lightsArray = sceneObject["lights"];
@@ -296,7 +299,7 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
    }
 }
 
-void WorldLoader::loadSceneItem(const json::Object& objectItem, World& world) {
+void WorldLoader::loadSceneItem(const json::Object& objectItem, World& world, const ActorFactory& actorFactory) {
   json::String modelFilePath = objectItem["model"];
 
   std::string fullFilePath = Path::pathForFile(modelFilePath);
@@ -316,6 +319,22 @@ void WorldLoader::loadSceneItem(const json::Object& objectItem, World& world) {
   Vector3 position(x, y, z);
   Matrix4x4 localToWorld = Matrix4x4::translation(position);
   model->setLocalToWorld(localToWorld);
+
+  IActor* actor = NULL;
+
+	json::Object::const_iterator actorIt = objectItem.Find("actor");
+
+	if (actorIt != objectItem.end()) {
+
+		json::String actorTypeString = objectItem["actor"];
+		std::string actorType = actorTypeString.Value();
+
+		if (!actorType.empty()) {
+ 			IActor* actor = actorFactory.createActor(actorType, model);
+			actor->init();
+ 			world.addActor(actor);
+		}
+	}
 
   world.addObject(model);
 }
@@ -436,22 +455,22 @@ Material WorldLoader::loadMaterial(const json::Object& materialObject) {
       float b = blueNumber.Value();
       
       Vector3 color3(r, g, b);
-      Vector3MaterialParameter* parameter = new Vector3MaterialParameter(parameterName, color3);
-      material.setParameter(parameter);
+      //Vector3MaterialParameter* parameter = new Vector3MaterialParameter(parameterName, color3);
+      material.setParameter(parameterName, color3);
     }
     
     if (parameterType.compare("int") == 0) {
       json::Number valueNumber = (*pit).element["value"];
       int value = (int)valueNumber.Value();
-      IntegerMaterialParameter* parameter = new IntegerMaterialParameter(parameterName, value);
-      material.setParameter(parameter);
+      //IntegerMaterialParameter* parameter = new IntegerMaterialParameter(parameterName, value);
+      material.setParameter(parameterName, value);
     }
     
     if (parameterType.compare("float") == 0) {
       json::Number valueNumber = (*pit).element["value"];
       float value = valueNumber.Value();
-      FloatMaterialParameter* parameter = new FloatMaterialParameter(parameterName, value);
-      material.setParameter(parameter);
+      //FloatMaterialParameter* parameter = new FloatMaterialParameter(parameterName, value);
+      material.setParameter(parameterName, value);
     }
   }
 

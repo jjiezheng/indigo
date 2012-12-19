@@ -13,16 +13,9 @@ void App::init(const char* sceneFile) {
 }
 
 void App::mainLoop() {
-//  bool quit = false;
-//  while (!quit) {
-    game_.mainLoop();
-    GraphicsInterface::swapBuffers();
+  game_.mainLoop();
+  GraphicsInterface::swapBuffers();
 	wantToQuit_ = GraphicsInterface::windowClosed();
-//  }
-  
-  
-//  return GraphicsInterface::closeWindow();
-
 }
 
 void App::destroy() {

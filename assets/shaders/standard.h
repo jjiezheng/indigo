@@ -17,7 +17,7 @@ float shadowPCF(sampler2D shadowMap, float2 shadowCoord, float zToCompare, float
 	float sum = 0;
 	float x, y;
 
-	float depthToCompare = zToCompare - shadowBias;
+	float depthToCompare = zToCompare;// - shadowBias;
 
 	for (y = -1.5; y <= 1.5; y += 1.0) {
 		for (x = -1.5; x <= 1.5; x += 1.0) {

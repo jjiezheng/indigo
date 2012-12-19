@@ -10,6 +10,7 @@
 #include "renderer/UI.h"
 
 #include "input/IKeyboardListener.h"
+#include "entity/ActorFactory.h"
 
 class Game : public IKeyboardListener {
   
@@ -31,8 +32,9 @@ private:
   Camera camera_;
   Renderer3dDeferred renderer_;
   Clock clock_;
-  World world_;  
+  World world_;
   SceneContext sceneContext_;
+	ActorFactory actorFactory_;
 
 };
 

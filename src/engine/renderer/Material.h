@@ -13,32 +13,58 @@ class SceneContext;
 class IEffect;
 class Matrix4x4;
 class Matrix3x3;
+class Vector3;
 
 class Material {
 
 public:
 
+	typedef void (*MaterialCallback)(Material* material);
+
+public:
+
   Material() 
-    : effect_(0) { }
+    : callback_(NULL)
+		, effect_(0) { }
   
 public:
   
-  void bind(const Matrix4x4& projection, const Matrix4x4& view, const Matrix4x4& model, IEffect* effect) const;
-  
-  void setParameter(MaterialParameter* parameter);
+  void bind(const Matrix4x4& projection, const Matrix4x4& view, const Matrix4x4& model, IEffect* effect);
   
   void addTexture(const std::string& type, const Texture& texture);
 
   void setEffect(IEffect* effect);
 
   IEffect* effect() const;
+
+public:
+
+	void setParameter(const std::string& name, const Vector3& parameter);
+
+	void setParameter(const std::string& name, int parameter);
+
+	void setParameter(const std::string& name, float parameter);
+
+public:
+
+	std::string name() const;
+
+	void setName(const std::string& name);
+
+public:
+
+	void setCallback(MaterialCallback callback);
   
 private:
   
-  std::vector<MaterialParameter*> parameters_;
+  std::map<std::string, MaterialParameter*> parameters_;
   std::map<std::string, Texture> textures_;
+
+	MaterialCallback callback_;
   
   IEffect* effect_;
+
+	std::string name_;
 };
 
 inline IEffect* Material::effect() const {
@@ -49,12 +75,20 @@ inline void Material::setEffect(IEffect* effect) {
   effect_ = effect;
 }
 
-inline void Material::setParameter(MaterialParameter* parameter) {
-  parameters_.push_back(parameter);
-}
-
 inline void Material::addTexture(const std::string& type, const Texture& texture) {
   textures_.insert(std::make_pair(type, texture));
+}
+
+inline void Material::setName(const std::string& name) {
+	name_ = name;
+}
+
+inline std::string Material::name() const {
+	return name_;
+}
+
+inline void Material::setCallback(MaterialCallback callback) {
+	callback_ = callback;
 }
 
 #endif

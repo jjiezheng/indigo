@@ -21,6 +21,8 @@
 #include "DirectxVertexDataFormatter.h"
 #include "ShaderSemantics.h"
 
+#include <iostream>
+
 
 void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, int height, unsigned int multiSamples) {
   multiSamples_ = multiSamples;
@@ -304,21 +306,24 @@ void Direct3D11GraphicsInterface::setTexture(unsigned int slotIndex, ID3D11Sampl
   context_->PSSetSamplers(slotIndex, 1, &samplerState);
 }
 
-void Direct3D11GraphicsInterface::resetGraphicsState(bool cullBack) {
+void Direct3D11GraphicsInterface::resetGraphicsState(bool cullBack) {	
   {
     D3D11_RASTERIZER_DESC rasterDesc;
     ZeroMemory(&rasterDesc, sizeof(D3D11_RASTERIZER_DESC));
 
+		float depthDias = 0;// 4.8e-7f;
+		DWORD dwDepthBias = *(DWORD*)&depthDias;
+
     rasterDesc.AntialiasedLineEnable = false;
     rasterDesc.CullMode = cullBack ? D3D11_CULL_BACK : D3D11_CULL_FRONT;
-    rasterDesc.DepthBias = 0;
-    rasterDesc.DepthBiasClamp = 0.0f;
+		rasterDesc.DepthBias = !cullBack ? dwDepthBias : 0;
+    rasterDesc.DepthBiasClamp = !cullBack ? 1000.0f : 0.0f;
     rasterDesc.DepthClipEnable = true;
     rasterDesc.FillMode = D3D11_FILL_SOLID;
     rasterDesc.FrontCounterClockwise = true;
     rasterDesc.MultisampleEnable = false;
     rasterDesc.ScissorEnable = false;
-    rasterDesc.SlopeScaledDepthBias = 0.0f;
+		rasterDesc.SlopeScaledDepthBias = !cullBack ? 2.5f : 0.0f;
 
     ID3D11RasterizerState* rasterState;
     HRESULT result = device_->CreateRasterizerState(&rasterDesc, &rasterState);

@@ -9,7 +9,16 @@
 
 #include "io/Log.h"
 
-void Material::bind(const Matrix4x4& projection, const Matrix4x4& view, const Matrix4x4& model, IEffect* effect) const {  
+#include "Vector3MaterialParameter.h"
+#include "IntegerMaterialParameter.h"
+#include "FloatMaterialParameter.h"
+
+void Material::bind(const Matrix4x4& projection, const Matrix4x4& view, const Matrix4x4& model, IEffect* effect) {  
+
+	if (NULL != callback_) {
+		(callback_)(this);
+	}
+
   effect->setUniform(model, "World");
   
   Matrix4x4 worldView = view * model;
@@ -31,8 +40,53 @@ void Material::bind(const Matrix4x4& projection, const Matrix4x4& view, const Ma
     effect->setTexture((*tit).second.textureId(), (*tit).first.c_str()); 
   }
 
-  std::vector<MaterialParameter*>::const_iterator mit = parameters_.begin(); 
+  std::map<std::string, MaterialParameter*>::const_iterator mit = parameters_.begin(); 
   for (; mit != parameters_.end(); ++mit) {
-    (*mit)->setEffect(effect);
+    (*mit).second->setEffect(effect);
   }
+}
+
+void Material::setParameter(const std::string& name, const Vector3& parameter) {
+	std::map<std::string, MaterialParameter*>::const_iterator it = parameters_.find(name);
+
+	if (it != parameters_.end()) {
+		MaterialParameter* param = (*it).second;
+		Vector3MaterialParameter* vector3Param = static_cast<Vector3MaterialParameter*>(param);
+		vector3Param->setValue(parameter);
+	}
+	else
+	{
+		MaterialParameter* param = new Vector3MaterialParameter(name, parameter);
+		parameters_[name] = param;
+	}
+}
+
+void Material::setParameter(const std::string& name, int parameter) {
+	std::map<std::string, MaterialParameter*>::const_iterator it = parameters_.find(name);
+
+	if (it != parameters_.end()) {
+		MaterialParameter* param = (*it).second;
+		IntegerMaterialParameter* intParam = static_cast<IntegerMaterialParameter*>(param);
+		intParam->setValue(parameter);
+	}
+	else
+	{
+		MaterialParameter* param = new IntegerMaterialParameter(name, parameter);
+		parameters_[name] = param;
+	}
+}
+
+void Material::setParameter(const std::string& name, float parameter) {
+	std::map<std::string, MaterialParameter*>::const_iterator it = parameters_.find(name);
+
+	if (it != parameters_.end()) {
+		MaterialParameter* param = (*it).second;
+		FloatMaterialParameter* floatParam = static_cast<FloatMaterialParameter*>(param);
+		floatParam->setValue(parameter);
+	}
+	else
+	{
+		MaterialParameter* param = new FloatMaterialParameter(name, parameter);
+		parameters_[name] = param;
+	}
 }

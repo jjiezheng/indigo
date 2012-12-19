@@ -8,9 +8,10 @@
     "objects": [
         {
             "model": "actors/cauldron/cauldron.modelbinary",
+            "actor" : "Cauldron",
             "position": {
-                "x": 0,
-                "y": 0,
+                "x": 0.0,
+                "y": -0.1,
                 "z": 0
             }
         },
@@ -46,9 +47,9 @@
           "intensity" : 1.0,
           "castsshadows" : true,
           "position" : {
-            "x" : 10,
-            "y" : 10,
-            "z" : 10
+            "x" : 5,
+            "y" : 5,
+            "z" : 5
           },
           "orientation" : {
             "x" : 0,

@@ -129,12 +129,16 @@ copy "C:\Program Files (x86)\NVIDIA Corporation\Cg\bin\cgD3D11.dll" $(TargetDir)
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\game\ActorRegistry.cpp" />
     <ClCompile Include="..\..\..\src\game\App.cpp" />
+    <ClCompile Include="..\..\..\src\game\Cauldron.cpp" />
     <ClCompile Include="..\..\..\src\game\Game.cpp" />
     <ClCompile Include="..\..\..\src\game\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\src\game\ActorRegistry.h" />
     <ClInclude Include="..\..\..\src\game\App.h" />
+    <ClInclude Include="..\..\..\src\game\Cauldron.h" />
     <ClInclude Include="..\..\..\src\game\Game.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

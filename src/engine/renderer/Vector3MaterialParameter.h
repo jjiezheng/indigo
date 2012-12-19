@@ -10,10 +10,17 @@
 class IEffect;
 
 class Vector3MaterialParameter : public MaterialParameter {
+
+public:
+
+	Vector3MaterialParameter(const std::string& name, const Vector3& value) 
+		: name_(name)
+		, value_(value)
+	{ }
   
 public:
-  
-  Vector3MaterialParameter(const std::string& name, const Vector3& value);
+
+	void setValue(const Vector3& value);
   
   void setEffect(const IEffect* effect);
 
@@ -26,12 +33,13 @@ private:
   
 };
 
-inline Vector3MaterialParameter::Vector3MaterialParameter(const std::string& name, const Vector3& value) 
-: name_(name)
-, value_(value) { }
-
 inline void Vector3MaterialParameter::setEffect(const IEffect* effect) {
   effect->setUniform(value_, name_.c_str());
 }
+
+inline void Vector3MaterialParameter::setValue(const Vector3& value) {
+	value_ = value;
+}
+
 
 #endif

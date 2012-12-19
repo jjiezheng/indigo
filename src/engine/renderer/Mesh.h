@@ -40,6 +40,10 @@ public:
   
 public:
 
+	void setMaterialCallback(const std::string& materialName, Material::MaterialCallback callback);
+
+public:
+
   void visit(hash_map<IEffect*, std::vector<Mesh*> >& meshes);
 
   void render() const;

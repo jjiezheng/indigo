@@ -8,10 +8,17 @@
 class IEffect;
 
 class IntegerMaterialParameter : public MaterialParameter {
+
+public:
+
+	IntegerMaterialParameter(const std::string& name, int value) 
+		: name_(name)
+		, value_(value) 
+	{ }
   
 public:
-  
-  IntegerMaterialParameter(const std::string& name, int value);
+
+	void IntegerMaterialParameter::setValue(int value);
   
   void setEffect(const IEffect* effect);
 
@@ -24,13 +31,12 @@ private:
   
 };
 
-IntegerMaterialParameter::IntegerMaterialParameter(const std::string& name, int value) 
-  : name_(name)
-  , value_(value) { }
-
 inline void IntegerMaterialParameter::setEffect(const IEffect* effect) {
   effect->setUniform(value_, name_.c_str());
 }
 
+inline void IntegerMaterialParameter::setValue(int value) {
+	value_ = value;
+}
 
 #endif

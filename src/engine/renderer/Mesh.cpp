@@ -20,3 +20,11 @@ void Mesh::visit(hash_map<IEffect*, std::vector<Mesh*> >& meshes) {
 Matrix4x4 Mesh::localToWorld() const {
   return parent_->localToWorld();
 }
+
+void Mesh::setMaterialCallback(const std::string& materialName, Material::MaterialCallback callback) {
+	std::string name = material_.name();
+
+	if (name.compare(materialName) == 0) {
+		material_.setCallback(callback);
+	}
+}

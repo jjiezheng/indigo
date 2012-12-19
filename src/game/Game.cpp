@@ -14,25 +14,30 @@
 #include "ui/FPSStats.h"
 #include "ui/RenderChannelInfo.h"
 
+#include "ActorRegistry.h"
+
 void Game::init(const char* sceneFile) {
   Pad::init();
   Mouse::init();
   Keyboard::init();
+
+	ActorRegistry::registerActors(actorFactory_);
 
   renderer_.init(GraphicsInterface::backBufferSize());
   ui_.init(GraphicsInterface::backBufferSize());
 
   clock_.init();
   
-  camera_.translateZ(5.5f);
-  camera_.translateY(0.0f);
+  camera_.translateZ(4.5f);
+  camera_.translateY(5.0f);
+	camera_.rotateX(-0.2f);
   //camera_.rotateX(toRadians(-90));
   
   camera_.setProjection(45.0f, GraphicsInterface::aspectRatio(), 1.0f, 500);
 
   if (sceneFile) {
     WorldLoader loader; 
-    loader.loadFromSceneFile(sceneFile, world_, sceneContext_);
+    loader.loadFromSceneFile(sceneFile, world_, sceneContext_, actorFactory_);
   }
 
 	FPSStats* fpsStats = FPSStats::stats();
@@ -51,7 +56,9 @@ void Game::mainLoop() {
   Keyboard::update();
   ui_.update(dt);
 
-  renderer_.render(&camera_, world_, sceneContext_);
+	world_.update(dt);
+  
+	renderer_.render(&camera_, world_, sceneContext_);
   ui_.render();
 }
 
