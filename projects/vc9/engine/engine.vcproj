@@ -1035,6 +1035,30 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="dynamics"
+			>
+			<File
+				RelativePath="..\..\..\src\engine\dynamics\NavierStokesSimulation.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\engine\dynamics\NavierStokesSimulation.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="memory"
+			>
+			<File
+				RelativePath="..\..\..\src\engine\memory\Allocation.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\engine\memory\Allocation.h"
+				>
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>

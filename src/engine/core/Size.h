@@ -8,6 +8,10 @@ public:
   CSize() 
     : width(0)
     , height(0) { }
+
+	CSize(int square_)
+		: width(square_)
+		, height(square_) { }
   
   CSize(int width_, int height_)
     : width(width_)

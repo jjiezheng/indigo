@@ -2,6 +2,7 @@
 #define CAULDRON_H
 
 #include "entity/IActor.h"
+#include "dynamics/NavierStokesSimulation.h"
 
 class Model;
 class Material;
@@ -27,6 +28,10 @@ private:
 private:
 
 	Model* model_;
+
+	unsigned int textureId_;
+
+	NavierStokesSimulation solver_;
 
 };
 
