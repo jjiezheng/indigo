@@ -14,7 +14,7 @@ public:
 
 public:
 
-  virtual void init(const CSize& screenSize) = 0;
+  virtual void init() = 0;
 
   virtual void render(IViewer* viewer, World& world, const SceneContext& sceneContext) = 0;
 

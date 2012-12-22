@@ -13,8 +13,8 @@ public:
     , height(0)
     , xoffset(0)
     , yoffset(0)
-    , vertexBuffer(0)
-    , xadvance(0) { }
+    , xadvance(0)
+    , vertexBuffer(0) { }
 
 public:
 

@@ -10,7 +10,11 @@
 
 #include "DDSMipLevel.h"
 
-#pragma warning(disable:4996) 
+#include "PlatformDefs.h"
+
+#ifdef PLATFORM_WINDOWS
+  #pragma warning(disable:4996)
+#endif
 
 DDSImage::~DDSImage() {
 	for (unsigned int i = 0; i < numMipLevels; i++) {

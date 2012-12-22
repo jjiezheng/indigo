@@ -15,8 +15,10 @@
 #include "io/DDSMipLevel.h"
 #include "io/Log.h"
 
+#include "GL/glfw.h"
+
 void OpenGL21GraphicsInterface::destroy() {
-  
+  glfwTerminate();
 }
 
 bool OpenGL21GraphicsInterface::windowClosed() const {
@@ -29,6 +31,12 @@ int OpenGL21GraphicsInterface::exitCode() const {
 
 
 void OpenGL21GraphicsInterface::openWindow(int width, int height, unsigned int multiSamples) {
+  glfwInit();
+  glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 3);
+  glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 2);
+  glfwOpenWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+  glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+  glfwOpenWindow(width, height, 8, 8, 8, 8, 0, 0, GLFW_WINDOW);
   
   backbufferSize_.width = width;
   backbufferSize_.height = height;
@@ -39,7 +47,7 @@ void OpenGL21GraphicsInterface::openWindow(int width, int height, unsigned int m
 }
 
 void OpenGL21GraphicsInterface::setViewport(const CSize& dimensions) {
-  
+  glViewport(0, 0, dimensions.width, dimensions.height);
 }
 
 void OpenGL21GraphicsInterface::beginPerformanceEvent(const std::string& eventName) {
@@ -51,6 +59,9 @@ void OpenGL21GraphicsInterface::endPerformanceEvent() {
 }
 
 void OpenGL21GraphicsInterface::swapBuffers() {
+  glfwSwapBuffers();
+  
+  windowClosed_ = !glfwGetWindowParam(GLFW_OPENED);
 }
 
 unsigned int OpenGL21GraphicsInterface::createVertexBuffer(VertexDef* vertexData, int numVertices) {
@@ -205,8 +216,7 @@ void OpenGL21GraphicsInterface::setRenderTarget(unsigned int* textureId, unsigne
 }
 
 void OpenGL21GraphicsInterface::resetRenderTarget(bool useDepthBuffer) {
-  
-  
+
 }
 
 unsigned int OpenGL21GraphicsInterface::createRenderTarget(unsigned int textureId) {

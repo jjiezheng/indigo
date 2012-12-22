@@ -1,20 +1,23 @@
-#ifndef DEFERRED_CLEAR_BUFFERS_PASS_H
-#define DEFERRED_CLEAR_BUFFERS_PASS_H
+#ifndef DEFERRED_GEOMETRY_PASS_H
+#define DEFERRED_GEOMETRY_PASS_H
 
 #include "IDeferredPass.h"
 
-class DeferredClearBuffersPass : public IDeferredPass {
+class DeferredGeometryPass : public IDeferredPass {
+  
+public:
+  
+  virtual ~DeferredGeometryPass() { };
 
 public:
 
-  DeferredClearBuffersPass(
-    unsigned int colorRenderTarget, unsigned int normalRenderTarget)
+  DeferredGeometryPass(unsigned int colorRenderTarget, unsigned int normalRenderTarget)
     : colorRenderTarget_(colorRenderTarget)
     , normalRenderTarget_(normalRenderTarget) { }
 
 public:
 
-  void init(const CSize& screenSize) { }
+  void init() { };
 
   void render(IViewer* viewer, World& world, const SceneContext& sceneContext);
 

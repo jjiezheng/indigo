@@ -11,10 +11,10 @@ class DeferredShadowPass : public IDeferredPass {
 public:
 
   DeferredShadowPass(unsigned int shadowMapTexture, unsigned int shadowRenderTarget, unsigned int lightRenderTarget, unsigned int depthMapTexture, const Vector2& halfPixel)
-    : shadowMapTexture_(shadowMapTexture)
+    : lightRenderTarget_(lightRenderTarget)
+    , shadowMapTexture_(shadowMapTexture)
     , shadowRenderTarget_(shadowRenderTarget)
     , depthMapTexture_(depthMapTexture)
-    , lightRenderTarget_(lightRenderTarget)
     , halfPixel_(halfPixel) { }
 
 public:

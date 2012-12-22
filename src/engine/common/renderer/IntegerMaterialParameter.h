@@ -18,7 +18,7 @@ public:
   
 public:
 
-	void IntegerMaterialParameter::setValue(int value);
+	void setValue(int value);
   
   void setEffect(const IEffect* effect);
 

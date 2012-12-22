@@ -43,7 +43,7 @@ void NavierStokesSimulation::addSources(float dt) {
 }
 
 void NavierStokesSimulation::diffuseDensity(float dt) {
-	float a = dt * diffuseRate_ * gridSize_.width * gridSize_.height;
+//	float a = dt * diffuseRate_ * gridSize_.width * gridSize_.height;
 
 	for (unsigned int solverIteration = 0; solverIteration < solverIterations_; solverIteration++) {
 		for (unsigned int x = 1; x < gridSize_.width; x++) {

@@ -10,9 +10,9 @@ class NavierStokesSimulation {
 public:
 
 	NavierStokesSimulation()
-		: dataSize_(0)
-		, diffuseRate_(1)
+		: diffuseRate_(1)
 		, solverIterations_(10)
+    , dataSize_(0)
 		, simulatedData_(0)
 		, sourceData_(0)
 	{ }

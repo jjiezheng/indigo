@@ -7,6 +7,10 @@ class IEffect;
 class Model;
 
 class DeferredPointLightsPass : public IDeferredPass {
+  
+public:
+  
+  virtual ~DeferredPointLightsPass() { };
 
 public:
 

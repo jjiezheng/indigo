@@ -320,8 +320,6 @@ void WorldLoader::loadSceneItem(const json::Object& objectItem, World& world, co
   Matrix4x4 localToWorld = Matrix4x4::translation(position);
   model->setLocalToWorld(localToWorld);
 
-  IActor* actor = NULL;
-
 	json::Object::const_iterator actorIt = objectItem.Find("actor");
 
 	if (actorIt != objectItem.end()) {
