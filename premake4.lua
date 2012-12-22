@@ -1,6 +1,9 @@
 	solution "Game"
 		configurations { "Release", "Debug" }
 		location ("build")
+
+		configuration "macosx"
+			location ("build/osx")
 	
 	project "game"
 		targetname  "Game"
