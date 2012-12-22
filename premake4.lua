@@ -43,11 +43,13 @@ project "game"
 	--
 	-- PS3
 	--
-	configuration { "ps3 Debug" }
-		buildoptions { "-g -Xquit=1" }
+	configuration { "ps3", "Debug" }
+		buildoptions { "-g" }
+		postbuildcommands { "C://usr//local//cell//host-win32//bin//make_fself ..\\..\\..\\debug\\Game.elf ..\\..\\..\\debug\\game.self" }
 
-	configuration { "ps3 Release" }
+	configuration { "ps3", "Release" }
 		buildoptions { "-O2" }
+		postbuildcommands { "C://usr//local//cell//host-win32//bin//make_fself ..\\..\\..\\release\\Game.elf ..\\..\\..\\release\\game.self" }
 
 	configuration { "ps3" }
 		defines     { "SN_TARGET_PS3", "__SNC__", "__CELL_ASSERT__"}
