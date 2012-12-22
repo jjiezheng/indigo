@@ -118,7 +118,20 @@ project "game"
 	configuration 	{ "Release", "vs2008" }
 		targetdir   "build/win/2008/release"
 
-	configuration { "vs2012", "x32" }
+	configuration { "vs2010", "x32" }
+		includedirs {
+			"libs/d3dx/include"
+		}
+		libdirs {
+			"libs/d3dx/lib/x32"
+		}
+		links {
+			"d3dx9",
+			"d3dx10",
+			"d3dx11"
+		}
+
+	configuration { "vs2012", "vs2010", "x32" }
 		includedirs {
 			"libs/d3dx/include"
 		}
