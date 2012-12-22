@@ -89,24 +89,49 @@ project "game"
 			"libcgc.a"
 		}
 
-	configuration 	{ "Debug", "vs*", "macosx" }
+	configuration 	{ "Debug" }
 		defines     "_DEBUG"
 		flags       { "Symbols" }
 		
-	configuration 	{ "Release", "vs*", "macosx" }
+	configuration 	{ "Release" }
 		defines     "NDEBUG"
-		flags       { "OptimizeSize" }
+		flags       { "OptimizeSpeed" }
 
 	--
 	-- Windows
 	--
-	configuration 	{ "Debug", "vs*" }
-		targetdir   "build/debug"
+	configuration 	{ "Debug", "vs2012" }
+		targetdir   "build/win/2012/debug/"
 		
-	configuration 	{ "Release", "vs*" }
-		targetdir   "build/release"
+	configuration 	{ "Release", "vs2012" }
+		targetdir   "build/win/2012/release"
 
-	configuration { "vs*", "x32", "x64" }
+	configuration 	{ "Debug", "vs2010" }
+		targetdir   "build/win/2010/debug/"
+		
+	configuration 	{ "Release", "vs2012" }
+		targetdir   "build/win/2010/release"
+
+	configuration 	{ "Debug", "vs2008" }
+		targetdir   "build/win/2008/debug/"
+		
+	configuration 	{ "Release", "vs2008" }
+		targetdir   "build/win/2008/release"
+
+	configuration { "vs2012", "x32" }
+		includedirs {
+			"libs/d3dx/include"
+		}
+		libdirs {
+			"libs/d3dx/lib/x32"
+		}
+		links {
+			"d3dx9",
+			"d3dx10",
+			"d3dx11"
+		}
+
+	configuration { "vs*", "x32" }
 		defines     { "_CRT_SECURE_NO_WARNINGS" }
 		buildoptions "-wd4100"
 		links {
@@ -166,6 +191,5 @@ project "game"
 --
 
 if _ACTION == "clean" then
-	os.rmdir("bin")
 	os.rmdir("build")
 end
