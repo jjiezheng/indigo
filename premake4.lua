@@ -4,6 +4,9 @@
 
 		configuration "macosx"
 			location ("build/osx")
+
+		configuration "vs*"
+			location ("build/win")
 	
 	project "game"
 		targetname  "Game"
@@ -37,7 +40,23 @@
 
 		configuration "vs*"
 			defines     { "_CRT_SECURE_NO_WARNINGS" }
-			
+			buildoptions "-wd4100"
+			includedirs { 
+				"src/engine/common/renderer",
+				"src/engine/platform/renderer/dx11",
+				"src/engine/common/input",
+				"src/engine/platform/input/win",
+				"src/engine/platform/platform/win"
+			}
+			files {
+				"src/engine/platform/renderer/dx11/**.h", 
+				"src/engine/platform/renderer/dx11/**.cpp",
+				"src/engine/platform/platform/win/**.h", 
+				"src/engine/platform/platform/win/**.cpp",
+				"src/engine/platform/input/win/**.h", 
+				"src/engine/platform/input/win/**.cpp"
+			}
+
 		configuration "macosx"
 			buildoptions "-stdlib=libc++"
 			linkoptions  "-stdlib=libc++"

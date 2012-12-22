@@ -7,10 +7,9 @@
 #include "io/Path.h"
 #include "io/dds.h"
 #include "io/Endian.h"
+#include "platform/PlatformDefs.h"
 
 #include "DDSMipLevel.h"
-
-#include "PlatformDefs.h"
 
 #ifdef PLATFORM_WINDOWS
   #pragma warning(disable:4996)
