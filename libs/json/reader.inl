@@ -48,7 +48,7 @@ public:
    char Get(); // big, define outside
    char Peek() {
       assert(m_iStr.eof() == false); // enforce reading of only valid stream data 
-      return m_iStr.peek();
+      return (char)m_iStr.peek();
    }
 
    bool EOS() {
@@ -57,6 +57,11 @@ public:
    }
 
    const Location& GetLocation() const { return m_Location; }
+
+   InputStream& operator= (const InputStream& other)
+   {
+     return *this;
+   }
 
 private:
    std::istream& m_iStr;
@@ -67,7 +72,7 @@ private:
 inline char Reader::InputStream::Get()
 {
    assert(m_iStr.eof() == false); // enforce reading of only valid stream data 
-   char c = m_iStr.get();
+   char c = (char)m_iStr.get();
    
    ++m_Location.m_nDocOffset;
    if (c == '\n') {
@@ -95,6 +100,11 @@ public:
    const Token& Get();
 
    bool EOS() const;
+
+   TokenStream& operator= (const TokenStream& other)
+   {
+     return *this;
+   }
 
 private:
    const Tokens& m_Tokens;

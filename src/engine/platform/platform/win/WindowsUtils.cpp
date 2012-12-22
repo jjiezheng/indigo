@@ -81,7 +81,7 @@ bool WindowsUtils::pumpMessages() {
     }
 
     if (msg.message == WM_KEYDOWN) {
-      char wParam = MapVirtualKey((UINT) msg.wParam, 2) & 0x0000FFFF;
+      char wParam = (char)MapVirtualKey((UINT) msg.wParam, 2) & 0x0000FFFF;
       int keyStateIndex = (int)wParam;
       keyStates_[keyStateIndex] = true;
       if (wParam == 27) { // escape
@@ -90,7 +90,7 @@ bool WindowsUtils::pumpMessages() {
     }
 
     if (msg.message == WM_KEYUP) {
-      unsigned char wParam = MapVirtualKey((UINT) msg.wParam, 2) & 0x0000FFFF;
+      unsigned char wParam = (char)MapVirtualKey((UINT) msg.wParam, 2) & 0x0000FFFF;
       keyStates_[wParam] = false;
       if (keyboardListener_) {
         keyboardListener_->keyUp(wParam);

@@ -41,6 +41,15 @@
 		configuration "vs*"
 			defines     { "_CRT_SECURE_NO_WARNINGS" }
 			buildoptions "-wd4100"
+			links {
+				"d3dcompiler",
+				"dxguid",
+				"dinput8",
+				"d3d9",
+				"d3d11",
+				"d3dx10",
+				"d3dx11"
+			}
 			includedirs { 
 				"src/engine/common/renderer",
 				"src/engine/platform/renderer/dx11",
@@ -60,7 +69,7 @@
 		configuration "macosx"
 			buildoptions "-stdlib=libc++"
 			linkoptions  "-stdlib=libc++"
-			links       {
+			links {
 				"AppKit.framework",
 				"Foundation.framework", 
 				"CoreServices.framework",

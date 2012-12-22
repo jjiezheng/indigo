@@ -1,6 +1,6 @@
 #include "WindowsMouse.h"
 
-#include "platform/WindowsUtils.h"
+#include "WindowsUtils.h"
 
 void WindowsMouse::setup() {
 

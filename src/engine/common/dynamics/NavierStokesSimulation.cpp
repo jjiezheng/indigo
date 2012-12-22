@@ -46,8 +46,8 @@ void NavierStokesSimulation::diffuseDensity(float dt) {
 //	float a = dt * diffuseRate_ * gridSize_.width * gridSize_.height;
 
 	for (unsigned int solverIteration = 0; solverIteration < solverIterations_; solverIteration++) {
-		for (unsigned int x = 1; x < gridSize_.width; x++) {
-			for (unsigned int y = 1; y < gridSize_.height; y++) {
+		for (unsigned int x = 1; x < (unsigned int)gridSize_.width; x++) {
+			for (unsigned int y = 1; y < (unsigned int)gridSize_.height; y++) {
 
 			}
 		}

@@ -1,6 +1,6 @@
 #include "WindowsKeyboard.h"
 
-#include "platform/WindowsUtils.h"
+#include "WindowsUtils.h"
 
 bool WindowsKeyboard::keyState(char keyCode) {
   return WindowsUtils::getKeyState(keyCode);

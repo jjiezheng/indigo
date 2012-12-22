@@ -7,7 +7,7 @@
 
 #include <comdef.h>
 
-#include "platform/WindowsUtils.h"
+#include "WindowsUtils.h"
 
 #include "io/dds.h"
 #include "io/DDSImage.h"
@@ -40,12 +40,9 @@ void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, in
     swapChainDesc.SampleDesc.Count = multiSamples;                   // how many multisamples
     swapChainDesc.Windowed = TRUE;                                    // windowed/full-screen mode 
 
-    D3D_FEATURE_LEVEL featureLevels = D3D_FEATURE_LEVEL_10_0;
-
     HRESULT result = D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, NULL, NULL, NULL,
       D3D11_SDK_VERSION, &swapChainDesc, &swapChain_, &device_, NULL, &context_);
 
-    D3D_FEATURE_LEVEL featureLevel = device_->GetFeatureLevel();
     assert(result == S_OK);
   }
 
