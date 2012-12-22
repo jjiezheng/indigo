@@ -54,7 +54,8 @@ String String::pathExtension() const {
 
 String String::removePathExtension() const {
   String extension = pathExtension();
-  return replace(extension, "");
+  String replaced = replace(extension, "");
+  return replaced;
 }
 
 String String::lastPathComponent() const {

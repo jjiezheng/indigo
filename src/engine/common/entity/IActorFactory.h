@@ -8,6 +8,10 @@ class IActorFactory {
 
 public:
 
+  virtual ~IActorFactory() { }
+
+public:
+
 	virtual IActor* createActor(Model* model) const = 0;
 
 };

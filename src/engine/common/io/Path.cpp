@@ -10,7 +10,7 @@ std::string Path::pathForFile(const std::string& filename) {
   String exePath = "/app_home";
   String fullPath = exePath.addPathComponent(filename);
   return fullPath.str();
-#endif
-  
+#else  
   return filename;
+#endif
 }
