@@ -43,17 +43,11 @@ project "game"
 	--
 	-- PS3
 	--
-	configuration { "ps3", "Debug" }
-		buildoptions { "-g" }
-		postbuildcommands { "C://usr//local//cell//host-win32//bin//make_fself ..\\..\\..\\debug\\Game.elf ..\\..\\..\\debug\\game.self" }
-
-	configuration { "ps3", "Release" }
-		buildoptions { "-O2" }
-		postbuildcommands { "C://usr//local//cell//host-win32//bin//make_fself ..\\..\\..\\release\\Game.elf ..\\..\\..\\release\\game.self" }
-
 	configuration { "ps3" }
+		targetextension(".elf")
+		postbuildcommands { "C://usr//local//cell//host-win32//bin//make_fself $(OutDir)Game.elf $(OutDir)game.self" }
 		defines     { "SN_TARGET_PS3", "__SNC__", "__CELL_ASSERT__"}
-		buildoptions { "--diag_suppress=383 --diag_suppress=613 --diag_suppress=1011 -Xc+=exceptions" }
+		buildoptions "/wd\"383\" /wd\"613\" /wd\"1011\""
 
 		includedirs { 
 			"C:/usr/local/cell/target/ppu/include",
@@ -131,7 +125,9 @@ project "game"
 			"d3dx11"
 		}
 
-	configuration { "vs2012", "vs2010", "x32" }
+	configuration { "vs*" }
+
+	configuration { "vs2012", "x32" }
 		includedirs {
 			"libs/d3dx/include"
 		}
@@ -146,7 +142,6 @@ project "game"
 
 	configuration { "vs*", "x32" }
 		defines     { "_CRT_SECURE_NO_WARNINGS" }
-		buildoptions "-wd4100"
 		links {
 			"d3dcompiler",
 			"dxguid",
