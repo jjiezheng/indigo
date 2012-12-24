@@ -2,12 +2,13 @@
 #define SCE_PPU_COMPILER_H
 
 #include <string>
+#include <vector>
 
 class SCEPPUCompiler {
 
 public:
 
-  int compile(const std::string args);
+	int compile(const std::string args, const std::vector<std::string>& files);
 
 };
 

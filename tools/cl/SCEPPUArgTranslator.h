@@ -22,7 +22,14 @@ private:
 
 public:
 
-  std::string translateArgs(std::string rspArgs);
+  void translateArgs(std::string rspArgs, std::vector<std::string>& files, std::string& args);
+
+public:
+
+	std::string outputDir() const;
+
+private:
+
   std::vector<ITokenTransform*> tokenTransforms_;
   std::vector<ITokenTransform*> switchTransforms_;
 

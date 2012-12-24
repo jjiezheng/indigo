@@ -3,19 +3,31 @@
 #include <sstream>
 #include <iostream>
 
-static const char* PPU_PATH = "C:\\usr\\local\\cell\\host-win32\\sn\\bin";
-static const char* PPU_COMMAND = "ps3ppusnc.exe";
+static const char* PPU_PATH = "C:\\usr\\local\\cell\\host-win32\\ppu\\bin";
+static const char* PPU_COMMAND = "ppu-lv2-g++.exe";
 
-int SCEPPUCompiler::compile(const std::string args) {
+int SCEPPUCompiler::compile(const std::string args, const std::vector<std::string>& files) {
 
-  std::stringstream ppuCompileCommandStream;
-  ppuCompileCommandStream << PPU_PATH << "\\" << PPU_COMMAND << " " << args;
+	for (std::string file : files) {
 
-  std::string ppuCompileCommand = ppuCompileCommandStream.str();
+		std::string filename = file;
+		filename = filename.substr(filename.rfind("/") + 1, filename.rfind("/") - 1); 
+		filename = filename.substr(0, filename.find("."));
+		filename += ".o";
 
-  std::clog << ppuCompileCommand << std::endl;
+		std::stringstream ppuCompileCommandStream;
+		ppuCompileCommandStream << PPU_PATH << "\\" << PPU_COMMAND << " " << args << " -o" << filename << " " << file ;
 
-  int result = system(ppuCompileCommand.c_str());
+		std::string ppuCompileCommand = ppuCompileCommandStream.str();  
 
-  return result;
+		std::clog << ppuCompileCommand << std::endl;
+
+		int result = system(ppuCompileCommand.c_str());
+
+		if (result != 0) {
+			return result;
+		}
+	}
+
+	return 0;
 }

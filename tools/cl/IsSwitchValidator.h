@@ -7,7 +7,7 @@ class SwitchValidator : public IValidator {
 
 public:
 
-  bool validate(const std::string& token);
+  bool validate(std::string& token);
 
 };
 

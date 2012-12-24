@@ -35,7 +35,7 @@ std::vector<std::string> inline StringSplit(const std::string &source, const cha
   return results;
 }
 
-std::string SCEPPUArgTranslator::translateArgs(std::string rspArgs) {
+void SCEPPUArgTranslator::translateArgs(std::string rspArgs, std::vector<std::string>& files, std::string& args) {
 
   std::vector<std::string> tokens = StringSplit(rspArgs, " ");
 
@@ -86,13 +86,11 @@ std::string SCEPPUArgTranslator::translateArgs(std::string rspArgs) {
     outputArgs << switchh << " ";
   }
 
+  args = outputArgs.str();
+
   for (std::string sourceFile : sourceFiles) {
-    outputArgs << sourceFile << " ";
+	files.push_back(sourceFile);
   }
-
-  std::string finalArgs = outputArgs.str();
-
-  return finalArgs;
 }
 
 void SCEPPUArgTranslator::init() {

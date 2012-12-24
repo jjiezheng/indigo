@@ -85,8 +85,10 @@
     <ClCompile Include="SCEPPUCompiler.cpp" />
     <ClCompile Include="SlashReverseTransform.cpp" />
     <ClCompile Include="SlashToDashTransform.cpp" />
+    <ClCompile Include="VS2012ArgTranslator.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CompilerArgs.h" />
     <ClInclude Include="IsSwitchValidator.h" />
     <ClInclude Include="IValidator.h" />
     <ClInclude Include="ITokenTransform.h" />
@@ -95,6 +97,7 @@
     <ClInclude Include="SCEPPUCompiler.h" />
     <ClInclude Include="SlashReverseTransform.h" />
     <ClInclude Include="SlashToDashTransform.h" />
+    <ClInclude Include="VS2012ArgTranslator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

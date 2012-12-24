@@ -21,7 +21,7 @@ std::string RSPFile::open(const std::string& rspArg) {
   std::string rspFilename = rspArg.substr(1, rspArg.length() - 1); 
 
   char copyCommand[1024];
-  sprintf(copyCommand, "copy %s %s", rspFilename.c_str(), "C:\\Users\\NK\\Development\\test.rsp");
+  sprintf(copyCommand, "copy %s %s", rspFilename.c_str(), "C:\\cygwin\\home\\NK\\Development\\test.rsp");
   std::clog << copyCommand << std::endl;
   system(copyCommand);
 

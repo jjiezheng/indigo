@@ -7,7 +7,7 @@ class IValidator {
 
 public:
 
-  virtual bool validate(const std::string& token) = 0;
+  virtual bool validate(std::string& token) = 0;
 
 };
 

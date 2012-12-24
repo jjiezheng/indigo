@@ -1,6 +1,9 @@
 #include <iostream>
 
 #include "RSPFile.h"
+
+#include "VS2012ArgTranslator.h"
+
 #include "SCEPPUArgTranslator.h"
 #include "SCEPPUCompiler.h"
 
@@ -14,12 +17,18 @@ int main(int argc, char** argv[])
   RSPFile rsp;
   std::string rspArguments = rsp.open(rspArg);
 
-  SCEPPUArgTranslator translator;
-  translator.init();
-  std::string ppuArgs = translator.translateArgs(rspArguments);
+	VS2012ArgTranslator translator;
+	CompilerArgs args = translator.translate(rspArguments);
 
-  SCEPPUCompiler compiler;
-  int result = compiler.compile(ppuArgs);
+  /*SCEPPUArgTranslator translator;
+  translator.init();
+
+  std::vector<std::string> files;
+  std::string ppuArgs;
+  translator.translateArgs(rspArguments, files, ppuArgs);*/
+
+  //SCEPPUCompiler compiler;
+  int result = 0;//compiler.compile(ppuArgs, files);
 
   std::clog << "########## COMPILER END ############" << std::endl;
 
