@@ -48,6 +48,7 @@ project "game"
 		postbuildcommands { "C://usr//local//cell//host-win32//bin//make_fself $(OutDir)Game.elf $(OutDir)game.self" }
 		defines     { "SN_TARGET_PS3", "__SNC__", "__CELL_ASSERT__"}
 		buildoptions "/wd\"383\" /wd\"613\" /wd\"1011\""
+		linkoptions  "/SNC"
 
 		includedirs { 
 			"C:/usr/local/cell/target/ppu/include",
