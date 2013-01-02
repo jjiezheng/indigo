@@ -26,6 +26,7 @@
 #define BASED_ALIGN	128
 
 static uint32_t local_mem_heap = 0;
+
 unsigned int colorOffset[BUFFER_COUNT];
 
 using namespace cell::Gcm;
@@ -51,6 +52,7 @@ void PS3GCMGraphicsInterface::destroy() {
 void PS3GCMGraphicsInterface::openWindow(int width, int height, unsigned int multiSamples) {
   void *host_addr = memalign(0x100000, HOST_SIZE);
   CELL_GCMUTIL_ASSERTS(host_addr != NULL,"memalign()");
+
   CELL_GCMUTIL_CHECK_ASSERT(cellGcmInit(COMMAND_BUFFER_SIZE, HOST_SIZE, host_addr));
 
   CellVideoOutResolution resolution;
@@ -137,8 +139,12 @@ void PS3GCMGraphicsInterface::openWindow(int width, int height, unsigned int mul
     void* depthAddr = localAllocate(64, depthSize);
     CELL_GCMUTIL_CHECK_ASSERT(cellGcmAddressToOffset(depthAddr, &depthTexture.offset));
 
+    CellGcmTextureContainer textureContainer;
+    textureContainer.texture = depthTexture;
+    textureContainer.textureAddress = (unsigned int)depthAddr;
+
     unsigned int textureId = textures_.size();
-    textures_.push_back(depthTexture);
+    textures_.push_back(textureContainer);
     depthBufferTexture_ = textureId;
   }
 
@@ -263,8 +269,12 @@ unsigned int PS3GCMGraphicsInterface::loadTexture(const std::string& filePath) {
 
   memcpy(textureBaseAddress, image.data, image.totalSize);
 
+  CellGcmTextureContainer textureContainer;
+  textureContainer.texture = texture;
+  textureContainer.textureAddress = (unsigned int)textureBaseAddress;
+
   unsigned int textureId = textures_.size();
-  textures_.push_back(texture);
+  textures_.push_back(textureContainer);
   return textureId;
 }
 
@@ -344,8 +354,12 @@ unsigned int PS3GCMGraphicsInterface::createTexture(const CSize& dimensions, Tex
     memcpy(textureBaseAddress, textureData, textureSize);
   }
 
+  CellGcmTextureContainer textureContainer;
+  textureContainer.texture = texture;
+  textureContainer.textureAddress = (unsigned int)textureBaseAddress;
+
   unsigned int textureId = textures_.size();
-  textures_.push_back(texture);
+  textures_.push_back(textureContainer);
   return textureId;
 }
 
@@ -428,7 +442,8 @@ void PS3GCMGraphicsInterface::setRenderTarget(unsigned int* renderTargetIds, uns
      cellGcmSetColorMaskMrt(colorWriteMask);
    }
 
-   CellGcmTexture depthTexture = textures_[depthTextureId];
+   CellGcmTextureContainer depthTextureContainer = textures_[depthTextureId];
+   CellGcmTexture depthTexture = depthTextureContainer.texture;
  
    sf.depthFormat = CELL_GCM_SURFACE_Z24S8;
    sf.depthLocation = useDepthBuffer ?  CELL_GCM_LOCATION_LOCAL : 0;
@@ -471,7 +486,8 @@ void PS3GCMGraphicsInterface::resetRenderTarget(bool useDepthBuffer) {
   sf.colorOffset[3] = 0;
   sf.colorPitch[3] = 64;
 
-  CellGcmTexture depthTexture = textures_[depthBufferTexture_];
+  CellGcmTextureContainer depthTextureContainer = textures_[depthBufferTexture_];
+  CellGcmTexture depthTexture = depthTextureContainer.texture;
 
   sf.depthFormat = CELL_GCM_SURFACE_Z24S8;
   sf.depthLocation = useDepthBuffer ? CELL_GCM_LOCATION_LOCAL : 0;
@@ -490,7 +506,9 @@ void PS3GCMGraphicsInterface::resetRenderTarget(bool useDepthBuffer) {
 }
 
 unsigned int PS3GCMGraphicsInterface::createRenderTarget(unsigned int textureId) {
-  CellGcmTexture texture = textures_[textureId];
+  CellGcmTextureContainer textureContainer = textures_[textureId];
+  CellGcmTexture texture = textureContainer.texture;
+  
   unsigned int renderTargetId = renderTargets_.size();
 
   CellGcmRenderTarget renderTarget;
@@ -508,7 +526,8 @@ void PS3GCMGraphicsInterface::clearRenderTarget(unsigned int renderTargetId, con
 }
 
 void PS3GCMGraphicsInterface::setTexture(unsigned int textureUnit, unsigned int textureId) {
-  CellGcmTexture texture = textures_[textureId];
+  CellGcmTextureContainer textureContainer = textures_[textureId];
+  CellGcmTexture texture = textureContainer.texture;
   cellGcmSetTexture(textureUnit, &texture);
   cellGcmSetTextureControl(textureUnit, CELL_GCM_TRUE, 0<<8, 12<<8, CELL_GCM_TEXTURE_MAX_ANISO_1);
 }
@@ -551,8 +570,12 @@ unsigned int PS3GCMGraphicsInterface::createDepthTexture(const CSize& dimensions
   void* depthAddr = localAllocate(64, depthSize);
   CELL_GCMUTIL_CHECK_ASSERT(cellGcmAddressToOffset(depthAddr, &depthTexture.offset));
 
+  CellGcmTextureContainer depthTextureContainer;
+  depthTextureContainer.texture = depthTexture;
+  depthTextureContainer.textureAddress = (unsigned int)depthAddr;
+
   unsigned int textureId = textures_.size();
-  textures_.push_back(depthTexture);
+  textures_.push_back(depthTextureContainer);
 
   return textureId;
 }
@@ -613,7 +636,8 @@ Vector2 PS3GCMGraphicsInterface::halfScreenPixel() const {
 }
 
 TextureInfo PS3GCMGraphicsInterface::textureInfo(unsigned int textureId) {
-  CellGcmTexture texture = textures_[textureId];
+  CellGcmTextureContainer textureContainer = textures_[textureId];
+  CellGcmTexture texture = textureContainer.texture;
 
   TextureInfo info;
   info.width = texture.width;
@@ -623,7 +647,6 @@ TextureInfo PS3GCMGraphicsInterface::textureInfo(unsigned int textureId) {
 }
 
 void PS3GCMGraphicsInterface::setTextureData(unsigned int textureId, const void* textureData, unsigned int dataSize) {
-  CellGcmTexture texture = textures_[textureId];
-  uint32_t textureAddress = local_mem_heap + texture.offset;
-  memcpy((void*)textureAddress, textureData, dataSize);
+  CellGcmTextureContainer textureContainer = textures_[textureId];
+  memcpy((void*)textureContainer.textureAddress, textureData, dataSize);
 }

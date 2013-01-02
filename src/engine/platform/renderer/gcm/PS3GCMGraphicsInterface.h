@@ -13,6 +13,13 @@ class PS3GCMCGEffect;
 
 class GraphicsInterface;
 
+struct CellGcmTextureContainer {
+
+  CellGcmTexture texture;
+  unsigned int textureAddress;
+
+};
+
 struct CellGcmRenderTarget {
   CellGcmRenderTarget()
     : renderTargetOffset(0)
@@ -113,7 +120,7 @@ private:
   PS3GCMCGEffect* effect_;
 
   std::vector<unsigned int> vertexBuffers_;
-  std::vector<CellGcmTexture> textures_;
+  std::vector<CellGcmTextureContainer> textures_;
   std::vector<CellGcmRenderTarget> renderTargets_;
 
 };

@@ -26,7 +26,7 @@ void Cauldron::update(float dt) {
   memset(bla, 0, colors);
 
   for (unsigned int i = 0; i < colors; i++) {
-    bla[i] = 0xFFFFFFFF;
+    bla[i] = 0xFFFF00FF;
   }
 
 	GraphicsInterface::setTextureData(textureId_, bla, colors);
@@ -35,13 +35,4 @@ void Cauldron::update(float dt) {
 void Cauldron::LiquidMaterialUpdate(Material* material, void* userData) {
 	Cauldron* cauldron = (Cauldron*)userData;
 	material->setTexture("ColorMap", cauldron->textureId_);
-	//material->setTexture("");
-// 	static float color = 0.0f;
-// 	color += 0.001f;
-// 
-// 	if (color > 1.0f) {
-// 		color = 0.0f;
-// 	}
-
-	//material->setParameter("DiffuseColor", Vector3(0, color, 0));
 }
