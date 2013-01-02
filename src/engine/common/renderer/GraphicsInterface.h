@@ -106,6 +106,8 @@ public:
 
   static unsigned int createTexture(const CSize& dimensions, IGraphicsInterface::TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize);
 
+  static TextureInfo textureInfo(unsigned int textureId);
+
   static void generateMipMaps(unsigned int textureId);
 
 public:

@@ -1,0 +1,39 @@
+// glslv output by Cg compiler
+// cgc version 3.1.0013, build date Apr 18 2012
+// command line args: -DGL21=1 -q -profile glslv
+// source file: sprite.cg
+//vendor NVIDIA Corporation
+//version 3.1.0.13
+//profile glslv
+//program vs
+//semantic ModelProjection
+//semantic ColorMap
+//var float4x4 ModelProjection :  : _ModelProjection[0], 4 : -1 : 1
+//var float4 position : $vin.POSITION : ATTR0 : 0 : 1
+//var float2 texCoord : $vin.TEXCOORD0 : ATTR8 : 1 : 1
+//var float4 vs.position : $vout.POSITION : HPOS : -1 : 1
+//var float2 vs.texCoord : $vout.TEXCOORD0 : TEX0 : -1 : 1
+
+#version 110
+
+struct VOutput {
+    vec4 _position2;
+    vec2 _texCoord2;
+};
+
+vec4 _r0003;
+uniform vec4 _ModelProjection[4];
+
+ // main procedure, the original name was vs
+void main()
+{
+
+
+    _r0003.x = dot(_ModelProjection[0], gl_Vertex);
+    _r0003.y = dot(_ModelProjection[1], gl_Vertex);
+    _r0003.z = dot(_ModelProjection[2], gl_Vertex);
+    _r0003.w = dot(_ModelProjection[3], gl_Vertex);
+    gl_TexCoord[0].xy = gl_MultiTexCoord0.xy;
+    gl_Position = _r0003;
+    return;
+} // main end

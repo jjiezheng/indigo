@@ -13,6 +13,11 @@ class Color4;
 class VertexDef;
 class DDSImage;
 
+struct TextureInfo {
+  unsigned int width;
+  unsigned int height;
+};
+
 class IGraphicsInterface {
 
 public:
@@ -94,6 +99,8 @@ public:
 
   virtual unsigned int createTexture(const CSize& dimensions, TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize) = 0;
 
+  virtual TextureInfo textureInfo(unsigned int textureId) = 0;
+
   virtual void generateMipMaps(unsigned int textureId) = 0;
 
   virtual void fillTexture(unsigned int textureId, void* data, unsigned int dataSize) = 0;
@@ -115,6 +122,7 @@ public:
   virtual void clearActiveDepthBuffer(unsigned int textureId) = 0;
 
   virtual unsigned int depthBufferTexture() const = 0;
+ 
 
 public:
 

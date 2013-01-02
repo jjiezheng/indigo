@@ -3,6 +3,8 @@
 
 #include <string>
 
+class Point;
+
 class Vector2 {
   
 public:
@@ -12,6 +14,8 @@ public:
 public:
   
   Vector2();
+
+  Vector2(const Point& p);
   
   Vector2(float x, float y);
   

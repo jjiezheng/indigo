@@ -106,6 +106,7 @@ private:
   int lastMouseY_;
 
   bool viewChanged_;
+  bool isPlayerControlled_;
 
   Frustum frustum_;
 

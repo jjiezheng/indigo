@@ -11,7 +11,9 @@ public:
     : textureData(0)
     , resourceView(0)
     , mipLevels(0)
-    , depthStencilView(0) { }
+    , depthStencilView(0)
+    , width(0)
+    , height(0) { }
 
 public:
 
@@ -20,6 +22,8 @@ public:
   ID3D11DepthStencilView* depthStencilView;
 
   unsigned int mipLevels;
+  unsigned int width;
+  unsigned int height;
 
 public:
 

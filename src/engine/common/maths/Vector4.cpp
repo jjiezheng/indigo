@@ -3,6 +3,7 @@
 #include "Matrix4x4.h"
 #include "Trigonometry.h"
 #include "Vector3.h"
+#include "Vector2.h"
 
 #include <sstream>
 
@@ -27,6 +28,11 @@ Vector4::Vector4()
 Vector4::Vector4(const Vector3& v)
   : x(v.x), y(v.y), z(v.z), w(1) { 
   
+}
+
+Vector4::Vector4(const Vector2& v)
+  : x(v.x), y(v.y), z(0), w(1) { 
+
 }
 
 Vector4 Vector4::operator + (const Vector4& other) const {

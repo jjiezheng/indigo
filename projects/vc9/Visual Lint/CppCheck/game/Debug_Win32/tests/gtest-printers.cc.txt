@@ -1,0 +1,21 @@
+Checking C:\Users\NK\Development\game\libs\gtest\src\gtest-printers.cc...
+C:\Users\NK\Development\game\libs\gtest\src\gtest-printers.cc(92): style,variableScope,The scope of the variable 'kChunkSize' can be reduced. Warning: It can be unsafe to fix this message. Be careful. Especially when there are inner loops. Here is an example where cppcheck will write that the scope for 'i' can be reduced:
+void f(int x)
+{
+    int i = 0;
+    if (x) {
+        // it's safe to move 'int i = 0' here
+        for (int n = 0; n < 10; ++n) {
+            // it is possible but not safe to move 'int i = 0' here
+            do_something(&i);
+        }
+    }
+}
+When you see this message it is always safe to reduce the variable scope 1 level.
+Checking C:\Users\NK\Development\game\libs\gtest\src\gtest-printers.cc: GTEST_HAS_GLOBAL_STRING...
+Checking C:\Users\NK\Development\game\libs\gtest\src\gtest-printers.cc: GTEST_HAS_GLOBAL_WSTRING...
+Checking C:\Users\NK\Development\game\libs\gtest\src\gtest-printers.cc: GTEST_HAS_STD_WSTRING...
+Checking C:\Users\NK\Development\game\libs\gtest\src\gtest-printers.cc: GTEST_OS_WINDOWS_MOBILE...
+Checking C:\Users\NK\Development\game\libs\gtest\src\gtest-printers.cc: _MSC_VER...
+Checking usage of global functions..
+<error id="missingInclude" severity="style" msg="Cppcheck cannot find all the include files (use --check-config for details)"/>

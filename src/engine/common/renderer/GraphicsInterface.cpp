@@ -183,3 +183,7 @@ Vector2 GraphicsInterface::halfScreenPixel() {
 	return graphicsInterface_->halfScreenPixel();
 }
 
+TextureInfo GraphicsInterface::textureInfo(unsigned int textureId) {
+  return graphicsInterface_->textureInfo(textureId);
+}
+

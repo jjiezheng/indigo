@@ -1,0 +1,4 @@
+Checking C:\Users\NK\Development\game\src\engine\renderer\Mesh.cpp...
+Checking usage of global functions..
+C:\Users\NK\Development\game\src\engine\renderer\Mesh.cpp(11): style,unusedFunction,The function 'render' is never used
+<error id="missingInclude" severity="style" msg="Cppcheck cannot find all the include files (use --check-config for details)"/>

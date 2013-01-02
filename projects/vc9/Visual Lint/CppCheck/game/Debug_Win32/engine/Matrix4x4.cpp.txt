@@ -1,0 +1,4 @@
+Checking C:\Users\NK\Development\game\src\engine\maths\Matrix4x4.cpp...
+Checking usage of global functions..
+C:\Users\NK\Development\game\src\engine\maths\Matrix4x4.cpp(171): style,unusedFunction,The function 'mat3x3' is never used
+<error id="missingInclude" severity="style" msg="Cppcheck cannot find all the include files (use --check-config for details)"/>

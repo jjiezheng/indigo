@@ -288,6 +288,8 @@ unsigned int Direct3D11GraphicsInterface::loadTexture(const std::string& filePat
   textureContainer.textureData = texture;
   textureContainer.mipLevels = fileInfo.MipLevels;
   textureContainer.resourceView = resourceView;
+  textureContainer.width = fileInfo.Width;
+  textureContainer.height = fileInfo.Height;
   textures_.push_back(textureContainer);
   return textureId;
 
@@ -651,4 +653,14 @@ Vector2 Direct3D11GraphicsInterface::halfScreenPixel() const {
 
 Vector2 Direct3D11GraphicsInterface::halfBackBufferPixel() const {
 	return Vector2(0, 0);
+}
+
+TextureInfo Direct3D11GraphicsInterface::textureInfo(unsigned int textureId) {
+  DirectXTexture texture = textures_[textureId];
+
+  TextureInfo info;
+  info.width = texture.width;
+  info.height = texture.height;
+
+  return info;
 }

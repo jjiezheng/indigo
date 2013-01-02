@@ -11,10 +11,7 @@
 
 #include "maths/Plane.h"
 
-#include "ui/FPSStats.h"
-#include "ui/RenderChannelInfo.h"
-
-#include "ActorRegistry.h"
+#include "entity/ActorRegistry.h"
 
 void Game::init(const char* sceneFile) {
   Pad::init();
@@ -24,13 +21,13 @@ void Game::init(const char* sceneFile) {
 	ActorRegistry::registerActors(actorFactory_);
 
   renderer_.init(GraphicsInterface::backBufferSize());
-  ui_.init(GraphicsInterface::backBufferSize());
+  ui_.init(&renderer_);
 
   clock_.init();
   
-  camera_.translateZ(4.5f);
-  camera_.translateY(5.0f);
-	camera_.rotateX(-0.2f);
+  camera_.translateZ(2.0f);
+  camera_.translateY(5.3f);
+	camera_.rotateX(-1.0f);
   //camera_.rotateX(toRadians(-90));
   
   camera_.setProjection(45.0f, GraphicsInterface::aspectRatio(), 1.0f, 500);
@@ -40,11 +37,6 @@ void Game::init(const char* sceneFile) {
     loader.loadFromSceneFile(sceneFile, world_, sceneContext_, actorFactory_);
   }
 
-	FPSStats* fpsStats = FPSStats::stats();
-	ui_.addControl(fpsStats);
-
-	RenderChannelInfo* renderChannelInfo = RenderChannelInfo::info(&renderer_);
-	ui_.addControl(renderChannelInfo);
   
   Keyboard::setKeydownListener(this);
 }

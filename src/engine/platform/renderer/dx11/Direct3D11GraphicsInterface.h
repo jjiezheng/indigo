@@ -62,6 +62,8 @@ public:
 
   unsigned int createTexture(const CSize& dimensions, IGraphicsInterface::TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize);
 
+  TextureInfo textureInfo(unsigned int textureId);
+
   void generateMipMaps(unsigned int textureId);
 
   void fillTexture(unsigned int textureId, void* data, unsigned int dataSize);

@@ -4,7 +4,7 @@
 
 #include "services/IRenderChannelInfoService.h"
 
-#include "renderer/Label.h"
+#include "Label.h"
 
 RenderChannelInfo* RenderChannelInfo::info(IRenderChannelInfoService* infoService) {
 	RenderChannelInfo* info = new RenderChannelInfo(infoService);

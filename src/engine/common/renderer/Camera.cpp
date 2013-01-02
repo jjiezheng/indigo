@@ -25,7 +25,8 @@ Camera::Camera()
   , rotationZ_(0)
   , lastMouseX_(0)
   , lastMouseY_(0)
-  , viewChanged_(false) { }
+  , viewChanged_(false)
+  , isPlayerControlled_(false) { }
 
 Camera* Camera::camera() {
   Camera* camera = new Camera();
@@ -38,82 +39,85 @@ void Camera::init() { }
 void Camera::update(float dt) {
   float speed = dt;
 
-  float padMoveSpeed = 5.0f * speed;
+  if (isPlayerControlled_) {
 
-  float leftStickY = Pad::leftStickY();
-  if (leftStickY != 0.0f) {
-    moveForward(padMoveSpeed * leftStickY);
-  }
+    float padMoveSpeed = 5.0f * speed;
 
-  float leftStickX = Pad::leftStickX();
-  if (leftStickX != 0.0f) {
-    moveRight(padMoveSpeed * leftStickX);
-  }
+    float leftStickY = Pad::leftStickY();
+    if (leftStickY != 0.0f) {
+      moveForward(padMoveSpeed * leftStickY);
+    }
 
-	float padLookSpeed = 2.0f;
+    float leftStickX = Pad::leftStickX();
+    if (leftStickX != 0.0f) {
+      moveRight(padMoveSpeed * leftStickX);
+    }
 
-  float rightStickX = Pad::rightStickX();
-  if (rightStickX != 0.0f) {
-    rotateY(padLookSpeed * speed * rightStickX);
-  }
+	  float padLookSpeed = 2.0f;
 
-  float rightStickY = Pad::rightStickY();
-  if (rightStickY != 0.0f) {
-    rotateX(padLookSpeed * speed * -rightStickY); // inv look
-  }
+    float rightStickX = Pad::rightStickX();
+    if (rightStickX != 0.0f) {
+      rotateY(padLookSpeed * speed * rightStickX);
+    }
 
-  bool leftShoulder = Pad::leftShoulder();
-  if (leftShoulder) {
-    moveUp(-padMoveSpeed * leftShoulder);
-  }
+    float rightStickY = Pad::rightStickY();
+    if (rightStickY != 0.0f) {
+      rotateX(padLookSpeed * speed * -rightStickY); // inv look
+    }
 
-  bool rightShoulder = Pad::rightShoulder();
-  if (rightShoulder) {
-    moveUp(padMoveSpeed * rightShoulder);
-  }
+    bool leftShoulder = Pad::leftShoulder();
+    if (leftShoulder) {
+      moveUp(-padMoveSpeed * leftShoulder);
+    }
 
-  float keyboardSpeed = 10;
+    bool rightShoulder = Pad::rightShoulder();
+    if (rightShoulder) {
+      moveUp(padMoveSpeed * rightShoulder);
+    }
 
-  if (Keyboard::keyState('w') || Keyboard::keyState('W')) {
-    moveForward(speed * keyboardSpeed);
-  }
-  
-  if (Keyboard::keyState('s') || Keyboard::keyState('S')) {
-    moveForward(-speed * keyboardSpeed);
-  }
-  
-  if (Keyboard::keyState('a') || Keyboard::keyState('A')) {
-    moveRight(-speed * keyboardSpeed);
-  }
-  
-  if (Keyboard::keyState('d') || Keyboard::keyState('D')) {
-    moveRight(speed * keyboardSpeed);
-  }
-  
-  if (Keyboard::keyState('e') || Keyboard::keyState('E')) {
-    moveUp(speed * keyboardSpeed);
-  }
+    float keyboardSpeed = 10;
 
-  if (Keyboard::keyState('q') || Keyboard::keyState('Q')) {
-    moveUp(-speed * keyboardSpeed);
+    if (Keyboard::keyState('w') || Keyboard::keyState('W')) {
+      moveForward(speed * keyboardSpeed);
+    }
+  
+    if (Keyboard::keyState('s') || Keyboard::keyState('S')) {
+      moveForward(-speed * keyboardSpeed);
+    }
+  
+    if (Keyboard::keyState('a') || Keyboard::keyState('A')) {
+      moveRight(-speed * keyboardSpeed);
+    }
+  
+    if (Keyboard::keyState('d') || Keyboard::keyState('D')) {
+      moveRight(speed * keyboardSpeed);
+    }
+  
+    if (Keyboard::keyState('e') || Keyboard::keyState('E')) {
+      moveUp(speed * keyboardSpeed);
+    }
+
+    if (Keyboard::keyState('q') || Keyboard::keyState('Q')) {
+      moveUp(-speed * keyboardSpeed);
+    }
+  
+    Point mousePoint = Mouse::position();
+  
+    int xDelta = mousePoint.x - lastMouseX_;
+    int yDelta = mousePoint.y - lastMouseY_;
+  
+    xDelta = abs(xDelta) > 100 ? 0 : xDelta;
+    yDelta = abs(yDelta) > 100 ? 0 : yDelta;
+  
+    float xDegrees = -xDelta * 0.5f;
+    float yDegrees = yDelta * 0.5f;
+  
+    rotateY(toRadians(xDegrees));
+    rotateX(toRadians(yDegrees));
+  
+    lastMouseX_ = mousePoint.x;
+    lastMouseY_ = mousePoint.y;
   }
-  
-  Point mousePoint = Mouse::position();
-  
-  int xDelta = mousePoint.x - lastMouseX_;
-  int yDelta = mousePoint.y - lastMouseY_;
-  
-  xDelta = abs(xDelta) > 100 ? 0 : xDelta;
-  yDelta = abs(yDelta) > 100 ? 0 : yDelta;
-  
-  float xDegrees = -xDelta * 0.5f;
-  float yDegrees = yDelta * 0.5f;
-  
-  rotateY(toRadians(xDegrees));
-  rotateX(toRadians(yDegrees));
-  
-  lastMouseX_ = mousePoint.x;
-  lastMouseY_ = mousePoint.y;
 
   if (viewChanged_) {
     rebuildFrustum();

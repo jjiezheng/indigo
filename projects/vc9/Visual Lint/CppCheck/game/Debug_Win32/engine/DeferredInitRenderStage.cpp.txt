@@ -1,0 +1,3 @@
+Checking C:\Users\NK\Development\game\src\engine\renderer\DeferredInitRenderStage.cpp...
+Checking usage of global functions..
+<error id="missingInclude" severity="style" msg="Cppcheck cannot find all the include files (use --check-config for details)"/>

@@ -5,7 +5,7 @@
 
 #include "core/Clock.h"
 
-#include "renderer/Label.h"
+#include "Label.h"
 
 FPSStats* FPSStats::stats() {
 	FPSStats* control = new FPSStats();

@@ -4,12 +4,15 @@
 #include <string>
 
 class Vector3;
+class Vector2;
 
 class Vector4 {
   
 public:
   
   Vector4();
+
+  Vector4(const Vector2& v);
   
   Vector4(const Vector3& v);
   

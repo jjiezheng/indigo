@@ -611,3 +611,13 @@ Vector2 PS3GCMGraphicsInterface::halfScreenPixel() const {
 	Vector2 halfPixel(halfPixelX, halfPixelY);
 	return halfPixel;
 }
+
+TextureInfo PS3GCMGraphicsInterface::textureInfo(unsigned int textureId) {
+  CellGcmTexture texture = textures_[textureId];
+
+  TextureInfo info;
+  info.width = texture.width;
+  info.height = texture.height;
+
+  return info;
+}
