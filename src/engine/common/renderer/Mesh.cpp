@@ -21,10 +21,10 @@ Matrix4x4 Mesh::localToWorld() const {
   return parent_->localToWorld();
 }
 
-void Mesh::setMaterialCallback(const std::string& materialName, Material::MaterialCallback callback) {
+void Mesh::setMaterialCallback(const std::string& materialName, Material::MaterialCallback callback, void* userData) {
 	std::string name = material_.name();
 
 	if (name.compare(materialName) == 0) {
-		material_.setCallback(callback);
+		material_.setCallback(callback, userData);
 	}
 }

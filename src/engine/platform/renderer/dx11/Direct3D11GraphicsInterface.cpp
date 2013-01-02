@@ -40,7 +40,7 @@ void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, in
     swapChainDesc.SampleDesc.Count = multiSamples;                   // how many multisamples
     swapChainDesc.Windowed = TRUE;                                    // windowed/full-screen mode 
 
-    HRESULT result = D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, NULL, NULL, NULL,
+    HRESULT result = D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, D3D11_CREATE_DEVICE_DEBUG, NULL, NULL,
       D3D11_SDK_VERSION, &swapChainDesc, &swapChain_, &device_, NULL, &context_);
 
     assert(result == S_OK);
@@ -59,7 +59,7 @@ void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, in
 	// default texture
 	{
 		std::string debugTexturePath = Path::pathForFile("debug/mipmap_debug.dds");
-		loadTexture(debugTexturePath.c_str());
+		loadTexture(debugTexturePath.c_str(), false);
 	}
 
   // depth buffer
@@ -258,7 +258,7 @@ void Direct3D11GraphicsInterface::clearActiveRenderTargets(const Color4& color) 
   }
 }
 
-unsigned int Direct3D11GraphicsInterface::loadTexture(const std::string& filePath) {
+unsigned int Direct3D11GraphicsInterface::loadTexture(const std::string& filePath, bool isDynamicMemory) {
 
   D3DX11_IMAGE_INFO fileInfo;
   ZeroMemory(&fileInfo, sizeof(D3DX11_IMAGE_INFO));
@@ -266,8 +266,32 @@ unsigned int Direct3D11GraphicsInterface::loadTexture(const std::string& filePat
   HRESULT result;
   D3DX11GetImageInfoFromFile(filePath.c_str(), NULL, &fileInfo, &result); 
 
+	D3DX11_IMAGE_LOAD_INFO loadInfo;
+	ZeroMemory(&loadInfo, sizeof(D3DX11_IMAGE_LOAD_INFO));
+
+	loadInfo.BindFlags = D3DX11_DEFAULT;
+	loadInfo.CpuAccessFlags = D3DX11_DEFAULT;
+	loadInfo.Depth = D3DX11_DEFAULT;
+	loadInfo.Filter = D3DX11_DEFAULT;
+	loadInfo.FirstMipLevel = D3DX11_DEFAULT;
+	loadInfo.Format = DXGI_FORMAT_FROM_FILE;
+	loadInfo.Height = D3DX11_DEFAULT;
+	loadInfo.MipFilter = D3DX11_DEFAULT;
+	loadInfo.MipLevels = D3DX11_DEFAULT;
+	loadInfo.MiscFlags = D3DX11_DEFAULT;
+	//loadInfo.pSrcInfo = D3DX11_DEFAULT;
+	loadInfo.Width = D3DX11_DEFAULT;
+	loadInfo.Usage = (D3D11_USAGE)D3DX11_DEFAULT;
+	loadInfo.CpuAccessFlags = D3DX11_DEFAULT;
+
+	if (isDynamicMemory) {
+		loadInfo.Usage = D3D11_USAGE_DYNAMIC;
+		loadInfo.CpuAccessFlags = D3D11_CPU_ACCESS_WRITE;
+		loadInfo.MipLevels = 1;
+	}
+
   ID3D11Resource* texture;
-  D3DX11CreateTextureFromFile(device_, filePath.c_str(), NULL, NULL, &texture, &result);
+  D3DX11CreateTextureFromFile(device_, filePath.c_str(), &loadInfo, NULL, &texture, &result);
   assert(result == S_OK);
 
   D3D11_SHADER_RESOURCE_VIEW_DESC resourceViewDesc;
@@ -333,7 +357,7 @@ void Direct3D11GraphicsInterface::resetGraphicsState(bool cullBack) {
   }
 }
 
-unsigned int Direct3D11GraphicsInterface::createTexture(const CSize& dimensions, IGraphicsInterface::TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int pitch) {
+unsigned int Direct3D11GraphicsInterface::createTexture(const CSize& dimensions, IGraphicsInterface::TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int pitch, bool isDynamic) {
   D3D11_SUBRESOURCE_DATA data;
   ZeroMemory(&data, sizeof(D3D11_SUBRESOURCE_DATA));
   data.pSysMem = textureData;
@@ -370,6 +394,13 @@ unsigned int Direct3D11GraphicsInterface::createTexture(const CSize& dimensions,
   textureDesc.MiscFlags = D3D11_RESOURCE_MISC_GENERATE_MIPS;
   textureDesc.SampleDesc.Count = multisamples;
   textureDesc.SampleDesc.Quality = multisamples > 1 ? D3D11_STANDARD_MULTISAMPLE_PATTERN : 0;
+
+	if (isDynamic) {
+		textureDesc.Usage = D3D11_USAGE_DYNAMIC;
+		textureDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+		textureDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+		textureDesc.MiscFlags = 0;
+	}
 
   ID3D11Texture2D* texture;
   if (!textureData) {
@@ -663,4 +694,13 @@ TextureInfo Direct3D11GraphicsInterface::textureInfo(unsigned int textureId) {
   info.height = texture.height;
 
   return info;
+}
+
+void Direct3D11GraphicsInterface::setTextureData(unsigned int textureId, const void* textureData, unsigned int dataSize) {
+	DirectXTexture texture = textures_[textureId];
+
+	D3D11_MAPPED_SUBRESOURCE subResource;
+	context_->Map(texture.textureData, NULL, D3D11_MAP_WRITE_DISCARD, 0, &subResource);
+	memcpy(subResource.pData, textureData, dataSize);
+	context_->Unmap(texture.textureData, NULL);
 }

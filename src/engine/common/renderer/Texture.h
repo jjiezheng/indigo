@@ -21,6 +21,8 @@ public:
 public:
   
   unsigned int textureId() const;
+
+	void setTextureId(unsigned int textureId);
     
 private:
   
@@ -29,6 +31,10 @@ private:
 
 inline unsigned int Texture::textureId() const {
   return textureId_;
+}
+
+inline void Texture::setTextureId(unsigned int textureId) {
+	textureId_ = textureId;
 }
 
 #endif

@@ -40,7 +40,7 @@ public:
   
 public:
 
-	void setMaterialCallback(const std::string& materialName, Material::MaterialCallback callback);
+	void setMaterialCallback(const std::string& materialName, Material::MaterialCallback callback, void* userData);
 
 public:
 

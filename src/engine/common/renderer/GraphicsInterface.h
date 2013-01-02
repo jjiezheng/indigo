@@ -96,6 +96,8 @@ public:
 
   static unsigned int loadTexture(const char* filePath);
 
+	static unsigned int loadTexture(const char* filePath, bool isDynamicMemory);
+
   static unsigned int createTexture(const CSize& dimensions);
 
   static unsigned int createTexture(const CSize& dimensions, IGraphicsInterface::TextureFormat textureFormat);
@@ -104,7 +106,11 @@ public:
 
   static unsigned int createTexture(const CSize& dimensions, IGraphicsInterface::TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels);
 
-  static unsigned int createTexture(const CSize& dimensions, IGraphicsInterface::TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize);
+  static unsigned int createTexture(const CSize& dimensions, IGraphicsInterface::TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int pitch);
+
+	static unsigned int createTexture(const CSize& dimensions, IGraphicsInterface::TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int pitch, bool isDynamic);
+
+	static void setTextureData(unsigned int textureId, const void* textureData, unsigned int dataSize);
 
   static TextureInfo textureInfo(unsigned int textureId);
 

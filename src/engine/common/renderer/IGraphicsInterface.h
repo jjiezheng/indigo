@@ -22,6 +22,10 @@ class IGraphicsInterface {
 
 public:
 
+	static const unsigned int R8G8B8A8_SIZE = sizeof(float) * 4;
+
+public:
+
   enum TextureFormat {
     R8G8B8A8,
     R16G16B16A16,
@@ -95,9 +99,11 @@ public:
 
 public:
 
-  virtual unsigned int loadTexture(const std::string& filePath) = 0;
+  virtual unsigned int loadTexture(const std::string& filePath, bool isDynamicMemory) = 0;
 
-  virtual unsigned int createTexture(const CSize& dimensions, TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize) = 0;
+  virtual unsigned int createTexture(const CSize& dimensions, TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize, bool isDynamic) = 0;
+
+	virtual void setTextureData(unsigned int textureId, const void* textureData, unsigned int dataSize) = 0;
 
   virtual TextureInfo textureInfo(unsigned int textureId) = 0;
 

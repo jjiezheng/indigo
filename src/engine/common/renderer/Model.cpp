@@ -23,8 +23,8 @@ Model* Model::modelFromFile(const std::string& modelFilePath) {
   return model;
 }
 
-void Model::setMaterialCallback(const std::string& materialName, Material::MaterialCallback callback) {
+void Model::setMaterialCallback(const std::string& materialName, Material::MaterialCallback callback, void* userData) {
 	for (std::vector<Mesh>::iterator i = meshes_.begin(); i != meshes_.end(); ++i) {
-		(*i).setMaterialCallback(materialName, callback);
+		(*i).setMaterialCallback(materialName, callback, userData);
 	}
 }

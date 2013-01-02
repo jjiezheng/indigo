@@ -59,7 +59,11 @@ void GraphicsInterface::clearActiveColorBuffers(const Color4& clearColor) {
 }
 
 unsigned int GraphicsInterface::loadTexture(const char* filePath) {
-  return graphicsInterface_->loadTexture(filePath);
+  return loadTexture(filePath, false);
+}
+
+unsigned int GraphicsInterface::loadTexture(const char* filePath, bool isDynamicMemory) {
+	return graphicsInterface_->loadTexture(filePath, isDynamicMemory);
 }
 
 void GraphicsInterface::setRenderState(bool cullBack) {
@@ -84,7 +88,11 @@ unsigned int GraphicsInterface::createTexture(const CSize& dimensions, IGraphics
 }
 
 unsigned int GraphicsInterface::createTexture(const CSize& dimensions, IGraphicsInterface::TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int pitch) {
-  return graphicsInterface_->createTexture(dimensions, textureFormat, multisamples, mipLevels, textureData, pitch);
+  return createTexture(dimensions, textureFormat, multisamples, mipLevels, textureData, pitch, false);
+}
+
+unsigned int GraphicsInterface::createTexture(const CSize& dimensions, IGraphicsInterface::TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int pitch, bool isDynamic) {
+	return graphicsInterface_->createTexture(dimensions, textureFormat, multisamples, mipLevels, textureData, pitch, isDynamic);
 }
 
 void GraphicsInterface::setRenderTarget(unsigned int renderTargetId, bool useDepthBuffer) { 
@@ -185,5 +193,9 @@ Vector2 GraphicsInterface::halfScreenPixel() {
 
 TextureInfo GraphicsInterface::textureInfo(unsigned int textureId) {
   return graphicsInterface_->textureInfo(textureId);
+}
+
+void GraphicsInterface::setTextureData(unsigned int textureId, const void* textureData, unsigned int dataSize) {
+	graphicsInterface_->setTextureData(textureId, textureData, dataSize);
 }
 

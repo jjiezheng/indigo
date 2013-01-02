@@ -58,9 +58,11 @@ public:
 
 public:
 
-  unsigned int loadTexture(const std::string& filePath);
+  unsigned int loadTexture(const std::string& filePath, bool isDynamicMemory);
 
-  unsigned int createTexture(const CSize& dimensions, IGraphicsInterface::TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize);
+  unsigned int createTexture(const CSize& dimensions, IGraphicsInterface::TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize, bool isDynamic);
+
+	void setTextureData(unsigned int textureId, const void* textureData, unsigned int dataSize);
 
   TextureInfo textureInfo(unsigned int textureId);
 

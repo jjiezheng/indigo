@@ -23,11 +23,12 @@ public:
 
 private:
 
-	static void LiquidMaterialUpdate(Material* material);
+	static void LiquidMaterialUpdate(Material* material, void* userData);
 
 private:
 
 	Model* model_;
+	CSize textureSize_;
 
 	unsigned int textureId_;
 

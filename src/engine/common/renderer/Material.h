@@ -19,7 +19,7 @@ class Material {
 
 public:
 
-	typedef void (*MaterialCallback)(Material* material);
+	typedef void (*MaterialCallback)(Material* material, void* userData);
 
 public:
 
@@ -32,6 +32,8 @@ public:
   void bind(const Matrix4x4& projection, const Matrix4x4& view, const Matrix4x4& model, IEffect* effect);
   
   void addTexture(const std::string& type, const Texture& texture);
+
+	void setTexture(const std::string& type, unsigned int textureId);
 
   void setEffect(IEffect* effect);
 
@@ -53,7 +55,7 @@ public:
 
 public:
 
-	void setCallback(MaterialCallback callback);
+	void setCallback(MaterialCallback callback, void* userData);
   
 private:
   
@@ -61,6 +63,7 @@ private:
   std::map<std::string, Texture> textures_;
 
 	MaterialCallback callback_;
+	void* callbackUserData_;
   
   IEffect* effect_;
 
@@ -87,8 +90,9 @@ inline std::string Material::name() const {
 	return name_;
 }
 
-inline void Material::setCallback(MaterialCallback callback) {
+inline void Material::setCallback(MaterialCallback callback, void* userData) {
 	callback_ = callback;
+	callbackUserData_ = userData;
 }
 
 #endif

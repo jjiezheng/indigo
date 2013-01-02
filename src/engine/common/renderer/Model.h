@@ -24,7 +24,7 @@ public:
 
   void visit(hash_map<IEffect*, std::vector<Mesh*> >& meshes);
 
-	void setMaterialCallback(const std::string& materialName, Material::MaterialCallback callback);
+	void setMaterialCallback(const std::string& materialName, Material::MaterialCallback callback, void* userData);
   
   void setLocalToWorld(const Matrix4x4& localToWorld);
 

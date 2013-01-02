@@ -16,7 +16,7 @@
 void Material::bind(const Matrix4x4& projection, const Matrix4x4& view, const Matrix4x4& model, IEffect* effect) {  
 
 	if (NULL != callback_) {
-		(callback_)(this);
+		(callback_)(this, callbackUserData_);
 	}
 
   effect->setUniform(model, "World");
@@ -89,4 +89,9 @@ void Material::setParameter(const std::string& name, float parameter) {
 		MaterialParameter* param = new FloatMaterialParameter(name, parameter);
 		parameters_[name] = param;
 	}
+}
+
+void Material::setTexture(const std::string& type, unsigned int textureId) {
+	Texture* texture = &textures_[type];
+	texture->setTextureId(textureId);
 }
