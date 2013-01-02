@@ -59,11 +59,7 @@ void GraphicsInterface::clearActiveColorBuffers(const Color4& clearColor) {
 }
 
 unsigned int GraphicsInterface::loadTexture(const char* filePath) {
-  return loadTexture(filePath, false);
-}
-
-unsigned int GraphicsInterface::loadTexture(const char* filePath, bool isDynamicMemory) {
-	return graphicsInterface_->loadTexture(filePath, isDynamicMemory);
+  return graphicsInterface_->loadTexture(filePath);
 }
 
 void GraphicsInterface::setRenderState(bool cullBack) {

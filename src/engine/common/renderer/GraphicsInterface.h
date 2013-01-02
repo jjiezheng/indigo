@@ -96,8 +96,6 @@ public:
 
   static unsigned int loadTexture(const char* filePath);
 
-	static unsigned int loadTexture(const char* filePath, bool isDynamicMemory);
-
   static unsigned int createTexture(const CSize& dimensions);
 
   static unsigned int createTexture(const CSize& dimensions, IGraphicsInterface::TextureFormat textureFormat);

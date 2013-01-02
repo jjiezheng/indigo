@@ -9,7 +9,7 @@ void Cauldron::init() {
 	model_->setMaterialCallback("liquid_material", LiquidMaterialUpdate, this);
 	textureSize_ = CSize(128, 128);
 
-	textureId_ = GraphicsInterface::createTexture(textureSize_, IGraphicsInterface::R8G8B8A8, 1, 1, NULL, 128 * sizeof(float), true);
+	textureId_ = GraphicsInterface::createTexture(textureSize_, IGraphicsInterface::R8G8B8A8, 1, 1, NULL, 128 * sizeof(int), true);
 
 	solver_.setGridSize(128);
 }
@@ -21,8 +21,13 @@ void Cauldron::update(float dt) {
 // 	const float* densityData = solver_.density();
 // 	unsigned int densitySize = IGraphicsInterface::R8G8B8A8_SIZE * textureSize_.width * textureSize_.height;
 
-	unsigned int colors = 128 * 128 * sizeof(float);
-	float* bla = new float[colors];
+	unsigned int colors = 128 * 128 * sizeof(int);
+  int* bla = new int[colors];
+  memset(bla, 0, colors);
+
+  for (unsigned int i = 0; i < colors; i++) {
+    bla[i] = 0xFFFFFFFF;
+  }
 
 	GraphicsInterface::setTextureData(textureId_, bla, colors);
 }

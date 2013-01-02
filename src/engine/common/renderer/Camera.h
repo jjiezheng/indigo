@@ -64,6 +64,10 @@ public:
 
 public:
 
+  void setIsPlayerControlled(bool isPlayerControlled);
+
+public:
+
   bool insideFrustum(const Vector3& point, float radius);
 
 public:
@@ -134,6 +138,10 @@ inline float Camera::fov() const {
 
 inline float Camera::aspectRatio() const {
 	return aspectRatio_;
+}
+
+inline void Camera::setIsPlayerControlled(bool isPlayerControlled) {
+  isPlayerControlled_ = isPlayerControlled;
 }
 
 #endif

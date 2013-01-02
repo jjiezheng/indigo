@@ -99,7 +99,7 @@ public:
 
 public:
 
-  virtual unsigned int loadTexture(const std::string& filePath, bool isDynamicMemory) = 0;
+  virtual unsigned int loadTexture(const std::string& filePath) = 0;
 
   virtual unsigned int createTexture(const CSize& dimensions, TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize, bool isDynamic) = 0;
 

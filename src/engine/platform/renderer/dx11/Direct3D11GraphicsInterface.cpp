@@ -59,7 +59,7 @@ void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, in
 	// default texture
 	{
 		std::string debugTexturePath = Path::pathForFile("debug/mipmap_debug.dds");
-		loadTexture(debugTexturePath.c_str(), false);
+		loadTexture(debugTexturePath.c_str());
 	}
 
   // depth buffer
@@ -258,7 +258,7 @@ void Direct3D11GraphicsInterface::clearActiveRenderTargets(const Color4& color) 
   }
 }
 
-unsigned int Direct3D11GraphicsInterface::loadTexture(const std::string& filePath, bool isDynamicMemory) {
+unsigned int Direct3D11GraphicsInterface::loadTexture(const std::string& filePath) {
 
   D3DX11_IMAGE_INFO fileInfo;
   ZeroMemory(&fileInfo, sizeof(D3DX11_IMAGE_INFO));
@@ -283,12 +283,6 @@ unsigned int Direct3D11GraphicsInterface::loadTexture(const std::string& filePat
 	loadInfo.Width = D3DX11_DEFAULT;
 	loadInfo.Usage = (D3D11_USAGE)D3DX11_DEFAULT;
 	loadInfo.CpuAccessFlags = D3DX11_DEFAULT;
-
-	if (isDynamicMemory) {
-		loadInfo.Usage = D3D11_USAGE_DYNAMIC;
-		loadInfo.CpuAccessFlags = D3D11_CPU_ACCESS_WRITE;
-		loadInfo.MipLevels = 1;
-	}
 
   ID3D11Resource* texture;
   D3DX11CreateTextureFromFile(device_, filePath.c_str(), &loadInfo, NULL, &texture, &result);

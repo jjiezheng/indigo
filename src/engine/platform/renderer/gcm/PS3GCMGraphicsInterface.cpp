@@ -291,7 +291,7 @@ IEffect* PS3GCMGraphicsInterface::createEffect() {
   return new PS3GCMCGEffect();
 }
 
-unsigned int PS3GCMGraphicsInterface::createTexture(const CSize& dimensions, TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize) {
+unsigned int PS3GCMGraphicsInterface::createTexture(const CSize& dimensions, TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize, bool isDynamic) {
   
   CellGcmTexture texture;
   memset(&texture, 0, sizeof(CellGcmTexture));
@@ -620,4 +620,10 @@ TextureInfo PS3GCMGraphicsInterface::textureInfo(unsigned int textureId) {
   info.height = texture.height;
 
   return info;
+}
+
+void PS3GCMGraphicsInterface::setTextureData(unsigned int textureId, const void* textureData, unsigned int dataSize) {
+  CellGcmTexture texture = textures_[textureId];
+  uint32_t textureAddress = local_mem_heap + texture.offset;
+  memcpy((void*)textureAddress, textureData, dataSize);
 }

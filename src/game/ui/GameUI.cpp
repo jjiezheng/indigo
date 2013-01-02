@@ -9,8 +9,8 @@
 void GameUI::init(IRenderChannelInfoService* renderChannelInfoService) {
   ui_.init(GraphicsInterface::backBufferSize());
 
-  UIMouse* uiMouse = UIMouse::mouse("ui/aero_arrow.png");
-  ui_.addControl(uiMouse);
+//   UIMouse* uiMouse = UIMouse::mouse("ui/aero_arrow.png");
+//   ui_.addControl(uiMouse);
 
   FPSStats* fpsStats = FPSStats::stats();
   ui_.addControl(fpsStats);
