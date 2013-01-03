@@ -108,7 +108,7 @@ public:
 
 	static unsigned int createTexture(const CSize& dimensions, IGraphicsInterface::TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int pitch, bool isDynamic);
 
-	static void setTextureData(unsigned int textureId, const void* textureData, unsigned int dataSize);
+	static void setTextureData(unsigned int textureId, const void* textureData, const CSize& textureDimensions, unsigned int texturePitch);
 
   static TextureInfo textureInfo(unsigned int textureId);
 
@@ -135,10 +135,6 @@ public:
 public:
 
   static IGraphicsInterface* rawInterface();
-
-public:
-
-  static void fillTexture(unsigned int textureId, void* data, unsigned int dataSize);
 
 private:
 

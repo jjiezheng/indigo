@@ -23,11 +23,19 @@ public:
 public:
 
   CSize operator * (int scalar) const;
+
+public:
+
+	int square() const;
   
 };
 
 inline CSize CSize::operator * (int scalar) const {
   return CSize(width * scalar, height * scalar);
+}
+
+inline int CSize::square() const {
+	return width * height;
 }
 
 #endif

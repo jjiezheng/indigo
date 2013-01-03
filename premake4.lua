@@ -142,7 +142,7 @@ project "game"
 		}
 
 	configuration { "vs*", "x32" }
-		defines     { "_CRT_SECURE_NO_WARNINGS" }
+		defines     { "_CRT_SECURE_NO_WARNINGS", "_WIN32" }
 		links {
 			"d3dcompiler",
 			"dxguid",

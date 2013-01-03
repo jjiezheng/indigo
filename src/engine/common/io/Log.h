@@ -13,7 +13,10 @@ extern const char* LOG_CHANNEL_RENDERER;
 extern const char* LOG_CHANNEL_INPUT;
 
 void DLOG(const char* channel, const char* fmt, ...);
+void DLOGRAW(const char* fmt, ...);
+
 void RLOG(const char* channel, const char* fmt, ...);
+void RLOGRAW(const char* fmt, ...);
 
 #ifdef _DEBUG
 #define DEBUG 1
@@ -21,8 +24,10 @@ void RLOG(const char* channel, const char* fmt, ...);
 
 #ifdef DEBUG 
   #define LOG DLOG
+	#define LOGRAW DLOGRAW
 #else
   #define LOG RLOG
+	#define LOGRAW RLOGRAW
 #endif
 
 #endif

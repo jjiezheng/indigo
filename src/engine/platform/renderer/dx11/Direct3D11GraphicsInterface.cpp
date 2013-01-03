@@ -495,9 +495,6 @@ void Direct3D11GraphicsInterface::generateMipMaps(unsigned int textureId) {
   context_->GenerateMips(resourceView);
 }
 
-void Direct3D11GraphicsInterface::fillTexture(unsigned int textureId, void* data, unsigned int dataSize) {
-}
-
 void Direct3D11GraphicsInterface::beginPerformanceEvent(const std::string& eventName) {
 #ifdef PROFILING
   int stringLength = MultiByteToWideChar(CP_ACP, 0, eventName.data(), eventName.length(), 0, 0);
@@ -671,7 +668,6 @@ void Direct3D11GraphicsInterface::disableSmoothing() {
 
 }
 
-
 Vector2 Direct3D11GraphicsInterface::halfScreenPixel() const {
 	return Vector2(0, 0);
 }
@@ -690,11 +686,22 @@ TextureInfo Direct3D11GraphicsInterface::textureInfo(unsigned int textureId) {
   return info;
 }
 
-void Direct3D11GraphicsInterface::setTextureData(unsigned int textureId, const void* textureData, unsigned int dataSize) {
+void Direct3D11GraphicsInterface::setTextureData(unsigned int textureId, const void* textureData, const CSize& textureDimensions, unsigned int texturePitch) {
 	DirectXTexture texture = textures_[textureId];
 
 	D3D11_MAPPED_SUBRESOURCE subResource;
-	context_->Map(texture.textureData, NULL, D3D11_MAP_WRITE_DISCARD, 0, &subResource);
-	memcpy(subResource.pData, textureData, dataSize);
+
+	HRESULT result = context_->Map(texture.textureData, NULL, D3D11_MAP_WRITE_DISCARD, NULL, &subResource);
+	assert(SUCCEEDED(result));
+
+	unsigned int resourceOffset = 0;
+	unsigned int textureOffset = 0;
+
+	for (int y = 0; y < textureDimensions.height; y++) {
+		memcpy(resourceOffset + (BYTE*)subResource.pData, textureOffset + (BYTE*)textureData, texturePitch);
+		resourceOffset += subResource.RowPitch;
+		textureOffset += texturePitch;
+	}
+	
 	context_->Unmap(texture.textureData, NULL);
 }

@@ -3,6 +3,7 @@
 
 #include "core/Size.h"
 
+class Point;
 class Vector2;
 
 class NavierStokesSimulation {
@@ -11,10 +12,12 @@ public:
 
 	NavierStokesSimulation()
 		: diffuseRate_(1)
-		, solverIterations_(10)
+		, solverIterations_(20)
     , dataSize_(0)
+		, userDataSize_(0)
 		, density_(0)
 		, lastDensity_(0)
+		, userDensity_(0)
 		, velocityX_(0)
 		, lastVelocityX_(0)
 		, velocityY_(0)
@@ -28,9 +31,15 @@ public:
 
 public:
 
-	void addDensity(const Vector2& location);
+	void addDensity(const Point& location, float densityAmount);
 
 	const float* density() const;
+
+	void setDiffuseRate(float diffuseRate);
+
+public:
+
+	void setVelocity(const Point& gridPosition, const Vector2& velocity);
 
 public:
 
@@ -59,9 +68,12 @@ private:
 	unsigned int solverIterations_;
 
 	unsigned int dataSize_;
+	unsigned int userDataSize_;
 
 	float* density_;
 	float* lastDensity_;
+
+	float* userDensity_;
 
 	float* velocityX_;
 	float* lastVelocityX_;
@@ -73,11 +85,11 @@ private:
 };
 
 inline unsigned int NavierStokesSimulation::gridIndex(unsigned int x, unsigned int y) {
-	return y * gridSize_.width + x;
+	return y * (gridSize_.width + 2) + x;
 }
 
-inline const float* NavierStokesSimulation::density() const {
-	return density_;
+inline void NavierStokesSimulation::setDiffuseRate(float diffuseRate) {
+	diffuseRate_ = diffuseRate;
 }
 
 #endif

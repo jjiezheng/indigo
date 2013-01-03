@@ -5,6 +5,7 @@
 #include "memory/Allocation.h"
 
 #include "maths/Vector2.h"
+#include "maths/Point.h"
 
 void NavierStokesSimulation::update(float dt) {
 	updateDensity(dt);
@@ -13,7 +14,13 @@ void NavierStokesSimulation::update(float dt) {
 void NavierStokesSimulation::setGridSize(const CSize& gridSize) {
 	gridSize_ = gridSize;
 
-	dataSize_ = (gridSize.width + 2) * (gridSize.height + 2);
+	userDataSize_ = gridSize.width * gridSize.height * sizeof(float);
+
+	SAFE_DELETE_ARRAY(userDensity_);
+	userDensity_ = new float[userDataSize_];
+	ClearMemory(userDensity_, userDataSize_);
+
+	dataSize_ = (gridSize.width + 2) * (gridSize.height + 2) * sizeof(float);
 	
 	SAFE_DELETE_ARRAY(density_);
 	density_ = new float[dataSize_];
@@ -44,11 +51,11 @@ void NavierStokesSimulation::setGridSize(const CSize& gridSize) {
 	ClearMemory(sourceData_, dataSize_);
 }
 
-void NavierStokesSimulation::addDensity(const Vector2& location) {
+void NavierStokesSimulation::addDensity(const Point& location, float densityAmount) {
 	assert(location.x < gridSize_.width && location.y < gridSize_.width);
 
-	unsigned int arrayIndex = (unsigned int )location.x + (unsigned int )location.y * gridSize_.width;
-	sourceData_[arrayIndex] = 1.0f;
+	unsigned int arrayIndex = gridIndex(location.x + 1, location.y + 1);
+	sourceData_[arrayIndex] = densityAmount;
 }
 
 void NavierStokesSimulation::updateDensity(float dt) {
@@ -58,8 +65,9 @@ void NavierStokesSimulation::updateDensity(float dt) {
 
 void NavierStokesSimulation::addSources(float dt) {
 	for (unsigned int i = 0; i < dataSize_; i++) {
-		density_[i] = sourceData_[i] * dt;
+		lastDensity_[i] += sourceData_[i] * dt;
 	}
+	ClearMemory(sourceData_, dataSize_);
 }
 
 void NavierStokesSimulation::diffuseDensity(float dt) {
@@ -70,18 +78,22 @@ void NavierStokesSimulation::diffuseDensity(float dt) {
 		setBoundaries();
 	}
 
+	memcpy(lastDensity_, density_, dataSize_);
+
 	advectDensity(dt);
+
+	memcpy(lastDensity_, density_, dataSize_);
 }
 
 void NavierStokesSimulation::iterateDensityGaussSeidel(float a) {
-	for (unsigned int x = 1; x < (unsigned int)gridSize_.width; x++) {
-		for (unsigned int y = 1; y < (unsigned int)gridSize_.height; y++) {
+	for (unsigned int x = 1; x <= (unsigned int)gridSize_.width; x++) {
+		for (unsigned int y = 1; y <= (unsigned int)gridSize_.height; y++) {
 
 			unsigned int leftDataIndex   = gridIndex(x - 1, y    );
 			unsigned int rightDataIndex  = gridIndex(x + 1, y    );
 			unsigned int centerDataIndex = gridIndex(x    , y    );
-			unsigned int upDataIndex     = gridIndex(x    , y + 1);
-			unsigned int downDataIndex   = gridIndex(x    , y - 1);
+			unsigned int upDataIndex     = gridIndex(x    , y - 1);
+			unsigned int downDataIndex   = gridIndex(x    , y + 1);
 
 			float leftDensity = density_[leftDataIndex];				
 			float rightDensity = density_[rightDataIndex];
@@ -92,34 +104,43 @@ void NavierStokesSimulation::iterateDensityGaussSeidel(float a) {
 
 			float lastDensity = lastDensity_[centerDataIndex];
 
-			float newDensity = (lastDensity + a * surroundingDensity) / (1 + 4 * a);
+			float newDensity = (lastDensity + a * surroundingDensity) / (1.0f + 4.0f * a);
 			density_[centerDataIndex] = newDensity;
 		}
 	}
 }
 
 void NavierStokesSimulation::setBoundaries() {
-	for (unsigned int x = 1; x < (unsigned int)gridSize_.width; x++) {
 
-	}
+	for (int i = 1; i < gridSize_.height; i++) {
+		unsigned int farLeftWallGridIndex = gridIndex(0, i);
+		unsigned int leftWallGridIndex = gridIndex(1, i);
+		density_[farLeftWallGridIndex] = density_[leftWallGridIndex];
 
-	for (unsigned int y = 1; y < (unsigned int)gridSize_.height; y++) {
+		unsigned int farRightWallGridIndex = gridIndex(gridSize_.width + 1, i);
+		unsigned int rightWallGridIndex = gridIndex(gridSize_.width, i);
+		density_[farRightWallGridIndex] = density_[rightWallGridIndex];
 
+		unsigned int farTopWallGridIndex = gridIndex(0, i);
+		unsigned int topWallGridIndex = gridIndex(1, i);
+		density_[farTopWallGridIndex] = density_[topWallGridIndex];
+
+		unsigned int farBottomWallGridIndex = gridIndex(0, i);
+		unsigned int bottomWallGridIndex = gridIndex(gridSize_.width + 1, i);
+		density_[farBottomWallGridIndex] = density_[bottomWallGridIndex];
 	}
 }
 
 void NavierStokesSimulation::advectDensity(float dt) {
+	float dt0 = dt * gridSize_.width;
 	for (unsigned int i = 1; i < (unsigned int)gridSize_.width; i++) {
 		for (unsigned int j = 1; j < (unsigned int)gridSize_.height; j++) {
 
-			unsigned int velocityIndex = gridIndex(i, j);
+			unsigned int dataIndex = gridIndex(i, j);
 
-			// derive velocity back in time
-			float velocityX = velocityX_[velocityIndex];
-			float x = i - dt * velocityX;
-
-			float velocityY = velocityY_[velocityIndex];
-			float y = i - dt * velocityY;
+			// derive X velocity back in time
+			float velocityX = velocityX_[dataIndex];
+			float x = i - dt0 * velocityX;
 
 			// calculate left/right grid coords
 			float leftThreshold = 0.5f;
@@ -128,8 +149,13 @@ void NavierStokesSimulation::advectDensity(float dt) {
 			float rightThreshold = gridSize_.width + 0.5f;
 			if (x > rightThreshold) x = rightThreshold;
 
-			int gridCoordXL = (int)x;
-			int gridCoordXR = gridCoordXL + 1;
+			int gridCoordX0 = (int)x;
+			int gridCoordX1 = gridCoordX0 + 1;
+
+			// derive Y velocity back in time
+
+			float velocityY = velocityY_[dataIndex];
+			float y = j - dt0 * velocityY;
 
 			// calculate top/bottom grid coords
 			float topThreshold = 0.5f;
@@ -138,33 +164,52 @@ void NavierStokesSimulation::advectDensity(float dt) {
 			float bottomThreshold = gridSize_.height + 0.5f;
 			if (y > bottomThreshold) y = bottomThreshold;
 
-			int gridCoordYT = (int)y;
-			int gridCoordYB = gridCoordYT + 1;
+			int gridCoordY0 = (int)y;
+			int gridCoordY1 = gridCoordY0 + 1;
 
 			// get interpolated coordinates through the grid
-			float s1 = x - (int)gridCoordXL;
+			float s1 = x - (int)gridCoordX0;
 			float s0 = 1.0f - s1;
 
-			float t1 = y - gridCoordYT;
+			float t1 = y - gridCoordY0;
 			float t0 = 1.0f - t1;
 
 			// grab surrounding densities from back in time
-			unsigned int densityTopLeftIndex = gridIndex(gridCoordXL, gridCoordYT);
+			unsigned int densityTopLeftIndex = gridIndex(gridCoordX0, gridCoordY0);
 			float densityTopLeft = lastDensity_[densityTopLeftIndex];
 
-			unsigned int densityTopRightIndex = gridIndex(gridCoordXR, gridCoordYT);
-			float densityTopRight = lastDensity_[densityTopRightIndex];
-
-			unsigned int densityBottomLeftIndex = gridIndex(gridCoordXL, gridCoordYB);
+			unsigned int densityBottomLeftIndex = gridIndex(gridCoordX0, gridCoordY1);
 			float densityBottomLeft = lastDensity_[densityBottomLeftIndex];
 
-			unsigned int densityBottomRightIndex = gridIndex(gridCoordXR, gridCoordYB);
+			unsigned int densityTopRightIndex = gridIndex(gridCoordX1, gridCoordY0);
+			float densityTopRight = lastDensity_[densityTopRightIndex];
+
+			unsigned int densityBottomRightIndex = gridIndex(gridCoordX1, gridCoordY1);
 			float densityBottomRight = lastDensity_[densityBottomRightIndex];
 
 			// store the result
-			density_[velocityIndex] = s0 * (t0 * densityTopLeft + t1 * densityBottomLeft) + s1 * (t0 * densityTopRight + t1 * densityBottomRight);
+			float newDensity = s0 * (t0 * densityTopLeft + t1 * densityBottomLeft) + s1 * (t0 * densityTopRight + t1 * densityBottomRight);
+			density_[dataIndex] = newDensity;
 		}
 	}
 
 	setBoundaries();
+}
+
+const float* NavierStokesSimulation::density() const {
+	ClearMemory(userDensity_, userDataSize_);
+	unsigned int userDensityOffset = 0;
+	unsigned int densityOffset = 2 + gridSize_.width + 1;
+	for (int y = 0; y < gridSize_.height; y++) {
+		memcpy(userDensityOffset + userDensity_, densityOffset + density_, gridSize_.width * sizeof(float));
+		densityOffset += gridSize_.width + 2;
+		userDensityOffset += gridSize_.width;
+	}
+	return userDensity_;
+}
+
+void NavierStokesSimulation::setVelocity(const Point& gridPosition, const Vector2& velocity) {
+	unsigned int dataIndex = gridIndex(gridPosition.x, gridPosition.y);
+	velocityX_[dataIndex] = velocity.x;
+	velocityY_[dataIndex] = velocity.y;
 }

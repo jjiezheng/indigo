@@ -1,6 +1,6 @@
 //Maya ASCII 2013ff10 scene
 //Name: cauldron.ma
-//Last modified: Wed, Dec 19, 2012 01:38:06 PM
+//Last modified: Thu, Jan 03, 2013 04:24:32 PM
 //Codeset: 1252
 requires maya "2013ff10";
 currentUnit -l centimeter -a degree -t film;
@@ -12,7 +12,7 @@ fileInfo "osv" "Microsoft Windows 7 Enterprise Edition, 64-bit Windows 7 Service
 createNode transform -s -n "persp";
 	setAttr ".v" no;
 	setAttr ".t" -type "double3" -2.0768990491966881 9.006445281626176 -3.7794728140992686 ;
-	setAttr ".r" -type "double3" -68.138352729577605 194.59999999998266 0 ;
+	setAttr ".r" -type "double3" -68.138352729577605 194.59999999998263 0 ;
 createNode camera -s -n "perspShape" -p "persp";
 	setAttr -k off ".v" no;
 	setAttr ".fl" 34.999999999999993;
@@ -14917,7 +14917,7 @@ createNode polyCylinder -n "polyCylinder1";
 createNode transformGeometry -n "transformGeometry1";
 	setAttr ".txf" -type "matrix" 1 0 0 0 0 9.9999999999999998e-013 0 0 0 0 1.0000000000000002 0
 		 0.0073880083520579511 2.5175085959058525 -0.011082012528108831 1;
-createNode lambert -n "liquid_material";
+createNode lambert -n "fluid_material";
 createNode shadingEngine -n "lambert2SG";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
@@ -14933,13 +14933,28 @@ createNode file -n "file1";
 createNode place2dTexture -n "place2dTexture1";
 createNode polyTweakUV -n "polyTweakUV1";
 	setAttr ".uopa" yes;
-	setAttr -s 84 ".uvtk[62:83]" -type "float2" 0.26892316 -0.4309347 0.22875971
-		 -0.50975996 0.16620368 -0.57231599 0.087378442 -0.61247945 0 -0.62631875 -0.087378442
-		 -0.61247945 -0.16620365 -0.57231593 -0.22875962 -0.50975984 -0.26892304 -0.4309347
-		 -0.28276244 -0.34355614 -0.26892304 -0.2561779 -0.22875962 -0.17735279 -0.16620359
-		 -0.11479676 -0.087378383 -0.0746333 0 -0.060793996 0.087378323 -0.0746333 0.16620362
-		 -0.11479676 0.22875965 -0.17735279 0.26892304 -0.2561779 0.28276241 -0.34355614 0
-		 0 0 -0.3548668;
+	setAttr -s 23 ".uvtk";
+	setAttr ".uvtk[62]" -type "float2" 0.26892316 -0.4309347 ;
+	setAttr ".uvtk[63]" -type "float2" 0.22875971 -0.50975996 ;
+	setAttr ".uvtk[64]" -type "float2" 0.16620368 -0.57231599 ;
+	setAttr ".uvtk[65]" -type "float2" 0.087378442 -0.61247945 ;
+	setAttr ".uvtk[66]" -type "float2" 0 -0.62631875 ;
+	setAttr ".uvtk[67]" -type "float2" -0.087378442 -0.61247945 ;
+	setAttr ".uvtk[68]" -type "float2" -0.16620365 -0.57231593 ;
+	setAttr ".uvtk[69]" -type "float2" -0.22875962 -0.50975984 ;
+	setAttr ".uvtk[70]" -type "float2" -0.26892304 -0.4309347 ;
+	setAttr ".uvtk[71]" -type "float2" -0.28276244 -0.34355614 ;
+	setAttr ".uvtk[72]" -type "float2" -0.26892304 -0.2561779 ;
+	setAttr ".uvtk[73]" -type "float2" -0.22875962 -0.17735279 ;
+	setAttr ".uvtk[74]" -type "float2" -0.16620359 -0.11479676 ;
+	setAttr ".uvtk[75]" -type "float2" -0.087378383 -0.0746333 ;
+	setAttr ".uvtk[76]" -type "float2" 0 -0.060793996 ;
+	setAttr ".uvtk[77]" -type "float2" 0.087378323 -0.0746333 ;
+	setAttr ".uvtk[78]" -type "float2" 0.16620362 -0.11479676 ;
+	setAttr ".uvtk[79]" -type "float2" 0.22875965 -0.17735279 ;
+	setAttr ".uvtk[80]" -type "float2" 0.26892304 -0.2561779 ;
+	setAttr ".uvtk[81]" -type "float2" 0.28276241 -0.34355614 ;
+	setAttr ".uvtk[83]" -type "float2" 0 -0.3548668 ;
 select -ne :time1;
 	setAttr ".o" 1;
 	setAttr ".unw" 1;
@@ -14991,12 +15006,12 @@ connectAttr "potShape.iog" "PottermorePewterCauldronSG1.dsm" -na;
 connectAttr "PottermorePewterCauldronSG1.msg" "materialInfo2.sg";
 connectAttr "pot_material.msg" "materialInfo2.m";
 connectAttr "polyCylinder1.out" "transformGeometry1.ig";
-connectAttr "file1.oc" "liquid_material.c";
-connectAttr "file1.ot" "liquid_material.it";
-connectAttr "liquid_material.oc" "lambert2SG.ss";
+connectAttr "file1.oc" "fluid_material.c";
+connectAttr "file1.ot" "fluid_material.it";
+connectAttr "fluid_material.oc" "lambert2SG.ss";
 connectAttr "liquidShape.iog" "lambert2SG.dsm" -na;
 connectAttr "lambert2SG.msg" "materialInfo3.sg";
-connectAttr "liquid_material.msg" "materialInfo3.m";
+connectAttr "fluid_material.msg" "materialInfo3.m";
 connectAttr "file1.msg" "materialInfo3.t" -na;
 connectAttr "place2dTexture1.c" "file1.c";
 connectAttr "place2dTexture1.tf" "file1.tf";
@@ -15021,7 +15036,7 @@ connectAttr "PottermorePewterCauldronSG.pa" ":renderPartition.st" -na;
 connectAttr "PottermorePewterCauldronSG1.pa" ":renderPartition.st" -na;
 connectAttr "lambert2SG.pa" ":renderPartition.st" -na;
 connectAttr "pot_material.msg" ":defaultShaderList1.s" -na;
-connectAttr "liquid_material.msg" ":defaultShaderList1.s" -na;
+connectAttr "fluid_material.msg" ":defaultShaderList1.s" -na;
 connectAttr "file1.msg" ":defaultTextureList1.tx" -na;
 connectAttr "place2dTexture1.msg" ":defaultRenderUtilityList1.u" -na;
 connectAttr "defaultRenderLayer.msg" ":defaultRenderingList1.r" -na;

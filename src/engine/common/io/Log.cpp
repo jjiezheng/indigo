@@ -42,6 +42,23 @@ void DLOG(const char* channel, const char* format, ...) {
 
   OutputDebugStringA(buffer);
 }
+
+void DLOGRAW(const char* format, ...) {
+  va_list args;
+  va_start(args, format);
+
+  int length = _vscprintf(format, args) + 1; // _vscprintf doesn't count terminating '\0'
+
+  unsigned int bufferSize = (length * sizeof(char)) + 1;
+  char* buffer = (char*)malloc(bufferSize);
+  vsprintf_s(buffer, length, format, args);
+  va_end(args);
+
+  std::clog << buffer;
+
+  OutputDebugStringA(buffer);
+};
+
 #else
 void DLOG(const char* channel, const char* fmt, ...) {
   printf("%s: ", channel);
@@ -52,7 +69,15 @@ void DLOG(const char* channel, const char* fmt, ...) {
   va_end(args);
   printf("\n");
 };
+
+void DLOGRAW(const char* fmt, ...) {
+  va_list args;
+  va_start(args, fmt);
+  vfprintf(stdout, fmt, args);
+  va_end(args);
+};
 #endif
 
-void RLOG(const char* channel, const char* fmt, ...) {
-}
+void RLOG(const char* channel, const char* fmt, ...) { }
+
+void RLOGRAW(const char* fmt, ...) { }

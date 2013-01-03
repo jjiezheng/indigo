@@ -19,7 +19,7 @@ class Material {
 
 public:
 
-	typedef void (*MaterialCallback)(Material* material, void* userData);
+	typedef void (*MaterialCallback)(Material* material, IEffect* effect, void* userData);
 
 public:
 

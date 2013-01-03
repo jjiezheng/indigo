@@ -6,6 +6,7 @@
 
 class Model;
 class Material;
+class IEffect;
 
 class Cauldron : public IActor {
 
@@ -13,6 +14,8 @@ public:
 
 	Cauldron(Model* model)
 		: model_(model)
+		, textureId_(0)
+		, colorData_(0)
 	{ }
 
 public:
@@ -23,15 +26,17 @@ public:
 
 private:
 
-	static void LiquidMaterialUpdate(Material* material, void* userData);
+	static void LiquidMaterialUpdate(Material* material, IEffect* effect, void* userData);
 
 private:
 
 	Model* model_;
-	CSize textureSize_;
-
+	
 	unsigned int textureId_;
+	float* colorData_;
+	unsigned int colorDataSize_;
 
+	CSize textureSize_;
 	NavierStokesSimulation solver_;
 
 };

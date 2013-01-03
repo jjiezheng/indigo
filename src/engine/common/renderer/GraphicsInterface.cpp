@@ -131,10 +131,6 @@ void GraphicsInterface::generateMipMaps(unsigned int textureId) {
   graphicsInterface_->generateMipMaps(textureId);
 }
 
-void GraphicsInterface::fillTexture(unsigned int textureId, void* data, unsigned int dataSize) {
-  graphicsInterface_->fillTexture(textureId, data, dataSize);
-}
-
 void GraphicsInterface::beginPerformanceEvent(const std::string& eventName) {
 #ifndef MASTER
   graphicsInterface_->beginPerformanceEvent(eventName);
@@ -191,7 +187,7 @@ TextureInfo GraphicsInterface::textureInfo(unsigned int textureId) {
   return graphicsInterface_->textureInfo(textureId);
 }
 
-void GraphicsInterface::setTextureData(unsigned int textureId, const void* textureData, unsigned int dataSize) {
-	graphicsInterface_->setTextureData(textureId, textureData, dataSize);
+void GraphicsInterface::setTextureData(unsigned int textureId, const void* textureData, const CSize& textureDimensions, unsigned int texturePitch) {
+	graphicsInterface_->setTextureData(textureId, textureData, textureDimensions, texturePitch);
 }
 

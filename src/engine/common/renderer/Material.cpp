@@ -16,7 +16,7 @@
 void Material::bind(const Matrix4x4& projection, const Matrix4x4& view, const Matrix4x4& model, IEffect* effect) {  
 
 	if (NULL != callback_) {
-		(callback_)(this, callbackUserData_);
+		(callback_)(this, effect, callbackUserData_);
 	}
 
   effect->setUniform(model, "World");

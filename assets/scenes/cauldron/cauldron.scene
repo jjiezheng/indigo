@@ -7,19 +7,11 @@
     "terrain": [],
     "objects": [
         {
-            "model": "actors/cauldron/cauldron.modelbinary",
+            "model": "actors/fluid_plane/fluid_plane.modelbinary",
             "actor" : "Cauldron",
             "position": {
                 "x": 0.0,
                 "y": -0.1,
-                "z": 0
-            }
-        },
-        {
-            "model": "actors/floor/floor.modelbinary",
-            "position": {
-                "x": 0,
-                "y": 0,
                 "z": 0
             }
         }
@@ -45,10 +37,10 @@
           "decay" : 0.2,
           "length" : 30,
           "intensity" : 1.0,
-          "castsshadows" : true,
+          "castsshadows" : false,
           "position" : {
-            "x" : 5,
-            "y" : 5,
+            "x" : 0,
+            "y" : 0,
             "z" : 5
           },
           "orientation" : {
@@ -62,8 +54,8 @@
             "b" : 1.0
           },
           "direction" : {
-            "x" : -1.0,
-            "y" : -1.0,
+            "x" : 0.0,
+            "y" : 0.0,
             "z" : -1.0
           }
         }
