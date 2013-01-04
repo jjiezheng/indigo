@@ -34,8 +34,8 @@ void Game::init(const char* sceneFile) {
   camera_.setProjection(45.0f, GraphicsInterface::aspectRatio(), 1.0f, 500);
 
   if (sceneFile) {
-    WorldLoader loader; 
-    loader.loadFromSceneFile(sceneFile, world_, sceneContext_, actorFactory_);
+		WorldLoader loader; 
+		loader.loadFromSceneFile(sceneFile, world_, sceneContext_, actorFactory_);
   }
 
   
@@ -52,6 +52,9 @@ void Game::mainLoop() {
 	world_.update(dt);
   
 	renderer_.render(&camera_, world_, sceneContext_);
+	
+	world_.debugRender();
+
   ui_.render();
 }
 
@@ -63,6 +66,7 @@ void Game::keyUp(int keyCode) {
 }
 
 void Game::destroy() {
+	ui_.destroy();
   renderer_.destroy();
   world_.destroy();
 }

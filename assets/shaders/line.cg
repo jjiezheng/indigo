@@ -1,0 +1,15 @@
+uniform float4x4 ModelViewProjection;
+
+struct VOutput {
+	float4 position		: POSITION;
+};
+
+VOutput vs(float4 position : POSITION) {
+	VOutput OUT;
+	OUT.position = mul(ModelViewProjection, position);
+ 	return OUT;
+}
+
+float4 ps(float4 position		: POSITION) : COLOR0 {
+	return float4(1, 0, 0, 1);
+}

@@ -3,6 +3,7 @@
 #include "IDeferredRenderTargetContainer.h"
 
 #include "IEffect.h"
+#include "EffectCache.h"
 #include "Geometry.h"
 
 #include "SpotLight.h"
@@ -14,7 +15,7 @@
 void DeferredGodRaysPass::init(const CSize& screenSize) {
   godRaysTexture_ = GraphicsInterface::createTexture(GraphicsInterface::backBufferSize(), IGraphicsInterface::R8G8B8A8);
   godRaysRenderTarget_ = GraphicsInterface::createRenderTarget(godRaysTexture_);
-  godRaysEffect_ = IEffect::effectFromFile("shaders/compiled/deferred_god_rays.shader");
+  godRaysEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_god_rays.shader");
 
   quadVbo_ = Geometry::screenPlane();
 }

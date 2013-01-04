@@ -1,5 +1,6 @@
 #include "Vector2.h"
 #include <sstream>
+#include <math.h>
 
 #include "Point.h"
 
@@ -18,4 +19,34 @@ std::string Vector2::toString() const {
   std::stringstream ss;
   ss << x << " " << y;
   return ss.str();
+}
+
+Vector2 Vector2::normalize() const {
+	float length = this->length();
+	length = length ? length : 1.0f;
+	return Vector2(x / length, y / length);
+}
+
+void Vector2::normalizeIP() {
+	float length = this->length();
+	length = length ? length : 1.0f;
+	x = x / length;
+	y = y / length;
+}
+
+
+float Vector2::length() const {
+	return sqrt(x * x + y * y);
+}
+
+float Vector2::angleBetween(const Vector2& other) const {
+	float dotProduct = dot(other);
+
+	float aLength = length();
+	float bLength = other.length();
+	float lengths = aLength * bLength;
+
+	float cosAngle = dotProduct / lengths;
+	float angle = acos(cosAngle);
+	return angle;
 }

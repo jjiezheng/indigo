@@ -1,11 +1,15 @@
 #include "FPSStats.h"
 
 #include <sstream>
-#include <stdio.h>
 
 #include "core/Clock.h"
+#include "memory/Allocation.h"
 
 #include "Label.h"
+
+FPSStats::~FPSStats() {
+	SAFE_DELETE(fpsLabel_);
+}
 
 FPSStats* FPSStats::stats() {
 	FPSStats* control = new FPSStats();

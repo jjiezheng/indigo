@@ -41,8 +41,8 @@ Font FntFileParser::parseFile(const std::string& filePath) {
           filePath.append(fileName);
           std::string fullFilePath = Path::pathForFile(filePath);
 
-          unsigned int textureId = GraphicsInterface::loadTexture(fullFilePath.c_str());
-          font.setTexture(textureId);
+					unsigned int textureId = GraphicsInterface::loadTexture(fullFilePath.c_str());
+					font.setTexture(textureId);
         }
       }
     }

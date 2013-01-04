@@ -3,6 +3,7 @@
 #include "ui/FPSStats.h"
 #include "ui/RenderChannelInfo.h"
 #include "ui/UIMouse.h"
+#include "ui/UILine.h"
 
 #include "renderer/GraphicsInterface.h"
 
@@ -15,8 +16,8 @@ void GameUI::init(IRenderChannelInfoService* renderChannelInfoService) {
   FPSStats* fpsStats = FPSStats::stats();
   ui_.addControl(fpsStats);
 
-  RenderChannelInfo* renderChannelInfo = RenderChannelInfo::info(renderChannelInfoService);
-  ui_.addControl(renderChannelInfo);
+	RenderChannelInfo* renderChannelInfo = RenderChannelInfo::info(renderChannelInfoService);
+	ui_.addControl(renderChannelInfo);
 }
 
 void GameUI::render() {
@@ -25,4 +26,8 @@ void GameUI::render() {
 
 void GameUI::update(float dt) {
   ui_.update(dt);
+}
+
+void GameUI::destroy() {
+	ui_.destroy();
 }

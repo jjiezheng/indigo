@@ -34,6 +34,8 @@ public:
   static Matrix4x4 perspective(float fovDegrees, float aspect, float znear, float zfar);
   
   static Matrix4x4 orthographic(float left, float right, float bottom, float top, float near, float far);
+
+	static Matrix4x4 orthographic_screen(float left, float right, float bottom, float top, float near, float far);
   
 public:
   

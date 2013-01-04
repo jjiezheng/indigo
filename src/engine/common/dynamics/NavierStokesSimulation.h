@@ -20,8 +20,10 @@ public:
 		, userDensity_(0)
 		, velocityX_(0)
 		, lastVelocityX_(0)
+		, userVelocityX_(0)
 		, velocityY_(0)
 		, lastVelocityY_(0)
+		, userVelocityY_(0)
 		, sourceData_(0)
 	{ }
 
@@ -33,9 +35,15 @@ public:
 
 	void addDensity(const Point& location, float densityAmount);
 
-	const float* density() const;
+	const float* density();
 
 	void setDiffuseRate(float diffuseRate);
+
+public:
+
+	const float* velocityX();
+
+	const float* velocityY();
 
 public:
 
@@ -52,6 +60,10 @@ private:
 	void iterateDensityGaussSeidel(float a);
 	void setBoundaries();
 	void advectDensity(float dt);
+
+private:
+
+	void copyUserArray(float* in, float* out);
 
 private:
 
@@ -78,8 +90,12 @@ private:
 	float* velocityX_;
 	float* lastVelocityX_;
 
+	float* userVelocityX_;
+
 	float* velocityY_;
 	float* lastVelocityY_;
+
+	float* userVelocityY_;
 
 	float* sourceData_;
 };

@@ -95,10 +95,29 @@ Matrix4x4 Matrix4x4::orthographic(float left, float right, float bottom, float t
   float f = zfar;
 
   return Matrix4x4(
-    2.0f / (r - l),  0,                 0,                -1,
-    0,               2.0f / (t - b) ,   0,                -1,
-    0,               0,                -2.0f / (n - f),   0,
+    2.0f / (r - l),  0,                 0,               -1,
+    0,               -(2.0f / (t - b)), 0,                1,
+    0,               0,                 -2.0f / (n - f),  0,
     0,               0,                 0,                1);  
+}
+
+Matrix4x4 Matrix4x4::orthographic_screen(float left, float right, float bottom, float top, float znear, float zfar) {
+	float w = right / 2.0f;
+	float h = top / 2.0f;
+
+	float l = -w;
+	float r = w;
+	float t = h;
+	float b = -h;
+
+	float n = znear;
+	float f = zfar;
+
+	return Matrix4x4(
+		2.0f / (r - l),  0,                 0,                -1,
+		0,               2.0f / (t - b) ,   0,                -1,
+		0,               0,                -2.0f / (n - f),   0,
+		0,               0,                 0,                1);  
 }
 
 Matrix4x4::Matrix4x4()

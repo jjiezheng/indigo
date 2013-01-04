@@ -3,7 +3,8 @@
 
 enum VertexFormat {
   TRIANGLE_LIST,
-  TRIANGLE_STRIP
+  TRIANGLE_STRIP,
+	LINE_LIST
 };
 
 #endif

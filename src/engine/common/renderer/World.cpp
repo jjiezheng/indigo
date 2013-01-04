@@ -7,3 +7,9 @@ void World::update(float dt) {
 		(*i)->update(dt);
 	}
 }
+
+void World::debugRender() {
+	for (std::vector<IActor*>::iterator i = actors_.begin(); i != actors_.end(); ++i) {
+		(*i)->debugRender();
+	}
+}

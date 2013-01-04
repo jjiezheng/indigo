@@ -1,12 +1,13 @@
 #include "SkyDome.h"
 
 #include "IEffect.h"
+#include "EffectCache.h"
 #include "Model.h"
 #include "Texture.h"
 #include "Material.h"
 
 void SkyDome::load(const std::string& skyDomeModelPath) {
-  skyEffect_ = IEffect::effectFromFile("cgfx/colormap.hlsl");
+  skyEffect_ = EffectCache::instance()->loadEffect("cgfx/colormap.hlsl");
   skyDomeModel_ = Model::modelFromFile(skyDomeModelPath);
 }
 

@@ -1,5 +1,6 @@
 #include "DeferredCompositionPass.h"
 
+#include "EffectCache.h"
 #include "IEffect.h"
 
 #include "VertexDefinition.h"
@@ -10,7 +11,7 @@
 #include "Geometry.h"
 
 void DeferredCompositionPass::init() {
-  finalEffect_ = IEffect::effectFromFile("cgfx/deferred_final_composition.hlsl");
+  finalEffect_ = EffectCache::instance()->loadEffect("cgfx/deferred_final_composition.hlsl");
   quadVbo_ = Geometry::screenPlane();
 }
 

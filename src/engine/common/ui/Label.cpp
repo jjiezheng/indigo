@@ -3,6 +3,7 @@
 #include "EffectCache.h"
 
 #include "io/FntFileParser.h"
+#include "memory/Allocation.h"
 
 #include "maths/Matrix4x4.h"
 #include "maths/Vector4.h"

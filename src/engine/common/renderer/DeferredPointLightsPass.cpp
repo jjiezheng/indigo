@@ -4,6 +4,7 @@
 #include "WorldLoader.h"
 
 #include "IEffect.h"
+#include "EffectCache.h"
 #include "Model.h"
 
 #include "PointLight.h"
@@ -11,7 +12,7 @@
 #include "IViewer.h"
 
 void DeferredPointLightsPass::init() {
-  pointLightEffect_ = IEffect::effectFromFile("cgfx/deferred_lighting_point_light.hlsl");
+  pointLightEffect_ = EffectCache::instance()->loadEffect("cgfx/deferred_lighting_point_light.hlsl");
 
   pointLightModel_ = new Model();
   WorldLoader().loadModel(pointLightModel_, "debug/sphere.model");

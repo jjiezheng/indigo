@@ -14,8 +14,14 @@ public:
 
 	Cauldron(Model* model)
 		: model_(model)
-		, textureId_(0)
+		, drawVelocity_(false)
+		, densityTextureId_(0)
+		, velocityTextureId_(0)
 		, colorData_(0)
+		, colorDataSize_(0)
+		, velocityEffect_(0)
+		, lineVBO_(0)
+		, velocityRenderTarget_(0)
 	{ }
 
 public:
@@ -24,6 +30,12 @@ public:
 
 	void update(float dt);
 
+	void debugRender();
+
+public:
+
+	void setDrawVelocity(bool drawVelocity);
+
 private:
 
 	static void LiquidMaterialUpdate(Material* material, IEffect* effect, void* userData);
@@ -31,14 +43,29 @@ private:
 private:
 
 	Model* model_;
+
+	bool drawVelocity_;
 	
-	unsigned int textureId_;
+	unsigned int densityTextureId_;
+	unsigned int velocityTextureId_;
+
 	float* colorData_;
 	unsigned int colorDataSize_;
 
 	CSize textureSize_;
 	NavierStokesSimulation solver_;
 
+private:
+
+	IEffect* velocityEffect_;
+	unsigned int lineVBO_;
+	unsigned int velocityRenderTarget_;
+	CSize velocityTextureSize_;
+
 };
+
+inline void Cauldron::setDrawVelocity(bool drawVelocity) {
+	drawVelocity_ = drawVelocity;
+}
 
 #endif

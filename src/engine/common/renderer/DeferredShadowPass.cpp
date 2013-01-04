@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "IEffect.h"
+#include "EffectCache.h"
 
 #include "GraphicsInterface.h"
 #include "SpotLight.h"
@@ -18,8 +19,8 @@
 #include "IViewer.h"
 
 void DeferredShadowPass::init() {
-  shadowMapEffect_ = IEffect::effectFromFile("cgfx/deferred_depth.cgfx");
-  shadowLightEffect_ = IEffect::effectFromFile("cgfx/deferred_lighting_shadow_light.cgfx");
+  shadowMapEffect_ = EffectCache::instance()->loadEffect("cgfx/deferred_depth.cgfx");
+  shadowLightEffect_ = EffectCache::instance()->loadEffect("cgfx/deferred_lighting_shadow_light.cgfx");
   quadVbo_ = Geometry::screenPlane();
 }
 

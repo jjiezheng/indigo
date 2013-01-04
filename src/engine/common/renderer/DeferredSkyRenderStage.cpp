@@ -2,6 +2,7 @@
 
 #include "IDeferredRenderTargetContainer.h"
 #include "IEffect.h"
+#include "EffectCache.h"
 #include "IViewer.h"
 #include "Geometry.h"
 #include "Color4.h"
@@ -13,7 +14,7 @@ void DeferredSkyRenderStage::init(const CSize &screenSize) {
   skyRenderTexture_ = GraphicsInterface::createTexture(screenSize);
   skyRenderTarget_ = GraphicsInterface::createRenderTarget(skyRenderTexture_);
 
-  compositeEffect_ = IEffect::effectFromFile("cgfx/composite.hlsl");
+  compositeEffect_ = EffectCache::instance()->loadEffect("cgfx/composite.hlsl");
 
   quadVBO_ = Geometry::screenPlane();
 }

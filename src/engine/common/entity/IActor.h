@@ -13,6 +13,8 @@ public:
 
 	virtual void update(float dt) = 0;
 
+	virtual void debugRender() = 0;
+
 };
 
 #endif

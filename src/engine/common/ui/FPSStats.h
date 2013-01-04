@@ -9,6 +9,10 @@ class FPSStats : public Control {
 
 public:
 
+	~FPSStats();
+
+public:
+
 	static FPSStats* stats();
 
 private:

@@ -38,6 +38,10 @@ void NavierStokesSimulation::setGridSize(const CSize& gridSize) {
 	lastVelocityX_ = new float[dataSize_];
 	ClearMemory(lastVelocityX_, dataSize_);
 
+	SAFE_DELETE_ARRAY(userVelocityX_);
+	userVelocityX_ = new float[dataSize_];
+	ClearMemory(userVelocityX_, dataSize_);
+
 	SAFE_DELETE_ARRAY(velocityY_);
 	velocityY_ = new float[dataSize_];
 	ClearMemory(velocityY_, dataSize_);
@@ -45,6 +49,10 @@ void NavierStokesSimulation::setGridSize(const CSize& gridSize) {
 	SAFE_DELETE_ARRAY(lastVelocityY_);
 	lastVelocityY_ = new float[dataSize_];
 	ClearMemory(lastVelocityY_, dataSize_);
+
+	SAFE_DELETE_ARRAY(userVelocityY_);
+	userVelocityY_ = new float[dataSize_];
+	ClearMemory(userVelocityY_, dataSize_);
 
 	SAFE_DELETE_ARRAY(sourceData_);
 	sourceData_ = new float[dataSize_];
@@ -196,20 +204,34 @@ void NavierStokesSimulation::advectDensity(float dt) {
 	setBoundaries();
 }
 
-const float* NavierStokesSimulation::density() const {
-	ClearMemory(userDensity_, userDataSize_);
-	unsigned int userDensityOffset = 0;
-	unsigned int densityOffset = 2 + gridSize_.width + 1;
-	for (int y = 0; y < gridSize_.height; y++) {
-		memcpy(userDensityOffset + userDensity_, densityOffset + density_, gridSize_.width * sizeof(float));
-		densityOffset += gridSize_.width + 2;
-		userDensityOffset += gridSize_.width;
-	}
-	return userDensity_;
-}
-
 void NavierStokesSimulation::setVelocity(const Point& gridPosition, const Vector2& velocity) {
 	unsigned int dataIndex = gridIndex(gridPosition.x, gridPosition.y);
 	velocityX_[dataIndex] = velocity.x;
 	velocityY_[dataIndex] = velocity.y;
+}
+
+const float* NavierStokesSimulation::density() {
+	copyUserArray(density_, userDensity_);
+	return userDensity_;
+}
+
+const float* NavierStokesSimulation::velocityX() {
+	copyUserArray(velocityX_, userVelocityX_);
+	return userVelocityX_;
+}
+
+const float* NavierStokesSimulation::velocityY() {
+	copyUserArray(velocityY_, userVelocityY_);
+	return userVelocityY_;
+}
+
+void NavierStokesSimulation::copyUserArray(float* in, float* out) {
+	ClearMemory(out, userDataSize_);
+	unsigned int userOffset = 0;
+	unsigned int offset = 2 + gridSize_.width + 1;
+	for (int y = 0; y < gridSize_.height; y++) {
+		memcpy(userOffset + out, offset + in, gridSize_.width * sizeof(float));
+		offset += gridSize_.width + 2;
+		userOffset += gridSize_.width;
+	}
 }

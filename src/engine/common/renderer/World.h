@@ -25,6 +25,8 @@ public:
 public:
 
 	void update(float dt);
+
+	void debugRender();
   
 public:
   

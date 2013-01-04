@@ -10,6 +10,9 @@ VertexFormat Geometry::SCREEN_PLANE_VERTEX_FORMAT = TRIANGLE_LIST;
 int Geometry::FONT_PLANE_VERTEX_COUNT = 6;
 VertexFormat Geometry::FONT_PLANE_VERTEX_FORMAT = TRIANGLE_LIST;
 
+int Geometry::LINE_VERTEX_COUNT = 2;
+VertexFormat Geometry::LINE_VERTEX_FORMAT = LINE_LIST;
+
 unsigned int Geometry::screenPlane() {
   VertexDef quadVertices[6];
   quadVertices[0].vertex = Vector3(-1.0f, -1.0f, 0.0f);
@@ -71,4 +74,21 @@ unsigned int Geometry::fontCharacter(const CSize& characterSize, const CSize& uv
 
   GraphicsInterface::VertexBuffer vbo = GraphicsInterface::createVertexBuffer(quadVertices, FONT_PLANE_VERTEX_COUNT);
   return vbo;
+}
+
+unsigned int Geometry::line() {
+	VertexDef lineVertices[2];
+
+	lineVertices[0].vertex = Vector3(0.0f, 1.0f,	0.0f);
+	lineVertices[1].vertex = Vector3(0.0f, 0.0f,	0.0f);
+
+	lineVertices[0].uv = Vector2(0.0f, 0.0f);
+	lineVertices[1].uv = Vector2(0.0f, 0.0f);
+
+	lineVertices[0].normal = Vector3(0.0f, 0.0f, 1.0f);
+	lineVertices[1].normal = Vector3(0.0f, 0.0f, 1.0f);
+
+	GraphicsInterface::VertexBuffer vbo = GraphicsInterface::createVertexBuffer(lineVertices, LINE_VERTEX_COUNT);
+
+	return vbo;
 }

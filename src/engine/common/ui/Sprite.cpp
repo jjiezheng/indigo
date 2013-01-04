@@ -2,6 +2,7 @@
 
 #include "renderer/GraphicsInterface.h"
 #include "renderer/IEffect.h"
+#include "renderer/EffectCache.h"
 
 #include "maths/Matrix4x4.h"
 #include "maths/Vector4.h"
@@ -19,7 +20,7 @@ Sprite* Sprite::fromFile(const std::string& spriteFilePath) {
 void Sprite::init(const std::string& spriteFilePath) {
   textureId_ = GraphicsInterface::loadTexture(spriteFilePath.c_str());
   vertexBuffer_ = Geometry::screenPlane();
-  effect_ = IEffect::effectFromFile("shaders/compiled/sprite.shader");
+	effect_ = EffectCache::instance()->loadEffect("shaders/compiled/sprite.shader");
   effect_->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_NONE);
 }
 
@@ -38,7 +39,7 @@ void Sprite::render(const Matrix4x4& projection) {
   effect_->setUniform(modelProjection, "ModelProjection");
   effect_->setTexture(textureId_, "ColorMap");
 
-  GraphicsInterface::resetRenderTarget(true);
+  GraphicsInterface::resetRenderTarget(false);
   GraphicsInterface::setBlendState(IGraphicsInterface::ALPHA);
 
   effect_->beginDraw();

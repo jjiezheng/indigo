@@ -5,6 +5,7 @@
 
 #include "Color4.h"
 #include "IEffect.h"
+#include "EffectCache.h"
 #include "core/String.h"
 
 void GaussianBlur::init(const CSize& bufferSize, int tapSize) {
@@ -21,10 +22,10 @@ void GaussianBlur::init(const CSize& bufferSize, int tapSize) {
   quadVbo_ = Geometry::screenPlane();
 
   String horizontalFilename = String::withFormat("shaders/compiled/gaussian_blur_horizontal_%d_tap.shader", tapSize);
-  gaussianBlurHorizontalEffect_ = IEffect::effectFromFile(horizontalFilename.c_str());
+  gaussianBlurHorizontalEffect_ = EffectCache::instance()->loadEffect(horizontalFilename.c_str());
 
   String verticalFilename = String::withFormat("shaders/compiled/gaussian_blur_vertical_%d_tap.shader", tapSize);
-  gaussianBluVerticalEffect_ = IEffect::effectFromFile(verticalFilename.c_str());
+  gaussianBluVerticalEffect_ = EffectCache::instance()->loadEffect(verticalFilename.c_str());
 }
 
 void GaussianBlur::render(unsigned int sourceTexture) {
