@@ -205,7 +205,7 @@ void NavierStokesSimulation::advectDensity(float dt) {
 }
 
 void NavierStokesSimulation::setVelocity(const Point& gridPosition, const Vector2& velocity) {
-	unsigned int dataIndex = gridIndex(gridPosition.x, gridPosition.y);
+	unsigned int dataIndex = gridIndex(gridPosition.x + 1, gridPosition.y + 1);
 	velocityX_[dataIndex] = velocity.x;
 	velocityY_[dataIndex] = velocity.y;
 }

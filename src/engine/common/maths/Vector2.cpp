@@ -35,10 +35,6 @@ void Vector2::normalizeIP() {
 }
 
 
-float Vector2::length() const {
-	return sqrt(x * x + y * y);
-}
-
 float Vector2::angleBetween(const Vector2& other) const {
 	float dotProduct = dot(other);
 

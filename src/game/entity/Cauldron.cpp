@@ -24,7 +24,7 @@ void Cauldron::init() {
 	velocityTextureSize_ = CSize(256);
 
 	model_->setMaterialCallback("fluid_material", LiquidMaterialUpdate, this);
-	textureSize_ = CSize(64);
+	textureSize_ = CSize(16);
 
 	int textureSquare = textureSize_.square();
 
@@ -34,7 +34,7 @@ void Cauldron::init() {
 
 	densityTextureId_ = GraphicsInterface::createTexture(textureSize_, IGraphicsInterface::R32G32B32A32, 1, 1, colorData_, textureSize_.width * IGraphicsInterface::R32G32B32A32_SIZE,  true);
 	
-	velocityTextureId_ = GraphicsInterface::createTexture(velocityTextureSize_, IGraphicsInterface::R32G32B32A32);
+	velocityTextureId_ = GraphicsInterface::createTexture(velocityTextureSize_, IGraphicsInterface::R8G8B8A8);
 	velocityRenderTarget_ = GraphicsInterface::createRenderTarget(velocityTextureId_);
 
 	solver_.setGridSize(textureSize_);
@@ -100,6 +100,8 @@ void Cauldron::debugRender() {
 		GraphicsInterface::setBlendState(IGraphicsInterface::NOBLEND);
 		GraphicsInterface::setViewport(velocityTextureSize_);
 
+    Matrix4x4 projection = Matrix4x4::orthographic(0.0f, (float)velocityTextureSize_.width, 0.0f, (float)velocityTextureSize_.height, -1.0f, 1.0f);
+
 		for (unsigned int i = 0; i < textureSquare; i++) {
  			float yPositionProj = (float)(i / textureSize_.height);
  			float yPositonUnProj = yPositionProj / textureSize_.height;
@@ -113,11 +115,10 @@ void Cauldron::debugRender() {
  			float velocityY = velocityYData[i];
 
 			Vector2 velocity(velocityX, velocityY);
-			velocity.normalizeIP();
-			Vector2 line(0, 1);
-			float lineAngle = line.angleBetween(velocity);
+ 			velocity.normalizeIP();
+ 			Vector2 line(0, 1);
+ 			float lineAngle = line.angleBetween(velocity);
 			
-			Matrix4x4 projection = Matrix4x4::orthographic(0.0f, (float)velocityTextureSize_.width, 0.0f, (float)velocityTextureSize_.height, -1.0f, 1.0f);
 			Matrix4x4 translation = Matrix4x4::translation(Vector4(xPositon, yPosition, 0, 0));
 
 			Matrix4x4 rotateOffsetZ = Matrix4x4::rotationZ(lineAngle);

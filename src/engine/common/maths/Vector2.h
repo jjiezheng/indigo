@@ -2,6 +2,7 @@
 #define Vector2_H_
 
 #include <string>
+#include <math.h>
 
 class Point;
 
@@ -66,6 +67,10 @@ inline float Vector2::aspectRatio() const {
 
 inline float Vector2::dot(const Vector2& other) const {
 	return x * other.x + y * other.y;
+}
+
+inline float Vector2::length() const {
+  return sqrt(x * x + y * y);
 }
 
 #endif
