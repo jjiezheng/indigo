@@ -47,8 +47,8 @@ void Cauldron::init() {
 					solver_.addDensity(Point(x, y), 100);
 			}
 
-			if (y > textureSize_.height / 2.0f) {
-					solver_.setVelocity(Point(x, y), Vector2(-1, -1));
+			if (y < 1) {
+					solver_.setVelocity(Point(x, y), Vector2(0, -1));
 			}
 		}
 	}
