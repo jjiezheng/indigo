@@ -12,6 +12,8 @@ public:
   static void init();
   
   static Point position();
+
+	static bool isLeftButtonDown();
   
 private:
   

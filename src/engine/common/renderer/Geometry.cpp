@@ -79,14 +79,14 @@ unsigned int Geometry::fontCharacter(const CSize& characterSize, const CSize& uv
 unsigned int Geometry::line() {
 	VertexDef lineVertices[2];
 
-	lineVertices[0].vertex = Vector3(0.0f, 1.0f,	0.0f);
-	lineVertices[1].vertex = Vector3(0.0f, 0.0f,	0.0f);
+	lineVertices[0].vertex = Vector3(0.0f, 0.0f,	0.0f);
+	lineVertices[1].vertex = Vector3(0.0f, 0.0f,	1.0f);
 
 	lineVertices[0].uv = Vector2(0.0f, 0.0f);
 	lineVertices[1].uv = Vector2(0.0f, 0.0f);
 
-	lineVertices[0].normal = Vector3(0.0f, 0.0f, 1.0f);
-	lineVertices[1].normal = Vector3(0.0f, 0.0f, 1.0f);
+	lineVertices[0].normal = Vector3(0.0f, 1.0f, 0.0f);
+	lineVertices[1].normal = Vector3(0.0f, 1.0f, 0.0f);
 
 	GraphicsInterface::VertexBuffer vbo = GraphicsInterface::createVertexBuffer(lineVertices, LINE_VERTEX_COUNT);
 

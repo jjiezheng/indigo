@@ -6,6 +6,7 @@
 #include "input/IKeyboardListener.h"
 
 bool WindowsUtils::keyStates_[256];
+bool WindowsUtils::mouseButtons_[1];
 int WindowsUtils::mouseX_ = 0;
 int WindowsUtils::mouseY_ = 0;
 IKeyboardListener* WindowsUtils::keyboardListener_ = 0;
@@ -110,6 +111,8 @@ bool WindowsUtils::pumpMessages() {
       int x = input.data.mouse.lLastX;
       int y = input.data.mouse.lLastY;
 
+			mouseButtons_[0] = input.data.mouse.ulButtons & RI_MOUSE_LEFT_BUTTON_DOWN;
+
       mouseX_ += x;
       mouseY_ += y;
 
@@ -138,4 +141,8 @@ bool WindowsUtils::getKeyState(int key) {
 void WindowsUtils::getMousePosition(int* x, int* y) {
   *x = mouseX_;
   *y = mouseY_;
+}
+
+bool WindowsUtils::getMouseButton(int buttonId) {
+	return mouseButtons_[buttonId];
 }

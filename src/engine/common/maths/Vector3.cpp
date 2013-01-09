@@ -74,3 +74,29 @@ Vector3 Vector3::inverse() const {
 float Vector3::dot(const Vector3& other) const {
   return x * other.x + y * other.y + z * other.z;
 }
+
+void Vector3::normalizeIP() {
+	float length = this->length();
+	length = length ? length : 1.0f;
+	x = x / length;
+	y = y / length;
+	z = z / length;
+}
+
+float Vector3::angleBetween(const Vector3& other) const {
+	float dotProduct = dot(other);
+
+	float aLength = length();
+	float bLength = other.length();
+	float lengths = aLength * bLength;
+
+	if (lengths == 0) {
+		return 0;
+	}
+
+	lengths = lengths ? lengths : 1.0f;
+
+	float cosAngle = dotProduct / lengths;
+	float angle = acos(cosAngle);
+	return angle;
+}

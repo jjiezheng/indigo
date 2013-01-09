@@ -16,6 +16,10 @@
 
 #include "core/Size.h"
 
+#include <iostream>
+
+#include "input/Mouse.h"
+
 void Cauldron::init() {
 	drawVelocity_ = true;
 	velocityEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/line.shader");
@@ -40,21 +44,17 @@ void Cauldron::init() {
 	solver_.setGridSize(textureSize_);
 	solver_.setDiffuseRate(0.0f);
 
-	for (int x = 0; x < textureSize_.width; x++) {
-		for (int y = 0; y < textureSize_.height; y++) {
-			if (x > textureSize_.width  / 4.0f && x < textureSize_.width  - textureSize_.width  / 4.0f &&
-				  y > textureSize_.height / 4.0f && y < textureSize_.height - textureSize_.height / 4.0f) {
-					solver_.addDensity(Point(x, y), 100);
-			}
-
-			if (y < 1) {
-					solver_.setVelocity(Point(x, y), Vector2(0, -1));
-			}
-		}
-	}
+	int halfWidth = (int)(textureSize_.height/2.0f);
+	int halfHeight = (int)(textureSize_.height/2.0f);
+ 	solver_.addDensity(Point(halfWidth, halfHeight), 100);
 }
 
 void Cauldron::update(float dt) {
+
+	if (Mouse::isLeftButtonDown()) {
+		solver_.setVelocity(Point(0, 0), Vector2(10, 10.0f));
+	}
+
 	solver_.update(0.016f);
 	
 	{
@@ -84,7 +84,7 @@ void Cauldron::update(float dt) {
 void Cauldron::LiquidMaterialUpdate(Material* material, IEffect* effect, void* userData) {
 	Cauldron* cauldron = (Cauldron*)userData;
 	material->setTexture("ColorMap", cauldron->velocityTextureId_);
-	effect->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_NONE);
+	effect->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
 }
 
 void Cauldron::debugRender() {
@@ -95,37 +95,48 @@ void Cauldron::debugRender() {
 		unsigned int textureSquare = textureSize_.square();
 
 		GraphicsInterface::setRenderTarget(velocityRenderTarget_, false);
-		GraphicsInterface::clearActiveColorBuffers(Color4::WHITE);
+		GraphicsInterface::clearActiveColorBuffers(Color4::CORNFLOWERBLUE);
 		GraphicsInterface::setRenderState(true);
 		GraphicsInterface::setBlendState(IGraphicsInterface::NOBLEND);
 		GraphicsInterface::setViewport(velocityTextureSize_);
 
-    Matrix4x4 projection = Matrix4x4::orthographic(0.0f, (float)velocityTextureSize_.width, 0.0f, (float)velocityTextureSize_.height, -1.0f, 1.0f);
+		//Matrix4x4 projection = Matrix4x4::perspective(45.0f, 1.57f, 1.0f, 10.0f);
+    Matrix4x4 projection = Matrix4x4::orthographic(0.0f, (float)velocityTextureSize_.width, 0.0f, (float)velocityTextureSize_.height, -100.0f, 100.0f);
+
+		float xOffsetUnProj = 1.0f / textureSize_.width;
+		float xOffset = (xOffsetUnProj * velocityTextureSize_.width) / 2.0f;
+
+		float yOffsetUnProj = 1.0f / textureSize_.height;
+		float yOffset = (yOffsetUnProj * velocityTextureSize_.height) / 2.0f;
 
 		for (unsigned int i = 0; i < textureSquare; i++) {
  			float yPositionProj = (float)(i / textureSize_.height);
  			float yPositonUnProj = yPositionProj / textureSize_.height;
- 			float yPosition = yPositonUnProj * velocityTextureSize_.height;
+ 			float yPosition = yPositonUnProj * velocityTextureSize_.height + yOffset;
 
 			float xPositonProj = i - yPositionProj * textureSize_.width;
 			float xPositonUnProj = xPositonProj / textureSize_.width;
-			float xPositon = xPositonUnProj * velocityTextureSize_.width;
+			float xPositon = xPositonUnProj * velocityTextureSize_.width + xOffset;
 
- 			float velocityX = velocityXData[i];
- 			float velocityY = velocityYData[i];
+ 			float velocityX = velocityXData[i] * 1000;
+ 			float velocityY = velocityYData[i] * 1000;
+			float velocityZ = 1.0f;
 
-			Vector2 velocity(velocityX, velocityY);
- 			velocity.normalizeIP();
- 			Vector2 line(0, 1);
- 			float lineAngle = line.angleBetween(velocity);
-			
+			Vector3 velocity(velocityX, velocityY, velocityZ);
+			velocity.normalizeIP();
+
+			Vector3 line(0, 0, 1);
+
+			Vector3 axis = line.cross(velocity);
+			axis.normalizeIP();
+
+			float lineDotVelocity = line.dot(velocity);
+			float angle = acos(lineDotVelocity);
+
+			Matrix4x4 rotation = Matrix4x4::rotation(axis, angle);
 			Matrix4x4 translation = Matrix4x4::translation(Vector4(xPositon, yPosition, 0, 0));
-
-			Matrix4x4 rotateOffsetZ = Matrix4x4::rotationZ(lineAngle);
-
-			Matrix4x4 scale = Matrix4x4::scale(Vector4(1, 10, 1, 1));
-
-			Matrix4x4 model = translation * rotateOffsetZ * scale;
+			Matrix4x4 scale = Matrix4x4::scale(Vector4(10, 10, 10, 1));
+			Matrix4x4 model = translation * rotation * scale;
 
 			Matrix4x4 modelProjection = projection * model;
 			velocityEffect_->setUniform(modelProjection, "ModelViewProjection");

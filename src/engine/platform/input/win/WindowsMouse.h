@@ -11,6 +11,8 @@ public:
 
   Point position();
 
+	bool isLeftButtonDown();
+
 };
 
 #endif

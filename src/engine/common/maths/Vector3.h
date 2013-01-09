@@ -29,6 +29,10 @@ public:
 
   Vector3 normalize() const;
 
+	void normalizeIP();
+
+	float angleBetween(const Vector3& other) const;
+
   Vector3 inverse() const;
 
   float length() const;

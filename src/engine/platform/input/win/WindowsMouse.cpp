@@ -12,3 +12,8 @@ Point WindowsMouse::position() {
   return Point(x, y);
 }
 
+bool WindowsMouse::isLeftButtonDown() {
+	bool isDown = WindowsUtils::getMouseButton(0);
+	return isDown;
+}
+

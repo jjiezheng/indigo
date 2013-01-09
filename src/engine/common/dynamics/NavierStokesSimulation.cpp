@@ -7,9 +7,11 @@
 #include "maths/Vector2.h"
 #include "maths/Point.h"
 
+#define SWAP(a,b) {float * tmp=a;a=b;b=tmp;}
+
 void NavierStokesSimulation::update(float dt) {
 	updateDensity(dt);
-  updateVelocity(dt);
+	updateVelocity(dt);
 }
 
 void NavierStokesSimulation::setGridSize(const CSize& gridSize) {
@@ -59,6 +61,10 @@ void NavierStokesSimulation::setGridSize(const CSize& gridSize) {
 	lastVelocityY_ = new float[dataSize_];
 	ClearMemory(lastVelocityY_, dataSize_);
 
+	SAFE_DELETE_ARRAY(intermediaryVelocityY_);
+	intermediaryVelocityY_ = new float[dataSize_];
+	ClearMemory(intermediaryVelocityY_, dataSize_);
+
 	SAFE_DELETE_ARRAY(userVelocityY_);
 	userVelocityY_ = new float[dataSize_];
 	ClearMemory(userVelocityY_, dataSize_);
@@ -75,27 +81,18 @@ void NavierStokesSimulation::addDensity(const Point& location, float densityAmou
 	densitySourceData_[arrayIndex] = densityAmount;
 }
 
-void NavierStokesSimulation::updateDensity(float dt) {
-	addDensitySources(dt);
-	diffuseDensity(dt);
-}
-
-void NavierStokesSimulation::updateVelocity(float dt) {
-  addVelocitySources(dt);
-  diffuseVelocity(dt);
-
-  advectVelocityX(dt);
-  advectVelocityY(dt);
-
-//   memcpy(velocityX_, lastVelocityX_, dataSize_);
-//   memcpy(velocityY_, lastVelocityY_, dataSize_);
-}
-
 void NavierStokesSimulation::addDensitySources(float dt) {
 	for (unsigned int i = 0; i < dataSize_; i++) {
 		lastDensity_[i] += densitySourceData_[i] * dt;
 	}
 	ClearMemory(densitySourceData_, dataSize_);
+}
+
+void NavierStokesSimulation::updateDensity(float dt) {
+	addDensitySources(dt);
+	diffuseDensity(dt);
+
+	memcpy(lastDensity_, density_,dataSize_);
 }
 
 void NavierStokesSimulation::addVelocitySources(float dt) {
@@ -110,46 +107,39 @@ void NavierStokesSimulation::addVelocitySources(float dt) {
   ClearMemory(velocitySourceDataY_, dataSize_);
 }
 
+void NavierStokesSimulation::updateVelocity(float dt) {
+	addVelocitySources(dt);
+ 	diffuseVelocity(dt);
+ 	projectVelocity(dt);
+
+ 	memcpy(intermediaryVelocityY_, velocityY_, dataSize_);
+  advectVelocityY(dt);
+	advectVelocityX(dt);
+ 
+ 	projectVelocity(dt);
+ 
+ 	memcpy(lastVelocityY_, velocityY_, dataSize_);
+}
+
 void NavierStokesSimulation::diffuseDensity(float dt) {
+	ClearMemory(density_, dataSize_);
+
 	float a = dt * diffuseRate_ * gridSize_.width * gridSize_.height;
 
 	for (unsigned int solverIteration = 0; solverIteration < solverIterations_; solverIteration++) {
 		iterateDensityGaussSeidel(a);
 		setDensityBoundaries();
 	}
-
-	memcpy(lastDensity_, density_, dataSize_);
-
-	advectDensity(dt);
-
-	memcpy(lastDensity_, density_, dataSize_);
 }
 
 void NavierStokesSimulation::diffuseVelocity(float dt) {
   float a = dt * viscosity_ * gridSize_.width * gridSize_.height;
 
   for (unsigned int solverIteration = 0; solverIteration < solverIterations_; solverIteration++) {
-    iterateVelocityXGaussSeidel(a);
+    iterateVelocityGaussSeidel(a);
     setVelocityBoundaries();
   }
-
-  for (unsigned int solverIteration = 0; solverIteration < solverIterations_; solverIteration++) {
-    iterateVelocityYGaussSeidel(a);
-    setVelocityBoundaries();
-  }
-
-  memcpy(lastVelocityX_, velocityX_, dataSize_);
-  memcpy(lastVelocityY_, velocityY_, dataSize_);
-
-  advectVelocityX(dt);
-  advectVelocityY(dt);
-
-  memcpy(lastVelocityX_, velocityX_, dataSize_);
-  memcpy(lastVelocityY_, velocityY_, dataSize_);
-
-  //memcpy(lastDensity_, density_, dataSize_);
 }
-
 
 void NavierStokesSimulation::iterateDensityGaussSeidel(float a) {
 	for (unsigned int x = 1; x <= (unsigned int)gridSize_.width; x++) {
@@ -177,7 +167,7 @@ void NavierStokesSimulation::iterateDensityGaussSeidel(float a) {
 	}
 }
 
-void NavierStokesSimulation::iterateVelocityXGaussSeidel(float a) {
+void NavierStokesSimulation::iterateVelocityGaussSeidel(float a) {
   for (unsigned int x = 1; x <= (unsigned int)gridSize_.width; x++) {
     for (unsigned int y = 1; y <= (unsigned int)gridSize_.height; y++) {
 
@@ -201,36 +191,33 @@ void NavierStokesSimulation::iterateVelocityXGaussSeidel(float a) {
       velocityX_[centerDataIndex] = newVelocity;
     }
   }
-}
 
-void NavierStokesSimulation::iterateVelocityYGaussSeidel(float a) {
-  for (unsigned int x = 1; x <= (unsigned int)gridSize_.width; x++) {
-    for (unsigned int y = 1; y <= (unsigned int)gridSize_.height; y++) {
+	for (unsigned int x = 1; x <= (unsigned int)gridSize_.width; x++) {
+		for (unsigned int y = 1; y <= (unsigned int)gridSize_.height; y++) {
 
-      unsigned int leftDataIndex   = gridIndex(x - 1, y    );
-      unsigned int rightDataIndex  = gridIndex(x + 1, y    );
-      unsigned int centerDataIndex = gridIndex(x    , y    );
-      unsigned int upDataIndex     = gridIndex(x    , y - 1);
-      unsigned int downDataIndex   = gridIndex(x    , y + 1);
+			unsigned int leftDataIndex   = gridIndex(x - 1, y    );
+			unsigned int rightDataIndex  = gridIndex(x + 1, y    );
+			unsigned int centerDataIndex = gridIndex(x    , y    );
+			unsigned int upDataIndex     = gridIndex(x    , y - 1);
+			unsigned int downDataIndex   = gridIndex(x    , y + 1);
 
-      float leftVelocity = velocityY_[leftDataIndex];				
-      float rightVelocity = velocityY_[rightDataIndex];
-      float upVelocity = velocityY_[upDataIndex];
-      float downVelocity = velocityY_[downDataIndex];
+			float leftVelocity = velocityY_[leftDataIndex];				
+			float rightVelocity = velocityY_[rightDataIndex];
+			float upVelocity = velocityY_[upDataIndex];
+			float downVelocity = velocityY_[downDataIndex];
 
-      float surroundingVelocity = leftVelocity + rightVelocity + upVelocity + downVelocity;
+			float surroundingVelocity = leftVelocity + rightVelocity + upVelocity + downVelocity;
 
-      float lastVelocity = lastVelocityY_[centerDataIndex];
+			float lastVelocity = lastVelocityY_[centerDataIndex];
 
-      float c = 1.0f + 4.0f * a;
-      float newVelocity = (lastVelocity + a * surroundingVelocity) / c;
-      velocityY_[centerDataIndex] = newVelocity;
-    }
-  }
+			float c = 1.0f + 4.0f * a;
+			float newVelocity = (lastVelocity + a * surroundingVelocity) / c;
+			velocityY_[centerDataIndex] = newVelocity;
+		}
+	}
 }
 
 void NavierStokesSimulation::setDensityBoundaries() {
-
 	for (int i = 1; i < gridSize_.height; i++) {
 		unsigned int farLeftWallGridIndex = gridIndex(0, i);
 		unsigned int leftWallGridIndex = gridIndex(1, i);
@@ -251,7 +238,41 @@ void NavierStokesSimulation::setDensityBoundaries() {
 }
 
 void NavierStokesSimulation::setVelocityBoundaries() {
+	for (int i = 1; i < gridSize_.height; i++) {
+		unsigned int farLeftWallGridIndex = gridIndex(0, i);
+		unsigned int leftWallGridIndex = gridIndex(1, i);
+		velocityX_[farLeftWallGridIndex] = velocityX_[leftWallGridIndex];
 
+		unsigned int farRightWallGridIndex = gridIndex(gridSize_.width + 1, i);
+		unsigned int rightWallGridIndex = gridIndex(gridSize_.width, i);
+		velocityX_[farRightWallGridIndex] = velocityX_[rightWallGridIndex];
+
+		unsigned int farTopWallGridIndex = gridIndex(0, i);
+		unsigned int topWallGridIndex = gridIndex(1, i);
+		velocityX_[farTopWallGridIndex] = velocityX_[topWallGridIndex];
+
+		unsigned int farBottomWallGridIndex = gridIndex(0, i);
+		unsigned int bottomWallGridIndex = gridIndex(gridSize_.width + 1, i);
+		velocityX_[farBottomWallGridIndex] = velocityX_[bottomWallGridIndex];
+	}
+
+	for (int i = 1; i < gridSize_.height; i++) {
+		unsigned int farLeftWallGridIndex = gridIndex(0, i);
+		unsigned int leftWallGridIndex = gridIndex(1, i);
+		velocityY_[farLeftWallGridIndex] = velocityY_[leftWallGridIndex];
+
+		unsigned int farRightWallGridIndex = gridIndex(gridSize_.width + 1, i);
+		unsigned int rightWallGridIndex = gridIndex(gridSize_.width, i);
+		velocityY_[farRightWallGridIndex] = velocityY_[rightWallGridIndex];
+
+		unsigned int farTopWallGridIndex = gridIndex(0, i);
+		unsigned int topWallGridIndex = gridIndex(1, i);
+		velocityY_[farTopWallGridIndex] = velocityY_[topWallGridIndex];
+
+		unsigned int farBottomWallGridIndex = gridIndex(0, i);
+		unsigned int bottomWallGridIndex = gridIndex(gridSize_.width + 1, i);
+		velocityY_[farBottomWallGridIndex] = velocityY_[bottomWallGridIndex];
+	}
 }
 
 
@@ -409,7 +430,7 @@ void NavierStokesSimulation::advectVelocityY(float dt) {
 
       // derive Y velocity back in time
 
-      float velocityY = velocityY_[dataIndex];
+      float velocityY = intermediaryVelocityY_[dataIndex];
       float y = j - dt0 * velocityY;
 
       // calculate top/bottom grid coords
@@ -448,7 +469,7 @@ void NavierStokesSimulation::advectVelocityY(float dt) {
     }
   }
 
-  setVelocityBoundaries();
+  //setVelocityBoundaries();
 }
 
 
@@ -486,11 +507,6 @@ void NavierStokesSimulation::copyUserArray(float* in, float* out) {
 
 void NavierStokesSimulation::projectVelocity(float dt) {
 
-  //div = v0
-  //p = u0
-
-  float h = 1.0f / gridSize_.width;
-
   for (unsigned int i = 1; i < (unsigned int)gridSize_.width; i++) {
     for (unsigned int j = 1; j < (unsigned int)gridSize_.height; j++) {
       unsigned int leftDataIndex   = gridIndex(i - 1, j    );
@@ -504,28 +520,97 @@ void NavierStokesSimulation::projectVelocity(float dt) {
       float upVelocity = velocityY_[upDataIndex];
       float downVelocity = velocityY_[downDataIndex];
 
-      float surroundingVelocity = rightVelocity - leftVelocity + upVelocity - downVelocity;
+      float surroundingVelocity = rightVelocity - leftVelocity + downVelocity - upVelocity;
 
-      lastVelocityY_[centerDataIndex] = -0.5f * h * surroundingVelocity;
+			float newVelocity = -0.5f * surroundingVelocity / gridSize_.width;
+      lastVelocityY_[centerDataIndex] = newVelocity;
       lastVelocityX_[centerDataIndex] = 0;
     }
   }
 
-//   //set_bnd ( N, 0, div ); set_bnd ( N, 0, p );
-//   for ( k=0 ; k<20 ; k++ ) {
-//     for ( i=1 ; i<=N ; i++ ) {
-//       for ( j=1 ; j<=N ; j++ ) {
-//         p[IX(i,j)] = (div[IX(i,j)]+p[IX(i-1,j)]+p[IX(i+1,j)]+p[IX(i,j-1)]+p[IX(i,j+1)])/4;
-//       }
-//     }
-//     //set_bnd ( N, 0, p );
-//   }
-// 
-//   for ( i=1 ; i<=N ; i++ ) {
-//     for ( j=1 ; j<=N ; j++ ) {
-//       u[IX(i,j)] -= 0.5*(p[IX(i+1,j)]-p[IX(i-1,j)])/h;
-//       v[IX(i,j)] -= 0.5*(p[IX(i,j+1)]-p[IX(i,j-1)])/h;
-//     }
-//   }
-//   //set_bnd ( N, 1, u ); set_bnd ( N, 2, v );
+	setVelocityBoundaries();
+
+	float h = 1.0f / gridSize_.width;
+	float* p = lastVelocityX_;
+	float* div = lastVelocityY_;
+
+	{
+		float a = 1;
+		float c = 4.0f;
+
+		for (unsigned int solverIteration = 0; solverIteration < solverIterations_; solverIteration++) {
+			for (unsigned int x = 1; x <= (unsigned int)gridSize_.width; x++) {
+				for (unsigned int y = 1; y <= (unsigned int)gridSize_.height; y++) {
+
+					unsigned int leftDataIndex   = gridIndex(x - 1, y    );
+					unsigned int rightDataIndex  = gridIndex(x + 1, y    );
+					unsigned int centerDataIndex = gridIndex(x    , y    );
+					unsigned int upDataIndex     = gridIndex(x    , y - 1);
+					unsigned int downDataIndex   = gridIndex(x    , y + 1);
+
+					float leftVelocity = p[leftDataIndex];				
+					float rightVelocity = p[rightDataIndex];
+					float upVelocity = p[upDataIndex];
+					float downVelocity = p[downDataIndex];
+
+					float surroundingVelocity = leftVelocity + rightVelocity + upVelocity + downVelocity;
+
+					float lastVelocity = div[centerDataIndex];
+
+					float newVelocity = (lastVelocity + a * surroundingVelocity) / c;
+					p[centerDataIndex] = newVelocity;
+				}
+			}
+
+			setVelocityBoundaries();
+		}
+	}
+
+	{
+		for (unsigned int i = 1; i < (unsigned int)gridSize_.width; i++) {
+			for (unsigned int j = 1; j < (unsigned int)gridSize_.height; j++) {
+
+				unsigned int leftDataIndex   = gridIndex(i - 1, j    );
+				unsigned int rightDataIndex  = gridIndex(i + 1, j    );
+				unsigned int centerDataIndex = gridIndex(i    , j    );
+				unsigned int upDataIndex     = gridIndex(i    , j - 1);
+				unsigned int downDataIndex   = gridIndex(i    , j + 1);
+
+				float velocityX = velocityX_[centerDataIndex];
+				float newVelocityX = velocityX - 0.5f * gridSize_.width * (p[rightDataIndex] - p[leftDataIndex]);
+				velocityX_[centerDataIndex] = newVelocityX;
+	
+				float velocityY = velocityY_[centerDataIndex];
+				float newVelocityY = velocityY - 0.5f * gridSize_.height * (p[downDataIndex] - p[upDataIndex]);
+				velocityY_[centerDataIndex] = newVelocityY;
+			}
+		}
+
+		//setVelocityBoundaries();
+		//setVelocityWallBoundaries();
+	}
+}
+
+void NavierStokesSimulation::setVelocityWallBoundaries() {
+	for (unsigned int i = 1; i < (unsigned int)gridSize_.width; i++) {		
+		unsigned int leftSideIndex   = gridIndex(0, i);
+		unsigned int leftWallIndex   = gridIndex(1, i);
+		
+		unsigned int rightSideIndex  = gridIndex(gridSize_.width		, i);
+		unsigned int rightWallIndex  = gridIndex(gridSize_.width - 1, i);
+
+		velocityX_[leftSideIndex]   = -velocityX_[leftWallIndex];
+		velocityX_[rightSideIndex]  = -velocityX_[rightWallIndex];
+	}
+
+	for (unsigned int i = 1; i < (unsigned int)gridSize_.height; i++) {		
+		unsigned int topSideIndex     = gridIndex(i, 0);
+		unsigned int topWallIndex     = gridIndex(i, 1);
+
+		unsigned int bottomSideIndex  = gridIndex(i, gridSize_.height);
+		unsigned int bottomWallIndex  = gridIndex(i, gridSize_.height - 1);
+
+		velocityY_[topSideIndex]    = -velocityY_[topWallIndex];
+		velocityY_[bottomSideIndex] = -velocityY_[bottomWallIndex];
+	}
 }

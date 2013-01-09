@@ -15,6 +15,8 @@ public:
 
   virtual Point position() = 0;
 
+	virtual bool isLeftButtonDown() = 0;
+
 };
 
 #endif

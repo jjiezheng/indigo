@@ -22,3 +22,7 @@ void Mouse::init() {
 Point Mouse::position() {
   return mouse_->position();
 }
+
+bool Mouse::isLeftButtonDown() {
+	return mouse_->isLeftButtonDown();
+}

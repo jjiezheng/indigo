@@ -19,6 +19,8 @@ public:
 
  static bool getKeyState(int key);
 
+ static bool getMouseButton(int buttonId);
+
  static void getMousePosition(int* x, int* y);
 
 public:
@@ -28,6 +30,8 @@ public:
 private:
 
   static bool keyStates_[256];
+
+	static bool mouseButtons_[1];
 
   static int mouseX_, mouseY_;
 

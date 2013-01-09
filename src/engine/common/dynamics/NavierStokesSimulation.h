@@ -19,7 +19,7 @@ public:
 		, lastDensity_(0)
 		, userDensity_(0)
 		, densitySourceData_(0)
-    , viscosity_(0.000001f)
+    , viscosity_(0.0f)
 		, velocityX_(0)
 		, lastVelocityX_(0)
 		, userVelocityX_(0)
@@ -28,6 +28,7 @@ public:
 		, lastVelocityY_(0)
 		, userVelocityY_(0)
     , velocitySourceDataY_(0)
+		, intermediaryVelocityY_(0)
 	{ }
 
 public:
@@ -71,8 +72,7 @@ private:
 
 private:
 
-  void iterateVelocityXGaussSeidel(float a);
-  void iterateVelocityYGaussSeidel(float a);
+  void iterateVelocityGaussSeidel(float a);
 
   void advectVelocityX(float dt);
   void advectVelocityY(float dt);
@@ -80,6 +80,7 @@ private:
   void projectVelocity(float dt);
 
   void setVelocityBoundaries();
+	void setVelocityWallBoundaries();
 
 private:
 
@@ -118,6 +119,7 @@ private:
 
 	float* velocityY_;
 	float* lastVelocityY_;
+	float* intermediaryVelocityY_;
 	float* userVelocityY_;
   float* velocitySourceDataY_;
 };
