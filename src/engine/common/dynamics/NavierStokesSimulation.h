@@ -11,7 +11,7 @@ class NavierStokesSimulation {
 public:
 
 	NavierStokesSimulation()
-		: solverIterations_(20)
+		: solverIterations_(10)
     , dataSize_(0)
 		, userDataSize_(0)
     , diffuseRate_(1)
@@ -59,37 +59,7 @@ public:
 
 private:
 
-  void addVelocitySources(float dt);
-  void diffuseVelocity(float dt);
-
-private:
-
-	void addDensitySources(float dt);
-	void diffuseDensity(float dt);
-	void iterateDensityGaussSeidel(float a);
-	void setDensityBoundaries();
-	void advectDensity(float dt);
-
-private:
-
-  void iterateVelocityGaussSeidel(float a);
-
-  void advectVelocityX(float dt);
-  void advectVelocityY(float dt);
-
-  void projectVelocity(float dt);
-
-  void setVelocityBoundaries();
-	void setVelocityWallBoundaries();
-
-private:
-
 	void copyUserArray(float* in, float* out);
-
-private:
-
-	void updateDensity(float dt);
-  void updateVelocity(float dt);
 
 private:
 

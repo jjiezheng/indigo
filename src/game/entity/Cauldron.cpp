@@ -21,14 +21,14 @@
 #include "input/Mouse.h"
 
 void Cauldron::init() {
-	drawVelocity_ = true;
+	drawVelocity_ = false;
 	velocityEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/line.shader");
 	lineVBO_ = Geometry::line();
 
 	velocityTextureSize_ = CSize(256);
 
 	model_->setMaterialCallback("fluid_material", LiquidMaterialUpdate, this);
-	textureSize_ = CSize(16);
+	textureSize_ = CSize(128);
 
 	int textureSquare = textureSize_.square();
 
@@ -43,19 +43,16 @@ void Cauldron::init() {
 
 	solver_.setGridSize(textureSize_);
 	solver_.setDiffuseRate(0.0f);
-
-	int halfWidth = (int)(textureSize_.height/2.0f);
-	int halfHeight = (int)(textureSize_.height/2.0f);
- 	solver_.addDensity(Point(halfWidth, halfHeight), 100);
 }
 
 void Cauldron::update(float dt) {
 
 	if (Mouse::isLeftButtonDown()) {
-		solver_.setVelocity(Point(0, 0), Vector2(10, 10.0f));
+		solver_.setVelocity(Point(0, 0), Vector2(1000, 1000));
+		solver_.addDensity(Point(0, 0), 10);
 	}
 
-	solver_.update(0.016f);
+	solver_.update(dt);
 	
 	{
 		const float* densityData = solver_.density();
@@ -68,7 +65,7 @@ void Cauldron::update(float dt) {
 		for (unsigned int i = 0; i < colorDataSize_; i+=4) {
 			float density  = densityData[densityIndex++];
 
-			float a = 1.0f;
+			float a = density;
 			float rgb = 1.0f * density;
 
 			colorData_[i] = rgb;
@@ -83,8 +80,8 @@ void Cauldron::update(float dt) {
 
 void Cauldron::LiquidMaterialUpdate(Material* material, IEffect* effect, void* userData) {
 	Cauldron* cauldron = (Cauldron*)userData;
-	material->setTexture("ColorMap", cauldron->velocityTextureId_);
-	effect->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
+	material->setTexture("ColorMap", cauldron->densityTextureId_);
+	effect->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_NONE);
 }
 
 void Cauldron::debugRender() {
