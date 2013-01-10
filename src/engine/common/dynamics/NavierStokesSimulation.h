@@ -11,7 +11,7 @@ class NavierStokesSimulation {
 public:
 
 	NavierStokesSimulation()
-		: solverIterations_(10)
+		: solveIterations_(10)
     , dataSize_(0)
 		, userDataSize_(0)
     , diffuseRate_(1)
@@ -33,7 +33,7 @@ public:
 
 public:
 
-	void setGridSize(const CSize& gridSize);
+	void setGridSize(unsigned int gridSize);
 
 public:
 
@@ -67,8 +67,8 @@ private:
 
 private:
 
-	CSize gridSize_;
-	unsigned int solverIterations_;
+	int gridSize_;
+	unsigned int solveIterations_;
 
 	unsigned int dataSize_;
 	unsigned int userDataSize_;
@@ -95,7 +95,7 @@ private:
 };
 
 inline unsigned int NavierStokesSimulation::gridIndex(unsigned int x, unsigned int y) {
-	return y * (gridSize_.width + 2) + x;
+	return y * (gridSize_ + 2) + x;
 }
 
 inline void NavierStokesSimulation::setDiffuseRate(float diffuseRate) {

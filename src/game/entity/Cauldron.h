@@ -49,7 +49,7 @@ private:
 	unsigned int densityTextureId_;
 	unsigned int velocityTextureId_;
 
-	float* colorData_;
+	unsigned int * colorData_;
 	unsigned int colorDataSize_;
 
 	CSize textureSize_;
