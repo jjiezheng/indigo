@@ -1,5 +1,7 @@
 #include "StamFluidSolver.h"
 
+#include "maths/Vector3.h"
+
 #define IX(i,j) ((i)+(N+2)*(j))
 #define SWAP(x0,x) {float* tmp=x0;x0=x;x=tmp;}
 
@@ -21,10 +23,34 @@ void set_bnd( int N, int b, float * x )
 		x[IX(i,0  )] = b==2 ? -x[IX(i,1)] : x[IX(i,1)];
 		x[IX(i,N+1)] = b==2 ? -x[IX(i,N)] : x[IX(i,N)];
 	}
+
 	x[IX(0  ,0  )] = 0.5f*(x[IX(1,0  )]+x[IX(0  ,1)]);
 	x[IX(0  ,N+1)] = 0.5f*(x[IX(1,N+1)]+x[IX(0  ,N)]);
 	x[IX(N+1,0  )] = 0.5f*(x[IX(N,0  )]+x[IX(N+1,1)]);
 	x[IX(N+1,N+1)] = 0.5f*(x[IX(N,N+1)]+x[IX(N+1,N)]);
+ 
+}
+
+void set_bnd_circ( int N, float * x, float * y )
+{
+	for (int i = 1; i <= N; i++) {
+		for (int j = 1; j <= N; j++) {
+			Vector3 point((float) i, (float) j, 0.0f);
+			point = (point + Vector3(1, 1, 0)) * Vector3(1, -1, 0);
+
+			Vector3 origin((N/2.0f)+1.5f, -((N/2.0f)+1.5f), 0.0f);
+
+			Vector3 pointFromOrigin = point - origin;
+
+			float pointLength = pointFromOrigin.length();
+
+			int radius = (int)((float)N / 2.0f) + 1;
+
+			if (pointLength > radius) {
+				x[IX(i,j)] = -x[IX(i,j)];
+			}	
+		}
+	}
 }
 
 void lin_solve( int N, int b, float * x, float * x0, float a, float c, int it )
@@ -58,7 +84,6 @@ void advect (int N, int b, float * d, float * d0, float * u, float * v, float dt
 		d[IX(i,j)] = s0*(t0*d0[IX(i0,j0)]+t1*d0[IX(i0,j1)])+s1*(t0*d0[IX(i1,j0)]+t1*d0[IX(i1,j1)]);
 	END_FOR
 
-	set_bnd ( N, b, d );
 }
 
 void project(int N, float * u, float * v, float * p, float * div, int it)
@@ -77,7 +102,7 @@ void project(int N, float * u, float * v, float * p, float * div, int it)
 		v[IX(i,j)] -= 0.5f*N*(p[IX(i,j+1)]-p[IX(i,j-1)]);
 	END_FOR
 
-	set_bnd ( N, 1, u ); set_bnd ( N, 2, v );
+	set_bnd_circ ( N, u, v );
 }
 
 void dens_step(int N, float * x, float * x0, float * u, float * v, float diff, float dt, int it)
@@ -85,6 +110,7 @@ void dens_step(int N, float * x, float * x0, float * u, float * v, float diff, f
 	add_source (N, x, x0, dt);
 	SWAP (x0, x); diffuse (N, 0, x, x0, diff, dt, it);
 	SWAP (x0, x); advect (N, 0, x, x0, u, v, dt);
+	reduce(N, x, dt);
 }
 
 void vel_step(int N, float * u, float * v, float * u0, float * v0, float visc, float dt, int it)
@@ -96,5 +122,15 @@ void vel_step(int N, float * u, float * v, float * u0, float * v0, float visc, f
 	SWAP (u0, u); SWAP (v0, v);
 	advect (N, 1, u, u0, u0, v0, dt); 
 	advect (N, 2, v, v0, u0, v0, dt);
+	set_bnd_circ ( N, u, v );
 	project (N, u, v, u0, v0, it);
+}
+
+void reduce(int N, float* x, float dt) {
+	for (int i = 1; i <= N; i++) {
+		for (int j = 1; j <= N; j++) {
+			float density = x[IX(i,j)];
+			x[IX(i,j)] = density - 0.1f * dt;
+		}
+	}
 }

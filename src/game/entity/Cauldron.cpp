@@ -57,8 +57,8 @@ inline float clamp(float x, float a, float b) {
 void Cauldron::update(float dt) {
 
 	if (Mouse::isLeftButtonDown()) {
-		solver_.setVelocity(Point(1, 1), Vector2(50000, 50000));
-		solver_.addDensity(Point(1, 1), 100);
+		solver_.setVelocity(Point(28, 28), Vector2(1000.0f, 1000.0f));
+		solver_.addDensity(Point(32, 32), 1000);
 	}
 
 	solver_.update(dt);
@@ -70,13 +70,16 @@ void Cauldron::update(float dt) {
 			float density  = densityData[i];
 			density = clamp(density, 0, 1);
 
-			u32 rgba = (u32)(255 * density);
+			float a = density;
+			float r = density;
+			float g = density;
+			float b = density;
 
-			u32 a = rgba << 24;
-			u32 r = rgba << 16;
-			u32 g = rgba << 8;
-			u32 b = rgba << 0;
-			u32 color = r + g + b + a;
+			u32 aComponent = (u32)(255 * a)	<< 24;
+			u32 rComponent = (u32)(255 * r)	<< 16;
+			u32 gComponent = (u32)(255 * g)	<< 8;
+			u32 bComponent = (u32)(255 * b)	<< 0;
+			u32 color = rComponent + gComponent + bComponent + aComponent;
 			colorData_[i] = color;
 		}
 
