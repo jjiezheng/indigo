@@ -8,6 +8,6 @@ VOutput vs(float4 position : POSITION) {
  	return OUT;
 }
 
-float4 ps(float4 position		: POSITION) : COLOR0 {
-	return float4(0.39, 0.58, 0.93, 1);
+float4 ps(float4 position : POSITION) : COLOR0 {
+	return float4(0.39f, 0.58f, 0.93f, 1.0f);
 }

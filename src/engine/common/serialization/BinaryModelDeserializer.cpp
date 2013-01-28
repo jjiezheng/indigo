@@ -106,6 +106,12 @@ void BinaryModelDeserializer::deserializeMaterial(Material& material, std::ifstr
 	material.setName(materialName);
 
   std::string effectFile = readString(input);
+
+#ifdef PLATFORM_MAC
+  if (materialName.compare("lambert1") == 0) {
+    effectFile = "shaders/compiled/basic.shader";
+  }
+#endif
   IEffect* effect = EffectCache::instance()->loadEffect(effectFile);
   material.setEffect(effect);
 
