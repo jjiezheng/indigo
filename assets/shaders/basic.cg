@@ -1,0 +1,13 @@
+struct VOutput {
+	float4 position		: POSITION;
+};
+
+VOutput vs(float4 position : POSITION) {
+	VOutput OUT;
+	OUT.position = position;
+ 	return OUT;
+}
+
+float4 ps(float4 position		: POSITION) : COLOR0 {
+	return float4(0.39, 0.58, 0.93, 1);
+}

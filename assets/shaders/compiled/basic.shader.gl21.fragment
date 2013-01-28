@@ -1,0 +1,25 @@
+// glslf output by Cg compiler
+// cgc version 3.1.0013, build date Apr 18 2012
+// command line args: -DGL21=1 -q -profile glslf
+// source file: basic.cg
+//vendor NVIDIA Corporation
+//version 3.1.0.13
+//profile glslf
+//program ps
+//var float4 ps : $vout.COLOR0 : COL : -1 : 1
+
+#version 110
+
+struct VOutput {
+    int dummy;
+};
+
+
+ // main procedure, the original name was ps
+void main()
+{
+
+
+    gl_FragColor = vec4( 3.89999986E-001, 5.79999983E-001, 9.30000007E-001, 1.00000000E+000);
+    return;
+} // main end

@@ -1,0 +1,28 @@
+// ps_4_0 output by Cg compiler
+// cgc version 3.1.0013, build date Apr 18 2012
+// command line args: -DDX11=1 -q -unroll all -profile ps_5_0
+// source file: basic.cg
+//vendor NVIDIA Corporation
+//version 3.1.0.13
+//profile ps_5_0
+//program ps
+//var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
+
+#pragma pack_matrix(row_major)
+
+struct VOutput {
+    float4 _position1 : SV_Position;
+};
+
+struct X1X {
+    float4 _POSITION : SV_Position;
+};
+
+
+ // main procedure, the original name was ps
+float4 main() : SV_Target0
+{
+
+
+    return float4(  3.89999985694885250E-001f,  5.79999983310699460E-001f,  9.30000007152557370E-001f,  1.00000000000000000E000f);
+} // main end
