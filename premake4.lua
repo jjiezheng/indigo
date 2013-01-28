@@ -85,7 +85,7 @@ project "game"
 		}
 
 	configuration 	{ "Debug" }
-		defines     "_DEBUG"
+		defines     { "_DEBUG", "GPU_TRACE" }
 		flags       { "Symbols" }
 		
 	configuration 	{ "Release" }

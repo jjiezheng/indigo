@@ -501,7 +501,7 @@ void Direct3D11GraphicsInterface::generateMipMaps(unsigned int textureId) {
 }
 
 void Direct3D11GraphicsInterface::beginPerformanceEvent(const std::string& eventName) {
-#ifdef PROFILING
+#ifdef GPU_TRACE
   int stringLength = MultiByteToWideChar(CP_ACP, 0, eventName.data(), eventName.length(), 0, 0);
   std::wstring wstr(stringLength, 0);
   MultiByteToWideChar(CP_ACP, 0,  eventName.data(), eventName.length(), &wstr[0], stringLength);
@@ -514,7 +514,7 @@ void Direct3D11GraphicsInterface::beginPerformanceEvent(const std::string& event
 }
 
 void Direct3D11GraphicsInterface::endPerformanceEvent() {
-#ifdef PROFILING
+#ifdef GPU_TRACE
   assert(performanceMarkerLevel_ > 0);
   performanceMarkerLevel_--;
   D3DPERF_EndEvent();
