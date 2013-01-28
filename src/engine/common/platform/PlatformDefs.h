@@ -17,6 +17,7 @@
   #define PLATFORM_MAC 1
   // #define LITTLE_ENDIAN 1 - already defined on OSX
   #define PLATFORM_DEFINED 1
+  #undef BIG_ENDIAN
 #endif
 
 #if defined(__SNC__)
