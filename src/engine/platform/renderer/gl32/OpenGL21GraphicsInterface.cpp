@@ -172,7 +172,7 @@ unsigned int OpenGL21GraphicsInterface::loadTexture(const std::string& filePath)
   return 0;
 }
 
-unsigned int OpenGL21GraphicsInterface::createTexture(const CSize& dimensions, TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize) {
+unsigned int OpenGL21GraphicsInterface::createTexture(const CSize& dimensions, TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize, bool isDynamic) {
   GLuint textureId = 0;
   glGenTextures(1, &textureId);
   glBindTexture(GL_TEXTURE_2D, textureId);
@@ -255,4 +255,13 @@ Vector2 OpenGL21GraphicsInterface::halfBackBufferPixel() const {
 Vector2 OpenGL21GraphicsInterface::halfScreenPixel() const {
   return Vector2();
 }
+
+void OpenGL21GraphicsInterface::setTextureData(unsigned int textureId, const void* textureData, const CSize& textureDimensions, unsigned int texturePitch) {
+  
+}
+
+TextureInfo OpenGL21GraphicsInterface::textureInfo(unsigned int textureId) {
+  return TextureInfo();
+}
+
 

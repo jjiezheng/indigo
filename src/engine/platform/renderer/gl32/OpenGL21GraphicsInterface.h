@@ -62,11 +62,16 @@ public:
   
   unsigned int loadTexture(const std::string& filePath);
   
-  unsigned int createTexture(const CSize& dimensions, TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize);
+  unsigned int createTexture(const CSize& dimensions, TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize, bool isDynamic);
   
   void generateMipMaps(unsigned int textureId);
   
   void fillTexture(unsigned int textureId, void* data, unsigned int dataSize);
+  
+	void setTextureData(unsigned int textureId, const void* textureData, const CSize& textureDimensions, unsigned int texturePitch);
+  
+  TextureInfo textureInfo(unsigned int textureId);
+
   
 public:
   
