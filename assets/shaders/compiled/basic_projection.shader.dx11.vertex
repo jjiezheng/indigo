@@ -1,0 +1,41 @@
+// vs_4_0 output by Cg compiler
+// cgc version 3.1.0013, build date Apr 18 2012
+// command line args: -DDX11=1 -q -unroll all -profile vs_5_0
+// source file: basic_projection.cg
+//vendor NVIDIA Corporation
+//version 3.1.0.13
+//profile vs_5_0
+//program vs
+//semantic Projection
+//var float4x4 Projection :  : _Projection[0], 4 : -1 : 1
+//var float4 position : $vin.POSITION : POSITION : 0 : 1
+//var float4 vs.position : $vout.POSITION :  : -1 : 1
+
+#pragma pack_matrix(row_major)
+
+struct VOutput {
+    float4 _position1 : POSITION;
+};
+
+struct X1X {
+    float4 _POSITION : SV_Position;
+};
+
+static float4 _r0001;
+static X1X cout;
+float4x4 _Projection;
+
+ // main procedure, the original name was vs
+X1X main(in float4 _position : POSITION)
+{
+
+    VOutput _OUT;
+
+    _r0001.x = dot(_Projection._11_12_13_14, _position);
+    _r0001.y = dot(_Projection._21_22_23_24, _position);
+    _r0001.z = dot(_Projection._31_32_33_34, _position);
+    _r0001.w = dot(_Projection._41_42_43_44, _position);
+    _OUT._position1 = _r0001;
+    cout._POSITION = _OUT._position1;
+    return cout;
+} // main end
