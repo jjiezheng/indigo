@@ -306,9 +306,34 @@
 				"buffer_size": 4178,
 				"line_ending": "Unix"
 			}
+		},
+		{
+			"contents": "{\n	\"cmd\": [\"make\"]\n}\n",
+			"settings":
+			{
+				"buffer_size": 21,
+				"line_ending": "Windows",
+				"name": "untitled.sublime-build"
+			}
+		},
+		{
+			"file": "assets.sublime-project",
+			"settings":
+			{
+				"buffer_size": 222,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "shaders/basic.cg",
+			"settings":
+			{
+				"buffer_size": 242,
+				"line_ending": "Windows"
+			}
 		}
 	],
-	"build_system": "Packages/User/Shader.sublime-build",
+	"build_system": "CG",
 	"command_palette":
 	{
 		"height": 334.0,
@@ -332,6 +357,7 @@
 	},
 	"file_history":
 	[
+		"/C/Users/NK/AppData/Roaming/Sublime Text 2/Packages/User/Shader.sublime-build",
 		"/C/Users/NK/Development/importer/src/importer.sln",
 		"/C/Users/NK/Development/game/assets/actors/plane/plane.mb",
 		"/C/Program Files (x86)/MSBuild/Microsoft.Cpp/v4.0/Platforms/Win32/PlatformToolsets/v80/Microsoft.Cpp.Win32.v80.props",
@@ -412,7 +438,6 @@
 		"/C/Users/NK/Development/game/assets/shaders/compiled/deferred_fullscreen_texture.shader.dx11.fragment",
 		"/C/Users/NK/Development/game/assets/shaders/compiled/deferred_lighting_directional_light.shader.dx11.fragment",
 		"/C/Users/NK/Development/game/assets/cgfx/deferred_light_composition.hlsl",
-		"/C/Users/NK/AppData/Roaming/Sublime Text 2/Packages/User/Shader.sublime-build",
 		"/C/Users/NK/Development/game/assets/effects/simple.effect",
 		"/C/Users/NK/Development/game/src/engine/renderer/PS3GCMCGEffect.cpp",
 		"/C/Users/NK/Development/game/assets/shaders/hlsl/deferred_render_color_normal_depth.f.hlsl",
@@ -569,6 +594,7 @@
 	"groups":
 	[
 		{
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -583,8 +609,8 @@
 						"selection":
 						[
 							[
-								1913,
-								1913
+								744,
+								744
 							]
 						],
 						"settings":
@@ -594,6 +620,84 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 585.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"settings":
+					{
+						"buffer_size": 21,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1,
+								1
+							]
+						],
+						"settings":
+						{
+							"default_dir": "C:\\Users\\NK\\AppData\\Roaming\\Sublime Text 2\\Packages\\User",
+							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "assets.sublime-project",
+					"settings":
+					{
+						"buffer_size": 222,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								94,
+								94
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "shaders/basic.cg",
+					"settings":
+					{
+						"buffer_size": 242,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								242,
+								242
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

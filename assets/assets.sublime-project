@@ -4,5 +4,12 @@
 		{
 			"path": "/C/Users/NK/Development/game"
 		}
-	]
+	],
+	"build_systems":
+    [
+        {
+            "name": "CG",
+            "cmd": ["sh", "$project_path/shaders/compile", "-s", "$file"]
+        }
+    ]
 }
