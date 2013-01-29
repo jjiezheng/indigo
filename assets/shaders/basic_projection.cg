@@ -1,0 +1,15 @@
+float4x4 Projection;
+
+struct VOutput {
+	float4 position		: POSITION;
+};
+
+VOutput vs(float4 position : POSITION) {
+	VOutput OUT;
+	OUT.position = mul(Projection, position);
+ 	return OUT;
+}
+
+float4 ps(float4 position : POSITION) : COLOR0 {
+	return float4(0.39f, 0.58f, 0.93f, 1.0f);
+}
