@@ -182,7 +182,8 @@ project "game"
 			"QuartzCore.framework",
 			"OpenGL.framework",
 			"IOKit.framework",
-			"glfw"
+			"glfw",
+			"glew"
 		}
 		includedirs { 
 			"src/engine/platform/renderer/gl32"

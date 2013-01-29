@@ -17,6 +17,7 @@
 
 #define GL_DO_NOT_WARN_IF_MULTI_GL_VERSION_HEADERS_INCLUDED 1
 #define CGGL_NO_OPENGL 1
+//#include <GL/glew.h>
 #include <OpenGL/gl3.h>
 #include <OpenGL/gl3ext.h>
 #include <OpenGL/gltypes.h>

@@ -1,13 +1,13 @@
 // glslv output by Cg compiler
 // cgc version 3.1.0013, build date Apr 18 2012
 // command line args: -DGL32=1 -q -profileopts version=150 -profile glslv
-// source file: basic_projection.cg
+// source file: basic_model_view_projection.cg
 //vendor NVIDIA Corporation
 //version 3.1.0.13
 //profile glslv
 //program vs
-//semantic Projection
-//var float4x4 Projection :  : _Projection[0], 4 : -1 : 1
+//semantic WorldViewProj
+//var float4x4 WorldViewProj :  : _WorldViewProj[0], 4 : -1 : 1
 //var float4 position : $vin.POSITION : POSITION : 0 : 1
 //var float4 vs.position : $vout.POSITION : HPOS : -1 : 1
 
@@ -18,7 +18,7 @@ struct VOutput {
 };
 
 vec4 _r0002;
-uniform vec4 _Projection[4];
+uniform vec4 _WorldViewProj[4];
 in vec4 cg_Vertex;
 
  // main procedure, the original name was vs
@@ -26,10 +26,10 @@ void main()
 {
 
 
-    _r0002.x = dot(_Projection[0], cg_Vertex);
-    _r0002.y = dot(_Projection[1], cg_Vertex);
-    _r0002.z = dot(_Projection[2], cg_Vertex);
-    _r0002.w = dot(_Projection[3], cg_Vertex);
+    _r0002.x = dot(_WorldViewProj[0], cg_Vertex);
+    _r0002.y = dot(_WorldViewProj[1], cg_Vertex);
+    _r0002.z = dot(_WorldViewProj[2], cg_Vertex);
+    _r0002.w = dot(_WorldViewProj[3], cg_Vertex);
     gl_Position = _r0002;
     return;
 } // main end
