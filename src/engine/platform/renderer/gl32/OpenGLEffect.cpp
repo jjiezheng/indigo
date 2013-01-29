@@ -3,8 +3,11 @@
 #include "GLUtilities.h"
 
 #include "io/File.h"
+#include "maths/Matrix3x3.h"
 #include "maths/Matrix4x4.h"
+#include "maths/Vector2.h"
 #include "maths/Vector3.h"
+#include "maths/Vector4.h"
 
 #include "ShaderSemantics.h"
 #include "Color3.h"
@@ -77,10 +80,8 @@ void OpenGLEffect::load(const std::string& filePath) {
   glBindAttribLocation(programId_, NORMAL, "NORMAL");
   glBindAttribLocation(programId_, TEXCOORD0, "TEXCOORD0");
 
-  
   glLinkProgram(programId_);
-  GLUtilities::checkForError(); 
-  
+  GLUtilities::checkForError();
 }
 
 void OpenGLEffect::beginDraw() {
@@ -92,6 +93,12 @@ void OpenGLEffect::endDraw() {
 }
 
 void OpenGLEffect::setUniform(const Matrix3x3& uniformData, const char* uniformName) const {
+  std::string internalUnformName = getInternalUniformName(uniformName);
+  GLint uniformLocation = glGetUniformLocation(programId_, internalUnformName.c_str());
+  if (uniformLocation > -1) {
+    glUniform3fv(uniformLocation, 4, uniformData.valuePtr());
+    GLUtilities::checkForError();
+  }
 }
 
 void OpenGLEffect::setUniform(const Matrix4x4& uniformData, const char* uniformName) const {
@@ -113,7 +120,12 @@ void OpenGLEffect::setUniform(const Color3& uniformData, const char* uniformName
 }
 
 void OpenGLEffect::setUniform(const Vector2& uniformData, const char* uniformName) const {
-  
+  std::string internalUnformName = getInternalUniformName(uniformName);
+  GLint uniformLocation = glGetUniformLocation(programId_, internalUnformName.c_str());
+  if (uniformLocation > -1) {
+    glUniform2fv(uniformLocation, 1, uniformData.valuePtr());
+    GLUtilities::checkForError();
+  }
 }
 
 void OpenGLEffect::setUniform(const Vector3& uniformData, const char* uniformName) const {
@@ -126,7 +138,12 @@ void OpenGLEffect::setUniform(const Vector3& uniformData, const char* uniformNam
 }
 
 void OpenGLEffect::setUniform(const Vector4& uniformData, const char* uniformName) const {
-  
+  std::string internalUnformName = getInternalUniformName(uniformName);
+  GLint uniformLocation = glGetUniformLocation(programId_, internalUnformName.c_str());
+  if (uniformLocation > -1) {
+    glUniform4fv(uniformLocation, 1, uniformData.valuePtr());
+    GLUtilities::checkForError();
+  }
 }
 
 void OpenGLEffect::setUniform(const Vector4* uniformData, unsigned int uniformDataSize, const char* uniformName) const {
@@ -134,14 +151,25 @@ void OpenGLEffect::setUniform(const Vector4* uniformData, unsigned int uniformDa
 }
 
 void OpenGLEffect::setUniform(int uniformData, const char* uniformName) const {
-  
+  std::string internalUnformName = getInternalUniformName(uniformName);
+  GLint uniformLocation = glGetUniformLocation(programId_, internalUnformName.c_str());
+  if (uniformLocation > -1) {
+    glUniform1i(uniformLocation, uniformData);
+    GLUtilities::checkForError();
+  }
 }
 
 void OpenGLEffect::setUniform(float uniformData, const char* uniformName) const {
-  
+  std::string internalUnformName = getInternalUniformName(uniformName);
+  GLint uniformLocation = glGetUniformLocation(programId_, internalUnformName.c_str());
+  if (uniformLocation > -1) {
+    glUniform1f(uniformLocation, uniformData);
+    GLUtilities::checkForError();
+  }
 }
 
 void OpenGLEffect::setTexture(unsigned int textureId, const char* uniformName) {
+  
   
 }
 

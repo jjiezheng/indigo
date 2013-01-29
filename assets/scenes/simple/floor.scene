@@ -7,7 +7,7 @@
     "terrain": [],
     "objects": [
         {
-            "model": "actors/plane/plane.modelbinary",
+            "model": "actors/floor/floor.modelbinary",
             "position": {
                 "x": 0,
                 "y": -1,
