@@ -1,6 +1,5 @@
 #include "OpenGLEffect.h"
 
-#include "OpenGL.h"
 #include "GLUtilities.h"
 
 #include "io/File.h"
@@ -24,7 +23,7 @@ void printLog(const std::string& filePath, GLuint obj) {
 }
 
 void OpenGLEffect::load(const std::string& filePath) {
-  GLuint programId = glCreateProgram();
+  programId_ = glCreateProgram();
   
   {
     std::string fullVertexShaderFilePath = filePath + ".gl32.vertex";
@@ -44,7 +43,7 @@ void OpenGLEffect::load(const std::string& filePath) {
     GLUtilities::checkForError();
     printLog(fullVertexShaderFilePath, shaderId);
     
-    glAttachShader(programId, shaderId);
+    glAttachShader(programId_, shaderId);
     GLUtilities::checkForError();
   }
 
@@ -66,17 +65,17 @@ void OpenGLEffect::load(const std::string& filePath) {
     GLUtilities::checkForError();
     printLog(fullfragmentShaderFilePath, shaderId);
     
-    glAttachShader(programId, shaderId);
+    glAttachShader(programId_, shaderId);
     GLUtilities::checkForError();
   }
   
-  glLinkProgram(programId);
+  glLinkProgram(programId_);
   GLUtilities::checkForError();
-  printLog("", programId);
+  printLog("", programId_);
 }
 
 void OpenGLEffect::beginDraw() {
-  
+  glUseProgram(programId_);
 }
 
 void OpenGLEffect::endDraw() {

@@ -16,17 +16,18 @@
 
 void DeferredGeometryPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
 	GraphicsInterface::beginPerformanceEvent("G-Buffer");
-
+  
 	GraphicsInterface::resetRenderTarget(true);
-
-	unsigned int renderTargets[] = {colorRenderTarget_, normalRenderTarget_};
-	GraphicsInterface::setRenderTarget(renderTargets, 2, true);
+  
+  
+//	unsigned int renderTargets[] = {colorRenderTarget_, normalRenderTarget_};
+//	GraphicsInterface::setRenderTarget(renderTargets, 2, true);
 
 	GraphicsInterface::setBlendState(IGraphicsInterface::NOBLEND);
 
 	GraphicsInterface::setViewport(GraphicsInterface::backBufferSize());
 
-	GraphicsInterface::clearActiveColorBuffers(Color4::NOTHING);
+	GraphicsInterface::clearActiveColorBuffers(Color4::RED);
 	GraphicsInterface::clearActiveDepthBuffer();
 
 	GraphicsInterface::enableSmoothing();

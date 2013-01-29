@@ -158,6 +158,7 @@ void OpenGL21GraphicsInterface::resetGraphicsState(bool cullBack) {
 //  int faceToCull = cullBack ? GL_BACK : GL_FRONT;
 //  glCullFace(faceToCull);
 //  GLUtilities::checkForError();
+//  glCullFace(GL_BACK);
 }
 
 void OpenGL21GraphicsInterface::enableSmoothing() {
@@ -216,16 +217,17 @@ void OpenGL21GraphicsInterface::setRenderTarget(unsigned int* textureId, unsigne
 }
 
 void OpenGL21GraphicsInterface::resetRenderTarget(bool useDepthBuffer) {
-
+//  glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 unsigned int OpenGL21GraphicsInterface::createRenderTarget(unsigned int textureId) {
-  GLuint frameBufferId = 0;
-  glGenFramebuffers(1, &frameBufferId);
-  
-  GLUtilities::checkForError();
-  
-  return frameBufferId;
+//  GLuint frameBufferId = 0;
+//  glGenFramebuffers(1, &frameBufferId);
+//  
+//  GLUtilities::checkForError();
+//  
+//  return frameBufferId;
+  return 0;
 }
 
 void OpenGL21GraphicsInterface::clearRenderTarget(unsigned int renderTargetId, const Color4& color) {

@@ -24,29 +24,30 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
   initStage_.init(screenSize);
   initStage_.collectRenderTargets(this);
 
-  lightingStage_.init(screenSize);  
-  lightingStage_.collectRenderTargets(this);
+//  lightingStage_.init(screenSize);  
+//  lightingStage_.collectRenderTargets(this);
 
   /*skyStage_.init(screenSize);
   skyStage_.collectRenderTargets(this);*/
 
-  postProcessingStage_.init(screenSize);
-  postProcessingStage_.collectRenderTargets(this);
+//  postProcessingStage_.init(screenSize);
+//  postProcessingStage_.collectRenderTargets(this);
 
-  presentStage_.init(screenSize);
+//  presentStage_.init(screenSize);
 
-  unsigned int renderTargetsSize = (unsigned int)renderTargets_.size();
-  presentRenderTarget(renderTargetsSize - 1);
+//  unsigned int renderTargetsSize = (unsigned int)renderTargets_.size();
+//  presentRenderTarget(renderTargetsSize - 1);
+  presentRenderTarget(0);
 }
 
 void Renderer3dDeferred::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
   initStage_.render(viewer, world, sceneContext);
-  lightingStage_.render(viewer, world, sceneContext, initStage_);
-  /*skyStage_.render(viewer, world, lightingStage_);*/
-  postProcessingStage_.render(viewer, lightingStage_.lightMap(), sceneContext, initStage_);
-  
-  DeferredRenderTarget renderTargetToPresent = renderTargets_[activeRenderTargetIndex_];
-  presentStage_.render(renderTargetToPresent.renderTargetId, GraphicsInterface::depthBufferTexture());
+//  lightingStage_.render(viewer, world, sceneContext, initStage_);
+//  /*skyStage_.render(viewer, world, lightingStage_);*/
+//  postProcessingStage_.render(viewer, lightingStage_.lightMap(), sceneContext, initStage_);
+//  
+//  DeferredRenderTarget renderTargetToPresent = renderTargets_[activeRenderTargetIndex_];
+//  presentStage_.render(renderTargetToPresent.renderTargetId, GraphicsInterface::depthBufferTexture());
 }
 
 void Renderer3dDeferred::addRenderTarget(const std::string& renderTargetName, unsigned int renderTargetId) {

@@ -1,10 +1,11 @@
 #ifndef OPENGL_EFFECT_H
 #define OPENGL_EFFFECT_H
 
+#include "OpenGL.h"
+
 #include "IEffect.h"
 
 class OpenGLEffect : public IEffect {
-  
   
 public:
   
@@ -12,7 +13,8 @@ public:
   
 public:
   
-  OpenGLEffect() { };
+  OpenGLEffect()
+    : programId_(0) { };
   
 public:
   
@@ -49,6 +51,10 @@ public:
   void setTexture(unsigned int textureId, const char* uniformName);
   
   void setSamplerState(unsigned int samplerSlot, SAMPLER_UV_ADDRESS_MODE addressMode, SAMPLER_COMPARISON_FILTER comparisonFilter, SAMPLER_COMPARISON_FUNC compartisonFunction);
+  
+public:
+  
+  GLuint programId_;
   
 };
 
