@@ -1,4 +1,4 @@
-#include "OpenGL21GraphicsInterface.h"
+#include "OpenGL32GraphicsInterface.h"
 
 #include "OpenGLEffect.h"
 #include "Color4.h"
@@ -17,20 +17,20 @@
 
 #include "GL/glfw.h"
 
-void OpenGL21GraphicsInterface::destroy() {
+void OpenGL32GraphicsInterface::destroy() {
   glfwTerminate();
 }
 
-bool OpenGL21GraphicsInterface::windowClosed() const {
+bool OpenGL32GraphicsInterface::windowClosed() const {
   return false;
 }
 
-int OpenGL21GraphicsInterface::exitCode() const {
+int OpenGL32GraphicsInterface::exitCode() const {
   return 0;
 }
 
 
-void OpenGL21GraphicsInterface::openWindow(int width, int height, unsigned int multiSamples) {
+void OpenGL32GraphicsInterface::openWindow(int width, int height, unsigned int multiSamples) {
   glfwInit();
   glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 3);
   glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 2);
@@ -46,25 +46,25 @@ void OpenGL21GraphicsInterface::openWindow(int width, int height, unsigned int m
   
 }
 
-void OpenGL21GraphicsInterface::setViewport(const CSize& dimensions) {
+void OpenGL32GraphicsInterface::setViewport(const CSize& dimensions) {
   glViewport(0, 0, dimensions.width, dimensions.height);
 }
 
-void OpenGL21GraphicsInterface::beginPerformanceEvent(const std::string& eventName) {
+void OpenGL32GraphicsInterface::beginPerformanceEvent(const std::string& eventName) {
   
 }
 
-void OpenGL21GraphicsInterface::endPerformanceEvent() {
+void OpenGL32GraphicsInterface::endPerformanceEvent() {
   
 }
 
-void OpenGL21GraphicsInterface::swapBuffers() {
+void OpenGL32GraphicsInterface::swapBuffers() {
   glfwSwapBuffers();
   
   windowClosed_ = !glfwGetWindowParam(GLFW_OPENED);
 }
 
-unsigned int OpenGL21GraphicsInterface::createVertexBuffer(VertexDef* vertexData, int numVertices) {
+unsigned int OpenGL32GraphicsInterface::createVertexBuffer(VertexDef* vertexData, int numVertices) {
   
   GLuint vertexArray;
   glGenVertexArrays(1, &vertexArray);
@@ -134,21 +134,21 @@ unsigned int OpenGL21GraphicsInterface::createVertexBuffer(VertexDef* vertexData
   return vertexArray;
 }
 
-void OpenGL21GraphicsInterface::drawVertexBuffer(int vertexBuffer, int vertexCount, VertexFormat vertexFormat) {
+void OpenGL32GraphicsInterface::drawVertexBuffer(int vertexBuffer, int vertexCount, VertexFormat vertexFormat) {
   glBindVertexArray(vertexBuffer);
   glDrawArrays(GL_TRIANGLES, 0, vertexCount);
 }
 
-void OpenGL21GraphicsInterface::clearActiveRenderTargets(const Color4& color) {
+void OpenGL32GraphicsInterface::clearActiveRenderTargets(const Color4& color) {
   glClearColor(color.r, color.g, color.b, color.a);
   glClear(GL_COLOR_BUFFER_BIT);
 }
 
-IEffect* OpenGL21GraphicsInterface::createEffect() {
+IEffect* OpenGL32GraphicsInterface::createEffect() {
   return new OpenGLEffect();
 }
 
-void OpenGL21GraphicsInterface::resetGraphicsState(bool cullBack) {
+void OpenGL32GraphicsInterface::resetGraphicsState(bool cullBack) {
 //  glEnable(GL_DEPTH_TEST);
 //  glEnable(GL_CULL_FACE);
   
@@ -161,19 +161,19 @@ void OpenGL21GraphicsInterface::resetGraphicsState(bool cullBack) {
 //  glCullFace(GL_BACK);
 }
 
-void OpenGL21GraphicsInterface::enableSmoothing() {
+void OpenGL32GraphicsInterface::enableSmoothing() {
   
 }
 
-void OpenGL21GraphicsInterface::disableSmoothing() {
+void OpenGL32GraphicsInterface::disableSmoothing() {
   
 }
 
-unsigned int OpenGL21GraphicsInterface::loadTexture(const std::string& filePath) {
+unsigned int OpenGL32GraphicsInterface::loadTexture(const std::string& filePath) {
   return 0;
 }
 
-unsigned int OpenGL21GraphicsInterface::createTexture(const CSize& dimensions, TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize, bool isDynamic) {
+unsigned int OpenGL32GraphicsInterface::createTexture(const CSize& dimensions, TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize, bool isDynamic) {
   GLuint textureId = 0;
   glGenTextures(1, &textureId);
   glBindTexture(GL_TEXTURE_2D, textureId);
@@ -204,65 +204,88 @@ unsigned int OpenGL21GraphicsInterface::createTexture(const CSize& dimensions, T
   return textureId;
 }
 
-void OpenGL21GraphicsInterface::generateMipMaps(unsigned int textureId) {
+void OpenGL32GraphicsInterface::generateMipMaps(unsigned int textureId) {
   
 }
 
-void OpenGL21GraphicsInterface::fillTexture(unsigned int textureId, void* data, unsigned int dataSize) {
+void OpenGL32GraphicsInterface::fillTexture(unsigned int textureId, void* data, unsigned int dataSize) {
   
 }
 
-void OpenGL21GraphicsInterface::setRenderTarget(unsigned int* textureId, unsigned int renderTargetCount, bool useDepthBuffer, const CSize& dimensions, unsigned int depthTextureId) {
+void OpenGL32GraphicsInterface::setRenderTarget(unsigned int* renderTargetIds, unsigned int renderTargetCount, bool useDepthBuffer, const CSize& dimensions, unsigned int depthTextureId) {
+  // TODO how do we store this??
+  GLuint frameBufferId = 0;
+  glGenFramebuffers(1, &frameBufferId);
+  GLUtilities::checkForError();
+  
+  for (unsigned int i = 0; i < renderTargetCount; i++) {
+    GLuint renderTargetId = renderTargetIds[i];
+
+    glBindRenderbuffer(GL_RENDERBUFFER, renderTargetId);
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_RENDERBUFFER, renderTargetId);
+  }
+}
+
+void OpenGL32GraphicsInterface::resetRenderTarget(bool useDepthBuffer) {
+  glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+unsigned int OpenGL32GraphicsInterface::createRenderTarget(unsigned int textureId) {
+  GLuint renderBufferId = 0;
+  glGenRenderbuffers(1, &renderBufferId);
+  
+  GLUtilities::checkForError();
+  
+  GLint width = 0;
+  glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &width);
+  
+  GLint height = 0;
+  glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &height);
+
+  GLint internalFormat = 0;
+  glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_INTERNAL_FORMAT, &internalFormat);
+
+  glBindRenderbuffer(GL_RENDERBUFFER, renderBufferId);
+  glRenderbufferStorage(GL_RENDERBUFFER, internalFormat, width, height);
+  
+  GLUtilities::checkForError();
+
+  return renderBufferId;
+}
+
+void OpenGL32GraphicsInterface::clearRenderTarget(unsigned int renderTargetId, const Color4& color) {
   
 }
 
-void OpenGL21GraphicsInterface::resetRenderTarget(bool useDepthBuffer) {
-//  glBindFramebuffer(GL_FRAMEBUFFER, 0);
-}
-
-unsigned int OpenGL21GraphicsInterface::createRenderTarget(unsigned int textureId) {
-//  GLuint frameBufferId = 0;
-//  glGenFramebuffers(1, &frameBufferId);
-//  
-//  GLUtilities::checkForError();
-//  
-//  return frameBufferId;
+unsigned int OpenGL32GraphicsInterface::createDepthTexture(const CSize& dimensions) {
   return 0;
 }
 
-void OpenGL21GraphicsInterface::clearRenderTarget(unsigned int renderTargetId, const Color4& color) {
+void OpenGL32GraphicsInterface::clearActiveDepthBuffer(unsigned int textureId) {
   
 }
 
-unsigned int OpenGL21GraphicsInterface::createDepthTexture(const CSize& dimensions) {
+unsigned int OpenGL32GraphicsInterface::depthBufferTexture() const {
   return 0;
 }
 
-void OpenGL21GraphicsInterface::clearActiveDepthBuffer(unsigned int textureId) {
+void OpenGL32GraphicsInterface::setBlendState(IGraphicsInterface::BlendState blendState) {
   
 }
 
-unsigned int OpenGL21GraphicsInterface::depthBufferTexture() const {
-  return 0;
-}
-
-void OpenGL21GraphicsInterface::setBlendState(IGraphicsInterface::BlendState blendState) {
-  
-}
-
-Vector2 OpenGL21GraphicsInterface::halfBackBufferPixel() const {
+Vector2 OpenGL32GraphicsInterface::halfBackBufferPixel() const {
   return Vector2();
 }
 
-Vector2 OpenGL21GraphicsInterface::halfScreenPixel() const {
+Vector2 OpenGL32GraphicsInterface::halfScreenPixel() const {
   return Vector2();
 }
 
-void OpenGL21GraphicsInterface::setTextureData(unsigned int textureId, const void* textureData, const CSize& textureDimensions, unsigned int texturePitch) {
+void OpenGL32GraphicsInterface::setTextureData(unsigned int textureId, const void* textureData, const CSize& textureDimensions, unsigned int texturePitch) {
   
 }
 
-TextureInfo OpenGL21GraphicsInterface::textureInfo(unsigned int textureId) {
+TextureInfo OpenGL32GraphicsInterface::textureInfo(unsigned int textureId) {
   return TextureInfo();
 }
 

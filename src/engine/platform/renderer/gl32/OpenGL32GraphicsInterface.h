@@ -1,5 +1,5 @@
-#ifndef OPENGL_21_GRAPHICS_INTERFACE_H
-#define OPENGL_21_GRAPHICS_INTERFACE_H
+#ifndef OPENGL_32_GRAPHICS_INTERFACE_H
+#define OPENGL_32_GRAPHICS_INTERFACE_H
 
 #include "IGraphicsInterface.h"
 
@@ -8,11 +8,11 @@
 
 #include <vector>
 
-class OpenGL21GraphicsInterface : public IGraphicsInterface {
+class OpenGL32GraphicsInterface : public IGraphicsInterface {
   
 public:
   
-  virtual ~OpenGL21GraphicsInterface() { };
+  virtual ~OpenGL32GraphicsInterface() { };
   
 public:
   
