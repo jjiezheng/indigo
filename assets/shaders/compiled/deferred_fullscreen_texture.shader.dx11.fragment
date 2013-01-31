@@ -9,7 +9,6 @@
 //semantic ColorMap : TEXUNIT0
 //semantic HalfPixel
 //var sampler2D ColorMap : TEXUNIT0 : _ColorMap 0 : -1 : 1
-//var float2 HalfPixel :  : _HalfPixel : -1 : 1
 //var float2 texCoord : $vin.TEXCOORD0 :  : 1 : 1
 //var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
 
@@ -25,16 +24,19 @@ struct X1X {
     float2 _TEXCOORD0 : TEXCOORD0;
 };
 
-Texture2D<float4> _TMP0 : register(t0);
+static float4 _TMP0;
+Texture2D<float4> _TMP2 : register(t0);
 uniform SamplerState _ColorMap : TEXUNIT0;
-uniform float2 _HalfPixel;
 
  // main procedure, the original name was ps
 float4 main( in X1X cin) : SV_Target0
 {
 
     float2 _texCoord;
+    float2 _texCoords;
 
     _texCoord = cin._TEXCOORD0;
-    return _TMP0.Sample(_ColorMap, _texCoord + _HalfPixel);
+    _texCoords = float2(_texCoord.x,   1.00000000000000000E00f - _texCoord.y);
+    _TMP0 = _TMP2.Sample(_ColorMap, _texCoords);
+    return float4(_TMP0.x, _TMP0.y, _TMP0.z,   1.00000000000000000E00f);
 } // main end

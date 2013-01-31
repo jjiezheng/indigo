@@ -3,10 +3,13 @@
 
 #include "IGraphicsInterface.h"
 
+#include "OpenGL.h"
+
 #include "OpenGLRenderTarget.h"
 #include "OpenGLShadowMap.h"
 
 #include <vector>
+#include <map>
 
 class OpenGL32GraphicsInterface : public IGraphicsInterface {
   
@@ -100,6 +103,10 @@ public:
 	Vector2 halfBackBufferPixel() const;
   
 	Vector2 halfScreenPixel() const;
+  
+private:
+  
+  std::map<GLuint, GLuint> renderBufferTextures_;
   
 };
 

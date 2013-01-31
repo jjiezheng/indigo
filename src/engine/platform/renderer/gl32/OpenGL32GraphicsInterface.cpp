@@ -213,21 +213,37 @@ void OpenGL32GraphicsInterface::fillTexture(unsigned int textureId, void* data, 
 }
 
 void OpenGL32GraphicsInterface::setRenderTarget(unsigned int* renderTargetIds, unsigned int renderTargetCount, bool useDepthBuffer, const CSize& dimensions, unsigned int depthTextureId) {
-  // TODO how do we store this??
   GLuint frameBufferId = 0;
   glGenFramebuffers(1, &frameBufferId);
   GLUtilities::checkForError();
+  
+  glBindFramebuffer(GL_FRAMEBUFFER, frameBufferId);
+  
+  GLuint drawBuffers[renderTargetCount];
   
   for (unsigned int i = 0; i < renderTargetCount; i++) {
     GLuint renderTargetId = renderTargetIds[i];
 
     glBindRenderbuffer(GL_RENDERBUFFER, renderTargetId);
+    GLUtilities::checkForError();
+    
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_RENDERBUFFER, renderTargetId);
+    GLUtilities::checkForError();
+    
+    GLuint textureId = renderBufferTextures_[renderTargetId];
+    glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, textureId, 0);
+    GLUtilities::checkForError();
+    
+    drawBuffers[i] = GL_COLOR_ATTACHMENT0 + i;
   }
+  
+  glDrawBuffers(renderTargetCount, drawBuffers);
+  GLUtilities::checkFramebufferStatus(GL_FRAMEBUFFER);
 }
 
 void OpenGL32GraphicsInterface::resetRenderTarget(bool useDepthBuffer) {
   glBindFramebuffer(GL_FRAMEBUFFER, 0);
+  GLUtilities::checkForError();
 }
 
 unsigned int OpenGL32GraphicsInterface::createRenderTarget(unsigned int textureId) {
@@ -249,6 +265,8 @@ unsigned int OpenGL32GraphicsInterface::createRenderTarget(unsigned int textureI
   glRenderbufferStorage(GL_RENDERBUFFER, internalFormat, width, height);
   
   GLUtilities::checkForError();
+  
+  renderBufferTextures_[renderBufferId] = textureId;
 
   return renderBufferId;
 }
