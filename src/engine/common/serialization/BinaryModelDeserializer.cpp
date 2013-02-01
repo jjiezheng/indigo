@@ -69,7 +69,7 @@ Model* BinaryModelDeserializer::deserialize(const std::string& modelFilePath) {
 #ifdef BIG_ENDIAN
   unsigned int bigEndianOffset;
   input.read((char*)&bigEndianOffset, sizeof(unsigned int));
-  bigEndianOffset = swap_uint32(bigEndianOffset);
+  bigEndianOffset = binary_uint32(bigEndianOffset);
   input.seekg(0);
   input.seekg(bigEndianOffset);
 #else

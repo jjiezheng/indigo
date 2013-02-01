@@ -21,7 +21,7 @@ void Game::init(const char* sceneFile) {
 	ActorRegistry::registerActors(actorFactory_);
 
   renderer_.init(GraphicsInterface::backBufferSize());
-  ui_.init(&renderer_);
+//  ui_.init(&renderer_);
 
   clock_.init();
   
@@ -50,7 +50,7 @@ void Game::mainLoop() {
   camera_.update(dt);
   Pad::update();
   Keyboard::update();
-  ui_.update(dt);
+//  ui_.update(dt);
 
 	world_.update(dt);
   

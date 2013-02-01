@@ -40,15 +40,15 @@ void DDSImage::load(const std::string& filePath) {
 
 	fread(&header, 124, 1, fp); 
 
-	firstMipWidth = swap_uint32(*(unsigned int*)&(header[12]));
-	firstMipHeight = swap_uint32(*(unsigned int*)&(header[8]));
+	firstMipWidth = binary_uint32(*(unsigned int*)&(header[12]));
+	firstMipHeight = binary_uint32(*(unsigned int*)&(header[8]));
 	
-	unsigned int linearSize = swap_uint32(*(unsigned int*)&(header[16]));
+	unsigned int linearSize = binary_uint32(*(unsigned int*)&(header[16]));
 
-	numMipLevels = swap_uint32(*(unsigned int*)&(header[24]));
+	numMipLevels = binary_uint32(*(unsigned int*)&(header[24]));
 	numMipLevels = numMipLevels ? numMipLevels : 1;
 
-	fourCC = swap_uint32(*(unsigned int*)&(header[80]));
+	fourCC = binary_uint32(*(unsigned int*)&(header[80]));
 
 	dataSize = numMipLevels > 1 ? linearSize * 2 : linearSize;
 

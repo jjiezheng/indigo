@@ -170,7 +170,36 @@ void OpenGL32GraphicsInterface::disableSmoothing() {
 }
 
 unsigned int OpenGL32GraphicsInterface::loadTexture(const std::string& filePath) {
-  return 0;
+  DDSImage dds;
+  dds.load(filePath);
+  
+  GLuint textureId = 0;
+  glGenTextures(1, &textureId);
+  glBindTexture(GL_TEXTURE_2D, textureId);
+  
+  GLuint format = 0;
+  
+  switch(dds.fourCC) {
+    case FOURCC_DXT1:
+      format = GL_COMPRESSED_RGBA_S3TC_DXT1_EXT;
+      break;
+    case FOURCC_DXT3:
+      format = GL_COMPRESSED_RGBA_S3TC_DXT3_EXT;
+      break;
+    case FOURCC_DXT5:
+      format = GL_COMPRESSED_RGBA_S3TC_DXT5_EXT;
+      break;
+    default:
+      assert(false);
+  }
+  
+  for (int i = 0; i < dds.numMipLevels; i++) {
+    DDSMipLevel* mipLevel = dds.mipLevels[i];
+    glCompressedTexImage2D(GL_TEXTURE_2D, i, format, mipLevel->width, mipLevel->height, 0, mipLevel->size, dds.data + mipLevel->offset);
+    GLUtilities::checkForError();
+  }
+  
+  return textureId;
 }
 
 unsigned int OpenGL32GraphicsInterface::createTexture(const CSize& dimensions, TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize, bool isDynamic) {
