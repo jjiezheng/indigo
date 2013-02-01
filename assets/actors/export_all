@@ -1,0 +1,9 @@
+#!/bin/bash
+models=`find . -name "*.ma" -o -name "*.mb"`
+for model in $models ; do
+  outputfiletype=".modelbinary"
+	output="${model/.ma/$outputfiletype}"
+  output="${output/.mb/$outputfiletype}"
+  command="importer $model $output &>stdout"
+  $command
+done
