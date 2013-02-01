@@ -2,7 +2,7 @@
 
 uniform	float4x4 WorldViewProj;
 
-uniform	float3 DiffuseColor;
+uniform	float4 DiffuseColor;
 
 struct VOutput {
 	half4 position			: POSITION;
@@ -20,7 +20,7 @@ VOutput vs(	half4 position 		: POSITION,
 }
 
 struct POutput {
-	half3 color 	: COLOR0;
+	half4 color 	: COLOR0;
 	half4 normal 	: COLOR1;
 };
 

@@ -106,7 +106,7 @@ public:
   
 private:
   
-  std::map<GLuint, GLuint> renderBufferTextures_;
+  std::vector<GLuint> renderTargetTextures_;
   
 };
 

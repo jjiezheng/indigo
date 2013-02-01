@@ -5,6 +5,7 @@
 #include <fstream>
 
 #include "maths/Vector3.h"
+#include "maths/Vector4.h"
 
 class Model;
 class Material;
@@ -28,6 +29,8 @@ private:
   static int readINT(std::ifstream& input);
   
   static Vector3 readVector3(std::ifstream& input);
+  
+  static Vector4 readVector4(std::ifstream& input);
   
   static float readFloat(std::ifstream& input);
 

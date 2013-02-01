@@ -10,6 +10,7 @@
 #include "io/Log.h"
 
 #include "Vector3MaterialParameter.h"
+#include "Vector4MaterialParameter.h"
 #include "IntegerMaterialParameter.h"
 #include "FloatMaterialParameter.h"
 
@@ -60,6 +61,22 @@ void Material::setParameter(const std::string& name, const Vector3& parameter) {
 		parameters_[name] = param;
 	}
 }
+
+void Material::setParameter(const std::string& name, const Vector4& parameter) {
+	std::map<std::string, MaterialParameter*>::const_iterator it = parameters_.find(name);
+  
+	if (it != parameters_.end()) {
+		MaterialParameter* param = (*it).second;
+		Vector4MaterialParameter* vector4Param = static_cast<Vector4MaterialParameter*>(param);
+		vector4Param->setValue(parameter);
+	}
+	else
+	{
+		MaterialParameter* param = new Vector4MaterialParameter(name, parameter);
+		parameters_[name] = param;
+	}
+}
+
 
 void Material::setParameter(const std::string& name, int parameter) {
 	std::map<std::string, MaterialParameter*>::const_iterator it = parameters_.find(name);

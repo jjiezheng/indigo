@@ -22,7 +22,7 @@ struct VOutput {
 };
 
 struct POutput {
-    float3 _color : COLOR0;
+    float4 _color : COLOR0;
     float4 _normal2 : COLOR1;
 };
 

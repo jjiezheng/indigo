@@ -24,8 +24,7 @@ struct X1X {
     float2 _TEXCOORD0 : TEXCOORD0;
 };
 
-static float4 _TMP0;
-Texture2D<float4> _TMP2 : register(t0);
+Texture2D<float4> _TMP0 : register(t0);
 uniform SamplerState _ColorMap : TEXUNIT0;
 
  // main procedure, the original name was ps
@@ -37,6 +36,5 @@ float4 main( in X1X cin) : SV_Target0
 
     _texCoord = cin._TEXCOORD0;
     _texCoords = float2(_texCoord.x,   1.00000000000000000E00f - _texCoord.y);
-    _TMP0 = _TMP2.Sample(_ColorMap, _texCoords);
-    return float4(_TMP0.x, _TMP0.y, _TMP0.z,   1.00000000000000000E00f);
+    return _TMP0.Sample(_ColorMap, _texCoords);
 } // main end

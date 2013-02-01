@@ -14,6 +14,7 @@ class IEffect;
 class Matrix4x4;
 class Matrix3x3;
 class Vector3;
+class Vector4;
 
 class Material {
 
@@ -42,6 +43,8 @@ public:
 public:
 
 	void setParameter(const std::string& name, const Vector3& parameter);
+  
+  void setParameter(const std::string& name, const Vector4& parameter);
 
 	void setParameter(const std::string& name, int parameter);
 

@@ -149,16 +149,17 @@ IEffect* OpenGL32GraphicsInterface::createEffect() {
 }
 
 void OpenGL32GraphicsInterface::resetGraphicsState(bool cullBack) {
+//  glDisable(GL_BLEND);
 //  glEnable(GL_DEPTH_TEST);
 //  glEnable(GL_CULL_FACE);
   
 //  glPolygonOffset(2.5f, 10.0f);
 //  glEnable(GL_POLYGON_OFFSET_FILL);
   
-//  int faceToCull = cullBack ? GL_BACK : GL_FRONT;
-//  glCullFace(faceToCull);
-//  GLUtilities::checkForError();
-//  glCullFace(GL_BACK);
+  int faceToCull = cullBack ? GL_BACK : GL_FRONT;
+  glCullFace(faceToCull);
+  GLUtilities::checkForError();
+  glCullFace(GL_BACK);
 }
 
 void OpenGL32GraphicsInterface::enableSmoothing() {
@@ -229,6 +230,8 @@ unsigned int OpenGL32GraphicsInterface::createTexture(const CSize& dimensions, T
   }
   
   glTexImage2D(GL_TEXTURE_2D, 0, openGLTextureFormat, dimensions.width, dimensions.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureData);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
   
   return textureId;
 }
@@ -252,14 +255,8 @@ void OpenGL32GraphicsInterface::setRenderTarget(unsigned int* renderTargetIds, u
   
   for (unsigned int i = 0; i < renderTargetCount; i++) {
     GLuint renderTargetId = renderTargetIds[i];
+    GLuint textureId = renderTargetTextures_[renderTargetId];
 
-    glBindRenderbuffer(GL_RENDERBUFFER, renderTargetId);
-    GLUtilities::checkForError();
-    
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_RENDERBUFFER, renderTargetId);
-    GLUtilities::checkForError();
-    
-    GLuint textureId = renderBufferTextures_[renderTargetId];
     glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, textureId, 0);
     GLUtilities::checkForError();
     
@@ -276,28 +273,9 @@ void OpenGL32GraphicsInterface::resetRenderTarget(bool useDepthBuffer) {
 }
 
 unsigned int OpenGL32GraphicsInterface::createRenderTarget(unsigned int textureId) {
-  GLuint renderBufferId = 0;
-  glGenRenderbuffers(1, &renderBufferId);
-  
-  GLUtilities::checkForError();
-  
-  GLint width = 0;
-  glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &width);
-  
-  GLint height = 0;
-  glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &height);
-
-  GLint internalFormat = 0;
-  glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_INTERNAL_FORMAT, &internalFormat);
-
-  glBindRenderbuffer(GL_RENDERBUFFER, renderBufferId);
-  glRenderbufferStorage(GL_RENDERBUFFER, internalFormat, width, height);
-  
-  GLUtilities::checkForError();
-  
-  renderBufferTextures_[renderBufferId] = textureId;
-
-  return renderBufferId;
+  unsigned int renderTargetId = renderTargetTextures_.size();
+  renderTargetTextures_.push_back(textureId);
+  return renderTargetId;
 }
 
 void OpenGL32GraphicsInterface::clearRenderTarget(unsigned int renderTargetId, const Color4& color) {
@@ -317,7 +295,22 @@ unsigned int OpenGL32GraphicsInterface::depthBufferTexture() const {
 }
 
 void OpenGL32GraphicsInterface::setBlendState(IGraphicsInterface::BlendState blendState) {
-  
+  switch (blendState) {
+    case ALPHA: {
+      glEnable(GL_BLEND);
+      glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+      break;
+    }
+    case ADDITIVE: {
+      glEnable(GL_BLEND);
+      glBlendFunc(GL_ONE, GL_ONE);
+      break;
+    }
+    case NOBLEND: {
+      glDisable(GL_BLEND);
+      break;
+    }
+  }
 }
 
 Vector2 OpenGL32GraphicsInterface::halfBackBufferPixel() const {

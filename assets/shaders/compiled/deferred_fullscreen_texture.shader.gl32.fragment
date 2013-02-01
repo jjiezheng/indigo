@@ -19,7 +19,6 @@ struct VOutput {
 };
 
 vec4 _ret_0;
-vec4 _TMP0;
 uniform sampler2D _ColorMap;
 in vec4 cg_TexCoord0;
 out vec4 cg_FragColor;
@@ -31,8 +30,7 @@ void main()
     vec2 _texCoords;
 
     _texCoords = vec2(cg_TexCoord0.x, 1.00000000E+00 - cg_TexCoord0.y);
-    _TMP0 = texture(_ColorMap, _texCoords);
-    _ret_0 = vec4(_TMP0.x, _TMP0.y, _TMP0.z, 1.00000000E+00);
+    _ret_0 = texture(_ColorMap, _texCoords);
     cg_FragColor = _ret_0;
     return;
 } // main end
