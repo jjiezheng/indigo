@@ -10,7 +10,8 @@ public:
 
   DeferredPresentStage() 
     : quadVbo_(0) 
-    , effect_(0) { }
+    , effect_(0)
+    , textureId_(0) { }
 
 public:
 
@@ -24,7 +25,9 @@ private:
 
   unsigned int quadVbo_;
 
-  IEffect* effect_;  
+  IEffect* effect_;
+  
+  unsigned int textureId_;
 
 };
 

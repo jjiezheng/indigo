@@ -13,6 +13,7 @@
 #include "IViewer.h"
 
 #include "Color4.h"
+#include "SceneContext.h"
 
 void DeferredGeometryPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
 	GraphicsInterface::beginPerformanceEvent("G-Buffer");
@@ -22,16 +23,16 @@ void DeferredGeometryPass::render(IViewer* viewer, World& world, const SceneCont
 	unsigned int renderTargets[] = {colorRenderTarget_, normalRenderTarget_};
 	GraphicsInterface::setRenderTarget(renderTargets, 2, true);
 
-	GraphicsInterface::setBlendState(IGraphicsInterface::NOBLEND);
-
 	GraphicsInterface::setViewport(GraphicsInterface::backBufferSize());
+  
+  GraphicsInterface::setBlendState(IGraphicsInterface::NOBLEND);
 
 	GraphicsInterface::clearActiveColorBuffers(Color4::NOTHING);
 	GraphicsInterface::clearActiveDepthBuffer();
 
 	GraphicsInterface::enableSmoothing();
 	GraphicsInterface::setRenderState(true);
-
+  
 	hash_map<IEffect*, std::vector<Mesh*> > effects;
 
 	std::vector<Model*>::iterator it = world.begin();
@@ -42,10 +43,6 @@ void DeferredGeometryPass::render(IViewer* viewer, World& world, const SceneCont
 	hash_map<IEffect*, std::vector<Mesh*> >::iterator i = effects.begin();
 	for (; i != effects.end(); ++i) {
 		IEffect* effect = (*i).first;
-		effect->setUniform(viewer->nearDistance(), "Near");
-		effect->setUniform(viewer->farDistance(), "Far");
-		effect->setSamplerState(0, UV_ADDRESS_WRAP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_NONE);
-
 		GraphicsInterface::enableSmoothing();
 
 		std::vector<Mesh*> effectMeshes = (*i).second;
@@ -55,6 +52,9 @@ void DeferredGeometryPass::render(IViewer* viewer, World& world, const SceneCont
 			Matrix4x4 localToWorld = (*meshIt)->localToWorld();
 			Material material = (*meshIt)->material();
       effect->beginDraw();
+      effect->setUniform(viewer->nearDistance(), "Near");
+      effect->setUniform(viewer->farDistance(), "Far");
+      effect->setSamplerState(0, UV_ADDRESS_WRAP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_NONE);
 			material.bind(projection, viewTransform, localToWorld, effect);
 			(*meshIt)->render();
 			effect->endDraw();

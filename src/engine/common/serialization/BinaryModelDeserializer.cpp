@@ -6,6 +6,7 @@
 #include <iostream>
 
 #include "renderer/Vector3MaterialParameter.h"
+#include "renderer/Vector4MaterialParameter.h"
 #include "renderer/FloatMaterialParameter.h"
 #include "renderer/Texture.h"
 #include "renderer/VertexDefinition.h"
@@ -19,6 +20,7 @@ enum MaterialParameterType {
   PARAMETER_TYPE_STRING = 1,
   PARAMETER_TYPE_FLOAT = 2,
   PARAMETER_TYPE_VECTOR3 = 3,
+  PARAMETER_TYPE_VECTOR4 = 4,
 };
 
 std::string BinaryModelDeserializer::readString(std::ifstream& input) {
@@ -50,6 +52,12 @@ int BinaryModelDeserializer::readINT(std::ifstream& input) {
 Vector3 BinaryModelDeserializer::readVector3(std::ifstream& input) {
   Vector3 value;
   input.read((char*)&value, sizeof(Vector3));
+  return value;
+}
+
+Vector4 BinaryModelDeserializer::readVector4(std::ifstream& input) {
+  Vector4 value;
+  input.read((char*)&value, sizeof(Vector4));
   return value;
 }
 
@@ -107,11 +115,6 @@ void BinaryModelDeserializer::deserializeMaterial(Material& material, std::ifstr
 
   std::string effectFile = readString(input);
 
-//#ifdef PLATFORM_MAC
-//  if (materialName.compare("lambert1") == 0) {
-//    effectFile = "shaders/compiled/basic_model_view_projection.shader";
-//  }
-//#endif
   IEffect* effect = EffectCache::instance()->loadEffect(effectFile);
   material.setEffect(effect);
 
@@ -124,13 +127,16 @@ void BinaryModelDeserializer::deserializeMaterial(Material& material, std::ifstr
 
     if (parameterType == PARAMETER_TYPE_FLOAT) {
       float parameterValue = readFloat(input);
-      //MaterialParameter* parameter = new FloatMaterialParameter(parameterKey, parameterValue);
       material.setParameter(parameterKey, parameterValue);
     }
 
     if (parameterType == PARAMETER_TYPE_VECTOR3) {
       Vector3 parameterValue = readVector3(input);
-      //MaterialParameter* parameter = new Vector3MaterialParameter(parameterKey, parameterValue);
+      material.setParameter(parameterKey, parameterValue);
+    }
+    
+    if (parameterType == PARAMETER_TYPE_VECTOR4) {
+      Vector4 parameterValue = readVector4(input);
       material.setParameter(parameterKey, parameterValue);
     }
   }

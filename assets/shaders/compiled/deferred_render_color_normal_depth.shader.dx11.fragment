@@ -8,9 +8,9 @@
 //program ps
 //semantic WorldViewProj
 //semantic DiffuseColor
-//var float3 DiffuseColor :  : _DiffuseColor : -1 : 1
+//var float4 DiffuseColor :  : _DiffuseColor : -1 : 1
 //var float3 normal : $vin.TEXCOORD0 :  : 1 : 1
-//var float3 ps.color : $vout.COLOR0 : COLOR0 : -1 : 1
+//var float4 ps.color : $vout.COLOR0 : COLOR0 : -1 : 1
 //var float4 ps.normal : $vout.COLOR1 : COLOR1 : -1 : 1
 
 #pragma pack_matrix(row_major)
@@ -21,7 +21,7 @@ struct VOutput {
 };
 
 struct POutput {
-    float3 _color : SV_Target0;
+    float4 _color : SV_Target0;
     float4 _normal : SV_Target1;
 };
 
@@ -32,7 +32,7 @@ struct X1X {
 
 static float3 _TMP0;
 static float3 _unPackedNormal0003;
-uniform float3 _DiffuseColor;
+uniform float4 _DiffuseColor;
 
  // main procedure, the original name was ps
 POutput main( in X1X cin)
@@ -42,7 +42,7 @@ POutput main( in X1X cin)
     POutput _OUT;
 
     _normal1 = (float3) cin._TEXCOORD0;
-    _OUT._color = (float3) _DiffuseColor;
+    _OUT._color = (float4) _DiffuseColor;
     _unPackedNormal0003 = (float3) _normal1;
     _TMP0 =   5.00000000000000000E-01f + _unPackedNormal0003*  5.00000000000000000E-01f;
     _OUT._normal = (float4) float4(_TMP0.x, _TMP0.y, _TMP0.z,   0.00000000000000000E00f);
