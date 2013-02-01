@@ -45,6 +45,6 @@ POutput main( in X1X cin)
     _OUT._color = (float4) _DiffuseColor;
     _unPackedNormal0003 = (float3) _normal1;
     _TMP0 =   5.00000000000000000E-01f + _unPackedNormal0003*  5.00000000000000000E-01f;
-    _OUT._normal = (float4) float4(_TMP0.x, _TMP0.y, _TMP0.z,   0.00000000000000000E00f);
+    _OUT._normal = (float4) float4(_TMP0.x, _TMP0.y, _TMP0.z,   1.00000000000000000E00f);
     return _OUT;
 } // main end

@@ -42,7 +42,7 @@ void Game::init(const char* sceneFile) {
   
   Keyboard::setKeydownListener(this);
   
-  renderer_.presentRenderTarget(0);
+  renderer_.presentRenderTarget(1);
 }
  
 void Game::mainLoop() {

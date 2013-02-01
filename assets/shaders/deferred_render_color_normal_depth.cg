@@ -30,7 +30,7 @@ POutput ps(	half4 position			: POSITION,
 	POutput OUT;
 	
 	OUT.color = DiffuseColor;
-	OUT.normal = float4(packNormal(normal), 0);
+	OUT.normal = float4(packNormal(normal), 1);
 	
 	return OUT;
 }

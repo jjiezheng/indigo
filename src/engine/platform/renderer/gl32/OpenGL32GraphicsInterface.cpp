@@ -44,6 +44,13 @@ void OpenGL32GraphicsInterface::openWindow(int width, int height, unsigned int m
   screenSize_.width = width;
   screenSize_.height = height;
   
+  GLuint depthBufferTexture = 0;
+  glGenTextures(1, &depthBufferTexture);
+  glBindTexture(GL_TEXTURE_2D, depthBufferTexture);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, width, height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+  GLUtilities::checkForError();
+  
+  depthBufferTexture_ = depthBufferTexture;
 }
 
 void OpenGL32GraphicsInterface::setViewport(const CSize& dimensions) {
@@ -149,17 +156,15 @@ IEffect* OpenGL32GraphicsInterface::createEffect() {
 }
 
 void OpenGL32GraphicsInterface::resetGraphicsState(bool cullBack) {
-//  glDisable(GL_BLEND);
-//  glEnable(GL_DEPTH_TEST);
-//  glEnable(GL_CULL_FACE);
-  
-//  glPolygonOffset(2.5f, 10.0f);
-//  glEnable(GL_POLYGON_OFFSET_FILL);
+  glEnable(GL_DEPTH_TEST);
+  glEnable(GL_CULL_FACE);
   
   int faceToCull = cullBack ? GL_BACK : GL_FRONT;
   glCullFace(faceToCull);
   GLUtilities::checkForError();
-  glCullFace(GL_BACK);
+
+  //  glEnable(GL_POLYGON_OFFSET_FILL);
+  //  glPolygonOffset(2.5f, 10.0f);
 }
 
 void OpenGL32GraphicsInterface::enableSmoothing() {
@@ -263,7 +268,13 @@ void OpenGL32GraphicsInterface::setRenderTarget(unsigned int* renderTargetIds, u
     drawBuffers[i] = GL_COLOR_ATTACHMENT0 + i;
   }
   
+  if (useDepthBuffer) {
+    glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, depthTextureId, 0);
+    GLUtilities::checkForError();
+  }
+  
   glDrawBuffers(renderTargetCount, drawBuffers);
+  GLUtilities::checkForError();
   GLUtilities::checkFramebufferStatus(GL_FRAMEBUFFER);
 }
 
@@ -287,11 +298,11 @@ unsigned int OpenGL32GraphicsInterface::createDepthTexture(const CSize& dimensio
 }
 
 void OpenGL32GraphicsInterface::clearActiveDepthBuffer(unsigned int textureId) {
-  
+  glClear(GL_DEPTH_BUFFER_BIT);
 }
 
 unsigned int OpenGL32GraphicsInterface::depthBufferTexture() const {
-  return 0;
+  return depthBufferTexture_;
 }
 
 void OpenGL32GraphicsInterface::setBlendState(IGraphicsInterface::BlendState blendState) {

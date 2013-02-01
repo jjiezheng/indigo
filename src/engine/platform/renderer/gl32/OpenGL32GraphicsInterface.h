@@ -17,6 +17,10 @@ public:
   
   virtual ~OpenGL32GraphicsInterface() { };
   
+  OpenGL32GraphicsInterface()
+    : depthBufferTexture_(0)
+  { }
+  
 public:
   
   void destroy();
@@ -107,6 +111,8 @@ public:
 private:
   
   std::vector<GLuint> renderTargetTextures_;
+  
+  unsigned int depthBufferTexture_;
   
 };
 
