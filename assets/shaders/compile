@@ -12,6 +12,7 @@ function gl32 {
 	cgc -DGL32=1 -q -profileopts version=150 -profile glslf -entry ps -o compiled/${f%.*}.shader.gl32.fragment $f
 }
 function gcm {
+	command -v sce-cgc >/dev/null 2>&1 || { return; }
 	sce-cgc --capture --capture-dir compiled --debug --fenable-bx2 --fastmath --fastprecision --nofloatbindings -DGCM=1 -q -p sce_vp_rsx -e vs -o compiled/${f%.*}.shader.gcm.vertex $f
 	sce-cgc --capture --capture-dir compiled --debug --fenable-bx2 --fastmath --fastprecision --nofloatbindings -DGCM=1 -q -p sce_fp_rsx -e ps -o compiled/${f%.*}.shader.gcm.fragment $f
 }

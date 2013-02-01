@@ -299,48 +299,15 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "/C/Users/NK/Development/game/premake4.lua",
-			"settings":
-			{
-				"buffer_size": 4178,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "{\n	\"cmd\": [\"make\"]\n}\n",
-			"settings":
-			{
-				"buffer_size": 21,
-				"line_ending": "Windows",
-				"name": "untitled.sublime-build"
-			}
-		},
-		{
-			"file": "assets.sublime-project",
-			"settings":
-			{
-				"buffer_size": 222,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "shaders/basic.cg",
-			"settings":
-			{
-				"buffer_size": 242,
-				"line_ending": "Windows"
-			}
-		}
 	],
 	"build_system": "CG",
 	"command_palette":
 	{
-		"height": 334.0,
+		"height": 392.0,
 		"selected_items":
 		[
 		],
-		"width": 392.0
+		"width": 449.0
 	},
 	"console":
 	{
@@ -357,13 +324,24 @@
 	},
 	"file_history":
 	[
+		"/Users/nk/Development/game/assets/shaders/compile",
+		"/Users/nk/Development/game/assets/shaders/basic.cg",
+		"/Users/nk/Development/game/assets/shaders/deferred_render_color_normal_depth.cg",
+		"/Users/nk/Development/game/assets/scenes/simple/floor.scene",
+		"/Users/nk/Development/game/assets/shaders/compiled/deferred_render_color_normal_depth.shader.gl32.vertex",
+		"/Users/nk/Development/game/assets/shaders/compiled/basic_model_view_projection_color.shader.dx11.fragment",
+		"/Users/nk/Development/game/assets/shaders/basic_projection.cg",
+		"/Users/nk/Development/game/assets/shaders/basic_model_view_projection_color.cg",
+		"/Users/nk/Development/game/assets/shaders/compiled/basic_projection.shader.gl32.vertex",
+		"/Users/nk/Development/game/premake4.lua",
+		"/C/Users/NK/Development/game/premake4.lua",
+		"/Users/nk/Development/game/assets/assets.sublime-project",
 		"/C/Users/NK/AppData/Roaming/Sublime Text 2/Packages/User/Shader.sublime-build",
 		"/C/Users/NK/Development/importer/src/importer.sln",
 		"/C/Users/NK/Development/game/assets/actors/plane/plane.mb",
 		"/C/Program Files (x86)/MSBuild/Microsoft.Cpp/v4.0/Platforms/Win32/PlatformToolsets/v80/Microsoft.Cpp.Win32.v80.props",
 		"/C/Users/NK/Development/cl.bat",
 		"/C/Users/NK/Development/test.rsp",
-		"/C/Users/NK/Development/game/premake4.lua",
 		"/C/Users/NK/Development/multipass/.gitignore",
 		"/C/usr/local/cell/samples/sdk/graphics/gcm/fw_video_texturing/SampleApp.cpp",
 		"/C/Users/NK/AppData/Local/Temp/1489AFE4.TMP",
@@ -473,18 +451,7 @@
 		"/C/Users/NK/Development/game/assets/actors/cube/cube.model",
 		"/C/Users/NK/Development/game/todo",
 		"/C/Users/NK/Development/game/assets/terrain/flat.terrain",
-		"/C/Users/NK/Development/game/assets/debug/sphere.model",
-		"/C/Users/NK/Development/game/assets/terrain/flat.raw",
-		"/C/Users/NK/Desktop/terrain.raw",
-		"/C/Users/NK/Downloads/Adobe.Audition.CS5.5.v4.0.Multilingual.Incl.Keymaker-CORE/cr-9zw09/file_id.diz",
-		"/C/Users/NK/Development/game/libs/glm/core/type_mat4x4.hpp",
-		"/C/Users/NK/Development/game/assets/cgfx/composite.hlsl",
-		"/C/Users/NK/Development/game/assets/cgfx/deferred_lighting_directional_light.hlsl",
-		"/C/Users/NK/Development/game/assets/cgfx/blend_states.hlsl",
-		"/C/Users/NK/Development/game/assets/skydomes/noon/noon.model",
-		"/C/Users/NK/Development/game/assets/skydomes/clear_midmorning/clear_midmorning.model",
-		"/C/Users/NK/Development/game/assets/cgfx/fxaa_color_luma.hlsl",
-		"/C/Users/NK/Development/game/assets/cgfx/deferred_render_colormap_normalmap_depth.hlsl"
+		"/C/Users/NK/Development/game/assets/debug/sphere.model"
 	],
 	"find":
 	{
@@ -594,114 +561,8 @@
 	"groups":
 	[
 		{
-			"selected": 2,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "/C/Users/NK/Development/game/premake4.lua",
-					"settings":
-					{
-						"buffer_size": 4178,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								744,
-								744
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Lua/Lua.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 585.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"settings":
-					{
-						"buffer_size": 21,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1,
-								1
-							]
-						],
-						"settings":
-						{
-							"default_dir": "C:\\Users\\NK\\AppData\\Roaming\\Sublime Text 2\\Packages\\User",
-							"syntax": "Packages/JavaScript/JSON.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "assets.sublime-project",
-					"settings":
-					{
-						"buffer_size": 222,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								94,
-								94
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JSON.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "shaders/basic.cg",
-					"settings":
-					{
-						"buffer_size": 242,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								242,
-								242
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				}
 			]
 		}
 	],
@@ -738,7 +599,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 369.0
+		"height": 171.0
 	},
 	"replace":
 	{
@@ -750,6 +611,22 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"scenes/simple/",
+				"assets/scenes/simple/floor.scene"
+			],
+			[
+				"basic_pr",
+				"assets/shaders/basic_projection.cg"
+			],
+			[
+				"basicpro",
+				"assets/shaders/compiled/basic_projection.shader.gl32.vertex"
+			],
+			[
+				"compile",
+				"assets/shaders/compile"
+			],
 			[
 				"color_",
 				"shaders/deferred_render_color_normal_depth.cg"
@@ -864,10 +741,6 @@
 			],
 			[
 				"compi",
-				"shaders/compile"
-			],
-			[
-				"compile",
 				"shaders/compile"
 			],
 			[
@@ -1009,6 +882,6 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 501.0,
+	"side_bar_width": 320.0,
 	"status_bar_visible": true
 }

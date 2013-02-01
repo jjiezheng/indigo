@@ -17,3 +17,4 @@
 *.filters
 build
 assets/shaders/compiled/cgc-capture
+*.app

@@ -1,18 +1,21 @@
-#ifndef OPENGL_21_GRAPHICS_INTERFACE_H
-#define OPENGL_21_GRAPHICS_INTERFACE_H
+#ifndef OPENGL_32_GRAPHICS_INTERFACE_H
+#define OPENGL_32_GRAPHICS_INTERFACE_H
 
 #include "IGraphicsInterface.h"
+
+#include "OpenGL.h"
 
 #include "OpenGLRenderTarget.h"
 #include "OpenGLShadowMap.h"
 
 #include <vector>
+#include <map>
 
-class OpenGL21GraphicsInterface : public IGraphicsInterface {
+class OpenGL32GraphicsInterface : public IGraphicsInterface {
   
 public:
   
-  virtual ~OpenGL21GraphicsInterface() { };
+  virtual ~OpenGL32GraphicsInterface() { };
   
 public:
   
@@ -100,6 +103,10 @@ public:
 	Vector2 halfBackBufferPixel() const;
   
 	Vector2 halfScreenPixel() const;
+  
+private:
+  
+  std::map<GLuint, GLuint> renderBufferTextures_;
   
 };
 

@@ -1,8 +1,13 @@
 #include "Endian.h"
 
+#include "PlatformDefs.h"
 
-unsigned int swap_uint32(unsigned int val) {
-  val = ((val << 8) & 0xFF00FF00 ) | ((val >> 8) & 0xFF00FF );
-  return (val << 16) | (val >> 16);
+unsigned int binary_uint32(unsigned int val) {
+  unsigned int result = val;
+#ifdef BIG_ENDIAN
+  result = ((val << 8) & 0xFF00FF00 ) | ((val >> 8) & 0xFF00FF );
+  result (val << 16) | (val >> 16);
+#endif
+  return result;
 }
 

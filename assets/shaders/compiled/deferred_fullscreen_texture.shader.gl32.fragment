@@ -9,7 +9,6 @@
 //semantic ColorMap : TEXUNIT0
 //semantic HalfPixel
 //var sampler2D ColorMap : TEXUNIT0 : _ColorMap 0 : -1 : 1
-//var float2 HalfPixel :  : _HalfPixel : -1 : 1
 //var float2 texCoord : $vin.TEXCOORD0 : TEXCOORD0 : 1 : 1
 //var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
 
@@ -20,9 +19,8 @@ struct VOutput {
 };
 
 vec4 _ret_0;
-vec2 _c0003;
+vec4 _TMP0;
 uniform sampler2D _ColorMap;
-uniform vec2 _HalfPixel;
 in vec4 cg_TexCoord0;
 out vec4 cg_FragColor;
 
@@ -30,9 +28,11 @@ out vec4 cg_FragColor;
 void main()
 {
 
+    vec2 _texCoords;
 
-    _c0003 = cg_TexCoord0.xy + _HalfPixel;
-    _ret_0 = texture(_ColorMap, _c0003);
+    _texCoords = vec2(cg_TexCoord0.x, 1.00000000E+00 - cg_TexCoord0.y);
+    _TMP0 = texture(_ColorMap, _texCoords);
+    _ret_0 = vec4(_TMP0.x, _TMP0.y, _TMP0.z, 1.00000000E+00);
     cg_FragColor = _ret_0;
     return;
 } // main end

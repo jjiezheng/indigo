@@ -13,6 +13,13 @@ Matrix4x4 Matrix4x4::IDENTITY = Matrix4x4(1.0f, 0.0f, 0.0f, 0.0f,
                                           0.0f, 0.0f, 1.0f, 0.0f,
                                           0.0f, 0.0f, 0.0f, 1.0f);
 
+Matrix4x4 Matrix4x4::transpose() const {
+  return Matrix4x4(m11, m21, m31, m41,
+                   m12, m22, m32, m42,
+                   m13, m23, m33, m43,
+                   m14, m24, m34, m44);
+}
+
 Matrix4x4 Matrix4x4::rotation(const Vector4& axis, float angleRadians) {
   return Matrix4x4(Matrix3x3::rotation(axis.vec3(), angleRadians));
 }

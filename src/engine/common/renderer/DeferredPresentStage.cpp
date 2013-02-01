@@ -26,12 +26,12 @@ void DeferredPresentStage::render(unsigned int presentTextureId, unsigned int de
   GraphicsInterface::setViewport(GraphicsInterface::screenSize());
   GraphicsInterface::clearActiveColorBuffers(Color4::NOTHING);
 
+  effect_->beginDraw();
 	effect_->setUniform(GraphicsInterface::halfScreenPixel(), "HalfPixel");
-
   effect_->setTexture(presentTextureId, "ColorMap");
+  
   GraphicsInterface::setRenderState(true);
 
-  effect_->beginDraw();
   GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);
   effect_->endDraw();
 

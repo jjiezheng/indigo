@@ -7,7 +7,7 @@
 #endif
 
 #ifdef PLATFORM_MAC
-  #include "OpenGL21GraphicsInterface.h"
+  #include "OpenGL32GraphicsInterface.h"
 #endif
 
 #ifdef PLATFORM_PS3
@@ -20,7 +20,7 @@ IGraphicsInterface* IGraphicsInterface::createInterface() {
 #endif
 
 #ifdef PLATFORM_MAC
-  return new OpenGL21GraphicsInterface();
+  return new OpenGL32GraphicsInterface();
 #endif
 
 #ifdef PLATFORM_PS3

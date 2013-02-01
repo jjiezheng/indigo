@@ -69,7 +69,7 @@ Model* BinaryModelDeserializer::deserialize(const std::string& modelFilePath) {
 #ifdef BIG_ENDIAN
   unsigned int bigEndianOffset;
   input.read((char*)&bigEndianOffset, sizeof(unsigned int));
-  bigEndianOffset = swap_uint32(bigEndianOffset);
+  bigEndianOffset = binary_uint32(bigEndianOffset);
   input.seekg(0);
   input.seekg(bigEndianOffset);
 #else
@@ -107,11 +107,11 @@ void BinaryModelDeserializer::deserializeMaterial(Material& material, std::ifstr
 
   std::string effectFile = readString(input);
 
-#ifdef PLATFORM_MAC
-  if (materialName.compare("lambert1") == 0) {
-    effectFile = "shaders/compiled/basic.shader";
-  }
-#endif
+//#ifdef PLATFORM_MAC
+//  if (materialName.compare("lambert1") == 0) {
+//    effectFile = "shaders/compiled/basic_model_view_projection.shader";
+//  }
+//#endif
   IEffect* effect = EffectCache::instance()->loadEffect(effectFile);
   material.setEffect(effect);
 

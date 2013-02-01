@@ -52,6 +52,10 @@ public:
   
   void setSamplerState(unsigned int samplerSlot, SAMPLER_UV_ADDRESS_MODE addressMode, SAMPLER_COMPARISON_FILTER comparisonFilter, SAMPLER_COMPARISON_FUNC compartisonFunction);
   
+private:
+  
+  std::string getInternalUniformName(const std::string uniformName) const;
+  
 public:
   
   GLuint programId_;
