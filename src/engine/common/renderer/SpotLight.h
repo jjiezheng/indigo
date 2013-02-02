@@ -81,9 +81,9 @@ public:
 
 public:
 
-  void setPosition(const Vector4& position);
+  void setPosition(const Vector3& position);
 
-  Vector4 position() const;
+  Vector3 position() const;
 
 public:
 
@@ -121,7 +121,7 @@ private:
 
   Matrix4x4 orientation_;
   Vector3 direction_;
-  Vector4 position_;
+  Vector3 position_;
   Color3 color_;
   float innerAngle_;
   float outerAngle_;
@@ -186,11 +186,11 @@ inline void SpotLight::setDirection(const Vector3& direction) {
   direction_ = direction;
 }
 
-inline void SpotLight::setPosition(const Vector4& position) {
+inline void SpotLight::setPosition(const Vector3& position) {
   position_ = position;
 }
 
-inline Vector4 SpotLight::position() const {
+inline Vector3 SpotLight::position() const {
   return position_;
 }
 

@@ -79,6 +79,8 @@ void OpenGLEffect::load(const std::string& filePath) {
   
   glBindAttribLocation(programId_, NORMAL, "NORMAL");
   glBindAttribLocation(programId_, TEXCOORD0, "TEXCOORD0");
+  glBindAttribLocation(programId_, TEXCOORD1, "TEXCOORD1");
+  glBindAttribLocation(programId_, TEXCOORD2, "TEXCOORD2");
 
   glLinkProgram(programId_);
   GLUtilities::checkForError();
@@ -86,6 +88,7 @@ void OpenGLEffect::load(const std::string& filePath) {
 
 void OpenGLEffect::beginDraw() {
   glUseProgram(programId_);
+  GLUtilities::checkForError();
 }
 
 void OpenGLEffect::endDraw() {
@@ -172,11 +175,13 @@ void OpenGLEffect::setTexture(unsigned int textureId, const char* uniformName) {
   std::string internalUnformName = getInternalUniformName(uniformName);
   GLint uniformLocation = glGetUniformLocation(programId_, internalUnformName.c_str());
   if (uniformLocation > -1) {
-    GLint samplerId = 0;
+    if (samplerBindings_.find(uniformLocation) == samplerBindings_.end()) {
+      samplerBindings_[uniformLocation] = lastSamplerBinding_++;
+    }
+    GLint samplerId = samplerBindings_[uniformLocation];
     glActiveTexture(GL_TEXTURE0 + samplerId);
     glBindTexture(GL_TEXTURE_2D, textureId);
     glUniform1i(uniformLocation, samplerId);
-
     GLUtilities::checkForError();
   }
 }

@@ -1,5 +1,7 @@
 #ifndef OPENGL_EFFECT_H
-#define OPENGL_EFFFECT_H
+#define OPENGL_EFFECT_H
+
+#include <map>
 
 #include "OpenGL.h"
 
@@ -14,7 +16,8 @@ public:
 public:
   
   OpenGLEffect()
-    : programId_(0) { };
+    : programId_(0)
+    , lastSamplerBinding_(0) { };
   
 public:
   
@@ -59,6 +62,11 @@ private:
 public:
   
   GLuint programId_;
+  
+private:
+
+  unsigned int lastSamplerBinding_;
+  std::map<GLuint, GLuint> samplerBindings_;
   
 };
 

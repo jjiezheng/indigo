@@ -42,7 +42,7 @@ public:
   
   Matrix4x4 rotation() const;
   
-  Vector4 position() const;
+  Vector3 position() const;
 
   float fov() const;
 
@@ -93,7 +93,7 @@ private:
   Vector3 forward_;
   Vector3 right_;
   Vector3 up_;
-  Vector4 position_;
+  Vector3 position_;
 
   Matrix4x4 projection_;
 
@@ -120,7 +120,7 @@ inline Matrix4x4 Camera::projection() const {
   return projection_;
 }
 
-inline Vector4 Camera::position() const {
+inline Vector3 Camera::position() const {
   return position_;
 }
 

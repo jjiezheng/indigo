@@ -1,6 +1,7 @@
 #ifndef POINTLIGHT_H
 #define POINTLIGHT_H
 
+#include "maths/Vector3.h"
 #include "maths/Vector4.h"
 #include "maths/Matrix4x4.h"
 
@@ -15,9 +16,9 @@ public:
 
 public:
 
-  void setPosition(const Vector4& position);
+  void setPosition(const Vector3& position);
 
-  Vector4 position() const;
+  Vector3 position() const;
 
 public:
 
@@ -41,7 +42,7 @@ public:
 
 private:
 
-  Vector4 position_;
+  Vector3 position_;
   Color3 color_;
   float radius_;
 
@@ -55,11 +56,11 @@ inline float PointLight::radius() const {
   return radius_;
 }
 
-inline void PointLight::setPosition(const Vector4& position) {
+inline void PointLight::setPosition(const Vector3& position) {
   position_ = position;
 }
 
-inline Vector4 PointLight::position() const {
+inline Vector3 PointLight::position() const {
   return position_;
 }
 

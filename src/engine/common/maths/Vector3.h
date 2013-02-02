@@ -36,6 +36,8 @@ public:
   Vector3 inverse() const;
 
   float length() const;
+  
+  float distance(const Vector3& other) const;
 
 public:
   

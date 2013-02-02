@@ -107,10 +107,9 @@ void DeferredSpotLightsPass::renderShadowMap(SpotLight* light, hash_map<IEffect*
 	for (; i != meshes.end(); ++i) {
 		std::vector<Mesh*> effectMeshes = (*i).second;
 		for (std::vector<Mesh*>::iterator meshIt = effectMeshes.begin(); meshIt != effectMeshes.end(); ++meshIt) {
-			(*meshIt)->material().bind(light->projection(), light->viewTransform(), (*meshIt)->localToWorld(), shadowDepthEffect_);
-
-			GraphicsInterface::setRenderState(false);
-			shadowDepthEffect_->beginDraw();
+      GraphicsInterface::setRenderState(false);
+      shadowDepthEffect_->beginDraw();
+      (*meshIt)->material().bind(light->projection(), light->viewTransform(), (*meshIt)->localToWorld(), shadowDepthEffect_);
 			(*meshIt)->render();
 			shadowDepthEffect_->endDraw();
 		}
@@ -126,6 +125,9 @@ void DeferredSpotLightsPass::renderLight(SpotLight* light, IEffect* lightEffect,
 
 	GraphicsInterface::setRenderTarget(spotLightRenderTarget_, false);
 	GraphicsInterface::clearActiveColorBuffers(Color4::CORNFLOWERBLUE);
+  
+  GraphicsInterface::setRenderState(true);
+  lightEffect->beginDraw();
 
 	if (light->castsShadows()) {
 		CSize shadowMapResolution = light->shadowMapResolution();
@@ -176,8 +178,6 @@ void DeferredSpotLightsPass::renderLight(SpotLight* light, IEffect* lightEffect,
 
 	lightEffect->setTexture(normalMap, "NormalMap");
 
-	GraphicsInterface::setRenderState(true);
-	lightEffect->beginDraw();
 	GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);
 	lightEffect->endDraw();
 
@@ -189,13 +189,13 @@ void DeferredSpotLightsPass::accumulateLight(SpotLight* light, unsigned int colo
 
 	GraphicsInterface::setBlendState(IGraphicsInterface::ADDITIVE);
 	GraphicsInterface::setRenderTarget(lightMapRenderTarget, false);
+  GraphicsInterface::setRenderState(true);
+  
+  accumulationEffect_->beginDraw();
 	accumulationEffect_->setTexture(spotLightRenderTexture_, "LightSourceMap");
 	accumulationEffect_->setTexture(colorMap, "ColorMap");
-
 	accumulationEffect_->setUniform(GraphicsInterface::halfBackBufferPixel(), "HalfPixel");
 
-	GraphicsInterface::setRenderState(true);
-	accumulationEffect_->beginDraw();
 	GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);
 	accumulationEffect_->endDraw();
 	GraphicsInterface::setBlendState(IGraphicsInterface::NOBLEND);

@@ -13,15 +13,15 @@ class Light : public IViewer {
   
 public:
   
-  void setPosition(const Vector4& position);
+  void setPosition(const Vector3& position);
   
-  Vector4 position() const;
+  Vector3 position() const;
 
 public:
 
-  void setDirection(const Vector4& direction);
+  void setDirection(const Vector3& direction);
 
-  Vector4 direction() const;
+  Vector3 direction() const;
   
 public:
   
@@ -41,8 +41,8 @@ public:
     
 private:
   
-  Vector4 position_;
-  Vector4 direction_;
+  Vector3 position_;
+  Vector3 direction_;
   Matrix4x4 rotation_;
   Color3 color_;
   

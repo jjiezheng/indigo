@@ -29,7 +29,6 @@ int OpenGL32GraphicsInterface::exitCode() const {
   return 0;
 }
 
-
 void OpenGL32GraphicsInterface::openWindow(int width, int height, unsigned int multiSamples) {
   glfwInit();
   glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 3);
@@ -144,6 +143,7 @@ unsigned int OpenGL32GraphicsInterface::createVertexBuffer(VertexDef* vertexData
 void OpenGL32GraphicsInterface::drawVertexBuffer(int vertexBuffer, int vertexCount, VertexFormat vertexFormat) {
   glBindVertexArray(vertexBuffer);
   glDrawArrays(GL_TRIANGLES, 0, vertexCount);
+  GLUtilities::checkForError();
 }
 
 void OpenGL32GraphicsInterface::clearActiveRenderTargets(const Color4& color) {

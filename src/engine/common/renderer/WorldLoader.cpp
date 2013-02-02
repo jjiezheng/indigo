@@ -160,7 +160,7 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
         json::Number zNumber = positionObject["z"];
         float z = zNumber.Value();
 
-        Vector4 position(x, y, z, 0.0f);
+        Vector3 position(x, y, z);
 
         light.setPosition(position);
       }
@@ -219,7 +219,7 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
         json::Number zNumber = positionObject["z"];
         float z = zNumber.Value();
 
-        Vector4 position(x, y, z, 0.0f);
+        Vector3 position(x, y, z);
 
         light->setPosition(position);
       }

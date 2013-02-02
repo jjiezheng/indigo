@@ -1,13 +1,22 @@
 #ifndef IKEYBOARD_H
 #define IKEYBOARD_H
 
-class IKeyboardListener;
+#include "IKeyboardListener.h"
 
 class IKeyboard {
   
 public:
   
+  enum {
+    kMaxKeyStates = 256
+  };
+  
+public:
+  
   virtual ~IKeyboard() { };
+  
+  IKeyboard()
+    : keyDownListener_(0) { }
   
 public:
   
@@ -16,9 +25,29 @@ public:
   virtual void update() = 0;
   
   virtual bool keyState(char keyCode) = 0;
+  
+public:
 
-  virtual void setKeydownListener(IKeyboardListener* keyDownListener) = 0;
+  void setKeydownListener(IKeyboardListener* keyDownListener);
+  
+protected:
+  
+  void onKeyUp(int key);
+  
+private:
+  
+  IKeyboardListener* keyDownListener_;
   
 };
+
+inline void IKeyboard::setKeydownListener(IKeyboardListener* keyDownListener) {
+  keyDownListener_ = keyDownListener;
+}
+
+inline void IKeyboard::onKeyUp(int key) {
+  if (0 != keyDownListener_) {
+    keyDownListener_->keyUp(key);
+  }
+}
 
 #endif

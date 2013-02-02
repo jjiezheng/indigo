@@ -107,3 +107,7 @@ float Vector3::angleBetween(const Vector3& other) const {
 	float angle = acos(cosAngle);
 	return angle;
 }
+
+float Vector3::distance(const Vector3& other) const {
+  return (*this - other).length();
+}

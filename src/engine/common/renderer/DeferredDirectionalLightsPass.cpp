@@ -42,6 +42,8 @@ void DeferredDirectionalLightsPass::render(IViewer* viewer, World& world, const 
 
     std::vector<DirectionalLight> directionalLights = sceneContext.directionalLights();
     for (std::vector<DirectionalLight>::iterator light = directionalLights.begin(); light != directionalLights.end(); ++light) {
+      directionalLightEffect_->beginDraw();
+
       directionalLightEffect_->setTexture(GraphicsInterface::depthBufferTexture(), "DepthMap");
       directionalLightEffect_->setTexture(initStage.normalMap(), "NormalMap");
       
@@ -58,7 +60,6 @@ void DeferredDirectionalLightsPass::render(IViewer* viewer, World& world, const 
       //Matrix4x4 normalMatrix = viewer->viewTransform().mat3x3().inverseTranspose();
       directionalLightEffect_->setUniform(Matrix4x4::IDENTITY.mat3x3(), "NormalMatrix");
 
-      directionalLightEffect_->beginDraw();
       GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);
       directionalLightEffect_->endDraw();
     }
@@ -71,9 +72,10 @@ void DeferredDirectionalLightsPass::render(IViewer* viewer, World& world, const 
 
     GraphicsInterface::setBlendState(IGraphicsInterface::ADDITIVE);
     GraphicsInterface::setRenderTarget(lightMapRenderTarget, false);
+    
+    accumulationEffect_->beginDraw();
     accumulationEffect_->setTexture(directionalLightRenderTexture_, "LightSourceMap");
     accumulationEffect_->setTexture(initStage.colorMap(), "ColorMap");
-    accumulationEffect_->beginDraw();
     GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);
     accumulationEffect_->endDraw();
     GraphicsInterface::setBlendState(IGraphicsInterface::NOBLEND);

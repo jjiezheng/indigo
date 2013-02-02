@@ -18,7 +18,7 @@ public:
   
   virtual Matrix4x4 transform() const = 0;
   
-  virtual Vector4 position() const = 0;
+  virtual Vector3 position() const = 0;
 
   virtual Matrix4x4 translation() const = 0;
 
