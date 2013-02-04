@@ -6,6 +6,10 @@
 #include "WindowsMouse.h"
 #endif
 
+#ifdef PLATFORM_MAC
+#include "MacMouse.h"
+#endif
+
 #include "NullMouse.h"
 
 IMouse* Mouse::mouse_ = 0;
@@ -13,6 +17,8 @@ IMouse* Mouse::mouse_ = 0;
 void Mouse::init() {
 #ifdef PLATFORM_WINDOWS
   mouse_ = new WindowsMouse();
+#elif PLATFORM_MAC
+  mouse_ = new MacMouse();
 #else
   mouse_ = new NullMouse();
 #endif

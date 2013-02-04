@@ -19,6 +19,6 @@ VOutput vs(float4 position 			: POSITION,
 
 float4 ps(float4 position : POSITION,
 		  		float2 texCoord : TEXCOORD0) : COLOR0 {
-	float2 texCoords = float2(texCoord.x, 1.0f - texCoord.y);
+	float2 texCoords = float2(texCoord.x, texCoord.y);
 	return tex2D(ColorMap, texCoords);
 } 

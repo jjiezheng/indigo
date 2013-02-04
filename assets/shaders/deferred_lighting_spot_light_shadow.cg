@@ -27,7 +27,7 @@ uniform float3x3 NormalMatrix;
 
 struct VOutput {
       float4 position 			: POSITION;
-      float3 screenPosition 		: TEXCOORD0;
+      float3 screenPosition : TEXCOORD0;
 };
 
 VOutput vs(float4 position : POSITION) {
@@ -38,7 +38,7 @@ VOutput vs(float4 position : POSITION) {
 }
 
 float4 ps(float4 position 		: POSITION,
-		 float3 screenPosition 	: TEXCOORD0) : COLOR0 {
+					float3 screenPosition 	: TEXCOORD0) : COLOR0 {
 
 	// these need to be fed through in a texturetex2Dprojtex2Dproj
 	float diffusePower = 0.01f * 255;// normalData.w * 255; // 0-1 -> 0-255

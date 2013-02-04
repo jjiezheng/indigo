@@ -1,6 +1,6 @@
 // glslf output by Cg compiler
 // cgc version 3.1.0013, build date Apr 18 2012
-// command line args: -DGL21=1 -q -profile glslf
+// command line args: -DGL=1 -DGL21=1 -q -profile glslf
 // source file: deferred_fullscreen_texture.cg
 //vendor NVIDIA Corporation
 //version 3.1.0.13
@@ -27,7 +27,7 @@ void main()
 
     vec2 _texCoords;
 
-    _texCoords = vec2(gl_TexCoord[0].x, 1.00000000E+00 - gl_TexCoord[0].y);
+    _texCoords = vec2(gl_TexCoord[0].x, gl_TexCoord[0].y);
     _ret_0 = texture2D(_ColorMap, _texCoords);
     gl_FragColor = _ret_0;
     return;

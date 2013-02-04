@@ -186,14 +186,18 @@ project "game"
 			"glew"
 		}
 		includedirs { 
-			"src/engine/platform/renderer/gl32"
+			"src/engine/platform/renderer/gl32",
+			"src/engine/common/input",
+			"src/engine/platform/input/mac"
 		}
 		libdirs {
 			"libs/glfw/lib/osx"
 		}
 		files {
 			"src/engine/platform/renderer/gl32/**.h", 
-			"src/engine/platform/renderer/gl32/**.cpp"
+			"src/engine/platform/renderer/gl32/**.cpp",
+			"src/engine/platform/input/mac/**.h", 
+			"src/engine/platform/input/mac/**.cpp"
 		}
 
 --

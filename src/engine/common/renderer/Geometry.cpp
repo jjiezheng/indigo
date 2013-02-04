@@ -28,7 +28,7 @@ unsigned int Geometry::screenPlane() {
   quadVertices[3].normal = Vector3(0.0f, 0.0f, 1.0f);
   quadVertices[4].normal = Vector3(0.0f, 0.0f, 1.0f);
   quadVertices[5].normal = Vector3(0.0f, 0.0f, 1.0f);
-
+  
   quadVertices[0].uv = Vector2(0.0f, 1.0f);
   quadVertices[1].uv = Vector2(1.0f, 0.0f);
   quadVertices[2].uv = Vector2(0.0f, 0.0f);

@@ -30,7 +30,7 @@ void Game::init(const char* sceneFile) {
 // 	camera_.rotateX(-1.0f);
 	camera_.translateZ(4.0f);
 	//camera_.rotateX(toRadians(-90));
-  camera_.setIsPlayerControlled(false);
+  camera_.setIsPlayerControlled(true);
   
   camera_.setProjection(45.0f, GraphicsInterface::aspectRatio(), 1.0f, 500);
 

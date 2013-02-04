@@ -16,6 +16,7 @@
 #include "io/Log.h"
 
 #include "GL/glfw.h"
+#include "GRemdeyExtensions.h"
 
 void OpenGL32GraphicsInterface::destroy() {
   glfwTerminate();
@@ -36,6 +37,9 @@ void OpenGL32GraphicsInterface::openWindow(int width, int height, unsigned int m
   glfwOpenWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
   glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
   glfwOpenWindow(width, height, 8, 8, 8, 8, 0, 0, GLFW_WINDOW);
+  GLUtilities::checkForError();
+  
+  initGremedyExtension();
   
   backbufferSize_.width = width;
   backbufferSize_.height = height;
@@ -43,13 +47,7 @@ void OpenGL32GraphicsInterface::openWindow(int width, int height, unsigned int m
   screenSize_.width = width;
   screenSize_.height = height;
   
-  GLuint depthBufferTexture = 0;
-  glGenTextures(1, &depthBufferTexture);
-  glBindTexture(GL_TEXTURE_2D, depthBufferTexture);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, width, height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
-  GLUtilities::checkForError();
-  
-  depthBufferTexture_ = depthBufferTexture;
+  depthBufferTexture_ = createDepthTexture(screenSize_);
 }
 
 void OpenGL32GraphicsInterface::setViewport(const CSize& dimensions) {
@@ -57,7 +55,12 @@ void OpenGL32GraphicsInterface::setViewport(const CSize& dimensions) {
 }
 
 void OpenGL32GraphicsInterface::beginPerformanceEvent(const std::string& eventName) {
-  
+  if (NULL != glStringMarkerGREMEDY) {
+    std::string output;
+    output += "######################";
+    output += eventName;
+    glStringMarkerGREMEDY(output.length(), output.c_str());
+  }
 }
 
 void OpenGL32GraphicsInterface::endPerformanceEvent() {
@@ -123,7 +126,7 @@ unsigned int OpenGL32GraphicsInterface::createVertexBuffer(VertexDef* vertexData
   int uvi = 0;
   for (int i = 0; i < numVertices; i++) {
     uvs[uvi++] = vertexData[i].uv.x;
-    uvs[uvi++] = vertexData[i].uv.y;
+    uvs[uvi++] = 1.0f - vertexData[i].uv.y;
   }
   
   GLuint uvBuffer;
@@ -294,7 +297,14 @@ void OpenGL32GraphicsInterface::clearRenderTarget(unsigned int renderTargetId, c
 }
 
 unsigned int OpenGL32GraphicsInterface::createDepthTexture(const CSize& dimensions) {
-  return 0;
+  GLuint depthBufferTexture = 0;
+  glGenTextures(1, &depthBufferTexture);
+  glBindTexture(GL_TEXTURE_2D, depthBufferTexture);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, dimensions.width, dimensions.height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+  GLUtilities::checkForError();
+  return depthBufferTexture;
 }
 
 void OpenGL32GraphicsInterface::clearActiveDepthBuffer(unsigned int textureId) {

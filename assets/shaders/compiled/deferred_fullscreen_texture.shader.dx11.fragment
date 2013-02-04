@@ -35,6 +35,6 @@ float4 main( in X1X cin) : SV_Target0
     float2 _texCoords;
 
     _texCoord = cin._TEXCOORD0;
-    _texCoords = float2(_texCoord.x,   1.00000000000000000E00f - _texCoord.y);
+    _texCoords = float2(_texCoord.x, _texCoord.y);
     return _TMP0.Sample(_ColorMap, _texCoords);
 } // main end

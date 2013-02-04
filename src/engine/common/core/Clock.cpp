@@ -67,15 +67,19 @@ void Clock::init() {
 
 float Clock::delta_time() {
   
-  struct timeval now;
+  timeval t1;
   
-  if(gettimeofday(&now, NULL) != 0) {
-    return 0;
+  gettimeofday(&t1, NULL);
+  
+  double currentTime = t1.tv_sec * 1000.0 + t1.tv_usec / 1000.0;
+
+  float dt = (currentTime - lastTime_) / 1000.0f;
+  lastTime_ = currentTime;
+  lastDeltaTime_ = dt;
+  
+  if (lastDeltaTime_ > 1) {
+    lastDeltaTime_ = 1.0f / 60.0f;
   }
-  
-  long timeNow = (now.tv_sec * 1000000) + now.tv_usec;
-  
-  lastDeltaTime_ = timeNow / 1000000.0f;
   
   return lastDeltaTime_;
 }

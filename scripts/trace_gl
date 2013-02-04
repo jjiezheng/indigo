@@ -1,0 +1,3 @@
+rm *.trace
+../../apitrace/apitrace trace ../Game.app/Contents/MacOS/Game $1
+../../apitrace/qapitrace Game.trace

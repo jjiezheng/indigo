@@ -1,6 +1,6 @@
 // glslv output by Cg compiler
 // cgc version 3.1.0013, build date Apr 18 2012
-// command line args: -DGL21=1 -q -profile glslv
+// command line args: -DGL=1 -DGL21=1 -q -profile glslv
 // source file: basic.cg
 //vendor NVIDIA Corporation
 //version 3.1.0.13

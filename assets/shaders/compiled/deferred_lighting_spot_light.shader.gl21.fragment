@@ -1,6 +1,6 @@
 // glslf output by Cg compiler
 // cgc version 3.1.0013, build date Apr 18 2012
-// command line args: -DGL21=1 -q -profile glslf
+// command line args: -DGL=1 -DGL21=1 -q -profile glslf
 // source file: deferred_lighting_spot_light.cg
 //vendor NVIDIA Corporation
 //version 3.1.0.13
@@ -52,7 +52,6 @@ float _TMP2;
 float _TMP1;
 float _TMP0;
 vec4 _TMP6;
-vec2 _TMP5;
 vec2 _texCoord0033;
 vec4 _normalData0037;
 vec2 _texCoord0037;
@@ -97,8 +96,7 @@ void main()
     vec3 _floatVectorRaw1;
 
     _screenPositionClip = gl_TexCoord[0].xy/gl_TexCoord[0].z;
-    _TMP5 = vec2(_screenPositionClip.x, -_screenPositionClip.y);
-    _texCoord2 = 5.00000000E-01*(_TMP5 + vec2( 1.00000000E+00, 1.00000000E+00));
+    _texCoord2 = 5.00000000E-01*(_screenPositionClip + vec2( 1.00000000E+00, 1.00000000E+00));
     _texCoord0033 = _texCoord2 + _HalfPixel;
     _TMP6 = texture2D(_DepthMap, _texCoord0033);
     _texCoord0037 = _texCoord2 + _HalfPixel;

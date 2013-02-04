@@ -92,7 +92,14 @@ void OpenGLEffect::beginDraw() {
 }
 
 void OpenGLEffect::endDraw() {
-  
+#ifdef GPU_TRACE
+  GLint maxTextureUnits = 0;
+  glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &maxTextureUnits);
+  for (int i = 0; i < maxTextureUnits; i++) {
+    glActiveTexture(GL_TEXTURE0 + i);
+    glBindTexture(GL_TEXTURE_2D, 0);
+  }
+#endif
 }
 
 void OpenGLEffect::setUniform(const Matrix3x3& uniformData, const char* uniformName) const {

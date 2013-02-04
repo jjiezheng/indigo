@@ -52,7 +52,7 @@ POutput main( in X1X cin)
     _TMP0 = _TMP5.Sample(_ColorMap, (float2) _texCoord);
     _OUT._color = (float4) _TMP0;
     _unPackedNormal0004 = (float3) _normal1;
-    _TMP1 =  5.00000000000000000E-001f + _unPackedNormal0004* 5.00000000000000000E-001f;
-    _OUT._normal = (float4) float4(_TMP1.x, _TMP1.y, _TMP1.z,  0.00000000000000000E000f);
+    _TMP1 =   5.00000000000000000E-01f + _unPackedNormal0004*  5.00000000000000000E-01f;
+    _OUT._normal = (float4) float4(_TMP1.x, _TMP1.y, _TMP1.z,   0.00000000000000000E00f);
     return _OUT;
 } // main end

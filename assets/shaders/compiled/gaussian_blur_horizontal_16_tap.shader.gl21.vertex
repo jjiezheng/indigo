@@ -1,6 +1,6 @@
 // glslv output by Cg compiler
 // cgc version 3.1.0013, build date Apr 18 2012
-// command line args: -DGL21=1 -q -profile glslv
+// command line args: -DGL=1 -DGL21=1 -q -profile glslv
 // source file: gaussian_blur_horizontal_16_tap.cg
 //vendor NVIDIA Corporation
 //version 3.1.0.13
@@ -28,8 +28,8 @@
 //default weights[3] = 0.03599398
 //default weights[4] = 0.007597324
 //default weights[5] = 0.001028186
-//default weights[6] = 8.92202e-005
-//default weights[7] = 4.964e-006
+//default weights[6] = 8.92202e-05
+//default weights[7] = 4.964e-06
 
 #version 110
 

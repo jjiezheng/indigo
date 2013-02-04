@@ -2,7 +2,10 @@
 #define UTILS_H
 
 float2 flipY(float2 vec) {
-	return float2(vec.x, -vec.y);
+#ifdef GL
+  return vec;
+#endif
+  return float2(vec.x, -vec.y);
 }
 
 float3 expand(float3 vec) {
@@ -33,31 +36,5 @@ float ChebyshevUpperBound(float2 moments, float depth, float shadowBias) {
   float p = depth <= mean;
   return max(p, p_max);	
 }  
-
-float4 worldPosition(float2 texCoord, float depth, float4x4 viewProjInv) {
-  float4 positionScreen;
-  positionScreen.xy = (texCoord.xy * 2.0f) - 1.0f;
-  positionScreen.y = -positionScreen.y;
-  positionScreen.z = depth; 
-  positionScreen.w = 1.0f;
-
-  float4 positionWorldRaw = mul(viewProjInv, positionScreen);
-  float4 positionWorld = positionWorldRaw / positionWorldRaw.w;
-
-  return positionWorld;
-}
-
-float4 viewPosition(float2 texCoord, float depth, float4x4 projInv) {
-  float4 positionScreen;
-  positionScreen.xy = (texCoord.xy * 2.0f) - 1.0f;
-  positionScreen.y = -positionScreen.y;
-  positionScreen.z = depth; 
-  positionScreen.w = 1.0f;
-
-  float4 positionViewRaw = mul(projInv, positionScreen);
-  float4 positionView = positionViewRaw / positionViewRaw.w;
-
-  return positionView;
-}
 
 #endif

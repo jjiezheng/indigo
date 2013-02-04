@@ -6,8 +6,8 @@ float3 packNormal(float3 unPackedNormal) {
 
 float3 unpackNormal(sampler2D normalSampler, float2 texCoord) {
 	float4 normalData = tex2D(normalSampler, texCoord);
-  	float4 unPackedNormal = (normalData * 2.0f) - 1.0f;
-  	return unPackedNormal.xyz;
+	float4 unPackedNormal = (normalData * 2.0f) - 1.0f;
+	return unPackedNormal.xyz;
 }
 
 float shadowPCF(sampler2D shadowMap, float2 shadowCoord, float zToCompare, float2 shadowMapSize) {
@@ -27,7 +27,7 @@ float shadowPCF(sampler2D shadowMap, float2 shadowCoord, float zToCompare, float
 	}
 
 	shadowFactor = sum / 16.0f;
-	return shadowFactor;
+	return shadowFactor + 1.0f;
 }
 
 float linearize(float depth, float near, float far) {

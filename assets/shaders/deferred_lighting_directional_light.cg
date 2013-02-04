@@ -26,12 +26,12 @@ float4 ps(float4 position : POSITION,
 
   float3 lightVector = -normalize(LightDirection.xyz);
   //lightVector = normalize(mul(NormalMatrix, lightVector));
-
+ 
   // Blinn+Phong from http://en.wikipedia.org/wiki/Blinn%E2%80%93Phong_shading_model
 
   // diffuse
   float diffuseStrength = max(0.0f, dot(normal, lightVector));
   float3 diffuseContribution = LightColor * diffuseStrength;
 
-  return float4(diffuseContribution, 0);
+  return float4(diffuseContribution, 1.0f);
 }

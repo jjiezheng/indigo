@@ -35,15 +35,14 @@ unsigned int DeferredFXAAPass::render(IViewer* viewer, unsigned int inputMap, co
   {
     GraphicsInterface::beginPerformanceEvent("Color Luma");
 
+    GraphicsInterface::setRenderState(true);
     GraphicsInterface::setRenderTarget(colorLumaTarget_, false, GraphicsInterface::screenSize());
     GraphicsInterface::clearActiveColorBuffers(Color4::TRANSPAREN);
-
+    
+    colorLumaEffect_->beginDraw();
 		colorLumaEffect_->setUniform(GraphicsInterface::halfScreenPixel(), "HalfPixel");
     colorLumaEffect_->setTexture(inputMap, "InputMap");
-
-    GraphicsInterface::setRenderState(true);
-
-    colorLumaEffect_->beginDraw();
+    
     GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);
     colorLumaEffect_->endDraw();
 
@@ -53,9 +52,12 @@ unsigned int DeferredFXAAPass::render(IViewer* viewer, unsigned int inputMap, co
   {
     GraphicsInterface::beginPerformanceEvent("FXAA");
 
+    GraphicsInterface::setRenderState(true);
     GraphicsInterface::setRenderTarget(fxaaRenderTarget_, false, GraphicsInterface::screenSize());
+    GraphicsInterface::setBlendState(IGraphicsInterface::NOBLEND);
     GraphicsInterface::clearActiveColorBuffers(Color4::TRANSPAREN);
 
+    fxaaEffect_->beginDraw();
     fxaaEffect_->setTexture(colorLumaTexture_, "FinalMap");
 
     CSize screenSize = GraphicsInterface::screenSize();
@@ -68,9 +70,6 @@ unsigned int DeferredFXAAPass::render(IViewer* viewer, unsigned int inputMap, co
 
 		fxaaEffect_->setUniform(GraphicsInterface::halfScreenPixel(), "HalfPixel");
 
-    GraphicsInterface::setRenderState(true);
-
-    fxaaEffect_->beginDraw();
     GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);
     fxaaEffect_->endDraw();
 
