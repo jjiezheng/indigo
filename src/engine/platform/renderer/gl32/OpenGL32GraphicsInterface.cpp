@@ -23,7 +23,7 @@ void OpenGL32GraphicsInterface::destroy() {
 }
 
 bool OpenGL32GraphicsInterface::windowClosed() const {
-  return false;
+  return !glfwGetWindowParam(GLFW_OPENED);
 }
 
 int OpenGL32GraphicsInterface::exitCode() const {

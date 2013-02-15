@@ -8,7 +8,12 @@ class IKeyboard {
 public:
   
   enum {
-    kMaxKeyStates = 256
+    kMaxKeyStates = 512
+  };
+  
+  enum KeyStates {
+    KEY_UNKNOWN = 0,
+    KEY_ESCAPE = 257
   };
   
 public:
@@ -24,7 +29,7 @@ public:
 
   virtual void update() = 0;
   
-  virtual bool keyState(char keyCode) = 0;
+  virtual bool keyState(int keyCode) = 0;
   
 public:
 

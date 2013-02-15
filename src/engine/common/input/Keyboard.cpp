@@ -33,7 +33,7 @@ void Keyboard::init() {
   keyboard_->setup();
 };
 
-bool Keyboard::keyState(char keyCode) {
+bool Keyboard::keyState(int keyCode) {
   return keyboard_->keyState(keyCode);
 }
 

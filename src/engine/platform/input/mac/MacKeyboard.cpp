@@ -18,9 +18,13 @@ void MacKeyboard::glfw_key_callback(int key, int action) {
 void MacKeyboard::setup() {
   instance_ = this;
   glfwSetKeyCallback(glfw_key_callback);
+  
+  for (int i = 0; i < IKeyboard::kMaxKeyStates; i++) {
+    keyStates_[i] = false;
+  }
 }
 
-bool MacKeyboard::keyState(char keyCode) {
-  bool state = keyStates_[keyCode];
+bool MacKeyboard::keyState(int keyCode) {
+  bool state = keyStates_[keyCode];  
   return state;
 }

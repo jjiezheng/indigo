@@ -3,6 +3,7 @@
 #include "platform/PlatformDefs.h"
 #include "renderer/GraphicsInterface.h"
 #include "maths/Random.h"
+#include "input/Keyboard.h"
 
 void App::init(const char* sceneFile) {
   Random::seed();
@@ -15,7 +16,7 @@ void App::init(const char* sceneFile) {
 void App::mainLoop() {
   game_.mainLoop();
   GraphicsInterface::swapBuffers();
-	wantToQuit_ = GraphicsInterface::windowClosed();
+	wantToQuit_ = Keyboard::keyState(IKeyboard::KEY_ESCAPE) | GraphicsInterface::windowClosed();
 }
 
 void App::destroy() {
