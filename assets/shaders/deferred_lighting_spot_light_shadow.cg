@@ -27,26 +27,27 @@ uniform float3x3 NormalMatrix;
 
 struct VOutput {
       float4 position 			: POSITION;
-      float3 screenPosition : TEXCOORD0;
+      float4 screenPosition : TEXCOORD0;
 };
 
 VOutput vs(float4 position : POSITION) {
     VOutput OUT;
     OUT.position = position;
-    OUT.screenPosition = OUT.position.xyw;
+    OUT.screenPosition = OUT.position;
     return OUT;
 }
 
-float4 ps(float4 position 		: POSITION,
-					float3 screenPosition 	: TEXCOORD0) : COLOR0 {
+float4 ps(float4 position 						: POSITION,
+					float4 screenPosition 			: TEXCOORD0) : COLOR0 {
 
 	// these need to be fed through in a texturetex2Dprojtex2Dproj
 	float diffusePower = 0.01f * 255;// normalData.w * 255; // 0-1 -> 0-255
 	float specularPower = 1;//depthSpec.z;
 	float specularIntensity = 1;//depthSpec.w;
 
-	float2 screenPositionClip = screenPosition.xy / screenPosition.z;// -> w
-	float2 texCoord = contract(screenPositionClip);
+	return screenPosition;
+
+	float2 texCoord = contract(screenPosition.xy);
 
 	//------------------------------------------------------------
 	// depth
@@ -65,9 +66,13 @@ float4 ps(float4 position 		: POSITION,
 	// world position
 	//------------------------------------------------------------
 
-	float4 positionScreen = float4(screenPositionClip, depth, 1.0f);
+	float4 positionScreen = float4(texCoord, depth, 1.0f);
+
+	return float4(screenPosition.xy, 0, 1);
 	float4 positionWorldRaw = mul(ViewProjInv, positionScreen);
 	float3 positionWorld = positionWorldRaw.xyz / positionWorldRaw.w;
+
+	return float4(positionWorld, 1.0f);
 
 	//------------------------------------------------------------
 	// spot light
@@ -85,7 +90,7 @@ float4 ps(float4 position 		: POSITION,
 	float diffuseStrength = 0.0f;
 
 	float3 lightVector = DirectionToLight;
-  	float3 lightVectorViewSpace = DirectionToLight;//normalize(mul(NormalMatrix, lightVector));
+  float3 lightVectorViewSpace = DirectionToLight;//normalize(mul(NormalMatrix, lightVector));
 
 	float lightOuterCos = cos(LightOuterAngle);
 	float lightInnerCos = cos(LightInnerAngle);	
@@ -105,33 +110,33 @@ float4 ps(float4 position 		: POSITION,
 	// specular
 	// -----------------------------------------------------------
 
-	float specularContribution = 0;
+	// float specularContribution = 0;
 
-	if (diffuseStrength > 0) {
-		float3 viewerDirectionUnNormalized = ViewerPosition - positionWorld;
-		float3 viewDirection = normalize(viewerDirectionUnNormalized);
+	// if (diffuseStrength > 0) {
+	// 	float3 viewerDirectionUnNormalized = ViewerPosition - positionWorld;
+	// 	float3 viewDirection = normalize(viewerDirectionUnNormalized);
 
-		float3 floatVectorRaw = lightVector + viewDirection;
-		float3 floatVector = floatVectorRaw;//normalize(mul(NormalMatrix, floatVectorRaw));
+	// 	float3 floatVectorRaw = lightVector + viewDirection;
+	// 	float3 floatVector = floatVectorRaw;//normalize(mul(NormalMatrix, floatVectorRaw));
 
-		float incidence = pow(saturate(dot(normal, floatVector)), specularPower);
+	// 	float incidence = pow(saturate(dot(normal, floatVector)), specularPower);
 
-		lightContribution.w = incidence * specularIntensity * LightDistance;
-	}
+	// 	lightContribution.w = incidence * specularIntensity * LightDistance;
+	// }
 
 	//------------------------------------------------------------
 	// shadow
 	//------------------------------------------------------------
 
-	float4 pixelPositionFromLightRaw = mul(LightViewProj, float4(positionWorld, 1));
-	float3 pixelPositionFromLight = pixelPositionFromLightRaw.xyz / pixelPositionFromLightRaw.w;
+	// float4 pixelPositionFromLightRaw = mul(LightViewProj, float4(positionWorld, 1));
+	// float3 pixelPositionFromLight = pixelPositionFromLightRaw.xyz / pixelPositionFromLightRaw.w;
 
-	float2 shadowCoord =  0.5f + pixelPositionFromLight.xy * 0.5f;
-	shadowCoord.y = 1.0f - shadowCoord.y;
+	// float2 shadowCoord =  0.5f + pixelPositionFromLight.xy * 0.5f;
+	// shadowCoord.y = 1.0f - shadowCoord.y;
 
-	float shadowFactor = shadowPCF(ShadowMap, shadowCoord, pixelPositionFromLight.z, ShadowMapSize);
+	// float shadowFactor = shadowPCF(ShadowMap, shadowCoord, pixelPositionFromLight.z, ShadowMapSize);
 
-	lightContribution *= shadowFactor;
+	// lightContribution *= shadowFactor;
 
 	return lightContribution;
 } 

@@ -32,7 +32,7 @@ void Cauldron::init() {
 
 	velocityTextureSize_ = CSize(size);
 
-	model_->setMaterialCallback("fluid_material", LiquidMaterialUpdate, this);
+//	model_->setMaterialCallback("fluid_material", LiquidMaterialUpdate, this);
 	textureSize_ = CSize(size);
 
 	int textureSquare = textureSize_.square();
@@ -83,7 +83,7 @@ void Cauldron::update(float dt) {
 			colorData_[i] = color;
 		}
 
-		GraphicsInterface::setTextureData(densityTextureId_, colorData_, textureSize_, textureSize_.width * IGraphicsInterface::R8G8B8A8_SIZE);
+//		GraphicsInterface::setTextureData(densityTextureId_, colorData_, textureSize_, textureSize_.width * IGraphicsInterface::R8G8B8A8_SIZE);
 	}
 }
 

@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"pos",
+				"positionWorld"
+			],
+			[
 				"pix",
 				"pixelPositionFromLight"
 			],
@@ -94,10 +98,6 @@
 			[
 				"normal",
 				"normal"
-			],
-			[
-				"pos",
-				"positionView"
 			],
 			[
 				"o",
@@ -308,26 +308,10 @@
 	"buffers":
 	[
 		{
-			"file": "scenes/simple/floor_and_cube.scene",
-			"settings":
-			{
-				"buffer_size": 1444,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/Users/nk/Development/game/scripts/trace_gl",
-			"settings":
-			{
-				"buffer_size": 111,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "shaders/deferred_lighting_spot_light_shadow.cg",
 			"settings":
 			{
-				"buffer_size": 4386,
+				"buffer_size": 4452,
 				"line_ending": "Windows"
 			}
 		},
@@ -344,14 +328,6 @@
 			"settings":
 			{
 				"buffer_size": 928,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "shaders/depth.h",
-			"settings":
-			{
-				"buffer_size": 687,
 				"line_ending": "Windows"
 			}
 		},
@@ -394,14 +370,6 @@
 				"buffer_size": 15979,
 				"line_ending": "Windows"
 			}
-		},
-		{
-			"file": "shaders/fxaa_color_luma.cg",
-			"settings":
-			{
-				"buffer_size": 554,
-				"line_ending": "Windows"
-			}
 		}
 	],
 	"build_system": "CG",
@@ -428,6 +396,10 @@
 	},
 	"file_history":
 	[
+		"/Users/nk/Development/game/assets/shaders/depth.h",
+		"/Users/nk/Development/game/scripts/trace_gl",
+		"/Users/nk/Development/game/assets/scenes/simple/floor_and_cube.scene",
+		"/Users/nk/Development/game/assets/shaders/fxaa_color_luma.cg",
 		"/Users/nk/Development/99BottlesofBeerInC/99BottlesofBeerInC/main.o",
 		"/Users/nk/Development/game/premake4.lua",
 		"/Users/nk/Development/game/assets/shaders/compile",
@@ -439,9 +411,7 @@
 		"/Users/nk/Development/game/assets/shaders/deferred_fullscreen_texture.cg",
 		"/Users/nk/Development/game/assets/shaders/standard.h",
 		"/Users/nk/Development/game/assets/shaders/compiled/deferred_lighting_spot_light_shadow.shader.gl32.fragment",
-		"/Users/nk/Development/game/assets/shaders/depth.h",
 		"/Users/nk/Development/game/assets/shaders/compiled/deferred_light_composition.shader.gl32.fragment",
-		"/Users/nk/Development/game/scripts/trace_gl",
 		"/Users/nk/Development/game/src/engine/platform/renderer/dx11/Direct3D11GraphicsInterface.cpp",
 		"/Users/nk/Development/game/assets/shaders/compiled/deferred_fullscreen_texture.shader.gl32.vertex",
 		"/Users/nk/Development/game/assets/shaders/compiled/deferred_fullscreen_texture.shader.gl32.fragment",
@@ -553,9 +523,7 @@
 		"/C/Users/NK/Development/game/assets/actors/test/test.modelbinary",
 		"/C/Users/NK/Development/game/assets/actors/floor/floor.modelbinary",
 		"/C/Users/NK/Development/game/assets/actors/plane/plane.model",
-		"/C/Users/NK/Development/game/assets/debug/cone.model",
-		"/C/Users/NK/Development/game/assets/actors/test/test.model",
-		"/C/Users/NK/Development/game/assets/actors/floor/floor.model"
+		"/C/Users/NK/Development/game/assets/debug/cone.model"
 	],
 	"find":
 	{
@@ -576,6 +544,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"lightVectorViewSpace",
 			"worldPosition",
 			"viewPosition",
 			"pixeltoli",
@@ -671,77 +640,23 @@
 	"groups":
 	[
 		{
-			"selected": 11,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "scenes/simple/floor_and_cube.scene",
-					"settings":
-					{
-						"buffer_size": 1444,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1108,
-								1108
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JSON.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 475.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/Users/nk/Development/game/scripts/trace_gl",
-					"settings":
-					{
-						"buffer_size": 111,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								75,
-								75
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
 					"file": "shaders/deferred_lighting_spot_light_shadow.cg",
 					"settings":
 					{
-						"buffer_size": 4386,
+						"buffer_size": 4452,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4320,
-								4320
+								1122,
+								1122
 							]
 						],
 						"settings":
@@ -750,13 +665,13 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1541.0,
+						"translation.y": 360.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 1,
 					"file": "shaders/standard.h",
 					"settings":
 					{
@@ -777,13 +692,13 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 11.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 2,
 					"file": "shaders/utils.h",
 					"settings":
 					{
@@ -811,33 +726,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "shaders/depth.h",
-					"settings":
-					{
-						"buffer_size": 687,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								184,
-								184
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 6,
+					"buffer": 3,
 					"file": "shaders/deferred_render_color_normal_depth.cg",
 					"settings":
 					{
@@ -864,7 +753,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 4,
 					"file": "shaders/deferred_light_composition.cg",
 					"settings":
 					{
@@ -892,7 +781,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 5,
 					"file": "shaders/deferred_lighting_spot_light.cg",
 					"settings":
 					{
@@ -919,7 +808,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 6,
 					"file": "shaders/deferred_depth.cg",
 					"settings":
 					{
@@ -945,7 +834,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 10,
+					"buffer": 7,
 					"file": "shaders/fxaa_main.cg",
 					"settings":
 					{
@@ -966,33 +855,6 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 367.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 11,
-					"file": "shaders/fxaa_color_luma.cg",
-					"settings":
-					{
-						"buffer_size": 554,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								226,
-								226
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1046,6 +908,10 @@
 		"selected_items":
 		[
 			[
+				"depth",
+				"assets/shaders/depth.h"
+			],
+			[
 				"luma",
 				"assets/shaders/fxaa_color_luma.cg"
 			],
@@ -1096,10 +962,6 @@
 			[
 				"stan",
 				"assets/shaders/standard.h"
-			],
-			[
-				"depth",
-				"assets/shaders/depth.h"
 			],
 			[
 				"deferred_spot",
