@@ -3,8 +3,12 @@
 PFNGLSTRINGMARKERGREMEDYPROC glStringMarkerGREMEDY = NULL;
 
 void initGremedyExtension(void) {
+  #ifdef __APPLE__
   glStringMarkerGREMEDY = (PFNGLSTRINGMARKERGREMEDYPROC)NSGLGetProcAddress("glStringMarkerGREMEDY");
+  #endif
 }
+
+#ifdef __APPLE__
 
 #include <stdlib.h>
 #include <string.h>
@@ -27,3 +31,5 @@ void* NSGLGetProcAddress (const char *name)
   void* addr = dlsym(image, (const char*)name);
   return addr;
 }
+
+#endif

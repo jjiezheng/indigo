@@ -57,7 +57,7 @@ float Clock::delta_time() {
 
 #endif
 
-#ifdef PLATFORM_MAC
+#if defined(PLATFORM_MAC) || defined(PLATFORM_LINUX)
 
 #include <sys/time.h>
 

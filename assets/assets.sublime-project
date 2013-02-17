@@ -9,7 +9,7 @@
     [
         {
             "name": "CG",
-            "cmd": ["sh", "$project_path/shaders/compile", "-s", "$file"]
+            "cmd": ["bash", "$project_path/shaders/compile", "-s", "$file"]
         }
     ]
 }

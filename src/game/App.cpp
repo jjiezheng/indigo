@@ -16,7 +16,7 @@ void App::init(const char* sceneFile) {
 void App::mainLoop() {
   game_.mainLoop();
   GraphicsInterface::swapBuffers();
-	wantToQuit_ = Keyboard::keyState(IKeyboard::KEY_ESCAPE) | GraphicsInterface::windowClosed();
+  wantToQuit_ = Keyboard::keyState(IKeyboard::KEY_ESCAPE) | GraphicsInterface::windowClosed();
 }
 
 void App::destroy() {

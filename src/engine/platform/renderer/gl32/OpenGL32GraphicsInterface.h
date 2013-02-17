@@ -1,7 +1,7 @@
 #ifndef OPENGL_32_GRAPHICS_INTERFACE_H
 #define OPENGL_32_GRAPHICS_INTERFACE_H
 
-#include "IGraphicsInterface.h"
+#include "renderer/IGraphicsInterface.h"
 
 #include "OpenGL.h"
 

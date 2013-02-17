@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "Control.h"
+#include "renderer/Control.h"
 
 class Sprite;
 

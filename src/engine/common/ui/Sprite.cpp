@@ -7,7 +7,7 @@
 #include "maths/Matrix4x4.h"
 #include "maths/Vector4.h"
 
-#include "Geometry.h"
+#include "renderer/Geometry.h"
 
 #include "input/Mouse.h"
 

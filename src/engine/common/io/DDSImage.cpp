@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "core/String.h"
 #include "io/Path.h"
@@ -32,14 +33,14 @@ void DDSImage::load(const std::string& filePath) {
 	}
 
 	char filecode[4];
-	fread(filecode, 1, 4, fp);
+	size_t bytes = fread(filecode, 1, 4, fp);
 	if (strncmp(filecode, "DDS ", 4) != 0) {
 		fclose(fp);
 		return;
 	}
 
-	fread(&header, 124, 1, fp); 
-
+	bytes = fread(&header, 124, 1, fp); 
+	
 	firstMipWidth = binary_uint32(*(unsigned int*)&(header[12]));
 	firstMipHeight = binary_uint32(*(unsigned int*)&(header[8]));
 	
@@ -55,7 +56,7 @@ void DDSImage::load(const std::string& filePath) {
 	unsigned int textureDataSize = dataSize * sizeof(unsigned char);
 	data = (unsigned char*)malloc(textureDataSize);
 
-	fread(data, 1, dataSize, fp);
+	bytes = fread(data, 1, dataSize, fp);
 	fclose(fp);
 
 	unsigned int blockSize = (fourCC == FOURCC_DXT1) ? 8 : 16;

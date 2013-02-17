@@ -1,6 +1,6 @@
 #include "Label.h"
 
-#include "EffectCache.h"
+#include "renderer/EffectCache.h"
 
 #include "io/FntFileParser.h"
 #include "memory/Allocation.h"
@@ -9,10 +9,10 @@
 #include "maths/Vector4.h"
 #include "maths/Vector2.h"
 
-#include "IEffect.h"
-#include "Geometry.h"
+#include "renderer/IEffect.h"
+#include "renderer/Geometry.h"
 
-#include "GraphicsInterface.h"
+#include "renderer/GraphicsInterface.h"
 
 Label* Label::labelWithFont(const std::string& fontFilePath) {
 	Label* label = new Label();

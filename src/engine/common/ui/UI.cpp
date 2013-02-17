@@ -2,8 +2,8 @@
 
 #include "memory/Allocation.h"
 
-#include "GraphicsInterface.h"
-#include "Control.h"
+#include "renderer/GraphicsInterface.h"
+#include "renderer/Control.h"
 
 void UI::destroy() {
 	for (std::vector<Control*>::iterator i = controls_.begin(); i != controls_.end();) {

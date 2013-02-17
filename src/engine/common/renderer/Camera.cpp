@@ -1,6 +1,7 @@
 #include "Camera.h"
 
 #include <math.h>
+#include <stdlib.h>
 
 #include "maths/Angles.h"
 #include "io/Log.h"

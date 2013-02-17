@@ -1,6 +1,6 @@
 // glslv output by Cg compiler
-// cgc version 3.1.0013, build date Apr 18 2012
-// command line args: -DGL=1 -DGL32=1 -q -profileopts version=150 -profile glslv
+// cgc version 3.1.0013, build date Apr 24 2012
+// command line args: -DGL=1 -DGL32=1 -q -profileopts version=140 -profile glslv
 // source file: deferred_ssao.cg
 //vendor NVIDIA Corporation
 //version 3.1.0.13
@@ -24,7 +24,7 @@
 //var float4 vs.position : $vout.POSITION : HPOS : -1 : 1
 //var float2 vs.texCoord : $vout.TEXCOORD0 : TEXCOORD0 : -1 : 1
 
-#version 150
+#version 140
 
 struct VOutput {
     vec4 _position2;

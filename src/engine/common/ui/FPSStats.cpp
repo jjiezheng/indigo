@@ -1,6 +1,7 @@
 #include "FPSStats.h"
 
 #include <sstream>
+#include <stdio.h>
 
 #include "core/Clock.h"
 #include "memory/Allocation.h"

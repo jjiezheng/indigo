@@ -1,6 +1,6 @@
 // glslf output by Cg compiler
-// cgc version 3.1.0013, build date Apr 18 2012
-// command line args: -DGL=1 -DGL32=1 -q -profileopts version=150 -profile glslf
+// cgc version 3.1.0013, build date Apr 24 2012
+// command line args: -DGL=1 -DGL32=1 -q -profileopts version=140 -profile glslf
 // source file: fxaa_main.cg
 //vendor NVIDIA Corporation
 //version 3.1.0.13
@@ -16,7 +16,7 @@
 //var float2 texCoord : $vin.TEXCOORD0 : TEXCOORD0 : 1 : 1
 //var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
 
-#version 150
+#version 140
 
 struct VOutput {
     vec2 _texCoord2;

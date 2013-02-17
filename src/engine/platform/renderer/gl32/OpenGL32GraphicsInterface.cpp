@@ -1,14 +1,14 @@
 #include "OpenGL32GraphicsInterface.h"
 
 #include "OpenGLEffect.h"
-#include "Color4.h"
-#include "VertexDefinition.h"
+#include "renderer/Color4.h"
+#include "renderer/VertexDefinition.h"
 
 #include "GLUtilities.h"
 
 #include "OpenGL.h"
 #include "OpenGLRenderTarget.h"
-#include "ShaderSemantics.h"
+#include "renderer/ShaderSemantics.h"
 
 #include "io/dds.h"
 #include "io/DDSImage.h"
@@ -33,11 +33,19 @@ int OpenGL32GraphicsInterface::exitCode() const {
 void OpenGL32GraphicsInterface::openWindow(int width, int height, unsigned int multiSamples) {
   glfwInit();
   glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 3);
+
+#ifdef PLATFORM_LINUX
+  glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 1);
+#endif
+
+#ifdef PLATFORM_MAC
   glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 2);
+#endif
+  
   glfwOpenWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-  glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+//  glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
   glfwOpenWindow(width, height, 8, 8, 8, 8, 0, 0, GLFW_WINDOW);
-  glfwDisable(GLFW_MOUSE_CURSOR);
+  //glfwDisable(GLFW_MOUSE_CURSOR);
   GLUtilities::checkForError();
   
   initGremedyExtension();
@@ -266,14 +274,14 @@ void OpenGL32GraphicsInterface::setRenderTarget(unsigned int* renderTargetIds, u
     GLuint renderTargetId = renderTargetIds[i];
     GLuint textureId = renderTargetTextures_[renderTargetId];
 
-    glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, textureId, 0);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_TEXTURE_2D, textureId, 0);
     GLUtilities::checkForError();
     
     drawBuffers[i] = GL_COLOR_ATTACHMENT0 + i;
   }
   
   if (useDepthBuffer) {
-    glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, depthTextureId, 0);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthTextureId, 0);
     GLUtilities::checkForError();
   }
   

@@ -6,7 +6,7 @@
   #include "Direct3D11GraphicsInterface.h"
 #endif
 
-#ifdef PLATFORM_MAC
+#if defined(PLATFORM_MAC) || defined(PLATFORM_LINUX)
   #include "OpenGL32GraphicsInterface.h"
 #endif
 
@@ -19,7 +19,7 @@ IGraphicsInterface* IGraphicsInterface::createInterface() {
     return new Direct3D11GraphicsInterface();
 #endif
 
-#ifdef PLATFORM_MAC
+#if defined(PLATFORM_MAC) || defined(PLATFORM_LINUX)
   return new OpenGL32GraphicsInterface();
 #endif
 

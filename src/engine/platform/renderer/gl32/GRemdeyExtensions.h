@@ -31,14 +31,14 @@ extern "C" {
 
 /* ----------------------- GL_GREMEDY_string_marker ----------------------- */
 
-#ifndef GL_GREMEDY_string_marker
-#define GL_GREMEDY_string_marker 1
+//#ifndef GL_GREMEDY_string_marker
+//#define GL_GREMEDY_string_marker 1
 
 typedef void (APIENTRYP PFNGLSTRINGMARKERGREMEDYPROC) (GLsizei len, const GLvoid *string);
   
 extern PFNGLSTRINGMARKERGREMEDYPROC glStringMarkerGREMEDY;
 
-#endif /* GL_GREMEDY_string_marker */
+//#endif /* GL_GREMEDY_string_marke#r */
 
 /* ----------------------- GL_GREMEDY_frame_terminator ----------------------- */
 
@@ -57,7 +57,7 @@ void initGremedyExtension(void);
 
 #endif /* __GREMDEYEXTENSIONS */
 
-#if defined(__APPLE__)
+#ifdef __APPLE__
 
 #ifndef NS_GL_GET_PROC_ADDRESS_H
 #define NS_GL_GET_PROC_ADDRESS_H
@@ -66,4 +66,4 @@ void* NSGLGetProcAddress (const char *name);
 
 #endif
 
-#endif /* __APPLE__ */
+#endif

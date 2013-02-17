@@ -5,7 +5,7 @@
 
 #include "OpenGL.h"
 
-#include "IEffect.h"
+#include "renderer/IEffect.h"
 
 class OpenGLEffect : public IEffect {
   

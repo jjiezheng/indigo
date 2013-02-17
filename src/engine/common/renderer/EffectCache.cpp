@@ -35,6 +35,6 @@ void EffectCache::purgeCache() {
   for (std::map<std::string, IEffect*>::iterator i = effects_.begin(); i != effects_.end();) {
     IEffect* effect = (*i).second;
     SAFE_DELETE(effect);
-    i = effects_.erase(i);
+    effects_.erase(i++);
   }
 }

@@ -9,8 +9,10 @@
 #include "maths/Vector3.h"
 #include "maths/Vector4.h"
 
-#include "ShaderSemantics.h"
-#include "Color3.h"
+#include "renderer/ShaderSemantics.h"
+#include "renderer/Color3.h"
+
+#include <stdio.h>
 
 void printLog(const std::string& filePath, GLuint obj) {
 	int infologLength = 0;

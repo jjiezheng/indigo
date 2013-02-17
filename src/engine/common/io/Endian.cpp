@@ -1,6 +1,6 @@
 #include "Endian.h"
 
-#include "PlatformDefs.h"
+#include "platform/PlatformDefs.h"
 
 unsigned int binary_uint32(unsigned int val) {
   unsigned int result = val;

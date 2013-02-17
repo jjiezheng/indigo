@@ -13,6 +13,12 @@
   #define PLATFORM_DEFINED 1
 #endif
 
+#if defined(__GNUC__)
+  #define PLATFORM_LINUX 1
+  // #define LITTLE_ENDIAN 1
+  #define PLATFORM_DEFINED 1
+#endif
+
 #if defined(__APPLE__)
   #define PLATFORM_MAC 1
   // #define LITTLE_ENDIAN 1 - already defined on OSX
@@ -30,7 +36,7 @@
   #define PLATFORM_UNDEFINED 1
 #endif
 
-#if defined(PLATFORM_MAC) || defined(PLATFORM_PS3)
+#if defined(PLATFORM_MAC) || defined(PLATFORM_PS3) || defined(PLATFORM_LINUX)
   #define PLATFORM_POSIX 1 
 #endif
 

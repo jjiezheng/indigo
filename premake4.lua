@@ -200,6 +200,30 @@ project "game"
 			"src/engine/platform/input/mac/**.cpp"
 		}
 
+			-- 
+	-- LINUX
+	--
+	configuration "linux"
+		buildoptions ""
+		linkoptions  ""
+		links {
+			"glfw",
+			"GLU"
+		}
+		includedirs { 
+			"src/engine/platform/renderer/gl32",
+			"src/engine/common/input",
+			"src/engine/platform/input/linux"
+		}
+		libdirs { }
+		files {
+			"src/engine/platform/renderer/gl32/**.h", 
+			"src/engine/platform/renderer/gl32/**.cpp",
+			"src/engine/platform/input/linux/**.h", 
+			"src/engine/platform/input/linux/**.cpp"
+		}
+
+
 --
 -- A more thorough cleanup.
 --

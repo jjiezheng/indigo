@@ -1,7 +1,7 @@
 #ifndef UILINE_H
 #define UILINE_H
 
-#include "Control.h"
+#include "renderer/Control.h"
 
 class Line;
 

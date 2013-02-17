@@ -1,6 +1,6 @@
 // glslf output by Cg compiler
-// cgc version 3.1.0013, build date Apr 18 2012
-// command line args: -DGL=1 -DGL32=1 -q -profileopts version=150 -profile glslf
+// cgc version 3.1.0013, build date Apr 24 2012
+// command line args: -DGL=1 -DGL32=1 -q -profileopts version=140 -profile glslf
 // source file: deferred_render_colormap_normal_depth.cg
 //vendor NVIDIA Corporation
 //version 3.1.0.13
@@ -14,7 +14,7 @@
 //var float4 ps.color : $vout.COLOR0 : COLOR0 : -1 : 1
 //var float4 ps.normal : $vout.COLOR1 : COLOR1 : -1 : 1
 
-#version 150
+#version 140
 
 #extension GL_ARB_draw_buffers : enable
 

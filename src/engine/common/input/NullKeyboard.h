@@ -11,7 +11,7 @@ public:
   
   void update() { }
 
-  bool keyState(char keyCode);
+  bool keyState(int keyCode);
 
   void setKeydownListener(IKeyboardListener* keyDownListener);
 
@@ -19,7 +19,7 @@ public:
 
 inline void NullKeyboard::setup() { }
 
-inline bool NullKeyboard::keyState(char keyCode) {
+inline bool NullKeyboard::keyState(int keyCode) {
   return false;
 }
 
