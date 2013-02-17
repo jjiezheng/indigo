@@ -13,7 +13,7 @@ public:
   
   static Point position();
 
-	static bool isLeftButtonDown();
+  static bool isLeftButtonDown();
   
 private:
   

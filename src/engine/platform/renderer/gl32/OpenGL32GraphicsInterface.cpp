@@ -40,12 +40,12 @@ void OpenGL32GraphicsInterface::openWindow(int width, int height, unsigned int m
 
 #ifdef PLATFORM_MAC
   glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 2);
+  glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 #endif
   
   glfwOpenWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-//  glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
   glfwOpenWindow(width, height, 8, 8, 8, 8, 0, 0, GLFW_WINDOW);
-  //glfwDisable(GLFW_MOUSE_CURSOR);
+  glfwDisable(GLFW_MOUSE_CURSOR);
   GLUtilities::checkForError();
   
   initGremedyExtension();

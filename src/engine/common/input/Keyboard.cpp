@@ -16,6 +16,10 @@
 #include "MacKeyboard.h"
 #endif
 
+#ifdef PLATFORM_LINUX
+#include "LinuxKeyboard.h"
+#endif
+
 #include "NullKeyboard.h"
 
 IKeyboard* Keyboard::keyboard_ = 0;
@@ -27,6 +31,8 @@ void Keyboard::init() {
   keyboard_ = new PS3Keyboard();
 #elif PLATFORM_MAC
   keyboard_ = new MacKeyboard();
+#elif PLATFORM_LINUX
+  keyboard_ = new LinuxKeyboard();
 #else
   keyboard_ = new NullKeyboard();
 #endif
