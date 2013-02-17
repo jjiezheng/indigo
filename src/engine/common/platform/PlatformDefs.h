@@ -17,6 +17,7 @@
   #define PLATFORM_LINUX 1
   // #define LITTLE_ENDIAN 1
   #define PLATFORM_DEFINED 1
+  #undef BIG_ENDIAN
 #endif
 
 #if defined(__APPLE__)

@@ -311,7 +311,7 @@
 			"file": "/home/nk/Development/game/src/engine/common/renderer/WorldLoader.cpp",
 			"settings":
 			{
-				"buffer_size": 15194,
+				"buffer_size": 15206,
 				"line_ending": "Unix"
 			}
 		},
@@ -319,15 +319,15 @@
 			"file": "/home/nk/Development/game/src/engine/platform/renderer/gl32/OpenGL32GraphicsInterface.cpp",
 			"settings":
 			{
-				"buffer_size": 10418,
-				"line_ending": "Windows"
+				"buffer_size": 0,
+				"line_ending": "Unix"
 			}
 		},
 		{
 			"file": "/home/nk/Development/game/src/engine/platform/renderer/gl32/GRemdeyExtensions.cpp",
 			"settings":
 			{
-				"buffer_size": 691,
+				"buffer_size": 0,
 				"line_ending": "Unix"
 			}
 		},
@@ -335,7 +335,7 @@
 			"file": "/home/nk/Development/game/src/engine/platform/renderer/gl32/GRemdeyExtensions.h",
 			"settings":
 			{
-				"buffer_size": 1532,
+				"buffer_size": 0,
 				"line_ending": "Unix"
 			}
 		},
@@ -343,7 +343,7 @@
 			"file": "/home/nk/Development/game/src/engine/platform/renderer/gl32/OpenGLEffect.cpp",
 			"settings":
 			{
-				"buffer_size": 6902,
+				"buffer_size": 3187,
 				"line_ending": "Unix"
 			}
 		},
@@ -351,7 +351,7 @@
 			"file": "/home/nk/Development/game/src/engine/common/renderer/EffectCache.cpp",
 			"settings":
 			{
-				"buffer_size": 981,
+				"buffer_size": 983,
 				"line_ending": "Windows"
 			}
 		},
@@ -359,7 +359,7 @@
 			"file": "/home/nk/Development/game/build/project/win/gmake/game.make",
 			"settings":
 			{
-				"buffer_size": 17696,
+				"buffer_size": 17655,
 				"line_ending": "Unix"
 			}
 		},
@@ -367,7 +367,7 @@
 			"file": "/home/nk/Development/game/premake4.lua",
 			"settings":
 			{
-				"buffer_size": 4793,
+				"buffer_size": 4178,
 				"line_ending": "Unix"
 			}
 		},
@@ -375,7 +375,7 @@
 			"file": "shaders/compile",
 			"settings":
 			{
-				"buffer_size": 1464,
+				"buffer_size": 1383,
 				"line_ending": "Unix"
 			}
 		},
@@ -388,6 +388,46 @@
 			{
 				"buffer_size": 531,
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "scenes/shadow/simple.scene",
+			"settings":
+			{
+				"buffer_size": 941,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "scenes/simple/floor.scene",
+			"settings":
+			{
+				"buffer_size": 1259,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "scenes/simple/simple.scene",
+			"settings":
+			{
+				"buffer_size": 1259,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/nk/Development/game/src/engine/common/platform/PlatformDefs.h",
+			"settings":
+			{
+				"buffer_size": 689,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/home/nk/Development/game/src/engine/common/serialization/BinaryModelDeserializer.cpp",
+			"settings":
+			{
+				"buffer_size": 4149,
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -665,7 +705,7 @@
 	"groups":
 	[
 		{
-			"selected": 9,
+			"selected": 14,
 			"sheets":
 			[
 				{
@@ -674,15 +714,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 15194,
+						"buffer_size": 15206,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1200,
-								1200
+								0,
+								0
 							]
 						],
 						"settings":
@@ -703,15 +743,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 10418,
+						"buffer_size": 0,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								7669,
-								7669
+								0,
+								0
 							]
 						],
 						"settings":
@@ -732,15 +772,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 691,
+						"buffer_size": 0,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								254,
-								254
+								0,
+								0
 							]
 						],
 						"settings":
@@ -761,15 +801,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1532,
+						"buffer_size": 0,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1402,
-								1402
+								0,
+								0
 							]
 						],
 						"settings":
@@ -788,15 +828,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6902,
+						"buffer_size": 3187,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								300,
-								300
+								0,
+								0
 							]
 						],
 						"settings":
@@ -817,15 +857,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 981,
+						"buffer_size": 983,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								954,
-								954
+								0,
+								0
 							]
 						],
 						"settings":
@@ -846,15 +886,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 17696,
+						"buffer_size": 17655,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								963,
-								963
+								0,
+								0
 							]
 						],
 						"settings":
@@ -873,15 +913,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4793,
+						"buffer_size": 4178,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4316,
-								4316
+								0,
+								0
 							]
 						],
 						"settings":
@@ -901,15 +941,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1464,
+						"buffer_size": 1383,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1143,
-								1143
+								0,
+								0
 							]
 						],
 						"settings":
@@ -946,6 +986,151 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "scenes/shadow/simple.scene",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 941,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								145,
+								145
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "scenes/simple/floor.scene",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1259,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "scenes/simple/simple.scene",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 1259,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								537,
+								537
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "/home/nk/Development/game/src/engine/common/platform/PlatformDefs.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 689,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "/home/nk/Development/game/src/engine/common/serialization/BinaryModelDeserializer.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4149,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2948,
+								2948
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1675.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -999,6 +1184,26 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"binary",
+				"src/engine/common/serialization/BinaryModelDeserializer.cpp"
+			],
+			[
+				"binar",
+				"src/engine/common/serialization/BinaryModelDeserializer.cpp"
+			],
+			[
+				"platform",
+				"src/engine/common/platform/PlatformDefs.h"
+			],
+			[
+				"floor.sc",
+				"assets/scenes/simple/floor.scene"
+			],
+			[
+				"simple.s",
+				"assets/scenes/shadow/simple.scene"
+			],
 			[
 				"app",
 				"src/game/App.cpp"
@@ -1166,10 +1371,6 @@
 			[
 				"worldlo",
 				"src/engine/common/renderer/WorldLoader.cpp"
-			],
-			[
-				"platform",
-				"src/engine/common/platform/PlatformDefs.h"
 			],
 			[
 				"hash",
@@ -1412,10 +1613,6 @@
 				"cgfx/deferred_light_composition.hlsl"
 			],
 			[
-				"simple.s",
-				"scenes/simple/simple.scene"
-			],
-			[
 				"impo",
 				"scenes/importer/importer.scene"
 			],
@@ -1498,18 +1695,6 @@
 			[
 				"light_co",
 				"cgfx/deferred_light_composition.hlsl"
-			],
-			[
-				"point",
-				"cgfx/deferred_lighting_point_light.hlsl"
-			],
-			[
-				"poin",
-				"cgfx/deferred_lighting_point_light.cgfx"
-			],
-			[
-				"car.model",
-				"actors/car/car.model"
 			]
 		],
 		"width": 0.0
