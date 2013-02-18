@@ -1,5 +1,5 @@
 // vs_4_0 output by Cg compiler
-// cgc version 3.1.0013, build date Apr 24 2012
+// cgc version 3.1.0013, build date Apr 18 2012
 // command line args: -DDX11=1 -q -unroll all -profile vs_5_0
 // source file: deferred_lighting_spot_light_shadow.cg
 //vendor NVIDIA Corporation
@@ -26,18 +26,18 @@
 //semantic NormalMatrix
 //var float4 position : $vin.POSITION : POSITION : 0 : 1
 //var float4 vs.position : $vout.POSITION :  : -1 : 1
-//var float4 vs.screenPosition : $vout.TEXCOORD0 :  : -1 : 1
+//var float3 vs.screenPosition : $vout.TEXCOORD0 :  : -1 : 1
 
 #pragma pack_matrix(row_major)
 
 struct VOutput {
     float4 _position1 : POSITION;
-    float4 _screenPosition : TEXCOORD0;
+    float3 _screenPosition : TEXCOORD0;
 };
 
 struct X1X {
     float4 _POSITION : SV_Position;
-    float4 _TEXCOORD0 : TEXCOORD0;
+    float3 _TEXCOORD0 : TEXCOORD0;
 };
 
 static X1X cout;
@@ -49,7 +49,7 @@ X1X main(in float4 _position : POSITION)
     VOutput _OUT;
 
     _OUT._position1 = _position;
-    _OUT._screenPosition = _position;
+    _OUT._screenPosition = _position.xyw;
     cout._POSITION = _OUT._position1;
     cout._TEXCOORD0 = _OUT._screenPosition;
     return cout;

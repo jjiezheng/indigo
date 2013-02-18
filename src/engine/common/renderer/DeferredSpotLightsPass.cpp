@@ -58,8 +58,8 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
 
 		for (std::vector<SpotLight*>::iterator light = spotLights.begin(); light != spotLights.end(); ++light) {
 			if ((*light)->castsShadows()) {
-//				SpotLight* spotLight = (*light);
-//				renderShadowMap(spotLight, meshes);
+				SpotLight* spotLight = (*light);
+				renderShadowMap(spotLight, meshes);
 			}
 		}
 	}
@@ -154,9 +154,9 @@ void DeferredSpotLightsPass::renderLight(SpotLight* light, IEffect* lightEffect,
 	Matrix4x4 worldView = viewer->viewTransform() * light->transform();
 	lightEffect->setUniform(worldView, "WorldView");
 
-//	Matrix4x4 lightViewProj = light->projection() * light->viewTransform();
-//	lightEffect->setUniform(lightViewProj, "LightViewProj");
-//	lightEffect->setUniform(lightViewProj.inverse(), "LightViewProjRaw");
+	Matrix4x4 lightViewProj = light->projection() * light->viewTransform();
+	lightEffect->setUniform(lightViewProj, "LightViewProj");
+	lightEffect->setUniform(lightViewProj.inverse(), "LightViewProjRaw");
 
 	float lightDistance = light->direction().length();
 	float lightDistanceSquared = lightDistance * lightDistance;
@@ -164,7 +164,7 @@ void DeferredSpotLightsPass::renderLight(SpotLight* light, IEffect* lightEffect,
 
 	lightEffect->setUniform(light->direction().inverse().normalize(), "DirectionToLight");
 
-//	lightEffect->setUniform(light->position(), "LightPosition");
+	lightEffect->setUniform(light->position(), "LightPosition");
 	lightEffect->setUniform(light->direction().normalize(), "LightDirection");
 	lightEffect->setUniform(light->color(), "LightColor");
 

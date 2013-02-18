@@ -1,5 +1,5 @@
 // glslf output by Cg compiler
-// cgc version 3.1.0013, build date Apr 24 2012
+// cgc version 3.1.0013, build date Apr 18 2012
 // command line args: -DGL=1 -DGL32=1 -q -profileopts version=140 -profile glslf
 // source file: line.cg
 //vendor NVIDIA Corporation
@@ -22,6 +22,6 @@ void main()
 {
 
 
-    cg_FragColor = vec4( 1.00000000E+00, 0.00000000E+00, 0.00000000E+00, 1.00000000E+00);
+    cg_FragColor = vec4( 1.00000000E+000, 0.00000000E+000, 0.00000000E+000, 1.00000000E+000);
     return;
 } // main end

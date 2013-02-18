@@ -85,9 +85,6 @@ bool WindowsUtils::pumpMessages() {
       char wParam = (char)MapVirtualKey((UINT) msg.wParam, 2) & 0x0000FFFF;
       int keyStateIndex = (int)wParam;
       keyStates_[keyStateIndex] = true;
-      if (wParam == 27) { // escape
-        PostQuitMessage(0);
-      }
     }
 
     if (msg.message == WM_KEYUP) {

@@ -10,11 +10,18 @@ public:
   enum {
     kMaxKeyStates = 512
   };
-  
+
+#ifdef PLATFORM_WINDOWS
+  enum KeyStates {
+    KEY_UNKNOWN = 0,
+    KEY_ESCAPE = 27
+  };
+#elif PLATFORM_POSIX
   enum KeyStates {
     KEY_UNKNOWN = 0,
     KEY_ESCAPE = 257
   };
+#endif
   
 public:
   

@@ -11,7 +11,7 @@ public:
 
   void update() { };
   
-  bool keyState(char keyCode);
+  bool keyState(int keyCode);
 
   void setKeydownListener(IKeyboardListener* keyDownListener);
 
