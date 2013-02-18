@@ -94,6 +94,7 @@ void main()
 {
 
     vec3 _normal;
+    float _depth;
     vec4 _positionScreen;
     vec4 _positionView;
     vec2 _noiseTexCoords;
@@ -118,9 +119,10 @@ void main()
     _normal = _TMP5*_r0029.xyz;
     _texCoord0045 = cg_TexCoord0.xy + _HalfPixel;
     _TMP6 = texture(_DepthMap, _texCoord0045);
+    _depth = _TMP6.x*2.00000000E+00 - 1.00000000E+00;
     _positionScreen.xy = cg_TexCoord0.xy*2.00000000E+00 - 1.00000000E+00;
     _positionScreen.y = -_positionScreen.y;
-    _positionScreen.z = _TMP6.x;
+    _positionScreen.z = _depth;
     _positionScreen.w = 1.00000000E+00;
     _r0049.x = dot(_ProjInv[0], _positionScreen);
     _r0049.y = dot(_ProjInv[1], _positionScreen);

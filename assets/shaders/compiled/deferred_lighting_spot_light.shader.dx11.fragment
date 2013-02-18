@@ -88,6 +88,7 @@ float4 main( in X1X cin) : SV_Target0
     float3 _screenPosition;
     float2 _screenPositionClip;
     float2 _texCoord2;
+    float _depth;
     float3 _normal;
     float4 _positionScreen;
     float3 _positionWorld;
@@ -107,13 +108,14 @@ float4 main( in X1X cin) : SV_Target0
     _texCoord2 =   5.00000000000000000E-01f*(_TMP5 + float2(   1.00000000000000000E00f,   1.00000000000000000E00f));
     _texCoord0015 = _texCoord2 + _HalfPixel;
     _TMP6 = _TMP28.Sample(_DepthMap, _texCoord0015);
+    _depth = _TMP6.x*  2.00000000000000000E00f -   1.00000000000000000E00f;
     _texCoord0017 = _texCoord2 + _HalfPixel;
     _normalData0017 = _TMP29.Sample(_NormalMap, _texCoord0017);
     _unPackedNormal0017 = _normalData0017*  2.00000000000000000E00f -   1.00000000000000000E00f;
     _TMP7 = dot(_unPackedNormal0017.xyz, _unPackedNormal0017.xyz);
     _TMP8 = rsqrt(_TMP7);
     _normal = _TMP8*_unPackedNormal0017.xyz;
-    _positionScreen = float4(_screenPositionClip.x, _screenPositionClip.y, _TMP6.x,   1.00000000000000000E00f);
+    _positionScreen = float4(_screenPositionClip.x, _screenPositionClip.y, _depth,   1.00000000000000000E00f);
     _r0021.x = dot(_ViewProjInv._11_12_13_14, _positionScreen);
     _r0021.y = dot(_ViewProjInv._21_22_23_24, _positionScreen);
     _r0021.z = dot(_ViewProjInv._31_32_33_34, _positionScreen);

@@ -101,6 +101,7 @@ float4 main( in X1X cin) : SV_Target0
 
     float2 _texCoord3;
     float3 _normal;
+    float _depth;
     float4 _positionScreen;
     float4 _positionView;
     float2 _noiseTexCoords;
@@ -126,9 +127,10 @@ float4 main( in X1X cin) : SV_Target0
     _normal = _TMP5*_r0015.xyz;
     _texCoord0019 = _texCoord3 + _HalfPixel;
     _TMP6 = _TMP35.Sample(_DepthMap, _texCoord0019);
+    _depth = _TMP6.x*  2.00000000000000000E00f -   1.00000000000000000E00f;
     _positionScreen.xy = _texCoord3.xy*  2.00000000000000000E00f -   1.00000000000000000E00f;
     _positionScreen.y = -_positionScreen.y;
-    _positionScreen.z = _TMP6.x;
+    _positionScreen.z = _depth;
     _positionScreen.w =   1.00000000000000000E00f;
     _r0021.x = dot(_ProjInv._11_12_13_14, _positionScreen);
     _r0021.y = dot(_ProjInv._21_22_23_24, _positionScreen);

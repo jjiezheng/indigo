@@ -84,6 +84,7 @@ void main()
 
     vec2 _screenPositionClip;
     vec2 _texCoord2;
+    float _depth;
     vec3 _normal;
     vec4 _positionScreen;
     vec3 _positionWorld;
@@ -101,13 +102,14 @@ void main()
     _texCoord2 = 5.00000000E-01*(_screenPositionClip + vec2( 1.00000000E+00, 1.00000000E+00));
     _texCoord0033 = _texCoord2 + _HalfPixel;
     _TMP6 = texture(_DepthMap, _texCoord0033);
+    _depth = _TMP6.x*2.00000000E+00 - 1.00000000E+00;
     _texCoord0037 = _texCoord2 + _HalfPixel;
     _normalData0037 = texture(_NormalMap, _texCoord0037);
     _unPackedNormal0037 = _normalData0037*2.00000000E+00 - 1.00000000E+00;
     _TMP7 = dot(_unPackedNormal0037.xyz, _unPackedNormal0037.xyz);
     _TMP8 = inversesqrt(_TMP7);
     _normal = _TMP8*_unPackedNormal0037.xyz;
-    _positionScreen = vec4(_screenPositionClip.x, _screenPositionClip.y, _TMP6.x, 1.00000000E+00);
+    _positionScreen = vec4(_screenPositionClip.x, _screenPositionClip.y, _depth, 1.00000000E+00);
     _r0047.x = dot(_ViewProjInv[0], _positionScreen);
     _r0047.y = dot(_ViewProjInv[1], _positionScreen);
     _r0047.z = dot(_ViewProjInv[2], _positionScreen);

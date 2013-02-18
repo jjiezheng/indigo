@@ -46,12 +46,14 @@ void main()
 {
 
     vec2 _texCoord2;
+    float _depth;
     vec4 _positionScreen;
     vec3 _positionWorld;
 
     _texCoord2 = 5.00000000E-01*(gl_TexCoord[0].xy + vec2( 1.00000000E+00, 1.00000000E+00));
     _TMP1 = texture2D(_DepthMap, _texCoord2);
-    _positionScreen = vec4(_texCoord2.x, _texCoord2.y, _TMP1.x, 1.00000000E+00);
+    _depth = _TMP1.x*2.00000000E+00 - 1.00000000E+00;
+    _positionScreen = vec4(_texCoord2.x, _texCoord2.y, _depth, 1.00000000E+00);
     _r0044.x = dot(_ViewProjInv[0], _positionScreen);
     _r0044.y = dot(_ViewProjInv[1], _positionScreen);
     _r0044.z = dot(_ViewProjInv[2], _positionScreen);
