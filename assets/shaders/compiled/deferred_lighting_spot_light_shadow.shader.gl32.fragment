@@ -24,6 +24,8 @@
 //semantic LightViewProjInv
 //semantic WorldViewProj
 //semantic NormalMatrix
+//var sampler2D DepthMap : TEXUNIT0 : _DepthMap 0 : -1 : 1
+//var float4x4 ViewProjInv :  : _ViewProjInv[0], 4 : -1 : 1
 //var float4 screenPosition : $vin.TEXCOORD0 : TEXCOORD0 : 1 : 1
 //var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
 
@@ -33,6 +35,11 @@ struct VOutput {
     vec4 _screenPosition2;
 };
 
+vec4 _ret_0;
+vec4 _TMP1;
+vec4 _r0044;
+uniform sampler2D _DepthMap;
+uniform vec4 _ViewProjInv[4];
 in vec4 cg_TexCoord0;
 out vec4 cg_FragColor;
 
@@ -40,7 +47,19 @@ out vec4 cg_FragColor;
 void main()
 {
 
+    vec2 _texCoord2;
+    vec4 _positionScreen;
+    vec3 _positionWorld;
 
-    cg_FragColor = cg_TexCoord0;
+    _texCoord2 = 5.00000000E-01*(cg_TexCoord0.xy + vec2( 1.00000000E+00, 1.00000000E+00));
+    _TMP1 = texture(_DepthMap, _texCoord2);
+    _positionScreen = vec4(_texCoord2.x, _texCoord2.y, _TMP1.x, 1.00000000E+00);
+    _r0044.x = dot(_ViewProjInv[0], _positionScreen);
+    _r0044.y = dot(_ViewProjInv[1], _positionScreen);
+    _r0044.z = dot(_ViewProjInv[2], _positionScreen);
+    _r0044.w = dot(_ViewProjInv[3], _positionScreen);
+    _positionWorld = _r0044.xyz/_r0044.w;
+    _ret_0 = vec4(_positionWorld.x, _positionWorld.y, _positionWorld.z, 1.00000000E+00);
+    cg_FragColor = _ret_0;
     return;
 } // main end

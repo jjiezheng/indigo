@@ -1,23 +1,7 @@
-function basedir()
-	local basedir = ''
-
-	configuration "macosx"
-		basedir = "build/project/osx/" .. _ACTION
-
-	configuration "vs*"
-		basedir = "build/project/win/" .. _ACTION
-
-	if _OPTIONS.platform ~= nil then
-		basedir = "build/project/" .. _OPTIONS.platform .. '/' .. _ACTION
-	end
-
-	return basedir
-end
-
 solution "Game"
 	configurations { "Release", "Debug" }
 
-	local basedir = basedir()
+	local basedir = "build"
 	location(basedir)
 
 project "game"
@@ -200,7 +184,7 @@ project "game"
 			"src/engine/platform/input/mac/**.cpp"
 		}
 
-			-- 
+	-- 
 	-- LINUX
 	--
 	configuration "linux"

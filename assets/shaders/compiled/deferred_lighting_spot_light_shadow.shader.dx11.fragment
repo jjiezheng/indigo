@@ -24,6 +24,8 @@
 //semantic LightViewProjInv
 //semantic WorldViewProj
 //semantic NormalMatrix
+//var sampler2D DepthMap : TEXUNIT0 : _DepthMap 0 : -1 : 1
+//var float4x4 ViewProjInv :  : _ViewProjInv[0], 4 : -1 : 1
 //var float4 screenPosition : $vin.TEXCOORD0 :  : 1 : 1
 //var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
 
@@ -39,13 +41,31 @@ struct X1X {
     float4 _TEXCOORD0 : TEXCOORD0;
 };
 
+static float4 _TMP1;
+static float2 _TMP0;
+static float4 _r0017;
+Texture2D<float4> _TMP18 : register(t0);
+SamplerState _DepthMap : TEXUNIT0;
+uniform float4x4 _ViewProjInv;
 
  // main procedure, the original name was ps
 float4 main( in X1X cin) : SV_Target0
 {
 
     float4 _screenPosition;
+    float2 _texCoord2;
+    float4 _positionScreen;
+    float3 _positionWorld;
 
     _screenPosition = cin._TEXCOORD0;
-    return _screenPosition;
+    _TMP0 = float2(_screenPosition.x, -_screenPosition.y);
+    _texCoord2 =   5.00000000000000000E-01f*(_TMP0 + float2(   1.00000000000000000E00f,   1.00000000000000000E00f));
+    _TMP1 = _TMP18.Sample(_DepthMap, _texCoord2);
+    _positionScreen = float4(_texCoord2.x, _texCoord2.y, _TMP1.x,   1.00000000000000000E00f);
+    _r0017.x = dot(_ViewProjInv._11_12_13_14, _positionScreen);
+    _r0017.y = dot(_ViewProjInv._21_22_23_24, _positionScreen);
+    _r0017.z = dot(_ViewProjInv._31_32_33_34, _positionScreen);
+    _r0017.w = dot(_ViewProjInv._41_42_43_44, _positionScreen);
+    _positionWorld = _r0017.xyz/_r0017.w;
+    return float4(_positionWorld.x, _positionWorld.y, _positionWorld.z,   1.00000000000000000E00f);
 } // main end

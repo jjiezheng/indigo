@@ -45,8 +45,6 @@ float4 ps(float4 position 						: POSITION,
 	float specularPower = 1;//depthSpec.z;
 	float specularIntensity = 1;//depthSpec.w;
 
-	return screenPosition;
-
 	float2 texCoord = contract(screenPosition.xy);
 
 	//------------------------------------------------------------
@@ -67,12 +65,9 @@ float4 ps(float4 position 						: POSITION,
 	//------------------------------------------------------------
 
 	float4 positionScreen = float4(texCoord, depth, 1.0f);
-
-	return float4(screenPosition.xy, 0, 1);
 	float4 positionWorldRaw = mul(ViewProjInv, positionScreen);
 	float3 positionWorld = positionWorldRaw.xyz / positionWorldRaw.w;
-
-	return float4(positionWorld, 1.0f);
+	return float4(positionWorld, 1);
 
 	//------------------------------------------------------------
 	// spot light
