@@ -14,8 +14,8 @@
 #endif
 
 #ifdef PLATFORM_LINUX	
-	#define GL3_PROTOTYPES 1
-	#include <GL/gl3.h>
+	#define GLCOREARB_PROTOTYPES 1
+	#include <GL/glcorearb.h>
 	#include <GL/glfw.h>
 	
 	//#include <GL/glext.h>

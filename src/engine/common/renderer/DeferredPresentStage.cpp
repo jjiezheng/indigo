@@ -27,7 +27,7 @@ void DeferredPresentStage::render(unsigned int presentTextureId, unsigned int de
   GraphicsInterface::resetRenderTarget(false);
   GraphicsInterface::setViewport(GraphicsInterface::screenSize());
   GraphicsInterface::clearActiveColorBuffers(Color4::CORNFLOWERBLUE);
-  GraphicsInterface::setBlendState(IGraphicsInterface::ALPHA);
+  GraphicsInterface::setBlendState(IGraphicsInterface::NOBLEND);
 
   effect_->beginDraw();
 	effect_->setUniform(GraphicsInterface::halfScreenPixel(), "HalfPixel");

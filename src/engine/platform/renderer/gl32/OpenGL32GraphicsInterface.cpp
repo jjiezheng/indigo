@@ -45,7 +45,7 @@ void OpenGL32GraphicsInterface::openWindow(int width, int height, unsigned int m
   
   glfwOpenWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
   glfwOpenWindow(width, height, 8, 8, 8, 8, 0, 0, GLFW_WINDOW);
-  glfwDisable(GLFW_MOUSE_CURSOR);
+  //glfwDisable(GLFW_MOUSE_CURSOR);
   GLUtilities::checkForError();
   
   initGremedyExtension();
@@ -168,7 +168,6 @@ IEffect* OpenGL32GraphicsInterface::createEffect() {
 }
 
 void OpenGL32GraphicsInterface::resetGraphicsState(bool cullBack) {
-  glEnable(GL_DEPTH_TEST);
   glEnable(GL_CULL_FACE);
   
   int faceToCull = cullBack ? GL_BACK : GL_FRONT;
@@ -281,8 +280,11 @@ void OpenGL32GraphicsInterface::setRenderTarget(unsigned int* renderTargetIds, u
   }
   
   if (useDepthBuffer) {
+    glEnable(GL_DEPTH_TEST);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthTextureId, 0);
     GLUtilities::checkForError();
+  } else {
+    glDisable(GL_DEPTH_TEST);
   }
   
   glDrawBuffers(renderTargetCount, drawBuffers);
