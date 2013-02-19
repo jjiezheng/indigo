@@ -20,7 +20,9 @@ void App::mainLoop() {
   bool escapePressed = Keyboard::keyState(IKeyboard::KEY_ESCAPE);
   bool windowClosed = GraphicsInterface::windowClosed();
 
-  wantToQuit_ = escapePressed || windowClosed;
+  if (escapePressed || windowClosed) {
+    wantToQuit_ = escapePressed || windowClosed;
+  }
 }
 
 void App::destroy() {

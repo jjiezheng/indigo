@@ -27,8 +27,6 @@ public:
   
 public:
   
-  bool windowClosed() const;
-  
   int exitCode() const;
     
 public:

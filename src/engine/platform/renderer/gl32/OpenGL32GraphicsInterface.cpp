@@ -22,16 +22,17 @@ void OpenGL32GraphicsInterface::destroy() {
   glfwTerminate();
 }
 
-bool OpenGL32GraphicsInterface::windowClosed() const {
-  return !glfwGetWindowParam(GLFW_OPENED);
-}
-
 int OpenGL32GraphicsInterface::exitCode() const {
   return 0;
 }
 
 void OpenGL32GraphicsInterface::openWindow(int width, int height, unsigned int multiSamples) {
-  glfwInit();
+  int result = glfwInit();
+
+  if (!result) {
+    LOG(LOG_CHANNEL_RENDERER, "Failed to init GLFW");
+  }
+  
   glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 3);
 
 #ifdef PLATFORM_LINUX
@@ -44,7 +45,13 @@ void OpenGL32GraphicsInterface::openWindow(int width, int height, unsigned int m
 #endif
   
   glfwOpenWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-  glfwOpenWindow(width, height, 8, 8, 8, 8, 0, 0, GLFW_WINDOW);
+  
+  result = glfwOpenWindow(width, height, 8, 8, 8, 8, 0, 0, GLFW_WINDOW);
+  
+  if (!result) {
+    LOG(LOG_CHANNEL_RENDERER, "Failed to open window");
+  }
+  
   //glfwDisable(GLFW_MOUSE_CURSOR);
   GLUtilities::checkForError();
   
