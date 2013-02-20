@@ -94,6 +94,12 @@ public:
 
 public:
 
+  static unsigned int createFrameBuffer(unsigned int* renderTargetId, unsigned int renderTargetCount, bool useDepthBuffer);
+
+  static void setFrameBuffer(unsigned int frameBufferId);
+
+public:
+
   static unsigned int loadTexture(const char* filePath);
 
   static unsigned int createTexture(const CSize& dimensions);
@@ -119,6 +125,11 @@ public:
   static void clearActiveDepthBuffer();
 
   static unsigned int createDepthTexture(const CSize& dimensions);
+
+
+public:
+
+  static unsigned int depthBufferTarget();
 
   static unsigned int depthBufferTexture();
 

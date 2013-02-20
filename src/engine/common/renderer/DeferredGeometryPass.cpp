@@ -15,17 +15,19 @@
 #include "Color4.h"
 #include "SceneContext.h"
 
+void DeferredGeometryPass::init() {
+	unsigned int renderTargets[2] = {colorRenderTarget_, normalRenderTarget_};
+	gBufferFrameBuffer_ = GraphicsInterface::createFrameBuffer(renderTargets, 2, true);
+}
+
 void DeferredGeometryPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext) {
 	GraphicsInterface::beginPerformanceEvent("G-Buffer");
   
 	GraphicsInterface::resetRenderTarget(true);
-  
-	unsigned int renderTargets[] = {colorRenderTarget_, normalRenderTarget_};
-	GraphicsInterface::setRenderTarget(renderTargets, 2, true);
-
+	GraphicsInterface::setFrameBuffer(gBufferFrameBuffer_);
+	
 	GraphicsInterface::setViewport(GraphicsInterface::backBufferSize());
-  
-  GraphicsInterface::setBlendState(IGraphicsInterface::NOBLEND);
+  	GraphicsInterface::setBlendState(IGraphicsInterface::NOBLEND);
 
 	GraphicsInterface::clearActiveColorBuffers(Color4::NOTHING);
 	GraphicsInterface::clearActiveDepthBuffer();

@@ -17,6 +17,8 @@ void DeferredInitRenderStage::init(const CSize& screenSize) {
   normalRenderTarget_ = GraphicsInterface::createRenderTarget(normalMapTexture_);
 
   IDeferredPass* geometryPass = new DeferredGeometryPass(colorRenderTarget_, normalRenderTarget_);
+  geometryPass->init();
+
   passes_.push_back(geometryPass);
 }
 

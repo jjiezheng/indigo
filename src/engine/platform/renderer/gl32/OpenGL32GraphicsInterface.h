@@ -19,6 +19,7 @@ public:
   
   OpenGL32GraphicsInterface()
     : depthBufferTexture_(0)
+    , depthBufferTarget_(0)
   { }
   
 public:
@@ -87,15 +88,25 @@ public:
   unsigned int createRenderTarget(unsigned int textureId);
   
   void clearRenderTarget(unsigned int renderTargetId, const Color4& color);
+
+public:
+
+  unsigned int createFrameBuffer(unsigned int* renderTargetId, unsigned int renderTargetCount, bool useDepthBuffer, unsigned int depthBufferTargetId);
+
+  void setFrameBuffer(unsigned int frameBufferId);
   
 public:
   
   unsigned int createDepthTexture(const CSize& dimensions);
   
   void clearActiveDepthBuffer(unsigned int textureId);
+
+public:
   
   unsigned int depthBufferTexture() const;
-  
+ 
+  unsigned int depthBufferTarget() const;
+
 public:
   
   void setBlendState(IGraphicsInterface::BlendState blendState);
@@ -111,6 +122,8 @@ private:
   std::vector<GLuint> renderTargetTextures_;
   
   unsigned int depthBufferTexture_;
+
+  unsigned int depthBufferTarget_;
   
 };
 

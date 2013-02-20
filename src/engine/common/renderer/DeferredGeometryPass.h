@@ -13,11 +13,12 @@ public:
 
   DeferredGeometryPass(unsigned int colorRenderTarget, unsigned int normalRenderTarget)
     : colorRenderTarget_(colorRenderTarget)
-    , normalRenderTarget_(normalRenderTarget) { }
+    , normalRenderTarget_(normalRenderTarget)
+    , gBufferFrameBuffer_(0) { }
 
 public:
 
-  void init() { };
+  void init();
 
   void render(IViewer* viewer, World& world, const SceneContext& sceneContext);
 
@@ -26,6 +27,7 @@ private:
   unsigned int colorRenderTarget_;
   unsigned int normalRenderTarget_;
 
+  unsigned int gBufferFrameBuffer_;
 };
 
 #endif

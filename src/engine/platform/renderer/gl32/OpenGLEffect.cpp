@@ -94,6 +94,7 @@ void OpenGLEffect::beginDraw() {
 }
 
 void OpenGLEffect::endDraw() {
+#undef GPU_TRACE
 #ifdef GPU_TRACE
   GLint maxTextureUnits = 0;
   glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS, &maxTextureUnits);

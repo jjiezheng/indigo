@@ -89,6 +89,12 @@ public:
 
 public:
 
+  virtual unsigned int createFrameBuffer(unsigned int* renderTargetId, unsigned int renderTargetCount, bool useDepthBuffer, unsigned int depthBufferTargetId) = 0;
+
+  virtual void setFrameBuffer(unsigned int frameBufferId) = 0;
+
+public:
+
   virtual IEffect* createEffect() = 0;
 
   virtual void resetGraphicsState(bool cullBack) = 0;
@@ -127,8 +133,11 @@ public:
 
   virtual void clearActiveDepthBuffer(unsigned int textureId) = 0;
 
+public:
+
   virtual unsigned int depthBufferTexture() const = 0;
  
+  virtual unsigned int depthBufferTarget() const = 0;
 
 public:
 

@@ -64,6 +64,7 @@ void OpenGL32GraphicsInterface::openWindow(int width, int height, unsigned int m
   screenSize_.height = height;
   
   depthBufferTexture_ = createDepthTexture(screenSize_);
+  depthBufferTarget_ = createRenderTarget(depthBufferTexture_);
 }
 
 void OpenGL32GraphicsInterface::setViewport(const CSize& dimensions) {
@@ -268,6 +269,10 @@ void OpenGL32GraphicsInterface::fillTexture(unsigned int textureId, void* data, 
 }
 
 void OpenGL32GraphicsInterface::setRenderTarget(unsigned int* renderTargetIds, unsigned int renderTargetCount, bool useDepthBuffer, const CSize& dimensions, unsigned int depthTextureId) {
+  
+}
+
+unsigned int OpenGL32GraphicsInterface::createFrameBuffer(unsigned int* renderTargetIds, unsigned int renderTargetCount, bool useDepthBuffer, unsigned int depthBufferTargetId) {
   GLuint frameBufferId = 0;
   glGenFramebuffers(1, &frameBufferId);
   GLUtilities::checkForError();
@@ -288,15 +293,23 @@ void OpenGL32GraphicsInterface::setRenderTarget(unsigned int* renderTargetIds, u
   
   if (useDepthBuffer) {
     glEnable(GL_DEPTH_TEST);
+    unsigned int depthTextureId = renderTargetTextures_[depthBufferTargetId];
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthTextureId, 0);
     GLUtilities::checkForError();
   } else {
     glDisable(GL_DEPTH_TEST);
   }
   
-  glDrawBuffers(renderTargetCount, drawBuffers);
+  glDrawBuffers(renderTargetCount, (GLenum*)drawBuffers);
   GLUtilities::checkForError();
   GLUtilities::checkFramebufferStatus(GL_FRAMEBUFFER);
+
+  return frameBufferId;
+}
+
+void OpenGL32GraphicsInterface::setFrameBuffer(unsigned int frameBufferId) {
+  glBindFramebuffer(GL_FRAMEBUFFER, frameBufferId);
+  GLUtilities::checkForError();
 }
 
 void OpenGL32GraphicsInterface::resetRenderTarget(bool useDepthBuffer) {
@@ -331,6 +344,10 @@ void OpenGL32GraphicsInterface::clearActiveDepthBuffer(unsigned int textureId) {
 
 unsigned int OpenGL32GraphicsInterface::depthBufferTexture() const {
   return depthBufferTexture_;
+}
+
+unsigned int OpenGL32GraphicsInterface::depthBufferTarget() const {
+  return depthBufferTarget_;
 }
 
 void OpenGL32GraphicsInterface::setBlendState(IGraphicsInterface::BlendState blendState) {
