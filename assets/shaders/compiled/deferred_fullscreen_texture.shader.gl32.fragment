@@ -1,6 +1,6 @@
 // glslf output by Cg compiler
-// cgc version 3.1.0013, build date Apr 18 2012
-// command line args: -DGL=1 -DGL32=1 -q -profileopts version=140 -profile glslf
+// cgc version 3.1.0013, build date Apr 24 2012
+// command line args: -DGL=1 -DGL32=1 -q -profileopts version=130 -profile glslf
 // source file: deferred_fullscreen_texture.cg
 //vendor NVIDIA Corporation
 //version 3.1.0.13
@@ -12,7 +12,7 @@
 //var float2 texCoord : $vin.TEXCOORD0 : TEXCOORD0 : 1 : 1
 //var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
 
-#version 140
+#version 130
 
 struct VOutput {
     vec2 _texCoord2;
@@ -27,10 +27,8 @@ out vec4 cg_FragColor;
 void main()
 {
 
-    vec2 _texCoords;
 
-    _texCoords = vec2(cg_TexCoord0.x, cg_TexCoord0.y);
-    _ret_0 = texture(_ColorMap, _texCoords);
+    _ret_0 = texture(_ColorMap, cg_TexCoord0.xy);
     cg_FragColor = _ret_0;
     return;
 } // main end

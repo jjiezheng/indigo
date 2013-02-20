@@ -8,22 +8,7 @@
 
 #include "OpenGL.h"
 
-#if defined(_WIN32) && !defined(APIENTRY) && !defined(__CYGWIN__) && !defined(__SCITECH_SNAP__)
-#define WIN32_LEAN_AND_MEAN 1
-#include <windows.h>
-#endif
-
-#ifndef APIENTRY
-#define APIENTRY
-#endif
-
-#ifndef APIENTRYP
-#define APIENTRYP APIENTRY *
-#endif
-
-#ifndef GLAPI
-#define GLAPI extern
-#endif
+void initGremedyExtension(void);
 
 #ifdef __cplusplus
 extern "C" {
@@ -48,8 +33,6 @@ extern PFNGLSTRINGMARKERGREMEDYPROC glStringMarkerGREMEDY;
 typedef void (APIENTRYP PFNGLFRAMETERMINATORGREMEDYPROC) (void);
 
 #endif /* GL_GREMEDY_frame_terminator */
-  
-void initGremedyExtension(void);
 
 #ifdef __cplusplus
 }
@@ -57,12 +40,12 @@ void initGremedyExtension(void);
 
 #endif /* __GREMDEYEXTENSIONS */
 
-#ifdef __APPLE__
+#ifdef PLATFORM_APPLE
 
 #ifndef NS_GL_GET_PROC_ADDRESS_H
 #define NS_GL_GET_PROC_ADDRESS_H
 
-void* NSGLGetProcAddress (const char *name);
+void* NSGLGetProcAddress(const char *name, const char* libraryPath);
 
 #endif
 

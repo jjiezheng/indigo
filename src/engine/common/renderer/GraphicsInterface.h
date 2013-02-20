@@ -94,6 +94,10 @@ public:
 
 public:
 
+  static unsigned int createFrameBuffer(unsigned int renderTargetId, bool useDepthBuffer);
+
+  static unsigned int createFrameBuffer(unsigned int* renderTargetId, unsigned int renderTargetCount, bool useDepthBuffer, unsigned int depthTextureId);
+
   static unsigned int createFrameBuffer(unsigned int* renderTargetId, unsigned int renderTargetCount, bool useDepthBuffer);
 
   static void setFrameBuffer(unsigned int frameBufferId);

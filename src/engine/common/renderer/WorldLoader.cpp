@@ -289,8 +289,10 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
           unsigned int shadowMapTexture = GraphicsInterface::createTexture(shadowMapSize, IGraphicsInterface::R8G8B8A8, 1, 1);
           light->setShadowMapTexture(shadowMapTexture);
 
-          unsigned int shadowMapRendeTarget = GraphicsInterface::createRenderTarget(shadowMapTexture);
-          light->setShadowMapRenderTarget(shadowMapRendeTarget);
+          unsigned int shadowMapRenderTarget = GraphicsInterface::createRenderTarget(shadowMapTexture);
+          
+          unsigned int shadowMapFrameBuffer = GraphicsInterface::createFrameBuffer(&shadowMapRenderTarget, 1, true, shadowMapDepthTexture);
+          light->setShadowMapFrameBuffer(shadowMapFrameBuffer);
         }
       }
 

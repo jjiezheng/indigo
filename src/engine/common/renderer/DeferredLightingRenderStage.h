@@ -13,7 +13,8 @@ public:
 
   DeferredLightingRenderStage()
     : lightMapTexture_(0)
-    , lightRenderTarget_(0) { }
+    , lightRenderTarget_(0)
+    , lightFrameBuffer_(0) { }
 
 public:
 
@@ -35,6 +36,8 @@ private:
 
   unsigned int lightMapTexture_;
   unsigned int lightRenderTarget_;
+
+  unsigned int lightFrameBuffer_;
 
   std::vector<IDeferredLightingPass*> passes_;
 

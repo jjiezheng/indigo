@@ -51,8 +51,7 @@ void OpenGL32GraphicsInterface::openWindow(int width, int height, unsigned int m
   if (!result) {
     LOG(LOG_CHANNEL_RENDERER, "Failed to open window");
   }
-  
-  //glfwDisable(GLFW_MOUSE_CURSOR);
+
   GLUtilities::checkForError();
   
   initGremedyExtension();
@@ -65,6 +64,8 @@ void OpenGL32GraphicsInterface::openWindow(int width, int height, unsigned int m
   
   depthBufferTexture_ = createDepthTexture(screenSize_);
   depthBufferTarget_ = createRenderTarget(depthBufferTexture_);
+
+  //glfwDisable(GLFW_MOUSE_CURSOR);
 }
 
 void OpenGL32GraphicsInterface::setViewport(const CSize& dimensions) {
@@ -72,16 +73,35 @@ void OpenGL32GraphicsInterface::setViewport(const CSize& dimensions) {
 }
 
 void OpenGL32GraphicsInterface::beginPerformanceEvent(const std::string& eventName) {
+
   if (NULL != glStringMarkerGREMEDY) {
+    performanceEventStack_.push(eventName);
     std::string output;
-    output += "######################";
+    output += "########## Start ";
     output += eventName;
+    output += " ##########";
     glStringMarkerGREMEDY(output.length(), output.c_str());
+
+    GLenum error = glGetError();
+    if (error != GL_NO_ERROR) {
+      glStringMarkerGREMEDY = NULL;
+    }
+
+    GLUtilities::checkForError();
   }
 }
 
 void OpenGL32GraphicsInterface::endPerformanceEvent() {
-  
+  if (NULL != glStringMarkerGREMEDY) {
+    std::string eventName = performanceEventStack_.top();
+    performanceEventStack_.pop();
+    std::string output;
+    output += "########## End ";
+    output += eventName;
+    output += " ##########";
+    glStringMarkerGREMEDY(output.length(), output.c_str());
+    GLUtilities::checkForError();
+  }
 }
 
 void OpenGL32GraphicsInterface::swapBuffers() {

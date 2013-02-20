@@ -1,5 +1,5 @@
 // glslf output by Cg compiler
-// cgc version 3.1.0013, build date Apr 18 2012
+// cgc version 3.1.0013, build date Apr 24 2012
 // command line args: -DGL=1 -DGL21=1 -q -profile glslf
 // source file: deferred_render_color_normal_depth.cg
 //vendor NVIDIA Corporation
@@ -27,8 +27,6 @@ struct POutput {
 };
 
 vec3 _TMP0;
-vec3 _normal1;
-vec3 _unPackedNormal0005;
 uniform vec4 _DiffuseColor;
 
  // main procedure, the original name was ps
@@ -37,12 +35,9 @@ void main()
 
     POutput _OUT;
 
-    _normal1 = vec3(float(gl_TexCoord[0].x), float(gl_TexCoord[0].y), float(gl_TexCoord[0].z));
-    _OUT._color = vec4(float(_DiffuseColor.x), float(_DiffuseColor.y), float(_DiffuseColor.z), float(_DiffuseColor.w));
-    _unPackedNormal0005 = vec3(float(_normal1.x), float(_normal1.y), float(_normal1.z));
-    _TMP0 = 5.00000000E-001 + _unPackedNormal0005*5.00000000E-001;
-    _OUT._normal3 = vec4(float(_TMP0.x), float(_TMP0.y), float(_TMP0.z), 1.00000000E+000);
-    gl_FragData[1] = vec4(float(_OUT._normal3.x), float(_OUT._normal3.y), float(_OUT._normal3.z), float(_OUT._normal3.w));
-    gl_FragData[0] = vec4(float(_OUT._color.x), float(_OUT._color.y), float(_OUT._color.z), float(_OUT._color.w));
+    _TMP0 = 5.00000000E-01 + gl_TexCoord[0].xyz*5.00000000E-01;
+    _OUT._normal3 = vec4(_TMP0.x, _TMP0.y, _TMP0.z, 1.00000000E+00);
+    gl_FragData[1] = _OUT._normal3;
+    gl_FragData[0] = _DiffuseColor;
     return;
 } // main end

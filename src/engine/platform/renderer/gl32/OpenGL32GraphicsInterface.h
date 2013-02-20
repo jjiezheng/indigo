@@ -10,6 +10,8 @@
 
 #include <vector>
 #include <map>
+#include <string>
+#include <stack>
 
 class OpenGL32GraphicsInterface : public IGraphicsInterface {
   
@@ -120,6 +122,7 @@ public:
 private:
   
   std::vector<GLuint> renderTargetTextures_;
+  std::stack<std::string> performanceEventStack_;
   
   unsigned int depthBufferTexture_;
 

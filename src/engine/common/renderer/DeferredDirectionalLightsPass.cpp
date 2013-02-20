@@ -27,18 +27,19 @@ void DeferredDirectionalLightsPass::init(const CSize& screenSize) {
 
   directionalLightRenderTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R8G8B8A8);
   directionalLightRenderTarget_ = GraphicsInterface::createRenderTarget(directionalLightRenderTexture_);
+  directionalLightFrameBuffer_ = GraphicsInterface::createFrameBuffer(directionalLightRenderTarget_, false);
 
   accumulationEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_light_composition.shader");
   quadVbo_ = Geometry::screenPlane();
 }
 
-void DeferredDirectionalLightsPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext, unsigned int lightMapRenderTarget, const DeferredInitRenderStage& initStage) {
+void DeferredDirectionalLightsPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext, unsigned int lightMapFrameBuffer, const DeferredInitRenderStage& initStage) {
   GraphicsInterface::beginPerformanceEvent("Directional");
   
   {
     GraphicsInterface::beginPerformanceEvent("Lighting");
 
-    GraphicsInterface::setRenderTarget(directionalLightRenderTarget_, false);
+    GraphicsInterface::setFrameBuffer(directionalLightFrameBuffer_);
 
     std::vector<DirectionalLight> directionalLights = sceneContext.directionalLights();
     for (std::vector<DirectionalLight>::iterator light = directionalLights.begin(); light != directionalLights.end(); ++light) {
@@ -70,8 +71,8 @@ void DeferredDirectionalLightsPass::render(IViewer* viewer, World& world, const 
   {
     GraphicsInterface::beginPerformanceEvent("Accumulation");
 
+    GraphicsInterface::setFrameBuffer(lightMapFrameBuffer);
     GraphicsInterface::setBlendState(IGraphicsInterface::ADDITIVE);
-    GraphicsInterface::setRenderTarget(lightMapRenderTarget, false);
     
     accumulationEffect_->beginDraw();
     accumulationEffect_->setTexture(directionalLightRenderTexture_, "LightSourceMap");

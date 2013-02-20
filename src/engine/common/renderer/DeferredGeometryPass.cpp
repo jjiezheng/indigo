@@ -53,10 +53,10 @@ void DeferredGeometryPass::render(IViewer* viewer, World& world, const SceneCont
 			Matrix4x4 viewTransform = viewer->viewTransform();
 			Matrix4x4 localToWorld = (*meshIt)->localToWorld();
 			Material material = (*meshIt)->material();
-      effect->beginDraw();
-      effect->setUniform(viewer->nearDistance(), "Near");
-      effect->setUniform(viewer->farDistance(), "Far");
-      effect->setSamplerState(0, UV_ADDRESS_WRAP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_NONE);
+			effect->beginDraw();
+			effect->setUniform(viewer->nearDistance(), "Near");
+			effect->setUniform(viewer->farDistance(), "Far");
+			effect->setSamplerState(0, UV_ADDRESS_WRAP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_NONE);
 			material.bind(projection, viewTransform, localToWorld, effect);
 			(*meshIt)->render();
 			effect->endDraw();

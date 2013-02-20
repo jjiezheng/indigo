@@ -5,12 +5,12 @@ uniform	float4x4 WorldViewProj;
 uniform	float4 DiffuseColor;
 
 struct VOutput {
-	half4 position			: POSITION;
-	half3 normal				: TEXCOORD0;
+	float4 position			: POSITION;
+	float3 normal				: TEXCOORD0;
 };
 
-VOutput vs(	half4 position 		: POSITION,
-		  			half3 normal 		: NORMAL) {
+VOutput vs(	half4 position 		: ATTR0,
+		  	half3 normal 		: NORMAL) {
 
 	VOutput OUT;
 	OUT.position = mul(WorldViewProj, position);
@@ -20,12 +20,12 @@ VOutput vs(	half4 position 		: POSITION,
 }
 
 struct POutput {
-	half4 color 	: COLOR0;
-	half4 normal 	: COLOR1;
+	float4 color 	: COLOR0;
+	float4 normal 	: COLOR1;
 };
 
-POutput ps(	half4 position			: POSITION,
-		   			half3 normal			: TEXCOORD0) {
+POutput ps(	float4 position			: POSITION,
+		   	float3 normal			: TEXCOORD0) {
 
 	POutput OUT;
 	

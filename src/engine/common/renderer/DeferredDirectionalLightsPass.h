@@ -14,6 +14,7 @@ public:
     : quadVbo_(0)
     , directionalLightRenderTarget_(0)
     , directionalLightRenderTexture_(0)
+    , directionalLightFrameBuffer_(0)
     , accumulationEffect_(0)
     , directionalLightEffect_(0) { }
 
@@ -23,7 +24,7 @@ public:
 
 public:
 
-  void render(IViewer* viewer, World& world, const SceneContext& sceneContext, unsigned int lightMapTexture, const DeferredInitRenderStage& initStage);
+  void render(IViewer* viewer, World& world, const SceneContext& sceneContext, unsigned int lightMapFrameBuffer, const DeferredInitRenderStage& initStage);
 
   void collectRenderTargets(IDeferredRenderTargetContainer* renderTargetContainer);
 
@@ -33,6 +34,7 @@ private:
 
   unsigned int directionalLightRenderTarget_;
   unsigned int directionalLightRenderTexture_;
+  unsigned int directionalLightFrameBuffer_;
 
   IEffect* accumulationEffect_;
   IEffect* directionalLightEffect_;

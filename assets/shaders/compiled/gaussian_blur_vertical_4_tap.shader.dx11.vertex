@@ -1,5 +1,5 @@
 // vs_4_0 output by Cg compiler
-// cgc version 3.1.0013, build date Apr 18 2012
+// cgc version 3.1.0013, build date Apr 24 2012
 // command line args: -DDX11=1 -q -unroll all -profile vs_5_0
 // source file: gaussian_blur_vertical_4_tap.cg
 //vendor NVIDIA Corporation
@@ -21,7 +21,7 @@
 //default weights[0] = 0.7978846
 //default weights[1] = 0.1079819
 //default weights[2] = 0.0002676605
-//default weights[3] = 1.22e-008
+//default weights[3] = 1.22e-08
 
 #pragma pack_matrix(row_major)
 

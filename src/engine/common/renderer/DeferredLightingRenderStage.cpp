@@ -14,8 +14,10 @@ void DeferredLightingRenderStage::init(const CSize& screenSize) {
     lightMapTexture_ = GraphicsInterface::createTexture(screenSize);
     lightRenderTarget_ = GraphicsInterface::createRenderTarget(lightMapTexture_);
 
-    IDeferredLightingPass* directionalLightingPass = new DeferredDirectionalLightsPass();
-    passes_.push_back(directionalLightingPass);
+    lightFrameBuffer_ = GraphicsInterface::createFrameBuffer(lightRenderTarget_, false);
+
+    //IDeferredLightingPass* directionalLightingPass = new DeferredDirectionalLightsPass();
+    //passes_.push_back(directionalLightingPass);
 
     IDeferredLightingPass* spotLightingPass = new DeferredSpotLightsPass();
     passes_.push_back(spotLightingPass);
@@ -28,11 +30,11 @@ void DeferredLightingRenderStage::init(const CSize& screenSize) {
 void DeferredLightingRenderStage::render(IViewer* viewer, World& world, const SceneContext& sceneContext, const DeferredInitRenderStage& initStage) {
   GraphicsInterface::beginPerformanceEvent("Lighting");
 
-  GraphicsInterface::setRenderTarget(lightRenderTarget_, false);
+  GraphicsInterface::setFrameBuffer(lightFrameBuffer_);
   GraphicsInterface::clearActiveColorBuffers(Color4::TRANSPAREN);
 
   for (std::vector<IDeferredLightingPass*>::iterator i = passes_.begin(); i != passes_.end(); ++i) {
-    (*i)->render(viewer, world, sceneContext, lightRenderTarget_, initStage);
+    (*i)->render(viewer, world, sceneContext, lightFrameBuffer_, initStage);
   }
 
   GraphicsInterface::endPerformanceEvent();

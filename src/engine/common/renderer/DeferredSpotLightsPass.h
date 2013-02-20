@@ -21,7 +21,8 @@ public:
     , quadVbo_(0)
     , lightEffectNoShadow_(0)
     , shadowDepthEffect_(0)
-    , accumulationEffect_(0) { }
+    , accumulationEffect_(0)
+    , spotLightFrameBuffer_(0) { }
 
 public:
 
@@ -29,7 +30,7 @@ public:
 
 public:
 
-  void render(IViewer* viewer, World& world, const SceneContext& sceneContext, unsigned int lightMapRenderTarget, const DeferredInitRenderStage& initStage);
+  void render(IViewer* viewer, World& world, const SceneContext& sceneContext, unsigned int lightMapFrameBuffer, const DeferredInitRenderStage& initStage);
 
   void collectRenderTargets(IDeferredRenderTargetContainer* renderTargetContainer);
 
@@ -37,7 +38,7 @@ private:
 
   void renderLight(SpotLight* light, IEffect* lightEffect, IViewer* viewer, unsigned int normalMap);
 
-  void accumulateLight(SpotLight* light, unsigned int colorMap, unsigned int lightMapRenderTarget);
+  void accumulateLight(SpotLight* light, unsigned int colorMap, unsigned int lightMapFrameBuffer);
 
   void renderShadowMap(SpotLight* light, hash_map<IEffect*, std::vector<Mesh*> >& meshes);
 
@@ -45,6 +46,7 @@ private:
 
   unsigned int spotLightRenderTarget_;
   unsigned int spotLightRenderTexture_;
+  unsigned int spotLightFrameBuffer_;
 
   unsigned int quadVbo_;
 

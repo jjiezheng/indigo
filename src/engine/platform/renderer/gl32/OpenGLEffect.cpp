@@ -84,6 +84,13 @@ void OpenGLEffect::load(const std::string& filePath) {
   glBindAttribLocation(programId_, TEXCOORD1, "TEXCOORD1");
   glBindAttribLocation(programId_, TEXCOORD2, "TEXCOORD2");
 
+  glBindFragDataLocation(programId_, 0, "cg_FragColor");
+
+  glBindFragDataLocation(programId_, 1, "cg_FragData1");
+  glBindFragDataLocation(programId_, 2, "cg_FragData2");
+  glBindFragDataLocation(programId_, 3, "cg_FragData3");
+  glBindFragDataLocation(programId_, 4, "cg_FragData4");
+
   glLinkProgram(programId_);
   GLUtilities::checkForError();
 }

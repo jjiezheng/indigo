@@ -1,12 +1,10 @@
 #include "GRemdeyExtensions.h"
 
-PFNGLSTRINGMARKERGREMEDYPROC glStringMarkerGREMEDY = NULL;
+#include <GL/glx.h>
 
-void initGremedyExtension(void) {
-  #ifdef __APPLE__
-  glStringMarkerGREMEDY = (PFNGLSTRINGMARKERGREMEDYPROC)NSGLGetProcAddress("glStringMarkerGREMEDY");
-  #endif
-}
+#include "platform/PlatformDefs.h"
+
+PFNGLSTRINGMARKERGREMEDYPROC glStringMarkerGREMEDY = NULL;
 
 #ifdef __APPLE__
 
@@ -16,12 +14,12 @@ void initGremedyExtension(void) {
 
 #include <dlfcn.h>
 
-void* NSGLGetProcAddress (const char *name)
+void* NSGLGetProcAddress(const char *name, const char* libraryPath)
 {
   static void* image = NULL;
   
   if (NULL == image) {
-    image = dlopen("/System/Library/Frameworks/OpenGL.framework/Versions/Current/OpenGL", RTLD_LAZY);
+    image = dlopen(libraryPath, RTLD_LAZY);
   }
   
   if(!image) {
@@ -33,3 +31,13 @@ void* NSGLGetProcAddress (const char *name)
 }
 
 #endif
+
+void initGremedyExtension(void) {
+#ifdef PLATFORM_APPLE
+  glStringMarkerGREMEDY = (PFNGLSTRINGMARKERGREMEDYPROC)NSGLGetProcAddress("glStringMarkerGREMEDY");
+#endif
+
+#ifdef PLATFORM_LINUX
+  glStringMarkerGREMEDY = (PFNGLSTRINGMARKERGREMEDYPROC)glXGetProcAddress((const GLubyte*)"glStringMarkerGREMEDY");
+#endif
+}

@@ -191,6 +191,7 @@ project "game"
 		buildoptions ""
 		linkoptions  ""
 		links {
+			"GLEW",
 			"glfw",
 			"GLU"
 		}

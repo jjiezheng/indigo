@@ -1,5 +1,5 @@
 // vs_4_0 output by Cg compiler
-// cgc version 3.1.0013, build date Apr 18 2012
+// cgc version 3.1.0013, build date Apr 24 2012
 // command line args: -DDX11=1 -q -unroll all -profile vs_5_0
 // source file: deferred_render_color_normal_depth.cg
 //vendor NVIDIA Corporation
@@ -9,7 +9,7 @@
 //semantic WorldViewProj
 //semantic DiffuseColor
 //var float4x4 WorldViewProj :  : _WorldViewProj[0], 4 : -1 : 1
-//var float4 position : $vin.POSITION : POSITION : 0 : 1
+//var half4 position : $vin.ATTR0 : ATTR0 : 0 : 1
 //var float3 normal : $vin.NORMAL : NORMAL : 1 : 1
 //var float4 vs.position : $vout.POSITION :  : -1 : 1
 //var float3 vs.normal : $vout.TEXCOORD0 :  : -1 : 1
@@ -31,25 +31,25 @@ struct X1X {
     float3 _TEXCOORD0 : TEXCOORD0;
 };
 
-static float4 _r0002;
-static float4 _v0002;
+static float4 _r0001;
+static float4 _v0001;
 static X1X cout;
 uniform float4x4 _WorldViewProj;
 
  // main procedure, the original name was vs
-X1X main(in float4 _position : POSITION, in float3 _normal : NORMAL0)
+X1X main(in float4 _position : ATTR0, in float3 _normal : NORMAL0)
 {
 
     VOutput _OUT;
 
-    _v0002 = (float4) _position;
-    _r0002.x = dot(_WorldViewProj._11_12_13_14, _v0002);
-    _r0002.y = dot(_WorldViewProj._21_22_23_24, _v0002);
-    _r0002.z = dot(_WorldViewProj._31_32_33_34, _v0002);
-    _r0002.w = dot(_WorldViewProj._41_42_43_44, _v0002);
-    _OUT._position1 = (float4) _r0002;
-    _OUT._normal1 = _normal;
-    cout._POSITION = (float4) _OUT._position1;
-    cout._TEXCOORD0 = (float3) _OUT._normal1;
+    _v0001 = (float4) _position;
+    _r0001.x = dot(_WorldViewProj._11_12_13_14, _v0001);
+    _r0001.y = dot(_WorldViewProj._21_22_23_24, _v0001);
+    _r0001.z = dot(_WorldViewProj._31_32_33_34, _v0001);
+    _r0001.w = dot(_WorldViewProj._41_42_43_44, _v0001);
+    _OUT._position1 = _r0001;
+    _OUT._normal1 = (float3) _normal;
+    cout._POSITION = _OUT._position1;
+    cout._TEXCOORD0 = _OUT._normal1;
     return cout;
 } // main end

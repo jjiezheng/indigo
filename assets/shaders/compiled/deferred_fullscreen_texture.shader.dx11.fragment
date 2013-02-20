@@ -1,5 +1,5 @@
 // ps_4_0 output by Cg compiler
-// cgc version 3.1.0013, build date Apr 18 2012
+// cgc version 3.1.0013, build date Apr 24 2012
 // command line args: -DDX11=1 -q -unroll all -profile ps_5_0
 // source file: deferred_fullscreen_texture.cg
 //vendor NVIDIA Corporation
@@ -32,9 +32,7 @@ float4 main( in X1X cin) : SV_Target0
 {
 
     float2 _texCoord;
-    float2 _texCoords;
 
     _texCoord = cin._TEXCOORD0;
-    _texCoords = float2(_texCoord.x, _texCoord.y);
-    return _TMP0.Sample(_ColorMap, _texCoords);
+    return _TMP0.Sample(_ColorMap, _texCoord);
 } // main end

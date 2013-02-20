@@ -39,12 +39,13 @@ void DeferredSpotLightsPass::init(const CSize& screenSize) {
 
 	spotLightRenderTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R8G8B8A8);
 	spotLightRenderTarget_ = GraphicsInterface::createRenderTarget(spotLightRenderTexture_);
+	spotLightFrameBuffer_ = GraphicsInterface::createFrameBuffer(spotLightRenderTarget_, false);
 
 	accumulationEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_light_composition.shader");
 	quadVbo_ = Geometry::screenPlane();
 }
 
-void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext, unsigned int lightMapRenderTarget, const DeferredInitRenderStage& initStage) {
+void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext, unsigned int lightMapFrameBuffer, const DeferredInitRenderStage& initStage) {
 	GraphicsInterface::beginPerformanceEvent("Spot");
 
 	{ // Shadow Map
@@ -79,7 +80,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
 			}
 
 			{ // accumulate into lightmap
-				accumulateLight(spotLight, initStage.colorMap(), lightMapRenderTarget);
+				accumulateLight(spotLight, initStage.colorMap(), lightMapFrameBuffer);
 			}
 
 			GraphicsInterface::endPerformanceEvent();
@@ -96,10 +97,9 @@ void DeferredSpotLightsPass::collectRenderTargets(IDeferredRenderTargetContainer
 void DeferredSpotLightsPass::renderShadowMap(SpotLight* light, hash_map<IEffect*, std::vector<Mesh*> >& meshes) {
 	GraphicsInterface::beginPerformanceEvent("Shadow Map");
 
+	GraphicsInterface::setFrameBuffer(light->shadowMapFrameBuffer());
 	GraphicsInterface::setViewport(light->shadowMapResolution()); 
-
-	GraphicsInterface::setRenderTarget(light->shadowMapRenderTarget(), true, light->shadowMapResolution(), light->shadowMapDepthTexture());
-
+	
 	GraphicsInterface::clearActiveColorBuffers(Color4::WHITE);
 	GraphicsInterface::clearActiveDepthBuffer();
 
@@ -107,9 +107,9 @@ void DeferredSpotLightsPass::renderShadowMap(SpotLight* light, hash_map<IEffect*
 	for (; i != meshes.end(); ++i) {
 		std::vector<Mesh*> effectMeshes = (*i).second;
 		for (std::vector<Mesh*>::iterator meshIt = effectMeshes.begin(); meshIt != effectMeshes.end(); ++meshIt) {
-      GraphicsInterface::setRenderState(false);
-      shadowDepthEffect_->beginDraw();
-      (*meshIt)->material().bind(light->projection(), light->viewTransform(), (*meshIt)->localToWorld(), shadowDepthEffect_);
+			GraphicsInterface::setRenderState(false);
+			shadowDepthEffect_->beginDraw();
+			(*meshIt)->material().bind(light->projection(), light->viewTransform(), (*meshIt)->localToWorld(), shadowDepthEffect_);
 			(*meshIt)->render();
 			shadowDepthEffect_->endDraw();
 		}
@@ -123,11 +123,11 @@ void DeferredSpotLightsPass::renderShadowMap(SpotLight* light, hash_map<IEffect*
 void DeferredSpotLightsPass::renderLight(SpotLight* light, IEffect* lightEffect, IViewer* viewer, unsigned int normalMap) {
 	GraphicsInterface::beginPerformanceEvent("Lighting");
 
-	GraphicsInterface::setRenderTarget(spotLightRenderTarget_, false);
+	GraphicsInterface::setFrameBuffer(spotLightFrameBuffer_);
 	GraphicsInterface::clearActiveColorBuffers(Color4::CORNFLOWERBLUE);
   
-  GraphicsInterface::setRenderState(true);
-  lightEffect->beginDraw();
+	GraphicsInterface::setRenderState(true);
+	lightEffect->beginDraw();
 
 	if (light->castsShadows()) {
 		CSize shadowMapResolution = light->shadowMapResolution();
@@ -184,14 +184,14 @@ void DeferredSpotLightsPass::renderLight(SpotLight* light, IEffect* lightEffect,
 	GraphicsInterface::endPerformanceEvent();
 }
 
-void DeferredSpotLightsPass::accumulateLight(SpotLight* light, unsigned int colorMap, unsigned int lightMapRenderTarget) {
+void DeferredSpotLightsPass::accumulateLight(SpotLight* light, unsigned int colorMap, unsigned int lightMapFrameBuffer) {
 	GraphicsInterface::beginPerformanceEvent("Accumulation");
 
+	GraphicsInterface::setFrameBuffer(lightMapFrameBuffer);
 	GraphicsInterface::setBlendState(IGraphicsInterface::ADDITIVE);
-	GraphicsInterface::setRenderTarget(lightMapRenderTarget, false);
-  GraphicsInterface::setRenderState(true);
-  
-  accumulationEffect_->beginDraw();
+	GraphicsInterface::setRenderState(true);
+
+	accumulationEffect_->beginDraw();
 	accumulationEffect_->setTexture(spotLightRenderTexture_, "LightSourceMap");
 	accumulationEffect_->setTexture(colorMap, "ColorMap");
 	accumulationEffect_->setUniform(GraphicsInterface::halfBackBufferPixel(), "HalfPixel");

@@ -14,12 +14,16 @@
 #endif
 
 #ifdef PLATFORM_LINUX	
+	//#include <GL/glew.h>
+
 	#define GLCOREARB_PROTOTYPES 1
 	#include <GL/glcorearb.h>
+
+	//#define GLFW_NO_GL 1
+	//#define GLFW_NO_GLU 1
 	#include <GL/glfw.h>
 	
 	//#include <GL/glext.h>
-	//#include <GL/glew.h>
 #endif
 
 #ifdef PLATFORM_MAC
