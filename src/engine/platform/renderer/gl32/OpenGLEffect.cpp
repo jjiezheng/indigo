@@ -101,6 +101,10 @@ void OpenGLEffect::beginDraw() {
   GLUtilities::checkForError();
 }
 
+void OpenGLEffect::commitBuffers() {
+  
+}
+
 void OpenGLEffect::endDraw() {
 #undef GPU_TRACE
 #ifdef GPU_TRACE

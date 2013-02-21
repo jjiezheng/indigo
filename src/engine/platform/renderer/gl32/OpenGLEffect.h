@@ -26,6 +26,8 @@ public:
 public:
   
   void beginDraw();
+
+  void commitBuffers();
   
   void endDraw();
   
