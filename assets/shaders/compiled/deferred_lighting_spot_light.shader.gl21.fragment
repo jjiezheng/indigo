@@ -97,7 +97,7 @@ void main()
     vec3 _floatVectorRaw1;
 
     _screenPositionClip = gl_TexCoord[0].xy/gl_TexCoord[0].z;
-    _texCoord2 = 5.00000000E-001*(_screenPositionClip + vec2( 1.00000000E+000, 1.00000000E+000));
+    _texCoord2 = _screenPositionClip*5.00000000E-001 + 5.00000000E-001;
     _texCoord0033 = _texCoord2 + _HalfPixel;
     _TMP6 = texture2D(_DepthMap, _texCoord0033);
     _depth = _TMP6.x*2.00000000E+000 - 1.00000000E+000;

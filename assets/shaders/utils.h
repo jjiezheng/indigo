@@ -5,7 +5,7 @@ float2 flipY(float2 vec) {
 #ifdef GL
   return vec;
 #endif
-  return float2(vec.x, -vec.y);
+  return float2(vec.x,  1.0-vec.y);
 }
 
 float3 expand(float3 vec) {
@@ -13,7 +13,14 @@ float3 expand(float3 vec) {
 }
 
 float2 contract(float2 vec) {
-	return 0.5f * (flipY(vec) + float2(1.0f, 1.0f));
+	float2 contracted = vec * 0.5f + 0.5f;
+	return contracted;
+}
+
+float2 ndc2tex(float2 ndc) {
+	float2 tex = ndc * 0.5f + 0.5f;
+	float2 flipped = flipY(tex);
+	return flipped;
 }
 
 float linstep(float min, float max, float v) {

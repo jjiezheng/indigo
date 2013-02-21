@@ -46,7 +46,7 @@ float4 ps(float4 position 		: POSITION,
 	float specularIntensity = 1;//depthSpec.w;
 
 	float2 screenPositionClip = screenPosition.xy / screenPosition.z;// -> w	
-	float2 texCoord = contract(screenPositionClip);
+	float2 texCoord = ndc2tex(screenPositionClip);
 
 	//------------------------------------------------------------
 	// depth
@@ -124,12 +124,11 @@ float4 ps(float4 position 		: POSITION,
 	//------------------------------------------------------------
 
 	float4 pixelPositionFromLightRaw = mul(LightViewProj, float4(positionWorld, 1));
-	float3 pixelPositionFromLight = pixelPositionFromLightRaw.xyz / pixelPositionFromLightRaw.w;
+	float3 pixelPositionFromLightNDC = pixelPositionFromLightRaw.xyz / pixelPositionFromLightRaw.w;
 
-	float2 shadowCoord = pixelPositionFromLight.xy * 0.5 + 0.5;
-	shadowCoord = flipY(shadowCoord);
+	float2 shadowCoord = ndc2tex(pixelPositionFromLightNDC.xy);
 
-	float shadowFactor = shadowPCF(ShadowMap, shadowCoord, pixelPositionFromLight.z, ShadowMapSize);
+	float shadowFactor = shadowPCF(ShadowMap, shadowCoord, pixelPositionFromLightNDC.z, ShadowMapSize);
 
 	lightContribution *= shadowFactor;
 

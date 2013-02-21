@@ -103,8 +103,8 @@ float4 main( in X1X cin) : SV_Target0
 
     _screenPosition = cin._TEXCOORD0;
     _screenPositionClip = _screenPosition.xy/_screenPosition.z;
-    _TMP5 = float2(_screenPositionClip.x, -_screenPositionClip.y);
-    _texCoord2 =  5.00000000000000000E-001f*(_TMP5 + float2(  1.00000000000000000E000f,  1.00000000000000000E000f));
+    _TMP5 = float2(_screenPositionClip.x,  1.00000000000000000E000f - _screenPositionClip.y);
+    _texCoord2 = _TMP5* 5.00000000000000000E-001f +  5.00000000000000000E-001f;
     _texCoord0015 = _texCoord2 + _HalfPixel;
     _TMP6 = _TMP28.Sample(_DepthMap, _texCoord0015);
     _texCoord0017 = _texCoord2 + _HalfPixel;
