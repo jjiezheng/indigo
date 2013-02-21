@@ -116,12 +116,15 @@ void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, in
 
     depthBufferTexture_ = textures_.size();
     activeDepthBuffer_ = depthBufferTexture_;
+
     DirectXTexture textureContainer;
     textureContainer.textureData = 0;
     textureContainer.mipLevels = 1;
     textureContainer.resourceView = depthResourceView;
     textureContainer.depthStencilView = depthBuffer_;
     textures_.push_back(textureContainer);
+
+		depthBufferTarget_ = createRenderTarget(depthBufferTexture_);
    }
 
   context_->OMSetRenderTargets(1, &backBuffer_, depthBuffer_);
@@ -457,13 +460,47 @@ unsigned int Direct3D11GraphicsInterface::createRenderTarget(unsigned int textur
   DirectXTexture texture = textures_[textureId];
   ID3D11RenderTargetView* renderTarget;
 
-  HRESULT result = device_->CreateRenderTargetView(texture.textureData, NULL, &renderTarget);
-  assert(result == S_OK);
+	if (NULL != texture.textureData) {
+		HRESULT result = device_->CreateRenderTargetView(texture.textureData, NULL, &renderTarget);
+		assert(result == S_OK);
+	}
 
   unsigned int renderTargetId = renderTargets_.size();
   renderTargets_.push_back(renderTarget);
   return renderTargetId;
 }
+
+unsigned int Direct3D11GraphicsInterface::createFrameBuffer(unsigned int* renderTargetIds, unsigned int renderTargetCount, bool useDepthBuffer, unsigned int depthBufferTargetId) {
+
+	DirectXFrameBuffer frameBuffer;
+
+	for (unsigned int i = 0; i < renderTargetCount; i++) {
+		unsigned int renderTargetId = renderTargetIds[i];
+		ID3D11RenderTargetView* renderTarget = renderTargets_[renderTargetId];
+		frameBuffer.renderTargets_.push_back(renderTarget);
+	}
+
+	if (useDepthBuffer) {
+		assert(depthBufferTargetId < textures_.size());
+#error issue here in that we need to get the depth stencil view from the render target
+
+		DirectXTexture depthTexture = textures_[depthBufferTargetId];
+		frameBuffer.depthBuffer_ = depthTexture.depthStencilView;
+	}
+
+	unsigned int frameBufferId = frameBuffers_.size();
+	frameBuffers_.push_back(frameBuffer);
+
+	return frameBufferId;
+}
+
+void Direct3D11GraphicsInterface::setFrameBuffer(unsigned int frameBufferId) {
+	assert(frameBufferId < frameBuffers_.size());
+	DirectXFrameBuffer frameBuffer = frameBuffers_[frameBufferId];
+
+	context_->OMSetRenderTargets(frameBuffer.renderTargets_.size(), &frameBuffer.renderTargets_[0], frameBuffer.depthBuffer_);
+}
+
 
 void Direct3D11GraphicsInterface::clearRenderTarget(unsigned int renderTargetId, const Color4& color) {
   assert(renderTargetId < renderTargets_.size());

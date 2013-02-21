@@ -44,3 +44,21 @@ public:
 };
 
 #endif
+
+#ifndef DIRECTX_FRAME_BUFFER_H
+#define DIRECTX_FRAME_BUFFER_H
+
+class DirectXFrameBuffer {
+
+public:
+
+	DirectXFrameBuffer()
+		: depthBuffer_(0) { };
+
+public:
+
+	std::vector<ID3D11RenderTargetView*> renderTargets_;
+	ID3D11DepthStencilView* depthBuffer_;
+};
+
+#endif

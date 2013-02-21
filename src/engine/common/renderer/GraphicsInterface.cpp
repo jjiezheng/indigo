@@ -116,15 +116,15 @@ void GraphicsInterface::setRenderTarget(unsigned int* renderTargetId, unsigned i
 }
 
 unsigned int GraphicsInterface::createFrameBuffer(unsigned int* renderTargetId, unsigned int renderTargetCount, bool useDepthBuffer) {
-  graphicsInterface_->createFrameBuffer(renderTargetId, renderTargetCount, useDepthBuffer, GraphicsInterface::depthBufferTarget());
+  return graphicsInterface_->createFrameBuffer(renderTargetId, renderTargetCount, useDepthBuffer, GraphicsInterface::depthBufferTarget());
 }
 
 unsigned int GraphicsInterface::createFrameBuffer(unsigned int* renderTargetId, unsigned int renderTargetCount, bool useDepthBuffer, unsigned int depthTextureId) {
-  graphicsInterface_->createFrameBuffer(renderTargetId, renderTargetCount, useDepthBuffer, depthTextureId);
+  return graphicsInterface_->createFrameBuffer(renderTargetId, renderTargetCount, useDepthBuffer, depthTextureId);
 }
 
 unsigned int GraphicsInterface::createFrameBuffer(unsigned int renderTargetId, bool useDepthBuffer) {
-  graphicsInterface_->createFrameBuffer(&renderTargetId, 1, useDepthBuffer, GraphicsInterface::depthBufferTarget());
+  return graphicsInterface_->createFrameBuffer(&renderTargetId, 1, useDepthBuffer, GraphicsInterface::depthBufferTarget());
 }
 
 void GraphicsInterface::setFrameBuffer(unsigned int frameBufferId) {

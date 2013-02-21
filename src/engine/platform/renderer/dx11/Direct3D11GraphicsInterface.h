@@ -82,6 +82,12 @@ public:
 
 public:
 
+	unsigned int createFrameBuffer(unsigned int* renderTargetId, unsigned int renderTargetCount, bool useDepthBuffer, unsigned int depthBufferTargetId);
+
+	void setFrameBuffer(unsigned int frameBufferId);
+
+public:
+
   void setTexture(unsigned int slotIndex, ID3D11SamplerState* samplerState, unsigned int textureId);
 
 public:
@@ -91,6 +97,8 @@ public:
   void clearActiveDepthBuffer(unsigned int textureId);
 
   unsigned int depthBufferTexture() const;
+
+	unsigned int depthBufferTarget() const;
 
 public:
 
@@ -135,15 +143,21 @@ private:
   std::vector<ID3D11RenderTargetView*> renderTargets_;
   std::vector<ID3D11BlendState*> blendStates_;
   std::vector<D3DXCOLOR> performanceMarkerColors_;
+	std::vector<DirectXFrameBuffer> frameBuffers_;
 
   unsigned int multiSamples_;  
   unsigned int performanceMarkerLevel_;
   unsigned int activeDepthBuffer_;
+	unsigned int depthBufferTarget_;
 
 };
 
 inline unsigned int Direct3D11GraphicsInterface::depthBufferTexture() const {
   return depthBufferTexture_;
+}
+
+inline unsigned int Direct3D11GraphicsInterface::depthBufferTarget() const {
+	return depthBufferTarget_;
 }
 
 #endif
