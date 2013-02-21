@@ -129,13 +129,6 @@ void DeferredSpotLightsPass::renderLight(SpotLight* light, IEffect* lightEffect,
 	GraphicsInterface::setRenderState(true);
 	lightEffect->beginDraw();
 
-	if (light->castsShadows()) {
-		CSize shadowMapResolution = light->shadowMapResolution();
-		Vector2 shadowMapSize(1.0f/shadowMapResolution.width, 1.0f/shadowMapResolution.height);
-		lightEffect->setUniform(shadowMapSize, "ShadowMapSize");
-		lightEffect->setTexture(light->shadowMapDepthTexture(), "ShadowMap");
-	}
-
 	Matrix4x4 viewProjection = viewer->projection() * viewer->viewTransform();
 	lightEffect->setUniform(viewer->viewTransform(), "View");
 	lightEffect->setUniform(viewProjection, "ViewProj");
@@ -177,6 +170,13 @@ void DeferredSpotLightsPass::renderLight(SpotLight* light, IEffect* lightEffect,
 	lightEffect->setTexture(depthBufferId, "DepthMap");
 
 	lightEffect->setTexture(normalMap, "NormalMap");
+
+	if (light->castsShadows()) {
+		CSize shadowMapResolution = light->shadowMapResolution();
+		Vector2 shadowMapSize(1.0f/shadowMapResolution.width, 1.0f/shadowMapResolution.height);
+		lightEffect->setUniform(shadowMapSize, "ShadowMapSize");
+		lightEffect->setTexture(light->shadowMapDepthTexture(), "ShadowMap");
+	}
 
 	GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);
 	lightEffect->endDraw();

@@ -9,6 +9,7 @@
 #include "maths/Vector3.h"
 #include "maths/Vector4.h"
 
+#include "renderer/GraphicsInterface.h"
 #include "renderer/ShaderSemantics.h"
 #include "renderer/Color3.h"
 
@@ -189,6 +190,7 @@ void OpenGLEffect::setUniform(float uniformData, const char* uniformName) const 
 }
 
 void OpenGLEffect::setTexture(unsigned int textureId, const char* uniformName) {
+  GraphicsInterface::beginPerformanceEvent(std::string("Texture ") + uniformName);
   std::string internalUnformName = getInternalUniformName(uniformName);
   GLint uniformLocation = glGetUniformLocation(programId_, internalUnformName.c_str());
   if (uniformLocation > -1) {
@@ -201,6 +203,7 @@ void OpenGLEffect::setTexture(unsigned int textureId, const char* uniformName) {
     glUniform1i(uniformLocation, samplerId);
     GLUtilities::checkForError();
   }
+  GraphicsInterface::endPerformanceEvent();
 }
 
 void OpenGLEffect::setSamplerState(unsigned int samplerSlot, SAMPLER_UV_ADDRESS_MODE addressMode, SAMPLER_COMPARISON_FILTER comparisonFilter, SAMPLER_COMPARISON_FUNC compartisonFunction) {

@@ -69,6 +69,8 @@ float4 ps(float4 position 		: POSITION,
 	float4 positionWorldRaw = mul(ViewProjInv, positionScreen);
 	float3 positionWorld = positionWorldRaw.xyz / positionWorldRaw.w;
 
+	return float4(positionWorld, 1);
+
 	//------------------------------------------------------------
 	// spot light
 	//------------------------------------------------------------

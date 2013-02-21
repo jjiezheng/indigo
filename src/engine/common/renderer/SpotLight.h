@@ -21,7 +21,8 @@ public:
     , castsShadows_(0)
     , shadowMapFrameBuffer_(0)
     , shadowMapTexture_(0)
-    , shadowMapDepthTexture_(0) { }
+    , shadowMapDepthTexture_(0)
+    , shadowMapDepthRenderTarget_(0) { }
 
 public:
 
@@ -105,6 +106,12 @@ public:
 
 public:
 
+  void setShadowMapDepthRenderTarget(unsigned int shadowMapDepthRenderTarget);
+
+  unsigned int shadowMapDepthRenderTarget() const;
+
+public:
+
   void setShadowMapResolution(const CSize& resolution);
 
   CSize shadowMapResolution() const;
@@ -136,6 +143,7 @@ private:
   unsigned int shadowMapFrameBuffer_;
   unsigned int shadowMapTexture_;
   unsigned int shadowMapDepthTexture_;
+  unsigned int shadowMapDepthRenderTarget_;
 };
 
 inline void SpotLight::setDecay(float decay) {
@@ -236,6 +244,14 @@ inline void SpotLight::setCastsShadows(bool castsShadows) {
 
 inline bool SpotLight::castsShadows() const {
   return castsShadows_;
+}
+
+inline void SpotLight::setShadowMapDepthRenderTarget(unsigned int shadowMapDepthRenderTarget) {
+  shadowMapDepthRenderTarget_ = shadowMapDepthRenderTarget;
+}
+
+inline unsigned int SpotLight::shadowMapDepthRenderTarget() const {
+  return shadowMapDepthRenderTarget_;
 }
 
 #endif
