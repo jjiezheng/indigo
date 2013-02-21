@@ -1,6 +1,8 @@
 float unpackDepth(sampler2D depthSampler, float2 texCoord) {
 #ifdef GCM
   return texDepth2D_precise(depthSampler, texCoord).r;
+#elif GL
+  return tex2D(depthSampler, texCoord).r * 2.0 - 1.0;
 #else
   return tex2D(depthSampler, texCoord).r;
 #endif

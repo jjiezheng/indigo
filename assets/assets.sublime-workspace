@@ -5,15 +5,87 @@
 		[
 			[
 				"pos",
-				"positionWorld"
+				"positionScreen"
+			],
+			[
+				"shdao",
+				"shadowMapDepthRenderTarget"
+			],
+			[
+				"shadowMa",
+				"shadowMapDepthTexture"
+			],
+			[
+				"un",
+				"uniformName"
+			],
+			[
+				"spotl",
+				"spotLightFrameBuffer_"
+			],
+			[
+				"rend",
+				"renderTargetCount"
+			],
+			[
+				"dep",
+				"depthTextureId"
+			],
+			[
+				"ren",
+				"renderTargetId"
+			],
+			[
+				"shadow",
+				"shadowMapDepthTexture"
+			],
+			[
+				"sha",
+				"shadowMapRendeTarget"
+			],
+			[
+				"spo",
+				"spotLightRenderTarget_"
+			],
+			[
+				"light",
+				"lightFrameBuffer_"
+			],
+			[
+				"dire",
+				"directionalLightFrameBuffer_"
+			],
+			[
+				"directional",
+				"directionalLightFrameBuffer_"
+			],
+			[
+				"renderTar",
+				"renderTargetTextures_"
+			],
+			[
+				"depthBufferTar",
+				"depthBufferTarget_"
+			],
+			[
+				"depth",
+				"depthBufferTexture_"
+			],
+			[
+				"Open",
+				"OpenGL32GraphicsInterface"
+			],
+			[
+				"inc",
+				"include"
+			],
+			[
+				"PLATF",
+				"PLATFORM_LINUX"
 			],
 			[
 				"pix",
 				"pixelPositionFromLight"
-			],
-			[
-				"shadow",
-				"shadowCoord"
 			],
 			[
 				"nor",
@@ -22,10 +94,6 @@
 			[
 				"li",
 				"lightContribution"
-			],
-			[
-				"sha",
-				"shadowFactor"
 			],
 			[
 				"texco",
@@ -48,16 +116,8 @@
 				"sampleDepth"
 			],
 			[
-				"dep",
-				"depth"
-			],
-			[
 				"sam",
 				"sampleDepth"
-			],
-			[
-				"light",
-				"lightContribution"
 			],
 			[
 				"lig",
@@ -142,10 +202,6 @@
 			[
 				"pr",
 				"projTexColor"
-			],
-			[
-				"un",
-				"uniform"
 			],
 			[
 				"dif",
@@ -292,10 +348,6 @@
 				"positionWorld"
 			],
 			[
-				"depth",
-				"depthDifference"
-			],
-			[
 				"random",
 				"randomNormal"
 			],
@@ -308,26 +360,34 @@
 	"buffers":
 	[
 		{
+			"file": "/home/nk/Development/game/src/engine/common/renderer/DeferredSpotLightsPass.cpp",
+			"settings":
+			{
+				"buffer_size": 8291,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/home/nk/Development/game/src/engine/common/renderer/WorldLoader.cpp",
+			"settings":
+			{
+				"buffer_size": 15541,
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "shaders/deferred_lighting_spot_light_shadow.cg",
 			"settings":
 			{
-				"buffer_size": 4386,
+				"buffer_size": 4486,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "shaders/depth.h",
+			"file": "/home/nk/Development/game/src/game/Game.cpp",
 			"settings":
 			{
-				"buffer_size": 687,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/home/nk/Development/game/src/engine/common/renderer/DeferredLightingRenderStage.cpp",
-			"settings":
-			{
-				"buffer_size": 1826,
+				"buffer_size": 1507,
 				"line_ending": "Windows"
 			}
 		}
@@ -335,11 +395,11 @@
 	"build_system": "CG",
 	"command_palette":
 	{
-		"height": 392.0,
+		"height": 33.0,
 		"selected_items":
 		[
 		],
-		"width": 449.0
+		"width": 404.0
 	},
 	"console":
 	{
@@ -359,22 +419,88 @@
 	},
 	"file_history":
 	[
-		"/home/nk/Development/game/src/engine/common/platform/PlatformDefs.h",
-		"/home/nk/Development/game/assets/scenes/simple/floor.scene",
-		"/home/nk/Development/game/assets/scenes/shadow/simple.scene",
-		"/home/nk/Development/game/src/game/App.cpp",
-		"/home/nk/Development/game/assets/shaders/compile",
-		"/home/nk/Development/game/premake4.lua",
-		"/home/nk/Development/game/build/project/win/gmake/game.make",
-		"/home/nk/Development/game/src/engine/common/renderer/EffectCache.cpp",
-		"/home/nk/Development/game/src/engine/platform/renderer/gl32/OpenGLEffect.cpp",
-		"/home/nk/Development/game/src/engine/platform/renderer/gl32/GRemdeyExtensions.h",
+		"/media/nk/MYLINUXLIVE/floor_and_cube.scene",
+		"/home/nk/Development/game/src/engine/common/renderer/DeferredGeometryPass.h",
+		"/home/nk/Development/game/src/game/Game.cpp",
 		"/home/nk/Development/game/src/engine/platform/renderer/gl32/GRemdeyExtensions.cpp",
+		"/home/nk/Development/game/src/engine/platform/renderer/gl32/GLUtilities.h",
 		"/home/nk/Development/game/src/engine/platform/renderer/gl32/OpenGL32GraphicsInterface.cpp",
+		"/home/nk/Development/game/assets/scenes/simple/floor_and_cube.scene",
+		"/home/nk/Development/game/src/engine/common/renderer/DeferredShadowPass.cpp",
+		"/home/nk/Development/game/src/engine/platform/renderer/gl32/OpenGLEffect.cpp",
+		"/home/nk/Development/game/assets/shaders/compiled/deferred_lighting_spot_light_shadow.shader.gl32.fragment",
+		"/home/nk/Development/game/assets/shaders/deferred_lighting_spot_light_shadow.cg",
+		"/home/nk/Development/game/src/engine/platform/renderer/gl32/OpenGLEffect.h",
+		"/home/nk/Development/game/src/engine/common/renderer/SpotLight.h",
+		"/home/nk/Development/game/src/engine/common/renderer/GraphicsInterface.cpp",
+		"/home/nk/Development/game/src/engine/common/renderer/DeferredGeometryPass.cpp",
 		"/home/nk/Development/game/src/engine/common/renderer/WorldLoader.cpp",
+		"/home/nk/Development/game/src/engine/common/renderer/DeferredFXAAPass.cpp",
+		"/home/nk/Development/game/src/engine/common/renderer/AverageBlur.cpp",
+		"/home/nk/Development/game/src/engine/platform/renderer/gl32/OpenGL32GraphicsInterface.h",
+		"/home/nk/Development/game/src/engine/common/renderer/DeferredDirectionalLightsPass.cpp",
+		"/home/nk/Development/game/src/engine/common/renderer/DeferredClearBuffersPass.cpp",
+		"/home/nk/Development/game/src/engine/platform/renderer/gl32/GRemdeyExtensions.h",
+		"/home/nk/Development/game/src/engine/common/renderer/Renderer3dDeferred.cpp",
+		"/home/nk/Development/game/src/engine/common/renderer/DeferredSpotLightsPass.h",
+		"/home/nk/Development/game/src/engine/common/renderer/DeferredLightingRenderStage.cpp",
+		"/home/nk/Development/game/src/engine/common/renderer/DeferredSpotLightsPass.cpp",
+		"/home/nk/Development/game/src/engine/common/renderer/GraphicsInterface.h",
+		"/home/nk/Development/game/src/engine/common/renderer/GraphicsInterface.mm",
+		"/home/nk/Development/game/src/engine/common/renderer/DeferredLightingRenderStage.h",
+		"/home/nk/Development/game/src/engine/common/renderer/DeferredDirectionalLightsPass.h",
+		"/home/nk/Development/game/src/engine/common/renderer/DeferredInitRenderStage.cpp",
+		"/home/nk/Development/game/build/obj/Release/DeferredLightingRenderStage.d",
+		"/home/nk/Development/game/assets/shaders/deferred_render_color_normal_depth.cg",
+		"/home/nk/Development/game/assets/shaders/compiled/deferred_render_color_normal_depth.shader.gl32.fragment",
+		"/home/nk/Development/game/assets/shaders/compiled/deferred_render_color_normal_depth.shader.gl32.vertex",
+		"/home/nk/Development/game/assets/shaders/compile",
+		"/home/nk/Development/game/src/engine/common/renderer/IGraphicsInterface.h",
+		"/home/nk/Development/game/src/engine/common/renderer/DeferredInitRenderStage.h",
+		"/home/nk/Development/game/assets/shaders/deferred_fullscreen_texture.cg",
+		"/home/nk/Development/game/build/obj/Debug/WorldLoader.d",
 		"/home/nk/Development/game/src/engine/common/serialization/BinaryModelDeserializer.cpp",
 		"/home/nk/Development/game/src/engine/platform/renderer/gl32/OpenGL.h",
-		"/usr/include/GL/glcorearb.h",
+		"/usr/include/GL/glfw.h",
+		"/usr/include/GL/glew.h",
+		"/home/nk/Development/game/libs/glew/include/GL/glew.h",
+		"/home/nk/Development/game/premake4.lua",
+		"/home/nk/Development/game/assets/shaders/deferred_render_colormap_normal_depth.cg",
+		"/home/nk/Development/game/assets/shaders/compiled/deferred_render_colormap_normal_depth.shader.gl32.fragment",
+		"/home/nk/Development/game/projects/vc9/Visual Lint/CppCheck/game/Debug_Win32/engine/DeferredGeometryPass.cpp.txt",
+		"/home/nk/Development/game/src/engine/common/renderer/DeferredPresentStage.cpp",
+		"/home/nk/Development/game/src/engine/common/renderer/GraphicsAPIType.h",
+		"/home/nk/Development/game/assets/shaders/compiled/gaussian_blur_horizontal_16_tap.shader.gl32.fragment",
+		"/home/nk/Development/game/build/obj/Debug/DeferredInitRenderStage.d",
+		"/home/nk/Development/game/build/obj/Release/DeferredInitRenderStage.d",
+		"/home/nk/Development/game/src/engine/platform/input/linux/LinuxKeyStates.h",
+		"/home/nk/Development/game/src/game/App.cpp",
+		"/home/nk/Development/game/src/engine/platform/input/win/WindowsKeyboard.cpp",
+		"/home/nk/Development/game/src/engine/platform/input/win/WindowsKeyStates.h",
+		"/home/nk/Development/game/src/engine/common/input/IKeyboard.h",
+		"/home/nk/Development/game/src/engine/platform/input/win/WindowsKeyboard.h",
+		"/home/nk/Development/game/src/engine/platform/input/linux/LinuxKeyboard.h",
+		"/home/nk/Development/game/src/engine/common/input/Keyboard.cpp",
+		"/home/nk/Development/game/src/engine/common/input/Keyboard.h",
+		"/home/nk/Development/game/src/engine/common/input/KeyStates.h",
+		"/home/nk/Development/game/src/engine/common/input/Mouse.cpp",
+		"/home/nk/Development/game/src/engine/common/input/Mouse.h",
+		"/home/nk/Development/game/assets/shaders/depth.h",
+		"/home/nk/Development/apitrace/CMakeLists.txt",
+		"/home/nk/Development/game/scripts/premake_all.bat",
+		"/home/nk/Development/game/Game",
+		"/home/nk/Development/game/src/engine/platform/input/linux/LinuxKeyboard.cpp",
+		"/home/nk/Development/game/src/engine/platform/input/mac/MacMouse.cpp",
+		"/home/nk/Development/game/src/engine/platform/input/mac/MacMouse.h",
+		"/home/nk/Development/game/src/engine/platform/input/linux/LinuxMouse.h",
+		"/home/nk/Development/game/src/engine/platform/input/linux/LinuxMouse.cpp",
+		"/home/nk/Development/game/assets/scenes/simple/floor.scene",
+		"/home/nk/Development/game/assets/scenes/shadow/simple.scene",
+		"/home/nk/Development/game/build/project/win/gmake/game.make",
+		"/home/nk/Development/game/src/engine/common/renderer/EffectCache.cpp",
+		"/home/nk/Development/game/src/engine/common/io/Endian.h",
+		"/home/nk/Development/game/src/engine/common/io/Endian.cpp",
+		"/home/nk/Development/game/src/engine/common/platform/PlatformDefs.h",
 		"/home/nk/Development/game/build/project/win/gmake/Makefile",
 		"/home/nk/Development/game/projects/vc9/Visual Lint/CppCheck/game/Debug_Win32/engine/EffectCache.cpp.vlstatus",
 		"/home/nk/Development/game/assets/shaders/fxaa_main.cg",
@@ -384,7 +510,6 @@
 		"/home/nk/Development/game/src/engine/common/dynamics/NavierStokesSimulation.cpp",
 		"/home/nk/Development/game/src/engine/common/input/NullKeyboard.h",
 		"/home/nk/Development/game/src/engine/common/memory/Allocation.cpp",
-		"/home/nk/Development/game/src/engine/common/io/Endian.cpp",
 		"/home/nk/Development/game/src/engine/common/io/DDSImage.cpp",
 		"/home/nk/Development/game/src/engine/common/renderer/Font.h",
 		"/home/nk/Development/game/old/oldsrc/ui/Label.h",
@@ -398,23 +523,16 @@
 		"/home/nk/Development/game/src/engine/common/ui/UIMouse.h",
 		"/home/nk/Development/game/src/engine/common/ui/UILine.h",
 		"/home/nk/Development/game/src/engine/common/core/Clock.cpp",
-		"/home/nk/Development/game/src/engine/common/renderer/GraphicsInterface.cpp",
-		"/home/nk/Development/game/src/engine/platform/renderer/gl32/OpenGL32GraphicsInterface.h",
 		"/home/nk/Development/game/src/engine/common/core/String.cpp",
 		"/usr/include/GL/gl3.h",
-		"/usr/include/GL/glfw.h",
 		"/home/nk/Development/game/src/engine/common/renderer/IGraphicsInterface.cpp",
-		"/home/nk/Development/game/src/engine/platform/renderer/gl32/OpenGLEffect.h",
 		"/home/nk/Development/game/assets/shaders/deferred_depth.cg",
 		"/home/nk/Development/game/assets/shaders/deferred_lighting_spot_light.cg",
 		"/home/nk/Development/game/assets/shaders/deferred_light_composition.cg",
-		"/home/nk/Development/game/assets/shaders/deferred_render_color_normal_depth.cg",
 		"/home/nk/Development/game/assets/shaders/utils.h",
 		"/home/nk/Development/game/assets/assets.sublime-project",
-		"/home/nk/Development/game/assets/shaders/deferred_lighting_spot_light_shadow.cg",
 		"/home/nk/Development/game/scripts/premake_linux",
 		"/home/nk/Development/game/assets/shaders/standard.h",
-		"/home/nk/Development/game/scripts/premake_all.bat",
 		"/usr/share/X11/xorg.conf.d/50-synaptics.conf",
 		"/Users/nk/Development/game/assets/shaders/depth.h",
 		"/Users/nk/Development/game/scripts/trace_gl",
@@ -428,65 +546,7 @@
 		"/Users/nk/Development/game/assets/shaders/deferred_light_composition.cg",
 		"/Users/nk/Development/game/assets/shaders/deferred_lighting_spot_light.cg",
 		"/Users/nk/Development/game/assets/shaders/deferred_render_color_normal_depth.cg",
-		"/Users/nk/Development/game/assets/shaders/deferred_fullscreen_texture.cg",
-		"/Users/nk/Development/game/assets/shaders/standard.h",
-		"/Users/nk/Development/game/assets/shaders/compiled/deferred_lighting_spot_light_shadow.shader.gl32.fragment",
-		"/Users/nk/Development/game/assets/shaders/compiled/deferred_light_composition.shader.gl32.fragment",
-		"/Users/nk/Development/game/src/engine/platform/renderer/dx11/Direct3D11GraphicsInterface.cpp",
-		"/Users/nk/Development/game/assets/shaders/compiled/deferred_fullscreen_texture.shader.gl32.vertex",
-		"/Users/nk/Development/game/assets/shaders/compiled/deferred_fullscreen_texture.shader.gl32.fragment",
-		"/Users/nk/Development/game/assets/shaders/basic.cg",
-		"/Users/nk/Development/game/assets/scenes/simple/floor.scene",
-		"/Users/nk/Development/game/assets/shaders/compiled/deferred_render_color_normal_depth.shader.gl32.vertex",
-		"/Users/nk/Development/game/assets/shaders/compiled/basic_model_view_projection_color.shader.dx11.fragment",
-		"/Users/nk/Development/game/assets/shaders/basic_projection.cg",
-		"/Users/nk/Development/game/assets/shaders/basic_model_view_projection_color.cg",
-		"/Users/nk/Development/game/assets/shaders/compiled/basic_projection.shader.gl32.vertex",
-		"/C/Users/NK/Development/game/premake4.lua",
-		"/Users/nk/Development/game/assets/assets.sublime-project",
-		"/C/Users/NK/AppData/Roaming/Sublime Text 2/Packages/User/Shader.sublime-build",
-		"/C/Users/NK/Development/importer/src/importer.sln",
-		"/C/Users/NK/Development/game/assets/actors/plane/plane.mb",
-		"/C/Program Files (x86)/MSBuild/Microsoft.Cpp/v4.0/Platforms/Win32/PlatformToolsets/v80/Microsoft.Cpp.Win32.v80.props",
-		"/C/Users/NK/Development/cl.bat",
-		"/C/Users/NK/Development/test.rsp",
-		"/C/Users/NK/Development/multipass/.gitignore",
-		"/C/usr/local/cell/samples/sdk/graphics/gcm/fw_video_texturing/SampleApp.cpp",
-		"/C/Users/NK/AppData/Local/Temp/1489AFE4.TMP",
-		"/C/cl.bat",
-		"/C/bootmgr - Copy",
-		"/C/ProgramData/Microsoft/Windows/Start Menu/Programs/Sublime Text 2.lnk",
-		"/C/Program Files (x86)/MSBuild/Microsoft.Cpp/v4.0/Platforms/Win32/PlatformToolsets/v80/Microsoft.Cpp.Win32.v80.targets",
-		"/C/Program Files (x86)/MSBuild/Microsoft.Cpp/v4.0/Platforms/Win32/PlatformToolsets/v80/Microsoft.Cpp.Win32.v90.props",
-		"/C/Program Files (x86)/MSBuild/Microsoft.Cpp/v4.0/Platforms/Win32/PlatformToolsets/v80/Microsoft.Cpp.Win32.v90.targets",
-		"/C/Program Files (x86)/SCE/Common/VSI/bin/GCC2SNCSwitches.xml",
-		"/C/Users/NK/Development/game/src/engine/platform/renderer/gcm/gcmutil_error.h",
-		"/C/Users/NK/Development/premake-stable/src/tools/snc.lua",
-		"/C/Users/NK/Development/premake-stable/src/host/scripts.c",
-		"/C/Users/NK/Development/navier-stokes/solver.cl",
-		"/C/Users/NK/Development/premake-stable/tests/test_platforms.lua",
-		"/C/Users/NK/Development/premake-stable/.hg/store/data/tests/test__platforms.lua.i",
-		"/C/Users/NK/Development/premake-stable/tests/actions/vstudio/sln2005/platforms.lua",
-		"/C/Users/NK/Development/premake-stable/scripts/release.lua",
-		"/C/Users/NK/Development/premake-stable/src/actions/vstudio/_vstudio.lua",
-		"/C/Users/NK/Development/premake-stable/src/actions/make/_make.lua",
-		"/C/Users/NK/Development/game/src/add_pch.rb",
-		"/C/Users/NK/Development/game/src/engine/stdafx.cpp",
-		"/C/Users/NK/Development/premake-stable/samples/project/CppConsoleApp/premake4.lua",
-		"/C/Users/NK/Development/premake-stable/samples/project/premake4.lua",
-		"/C/Users/NK/Development/game/src/engine/stdafx.h",
-		"/C/Users/NK/Development/game/assets/fonts/arial.fnt",
-		"/C/Users/NK/Development/game/assets/shaders/label.cg",
-		"/C/Users/NK/Development/game/assets/shaders/deferred_render_colormap_normal_depth.cg",
-		"/C/Users/NK/Development/game/assets/shaders/deferred_render_color_normal_depth.cg",
-		"/C/Users/NK/Development/game/assets/shaders/deferred_god_rays.cg",
-		"/C/Users/NK/Development/game/old/oldsrc/ui/FPSLabel.cpp",
-		"/C/Users/NK/Development/game/old/oldsrc/ui/Label.cpp",
-		"/C/Users/NK/Development/game/old/oldsrc/ui/FontDescriptor.cpp",
-		"/C/Users/NK/Desktop/arial.ttf",
-		"/C/Users/NK/Downloads/freetype-2.4.10/freetype-2.4.10/README",
-		"/C/Users/NK/Development/game/assets/shaders/standard.h",
-		"/C/Users/NK/Development/game/assets/shaders/deferred_ssao.cg"
+		"/Users/nk/Development/game/assets/shaders/deferred_fullscreen_texture.cg"
 	],
 	"find":
 	{
@@ -494,7 +554,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 93.0,
 		"where_history":
 		[
 			"",
@@ -507,6 +567,26 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"viewprojin",
+			"samplerBindings_",
+			"spotlight",
+			"endperformance",
+			"renderlight",
+			"depth",
+			"GPU_TRACE",
+			"include",
+			"COLOR1",
+			"glFramebufferTexture2D",
+			"glFramebufferTex",
+			"glframebuffertex",
+			"framebufferte",
+			"depthbufferTex",
+			"createrend",
+			"enable_gu",
+			"require_gu",
+			"qt",
+			"QT",
+			"Mac",
 			"glew",
 			"GL3_PROTOTYPES",
 			"hash_Map",
@@ -573,6 +653,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"Linux",
 			"v90",
 			"v80",
 			"",
@@ -611,11 +692,96 @@
 			[
 				{
 					"buffer": 0,
+					"file": "/home/nk/Development/game/src/engine/common/renderer/DeferredSpotLightsPass.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8291,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5101,
+								5101
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2027.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/home/nk/Development/game/src/engine/common/renderer/WorldLoader.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 15541,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7239,
+								7239
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4492.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
 					"file": "shaders/deferred_lighting_spot_light_shadow.cg",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4386,
+						"buffer_size": 4486,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1397,
+								1397
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 604.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/home/nk/Development/game/src/game/Game.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1507,
 						"regions":
 						{
 						},
@@ -628,67 +794,12 @@
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 204.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "shaders/depth.h",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 687,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								355,
-								355
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/home/nk/Development/game/src/engine/common/renderer/DeferredLightingRenderStage.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1826,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1723,
-								1723
-							]
-						],
-						"settings":
-						{
 							"syntax": "Packages/C++/C++.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 561.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -743,28 +854,376 @@
 		"selected_items":
 		[
 			[
-				"lightrend",
-				"src/engine/common/renderer/DeferredLightingRenderStage.cpp"
+				"game.c",
+				"src/game/Game.cpp"
+			],
+			[
+				"floor_and",
+				"assets/scenes/simple/floor_and_cube.scene"
 			],
 			[
 				"shadow.cg",
 				"assets/shaders/deferred_lighting_spot_light_shadow.cg"
 			],
 			[
-				"opengl",
-				"src/engine/platform/renderer/gl32/OpenGL.h"
+				"spotlight",
+				"src/engine/common/renderer/DeferredSpotLightsPass.cpp"
+			],
+			[
+				"shadow",
+				"assets/shaders/compiled/deferred_lighting_spot_light_shadow.shader.gl32.fragment"
+			],
+			[
+				"openglef",
+				"src/engine/platform/renderer/gl32/OpenGLEffect.cpp"
+			],
+			[
+				"gl",
+				"src/engine/platform/renderer/gl32/OpenGLEffect.cpp"
+			],
+			[
+				"deferred_spo",
+				"assets/shaders/compiled/deferred_lighting_spot_light_shadow.shader.gl32.fragment"
+			],
+			[
+				"spot",
+				"assets/shaders/deferred_lighting_spot_light_shadow.cg"
+			],
+			[
+				"worldload",
+				"src/engine/common/renderer/WorldLoader.cpp"
+			],
+			[
+				"spotlightpa",
+				"src/engine/common/renderer/DeferredSpotLightsPass.cpp"
+			],
+			[
+				"shadowpass",
+				"src/engine/common/renderer/DeferredShadowPass.cpp"
+			],
+			[
+				"and_cu",
+				"assets/scenes/simple/floor_and_cube.scene"
+			],
+			[
+				"geomtry",
+				"src/engine/common/renderer/DeferredGeometryPass.cpp"
+			],
+			[
+				"glef",
+				"src/engine/platform/renderer/gl32/OpenGLEffect.cpp"
+			],
+			[
+				"deferred_lighting_spot",
+				"assets/shaders/compiled/deferred_lighting_spot_light_shadow.shader.gl32.fragment"
+			],
+			[
+				"gl32",
+				"src/engine/platform/renderer/gl32/OpenGL32GraphicsInterface.cpp"
+			],
+			[
+				"glut",
+				"src/engine/platform/renderer/gl32/GLUtilities.h"
+			],
+			[
+				"avera",
+				"src/engine/common/renderer/AverageBlur.cpp"
+			],
+			[
+				"gre",
+				"src/engine/platform/renderer/gl32/GRemdeyExtensions.cpp"
+			],
+			[
+				"",
+				"src/engine/platform/renderer/gl32/OpenGL32GraphicsInterface.cpp"
+			],
+			[
+				"_shadow.shad",
+				"assets/shaders/compiled/deferred_lighting_spot_light_shadow.shader.gl32.fragment"
+			],
+			[
+				"worldlo",
+				"src/engine/common/renderer/WorldLoader.cpp"
+			],
+			[
+				"graphicsin",
+				"src/engine/common/renderer/GraphicsInterface.cpp"
+			],
+			[
+				"defrerredspotl",
+				"src/engine/common/renderer/DeferredSpotLightsPass.cpp"
+			],
+			[
+				"directionallight",
+				"src/engine/common/renderer/DeferredDirectionalLightsPass.cpp"
+			],
+			[
+				"lighting",
+				"src/engine/common/renderer/DeferredLightingRenderStage.cpp"
+			],
+			[
+				"renderer",
+				"src/engine/common/renderer/Renderer3dDeferred.cpp"
+			],
+			[
+				"directional",
+				"src/engine/common/renderer/DeferredDirectionalLightsPass.cpp"
+			],
+			[
+				"lightingren",
+				"src/engine/common/renderer/DeferredLightingRenderStage.cpp"
+			],
+			[
+				"geom",
+				"src/engine/common/renderer/DeferredGeometryPass.cpp"
+			],
+			[
+				"initren",
+				"src/engine/common/renderer/DeferredInitRenderStage.cpp"
+			],
+			[
+				"deferredlig",
+				"src/engine/common/renderer/DeferredLightingRenderStage.cpp"
+			],
+			[
+				"lightingsta",
+				"build/obj/Release/DeferredLightingRenderStage.d"
+			],
+			[
+				"renderer3d",
+				"src/engine/common/renderer/Renderer3dDeferred.cpp"
+			],
+			[
+				"gleffe",
+				"src/engine/platform/renderer/gl32/OpenGLEffect.cpp"
+			],
+			[
+				"render_color",
+				"assets/shaders/compiled/deferred_render_color_normal_depth.shader.gl32.fragment"
+			],
+			[
+				"gleff",
+				"src/engine/platform/renderer/gl32/OpenGLEffect.cpp"
+			],
+			[
+				"normal_de",
+				"assets/shaders/compiled/deferred_render_color_normal_depth.shader.gl32.fragment"
+			],
+			[
+				"color_normal",
+				"assets/shaders/compiled/deferred_render_color_normal_depth.shader.gl32.fragment"
+			],
+			[
+				"color_normal_",
+				"assets/shaders/compiled/deferred_render_color_normal_depth.shader.gl32.vertex"
+			],
+			[
+				"32",
+				"src/engine/platform/renderer/gl32/OpenGL32GraphicsInterface.cpp"
+			],
+			[
+				"game",
+				"src/game/Game.cpp"
+			],
+			[
+				"compile",
+				"assets/shaders/compile"
+			],
+			[
+				"color_no",
+				"assets/shaders/deferred_render_color_normal_depth.cg"
 			],
 			[
 				"binary",
 				"src/engine/common/serialization/BinaryModelDeserializer.cpp"
 			],
 			[
-				"binar",
-				"src/engine/common/serialization/BinaryModelDeserializer.cpp"
+				"color.cg",
+				"assets/shaders/deferred_render_color_normal_depth.cg"
+			],
+			[
+				"opengl",
+				"src/engine/platform/renderer/gl32/OpenGL.h"
+			],
+			[
+				"premal",
+				"premake4.lua"
+			],
+			[
+				"fullscreen_tex",
+				"assets/shaders/deferred_fullscreen_texture.cg"
+			],
+			[
+				"prema",
+				"premake4.lua"
+			],
+			[
+				"colormap",
+				"assets/shaders/compiled/deferred_render_colormap_normal_depth.shader.gl32.fragment"
+			],
+			[
+				"init",
+				"src/engine/common/renderer/DeferredInitRenderStage.cpp"
+			],
+			[
+				"geomtrypas",
+				"src/engine/common/renderer/DeferredGeometryPass.cpp"
+			],
+			[
+				"greomtr",
+				"projects/vc9/Visual Lint/CppCheck/game/Debug_Win32/engine/DeferredGeometryPass.cpp.txt"
+			],
+			[
+				"grometrypa",
+				"src/engine/common/renderer/DeferredGeometryPass.cpp"
+			],
+			[
+				"present",
+				"src/engine/common/renderer/DeferredPresentStage.cpp"
+			],
+			[
+				"render",
+				"src/engine/common/renderer/Renderer3dDeferred.cpp"
+			],
+			[
+				"igraph",
+				"src/engine/common/renderer/IGraphicsInterface.h"
+			],
+			[
+				"igraphi",
+				"src/engine/common/renderer/IGraphicsInterface.h"
+			],
+			[
+				"igraphicsin",
+				"src/engine/common/renderer/IGraphicsInterface.h"
+			],
+			[
+				"graphi",
+				"src/engine/common/renderer/GraphicsInterface.cpp"
+			],
+			[
+				"graphicsint",
+				"src/engine/common/renderer/GraphicsInterface.h"
+			],
+			[
+				"graphicsinter",
+				"src/engine/common/renderer/GraphicsInterface.cpp"
+			],
+			[
+				"123",
+				"assets/shaders/compiled/gaussian_blur_horizontal_16_tap.shader.gl32.fragment"
+			],
+			[
+				"graphicsintre",
+				"src/engine/common/renderer/GraphicsInterface.cpp"
+			],
+			[
+				"grometrypass",
+				"src/engine/common/renderer/DeferredGeometryPass.cpp"
+			],
+			[
+				"graphics",
+				"src/engine/common/renderer/GraphicsAPIType.h"
+			],
+			[
+				"graphicsi",
+				"src/engine/common/renderer/GraphicsInterface.cpp"
+			],
+			[
+				"geomtryp",
+				"src/engine/common/renderer/DeferredGeometryPass.h"
+			],
+			[
+				"initrendersta",
+				"src/engine/common/renderer/DeferredInitRenderStage.cpp"
+			],
+			[
+				"initre",
+				"build/obj/Debug/DeferredInitRenderStage.d"
+			],
+			[
+				"linux",
+				"src/engine/platform/input/linux/LinuxKeyStates.h"
+			],
+			[
+				"keyboard",
+				"src/engine/common/input/Keyboard.h"
+			],
+			[
+				"linuxke",
+				"src/engine/platform/input/linux/LinuxKeyStates.h"
+			],
+			[
+				"window",
+				"src/engine/platform/input/win/WindowsKeyboard.h"
+			],
+			[
+				"app",
+				"src/game/App.cpp"
+			],
+			[
+				"premake",
+				"premake4.lua"
+			],
+			[
+				"ikeybo",
+				"src/engine/common/input/IKeyboard.h"
+			],
+			[
+				"32grpa",
+				"src/engine/platform/renderer/gl32/OpenGL32GraphicsInterface.cpp"
+			],
+			[
+				"initrend",
+				"src/engine/common/renderer/DeferredInitRenderStage.cpp"
+			],
+			[
+				"depth",
+				"assets/shaders/depth.h"
+			],
+			[
+				"deferredspo",
+				"src/engine/common/renderer/DeferredSpotLightsPass.cpp"
+			],
+			[
+				"deferredli",
+				"src/engine/common/renderer/DeferredLightingRenderStage.cpp"
+			],
+			[
+				"mouse.",
+				"src/engine/common/input/Mouse.h"
+			],
+			[
+				"game.cpp",
+				"src/game/Game.cpp"
+			],
+			[
+				"gmae",
+				"Game"
+			],
+			[
+				"linuxmou",
+				"src/engine/platform/input/linux/LinuxMouse.h"
+			],
+			[
+				"macmou",
+				"src/engine/platform/input/mac/MacMouse.h"
 			],
 			[
 				"platform",
 				"src/engine/common/platform/PlatformDefs.h"
+			],
+			[
+				"bina",
+				"src/engine/common/serialization/BinaryModelDeserializer.cpp"
+			],
+			[
+				"endia",
+				"src/engine/common/io/Endian.cpp"
+			],
+			[
+				"binar",
+				"src/engine/common/serialization/BinaryModelDeserializer.cpp"
 			],
 			[
 				"floor.sc",
@@ -775,20 +1234,8 @@
 				"assets/scenes/shadow/simple.scene"
 			],
 			[
-				"app",
-				"src/game/App.cpp"
-			],
-			[
-				"gl32",
-				"src/engine/platform/renderer/gl32/OpenGL32GraphicsInterface.cpp"
-			],
-			[
 				"app.",
 				"src/game/App.cpp"
-			],
-			[
-				"compile",
-				"assets/shaders/compile"
 			],
 			[
 				"game.m",
@@ -799,20 +1246,12 @@
 				"build/project/win/gmake/Makefile"
 			],
 			[
-				"prema",
-				"premake4.lua"
-			],
-			[
 				"effectc",
 				"src/engine/common/renderer/EffectCache.cpp"
 			],
 			[
 				"effechca",
 				"projects/vc9/Visual Lint/CppCheck/game/Debug_Win32/engine/EffectCache.cpp.vlstatus"
-			],
-			[
-				"gre",
-				"src/engine/platform/renderer/gl32/GRemdeyExtensions.cpp"
 			],
 			[
 				"patfor",
@@ -845,18 +1284,6 @@
 			[
 				"igraphics",
 				"src/engine/common/renderer/IGraphicsInterface.cpp"
-			],
-			[
-				"premake",
-				"premake4.lua"
-			],
-			[
-				"igraphi",
-				"src/engine/common/renderer/IGraphicsInterface.cpp"
-			],
-			[
-				"graphicsin",
-				"src/engine/common/renderer/GraphicsInterface.cpp"
 			],
 			[
 				"eff",
@@ -911,10 +1338,6 @@
 				"src/engine/common/io/DDSImage.cpp"
 			],
 			[
-				"endia",
-				"src/engine/common/io/Endian.cpp"
-			],
-			[
 				"alloc",
 				"src/engine/common/memory/Allocation.cpp"
 			],
@@ -935,324 +1358,12 @@
 				"src/engine/common/renderer/EffectCache.cpp"
 			],
 			[
-				"worldlo",
-				"src/engine/common/renderer/WorldLoader.cpp"
-			],
-			[
 				"hash",
 				"src/engine/common/core/HashMap.h"
 			],
 			[
 				"compi",
 				"assets/shaders/compile"
-			],
-			[
-				"depth",
-				"assets/shaders/depth.h"
-			],
-			[
-				"luma",
-				"assets/shaders/fxaa_color_luma.cg"
-			],
-			[
-				"fxaa",
-				"assets/shaders/fxaa_main.cg"
-			],
-			[
-				"deferred_depth.cg",
-				"assets/shaders/deferred_depth.cg"
-			],
-			[
-				"deferred_lighting_spot_light.cg",
-				"assets/shaders/deferred_lighting_spot_light.cg"
-			],
-			[
-				"spot_light_sh",
-				"assets/shaders/deferred_lighting_spot_light_shadow.cg"
-			],
-			[
-				"light_com",
-				"assets/shaders/deferred_light_composition.cg"
-			],
-			[
-				"normal",
-				"assets/shaders/deferred_render_color_normal_depth.cg"
-			],
-			[
-				"depth.",
-				"assets/shaders/depth.h"
-			],
-			[
-				"comp",
-				"assets/shaders/compile"
-			],
-			[
-				"util",
-				"assets/shaders/utils.h"
-			],
-			[
-				"stand",
-				"assets/shaders/standard.h"
-			],
-			[
-				"stan",
-				"assets/shaders/standard.h"
-			],
-			[
-				"deferred_spot",
-				"assets/shaders/compiled/deferred_lighting_spot_light_shadow.shader.gl32.fragment"
-			],
-			[
-				"deferred_li",
-				"assets/shaders/compiled/deferred_light_composition.shader.gl32.fragment"
-			],
-			[
-				"deferred_ligh",
-				"assets/shaders/deferred_lighting_spot_light_shadow.cg"
-			],
-			[
-				"spot",
-				"assets/shaders/deferred_lighting_spot_light_shadow.cg"
-			],
-			[
-				"trac",
-				"scripts/trace_gl"
-			],
-			[
-				"deferred_dep",
-				"assets/shaders/deferred_depth.cg"
-			],
-			[
-				"deferred_light_composition.cg",
-				"assets/shaders/deferred_light_composition.cg"
-			],
-			[
-				"deferred_lighting_directional_light.cg",
-				"assets/shaders/deferred_lighting_directional_light.cg"
-			],
-			[
-				"direction",
-				"assets/shaders/deferred_lighting_directional_light.cg"
-			],
-			[
-				"direc",
-				"src/engine/platform/renderer/dx11/Direct3D11GraphicsInterface.cpp"
-			],
-			[
-				"trace",
-				"scripts/trace_gl"
-			],
-			[
-				"shaders/",
-				"assets/shaders/deferred_render_color_normal_depth.cg"
-			],
-			[
-				"fullscreen",
-				"assets/shaders/compiled/deferred_fullscreen_texture.shader.gl32.vertex"
-			],
-			[
-				"fullscreen_tes",
-				"assets/shaders/compiled/deferred_fullscreen_texture.shader.gl32.fragment"
-			],
-			[
-				"scenes/simple/",
-				"assets/scenes/simple/floor.scene"
-			],
-			[
-				"basic_pr",
-				"assets/shaders/basic_projection.cg"
-			],
-			[
-				"basicpro",
-				"assets/shaders/compiled/basic_projection.shader.gl32.vertex"
-			],
-			[
-				"color_",
-				"shaders/deferred_render_color_normal_depth.cg"
-			],
-			[
-				"colormpa",
-				"shaders/deferred_render_colormap_normal_depth.cg"
-			],
-			[
-				"aria",
-				"fonts/arial.fnt"
-			],
-			[
-				"ssa",
-				"shaders/deferred_ssao.cg"
-			],
-			[
-				"colorma",
-				"shaders/deferred_render_colormap_normal_depth.cg"
-			],
-			[
-				"color_nora",
-				"shaders/deferred_render_color_normal_depth.cg"
-			],
-			[
-				"ssao",
-				"shaders/deferred_ssao.cg"
-			],
-			[
-				"standa",
-				"shaders/standard.h"
-			],
-			[
-				"cathe",
-				"scenes/cathedral/cathedral.scene"
-			],
-			[
-				"colormap",
-				"shaders/deferred_render_colormap_normal_depth.cg"
-			],
-			[
-				"simple.",
-				"scenes/simple/simple.scene"
-			],
-			[
-				"uti",
-				"shaders/utils.h"
-			],
-			[
-				"cath",
-				"scenes/cathedral/cathedral.scene"
-			],
-			[
-				"scene",
-				"scenes/simple/simple.scene"
-			],
-			[
-				"deferre",
-				"shaders/deferred_depth.cg"
-			],
-			[
-				"spo",
-				"shaders/deferred_lighting_spot_light.cg"
-			],
-			[
-				"dep",
-				"shaders/deferred_depth.cg"
-			],
-			[
-				"ut",
-				"shaders/utils.h"
-			],
-			[
-				"sta",
-				"shaders/standard.h"
-			],
-			[
-				"simple",
-				"scenes/simple/simple.scene"
-			],
-			[
-				"rend",
-				"shaders/deferred_render_color_normal_depth.cg"
-			],
-			[
-				"tan",
-				"shaders/standard.h"
-			],
-			[
-				"simple.sc",
-				"scenes/simple/simple.scene"
-			],
-			[
-				"carsha",
-				"scenes/shadow/car_shadow.scene"
-			],
-			[
-				"depth.c",
-				"shaders/deferred_depth.cg"
-			],
-			[
-				"car",
-				"scenes/shadow/car_shadow.scene"
-			],
-			[
-				"ren",
-				"shaders/deferred_render_color_normal_depth.cg"
-			],
-			[
-				"light",
-				"cgfx/deferred_light_composition.hlsl"
-			],
-			[
-				"impo",
-				"scenes/importer/importer.scene"
-			],
-			[
-				"colomap",
-				"cgfx/deferred_render_colormap_normal_depth.hlsl"
-			],
-			[
-				"test.",
-				"actors/test/test.model"
-			],
-			[
-				"car.mod",
-				"actors/car/car.model"
-			],
-			[
-				"import",
-				"scenes/importer/importer.scene"
-			],
-			[
-				"cube",
-				"actors/cube/cube.model"
-			],
-			[
-				"car_",
-				"scenes/shadow/car_shadow.scene"
-			],
-			[
-				"plane",
-				"actors/plane/plane.model"
-			],
-			[
-				"cube.mo",
-				"actors/cube/cube.model"
-			],
-			[
-				"car_sha",
-				"scenes/shadow/car_shadow.scene"
-			],
-			[
-				"floor",
-				"actors/floor/floor.model"
-			],
-			[
-				"blen",
-				"cgfx/blend_states.hlsl"
-			],
-			[
-				"dire",
-				"cgfx/deferred_lighting_directional_light.hlsl"
-			],
-			[
-				"compo",
-				"cgfx/composite.hlsl"
-			],
-			[
-				"homebr",
-				"cgfx/deferred_ssao_homebrew.hlsl"
-			],
-			[
-				"car_sa",
-				"scenes/shadow/car_shadow.scene"
-			],
-			[
-				"home",
-				"cgfx/deferred_ssao_homebrew.hlsl"
-			],
-			[
-				"normalm",
-				"cgfx/deferred_render_colormap_normalmap_depth.hlsl"
-			],
-			[
-				"norma",
-				"cgfx/deferred_render_color_normal_depth.hlsl"
 			]
 		],
 		"width": 0.0

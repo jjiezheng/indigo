@@ -27,7 +27,7 @@ uniform float3x3 NormalMatrix;
 
 struct VOutput {
       float4 position 			: POSITION;
-      float3 screenPosition 		: TEXCOORD0;
+      float3 screenPosition 	: TEXCOORD0;
 };
 
 VOutput vs(float4 position : POSITION) {
@@ -38,14 +38,14 @@ VOutput vs(float4 position : POSITION) {
 }
 
 float4 ps(float4 position 		: POSITION,
-		 float3 screenPosition 	: TEXCOORD0) : COLOR0 {
+		  float3 screenPosition : TEXCOORD0) : COLOR0 {
 
 	// these need to be fed through in a texturetex2Dprojtex2Dproj
 	float diffusePower = 0.01f * 255;// normalData.w * 255; // 0-1 -> 0-255
 	float specularPower = 1;//depthSpec.z;
 	float specularIntensity = 1;//depthSpec.w;
 
-	float2 screenPositionClip = screenPosition.xy / screenPosition.z;// -> w
+	float2 screenPositionClip = screenPosition.xy / screenPosition.z;// -> w	
 	float2 texCoord = contract(screenPositionClip);
 
 	//------------------------------------------------------------
@@ -68,8 +68,6 @@ float4 ps(float4 position 		: POSITION,
 	float4 positionScreen = float4(screenPositionClip, depth, 1.0f);
 	float4 positionWorldRaw = mul(ViewProjInv, positionScreen);
 	float3 positionWorld = positionWorldRaw.xyz / positionWorldRaw.w;
-
-	return float4(positionWorld, 1);
 
 	//------------------------------------------------------------
 	// spot light
