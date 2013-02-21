@@ -65,7 +65,7 @@ void OpenGL32GraphicsInterface::openWindow(int width, int height, unsigned int m
   depthBufferTexture_ = createDepthTexture(screenSize_);
   depthBufferTarget_ = createRenderTarget(depthBufferTexture_);
 
-  //glfwDisable(GLFW_MOUSE_CURSOR);
+  glfwDisable(GLFW_MOUSE_CURSOR);
 }
 
 void OpenGL32GraphicsInterface::setViewport(const CSize& dimensions) {
@@ -354,6 +354,7 @@ unsigned int OpenGL32GraphicsInterface::createDepthTexture(const CSize& dimensio
   glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, dimensions.width, dimensions.height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
   GLUtilities::checkForError();
   return depthBufferTexture;
 }

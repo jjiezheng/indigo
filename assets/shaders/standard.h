@@ -10,6 +10,13 @@ float3 unpackNormal(sampler2D normalSampler, float2 texCoord) {
 	return unPackedNormal.xyz;
 }
 
+float shadow(sampler2D shadowMap, float2 shadowCoord, float zToCompare) {
+	float shadowBias = 0.0005f;
+	float depthToCompare = zToCompare;// - shadowBias;
+	float shadowFactor = depthCompare(shadowMap, shadowCoord, zToCompare);
+	return shadowFactor;
+}
+
 float shadowPCF(sampler2D shadowMap, float2 shadowCoord, float zToCompare, float2 shadowMapSize) {
 	float shadowFactor = 1.0f;
 	float shadowBias = 0.0005f;
@@ -22,12 +29,13 @@ float shadowPCF(sampler2D shadowMap, float2 shadowCoord, float zToCompare, float
 	for (y = -1.5; y <= 1.5; y += 1.0) {
 		for (x = -1.5; x <= 1.5; x += 1.0) {
 			float2 shadowCoordOffset = shadowCoord + float2(x * shadowMapSize.x, y * shadowMapSize.y);
-			sum += depthCompare(shadowMap, shadowCoordOffset, depthToCompare);
+			float shadowFactor = depthCompare(shadowMap, shadowCoordOffset, depthToCompare);
+			sum += shadowFactor;
 		}
 	}
 
 	shadowFactor = sum / 16.0f;
-	return shadowFactor + 1.0f;
+	return shadowFactor;
 }
 
 float linearize(float depth, float near, float far) {

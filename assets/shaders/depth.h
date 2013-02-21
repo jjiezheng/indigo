@@ -11,6 +11,8 @@ float unpackDepth(sampler2D depthSampler, float2 texCoord) {
 float depthCompare(sampler2D depthMap, float2 texCoord, float depthToCompare) {
 #ifdef GCM
   return texDepth2D_precise(depthMap, float3(texCoord, depthToCompare));
+#elif GL
+  return tex2Dproj(depthMap, float4(texCoord, depthToCompare * 0.5 + 0.5, 1)).r;
 #else 
   return tex2Dproj(depthMap, float4(texCoord, depthToCompare, 1)).r;
 #endif

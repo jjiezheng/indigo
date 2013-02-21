@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"shadow",
+				"shadowCoord"
+			],
+			[
+				"sha",
+				"shadowMap"
+			],
+			[
+				"depth",
+				"depthToCompare"
+			],
+			[
 				"pos",
 				"positionScreen"
 			],
@@ -36,14 +48,6 @@
 				"renderTargetId"
 			],
 			[
-				"shadow",
-				"shadowMapDepthTexture"
-			],
-			[
-				"sha",
-				"shadowMapRendeTarget"
-			],
-			[
 				"spo",
 				"spotLightRenderTarget_"
 			],
@@ -66,10 +70,6 @@
 			[
 				"depthBufferTar",
 				"depthBufferTarget_"
-			],
-			[
-				"depth",
-				"depthBufferTexture_"
 			],
 			[
 				"Open",
@@ -360,34 +360,42 @@
 	"buffers":
 	[
 		{
-			"file": "/home/nk/Development/game/src/engine/common/renderer/DeferredSpotLightsPass.cpp",
-			"settings":
-			{
-				"buffer_size": 8291,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/home/nk/Development/game/src/engine/common/renderer/WorldLoader.cpp",
-			"settings":
-			{
-				"buffer_size": 15541,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "shaders/deferred_lighting_spot_light_shadow.cg",
 			"settings":
 			{
-				"buffer_size": 4486,
+				"buffer_size": 4365,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/home/nk/Development/game/src/game/Game.cpp",
+			"file": "shaders/standard.h",
 			"settings":
 			{
-				"buffer_size": 1507,
+				"buffer_size": 1343,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "shaders/depth.h",
+			"settings":
+			{
+				"buffer_size": 828,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/home/nk/Development/game/src/engine/platform/renderer/gl32/OpenGL32GraphicsInterface.cpp",
+			"settings":
+			{
+				"buffer_size": 11715,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "shaders/utils.h",
+			"settings":
+			{
+				"buffer_size": 928,
 				"line_ending": "Windows"
 			}
 		}
@@ -419,22 +427,25 @@
 	},
 	"file_history":
 	[
+		"/home/nk/Development/game/assets/shaders/compiled/deferred_lighting_spot_light_shadow.shader.gl32.fragment",
+		"/home/nk/Development/game/src/engine/common/renderer/DeferredSpotLightsPass.cpp",
+		"/home/nk/Development/game/src/engine/common/renderer/WorldLoader.cpp",
+		"/home/nk/Development/game/src/game/Game.cpp",
+		"/home/nk/Development/game/src/engine/common/renderer/DeferredLightingRenderStage.cpp",
+		"/home/nk/Development/game/assets/scenes/simple/floor_and_cube.scene",
+		"/home/nk/Development/game/assets/shaders/standard.h",
 		"/media/nk/MYLINUXLIVE/floor_and_cube.scene",
 		"/home/nk/Development/game/src/engine/common/renderer/DeferredGeometryPass.h",
-		"/home/nk/Development/game/src/game/Game.cpp",
 		"/home/nk/Development/game/src/engine/platform/renderer/gl32/GRemdeyExtensions.cpp",
 		"/home/nk/Development/game/src/engine/platform/renderer/gl32/GLUtilities.h",
 		"/home/nk/Development/game/src/engine/platform/renderer/gl32/OpenGL32GraphicsInterface.cpp",
-		"/home/nk/Development/game/assets/scenes/simple/floor_and_cube.scene",
 		"/home/nk/Development/game/src/engine/common/renderer/DeferredShadowPass.cpp",
 		"/home/nk/Development/game/src/engine/platform/renderer/gl32/OpenGLEffect.cpp",
-		"/home/nk/Development/game/assets/shaders/compiled/deferred_lighting_spot_light_shadow.shader.gl32.fragment",
 		"/home/nk/Development/game/assets/shaders/deferred_lighting_spot_light_shadow.cg",
 		"/home/nk/Development/game/src/engine/platform/renderer/gl32/OpenGLEffect.h",
 		"/home/nk/Development/game/src/engine/common/renderer/SpotLight.h",
 		"/home/nk/Development/game/src/engine/common/renderer/GraphicsInterface.cpp",
 		"/home/nk/Development/game/src/engine/common/renderer/DeferredGeometryPass.cpp",
-		"/home/nk/Development/game/src/engine/common/renderer/WorldLoader.cpp",
 		"/home/nk/Development/game/src/engine/common/renderer/DeferredFXAAPass.cpp",
 		"/home/nk/Development/game/src/engine/common/renderer/AverageBlur.cpp",
 		"/home/nk/Development/game/src/engine/platform/renderer/gl32/OpenGL32GraphicsInterface.h",
@@ -443,8 +454,6 @@
 		"/home/nk/Development/game/src/engine/platform/renderer/gl32/GRemdeyExtensions.h",
 		"/home/nk/Development/game/src/engine/common/renderer/Renderer3dDeferred.cpp",
 		"/home/nk/Development/game/src/engine/common/renderer/DeferredSpotLightsPass.h",
-		"/home/nk/Development/game/src/engine/common/renderer/DeferredLightingRenderStage.cpp",
-		"/home/nk/Development/game/src/engine/common/renderer/DeferredSpotLightsPass.cpp",
 		"/home/nk/Development/game/src/engine/common/renderer/GraphicsInterface.h",
 		"/home/nk/Development/game/src/engine/common/renderer/GraphicsInterface.mm",
 		"/home/nk/Development/game/src/engine/common/renderer/DeferredLightingRenderStage.h",
@@ -532,7 +541,6 @@
 		"/home/nk/Development/game/assets/shaders/utils.h",
 		"/home/nk/Development/game/assets/assets.sublime-project",
 		"/home/nk/Development/game/scripts/premake_linux",
-		"/home/nk/Development/game/assets/shaders/standard.h",
 		"/usr/share/X11/xorg.conf.d/50-synaptics.conf",
 		"/Users/nk/Development/game/assets/shaders/depth.h",
 		"/Users/nk/Development/game/scripts/trace_gl",
@@ -567,6 +575,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"Greme",
 			"viewprojin",
 			"samplerBindings_",
 			"spotlight",
@@ -687,81 +696,24 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 4,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/home/nk/Development/game/src/engine/common/renderer/DeferredSpotLightsPass.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8291,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								5101,
-								5101
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 2027.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/home/nk/Development/game/src/engine/common/renderer/WorldLoader.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 15541,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								7239,
-								7239
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 4492.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
 					"file": "shaders/deferred_lighting_spot_light_shadow.cg",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4486,
+						"buffer_size": 4365,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1397,
-								1397
+								4147,
+								4147
 							]
 						],
 						"settings":
@@ -770,26 +722,81 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 604.0,
+						"translation.y": 1930.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "/home/nk/Development/game/src/game/Game.cpp",
+					"buffer": 1,
+					"file": "shaders/standard.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1507,
+						"buffer_size": 1343,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								512,
+								512
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 510.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "shaders/depth.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 828,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								338,
+								338
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/home/nk/Development/game/src/engine/platform/renderer/gl32/OpenGL32GraphicsInterface.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 11715,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1585,
+								1585
 							]
 						],
 						"settings":
@@ -799,7 +806,34 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 561.0,
+						"translation.y": 837.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "shaders/utils.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 928,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								267,
+								267
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 51.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -854,12 +888,56 @@
 		"selected_items":
 		[
 			[
-				"game.c",
-				"src/game/Game.cpp"
+				"uti",
+				"assets/shaders/utils.h"
+			],
+			[
+				"stan",
+				"assets/shaders/standard.h"
+			],
+			[
+				"opengl32",
+				"src/engine/platform/renderer/gl32/OpenGL32GraphicsInterface.cpp"
+			],
+			[
+				"stand",
+				"assets/shaders/standard.h"
+			],
+			[
+				"gl32",
+				"src/engine/platform/renderer/gl32/OpenGL32GraphicsInterface.cpp"
+			],
+			[
+				"_shadow.shader.gl",
+				"assets/shaders/compiled/deferred_lighting_spot_light_shadow.shader.gl32.fragment"
+			],
+			[
+				"depth.",
+				"assets/shaders/depth.h"
+			],
+			[
+				"_shadow.c",
+				"assets/shaders/deferred_lighting_spot_light_shadow.cg"
 			],
 			[
 				"floor_and",
 				"assets/scenes/simple/floor_and_cube.scene"
+			],
+			[
+				"lighting",
+				"src/engine/common/renderer/DeferredLightingRenderStage.cpp"
+			],
+			[
+				"depth",
+				"assets/shaders/depth.h"
+			],
+			[
+				"dpeth.",
+				"assets/shaders/depth.h"
+			],
+			[
+				"game.c",
+				"src/game/Game.cpp"
 			],
 			[
 				"shadow.cg",
@@ -918,10 +996,6 @@
 				"assets/shaders/compiled/deferred_lighting_spot_light_shadow.shader.gl32.fragment"
 			],
 			[
-				"gl32",
-				"src/engine/platform/renderer/gl32/OpenGL32GraphicsInterface.cpp"
-			],
-			[
 				"glut",
 				"src/engine/platform/renderer/gl32/GLUtilities.h"
 			],
@@ -956,10 +1030,6 @@
 			[
 				"directionallight",
 				"src/engine/common/renderer/DeferredDirectionalLightsPass.cpp"
-			],
-			[
-				"lighting",
-				"src/engine/common/renderer/DeferredLightingRenderStage.cpp"
 			],
 			[
 				"renderer",
@@ -1178,10 +1248,6 @@
 				"src/engine/common/renderer/DeferredInitRenderStage.cpp"
 			],
 			[
-				"depth",
-				"assets/shaders/depth.h"
-			],
-			[
 				"deferredspo",
 				"src/engine/common/renderer/DeferredSpotLightsPass.cpp"
 			],
@@ -1262,10 +1328,6 @@
 				"src/engine/common/core/String.cpp"
 			],
 			[
-				"opengl32",
-				"src/engine/platform/renderer/gl32/OpenGL32GraphicsInterface.cpp"
-			],
-			[
 				"opg",
 				"src/engine/platform/renderer/gl32/OpenGLEffect.h"
 			],
@@ -1336,34 +1398,6 @@
 			[
 				"ddsim",
 				"src/engine/common/io/DDSImage.cpp"
-			],
-			[
-				"alloc",
-				"src/engine/common/memory/Allocation.cpp"
-			],
-			[
-				"nullk",
-				"src/engine/common/input/NullKeyboard.h"
-			],
-			[
-				"navier",
-				"src/engine/common/dynamics/NavierStokesSimulation.cpp"
-			],
-			[
-				"camea",
-				"src/engine/common/renderer/Camera.cpp"
-			],
-			[
-				"effectca",
-				"src/engine/common/renderer/EffectCache.cpp"
-			],
-			[
-				"hash",
-				"src/engine/common/core/HashMap.h"
-			],
-			[
-				"compi",
-				"assets/shaders/compile"
 			]
 		],
 		"width": 0.0

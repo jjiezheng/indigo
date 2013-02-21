@@ -16,8 +16,8 @@ void DeferredLightingRenderStage::init(const CSize& screenSize) {
 
     lightFrameBuffer_ = GraphicsInterface::createFrameBuffer(lightRenderTarget_, false);
 
-    //IDeferredLightingPass* directionalLightingPass = new DeferredDirectionalLightsPass();
-    //passes_.push_back(directionalLightingPass);
+    IDeferredLightingPass* directionalLightingPass = new DeferredDirectionalLightsPass();
+    passes_.push_back(directionalLightingPass);
 
     IDeferredLightingPass* spotLightingPass = new DeferredSpotLightsPass();
     passes_.push_back(spotLightingPass);
