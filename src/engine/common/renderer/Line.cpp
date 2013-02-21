@@ -23,15 +23,18 @@ void Line::render(const Matrix4x4& projection) {
 
 	Matrix4x4 model = translate * scale;
 
-	Matrix4x4 modelProjection = projection * model;
+	
 
+	effect_->beginDraw();
+
+	Matrix4x4 modelProjection = projection * model;
 	effect_->setUniform(modelProjection, "ModelViewProjection");
 
 	GraphicsInterface::resetRenderTarget(false);
 	GraphicsInterface::setRenderState(true);
 	GraphicsInterface::setBlendState(IGraphicsInterface::NOBLEND);
 
-	effect_->beginDraw();
+	effect_->commitBuffers();
 	GraphicsInterface::drawVertexBuffer(vertexBuffer_, Geometry::LINE_VERTEX_COUNT, Geometry::LINE_VERTEX_FORMAT);
 	effect_->endDraw();
 

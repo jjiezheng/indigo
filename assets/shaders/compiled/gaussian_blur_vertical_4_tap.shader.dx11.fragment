@@ -1,5 +1,5 @@
 // ps_4_0 output by Cg compiler
-// cgc version 3.1.0013, build date Apr 24 2012
+// cgc version 3.1.0013, build date Apr 18 2012
 // command line args: -DDX11=1 -q -unroll all -profile ps_5_0
 // source file: gaussian_blur_vertical_4_tap.cg
 //vendor NVIDIA Corporation
@@ -29,7 +29,7 @@
 //default weights[0] = 0.7978846
 //default weights[1] = 0.1079819
 //default weights[2] = 0.0002676605
-//default weights[3] = 1.22e-08
+//default weights[3] = 1.22e-008
 
 #pragma pack_matrix(row_major)
 
@@ -66,22 +66,22 @@ float4 main( in X1X cin) : SV_Target0
     _centerTap = cin._TEXCOORD0;
     _TMP1 = _TMP4.Sample(_SourceMap, _centerTap);
     _color = _TMP1*_weights[0];
-    _texelSize =   1.00000000000000000E00f/_SceneHeight;
-    _offset1 = float2(   1.00000000000000000E00f,   0.00000000000000000E00f)*_offsets[1]*_texelSize;
+    _texelSize =  1.00000000000000000E000f/_SceneHeight;
+    _offset1 = float2(  1.00000000000000000E000f,  0.00000000000000000E000f)*_offsets[1]*_texelSize;
     _rightTap1 = _centerTap + _offset1;
     _TMP2 = _TMP4.Sample(_SourceMap, _rightTap1);
     _color = _color + _TMP2*_weights[1];
     _leftTap1 = _centerTap - _offset1;
     _TMP3 = _TMP4.Sample(_SourceMap, _leftTap1);
     _color = _color + _TMP3*_weights[1];
-    _offset1 = float2(   1.00000000000000000E00f,   0.00000000000000000E00f)*_offsets[2]*_texelSize;
+    _offset1 = float2(  1.00000000000000000E000f,  0.00000000000000000E000f)*_offsets[2]*_texelSize;
     _rightTap1 = _centerTap + _offset1;
     _TMP2 = _TMP4.Sample(_SourceMap, _rightTap1);
     _color = _color + _TMP2*_weights[2];
     _leftTap1 = _centerTap - _offset1;
     _TMP3 = _TMP4.Sample(_SourceMap, _leftTap1);
     _color = _color + _TMP3*_weights[2];
-    _offset1 = float2(   1.00000000000000000E00f,   0.00000000000000000E00f)*_offsets[3]*_texelSize;
+    _offset1 = float2(  1.00000000000000000E000f,  0.00000000000000000E000f)*_offsets[3]*_texelSize;
     _rightTap1 = _centerTap + _offset1;
     _TMP2 = _TMP4.Sample(_SourceMap, _rightTap1);
     _color = _color + _TMP2*_weights[3];

@@ -41,6 +41,7 @@ void AverageBlur::render(unsigned int sourceTexture) {
     effect_->setTexture(sourceTexture, "SourceMap");
 
     effect_->beginDraw();
+		effect_->commitBuffers();
     GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);         
   }
 

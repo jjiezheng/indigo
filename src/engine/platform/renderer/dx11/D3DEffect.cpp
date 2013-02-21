@@ -232,29 +232,31 @@ void D3DEffect::commitShaderConstantBuffers(const std::vector<ConstantBuffer>& s
 }
 
 void D3DEffect::beginDraw() {
-
   context_->VSSetShader(vertexShader_, NULL, 0);
-
-  commitShaderConstantBuffers(vertexShaderConstantBuffers_);
-
-  for (unsigned int i = 0; i < vertexShaderConstantBuffers_.size(); i++) {
-    context_->VSSetConstantBuffers(i, 1, &vertexShaderConstantBuffers_[i].GPUBuffer);
-  }
-
-  context_->PSSetShader(pixelShader_, NULL, 0);
-
-  commitShaderConstantBuffers(pixelShaderConstantBuffers_);
-
-  for (unsigned int i = 0; i < pixelShaderConstantBuffers_.size(); i++) {
-    context_->PSSetConstantBuffers(i, 1, &pixelShaderConstantBuffers_[i].GPUBuffer);
-  }
-
-  for (std::map<unsigned int, ID3D11SamplerState*>::iterator i = pixelShaderSamplers_.begin(); i != pixelShaderSamplers_.end(); ++i) {
-    context_->PSSetSamplers((*i).first, 1, &(*i).second);
-  }
-
-  context_->IASetInputLayout(layout_);
 }
+
+void D3DEffect::commitBuffers() {
+	commitShaderConstantBuffers(vertexShaderConstantBuffers_);
+
+	for (unsigned int i = 0; i < vertexShaderConstantBuffers_.size(); i++) {
+		context_->VSSetConstantBuffers(i, 1, &vertexShaderConstantBuffers_[i].GPUBuffer);
+	}
+
+	context_->PSSetShader(pixelShader_, NULL, 0);
+
+	commitShaderConstantBuffers(pixelShaderConstantBuffers_);
+
+	for (unsigned int i = 0; i < pixelShaderConstantBuffers_.size(); i++) {
+		context_->PSSetConstantBuffers(i, 1, &pixelShaderConstantBuffers_[i].GPUBuffer);
+	}
+
+	for (std::map<unsigned int, ID3D11SamplerState*>::iterator i = pixelShaderSamplers_.begin(); i != pixelShaderSamplers_.end(); ++i) {
+		context_->PSSetSamplers((*i).first, 1, &(*i).second);
+	}
+
+	context_->IASetInputLayout(layout_);
+}
+
 
 void D3DEffect::endDraw() {
   ID3D11ShaderResourceView* emptyResourceView[5];

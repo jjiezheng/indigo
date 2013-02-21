@@ -35,6 +35,7 @@ void DeferredPresentStage::render(unsigned int presentTextureId, unsigned int de
   
   GraphicsInterface::setRenderState(true);
 
+	effect_->commitBuffers();
   GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);
   effect_->endDraw();
 

@@ -86,6 +86,8 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
     GraphicsInterface::setRenderTarget(ssaoRawRenderTarget_, false);
     GraphicsInterface::clearActiveColorBuffers(Color4::BLACK);
 
+		 ssaoEffect_->beginDraw();
+
     Matrix4x4 projection = viewer->projection();
     ssaoEffect_->setUniform(projection, "Projection");
 
@@ -112,7 +114,7 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
     Vector2 noiseScale = Vector2(GraphicsInterface::backBufferWidth() / float(kNoisePixelWidth), GraphicsInterface::backBufferHeight() / float(kNoisePixelWidth));
     ssaoEffect_->setUniform(noiseScale, "NoiseScale");
 
-    ssaoEffect_->beginDraw();
+    ssaoEffect_->commitBuffers();
     GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);
     ssaoEffect_->endDraw();
 
@@ -127,13 +129,15 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
      GraphicsInterface::beginPerformanceEvent("Combine");
  
      GraphicsInterface::setRenderTarget(ssaoColorBlurCombinedRenderTarget_, false);
-     
+ 
+		 combineEffect_->beginDraw();
+
      combineEffect_->setTexture(inputMap, "ColorMap");
      combineEffect_->setTexture(ssaoRawTexture_, "SSAOMap");
 
 		 combineEffect_->setUniform(GraphicsInterface::halfBackBufferPixel(), "HalfPixel");
  
-     combineEffect_->beginDraw();
+     combineEffect_->commitBuffers();
      GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);
      combineEffect_->endDraw();
  

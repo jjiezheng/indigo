@@ -43,6 +43,7 @@ unsigned int DeferredFXAAPass::render(IViewer* viewer, unsigned int inputMap, co
 		colorLumaEffect_->setUniform(GraphicsInterface::halfScreenPixel(), "HalfPixel");
     colorLumaEffect_->setTexture(inputMap, "InputMap");
     
+		colorLumaEffect_->commitBuffers();
     GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);
     colorLumaEffect_->endDraw();
 
@@ -70,6 +71,7 @@ unsigned int DeferredFXAAPass::render(IViewer* viewer, unsigned int inputMap, co
 
 		fxaaEffect_->setUniform(GraphicsInterface::halfScreenPixel(), "HalfPixel");
 
+		fxaaEffect_->commitBuffers();
     GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);
     fxaaEffect_->endDraw();
 

@@ -110,6 +110,7 @@ void DeferredSpotLightsPass::renderShadowMap(SpotLight* light, hash_map<IEffect*
 			GraphicsInterface::setRenderState(false);
 			shadowDepthEffect_->beginDraw();
 			(*meshIt)->material().bind(light->projection(), light->viewTransform(), (*meshIt)->localToWorld(), shadowDepthEffect_);
+			shadowDepthEffect_->commitBuffers();
 			(*meshIt)->render();
 			shadowDepthEffect_->endDraw();
 		}
@@ -178,6 +179,7 @@ void DeferredSpotLightsPass::renderLight(SpotLight* light, IEffect* lightEffect,
 		lightEffect->setTexture(light->shadowMapDepthTexture(), "ShadowMap");
 	}
 
+	lightEffect->commitBuffers();
 	GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);
 	lightEffect->endDraw();
 
@@ -196,6 +198,7 @@ void DeferredSpotLightsPass::accumulateLight(SpotLight* light, unsigned int colo
 	accumulationEffect_->setTexture(colorMap, "ColorMap");
 	accumulationEffect_->setUniform(GraphicsInterface::halfBackBufferPixel(), "HalfPixel");
 
+	accumulationEffect_->commitBuffers();
 	GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);
 	accumulationEffect_->endDraw();
 	GraphicsInterface::setBlendState(IGraphicsInterface::NOBLEND);

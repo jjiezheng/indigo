@@ -34,15 +34,15 @@ void Sprite::render(const Matrix4x4& projection) {
 
   Matrix4x4 scale = Matrix4x4::scale(Vector4((float)cursorInfo.width / 2.0f, (float)cursorInfo.height / 2.0f, 1, 1));
 
+	effect_->beginDraw();
   Matrix4x4 modelProjection = projection * model * scale;
-
   effect_->setUniform(modelProjection, "ModelProjection");
   effect_->setTexture(textureId_, "ColorMap");
 
   GraphicsInterface::resetRenderTarget(false);
   GraphicsInterface::setBlendState(IGraphicsInterface::ALPHA);
 
-  effect_->beginDraw();
+  effect_->commitBuffers();
   GraphicsInterface::drawVertexBuffer(vertexBuffer_, Geometry::FONT_PLANE_VERTEX_COUNT, Geometry::FONT_PLANE_VERTEX_FORMAT);
   effect_->endDraw();
 

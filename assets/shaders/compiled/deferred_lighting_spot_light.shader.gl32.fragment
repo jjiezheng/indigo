@@ -1,5 +1,5 @@
 // glslf output by Cg compiler
-// cgc version 3.1.0013, build date Apr 24 2012
+// cgc version 3.1.0013, build date Apr 18 2012
 // command line args: -DGL=1 -DGL32=1 -q -profileopts version=130 -profile glslf
 // source file: deferred_lighting_spot_light.cg
 //vendor NVIDIA Corporation
@@ -84,6 +84,7 @@ void main()
 
     vec2 _screenPositionClip;
     vec2 _texCoord2;
+    float _depth;
     vec3 _normal;
     vec4 _positionScreen;
     vec3 _positionWorld;
@@ -98,56 +99,57 @@ void main()
     vec3 _floatVectorRaw1;
 
     _screenPositionClip = cg_TexCoord0.xy/cg_TexCoord0.z;
-    _texCoord2 = 5.00000000E-01*(_screenPositionClip + vec2( 1.00000000E+00, 1.00000000E+00));
+    _texCoord2 = 5.00000000E-001*(_screenPositionClip + vec2( 1.00000000E+000, 1.00000000E+000));
     _texCoord0033 = _texCoord2 + _HalfPixel;
     _TMP6 = texture(_DepthMap, _texCoord0033);
+    _depth = _TMP6.x*2.00000000E+000 - 1.00000000E+000;
     _texCoord0037 = _texCoord2 + _HalfPixel;
     _normalData0037 = texture(_NormalMap, _texCoord0037);
-    _unPackedNormal0037 = _normalData0037*2.00000000E+00 - 1.00000000E+00;
+    _unPackedNormal0037 = _normalData0037*2.00000000E+000 - 1.00000000E+000;
     _TMP7 = dot(_unPackedNormal0037.xyz, _unPackedNormal0037.xyz);
     _TMP8 = inversesqrt(_TMP7);
     _normal = _TMP8*_unPackedNormal0037.xyz;
-    _positionScreen = vec4(_screenPositionClip.x, _screenPositionClip.y, _TMP6.x, 1.00000000E+00);
+    _positionScreen = vec4(_screenPositionClip.x, _screenPositionClip.y, _depth, 1.00000000E+000);
     _r0047.x = dot(_ViewProjInv[0], _positionScreen);
     _r0047.y = dot(_ViewProjInv[1], _positionScreen);
     _r0047.z = dot(_ViewProjInv[2], _positionScreen);
     _r0047.w = dot(_ViewProjInv[3], _positionScreen);
     _positionWorld = _r0047.xyz/_r0047.w;
-    _lightContribution = vec4( 0.00000000E+00, 0.00000000E+00, 0.00000000E+00, 0.00000000E+00);
+    _lightContribution = vec4( 0.00000000E+000, 0.00000000E+000, 0.00000000E+000, 0.00000000E+000);
     _v0057 = _positionWorld - _LightPosition;
     _TMP7 = dot(_v0057, _v0057);
     _TMP8 = inversesqrt(_TMP7);
     _pixelToLight = _TMP8*_v0057;
     _lightDirectionDot = dot(_LightDirection, _pixelToLight);
-    _diffuseStrength = 0.00000000E+00;
+    _diffuseStrength = 0.00000000E+000;
     _lightOuterCos = cos(_LightOuterAngle);
     _lightInnerCos = cos(_LightInnerAngle);
     if (_lightDirectionDot > _lightOuterCos) { // if begin
         _TMP0 = dot(_normal, _DirectionToLight);
-        _TMP9 = min(1.00000000E+00, _TMP0);
-        _TMP72 = max(0.00000000E+00, _TMP9);
+        _TMP9 = min(1.00000000E+000, _TMP0);
+        _TMP72 = max(0.00000000E+000, _TMP9);
         _x0081 = (_lightDirectionDot - _lightOuterCos)/(_lightInnerCos - _lightOuterCos);
-        _TMP9 = min(1.00000000E+00, _x0081);
-        _TMP82 = max(0.00000000E+00, _TMP9);
-        _TMP1 = _TMP82*_TMP82*(3.00000000E+00 - 2.00000000E+00*_TMP82);
+        _TMP9 = min(1.00000000E+000, _x0081);
+        _TMP82 = max(0.00000000E+000, _TMP9);
+        _TMP1 = _TMP82*_TMP82*(3.00000000E+000 - 2.00000000E+000*_TMP82);
         _diffuseStrength = _TMP72*_TMP1;
     } // end if
     if (_lightDirectionDot > _lightInnerCos) { // if begin
         _TMP2 = dot(_normal, _DirectionToLight);
-        _TMP9 = min(1.00000000E+00, _TMP2);
-        _TMP92 = max(0.00000000E+00, _TMP9);
+        _TMP9 = min(1.00000000E+000, _TMP2);
+        _TMP92 = max(0.00000000E+000, _TMP9);
         _diffuseStrength = _TMP92;
     } // end if
-    _lightContribution.xyz = _LightColor*_diffuseStrength*2.54999995E+00*_LightDistance;
-    if (_diffuseStrength > 0.00000000E+00) { // if begin
+    _lightContribution.xyz = _LightColor*_diffuseStrength*2.54999995E+000*_LightDistance;
+    if (_diffuseStrength > 0.00000000E+000) { // if begin
         _viewerDirectionUnNormalized1 = _ViewerPosition - _positionWorld;
         _TMP7 = dot(_viewerDirectionUnNormalized1, _viewerDirectionUnNormalized1);
         _TMP8 = inversesqrt(_TMP7);
         _viewDirection1 = _TMP8*_viewerDirectionUnNormalized1;
         _floatVectorRaw1 = _DirectionToLight + _viewDirection1;
         _TMP3 = dot(_normal, _floatVectorRaw1);
-        _TMP9 = min(1.00000000E+00, _TMP3);
-        _TMP108 = max(0.00000000E+00, _TMP9);
+        _TMP9 = min(1.00000000E+000, _TMP3);
+        _TMP108 = max(0.00000000E+000, _TMP9);
         _lightContribution.w = _TMP108*_LightDistance;
     } // end if
     cg_FragColor = _lightContribution;

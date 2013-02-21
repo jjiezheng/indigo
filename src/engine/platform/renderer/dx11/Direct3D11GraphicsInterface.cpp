@@ -115,7 +115,7 @@ void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, in
     assert(result == S_OK);
 
     depthBufferTexture_ = textures_.size();
-    activeDepthBuffer_ = depthBufferTexture_;
+		activeDepthBuffer_ = depthBuffer_;
 
     DirectXTexture textureContainer;
     textureContainer.textureData = 0;
@@ -167,8 +167,8 @@ void Direct3D11GraphicsInterface::destroy() {
     i = textures_.erase(i);
   }
 
-  for (std::vector<ID3D11RenderTargetView*>::iterator i = renderTargets_.begin(); i != renderTargets_.end();) {
-    (*i)->Release();
+  for (std::vector<DirectXRenderTarget>::iterator i = renderTargets_.begin(); i != renderTargets_.end();) {
+    (*i).release();
     i = renderTargets_.erase(i);
   }
 
@@ -436,19 +436,20 @@ unsigned int Direct3D11GraphicsInterface::createTexture(const CSize& dimensions,
 }
 
 void Direct3D11GraphicsInterface::setRenderTarget(unsigned int* renderTargetIds, unsigned int renderTargetCount, bool useDepthBuffer, const CSize& dimensions, unsigned int depthTextureId) {  
-  activeDepthBuffer_ = depthTextureId;
   std::vector<ID3D11RenderTargetView*> renderTargetViews;
 
   for (unsigned int i = 0; i < renderTargetCount; i++) {
     unsigned int renderTargetId = renderTargetIds[i];
     assert(renderTargetId < renderTargets_.size());
 
-    ID3D11RenderTargetView* renderTargetView = renderTargets_[renderTargetId];
-    renderTargetViews.push_back(renderTargetView);
+		DirectXRenderTarget renderTarget = renderTargets_[renderTargetId];
+    renderTargetViews.push_back(renderTarget.renderTargetView_);
   }
 
   assert(depthTextureId < textures_.size());
   DirectXTexture depthTexture = textures_[depthTextureId];
+
+	activeDepthBuffer_ = depthTexture.depthStencilView;
   
   ID3D11DepthStencilView* depthBuffer = useDepthBuffer ? depthTexture.depthStencilView : NULL;
   context_->OMSetRenderTargets(renderTargetViews.size(), &renderTargetViews[0], depthBuffer);
@@ -458,11 +459,14 @@ unsigned int Direct3D11GraphicsInterface::createRenderTarget(unsigned int textur
   assert(textureId < textures_.size());
 
   DirectXTexture texture = textures_[textureId];
-  ID3D11RenderTargetView* renderTarget;
+  ID3D11RenderTargetView* renderTargetView;
+	DirectXRenderTarget renderTarget;
+	renderTarget.textureId_ = textureId;
 
 	if (NULL != texture.textureData) {
-		HRESULT result = device_->CreateRenderTargetView(texture.textureData, NULL, &renderTarget);
+		HRESULT result = device_->CreateRenderTargetView(texture.textureData, NULL, &renderTargetView);
 		assert(result == S_OK);
+		renderTarget.renderTargetView_ = renderTargetView;
 	}
 
   unsigned int renderTargetId = renderTargets_.size();
@@ -476,16 +480,15 @@ unsigned int Direct3D11GraphicsInterface::createFrameBuffer(unsigned int* render
 
 	for (unsigned int i = 0; i < renderTargetCount; i++) {
 		unsigned int renderTargetId = renderTargetIds[i];
-		ID3D11RenderTargetView* renderTarget = renderTargets_[renderTargetId];
-		frameBuffer.renderTargets_.push_back(renderTarget);
+		DirectXRenderTarget renderTarget = renderTargets_[renderTargetId];
+		frameBuffer.renderTargets_.push_back(renderTarget.renderTargetView_);
 	}
 
 	if (useDepthBuffer) {
 		assert(depthBufferTargetId < textures_.size());
-#error issue here in that we need to get the depth stencil view from the render target
-
-		DirectXTexture depthTexture = textures_[depthBufferTargetId];
-		frameBuffer.depthBuffer_ = depthTexture.depthStencilView;
+		DirectXRenderTarget renderTarget = renderTargets_[depthBufferTargetId];
+		DirectXTexture texture = textures_[renderTarget.textureId_];
+		frameBuffer.depthBuffer_ = texture.depthStencilView;
 	}
 
 	unsigned int frameBufferId = frameBuffers_.size();
@@ -497,20 +500,18 @@ unsigned int Direct3D11GraphicsInterface::createFrameBuffer(unsigned int* render
 void Direct3D11GraphicsInterface::setFrameBuffer(unsigned int frameBufferId) {
 	assert(frameBufferId < frameBuffers_.size());
 	DirectXFrameBuffer frameBuffer = frameBuffers_[frameBufferId];
+	activeDepthBuffer_ = frameBuffer.depthBuffer_;
 
 	context_->OMSetRenderTargets(frameBuffer.renderTargets_.size(), &frameBuffer.renderTargets_[0], frameBuffer.depthBuffer_);
 }
-
 
 void Direct3D11GraphicsInterface::clearRenderTarget(unsigned int renderTargetId, const Color4& color) {
   assert(renderTargetId < renderTargets_.size());
 
   D3DXCOLOR clearColor(color.r, color.g, color.b, color.a);
-  ID3D11RenderTargetView* renderTarget = renderTargets_[renderTargetId];
-  context_->ClearRenderTargetView(renderTarget, clearColor);\
+	DirectXRenderTarget renderTarget = renderTargets_[renderTargetId];
+  context_->ClearRenderTargetView(renderTarget.renderTargetView_, clearColor);\
 }
-
-
 
 void Direct3D11GraphicsInterface::resetRenderTarget(bool useDepthBuffer) {
   ID3D11DepthStencilView* depthBufferView = useDepthBuffer ? depthBuffer_ : 0;
@@ -620,9 +621,7 @@ unsigned int Direct3D11GraphicsInterface::createDepthTexture(const CSize& dimens
 }
 
 void Direct3D11GraphicsInterface::clearActiveDepthBuffer(unsigned int textureId) {
-  assert(textureId < textures_.size());
-  DirectXTexture texture = textures_[activeDepthBuffer_];
-  context_->ClearDepthStencilView(texture.depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+  context_->ClearDepthStencilView(activeDepthBuffer_, D3D11_CLEAR_DEPTH, 1.0f, 0);
 }
 
 void Direct3D11GraphicsInterface::setBlendState(IGraphicsInterface::BlendState blendState) {

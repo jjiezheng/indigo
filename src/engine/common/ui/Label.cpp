@@ -38,6 +38,7 @@ void Label::render(const Matrix4x4& projection) const {
 
 	unsigned int nextCharacterOffset = 0;
 	for (std::vector<FontCharacter>::const_iterator i = characters_.begin(); i != characters_.end(); ++i) {
+		labelEffect_->beginDraw();
 
 		int x = nextCharacterOffset + (*i).xoffset +  x_;
 		int y = font_.lineHeight() - (*i).height - (*i).yoffset + y_;
@@ -51,7 +52,7 @@ void Label::render(const Matrix4x4& projection) const {
 		GraphicsInterface::resetRenderTarget(false);
 		GraphicsInterface::setBlendState(IGraphicsInterface::ALPHA);
 
-		labelEffect_->beginDraw();
+		labelEffect_->commitBuffers();
 		GraphicsInterface::drawVertexBuffer((*i).vertexBuffer, Geometry::FONT_PLANE_VERTEX_COUNT, Geometry::FONT_PLANE_VERTEX_FORMAT);
 		labelEffect_->endDraw();
 

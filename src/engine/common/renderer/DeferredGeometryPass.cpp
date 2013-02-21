@@ -58,6 +58,7 @@ void DeferredGeometryPass::render(IViewer* viewer, World& world, const SceneCont
 			effect->setUniform(viewer->farDistance(), "Far");
 			effect->setSamplerState(0, UV_ADDRESS_WRAP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_NONE);
 			material.bind(projection, viewTransform, localToWorld, effect);
+			effect->commitBuffers();
 			(*meshIt)->render();
 			effect->endDraw();
 		}

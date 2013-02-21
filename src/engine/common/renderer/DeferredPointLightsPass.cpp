@@ -27,6 +27,8 @@ void DeferredPointLightsPass::render(IViewer* viewer, World& world, const SceneC
   std::vector<PointLight> pointLights = sceneContext.pointLights();
 
   for (std::vector<PointLight>::iterator light = pointLights.begin(); light != pointLights.end(); ++light) {
+		pointLightEffect_->beginDraw();
+
     Matrix4x4 worldViewProj = viewer->projection() * viewer->viewTransform() * (*light).transform();
     pointLightEffect_->setUniform(worldViewProj, "WorldViewProj");
 
@@ -40,7 +42,7 @@ void DeferredPointLightsPass::render(IViewer* viewer, World& world, const SceneC
     float distanceToLightCenter = viewer->position().distance((*light).position());
     bool cullBackFaces = distanceToLightCenter >= (*light).radius() + viewer->nearDistance();
 
-    pointLightEffect_->beginDraw();
+		pointLightEffect_->commitBuffers();
     GraphicsInterface::setRenderState(cullBackFaces);
     pointLightModel_->render();
   }

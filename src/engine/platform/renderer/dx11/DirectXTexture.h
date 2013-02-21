@@ -62,3 +62,33 @@ public:
 };
 
 #endif
+
+#ifndef DIRECTX_RENDER_TARGET_H
+#define DIRECTX_RENDER_TARGET_H
+
+class DirectXRenderTarget {
+
+public:
+
+	DirectXRenderTarget()
+		: renderTargetView_(0)
+		, textureId_(0) { };
+
+public:
+
+	void release();
+
+public:
+
+	ID3D11RenderTargetView* renderTargetView_;
+	unsigned int textureId_;
+
+};
+
+inline void DirectXRenderTarget::release() {
+	if (NULL != renderTargetView_) {
+		renderTargetView_->Release();
+	}
+}
+
+#endif

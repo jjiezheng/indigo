@@ -1,5 +1,5 @@
 // glslf output by Cg compiler
-// cgc version 3.1.0013, build date Apr 24 2012
+// cgc version 3.1.0013, build date Apr 18 2012
 // command line args: -DGL=1 -DGL21=1 -q -profile glslf
 // source file: fxaa_color_luma.cg
 //vendor NVIDIA Corporation
@@ -34,7 +34,7 @@ void main()
 
     _c0006 = gl_TexCoord[0].xy + _HalfPixel;
     _TMP0 = texture2D(_InputMap, _c0006);
-    _luma = dot(_TMP0.xyz, vec3( 2.98999995E-01, 5.87000012E-01, 1.14000000E-01));
+    _luma = dot(_TMP0.xyz, vec3( 2.98999995E-001, 5.87000012E-001, 1.14000000E-001));
     _ret_0 = vec4(_TMP0.x, _TMP0.y, _TMP0.z, _luma);
     gl_FragColor = _ret_0;
     return;

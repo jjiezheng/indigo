@@ -1,5 +1,5 @@
 // glslv output by Cg compiler
-// cgc version 3.1.0013, build date Apr 24 2012
+// cgc version 3.1.0013, build date Apr 18 2012
 // command line args: -DGL=1 -DGL32=1 -q -profileopts version=130 -profile glslv
 // source file: deferred_render_color_normal_depth.cg
 //vendor NVIDIA Corporation
@@ -9,7 +9,7 @@
 //semantic WorldViewProj
 //semantic DiffuseColor
 //var float4x4 WorldViewProj :  : _WorldViewProj[0], 4 : -1 : 1
-//var float4 position : $vin.ATTR0 : ATTR0 : 0 : 1
+//var float4 position : $vin.POSITION : POSITION : 0 : 1
 //var float3 normal : $vin.NORMAL : NORMAL : 1 : 1
 //var float4 vs.position : $vout.POSITION : HPOS : -1 : 1
 //var float3 vs.normal : $vout.TEXCOORD0 : TEXCOORD0 : -1 : 1
@@ -17,7 +17,7 @@
 #version 130
 
 struct VOutput {
-    vec4 _position1;
+    vec4 _position2;
     vec3 _normal1;
 };
 
@@ -26,11 +26,12 @@ struct POutput {
     vec4 _normal2;
 };
 
+vec4 _position1;
 vec4 _r0003;
 vec4 _v0003;
-in vec4 ATTR0;
 in vec4 NORMAL;
 uniform vec4 _WorldViewProj[4];
+in vec4 cg_Vertex;
 out vec4 cg_TexCoord0;
 
  // main procedure, the original name was vs
@@ -39,7 +40,8 @@ void main()
 
     VOutput _OUT;
 
-    _v0003 = vec4(float(ATTR0.x), float(ATTR0.y), float(ATTR0.z), float(ATTR0.w));
+    _position1 = vec4(float(cg_Vertex.x), float(cg_Vertex.y), float(cg_Vertex.z), float(cg_Vertex.w));
+    _v0003 = vec4(float(_position1.x), float(_position1.y), float(_position1.z), float(_position1.w));
     _r0003.x = dot(_WorldViewProj[0], _v0003);
     _r0003.y = dot(_WorldViewProj[1], _v0003);
     _r0003.z = dot(_WorldViewProj[2], _v0003);

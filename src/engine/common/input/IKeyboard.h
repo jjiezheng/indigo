@@ -40,7 +40,7 @@ public:
   
 public:
 
-  void setKeydownListener(IKeyboardListener* keyDownListener);
+  virtual void setKeydownListener(IKeyboardListener* keyDownListener);
   
 protected:
   

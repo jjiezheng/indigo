@@ -35,24 +35,28 @@ void GaussianBlur::render(unsigned int sourceTexture) {
     GraphicsInterface::setRenderTarget(gaussianHorizontalRenderTarget_, false);
     GraphicsInterface::clearRenderTarget(gaussianHorizontalRenderTarget_, Color4::WHITE);
     
+		gaussianBlurHorizontalEffect_->beginDraw();
     gaussianBlurHorizontalEffect_->setTexture(sourceTexture, "SourceMap");
 
     gaussianBlurHorizontalEffect_->setUniform(bufferSize_.width, "SceneWidth");
 
-    gaussianBlurHorizontalEffect_->beginDraw();
-    GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);         
+    gaussianBlurHorizontalEffect_->commitBuffers();
+    GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);  
+		gaussianBlurHorizontalEffect_->endDraw();
   }
 
   {
     GraphicsInterface::setRenderTarget(outputRenderTarget_, false);
     GraphicsInterface::clearRenderTarget(outputRenderTarget_, Color4::WHITE);
 
+		gaussianBluVerticalEffect_->beginDraw();
     gaussianBluVerticalEffect_->setTexture(gaussianHorizontalMapTexture_, "SourceMap");
 
     gaussianBluVerticalEffect_->setUniform(bufferSize_.height, "SceneHeight");
 
-    gaussianBluVerticalEffect_->beginDraw();
-    GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);         
+		gaussianBluVerticalEffect_->commitBuffers();
+    GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT); 
+		gaussianBluVerticalEffect_->endDraw();
   }
 
   GraphicsInterface::generateMipMaps(outputRenderTarget_);

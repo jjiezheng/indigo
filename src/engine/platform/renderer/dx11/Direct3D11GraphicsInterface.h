@@ -24,9 +24,9 @@ public:
     , backBuffer_(0)
     , depthBuffer_(0)
     , depthBufferTexture_(0)
+		, activeDepthBuffer_(0)
     , multiSamples_(0)
-    , performanceMarkerLevel_(0)
-    , activeDepthBuffer_(0) { }
+    , performanceMarkerLevel_(0) { }
 
 public:
 
@@ -135,19 +135,21 @@ private:
   ID3D11RenderTargetView* backBuffer_;
   ID3D11DepthStencilView* depthBuffer_;
   unsigned int depthBufferTexture_;
+	ID3D11DepthStencilView* activeDepthBuffer_;
   
 private:
 
   std::vector<ID3D11Buffer*> vertexBuffers_;
   std::vector<DirectXTexture> textures_;
-  std::vector<ID3D11RenderTargetView*> renderTargets_;
+  std::vector<DirectXRenderTarget> renderTargets_;
   std::vector<ID3D11BlendState*> blendStates_;
   std::vector<D3DXCOLOR> performanceMarkerColors_;
 	std::vector<DirectXFrameBuffer> frameBuffers_;
 
+	
+
   unsigned int multiSamples_;  
   unsigned int performanceMarkerLevel_;
-  unsigned int activeDepthBuffer_;
 	unsigned int depthBufferTarget_;
 
 };

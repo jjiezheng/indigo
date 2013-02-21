@@ -34,11 +34,13 @@ unsigned int DeferredGodRaysPass::render(IViewer* viewer, unsigned int inputMap,
       Vector4 lightPositionScreenSpace = viewer->projection() * viewer->viewTransform() * spotLight->position();
       lightPositionScreenSpace /= lightPositionScreenSpace.w;
 
+			godRaysEffect_->beginDraw();
+
       godRaysEffect_->setUniform(lightPositionScreenSpace, "LightPositionScreenSpace");
 
       godRaysEffect_->setTexture(inputMap, "ColorMap");
 
-      godRaysEffect_->beginDraw();
+			godRaysEffect_->commitBuffers();
       GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);
       godRaysEffect_->endDraw();
 

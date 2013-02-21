@@ -9,7 +9,7 @@ struct VOutput {
 	float3 normal				: TEXCOORD0;
 };
 
-VOutput vs(	half4 position 		: ATTR0,
+VOutput vs(	half4 position 		: POSITION,
 		  	half3 normal 		: NORMAL) {
 
 	VOutput OUT;
