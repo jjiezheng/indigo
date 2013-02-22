@@ -559,7 +559,7 @@ void Direct3D11GraphicsInterface::endPerformanceEvent() {
 #endif
 }
 
-unsigned int Direct3D11GraphicsInterface::createDepthTexture(const CSize& dimensions) {
+unsigned int Direct3D11GraphicsInterface::createDepthTexture(const CSize& dimensions, bool isShadowTexture) {
   HRESULT result;
 
   D3D11_TEXTURE2D_DESC depthDesc;

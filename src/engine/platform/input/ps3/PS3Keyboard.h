@@ -11,7 +11,7 @@ public:
 
   void setup();
 
-  bool keyState(char keyCode);
+  bool keyState(int keyCode);
 
   void update();
 

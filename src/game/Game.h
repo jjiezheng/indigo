@@ -1,6 +1,8 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include "app/IGame.h"
+
 #include "core/Clock.h"
 
 #include "renderer/World.h"
@@ -12,7 +14,7 @@
 #include "input/IKeyboardListener.h"
 #include "entity/ActorFactory.h"
 
-class Game : public IKeyboardListener {
+class Game : public IGame, public IKeyboardListener {
   
 public:
   

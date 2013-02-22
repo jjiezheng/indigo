@@ -16,6 +16,11 @@ public:
     KEY_UNKNOWN = 0,
     KEY_ESCAPE = 27
   };
+#elif PLATFORM_PS3
+	enum KeyStates {
+		KEY_UNKNOWN = 9999,
+		KEY_ESCAPE = 0
+	};
 #elif PLATFORM_POSIX
   enum KeyStates {
     KEY_UNKNOWN = 0,

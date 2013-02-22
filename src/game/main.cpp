@@ -1,19 +1,19 @@
-#include "App.h"
+#include "app/App.h"
+
+#include "Game.h"
 
 int main(int argc, char **argv) {
-  App app;
-  app.init(argv[1]);
+	Game game;
+	IApp* app = IApp::createApp(&game);
+  app->init(argv[1]);
   bool quit = false;
   while(!quit) {
-	  app.mainLoop();
-	  quit = app.wantsToQuit();
+	  app->mainLoop();
+	  quit = app->wantsToQuit(); 
   }
-  app.destroy();
+  app->destroy();
+	delete app;
+	app = 0;
 }
 
 #include "platform/maindef.h"
-
-// re-organise scene files
-// port over the basic colormap shaders to cg
-// get the clock working on ps3
-// get the lighting stage working correctly

@@ -37,6 +37,8 @@ public:
 
   void beginDraw();
 
+	void commitBuffers();
+
   void endDraw();
 
   void setUniform(const Matrix3x3& uniformData, const char* uniformName) const;

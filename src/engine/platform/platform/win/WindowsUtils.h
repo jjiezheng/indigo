@@ -23,6 +23,8 @@ public:
 
  static void getMousePosition(int* x, int* y);
 
+ static void SetShowCursor(bool isVisible);
+
 public:
 
   static void setKeyboardListener(IKeyboardListener* keyboardListener);
@@ -36,6 +38,8 @@ private:
   static int mouseX_, mouseY_;
 
   static IKeyboardListener* keyboardListener_;
+
+	static bool isCursorVisible_;
 
 };
 

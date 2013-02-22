@@ -102,8 +102,8 @@ void PS3GCMGraphicsInterface::openWindow(int width, int height, unsigned int mul
 
 	// default texture
 	{
-		std::string debugTexturePath = Path::pathForFile("debug/mipmap_debug.dds");
-		loadTexture(debugTexturePath.c_str());
+		//std::string debugTexturePath = Path::pathForFile("debug/mipmap_debug.dds");
+		//loadTexture(debugTexturePath.c_str());
 	}
  
   { // depth buffer
@@ -536,7 +536,7 @@ void PS3GCMGraphicsInterface::clearActiveDepthBuffer(unsigned int textureId) {
   cellGcmSetClearSurface(CELL_GCM_CLEAR_Z);
 }
 
-unsigned int PS3GCMGraphicsInterface::createDepthTexture(const CSize& dimensions) {
+unsigned int PS3GCMGraphicsInterface::createDepthTexture(const CSize& dimensions, bool isShadowTexture) {
 
   int zDepth = 4;
   unsigned int depthPitch = zDepth * dimensions.width;
@@ -646,7 +646,16 @@ TextureInfo PS3GCMGraphicsInterface::textureInfo(unsigned int textureId) {
   return info;
 }
 
-void PS3GCMGraphicsInterface::setTextureData(unsigned int textureId, const void* textureData, unsigned int dataSize) {
+void PS3GCMGraphicsInterface::setTextureData(unsigned int textureId, const void* textureData, const CSize& textureDimensions, unsigned int texturePitch) {
   CellGcmTextureContainer textureContainer = textures_[textureId];
+	unsigned int dataSize = texturePitch * textureDimensions.height;
   memcpy((void*)textureContainer.textureAddress, textureData, dataSize);
+}
+
+unsigned int PS3GCMGraphicsInterface::createFrameBuffer(unsigned int* renderTargetId, unsigned int renderTargetCount, bool useDepthBuffer, unsigned int depthBufferTargetId) {
+	return 0;
+}
+
+void PS3GCMGraphicsInterface::setFrameBuffer(unsigned int frameBufferId) {
+
 }

@@ -61,7 +61,7 @@ public:
 
   unsigned int createTexture(const CSize& dimensions, IGraphicsInterface::TextureFormat textureFormat, unsigned int multisamples, unsigned int mipLevels, void* textureData, unsigned int textureLineSize, bool isDynamic);
 
-  void setTextureData(unsigned int textureId, const void* textureData, unsigned int dataSize);
+  void setTextureData(unsigned int textureId, const void* textureData, const CSize& textureDimensions, unsigned int texturePitch);
 
   TextureInfo textureInfo(unsigned int textureId);
 
@@ -81,17 +81,25 @@ public:
 
 public:
 
+	unsigned int createFrameBuffer(unsigned int* renderTargetId, unsigned int renderTargetCount, bool useDepthBuffer, unsigned int depthBufferTargetId);
+
+	void setFrameBuffer(unsigned int frameBufferId);
+
+public:
+
 	void enableSmoothing();
 
 	void disableSmoothing();
 
 public:
 
-  unsigned int createDepthTexture(const CSize& dimensions);
+  unsigned int createDepthTexture(const CSize& dimensions, bool isShadowTexture);
 
   void clearActiveDepthBuffer(unsigned int textureId);
 
   unsigned int depthBufferTexture() const;
+
+	unsigned int depthBufferTarget() const;
 
 public:
 
@@ -113,6 +121,7 @@ private:
 
   unsigned int bufferFrameIndex_;
   unsigned int depthBufferTexture_;
+	unsigned int depthBufferTarget_;
   unsigned int backBufferPitch_;
 
 private:
@@ -131,6 +140,10 @@ inline void PS3GCMGraphicsInterface::setEffect(PS3GCMCGEffect* effect) {
 
 inline unsigned int PS3GCMGraphicsInterface::depthBufferTexture() const {
   return depthBufferTexture_;
+}
+
+inline unsigned int PS3GCMGraphicsInterface::depthBufferTarget() const {
+	return depthBufferTarget_;
 }
 
 #endif

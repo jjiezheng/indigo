@@ -18,7 +18,7 @@ void DeferredPresentStage::init(const CSize& screenSize) {
 	effect_->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
   quadVbo_ = Geometry::screenPlane();
   
-  textureId_ = GraphicsInterface::loadTexture("debug/mipmap_debug.dds");
+  //textureId_ = GraphicsInterface::loadTexture("debug/mipmap_debug.dds");
 }
 
 void DeferredPresentStage::render(unsigned int presentTextureId, unsigned int depthTextureId) {

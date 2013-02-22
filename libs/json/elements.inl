@@ -289,9 +289,10 @@ inline UnknownElement& Object::operator [](const std::string& name)
 inline const UnknownElement& Object::operator [](const std::string& name) const 
 {
    const_iterator it = Find(name);
-   if (it == end())
+	 if (it == end()) {
 		 assert(false);
-      //throw Exception("Object member not found: " + name);
+      throw Exception("Object member not found: " + name);
+	 }
    return it->element;
 }
 

@@ -17,5 +17,6 @@ bool WindowsMouse::isLeftButtonDown() {
 	return isDown;
 }
 
-bool WindowsMouse::hideOSMouse(bool isHidden) {
+void WindowsMouse::hideOSMouse(bool isHidden) {
+	WindowsUtils::SetShowCursor(!isHidden);
 }

@@ -110,6 +110,10 @@ void PS3GCMCGEffect::beginDraw() {
   }
 }
 
+void PS3GCMCGEffect::commitBuffers() {
+
+}
+
 void PS3GCMCGEffect::endDraw() {
   static const unsigned int TEXTURE_SAMPLER_COUNT = 15;
   for (unsigned int i = 0; i < TEXTURE_SAMPLER_COUNT; i++) {

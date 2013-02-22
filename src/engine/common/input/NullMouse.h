@@ -13,6 +13,8 @@ public:
   
   bool isLeftButtonDown();
 
+	void hideOSMouse(bool isHidden);
+
 };
 
 inline Point NullMouse::position() {
@@ -21,6 +23,10 @@ inline Point NullMouse::position() {
 
 inline bool NullMouse::isLeftButtonDown() {
 	return false;
+}
+
+inline void NullMouse::hideOSMouse(bool isHidden) {
+
 }
 
 #endif

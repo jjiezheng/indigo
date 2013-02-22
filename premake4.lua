@@ -29,10 +29,10 @@ project "game"
 	--
 	configuration { "ps3" }
 		targetextension(".elf")
-		postbuildcommands { "C://usr//local//cell//host-win32//bin//make_fself $(OutDir)Game.elf $(OutDir)game.self" }
-		defines     { "SN_TARGET_PS3", "__SNC__", "__CELL_ASSERT__"}
-		buildoptions "/wd\"383\" /wd\"613\" /wd\"1011\""
-		linkoptions  "/SNC"
+		postbuildcommands { "C://usr//local//cell//host-win32//bin//make_fself $(OutDir)//Game.elf $(OutDir)//game.self" }
+		defines     { "SN_TARGET_PS3", "__SNC__", "__CELL_ASSERT__", "PLATFORM_PS3"}
+		buildoptions "-Xc+=exceptions --diag_suppress=383 --diag_suppress=613 --diag_suppress=1011"
+		linkoptions  "-lsn -lm -lio_stub -lfs_stub -lgcm_cmd -lgcm_sys_stub -lsysmodule_stub -lsysutil_stub -lcgc"
 
 		includedirs { 
 			"C:/usr/local/cell/target/ppu/include",
@@ -56,17 +56,6 @@ project "game"
 		libdirs {
 			"C:/usr/local/cell/target/ppu/lib"
 		}
-		links {
-			"libsn.a",
-			"libm.a",	
-			"libio_stub.a",
-			"libfs_stub.a",
-			"libgcm_cmd.a",
-			"libgcm_sys_stub.a",
-			"libsysmodule_stub.a",
-			"libsysutil_stub.a",
-			"libcgc.a"
-		}
 
 	configuration 	{ "Debug" }
 		defines     { "_DEBUG", "GPU_TRACE" }
@@ -79,54 +68,9 @@ project "game"
 	--
 	-- Windows
 	--
-	configuration 	{ "Debug", "vs2012" }
-		targetdir   "build/win/2012/debug/"
-		
-	configuration 	{ "Release", "vs2012" }
-		targetdir   "build/win/2012/release"
 
-	configuration 	{ "Debug", "vs2010" }
-		targetdir   "build/win/2010/debug/"
-		
-	configuration 	{ "Release", "vs2012" }
-		targetdir   "build/win/2010/release"
-
-	configuration 	{ "Debug", "vs2008" }
-		targetdir   "build/win/2008/debug/"
-		
-	configuration 	{ "Release", "vs2008" }
-		targetdir   "build/win/2008/release"
-
-	configuration { "vs2010", "x32" }
-		includedirs {
-			"libs/d3dx/include"
-		}
-		libdirs {
-			"libs/d3dx/lib/x32"
-		}
-		links {
-			"d3dx9",
-			"d3dx10",
-			"d3dx11"
-		}
-
-	configuration { "vs*" }
-
-	configuration { "vs2012", "x32" }
-		includedirs {
-			"libs/d3dx/include"
-		}
-		libdirs {
-			"libs/d3dx/lib/x32"
-		}
-		links {
-			"d3dx9",
-			"d3dx10",
-			"d3dx11"
-		}
-
-	configuration { "vs*", "x32" }
-		defines     { "_CRT_SECURE_NO_WARNINGS", "_WIN32" }
+	configuration { "vs2008", "x32" }
+		defines     { "_CRT_SECURE_NO_WARNINGS", "_WIN32", "PLATFORM_WINDOWS" }
 		links {
 			"d3dcompiler",
 			"dxguid",
@@ -158,6 +102,7 @@ project "game"
 	configuration "macosx"
 		buildoptions "-stdlib=libc++"
 		linkoptions  "-stdlib=libc++"
+		defines     { "PLATFORM_MAC" }
 		links {
 			"AppKit.framework",
 			"Foundation.framework", 
@@ -190,6 +135,7 @@ project "game"
 	configuration "linux"
 		buildoptions ""
 		linkoptions  ""
+		defines     { "PLATFORM_LINUX" }
 		links {
 			"GLEW",
 			"glfw",

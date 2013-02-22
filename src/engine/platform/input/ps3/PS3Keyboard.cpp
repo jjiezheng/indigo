@@ -50,7 +50,7 @@ void PS3Keyboard::update() {
   }
 }
 
-bool PS3Keyboard::keyState(char keyCode) {
+bool PS3Keyboard::keyState(int keyCode) {
   return keyStates_[keyCode];
 }
 

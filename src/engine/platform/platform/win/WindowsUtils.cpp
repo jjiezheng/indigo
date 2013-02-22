@@ -10,6 +10,7 @@ bool WindowsUtils::mouseButtons_[1];
 int WindowsUtils::mouseX_ = 0;
 int WindowsUtils::mouseY_ = 0;
 IKeyboardListener* WindowsUtils::keyboardListener_ = 0;
+bool WindowsUtils::isCursorVisible_ = true;
 
 void WindowsUtils::getDesktopResolution(int& horizontal, int& vertical) {
   RECT desktop;
@@ -67,8 +68,6 @@ HWND WindowsUtils::createWindow(int width, int height) {
   mouse.dwFlags = RIDEV_NOLEGACY;
   mouse.hwndTarget = 0;
   RegisterRawInputDevices(&mouse, 1, sizeof(mouse));
-
-  ShowCursor(false);
 
   return hWnd;
 }
@@ -142,4 +141,9 @@ void WindowsUtils::getMousePosition(int* x, int* y) {
 
 bool WindowsUtils::getMouseButton(int buttonId) {
 	return mouseButtons_[buttonId];
+}
+
+void WindowsUtils::SetShowCursor(bool isVisible) {
+	ShowCursor(isVisible);
+	isCursorVisible_ = isVisible;
 }
