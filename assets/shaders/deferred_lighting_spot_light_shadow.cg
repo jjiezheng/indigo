@@ -73,7 +73,7 @@ float4 ps(float4 position 		: POSITION,
 	// spot light
 	//------------------------------------------------------------
 
-	float4 lightContribution = float4(0);
+	float4 lightContribution = float4(0, 0, 0, 1);
 
 	//------------------------------------------------------------
 	// diffuse

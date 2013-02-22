@@ -4,8 +4,9 @@
 float2 flipY(float2 vec) {
 #ifdef GL
   return vec;
-#endif
-  return float2(vec.x,  1.0-vec.y);
+#else
+  return float2(vec.x,  1.0 - vec.y);
+ #endif
 }
 
 float3 expand(float3 vec) {

@@ -126,9 +126,10 @@ void DeferredSpotLightsPass::renderLight(SpotLight* light, IEffect* lightEffect,
 
 	GraphicsInterface::setFrameBuffer(spotLightFrameBuffer_);
 	GraphicsInterface::clearActiveColorBuffers(Color4::CORNFLOWERBLUE);
+
+	lightEffect->beginDraw();
   
 	GraphicsInterface::setRenderState(true);
-	lightEffect->beginDraw();
 
 	Matrix4x4 viewProjection = viewer->projection() * viewer->viewTransform();
 	lightEffect->setUniform(viewer->viewTransform(), "View");

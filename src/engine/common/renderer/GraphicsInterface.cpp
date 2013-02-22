@@ -168,7 +168,7 @@ unsigned int GraphicsInterface::depthBufferTarget() {
 }
 
 unsigned int GraphicsInterface::createDepthTexture(const CSize& dimensions) {
-  return graphicsInterface_->createDepthTexture(dimensions);
+  return graphicsInterface_->createDepthTexture(dimensions, true);
 }
 
 void GraphicsInterface::clearActiveDepthBuffer() {

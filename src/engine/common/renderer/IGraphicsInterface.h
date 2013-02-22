@@ -129,7 +129,7 @@ public:
 
 public:
 
-  virtual unsigned int createDepthTexture(const CSize& dimensions) = 0;
+  virtual unsigned int createDepthTexture(const CSize& dimensions, bool isShadowTexture) = 0;
 
   virtual void clearActiveDepthBuffer(unsigned int textureId) = 0;
 

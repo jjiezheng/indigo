@@ -99,7 +99,7 @@ public:
   
 public:
   
-  unsigned int createDepthTexture(const CSize& dimensions);
+  unsigned int createDepthTexture(const CSize& dimensions, bool isShadowTexture);
   
   void clearActiveDepthBuffer(unsigned int textureId);
 

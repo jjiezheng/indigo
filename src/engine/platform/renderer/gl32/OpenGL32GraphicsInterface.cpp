@@ -62,7 +62,7 @@ void OpenGL32GraphicsInterface::openWindow(int width, int height, unsigned int m
   screenSize_.width = width;
   screenSize_.height = height;
   
-  depthBufferTexture_ = createDepthTexture(screenSize_);
+  depthBufferTexture_ = createDepthTexture(screenSize_, false);
   depthBufferTarget_ = createRenderTarget(depthBufferTexture_);
 
   glfwDisable(GLFW_MOUSE_CURSOR);
@@ -335,6 +335,12 @@ void OpenGL32GraphicsInterface::setFrameBuffer(unsigned int frameBufferId) {
 void OpenGL32GraphicsInterface::resetRenderTarget(bool useDepthBuffer) {
   glBindFramebuffer(GL_FRAMEBUFFER, 0);
   GLUtilities::checkForError();
+
+  if (useDepthBuffer) {
+    glEnable(GL_DEPTH_TEST);
+  } else {
+    glDisable(GL_DEPTH_TEST);
+  }
 }
 
 unsigned int OpenGL32GraphicsInterface::createRenderTarget(unsigned int textureId) {
@@ -347,14 +353,18 @@ void OpenGL32GraphicsInterface::clearRenderTarget(unsigned int renderTargetId, c
   
 }
 
-unsigned int OpenGL32GraphicsInterface::createDepthTexture(const CSize& dimensions) {
+unsigned int OpenGL32GraphicsInterface::createDepthTexture(const CSize& dimensions, bool isShadowTexture) {
   GLuint depthBufferTexture = 0;
   glGenTextures(1, &depthBufferTexture);
   glBindTexture(GL_TEXTURE_2D, depthBufferTexture);
   glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, dimensions.width, dimensions.height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
+  
+  if (isShadowTexture) {
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
+  }
+
   GLUtilities::checkForError();
   return depthBufferTexture;
 }
@@ -385,6 +395,7 @@ void OpenGL32GraphicsInterface::setBlendState(IGraphicsInterface::BlendState ble
     }
     case NOBLEND: {
       glDisable(GL_BLEND);
+      glBlendFunc(GL_ONE, GL_ONE);
       break;
     }
   }
