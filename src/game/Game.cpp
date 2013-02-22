@@ -41,6 +41,7 @@ void Game::init(const char* sceneFile) {
 
   
   Keyboard::setKeydownListener(this);
+  Mouse::hideOSMouse(true);
   
   renderer_.presentRenderTarget(6);
 }

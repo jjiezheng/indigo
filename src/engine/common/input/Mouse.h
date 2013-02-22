@@ -14,6 +14,8 @@ public:
   static Point position();
 
   static bool isLeftButtonDown();
+
+  static void hideOSMouse(bool isHidden);
   
 private:
   

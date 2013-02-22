@@ -17,3 +17,11 @@ bool LinuxMouse::isLeftButtonDown() {
   return glfwGetMouseButton(GLFW_MOUSE_BUTTON_1);
 }
 
+void LinuxMouse::hideOSMouse(bool isHidden) {
+	if (isHidden) {
+		glfwDisable(GLFW_MOUSE_CURSOR);
+	} else {
+		glfwEnable(GLFW_MOUSE_CURSOR);
+	}
+}
+

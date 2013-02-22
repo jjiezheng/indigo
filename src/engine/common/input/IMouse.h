@@ -15,7 +15,9 @@ public:
 
   virtual Point position() = 0;
 
-	virtual bool isLeftButtonDown() = 0;
+  virtual bool isLeftButtonDown() = 0;
+
+  virtual void hideOSMouse(bool isHidden) = 0;
 
 };
 

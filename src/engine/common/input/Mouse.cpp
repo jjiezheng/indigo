@@ -34,3 +34,7 @@ Point Mouse::position() {
 bool Mouse::isLeftButtonDown() {
 	return mouse_->isLeftButtonDown();
 }
+
+void Mouse::hideOSMouse(bool isHidden) {
+	mouse_->hideOSMouse(isHidden);
+}

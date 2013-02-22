@@ -17,3 +17,5 @@ bool WindowsMouse::isLeftButtonDown() {
 	return isDown;
 }
 
+bool WindowsMouse::hideOSMouse(bool isHidden) {
+}

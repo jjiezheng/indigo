@@ -11,7 +11,9 @@ public:
 
   Point position();
 
-	bool isLeftButtonDown();
+  bool isLeftButtonDown();
+
+  void hideOSMouse(bool isHidden);
 
 };
 

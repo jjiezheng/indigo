@@ -13,6 +13,8 @@ public:
 
   bool isLeftButtonDown();
 
+  void hideOSMouse(bool isHidden);
+
 };
 
 #endif

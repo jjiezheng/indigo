@@ -211,7 +211,28 @@ void OpenGLEffect::setTexture(unsigned int textureId, const char* uniformName) {
 }
 
 void OpenGLEffect::setSamplerState(unsigned int samplerSlot, SAMPLER_UV_ADDRESS_MODE addressMode, SAMPLER_COMPARISON_FILTER comparisonFilter, SAMPLER_COMPARISON_FUNC compartisonFunction) {
-  
+
+  glUseProgram(programId_);
+
+  GLuint samplerId = 0;
+
+  for (std::map<GLuint, GLuint>::const_iterator i = samplerBindings_.begin(); i != samplerBindings_.end(); ++i) {
+    if ((*i).second == samplerSlot) {
+      samplerId = (*i).first;
+      break;
+    }
+  }
+
+  GLint glAddressMode = GL_REPEAT;
+
+  if (addressMode == UV_ADDRESS_CLAMP) {
+    glAddressMode = GL_CLAMP_TO_EDGE;
+  }
+
+  //glSamplerParameteri(samplerId, GL_TEXTURE_WRAP_S, glAddressMode);
+  //glSamplerParameteri(samplerId, GL_TEXTURE_WRAP_T, glAddressMode);
+
+  GLUtilities::checkForError();
 }
 
 std::string OpenGLEffect::getInternalUniformName(const std::string uniformName) const {
