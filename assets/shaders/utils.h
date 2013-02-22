@@ -9,15 +9,6 @@ float2 flipY(float2 vec) {
  #endif
 }
 
-float3 expand(float3 vec) {
-	return 2.0f * (vec - 1.0f);
-}
-
-float2 contract(float2 vec) {
-	float2 contracted = vec * 0.5f + 0.5f;
-	return contracted;
-}
-
 float2 ndc2tex(float2 ndc) {
 	float2 tex = ndc * 0.5f + 0.5f;
 	float2 flipped = flipY(tex);

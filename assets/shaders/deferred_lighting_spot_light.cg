@@ -45,7 +45,7 @@ float4 ps(float4 position 		: POSITION,
 	float specularIntensity = 1;//depthSpec.w;
 
 	float2 screenPositionClip = screenPosition.xy / screenPosition.z;// -> w
-	float2 texCoord = contract(screenPositionClip);
+	float2 texCoord = ndc2tex(screenPositionClip);
 
 	//------------------------------------------------------------
 	// depth
