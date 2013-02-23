@@ -63,8 +63,7 @@ void Game::mainLoop() {
 }
 
 void Game::keyUp(int keyCode) {
-	LOG(LOG_CHANNEL_TEMP, "%d\n", keyCode);
-  if (keyCode > 47 && keyCode < 59) {
+	if (keyCode > 47 && keyCode < 59) {
 	  int renderTargetgId = keyCode - 49;// + 5;
 	  renderer_.presentRenderTarget(renderTargetgId);
   }
