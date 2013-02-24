@@ -7,7 +7,7 @@ float3 packNormal(float3 unPackedNormal) {
 
 float3 unpackNormal(sampler2D normalSampler, float2 texCoord) {
 	float4 normalData = tex2D(normalSampler, texCoord);
-	float4 unPackedNormal = (normalData * 2.0f) - 1.0f;
+	float4 unPackedNormal = normalData * 2.0f - 1.0f;
 	return unPackedNormal.xyz;
 }
 

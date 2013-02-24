@@ -78,7 +78,7 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
   }
 }
 
- GraphicsInterface::TextureId DeferredSSAOPass::render(IViewer* viewer, unsigned int inputMap, const SceneContext& sceneContext, const DeferredInitRenderStage& initStage) {
+TextureId DeferredSSAOPass::render(IViewer* viewer, unsigned int inputMap, const SceneContext& sceneContext, const DeferredInitRenderStage& initStage) {
   GraphicsInterface::beginPerformanceEvent("SSAO");
 
   {
@@ -102,7 +102,7 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
 
     ssaoEffect_->setTexture(initStage.normalMap(), "NormalMap");
     ssaoEffect_->setTexture(GraphicsInterface::depthBufferTexture(), "DepthMap");
-    ssaoEffect_->setTexture(GraphicsInterface::depthBufferTexture(), "SSAODepthMap");
+    ssaoEffect_->setTexture(initStage.depthMap(), "LinearDepthMap");
     ssaoEffect_->setTexture(noiseTexture_, "NoiseMap");
 
 		ssaoEffect_->setUniform(GraphicsInterface::halfBackBufferPixel(), "HalfPixel");

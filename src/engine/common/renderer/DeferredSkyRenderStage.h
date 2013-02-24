@@ -42,11 +42,11 @@ public:
 
 private:
 
-  GraphicsInterface::RenderTarget skyRenderTarget_;
-  GraphicsInterface::TextureId skyRenderTexture_;
-  GraphicsInterface::TextureId skyMapTexture_;
+  RenderTarget skyRenderTarget_;
+  TextureId skyRenderTexture_;
+  TextureId skyMapTexture_;
 
-  GraphicsInterface::VertexBuffer quadVBO_;
+  VertexBuffer quadVBO_;
 
   IEffect* compositeEffect_;
 

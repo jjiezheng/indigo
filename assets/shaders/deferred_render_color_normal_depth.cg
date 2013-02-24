@@ -1,12 +1,17 @@
 #include "standard.h"
 
+uniform float4x4 WorldView;
 uniform	float4x4 WorldViewProj;
 
 uniform	float4 DiffuseColor;
 
+float Near;
+float Far;
+
 struct VOutput {
 	float4 position			: POSITION;
-	float3 normal				: TEXCOORD0;
+	float3 normal			: TEXCOORD0;
+	float linearDepth 		: TEXCOORD1;
 };
 
 VOutput vs(	half4 position 		: POSITION,
@@ -14,23 +19,30 @@ VOutput vs(	half4 position 		: POSITION,
 
 	VOutput OUT;
 	OUT.position = mul(WorldViewProj, position);
-	OUT.normal = normal;// mul(NormalMatrix, normal);
 
+	float4 viewPosition = mul(WorldView, position);
+	OUT.linearDepth = (-viewPosition.z - Near) / (Far - Near);
+	
+	OUT.normal = normal;// mul(NormalMatrix, normal);
+	
  	return OUT;
 }
 
 struct POutput {
 	float4 color 	: COLOR0;
 	float4 normal 	: COLOR1;
+	float4 depth 	: COLOR2;
 };
 
 POutput ps(	float4 position			: POSITION,
-		   	float3 normal			: TEXCOORD0) {
+		   	float3 normal			: TEXCOORD0,
+		   	float linearDepth		: TEXCOORD1) {
 
 	POutput OUT;
 	
 	OUT.color = DiffuseColor;
 	OUT.normal = float4(packNormal(normal), 1);
+	OUT.depth = float4(linearDepth, linearDepth, linearDepth, 1);
 	
 	return OUT;
 }

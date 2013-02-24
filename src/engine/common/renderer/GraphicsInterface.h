@@ -16,14 +16,12 @@ class Color4;
 class VertexDef;
 class DDSImage;
 
+typedef unsigned int TextureId;
+typedef unsigned int RenderTarget;
+typedef unsigned int VertexBuffer;
+typedef unsigned int FrameBuffer;
+
 class GraphicsInterface {
-
-public:
-
-  typedef unsigned int TextureId;
-  typedef unsigned int RenderTarget;
-  typedef unsigned int VertexBuffer;
-  typedef unsigned int FrameBuffer;
   
 public:
 

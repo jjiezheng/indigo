@@ -6,28 +6,36 @@
 //version 3.1.0.13
 //profile ps_5_0
 //program ps
+//semantic WorldView
 //semantic WorldViewProj
 //semantic DiffuseColor
+//semantic Near
+//semantic Far
 //var float4 DiffuseColor :  : _DiffuseColor : -1 : 1
 //var float3 normal : $vin.TEXCOORD0 :  : 1 : 1
+//var float linearDepth : $vin.TEXCOORD1 :  : 2 : 1
 //var float4 ps.color : $vout.COLOR0 : COLOR0 : -1 : 1
 //var float4 ps.normal : $vout.COLOR1 : COLOR1 : -1 : 1
+//var float4 ps.depth : $vout.COLOR2 : COLOR2 : -1 : 1
 
 #pragma pack_matrix(row_major)
 
 struct VOutput {
     float4 _position1 : SV_Position;
     float3 _normal2 : TEXCOORD0;
+    float _linearDepth1 : TEXCOORD1;
 };
 
 struct POutput {
     float4 _color : SV_Target0;
     float4 _normal : SV_Target1;
+    float4 _depth : SV_Target2;
 };
 
 struct X1X {
     float4 _POSITION : SV_Position;
     float3 _TEXCOORD0 : TEXCOORD0;
+    float _TEXCOORD1 : TEXCOORD1;
 };
 
 static float3 _TMP0;
@@ -38,11 +46,14 @@ POutput main( in X1X cin)
 {
 
     float3 _normal1;
+    float _linearDepth;
     POutput _OUT;
 
     _normal1 = cin._TEXCOORD0;
+    _linearDepth = cin._TEXCOORD1;
     _OUT._color = _DiffuseColor;
     _TMP0 =   5.00000000000000000E-01f + _normal1*  5.00000000000000000E-01f;
     _OUT._normal = float4(_TMP0.x, _TMP0.y, _TMP0.z,   1.00000000000000000E00f);
+    _OUT._depth = float4(_linearDepth, _linearDepth, _linearDepth,   1.00000000000000000E00f);
     return _OUT;
 } // main end

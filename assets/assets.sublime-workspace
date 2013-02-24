@@ -4,6 +4,46 @@
 		"selected_items":
 		[
 			[
+				"uni",
+				"uniformDataSize"
+			],
+			[
+				"Vc",
+				"Vector4"
+			],
+			[
+				"un",
+				"uniformDataSize"
+			],
+			[
+				"Vec",
+				"Vector4"
+			],
+			[
+				"ler",
+				"lerpedScale"
+			],
+			[
+				"kern",
+				"kernelN"
+			],
+			[
+				"rand",
+				"randomScale"
+			],
+			[
+				"ke",
+				"kernelV"
+			],
+			[
+				"tex",
+				"texCoord"
+			],
+			[
+				"Nois",
+				"NoiseMap"
+			],
+			[
 				"sam",
 				"samplerId"
 			],
@@ -66,10 +106,6 @@
 			[
 				"shadowMa",
 				"shadowMapDepthTexture"
-			],
-			[
-				"un",
-				"uniformName"
 			],
 			[
 				"spotl",
@@ -174,10 +210,6 @@
 			[
 				"pack",
 				"packedDepth"
-			],
-			[
-				"tex",
-				"texCoord"
 			],
 			[
 				"Co",
@@ -340,10 +372,6 @@
 				"sampleDepthView"
 			],
 			[
-				"Nois",
-				"NoiseScale"
-			],
-			[
 				"RAD",
 				"radius"
 			],
@@ -384,18 +412,50 @@
 	"buffers":
 	[
 		{
-			"file": "assets.sublime-project",
+			"file": "shaders/deferred_ssao.cg",
 			"settings":
 			{
-				"buffer_size": 853,
+				"buffer_size": 2504,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "shaders/deferred_ssao.cg",
+			"file": "/home/nk/Development/prototype/src/engine/platform/renderer/gl32/OpenGL32GraphicsInterface.cpp",
 			"settings":
 			{
-				"buffer_size": 2527,
+				"buffer_size": 12389,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/home/nk/Development/prototype/src/engine/common/renderer/DeferredSSAOPass.cpp",
+			"settings":
+			{
+				"buffer_size": 5930,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/home/nk/Development/prototype/src/engine/common/renderer/DeferredSSAOPass.h",
+			"settings":
+			{
+				"buffer_size": 1687,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/home/nk/Development/prototype/src/engine/platform/renderer/gl32/OpenGLEffect.cpp",
+			"settings":
+			{
+				"buffer_size": 8294,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "shaders/deferred_render_color_normal_depth.cg",
+			"settings":
+			{
+				"buffer_size": 802,
 				"line_ending": "Windows"
 			}
 		}
@@ -431,8 +491,14 @@
 	},
 	"file_history":
 	[
-		"/home/nk/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
+		"/home/nk/Development/prototype/assets/shaders/compiled/deferred_ssao.shader.gl32.fragment",
 		"/home/nk/Development/prototype/src/engine/common/renderer/DeferredSSAOPass.cpp",
+		"/home/nk/Development/prototype/src/engine/platform/renderer/gl32/OpenGLEffect.cpp",
+		"/home/nk/Development/prototype/src/engine/common/renderer/GraphicsInterface.cpp",
+		"/home/nk/Development/prototype/src/engine/common/maths/Random.cpp",
+		"/home/nk/Development/prototype/src/engine/platform/renderer/gcm/PS3GCMGraphicsInterface.cpp",
+		"/home/nk/Development/prototype/assets/assets.sublime-project",
+		"/home/nk/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
 		"/home/nk/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
 		"/home/nk/.config/sublime-text-3/Packages/Default/Preferences.sublime-settings",
 		"/home/nk/Development/prototype/assets/scenes/cauldron/cauldron.scene",
@@ -441,7 +507,6 @@
 		"/home/nk/Development/prototype/src/engine/common/renderer/SpotLight.cpp",
 		"/home/nk/Development/prototype/src/engine/common/renderer/DeferredSpotLightsPass.cpp",
 		"/home/nk/Development/prototype/src/engine/platform/renderer/gl32/OpenGLEffect.h",
-		"/home/nk/Development/prototype/src/engine/platform/renderer/gl32/OpenGLEffect.cpp",
 		"/home/nk/Development/prototype/src/engine/platform/renderer/gl32/OpenGL32GraphicsInterface.cpp",
 		"/home/nk/Development/prototype/src/prototype/Game.cpp",
 		"/home/nk/Development/prototype/src/engine/common/input/IMouse.h",
@@ -464,7 +529,6 @@
 		"/home/nk/Development/prototype/src/engine/platform/renderer/gl32/GLUtilities.h",
 		"/home/nk/Development/prototype/src/engine/common/renderer/DeferredShadowPass.cpp",
 		"/home/nk/Development/prototype/src/engine/common/renderer/SpotLight.h",
-		"/home/nk/Development/prototype/src/engine/common/renderer/GraphicsInterface.cpp",
 		"/home/nk/Development/prototype/src/engine/common/renderer/DeferredGeometryPass.cpp",
 		"/home/nk/Development/prototype/src/engine/common/renderer/DeferredFXAAPass.cpp",
 		"/home/nk/Development/prototype/src/engine/common/renderer/AverageBlur.cpp",
@@ -552,13 +616,9 @@
 		"/home/nk/Development/prototype/assets/shaders/deferred_depth.cg",
 		"/home/nk/Development/prototype/assets/shaders/deferred_lighting_spot_light.cg",
 		"/home/nk/Development/prototype/assets/shaders/deferred_light_composition.cg",
-		"/home/nk/Development/prototype/assets/assets.sublime-project",
 		"/home/nk/Development/prototype/scripts/premake_linux",
 		"/usr/share/X11/xorg.conf.d/50-synaptics.conf",
-		"/Users/nk/Development/prototype/assets/shaders/depth.h",
-		"/Users/nk/Development/prototype/scripts/trace_gl",
-		"/Users/nk/Development/prototype/assets/scenes/simple/floor_and_cube.scene",
-		"/Users/nk/Development/prototype/assets/shaders/fxaa_color_luma.cg"
+		"/Users/nk/Development/prototype/assets/shaders/depth.h"
 	],
 	"find":
 	{
@@ -579,6 +639,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"kernelkernel",
+			"kernel",
+			"noiseTexture_",
+			"createtex",
 			"createdep",
 			"gltex",
 			"shadowm",
@@ -704,56 +768,173 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 5,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "assets.sublime-project",
+					"file": "shaders/deferred_ssao.cg",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 853,
+						"buffer_size": 2504,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								401,
-								401
+								2020,
+								2020
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+							"syntax": "Packages/Shader Languages/Cg.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1126.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "shaders/deferred_ssao.cg",
+					"file": "/home/nk/Development/prototype/src/engine/platform/renderer/gl32/OpenGL32GraphicsInterface.cpp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2527,
+						"buffer_size": 12389,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								86,
-								86
+								7887,
+								7887
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C.tmLanguage",
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 6719.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/home/nk/Development/prototype/src/engine/common/renderer/DeferredSSAOPass.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5930,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4209,
+								4209
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1551.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/home/nk/Development/prototype/src/engine/common/renderer/DeferredSSAOPass.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1687,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1473,
+								1473
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 769.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/home/nk/Development/prototype/src/engine/platform/renderer/gl32/OpenGLEffect.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8294,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5805,
+								5805
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2843.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "shaders/deferred_render_color_normal_depth.cg",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 802,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								528,
+								528
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Shader Languages/Cg.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
@@ -812,8 +993,40 @@
 		"selected_items":
 		[
 			[
+				"_color_",
+				"shaders/deferred_render_color_normal_depth.cg"
+			],
+			[
+				"glef",
+				"src/engine/platform/renderer/gl32/OpenGLEffect.cpp"
+			],
+			[
+				"ssao",
+				"src/engine/common/renderer/DeferredSSAOPass.cpp"
+			],
+			[
+				"gl32",
+				"src/engine/platform/renderer/gl32/OpenGL32GraphicsInterface.cpp"
+			],
+			[
+				"ssao.sha",
+				"shaders/compiled/deferred_ssao.shader.gl32.fragment"
+			],
+			[
+				"random",
+				"src/engine/common/maths/Random.cpp"
+			],
+			[
+				"gleff",
+				"src/engine/platform/renderer/gl32/OpenGLEffect.cpp"
+			],
+			[
 				"ssao.c",
 				"shaders/deferred_ssao.cg"
+			],
+			[
+				"ssaop",
+				"src/engine/common/renderer/DeferredSSAOPass.cpp"
 			],
 			[
 				"ssaopa",
@@ -822,10 +1035,6 @@
 			[
 				"game",
 				"src/prototype/Game.cpp"
-			],
-			[
-				"gl32",
-				"src/engine/platform/renderer/gl32/OpenGL32GraphicsInterface.cpp"
 			],
 			[
 				"spotlightp",
@@ -980,10 +1189,6 @@
 				"src/engine/common/renderer/DeferredGeometryPass.cpp"
 			],
 			[
-				"glef",
-				"src/engine/platform/renderer/gl32/OpenGLEffect.cpp"
-			],
-			[
 				"deferred_lighting_spot",
 				"assets/shaders/compiled/deferred_lighting_spot_light_shadow.shader.gl32.fragment"
 			],
@@ -1058,10 +1263,6 @@
 			[
 				"render_color",
 				"assets/shaders/compiled/deferred_render_color_normal_depth.shader.gl32.fragment"
-			],
-			[
-				"gleff",
-				"src/engine/platform/renderer/gl32/OpenGLEffect.cpp"
 			],
 			[
 				"normal_de",
@@ -1302,26 +1503,6 @@
 			[
 				"patfor",
 				"src/engine/common/platform/PlatformDefs.h"
-			],
-			[
-				"string.cp",
-				"src/engine/common/core/String.cpp"
-			],
-			[
-				"opg",
-				"src/engine/platform/renderer/gl32/OpenGLEffect.h"
-			],
-			[
-				"opengl.",
-				"src/engine/platform/renderer/gl32/OpenGL.h"
-			],
-			[
-				"openglgr",
-				"src/engine/platform/renderer/gl32/OpenGL32GraphicsInterface.h"
-			],
-			[
-				"igraphics",
-				"src/engine/common/renderer/IGraphicsInterface.cpp"
 			]
 		],
 		"width": 0.0

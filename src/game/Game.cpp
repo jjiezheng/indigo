@@ -32,7 +32,7 @@ void Game::init(const char* sceneFile) {
 	//camera_.rotateX(toRadians(-90));
   camera_.setIsPlayerControlled(true);
   
-  camera_.setProjection(45.0f, GraphicsInterface::aspectRatio(), 1.0f, 500);
+  camera_.setProjection(45.0f, GraphicsInterface::aspectRatio(), 1.0f, 30.0f);
 
   if (sceneFile) {
 		WorldLoader loader; 

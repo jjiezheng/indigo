@@ -6,12 +6,17 @@
 //version 3.1.0.13
 //profile glslf
 //program ps
+//semantic WorldView
 //semantic WorldViewProj
 //semantic DiffuseColor
+//semantic Near
+//semantic Far
 //var float4 DiffuseColor :  : _DiffuseColor : -1 : 1
 //var float3 normal : $vin.TEXCOORD0 : TEXCOORD0 : 1 : 1
+//var float linearDepth : $vin.TEXCOORD1 : TEXCOORD1 : 2 : 1
 //var float4 ps.color : $vout.COLOR0 : COLOR0 : -1 : 1
 //var float4 ps.normal : $vout.COLOR1 : COLOR1 : -1 : 1
+//var float4 ps.depth : $vout.COLOR2 : COLOR2 : -1 : 1
 
 #version 130
 
@@ -19,17 +24,21 @@
 
 struct VOutput {
     vec3 _normal2;
+    float _linearDepth2;
 };
 
 struct POutput {
     vec4 _color;
     vec4 _normal3;
+    vec4 _depth;
 };
 
 vec3 _TMP0;
 uniform vec4 _DiffuseColor;
+in vec4 cg_TexCoord1;
 in vec4 cg_TexCoord0;
 out vec4 cg_FragColor;
+out vec4 cg_FragData2;
 out vec4 cg_FragData1;
 
  // main procedure, the original name was ps
@@ -40,7 +49,9 @@ void main()
 
     _TMP0 = 5.00000000E-01 + cg_TexCoord0.xyz*5.00000000E-01;
     _OUT._normal3 = vec4(_TMP0.x, _TMP0.y, _TMP0.z, 1.00000000E+00);
+    _OUT._depth = vec4(cg_TexCoord1.x, cg_TexCoord1.x, cg_TexCoord1.x, 1.00000000E+00);
     cg_FragData1 = _OUT._normal3;
+    cg_FragData2 = _OUT._depth;
     cg_FragColor = _DiffuseColor;
     return;
 } // main end

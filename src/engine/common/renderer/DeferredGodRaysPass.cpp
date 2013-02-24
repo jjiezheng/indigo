@@ -20,7 +20,7 @@ void DeferredGodRaysPass::init(const CSize& screenSize) {
   quadVbo_ = Geometry::screenPlane();
 }
 
-unsigned int DeferredGodRaysPass::render(IViewer* viewer, unsigned int inputMap, const SceneContext& sceneContext, const DeferredInitRenderStage& initStage) {
+TextureId DeferredGodRaysPass::render(IViewer* viewer, unsigned int inputMap, const SceneContext& sceneContext, const DeferredInitRenderStage& initStage) {
   GraphicsInterface::beginPerformanceEvent("God Rays");
 
   { // Lighting
@@ -57,7 +57,7 @@ std::string DeferredGodRaysPass::passName() const {
   return "God Rays";
 }
 
-GraphicsInterface::TextureId DeferredGodRaysPass::passMap() const {
+TextureId DeferredGodRaysPass::passMap() const {
   return godRaysTexture_;
 }
 

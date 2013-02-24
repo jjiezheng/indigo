@@ -26,25 +26,25 @@ public:
 
 public:
 
-  GraphicsInterface::TextureId render(IViewer* viewer, unsigned int inputMap, const SceneContext& sceneContext, const DeferredInitRenderStage& initStage);
+  TextureId render(IViewer* viewer, unsigned int inputMap, const SceneContext& sceneContext, const DeferredInitRenderStage& initStage);
 
 public:
 
   std::string passName() const;
 
-  GraphicsInterface::TextureId passMap() const;
+  TextureId passMap() const;
 
   void collectRenderTargets(IDeferredRenderTargetContainer* renderTargetContainer);
 
 private:
 
-  unsigned int quadVbo_;
+  VertexBuffer quadVbo_;
 
-  unsigned int colorLumaTarget_;
-  GraphicsInterface::TextureId colorLumaTexture_;
+  RenderTarget colorLumaTarget_;
+  TextureId colorLumaTexture_;
 
-  unsigned int fxaaRenderTarget_;
-  GraphicsInterface::TextureId fxaaRenderTexture_;
+  RenderTarget fxaaRenderTarget_;
+  TextureId fxaaRenderTexture_;
 
   IEffect* colorLumaEffect_;
   IEffect* fxaaEffect_;
@@ -55,7 +55,7 @@ inline std::string DeferredFXAAPass::passName() const {
   return "FXAA";
 }
 
-inline GraphicsInterface::TextureId DeferredFXAAPass::passMap() const {
+inline TextureId DeferredFXAAPass::passMap() const {
   return fxaaRenderTexture_;
 }
 

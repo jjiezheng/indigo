@@ -11,10 +11,10 @@ uniform float4 Kernel[16];
 uniform float Far;
 uniform float Near;
 
-sampler2D NoiseMap : TEXUNIT0;
-sampler2D NormalMap : TEXUNIT1;
-sampler2D SSAODepthMap : TEXUNIT2;
-sampler2D DepthMap : TEXUNIT3;
+sampler2D NoiseMap 		 : TEXUNIT0;
+sampler2D NormalMap 	 : TEXUNIT1;
+sampler2D LinearDepthMap : TEXUNIT2;
+sampler2D DepthMap 		 : TEXUNIT3;
 
 uniform float4x4 Projection;
 uniform float4x4 ProjInv;
@@ -40,11 +40,16 @@ float4 ps(float4 position 		: POSITION,
 	float3 normalViewSpace = mul(View, float4(normalLocal, 0.0f)).xyz;
 	float3 normal = normalize(normalViewSpace);
 
-	float depth = unpackDepth(DepthMap, texCoord);
+	float linearDepth = tex2D(LinearDepthMap, texCoord).r;
+	float depth = linearDepth;
 
-	float4 positionNDC = tex2NDC(texCoord, depth);
+	//float depth = unpackDepth(DepthMap, texCoord);
+
+	float4 positionNDC = tex2NDC(texCoord, -depth);
 	float4 positionViewRaw = mul(ProjInv, positionNDC);
 	float4 positionView = positionViewRaw / positionViewRaw.w;
+
+	return positionView;
 
 	float2 noiseTexCoords = texCoord * NoiseScale;
 	float3 rvec = tex2D(NoiseMap, noiseTexCoords).rgb;
@@ -68,13 +73,14 @@ float4 ps(float4 position 		: POSITION,
 
 		float2 sampleTexCoord = ndc2tex(sampleScreen.xy);
 
-		float sampleDepth = unpackDepth(SSAODepthMap, sampleTexCoord);
+		float sampleDepth = tex2D(LinearDepthMap, sampleTexCoord).r;
 
-		float occlusionFactor = 1.0f;
+		float occlusionFactor = 0.0f;
 
-		if (sampleDepth * 0.5 + 0.5 < depth * 0.5 + 0.5) {
-			//return float4(1, 0, 0, 1);
-			occlusionFactor = 0.0f;
+		float rangeCheck= abs(positionView.z - sampleDepth) < Radius ? 1.0 : 0.0;
+
+		if (sampleDepth <= linearDepth) {
+			occlusionFactor = 1.0f * rangeCheck;
 		}
 
 		//return float4(sampleDepth, sampleDepth, sampleDepth, 1);

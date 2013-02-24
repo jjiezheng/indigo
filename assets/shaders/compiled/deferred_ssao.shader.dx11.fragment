@@ -14,36 +14,13 @@
 //semantic Near
 //semantic NoiseMap : TEXUNIT0
 //semantic NormalMap : TEXUNIT1
-//semantic SSAODepthMap : TEXUNIT2
+//semantic LinearDepthMap : TEXUNIT2
 //semantic DepthMap : TEXUNIT3
 //semantic Projection
 //semantic ProjInv
 //semantic View
-//var float Radius :  : _Radius : -1 : 1
-//var float2 NoiseScale :  : _NoiseScale : -1 : 1
-//var float4 Kernel[0] :  : _Kernel[0] : -1 : 1
-//var float4 Kernel[1] :  : _Kernel[1] : -1 : 1
-//var float4 Kernel[2] :  : _Kernel[2] : -1 : 1
-//var float4 Kernel[3] :  : _Kernel[3] : -1 : 1
-//var float4 Kernel[4] :  : _Kernel[4] : -1 : 1
-//var float4 Kernel[5] :  : _Kernel[5] : -1 : 1
-//var float4 Kernel[6] :  : _Kernel[6] : -1 : 1
-//var float4 Kernel[7] :  : _Kernel[7] : -1 : 1
-//var float4 Kernel[8] :  : _Kernel[8] : -1 : 1
-//var float4 Kernel[9] :  : _Kernel[9] : -1 : 1
-//var float4 Kernel[10] :  : _Kernel[10] : -1 : 1
-//var float4 Kernel[11] :  : _Kernel[11] : -1 : 1
-//var float4 Kernel[12] :  : _Kernel[12] : -1 : 1
-//var float4 Kernel[13] :  : _Kernel[13] : -1 : 1
-//var float4 Kernel[14] :  : _Kernel[14] : -1 : 1
-//var float4 Kernel[15] :  : _Kernel[15] : -1 : 1
-//var sampler2D NoiseMap : TEXUNIT0 : _NoiseMap 0 : -1 : 1
-//var sampler2D NormalMap : TEXUNIT1 : _NormalMap 1 : -1 : 1
-//var sampler2D SSAODepthMap : TEXUNIT2 : _SSAODepthMap 2 : -1 : 1
-//var sampler2D DepthMap : TEXUNIT3 : _DepthMap 3 : -1 : 1
-//var float4x4 Projection :  : _Projection[0], 4 : -1 : 1
+//var sampler2D LinearDepthMap : TEXUNIT2 : _LinearDepthMap 2 : -1 : 1
 //var float4x4 ProjInv :  : _ProjInv[0], 4 : -1 : 1
-//var float4x4 View :  : _View[0], 4 : -1 : 1
 //var float2 texCoord : $vin.TEXCOORD0 :  : 1 : 1
 //var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
 
@@ -51,7 +28,7 @@
 
 struct VOutput {
     float4 _position1 : SV_Position;
-    float2 _texCoord4 : TEXCOORD0;
+    float2 _texCoord3 : TEXCOORD0;
 };
 
 struct X1X {
@@ -59,389 +36,32 @@ struct X1X {
     float2 _TEXCOORD0 : TEXCOORD0;
 };
 
-static float4 _TMP6;
-static float _TMP3;
-static float _TMP5;
-static float _TMP4;
-static float4 _TMP2;
-static float4 _unPackedNormal0011;
-static float4 _normalData0011;
-static float4 _r0013;
-static float4 _v0013;
-static float4 _positionScreen0019;
-static float4 _r0021;
-static float3 _v0023;
-static float3 _r0027;
-static float4 _r0029;
-static float4 _v0029;
-static float2 _flipped0031;
-static float2 _tex0031;
-Texture2D<float4> _TMP36 : register(t1);
-Texture2D<float4> _TMP37 : register(t3);
-Texture2D<float4> _TMP38 : register(t0);
-Texture2D<float4> _TMP39 : register(t2);
-uniform float _Radius;
-uniform float2 _NoiseScale;
-uniform float4 _Kernel[16];
-SamplerState _NoiseMap : TEXUNIT0;
-SamplerState _NormalMap : TEXUNIT1;
-SamplerState _SSAODepthMap : TEXUNIT2;
-SamplerState _DepthMap : TEXUNIT3;
-uniform float4x4 _Projection;
+static float4 _TMP1;
+static float4 _positionScreen0012;
+static float _depth0012;
+static float4 _r0014;
+Texture2D<float4> _TMP15 : register(t2);
+SamplerState _LinearDepthMap : TEXUNIT2;
 uniform float4x4 _ProjInv;
-uniform float4x4 _View;
 
  // main procedure, the original name was ps
 float4 main( in X1X cin) : SV_Target0
 {
 
-    float2 _texCoord3;
-    float3 _normal;
-    float _depth1;
+    float2 _texCoord2;
     float4 _positionView;
-    float2 _noiseTexCoords;
-    float3 _tangent;
-    float3 _bitangent;
-    float _occlusionContribution;
-    float3 _sample1;
-    float3 _sampleAtViewPosition1;
-    float4 _sampleScreen1;
-    float _occlusionFactor1;
-    float _occlusion;
 
-    _texCoord3 = cin._TEXCOORD0;
-    _normalData0011 = _TMP36.Sample(_NormalMap, _texCoord3);
-    _unPackedNormal0011 = _normalData0011*  2.00000000000000000E00f -   1.00000000000000000E00f;
-    _v0013 = float4(_unPackedNormal0011.x, _unPackedNormal0011.y, _unPackedNormal0011.z,   0.00000000000000000E00f);
-    _r0013.x = dot(_View._11_12_13_14, _v0013);
-    _r0013.y = dot(_View._21_22_23_24, _v0013);
-    _r0013.z = dot(_View._31_32_33_34, _v0013);
-    _TMP4 = dot(_r0013.xyz, _r0013.xyz);
-    _TMP5 = rsqrt(_TMP4);
-    _normal = _TMP5*_r0013.xyz;
-    _TMP6 = _TMP37.Sample(_DepthMap, _texCoord3);
-    _depth1 = _TMP6.x;
-    _positionScreen0019.xy = _texCoord3.xy*  2.00000000000000000E00f -   1.00000000000000000E00f;
-    _positionScreen0019.y =   1.00000000000000000E00f - _positionScreen0019.y;
-    _positionScreen0019.z = _TMP6.x;
-    _positionScreen0019.w =   1.00000000000000000E00f;
-    _r0021.x = dot(_ProjInv._11_12_13_14, _positionScreen0019);
-    _r0021.y = dot(_ProjInv._21_22_23_24, _positionScreen0019);
-    _r0021.z = dot(_ProjInv._31_32_33_34, _positionScreen0019);
-    _r0021.w = dot(_ProjInv._41_42_43_44, _positionScreen0019);
-    _positionView = _r0021/_r0021.w;
-    _noiseTexCoords = _texCoord3*_NoiseScale;
-    _TMP2 = _TMP38.Sample(_NoiseMap, _noiseTexCoords);
-    _TMP3 = dot(_TMP2.xyz, _normal);
-    _v0023 = _TMP2.xyz - _normal*_TMP3;
-    _TMP4 = dot(_v0023, _v0023);
-    _TMP5 = rsqrt(_TMP4);
-    _tangent = _TMP5*_v0023;
-    _bitangent = _tangent.yzx*_normal.zxy - _tangent.zxy*_normal.yzx;
-    _sample1 = _Kernel[0].xyz*_Radius;
-    _r0027 = _sample1.x*_tangent;
-    _r0027 = _r0027 + _sample1.y*_bitangent;
-    _r0027 = _r0027 + _sample1.z*_normal;
-    _sampleAtViewPosition1 = _positionView.xyz + _r0027;
-    _v0029 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,   1.00000000000000000E00f);
-    _r0029.x = dot(_Projection._11_12_13_14, _v0029);
-    _r0029.y = dot(_Projection._21_22_23_24, _v0029);
-    _r0029.z = dot(_Projection._31_32_33_34, _v0029);
-    _r0029.w = dot(_Projection._41_42_43_44, _v0029);
-    _sampleScreen1 = _r0029/_r0029.w;
-    _tex0031 = _sampleScreen1.xy*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
-    _flipped0031 = float2(_tex0031.x,   1.00000000000000000E00f - _tex0031.y);
-    _TMP6 = _TMP39.Sample(_SSAODepthMap, _flipped0031);
-    _occlusionFactor1 =   1.00000000000000000E00f;
-    if (_TMP6.x*  5.00000000000000000E-01f +   5.00000000000000000E-01f < _depth1*  5.00000000000000000E-01f +   5.00000000000000000E-01f) { // if begin
-        _occlusionFactor1 =   0.00000000000000000E00f;
-    } // end if
-    _occlusionContribution = _occlusionFactor1;
-    _sample1 = _Kernel[1].xyz*_Radius;
-    _r0027 = _sample1.x*_tangent;
-    _r0027 = _r0027 + _sample1.y*_bitangent;
-    _r0027 = _r0027 + _sample1.z*_normal;
-    _sampleAtViewPosition1 = _positionView.xyz + _r0027;
-    _v0029 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,   1.00000000000000000E00f);
-    _r0029.x = dot(_Projection._11_12_13_14, _v0029);
-    _r0029.y = dot(_Projection._21_22_23_24, _v0029);
-    _r0029.z = dot(_Projection._31_32_33_34, _v0029);
-    _r0029.w = dot(_Projection._41_42_43_44, _v0029);
-    _sampleScreen1 = _r0029/_r0029.w;
-    _tex0031 = _sampleScreen1.xy*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
-    _flipped0031 = float2(_tex0031.x,   1.00000000000000000E00f - _tex0031.y);
-    _TMP6 = _TMP39.Sample(_SSAODepthMap, _flipped0031);
-    _occlusionFactor1 =   1.00000000000000000E00f;
-    if (_TMP6.x*  5.00000000000000000E-01f +   5.00000000000000000E-01f < _depth1*  5.00000000000000000E-01f +   5.00000000000000000E-01f) { // if begin
-        _occlusionFactor1 =   0.00000000000000000E00f;
-    } // end if
-    _occlusionContribution = _occlusionContribution + _occlusionFactor1;
-    _sample1 = _Kernel[2].xyz*_Radius;
-    _r0027 = _sample1.x*_tangent;
-    _r0027 = _r0027 + _sample1.y*_bitangent;
-    _r0027 = _r0027 + _sample1.z*_normal;
-    _sampleAtViewPosition1 = _positionView.xyz + _r0027;
-    _v0029 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,   1.00000000000000000E00f);
-    _r0029.x = dot(_Projection._11_12_13_14, _v0029);
-    _r0029.y = dot(_Projection._21_22_23_24, _v0029);
-    _r0029.z = dot(_Projection._31_32_33_34, _v0029);
-    _r0029.w = dot(_Projection._41_42_43_44, _v0029);
-    _sampleScreen1 = _r0029/_r0029.w;
-    _tex0031 = _sampleScreen1.xy*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
-    _flipped0031 = float2(_tex0031.x,   1.00000000000000000E00f - _tex0031.y);
-    _TMP6 = _TMP39.Sample(_SSAODepthMap, _flipped0031);
-    _occlusionFactor1 =   1.00000000000000000E00f;
-    if (_TMP6.x*  5.00000000000000000E-01f +   5.00000000000000000E-01f < _depth1*  5.00000000000000000E-01f +   5.00000000000000000E-01f) { // if begin
-        _occlusionFactor1 =   0.00000000000000000E00f;
-    } // end if
-    _occlusionContribution = _occlusionContribution + _occlusionFactor1;
-    _sample1 = _Kernel[3].xyz*_Radius;
-    _r0027 = _sample1.x*_tangent;
-    _r0027 = _r0027 + _sample1.y*_bitangent;
-    _r0027 = _r0027 + _sample1.z*_normal;
-    _sampleAtViewPosition1 = _positionView.xyz + _r0027;
-    _v0029 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,   1.00000000000000000E00f);
-    _r0029.x = dot(_Projection._11_12_13_14, _v0029);
-    _r0029.y = dot(_Projection._21_22_23_24, _v0029);
-    _r0029.z = dot(_Projection._31_32_33_34, _v0029);
-    _r0029.w = dot(_Projection._41_42_43_44, _v0029);
-    _sampleScreen1 = _r0029/_r0029.w;
-    _tex0031 = _sampleScreen1.xy*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
-    _flipped0031 = float2(_tex0031.x,   1.00000000000000000E00f - _tex0031.y);
-    _TMP6 = _TMP39.Sample(_SSAODepthMap, _flipped0031);
-    _occlusionFactor1 =   1.00000000000000000E00f;
-    if (_TMP6.x*  5.00000000000000000E-01f +   5.00000000000000000E-01f < _depth1*  5.00000000000000000E-01f +   5.00000000000000000E-01f) { // if begin
-        _occlusionFactor1 =   0.00000000000000000E00f;
-    } // end if
-    _occlusionContribution = _occlusionContribution + _occlusionFactor1;
-    _sample1 = _Kernel[4].xyz*_Radius;
-    _r0027 = _sample1.x*_tangent;
-    _r0027 = _r0027 + _sample1.y*_bitangent;
-    _r0027 = _r0027 + _sample1.z*_normal;
-    _sampleAtViewPosition1 = _positionView.xyz + _r0027;
-    _v0029 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,   1.00000000000000000E00f);
-    _r0029.x = dot(_Projection._11_12_13_14, _v0029);
-    _r0029.y = dot(_Projection._21_22_23_24, _v0029);
-    _r0029.z = dot(_Projection._31_32_33_34, _v0029);
-    _r0029.w = dot(_Projection._41_42_43_44, _v0029);
-    _sampleScreen1 = _r0029/_r0029.w;
-    _tex0031 = _sampleScreen1.xy*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
-    _flipped0031 = float2(_tex0031.x,   1.00000000000000000E00f - _tex0031.y);
-    _TMP6 = _TMP39.Sample(_SSAODepthMap, _flipped0031);
-    _occlusionFactor1 =   1.00000000000000000E00f;
-    if (_TMP6.x*  5.00000000000000000E-01f +   5.00000000000000000E-01f < _depth1*  5.00000000000000000E-01f +   5.00000000000000000E-01f) { // if begin
-        _occlusionFactor1 =   0.00000000000000000E00f;
-    } // end if
-    _occlusionContribution = _occlusionContribution + _occlusionFactor1;
-    _sample1 = _Kernel[5].xyz*_Radius;
-    _r0027 = _sample1.x*_tangent;
-    _r0027 = _r0027 + _sample1.y*_bitangent;
-    _r0027 = _r0027 + _sample1.z*_normal;
-    _sampleAtViewPosition1 = _positionView.xyz + _r0027;
-    _v0029 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,   1.00000000000000000E00f);
-    _r0029.x = dot(_Projection._11_12_13_14, _v0029);
-    _r0029.y = dot(_Projection._21_22_23_24, _v0029);
-    _r0029.z = dot(_Projection._31_32_33_34, _v0029);
-    _r0029.w = dot(_Projection._41_42_43_44, _v0029);
-    _sampleScreen1 = _r0029/_r0029.w;
-    _tex0031 = _sampleScreen1.xy*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
-    _flipped0031 = float2(_tex0031.x,   1.00000000000000000E00f - _tex0031.y);
-    _TMP6 = _TMP39.Sample(_SSAODepthMap, _flipped0031);
-    _occlusionFactor1 =   1.00000000000000000E00f;
-    if (_TMP6.x*  5.00000000000000000E-01f +   5.00000000000000000E-01f < _depth1*  5.00000000000000000E-01f +   5.00000000000000000E-01f) { // if begin
-        _occlusionFactor1 =   0.00000000000000000E00f;
-    } // end if
-    _occlusionContribution = _occlusionContribution + _occlusionFactor1;
-    _sample1 = _Kernel[6].xyz*_Radius;
-    _r0027 = _sample1.x*_tangent;
-    _r0027 = _r0027 + _sample1.y*_bitangent;
-    _r0027 = _r0027 + _sample1.z*_normal;
-    _sampleAtViewPosition1 = _positionView.xyz + _r0027;
-    _v0029 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,   1.00000000000000000E00f);
-    _r0029.x = dot(_Projection._11_12_13_14, _v0029);
-    _r0029.y = dot(_Projection._21_22_23_24, _v0029);
-    _r0029.z = dot(_Projection._31_32_33_34, _v0029);
-    _r0029.w = dot(_Projection._41_42_43_44, _v0029);
-    _sampleScreen1 = _r0029/_r0029.w;
-    _tex0031 = _sampleScreen1.xy*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
-    _flipped0031 = float2(_tex0031.x,   1.00000000000000000E00f - _tex0031.y);
-    _TMP6 = _TMP39.Sample(_SSAODepthMap, _flipped0031);
-    _occlusionFactor1 =   1.00000000000000000E00f;
-    if (_TMP6.x*  5.00000000000000000E-01f +   5.00000000000000000E-01f < _depth1*  5.00000000000000000E-01f +   5.00000000000000000E-01f) { // if begin
-        _occlusionFactor1 =   0.00000000000000000E00f;
-    } // end if
-    _occlusionContribution = _occlusionContribution + _occlusionFactor1;
-    _sample1 = _Kernel[7].xyz*_Radius;
-    _r0027 = _sample1.x*_tangent;
-    _r0027 = _r0027 + _sample1.y*_bitangent;
-    _r0027 = _r0027 + _sample1.z*_normal;
-    _sampleAtViewPosition1 = _positionView.xyz + _r0027;
-    _v0029 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,   1.00000000000000000E00f);
-    _r0029.x = dot(_Projection._11_12_13_14, _v0029);
-    _r0029.y = dot(_Projection._21_22_23_24, _v0029);
-    _r0029.z = dot(_Projection._31_32_33_34, _v0029);
-    _r0029.w = dot(_Projection._41_42_43_44, _v0029);
-    _sampleScreen1 = _r0029/_r0029.w;
-    _tex0031 = _sampleScreen1.xy*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
-    _flipped0031 = float2(_tex0031.x,   1.00000000000000000E00f - _tex0031.y);
-    _TMP6 = _TMP39.Sample(_SSAODepthMap, _flipped0031);
-    _occlusionFactor1 =   1.00000000000000000E00f;
-    if (_TMP6.x*  5.00000000000000000E-01f +   5.00000000000000000E-01f < _depth1*  5.00000000000000000E-01f +   5.00000000000000000E-01f) { // if begin
-        _occlusionFactor1 =   0.00000000000000000E00f;
-    } // end if
-    _occlusionContribution = _occlusionContribution + _occlusionFactor1;
-    _sample1 = _Kernel[8].xyz*_Radius;
-    _r0027 = _sample1.x*_tangent;
-    _r0027 = _r0027 + _sample1.y*_bitangent;
-    _r0027 = _r0027 + _sample1.z*_normal;
-    _sampleAtViewPosition1 = _positionView.xyz + _r0027;
-    _v0029 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,   1.00000000000000000E00f);
-    _r0029.x = dot(_Projection._11_12_13_14, _v0029);
-    _r0029.y = dot(_Projection._21_22_23_24, _v0029);
-    _r0029.z = dot(_Projection._31_32_33_34, _v0029);
-    _r0029.w = dot(_Projection._41_42_43_44, _v0029);
-    _sampleScreen1 = _r0029/_r0029.w;
-    _tex0031 = _sampleScreen1.xy*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
-    _flipped0031 = float2(_tex0031.x,   1.00000000000000000E00f - _tex0031.y);
-    _TMP6 = _TMP39.Sample(_SSAODepthMap, _flipped0031);
-    _occlusionFactor1 =   1.00000000000000000E00f;
-    if (_TMP6.x*  5.00000000000000000E-01f +   5.00000000000000000E-01f < _depth1*  5.00000000000000000E-01f +   5.00000000000000000E-01f) { // if begin
-        _occlusionFactor1 =   0.00000000000000000E00f;
-    } // end if
-    _occlusionContribution = _occlusionContribution + _occlusionFactor1;
-    _sample1 = _Kernel[9].xyz*_Radius;
-    _r0027 = _sample1.x*_tangent;
-    _r0027 = _r0027 + _sample1.y*_bitangent;
-    _r0027 = _r0027 + _sample1.z*_normal;
-    _sampleAtViewPosition1 = _positionView.xyz + _r0027;
-    _v0029 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,   1.00000000000000000E00f);
-    _r0029.x = dot(_Projection._11_12_13_14, _v0029);
-    _r0029.y = dot(_Projection._21_22_23_24, _v0029);
-    _r0029.z = dot(_Projection._31_32_33_34, _v0029);
-    _r0029.w = dot(_Projection._41_42_43_44, _v0029);
-    _sampleScreen1 = _r0029/_r0029.w;
-    _tex0031 = _sampleScreen1.xy*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
-    _flipped0031 = float2(_tex0031.x,   1.00000000000000000E00f - _tex0031.y);
-    _TMP6 = _TMP39.Sample(_SSAODepthMap, _flipped0031);
-    _occlusionFactor1 =   1.00000000000000000E00f;
-    if (_TMP6.x*  5.00000000000000000E-01f +   5.00000000000000000E-01f < _depth1*  5.00000000000000000E-01f +   5.00000000000000000E-01f) { // if begin
-        _occlusionFactor1 =   0.00000000000000000E00f;
-    } // end if
-    _occlusionContribution = _occlusionContribution + _occlusionFactor1;
-    _sample1 = _Kernel[10].xyz*_Radius;
-    _r0027 = _sample1.x*_tangent;
-    _r0027 = _r0027 + _sample1.y*_bitangent;
-    _r0027 = _r0027 + _sample1.z*_normal;
-    _sampleAtViewPosition1 = _positionView.xyz + _r0027;
-    _v0029 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,   1.00000000000000000E00f);
-    _r0029.x = dot(_Projection._11_12_13_14, _v0029);
-    _r0029.y = dot(_Projection._21_22_23_24, _v0029);
-    _r0029.z = dot(_Projection._31_32_33_34, _v0029);
-    _r0029.w = dot(_Projection._41_42_43_44, _v0029);
-    _sampleScreen1 = _r0029/_r0029.w;
-    _tex0031 = _sampleScreen1.xy*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
-    _flipped0031 = float2(_tex0031.x,   1.00000000000000000E00f - _tex0031.y);
-    _TMP6 = _TMP39.Sample(_SSAODepthMap, _flipped0031);
-    _occlusionFactor1 =   1.00000000000000000E00f;
-    if (_TMP6.x*  5.00000000000000000E-01f +   5.00000000000000000E-01f < _depth1*  5.00000000000000000E-01f +   5.00000000000000000E-01f) { // if begin
-        _occlusionFactor1 =   0.00000000000000000E00f;
-    } // end if
-    _occlusionContribution = _occlusionContribution + _occlusionFactor1;
-    _sample1 = _Kernel[11].xyz*_Radius;
-    _r0027 = _sample1.x*_tangent;
-    _r0027 = _r0027 + _sample1.y*_bitangent;
-    _r0027 = _r0027 + _sample1.z*_normal;
-    _sampleAtViewPosition1 = _positionView.xyz + _r0027;
-    _v0029 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,   1.00000000000000000E00f);
-    _r0029.x = dot(_Projection._11_12_13_14, _v0029);
-    _r0029.y = dot(_Projection._21_22_23_24, _v0029);
-    _r0029.z = dot(_Projection._31_32_33_34, _v0029);
-    _r0029.w = dot(_Projection._41_42_43_44, _v0029);
-    _sampleScreen1 = _r0029/_r0029.w;
-    _tex0031 = _sampleScreen1.xy*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
-    _flipped0031 = float2(_tex0031.x,   1.00000000000000000E00f - _tex0031.y);
-    _TMP6 = _TMP39.Sample(_SSAODepthMap, _flipped0031);
-    _occlusionFactor1 =   1.00000000000000000E00f;
-    if (_TMP6.x*  5.00000000000000000E-01f +   5.00000000000000000E-01f < _depth1*  5.00000000000000000E-01f +   5.00000000000000000E-01f) { // if begin
-        _occlusionFactor1 =   0.00000000000000000E00f;
-    } // end if
-    _occlusionContribution = _occlusionContribution + _occlusionFactor1;
-    _sample1 = _Kernel[12].xyz*_Radius;
-    _r0027 = _sample1.x*_tangent;
-    _r0027 = _r0027 + _sample1.y*_bitangent;
-    _r0027 = _r0027 + _sample1.z*_normal;
-    _sampleAtViewPosition1 = _positionView.xyz + _r0027;
-    _v0029 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,   1.00000000000000000E00f);
-    _r0029.x = dot(_Projection._11_12_13_14, _v0029);
-    _r0029.y = dot(_Projection._21_22_23_24, _v0029);
-    _r0029.z = dot(_Projection._31_32_33_34, _v0029);
-    _r0029.w = dot(_Projection._41_42_43_44, _v0029);
-    _sampleScreen1 = _r0029/_r0029.w;
-    _tex0031 = _sampleScreen1.xy*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
-    _flipped0031 = float2(_tex0031.x,   1.00000000000000000E00f - _tex0031.y);
-    _TMP6 = _TMP39.Sample(_SSAODepthMap, _flipped0031);
-    _occlusionFactor1 =   1.00000000000000000E00f;
-    if (_TMP6.x*  5.00000000000000000E-01f +   5.00000000000000000E-01f < _depth1*  5.00000000000000000E-01f +   5.00000000000000000E-01f) { // if begin
-        _occlusionFactor1 =   0.00000000000000000E00f;
-    } // end if
-    _occlusionContribution = _occlusionContribution + _occlusionFactor1;
-    _sample1 = _Kernel[13].xyz*_Radius;
-    _r0027 = _sample1.x*_tangent;
-    _r0027 = _r0027 + _sample1.y*_bitangent;
-    _r0027 = _r0027 + _sample1.z*_normal;
-    _sampleAtViewPosition1 = _positionView.xyz + _r0027;
-    _v0029 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,   1.00000000000000000E00f);
-    _r0029.x = dot(_Projection._11_12_13_14, _v0029);
-    _r0029.y = dot(_Projection._21_22_23_24, _v0029);
-    _r0029.z = dot(_Projection._31_32_33_34, _v0029);
-    _r0029.w = dot(_Projection._41_42_43_44, _v0029);
-    _sampleScreen1 = _r0029/_r0029.w;
-    _tex0031 = _sampleScreen1.xy*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
-    _flipped0031 = float2(_tex0031.x,   1.00000000000000000E00f - _tex0031.y);
-    _TMP6 = _TMP39.Sample(_SSAODepthMap, _flipped0031);
-    _occlusionFactor1 =   1.00000000000000000E00f;
-    if (_TMP6.x*  5.00000000000000000E-01f +   5.00000000000000000E-01f < _depth1*  5.00000000000000000E-01f +   5.00000000000000000E-01f) { // if begin
-        _occlusionFactor1 =   0.00000000000000000E00f;
-    } // end if
-    _occlusionContribution = _occlusionContribution + _occlusionFactor1;
-    _sample1 = _Kernel[14].xyz*_Radius;
-    _r0027 = _sample1.x*_tangent;
-    _r0027 = _r0027 + _sample1.y*_bitangent;
-    _r0027 = _r0027 + _sample1.z*_normal;
-    _sampleAtViewPosition1 = _positionView.xyz + _r0027;
-    _v0029 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,   1.00000000000000000E00f);
-    _r0029.x = dot(_Projection._11_12_13_14, _v0029);
-    _r0029.y = dot(_Projection._21_22_23_24, _v0029);
-    _r0029.z = dot(_Projection._31_32_33_34, _v0029);
-    _r0029.w = dot(_Projection._41_42_43_44, _v0029);
-    _sampleScreen1 = _r0029/_r0029.w;
-    _tex0031 = _sampleScreen1.xy*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
-    _flipped0031 = float2(_tex0031.x,   1.00000000000000000E00f - _tex0031.y);
-    _TMP6 = _TMP39.Sample(_SSAODepthMap, _flipped0031);
-    _occlusionFactor1 =   1.00000000000000000E00f;
-    if (_TMP6.x*  5.00000000000000000E-01f +   5.00000000000000000E-01f < _depth1*  5.00000000000000000E-01f +   5.00000000000000000E-01f) { // if begin
-        _occlusionFactor1 =   0.00000000000000000E00f;
-    } // end if
-    _occlusionContribution = _occlusionContribution + _occlusionFactor1;
-    _sample1 = _Kernel[15].xyz*_Radius;
-    _r0027 = _sample1.x*_tangent;
-    _r0027 = _r0027 + _sample1.y*_bitangent;
-    _r0027 = _r0027 + _sample1.z*_normal;
-    _sampleAtViewPosition1 = _positionView.xyz + _r0027;
-    _v0029 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,   1.00000000000000000E00f);
-    _r0029.x = dot(_Projection._11_12_13_14, _v0029);
-    _r0029.y = dot(_Projection._21_22_23_24, _v0029);
-    _r0029.z = dot(_Projection._31_32_33_34, _v0029);
-    _r0029.w = dot(_Projection._41_42_43_44, _v0029);
-    _sampleScreen1 = _r0029/_r0029.w;
-    _tex0031 = _sampleScreen1.xy*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
-    _flipped0031 = float2(_tex0031.x,   1.00000000000000000E00f - _tex0031.y);
-    _TMP6 = _TMP39.Sample(_SSAODepthMap, _flipped0031);
-    _occlusionFactor1 =   1.00000000000000000E00f;
-    if (_TMP6.x*  5.00000000000000000E-01f +   5.00000000000000000E-01f < _depth1*  5.00000000000000000E-01f +   5.00000000000000000E-01f) { // if begin
-        _occlusionFactor1 =   0.00000000000000000E00f;
-    } // end if
-    _occlusionContribution = _occlusionContribution + _occlusionFactor1;
-    _occlusion = _occlusionContribution/  1.60000000000000000E01f;
-    return float4(_occlusion, _occlusion, _occlusion,   1.00000000000000000E00f);
+    _texCoord2 = cin._TEXCOORD0;
+    _TMP1 = _TMP15.Sample(_LinearDepthMap, _texCoord2);
+    _depth0012 = -_TMP1.x;
+    _positionScreen0012.xy = _texCoord2.xy*  2.00000000000000000E00f -   1.00000000000000000E00f;
+    _positionScreen0012.y =   1.00000000000000000E00f - _positionScreen0012.y;
+    _positionScreen0012.z = _depth0012;
+    _positionScreen0012.w =   1.00000000000000000E00f;
+    _r0014.x = dot(_ProjInv._11_12_13_14, _positionScreen0012);
+    _r0014.y = dot(_ProjInv._21_22_23_24, _positionScreen0012);
+    _r0014.z = dot(_ProjInv._31_32_33_34, _positionScreen0012);
+    _r0014.w = dot(_ProjInv._41_42_43_44, _positionScreen0012);
+    _positionView = _r0014/_r0014.w;
+    return _positionView;
 } // main end
