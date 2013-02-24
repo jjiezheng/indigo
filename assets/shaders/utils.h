@@ -15,6 +15,20 @@ float2 ndc2tex(float2 ndc) {
 	return flipped;
 }
 
+float4 tex2NDC(float2 texCoord, float depth) {
+	float4 positionScreen;
+	positionScreen.xy = texCoord.xy * 2.0f - 1.0f;
+
+#ifndef GL
+	positionScreen.y = 1.0f - positionScreen.y;
+#endif
+
+	positionScreen.z = depth;
+	positionScreen.w = 1.0f;
+
+	return positionScreen;
+}
+
 float linstep(float min, float max, float v) {
   return clamp((v - min) / (max - min), 0, 1);  
 }  

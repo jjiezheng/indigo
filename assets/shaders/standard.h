@@ -1,4 +1,5 @@
 #include "depth.h"
+#include "utils.h"
 
 float3 packNormal(float3 unPackedNormal) {
 	return 0.5f + unPackedNormal * 0.5f;

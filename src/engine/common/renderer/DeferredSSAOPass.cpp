@@ -38,6 +38,7 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
 
   ssaoRawTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R8G8B8A8);
   ssaoRawRenderTarget_ = GraphicsInterface::createRenderTarget(ssaoRawTexture_);
+  ssaoRawFrameBuffer_ = GraphicsInterface::createFrameBuffer(ssaoRawRenderTarget_, false);
 
   ssaoColorBlurCombinedTexture_ = GraphicsInterface::createTexture(GraphicsInterface::backBufferSize());
   ssaoColorBlurCombinedRenderTarget_ = GraphicsInterface::createRenderTarget(ssaoColorBlurCombinedTexture_);
@@ -83,10 +84,10 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
   {
     GraphicsInterface::beginPerformanceEvent("Depth");
 
-    GraphicsInterface::setRenderTarget(ssaoRawRenderTarget_, false);
+    GraphicsInterface::setFrameBuffer(ssaoRawFrameBuffer_);
     GraphicsInterface::clearActiveColorBuffers(Color4::BLACK);
 
-		 ssaoEffect_->beginDraw();
+		ssaoEffect_->beginDraw();
 
     Matrix4x4 projection = viewer->projection();
     ssaoEffect_->setUniform(projection, "Projection");
@@ -121,28 +122,28 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
     GraphicsInterface::endPerformanceEvent();
   }
 
-  {
-    blur_.render(ssaoRawTexture_);
-  }
+  // {
+  //   blur_.render(ssaoRawTexture_);
+  // }
   
-   {
-     GraphicsInterface::beginPerformanceEvent("Combine");
+  //  {
+  //    GraphicsInterface::beginPerformanceEvent("Combine");
  
-     GraphicsInterface::setRenderTarget(ssaoColorBlurCombinedRenderTarget_, false);
+  //    GraphicsInterface::setRenderTarget(ssaoColorBlurCombinedRenderTarget_, false);
  
-		 combineEffect_->beginDraw();
+		//  combineEffect_->beginDraw();
 
-     combineEffect_->setTexture(inputMap, "ColorMap");
-     combineEffect_->setTexture(ssaoRawTexture_, "SSAOMap");
+  //    combineEffect_->setTexture(inputMap, "ColorMap");
+  //    combineEffect_->setTexture(ssaoRawTexture_, "SSAOMap");
 
-		 combineEffect_->setUniform(GraphicsInterface::halfBackBufferPixel(), "HalfPixel");
+		//  combineEffect_->setUniform(GraphicsInterface::halfBackBufferPixel(), "HalfPixel");
  
-     combineEffect_->commitBuffers();
-     GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);
-     combineEffect_->endDraw();
+  //    combineEffect_->commitBuffers();
+  //    GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);
+  //    combineEffect_->endDraw();
  
-     GraphicsInterface::endPerformanceEvent();
-   }
+  //    GraphicsInterface::endPerformanceEvent();
+  //  }
 
   GraphicsInterface::endPerformanceEvent();
 
@@ -151,6 +152,6 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
 
  void DeferredSSAOPass::collectRenderTargets(IDeferredRenderTargetContainer* renderTargetContainer) {
    renderTargetContainer->addRenderTarget("SSAO Raw", ssaoRawTexture_);
-   renderTargetContainer->addRenderTarget("SSAO Blur", blur_.outputTexture());
-   renderTargetContainer->addRenderTarget("SSAO Final", ssaoColorBlurCombinedTexture_);
+   //renderTargetContainer->addRenderTarget("SSAO Blur", blur_.outputTexture());
+   //renderTargetContainer->addRenderTarget("SSAO Final", ssaoColorBlurCombinedTexture_);
  }

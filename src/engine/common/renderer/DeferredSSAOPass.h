@@ -22,6 +22,7 @@ public:
     , quadVbo_(0)
     , ssaoRawTexture_(0)
     , ssaoRawRenderTarget_(0)
+    , ssaoRawFrameBuffer_(0)
     , noiseTexture_(0)
     , ssaoColorBlurCombinedTexture_(0)
     , ssaoColorBlurCombinedRenderTarget_(0) { }
@@ -51,6 +52,7 @@ private:
 
   GraphicsInterface::TextureId ssaoRawTexture_;
   GraphicsInterface::RenderTarget ssaoRawRenderTarget_;
+  GraphicsInterface::FrameBuffer ssaoRawFrameBuffer_;
   
   GraphicsInterface::TextureId noiseTexture_;
   

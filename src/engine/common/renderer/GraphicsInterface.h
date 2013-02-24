@@ -23,6 +23,7 @@ public:
   typedef unsigned int TextureId;
   typedef unsigned int RenderTarget;
   typedef unsigned int VertexBuffer;
+  typedef unsigned int FrameBuffer;
   
 public:
 
