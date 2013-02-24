@@ -19,8 +19,31 @@
 //semantic Projection
 //semantic ProjInv
 //semantic View
+//var float Radius :  : _Radius : -1 : 1
 //var float2 NoiseScale :  : _NoiseScale : -1 : 1
+//var float4 Kernel[0] :  : _Kernel[0] : -1 : 1
+//var float4 Kernel[1] :  : _Kernel[1] : -1 : 1
+//var float4 Kernel[2] :  : _Kernel[2] : -1 : 1
+//var float4 Kernel[3] :  : _Kernel[3] : -1 : 1
+//var float4 Kernel[4] :  : _Kernel[4] : -1 : 1
+//var float4 Kernel[5] :  : _Kernel[5] : -1 : 1
+//var float4 Kernel[6] :  : _Kernel[6] : -1 : 1
+//var float4 Kernel[7] :  : _Kernel[7] : -1 : 1
+//var float4 Kernel[8] :  : _Kernel[8] : -1 : 1
+//var float4 Kernel[9] :  : _Kernel[9] : -1 : 1
+//var float4 Kernel[10] :  : _Kernel[10] : -1 : 1
+//var float4 Kernel[11] :  : _Kernel[11] : -1 : 1
+//var float4 Kernel[12] :  : _Kernel[12] : -1 : 1
+//var float4 Kernel[13] :  : _Kernel[13] : -1 : 1
+//var float4 Kernel[14] :  : _Kernel[14] : -1 : 1
+//var float4 Kernel[15] :  : _Kernel[15] : -1 : 1
 //var sampler2D NoiseMap : TEXUNIT0 : _NoiseMap 0 : -1 : 1
+//var sampler2D NormalMap : TEXUNIT1 : _NormalMap 1 : -1 : 1
+//var sampler2D SSAODepthMap : TEXUNIT2 : _SSAODepthMap 2 : -1 : 1
+//var sampler2D DepthMap : TEXUNIT3 : _DepthMap 3 : -1 : 1
+//var float4x4 Projection :  : _Projection[0], 4 : -1 : 1
+//var float4x4 ProjInv :  : _ProjInv[0], 4 : -1 : 1
+//var float4x4 View :  : _View[0], 4 : -1 : 1
 //var float2 texCoord : $vin.TEXCOORD0 : TEX0 : 1 : 1
 //var float4 ps : $vout.COLOR0 : COL : -1 : 1
 
@@ -31,19 +54,384 @@ struct VOutput {
 };
 
 vec4 _ret_0;
-vec4 _TMP1;
+vec4 _TMP6;
+float _TMP3;
+float _TMP5;
+float _TMP4;
+vec4 _TMP2;
+vec4 _normalData0024;
+vec4 _unPackedNormal0024;
+vec4 _r0028;
+vec4 _v0028;
+vec4 _positionScreen0048;
+vec4 _r0050;
+vec3 _v0064;
+vec3 _r0072;
+vec4 _r0074;
+vec4 _v0074;
+vec2 _tex0084;
+uniform float _Radius;
 uniform vec2 _NoiseScale;
+uniform vec4 _Kernel[16];
 uniform sampler2D _NoiseMap;
+uniform sampler2D _NormalMap;
+uniform sampler2D _SSAODepthMap;
+uniform sampler2D _DepthMap;
+uniform vec4 _Projection[4];
+uniform vec4 _ProjInv[4];
+uniform vec4 _View[4];
 
  // main procedure, the original name was ps
 void main()
 {
 
+    vec3 _normal;
+    float _depth1;
+    vec4 _positionView;
     vec2 _noiseTexCoords;
+    vec3 _tangent;
+    vec3 _bitangent;
+    float _occlusionContribution;
+    vec3 _sample1;
+    vec3 _sampleAtViewPosition1;
+    vec4 _sampleScreen1;
+    float _sampleDepth1;
+    float _occlusionFactor1;
+    float _occlusion;
 
+    _normalData0024 = texture2D(_NormalMap, gl_TexCoord[0].xy);
+    _unPackedNormal0024 = _normalData0024*2.00000000E+00 - 1.00000000E+00;
+    _v0028 = vec4(_unPackedNormal0024.x, _unPackedNormal0024.y, _unPackedNormal0024.z, 0.00000000E+00);
+    _r0028.x = dot(_View[0], _v0028);
+    _r0028.y = dot(_View[1], _v0028);
+    _r0028.z = dot(_View[2], _v0028);
+    _TMP4 = dot(_r0028.xyz, _r0028.xyz);
+    _TMP5 = inversesqrt(_TMP4);
+    _normal = _TMP5*_r0028.xyz;
+    _TMP6 = texture2D(_DepthMap, gl_TexCoord[0].xy);
+    _depth1 = _TMP6.x*2.00000000E+00 - 1.00000000E+00;
+    _positionScreen0048.xy = gl_TexCoord[0].xy*2.00000000E+00 - 1.00000000E+00;
+    _positionScreen0048.z = _depth1;
+    _positionScreen0048.w = 1.00000000E+00;
+    _r0050.x = dot(_ProjInv[0], _positionScreen0048);
+    _r0050.y = dot(_ProjInv[1], _positionScreen0048);
+    _r0050.z = dot(_ProjInv[2], _positionScreen0048);
+    _r0050.w = dot(_ProjInv[3], _positionScreen0048);
+    _positionView = _r0050/_r0050.w;
     _noiseTexCoords = gl_TexCoord[0].xy*_NoiseScale;
-    _TMP1 = texture2D(_NoiseMap, _noiseTexCoords);
-    _ret_0 = vec4(_TMP1.x, _TMP1.y, _TMP1.z, 1.00000000E+00);
+    _TMP2 = texture2D(_NoiseMap, _noiseTexCoords);
+    _TMP3 = dot(_TMP2.xyz, _normal);
+    _v0064 = _TMP2.xyz - _normal*_TMP3;
+    _TMP4 = dot(_v0064, _v0064);
+    _TMP5 = inversesqrt(_TMP4);
+    _tangent = _TMP5*_v0064;
+    _bitangent = _tangent.yzx*_normal.zxy - _tangent.zxy*_normal.yzx;
+    _sample1 = _Kernel[0].xyz*_Radius;
+    _r0072 = _sample1.x*_tangent;
+    _r0072 = _r0072 + _sample1.y*_bitangent;
+    _r0072 = _r0072 + _sample1.z*_normal;
+    _sampleAtViewPosition1 = _positionView.xyz + _r0072;
+    _v0074 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+00);
+    _r0074.x = dot(_Projection[0], _v0074);
+    _r0074.y = dot(_Projection[1], _v0074);
+    _r0074.z = dot(_Projection[2], _v0074);
+    _r0074.w = dot(_Projection[3], _v0074);
+    _sampleScreen1 = _r0074/_r0074.w;
+    _tex0084 = _sampleScreen1.xy*5.00000000E-01 + 5.00000000E-01;
+    _TMP6 = texture2D(_SSAODepthMap, _tex0084);
+    _sampleDepth1 = _TMP6.x*2.00000000E+00 - 1.00000000E+00;
+    _occlusionFactor1 = 1.00000000E+00;
+    if (_sampleDepth1*5.00000000E-01 + 5.00000000E-01 < _depth1*5.00000000E-01 + 5.00000000E-01) { // if begin
+        _occlusionFactor1 = 0.00000000E+00;
+    } // end if
+    _occlusionContribution = _occlusionFactor1;
+    _sample1 = _Kernel[1].xyz*_Radius;
+    _r0072 = _sample1.x*_tangent;
+    _r0072 = _r0072 + _sample1.y*_bitangent;
+    _r0072 = _r0072 + _sample1.z*_normal;
+    _sampleAtViewPosition1 = _positionView.xyz + _r0072;
+    _v0074 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+00);
+    _r0074.x = dot(_Projection[0], _v0074);
+    _r0074.y = dot(_Projection[1], _v0074);
+    _r0074.z = dot(_Projection[2], _v0074);
+    _r0074.w = dot(_Projection[3], _v0074);
+    _sampleScreen1 = _r0074/_r0074.w;
+    _tex0084 = _sampleScreen1.xy*5.00000000E-01 + 5.00000000E-01;
+    _TMP6 = texture2D(_SSAODepthMap, _tex0084);
+    _sampleDepth1 = _TMP6.x*2.00000000E+00 - 1.00000000E+00;
+    _occlusionFactor1 = 1.00000000E+00;
+    if (_sampleDepth1*5.00000000E-01 + 5.00000000E-01 < _depth1*5.00000000E-01 + 5.00000000E-01) { // if begin
+        _occlusionFactor1 = 0.00000000E+00;
+    } // end if
+    _occlusionContribution = _occlusionContribution + _occlusionFactor1;
+    _sample1 = _Kernel[2].xyz*_Radius;
+    _r0072 = _sample1.x*_tangent;
+    _r0072 = _r0072 + _sample1.y*_bitangent;
+    _r0072 = _r0072 + _sample1.z*_normal;
+    _sampleAtViewPosition1 = _positionView.xyz + _r0072;
+    _v0074 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+00);
+    _r0074.x = dot(_Projection[0], _v0074);
+    _r0074.y = dot(_Projection[1], _v0074);
+    _r0074.z = dot(_Projection[2], _v0074);
+    _r0074.w = dot(_Projection[3], _v0074);
+    _sampleScreen1 = _r0074/_r0074.w;
+    _tex0084 = _sampleScreen1.xy*5.00000000E-01 + 5.00000000E-01;
+    _TMP6 = texture2D(_SSAODepthMap, _tex0084);
+    _sampleDepth1 = _TMP6.x*2.00000000E+00 - 1.00000000E+00;
+    _occlusionFactor1 = 1.00000000E+00;
+    if (_sampleDepth1*5.00000000E-01 + 5.00000000E-01 < _depth1*5.00000000E-01 + 5.00000000E-01) { // if begin
+        _occlusionFactor1 = 0.00000000E+00;
+    } // end if
+    _occlusionContribution = _occlusionContribution + _occlusionFactor1;
+    _sample1 = _Kernel[3].xyz*_Radius;
+    _r0072 = _sample1.x*_tangent;
+    _r0072 = _r0072 + _sample1.y*_bitangent;
+    _r0072 = _r0072 + _sample1.z*_normal;
+    _sampleAtViewPosition1 = _positionView.xyz + _r0072;
+    _v0074 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+00);
+    _r0074.x = dot(_Projection[0], _v0074);
+    _r0074.y = dot(_Projection[1], _v0074);
+    _r0074.z = dot(_Projection[2], _v0074);
+    _r0074.w = dot(_Projection[3], _v0074);
+    _sampleScreen1 = _r0074/_r0074.w;
+    _tex0084 = _sampleScreen1.xy*5.00000000E-01 + 5.00000000E-01;
+    _TMP6 = texture2D(_SSAODepthMap, _tex0084);
+    _sampleDepth1 = _TMP6.x*2.00000000E+00 - 1.00000000E+00;
+    _occlusionFactor1 = 1.00000000E+00;
+    if (_sampleDepth1*5.00000000E-01 + 5.00000000E-01 < _depth1*5.00000000E-01 + 5.00000000E-01) { // if begin
+        _occlusionFactor1 = 0.00000000E+00;
+    } // end if
+    _occlusionContribution = _occlusionContribution + _occlusionFactor1;
+    _sample1 = _Kernel[4].xyz*_Radius;
+    _r0072 = _sample1.x*_tangent;
+    _r0072 = _r0072 + _sample1.y*_bitangent;
+    _r0072 = _r0072 + _sample1.z*_normal;
+    _sampleAtViewPosition1 = _positionView.xyz + _r0072;
+    _v0074 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+00);
+    _r0074.x = dot(_Projection[0], _v0074);
+    _r0074.y = dot(_Projection[1], _v0074);
+    _r0074.z = dot(_Projection[2], _v0074);
+    _r0074.w = dot(_Projection[3], _v0074);
+    _sampleScreen1 = _r0074/_r0074.w;
+    _tex0084 = _sampleScreen1.xy*5.00000000E-01 + 5.00000000E-01;
+    _TMP6 = texture2D(_SSAODepthMap, _tex0084);
+    _sampleDepth1 = _TMP6.x*2.00000000E+00 - 1.00000000E+00;
+    _occlusionFactor1 = 1.00000000E+00;
+    if (_sampleDepth1*5.00000000E-01 + 5.00000000E-01 < _depth1*5.00000000E-01 + 5.00000000E-01) { // if begin
+        _occlusionFactor1 = 0.00000000E+00;
+    } // end if
+    _occlusionContribution = _occlusionContribution + _occlusionFactor1;
+    _sample1 = _Kernel[5].xyz*_Radius;
+    _r0072 = _sample1.x*_tangent;
+    _r0072 = _r0072 + _sample1.y*_bitangent;
+    _r0072 = _r0072 + _sample1.z*_normal;
+    _sampleAtViewPosition1 = _positionView.xyz + _r0072;
+    _v0074 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+00);
+    _r0074.x = dot(_Projection[0], _v0074);
+    _r0074.y = dot(_Projection[1], _v0074);
+    _r0074.z = dot(_Projection[2], _v0074);
+    _r0074.w = dot(_Projection[3], _v0074);
+    _sampleScreen1 = _r0074/_r0074.w;
+    _tex0084 = _sampleScreen1.xy*5.00000000E-01 + 5.00000000E-01;
+    _TMP6 = texture2D(_SSAODepthMap, _tex0084);
+    _sampleDepth1 = _TMP6.x*2.00000000E+00 - 1.00000000E+00;
+    _occlusionFactor1 = 1.00000000E+00;
+    if (_sampleDepth1*5.00000000E-01 + 5.00000000E-01 < _depth1*5.00000000E-01 + 5.00000000E-01) { // if begin
+        _occlusionFactor1 = 0.00000000E+00;
+    } // end if
+    _occlusionContribution = _occlusionContribution + _occlusionFactor1;
+    _sample1 = _Kernel[6].xyz*_Radius;
+    _r0072 = _sample1.x*_tangent;
+    _r0072 = _r0072 + _sample1.y*_bitangent;
+    _r0072 = _r0072 + _sample1.z*_normal;
+    _sampleAtViewPosition1 = _positionView.xyz + _r0072;
+    _v0074 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+00);
+    _r0074.x = dot(_Projection[0], _v0074);
+    _r0074.y = dot(_Projection[1], _v0074);
+    _r0074.z = dot(_Projection[2], _v0074);
+    _r0074.w = dot(_Projection[3], _v0074);
+    _sampleScreen1 = _r0074/_r0074.w;
+    _tex0084 = _sampleScreen1.xy*5.00000000E-01 + 5.00000000E-01;
+    _TMP6 = texture2D(_SSAODepthMap, _tex0084);
+    _sampleDepth1 = _TMP6.x*2.00000000E+00 - 1.00000000E+00;
+    _occlusionFactor1 = 1.00000000E+00;
+    if (_sampleDepth1*5.00000000E-01 + 5.00000000E-01 < _depth1*5.00000000E-01 + 5.00000000E-01) { // if begin
+        _occlusionFactor1 = 0.00000000E+00;
+    } // end if
+    _occlusionContribution = _occlusionContribution + _occlusionFactor1;
+    _sample1 = _Kernel[7].xyz*_Radius;
+    _r0072 = _sample1.x*_tangent;
+    _r0072 = _r0072 + _sample1.y*_bitangent;
+    _r0072 = _r0072 + _sample1.z*_normal;
+    _sampleAtViewPosition1 = _positionView.xyz + _r0072;
+    _v0074 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+00);
+    _r0074.x = dot(_Projection[0], _v0074);
+    _r0074.y = dot(_Projection[1], _v0074);
+    _r0074.z = dot(_Projection[2], _v0074);
+    _r0074.w = dot(_Projection[3], _v0074);
+    _sampleScreen1 = _r0074/_r0074.w;
+    _tex0084 = _sampleScreen1.xy*5.00000000E-01 + 5.00000000E-01;
+    _TMP6 = texture2D(_SSAODepthMap, _tex0084);
+    _sampleDepth1 = _TMP6.x*2.00000000E+00 - 1.00000000E+00;
+    _occlusionFactor1 = 1.00000000E+00;
+    if (_sampleDepth1*5.00000000E-01 + 5.00000000E-01 < _depth1*5.00000000E-01 + 5.00000000E-01) { // if begin
+        _occlusionFactor1 = 0.00000000E+00;
+    } // end if
+    _occlusionContribution = _occlusionContribution + _occlusionFactor1;
+    _sample1 = _Kernel[8].xyz*_Radius;
+    _r0072 = _sample1.x*_tangent;
+    _r0072 = _r0072 + _sample1.y*_bitangent;
+    _r0072 = _r0072 + _sample1.z*_normal;
+    _sampleAtViewPosition1 = _positionView.xyz + _r0072;
+    _v0074 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+00);
+    _r0074.x = dot(_Projection[0], _v0074);
+    _r0074.y = dot(_Projection[1], _v0074);
+    _r0074.z = dot(_Projection[2], _v0074);
+    _r0074.w = dot(_Projection[3], _v0074);
+    _sampleScreen1 = _r0074/_r0074.w;
+    _tex0084 = _sampleScreen1.xy*5.00000000E-01 + 5.00000000E-01;
+    _TMP6 = texture2D(_SSAODepthMap, _tex0084);
+    _sampleDepth1 = _TMP6.x*2.00000000E+00 - 1.00000000E+00;
+    _occlusionFactor1 = 1.00000000E+00;
+    if (_sampleDepth1*5.00000000E-01 + 5.00000000E-01 < _depth1*5.00000000E-01 + 5.00000000E-01) { // if begin
+        _occlusionFactor1 = 0.00000000E+00;
+    } // end if
+    _occlusionContribution = _occlusionContribution + _occlusionFactor1;
+    _sample1 = _Kernel[9].xyz*_Radius;
+    _r0072 = _sample1.x*_tangent;
+    _r0072 = _r0072 + _sample1.y*_bitangent;
+    _r0072 = _r0072 + _sample1.z*_normal;
+    _sampleAtViewPosition1 = _positionView.xyz + _r0072;
+    _v0074 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+00);
+    _r0074.x = dot(_Projection[0], _v0074);
+    _r0074.y = dot(_Projection[1], _v0074);
+    _r0074.z = dot(_Projection[2], _v0074);
+    _r0074.w = dot(_Projection[3], _v0074);
+    _sampleScreen1 = _r0074/_r0074.w;
+    _tex0084 = _sampleScreen1.xy*5.00000000E-01 + 5.00000000E-01;
+    _TMP6 = texture2D(_SSAODepthMap, _tex0084);
+    _sampleDepth1 = _TMP6.x*2.00000000E+00 - 1.00000000E+00;
+    _occlusionFactor1 = 1.00000000E+00;
+    if (_sampleDepth1*5.00000000E-01 + 5.00000000E-01 < _depth1*5.00000000E-01 + 5.00000000E-01) { // if begin
+        _occlusionFactor1 = 0.00000000E+00;
+    } // end if
+    _occlusionContribution = _occlusionContribution + _occlusionFactor1;
+    _sample1 = _Kernel[10].xyz*_Radius;
+    _r0072 = _sample1.x*_tangent;
+    _r0072 = _r0072 + _sample1.y*_bitangent;
+    _r0072 = _r0072 + _sample1.z*_normal;
+    _sampleAtViewPosition1 = _positionView.xyz + _r0072;
+    _v0074 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+00);
+    _r0074.x = dot(_Projection[0], _v0074);
+    _r0074.y = dot(_Projection[1], _v0074);
+    _r0074.z = dot(_Projection[2], _v0074);
+    _r0074.w = dot(_Projection[3], _v0074);
+    _sampleScreen1 = _r0074/_r0074.w;
+    _tex0084 = _sampleScreen1.xy*5.00000000E-01 + 5.00000000E-01;
+    _TMP6 = texture2D(_SSAODepthMap, _tex0084);
+    _sampleDepth1 = _TMP6.x*2.00000000E+00 - 1.00000000E+00;
+    _occlusionFactor1 = 1.00000000E+00;
+    if (_sampleDepth1*5.00000000E-01 + 5.00000000E-01 < _depth1*5.00000000E-01 + 5.00000000E-01) { // if begin
+        _occlusionFactor1 = 0.00000000E+00;
+    } // end if
+    _occlusionContribution = _occlusionContribution + _occlusionFactor1;
+    _sample1 = _Kernel[11].xyz*_Radius;
+    _r0072 = _sample1.x*_tangent;
+    _r0072 = _r0072 + _sample1.y*_bitangent;
+    _r0072 = _r0072 + _sample1.z*_normal;
+    _sampleAtViewPosition1 = _positionView.xyz + _r0072;
+    _v0074 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+00);
+    _r0074.x = dot(_Projection[0], _v0074);
+    _r0074.y = dot(_Projection[1], _v0074);
+    _r0074.z = dot(_Projection[2], _v0074);
+    _r0074.w = dot(_Projection[3], _v0074);
+    _sampleScreen1 = _r0074/_r0074.w;
+    _tex0084 = _sampleScreen1.xy*5.00000000E-01 + 5.00000000E-01;
+    _TMP6 = texture2D(_SSAODepthMap, _tex0084);
+    _sampleDepth1 = _TMP6.x*2.00000000E+00 - 1.00000000E+00;
+    _occlusionFactor1 = 1.00000000E+00;
+    if (_sampleDepth1*5.00000000E-01 + 5.00000000E-01 < _depth1*5.00000000E-01 + 5.00000000E-01) { // if begin
+        _occlusionFactor1 = 0.00000000E+00;
+    } // end if
+    _occlusionContribution = _occlusionContribution + _occlusionFactor1;
+    _sample1 = _Kernel[12].xyz*_Radius;
+    _r0072 = _sample1.x*_tangent;
+    _r0072 = _r0072 + _sample1.y*_bitangent;
+    _r0072 = _r0072 + _sample1.z*_normal;
+    _sampleAtViewPosition1 = _positionView.xyz + _r0072;
+    _v0074 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+00);
+    _r0074.x = dot(_Projection[0], _v0074);
+    _r0074.y = dot(_Projection[1], _v0074);
+    _r0074.z = dot(_Projection[2], _v0074);
+    _r0074.w = dot(_Projection[3], _v0074);
+    _sampleScreen1 = _r0074/_r0074.w;
+    _tex0084 = _sampleScreen1.xy*5.00000000E-01 + 5.00000000E-01;
+    _TMP6 = texture2D(_SSAODepthMap, _tex0084);
+    _sampleDepth1 = _TMP6.x*2.00000000E+00 - 1.00000000E+00;
+    _occlusionFactor1 = 1.00000000E+00;
+    if (_sampleDepth1*5.00000000E-01 + 5.00000000E-01 < _depth1*5.00000000E-01 + 5.00000000E-01) { // if begin
+        _occlusionFactor1 = 0.00000000E+00;
+    } // end if
+    _occlusionContribution = _occlusionContribution + _occlusionFactor1;
+    _sample1 = _Kernel[13].xyz*_Radius;
+    _r0072 = _sample1.x*_tangent;
+    _r0072 = _r0072 + _sample1.y*_bitangent;
+    _r0072 = _r0072 + _sample1.z*_normal;
+    _sampleAtViewPosition1 = _positionView.xyz + _r0072;
+    _v0074 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+00);
+    _r0074.x = dot(_Projection[0], _v0074);
+    _r0074.y = dot(_Projection[1], _v0074);
+    _r0074.z = dot(_Projection[2], _v0074);
+    _r0074.w = dot(_Projection[3], _v0074);
+    _sampleScreen1 = _r0074/_r0074.w;
+    _tex0084 = _sampleScreen1.xy*5.00000000E-01 + 5.00000000E-01;
+    _TMP6 = texture2D(_SSAODepthMap, _tex0084);
+    _sampleDepth1 = _TMP6.x*2.00000000E+00 - 1.00000000E+00;
+    _occlusionFactor1 = 1.00000000E+00;
+    if (_sampleDepth1*5.00000000E-01 + 5.00000000E-01 < _depth1*5.00000000E-01 + 5.00000000E-01) { // if begin
+        _occlusionFactor1 = 0.00000000E+00;
+    } // end if
+    _occlusionContribution = _occlusionContribution + _occlusionFactor1;
+    _sample1 = _Kernel[14].xyz*_Radius;
+    _r0072 = _sample1.x*_tangent;
+    _r0072 = _r0072 + _sample1.y*_bitangent;
+    _r0072 = _r0072 + _sample1.z*_normal;
+    _sampleAtViewPosition1 = _positionView.xyz + _r0072;
+    _v0074 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+00);
+    _r0074.x = dot(_Projection[0], _v0074);
+    _r0074.y = dot(_Projection[1], _v0074);
+    _r0074.z = dot(_Projection[2], _v0074);
+    _r0074.w = dot(_Projection[3], _v0074);
+    _sampleScreen1 = _r0074/_r0074.w;
+    _tex0084 = _sampleScreen1.xy*5.00000000E-01 + 5.00000000E-01;
+    _TMP6 = texture2D(_SSAODepthMap, _tex0084);
+    _sampleDepth1 = _TMP6.x*2.00000000E+00 - 1.00000000E+00;
+    _occlusionFactor1 = 1.00000000E+00;
+    if (_sampleDepth1*5.00000000E-01 + 5.00000000E-01 < _depth1*5.00000000E-01 + 5.00000000E-01) { // if begin
+        _occlusionFactor1 = 0.00000000E+00;
+    } // end if
+    _occlusionContribution = _occlusionContribution + _occlusionFactor1;
+    _sample1 = _Kernel[15].xyz*_Radius;
+    _r0072 = _sample1.x*_tangent;
+    _r0072 = _r0072 + _sample1.y*_bitangent;
+    _r0072 = _r0072 + _sample1.z*_normal;
+    _sampleAtViewPosition1 = _positionView.xyz + _r0072;
+    _v0074 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+00);
+    _r0074.x = dot(_Projection[0], _v0074);
+    _r0074.y = dot(_Projection[1], _v0074);
+    _r0074.z = dot(_Projection[2], _v0074);
+    _r0074.w = dot(_Projection[3], _v0074);
+    _sampleScreen1 = _r0074/_r0074.w;
+    _tex0084 = _sampleScreen1.xy*5.00000000E-01 + 5.00000000E-01;
+    _TMP6 = texture2D(_SSAODepthMap, _tex0084);
+    _sampleDepth1 = _TMP6.x*2.00000000E+00 - 1.00000000E+00;
+    _occlusionFactor1 = 1.00000000E+00;
+    if (_sampleDepth1*5.00000000E-01 + 5.00000000E-01 < _depth1*5.00000000E-01 + 5.00000000E-01) { // if begin
+        _occlusionFactor1 = 0.00000000E+00;
+    } // end if
+    _occlusionContribution = _occlusionContribution + _occlusionFactor1;
+    _occlusion = _occlusionContribution/1.60000000E+01;
+    _ret_0 = vec4(_occlusion, _occlusion, _occlusion, 1.00000000E+00);
     gl_FragColor = _ret_0;
     return;
 } // main end

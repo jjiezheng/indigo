@@ -68,13 +68,13 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
 
     Vector4 kernelV(x, y, z, 0.0f);
 //    Vector4 kernelN = kernelV.normalize();
-    kernel[i] = kernelV;
 
-    kernel[i] = kernel[i] * Random::random(0.0f, 1.0f);
+    float randomScale = Random::random(0.0f, 1.0f);
+    Vector4 kernelN = kernelV * randomScale;
 
     float scale = float(i) / float(kKernelSize);
-    scale = lerp(0.1f, 1.0f, scale * scale);
-    kernel[i] = kernel[i] * scale;
+    float lerpedScale = lerp(0.1f, 1.0f, scale * scale);
+    kernel[i] = kernelN * lerpedScale;
   }
 }
 
@@ -109,7 +109,7 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
 
     ssaoEffect_->setUniform(0.1f, "Radius");
 
-    ssaoEffect_->setUniform(kernel, kKernelSize * sizeof(float) * 4, "Kernel");
+    ssaoEffect_->setUniform(kernel, kKernelSize, "Kernel");
     ssaoEffect_->setUniform(kKernelSize, "KernelSize");
 
     Vector2 noiseScale = Vector2(GraphicsInterface::backBufferWidth() / float(kNoisePixelWidth), GraphicsInterface::backBufferHeight() / float(kNoisePixelWidth));
