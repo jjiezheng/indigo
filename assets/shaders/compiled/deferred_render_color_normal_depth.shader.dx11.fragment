@@ -44,8 +44,6 @@ struct X1X {
     float3 _TEXCOORD2 : TEXCOORD2;
 };
 
-static float3 _TMP1;
-static float3 _TMP0;
 uniform float4 _DiffuseColor;
 
  // main procedure, the original name was ps
@@ -61,10 +59,8 @@ POutput main( in X1X cin)
     _linearDepth = cin._TEXCOORD1;
     _viewNormal1 = cin._TEXCOORD2;
     _OUT._color = _DiffuseColor;
-    _TMP0 = _normal1*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
-    _OUT._normal = float4(_TMP0.x, _TMP0.y, _TMP0.z,   1.00000000000000000E00f);
+    _OUT._normal = float4(_normal1.x, _normal1.y, _normal1.z,   1.00000000000000000E00f);
     _OUT._depth = float4(_linearDepth, _linearDepth, _linearDepth,   1.00000000000000000E00f);
-    _TMP1 = _viewNormal1*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
-    _OUT._viewNormal = float4(_TMP1.x, _TMP1.y, _TMP1.z,   1.00000000000000000E00f);
+    _OUT._viewNormal = float4(_viewNormal1.x, _viewNormal1.y, _viewNormal1.z,   1.00000000000000000E00f);
     return _OUT;
 } // main end

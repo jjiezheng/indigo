@@ -14,7 +14,7 @@
 //semantic Far
 //var float4x4 WorldView :  : _WorldView[0], 4 : -1 : 1
 //var float4x4 WorldViewProj :  : _WorldViewProj[0], 4 : -1 : 1
-//var float3x3 NormalMatrix :  : _NormalMatrix[0], 3 : -1 : 1
+//var float4x4 NormalMatrix :  : _NormalMatrix[0], 4 : -1 : 1
 //var float Near :  : _Near : -1 : 1
 //var float Far :  : _Far : -1 : 1
 //var float4 position : $vin.POSITION : ATTR0 : 0 : 1
@@ -42,15 +42,15 @@ struct POutput {
 
 vec3 _normal1;
 vec4 _position1;
-vec4 _r0007;
-vec4 _v0007;
-vec4 _r0017;
-vec4 _v0017;
-vec3 _r0027;
-vec3 _v0027;
+vec4 _r0009;
+vec4 _v0009;
+vec4 _r0019;
+vec4 _v0019;
+vec4 _r0029;
+vec4 _v0029;
 uniform vec4 _WorldView[4];
 uniform vec4 _WorldViewProj[4];
-uniform vec3 _NormalMatrix[3];
+uniform vec4 _NormalMatrix[4];
 uniform float _Near;
 uniform float _Far;
 
@@ -62,22 +62,22 @@ void main()
 
     _normal1 = vec3(float(gl_Normal.x), float(gl_Normal.y), float(gl_Normal.z));
     _position1 = vec4(float(gl_Vertex.x), float(gl_Vertex.y), float(gl_Vertex.z), float(gl_Vertex.w));
-    _v0007 = vec4(float(_position1.x), float(_position1.y), float(_position1.z), float(_position1.w));
-    _r0007.x = dot(_WorldViewProj[0], _v0007);
-    _r0007.y = dot(_WorldViewProj[1], _v0007);
-    _r0007.z = dot(_WorldViewProj[2], _v0007);
-    _r0007.w = dot(_WorldViewProj[3], _v0007);
-    _v0017 = vec4(float(_position1.x), float(_position1.y), float(_position1.z), float(_position1.w));
-    _r0017.z = dot(_WorldView[2], _v0017);
-    _OUT._linearDepth = (-_r0017.z - _Near)/(_Far - _Near);
+    _v0009 = vec4(float(_position1.x), float(_position1.y), float(_position1.z), float(_position1.w));
+    _r0009.x = dot(_WorldViewProj[0], _v0009);
+    _r0009.y = dot(_WorldViewProj[1], _v0009);
+    _r0009.z = dot(_WorldViewProj[2], _v0009);
+    _r0009.w = dot(_WorldViewProj[3], _v0009);
+    _v0019 = vec4(float(_position1.x), float(_position1.y), float(_position1.z), float(_position1.w));
+    _r0019.z = dot(_WorldView[2], _v0019);
+    _OUT._linearDepth = (-_r0019.z - _Near)/(_Far - _Near);
     _OUT._normal2 = vec3(float(_normal1.x), float(_normal1.y), float(_normal1.z));
-    _v0027 = vec3(float(_normal1.x), float(_normal1.y), float(_normal1.z));
-    _r0027.x = dot(_NormalMatrix[0], _v0027);
-    _r0027.y = dot(_NormalMatrix[1], _v0027);
-    _r0027.z = dot(_NormalMatrix[2], _v0027);
-    gl_TexCoord[2].xyz = _r0027;
+    _v0029 = vec4(float(_normal1.x), float(_normal1.y), float(_normal1.z), 1.00000000E+00);
+    _r0029.x = dot(_NormalMatrix[0], _v0029);
+    _r0029.y = dot(_NormalMatrix[1], _v0029);
+    _r0029.z = dot(_NormalMatrix[2], _v0029);
+    gl_TexCoord[2].xyz = _r0029.xyz;
     gl_TexCoord[0].xyz = _OUT._normal2;
     gl_TexCoord[1].x = _OUT._linearDepth;
-    gl_Position = _r0007;
+    gl_Position = _r0009;
     return;
 } // main end

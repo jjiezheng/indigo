@@ -127,8 +127,10 @@ public:
 
   static void clearActiveDepthBuffer();
 
-  static unsigned int createDepthTexture(const CSize& dimensions);
 
+  static unsigned int createDepthTexture(const CSize& dimensions, bool isShadowTexture);
+
+  static unsigned int createDepthTexture(const CSize& dimensions);
 
 public:
 

@@ -2,7 +2,7 @@
 
 uniform float4x4 WorldView;
 uniform	float4x4 WorldViewProj;
-uniform float3x3 NormalMatrix;
+uniform float4x4 NormalMatrix;
 
 uniform	float4 DiffuseColor;
 
@@ -26,7 +26,7 @@ VOutput vs(	half4 position 		: POSITION,
 	OUT.linearDepth = (-viewPosition.z - Near) / (Far - Near);
 	
 	OUT.normal = normal;// mul(NormalMatrix, normal);
-	OUT.viewNormal = mul(NormalMatrix, normal);
+	OUT.viewNormal = mul(NormalMatrix, float4(normal, 1)).xyz;
 	
  	return OUT;
 }
@@ -46,9 +46,9 @@ POutput ps(	float4 position			: POSITION,
 	POutput OUT;
 	
 	OUT.color = DiffuseColor;
-	OUT.normal = float4(packNormal(normal), 1);
+	OUT.normal = float4(normal, 1);// float4(packNormal(normal), 1);
 	OUT.depth = float4(linearDepth, linearDepth, linearDepth, 1);
-	OUT.viewNormal = float4(packNormal(viewNormal), 1);
+	OUT.viewNormal = float4(viewNormal, 1);// float4(packNormal(viewNormal), 1);
 
 	
 	return OUT;

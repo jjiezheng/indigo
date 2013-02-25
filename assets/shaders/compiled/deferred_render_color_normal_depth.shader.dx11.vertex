@@ -14,7 +14,7 @@
 //semantic Far
 //var float4x4 WorldView :  : _WorldView[0], 4 : -1 : 1
 //var float4x4 WorldViewProj :  : _WorldViewProj[0], 4 : -1 : 1
-//var float3x3 NormalMatrix :  : _NormalMatrix[0], 3 : -1 : 1
+//var float4x4 NormalMatrix :  : _NormalMatrix[0], 4 : -1 : 1
 //var float Near :  : _Near : -1 : 1
 //var float Far :  : _Far : -1 : 1
 //var float4 position : $vin.POSITION : POSITION : 0 : 1
@@ -47,16 +47,16 @@ struct X1X {
     float3 _TEXCOORD2 : TEXCOORD2;
 };
 
-static float4 _r0001;
-static float4 _v0001;
 static float4 _r0003;
 static float4 _v0003;
-static float3 _r0005;
-static float3 _v0005;
+static float4 _r0005;
+static float4 _v0005;
+static float4 _r0007;
+static float4 _v0007;
 static X1X cout;
 uniform float4x4 _WorldView;
 uniform float4x4 _WorldViewProj;
-uniform float3x3 _NormalMatrix;
+uniform float4x4 _NormalMatrix;
 float _Near;
 float _Far;
 
@@ -66,21 +66,21 @@ X1X main(in float4 _position : POSITION, in float3 _normal : NORMAL0)
 
     VOutput _OUT;
 
-    _v0001 = (float4) _position;
-    _r0001.x = dot(_WorldViewProj._11_12_13_14, _v0001);
-    _r0001.y = dot(_WorldViewProj._21_22_23_24, _v0001);
-    _r0001.z = dot(_WorldViewProj._31_32_33_34, _v0001);
-    _r0001.w = dot(_WorldViewProj._41_42_43_44, _v0001);
-    _OUT._position1 = _r0001;
     _v0003 = (float4) _position;
-    _r0003.z = dot(_WorldView._31_32_33_34, _v0003);
-    _OUT._linearDepth = (-_r0003.z - _Near)/(_Far - _Near);
+    _r0003.x = dot(_WorldViewProj._11_12_13_14, _v0003);
+    _r0003.y = dot(_WorldViewProj._21_22_23_24, _v0003);
+    _r0003.z = dot(_WorldViewProj._31_32_33_34, _v0003);
+    _r0003.w = dot(_WorldViewProj._41_42_43_44, _v0003);
+    _OUT._position1 = _r0003;
+    _v0005 = (float4) _position;
+    _r0005.z = dot(_WorldView._31_32_33_34, _v0005);
+    _OUT._linearDepth = (-_r0005.z - _Near)/(_Far - _Near);
     _OUT._normal1 = (float3) _normal;
-    _v0005 = (float3) _normal;
-    _r0005.x = dot(_NormalMatrix._11_12_13, _v0005);
-    _r0005.y = dot(_NormalMatrix._21_22_23, _v0005);
-    _r0005.z = dot(_NormalMatrix._31_32_33, _v0005);
-    _OUT._viewNormal = _r0005;
+    _v0007 = float4((float) _normal.x, (float) _normal.y, (float) _normal.z,   1.00000000000000000E00f);
+    _r0007.x = dot(_NormalMatrix._11_12_13_14, _v0007);
+    _r0007.y = dot(_NormalMatrix._21_22_23_24, _v0007);
+    _r0007.z = dot(_NormalMatrix._31_32_33_34, _v0007);
+    _OUT._viewNormal = _r0007.xyz;
     cout._POSITION = _OUT._position1;
     cout._TEXCOORD0 = _OUT._normal1;
     cout._TEXCOORD1 = _OUT._linearDepth;
