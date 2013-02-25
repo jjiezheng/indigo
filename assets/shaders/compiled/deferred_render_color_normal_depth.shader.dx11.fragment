@@ -17,9 +17,9 @@
 //var float linearDepth : $vin.TEXCOORD1 :  : 2 : 1
 //var float3 viewNormal : $vin.TEXCOORD2 :  : 3 : 1
 //var float4 ps.color : $vout.COLOR0 : COLOR0 : -1 : 1
-//var float4 ps.normal : $vout.COLOR1 : COLOR1 : -1 : 1
+//var float3 ps.normal : $vout.COLOR1 : COLOR1 : -1 : 1
 //var float4 ps.depth : $vout.COLOR2 : COLOR2 : -1 : 1
-//var float4 ps.viewNormal : $vout.COLOR3 : COLOR3 : -1 : 1
+//var float3 ps.viewNormal : $vout.COLOR3 : COLOR3 : -1 : 1
 
 #pragma pack_matrix(row_major)
 
@@ -32,9 +32,9 @@ struct VOutput {
 
 struct POutput {
     float4 _color : SV_Target0;
-    float4 _normal : SV_Target1;
+    float3 _normal : SV_Target1;
     float4 _depth : SV_Target2;
-    float4 _viewNormal : SV_Target3;
+    float3 _viewNormal : SV_Target3;
 };
 
 struct X1X {
@@ -59,8 +59,8 @@ POutput main( in X1X cin)
     _linearDepth = cin._TEXCOORD1;
     _viewNormal1 = cin._TEXCOORD2;
     _OUT._color = _DiffuseColor;
-    _OUT._normal = float4(_normal1.x, _normal1.y, _normal1.z,  1.00000000000000000E000f);
     _OUT._depth = float4(_linearDepth, _linearDepth, _linearDepth,  1.00000000000000000E000f);
-    _OUT._viewNormal = float4(_viewNormal1.x, _viewNormal1.y, _viewNormal1.z,  1.00000000000000000E000f);
+    _OUT._normal = _normal1* 5.00000000000000000E-001f +  5.00000000000000000E-001f;
+    _OUT._viewNormal = _viewNormal1* 5.00000000000000000E-001f +  5.00000000000000000E-001f;
     return _OUT;
 } // main end

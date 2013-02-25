@@ -9,7 +9,7 @@
     [
         {
             "name": "CG",
-            "cmd": ["bash", "$project_path/shaders/compile", "-s", "$file"],
+            "cmd": ["C:\\cygwin\\bin\\bash", "$project_path/compile", "-s", "$file"],
             "selector": "source.cg"
         }
     ]

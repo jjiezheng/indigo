@@ -12,10 +12,9 @@
 //semantic Kernel
 //semantic Far
 //semantic Near
-//semantic NoiseMap : TEXUNIT0
-//semantic NormalViewSpaceMap : TEXUNIT1
-//semantic LinearDepthMap : TEXUNIT2
-//semantic DepthMap : TEXUNIT3
+//semantic NormalViewSpaceMap : TEXUNIT0
+//semantic DepthMap : TEXUNIT1
+//semantic NoiseMap : TEXUNIT2
 //semantic Projection
 //semantic ProjInv
 //semantic ModelView

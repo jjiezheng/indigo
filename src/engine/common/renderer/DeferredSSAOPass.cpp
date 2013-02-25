@@ -28,15 +28,16 @@ static const int kNoisePixelWidth = 4;
 
 void DeferredSSAOPass::init(const CSize& screenSize) {
   ssaoEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_ssao.shader");
-  // ssaoEffect_->setSamplerState(0, UV_ADDRESS_WRAP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
-  // ssaoEffect_->setSamplerState(1, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
-  // ssaoEffect_->setSamplerState(2, UV_ADDRESS_CLAMP, FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT, COMPARISON_LESS_SHADOW);
-  // ssaoEffect_->setSamplerState(3, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
+	
+	ssaoEffect_->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
+	//ssaoEffect_->setSamplerState(1, UV_ADDRESS_CLAMP, FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT, COMPARISON_LESS_SHADOW);
+	ssaoEffect_->setSamplerState(2, UV_ADDRESS_WRAP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
+	//ssaoEffect_->setSamplerState(3, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
 
   combineEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_ssao_combine.shader");
   quadVbo_ = Geometry::screenPlane();
 
-  ssaoRawTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R8G8B8A8);
+  ssaoRawTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R32G32B32A32);
   ssaoRawRenderTarget_ = GraphicsInterface::createRenderTarget(ssaoRawTexture_);
   ssaoRawFrameBuffer_ = GraphicsInterface::createFrameBuffer(ssaoRawRenderTarget_, false);
 
@@ -100,7 +101,6 @@ TextureId DeferredSSAOPass::render(IViewer* viewer, unsigned int inputMap, const
 
     ssaoEffect_->setTexture(initStage.normalViewSpaceMap(), "NormalViewSpaceMap");
     ssaoEffect_->setTexture(GraphicsInterface::depthBufferTexture(), "DepthMap");
-    ssaoEffect_->setTexture(initStage.depthMap(), "LinearDepthMap");
     ssaoEffect_->setTexture(noiseTexture_, "NoiseMap");
 
 		ssaoEffect_->setUniform(GraphicsInterface::halfBackBufferPixel(), "HalfPixel");
