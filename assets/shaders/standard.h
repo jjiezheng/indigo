@@ -2,7 +2,7 @@
 #include "utils.h"
 
 float3 packNormal(float3 unPackedNormal) {
-	return 0.5f + unPackedNormal * 0.5f;
+	return unPackedNormal * 0.5f + 0.5f;
 }
 
 float3 unpackNormal(sampler2D normalSampler, float2 texCoord) {

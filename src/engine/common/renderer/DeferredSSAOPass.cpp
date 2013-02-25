@@ -100,7 +100,7 @@ TextureId DeferredSSAOPass::render(IViewer* viewer, unsigned int inputMap, const
     ssaoEffect_->setUniform(viewer->nearDistance(), "Near");
     ssaoEffect_->setUniform(viewer->farDistance(), "Far");
 
-    ssaoEffect_->setTexture(initStage.normalMap(), "NormalMap");
+    ssaoEffect_->setTexture(initStage.normalViewSpaceMap(), "NormalViewSpaceMap");
     ssaoEffect_->setTexture(GraphicsInterface::depthBufferTexture(), "DepthMap");
     ssaoEffect_->setTexture(initStage.depthMap(), "LinearDepthMap");
     ssaoEffect_->setTexture(noiseTexture_, "NoiseMap");

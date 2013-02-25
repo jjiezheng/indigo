@@ -18,6 +18,8 @@ public:
     , colorRenderTarget_(0)
     , normalMapTexture_(0)
     , normalRenderTarget_(0)
+    , normalViewSpaceMapTexture_(0)
+    , normalViewSpaceRenderTarget_(0)
     , depthMapTexture_(0)
     , depthRenderTarget_(0) { }
 
@@ -41,6 +43,8 @@ public:
 
   TextureId normalMap() const;
 
+  TextureId normalViewSpaceMap() const;
+
   TextureId depthMap() const;
 
 private:
@@ -50,6 +54,9 @@ private:
 
   TextureId normalMapTexture_;
   RenderTarget normalRenderTarget_;
+
+  TextureId normalViewSpaceMapTexture_;
+  RenderTarget normalViewSpaceRenderTarget_;
 
   TextureId depthMapTexture_;
   RenderTarget depthRenderTarget_;
@@ -64,6 +71,10 @@ inline TextureId DeferredInitRenderStage::colorMap() const {
 
 inline TextureId DeferredInitRenderStage::normalMap() const {
   return normalMapTexture_;
+}
+
+inline TextureId DeferredInitRenderStage::normalViewSpaceMap() const {
+  return normalViewSpaceMapTexture_;
 }
 
 inline TextureId DeferredInitRenderStage::depthMap() const {

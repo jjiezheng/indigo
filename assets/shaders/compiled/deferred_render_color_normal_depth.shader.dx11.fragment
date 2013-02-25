@@ -8,15 +8,18 @@
 //program ps
 //semantic WorldView
 //semantic WorldViewProj
+//semantic NormalMatrix
 //semantic DiffuseColor
 //semantic Near
 //semantic Far
 //var float4 DiffuseColor :  : _DiffuseColor : -1 : 1
 //var float3 normal : $vin.TEXCOORD0 :  : 1 : 1
 //var float linearDepth : $vin.TEXCOORD1 :  : 2 : 1
+//var float3 viewNormal : $vin.TEXCOORD2 :  : 3 : 1
 //var float4 ps.color : $vout.COLOR0 : COLOR0 : -1 : 1
 //var float4 ps.normal : $vout.COLOR1 : COLOR1 : -1 : 1
 //var float4 ps.depth : $vout.COLOR2 : COLOR2 : -1 : 1
+//var float4 ps.viewNormal : $vout.COLOR3 : COLOR3 : -1 : 1
 
 #pragma pack_matrix(row_major)
 
@@ -24,20 +27,24 @@ struct VOutput {
     float4 _position1 : SV_Position;
     float3 _normal2 : TEXCOORD0;
     float _linearDepth1 : TEXCOORD1;
+    float3 _viewNormal2 : TEXCOORD2;
 };
 
 struct POutput {
     float4 _color : SV_Target0;
     float4 _normal : SV_Target1;
     float4 _depth : SV_Target2;
+    float4 _viewNormal : SV_Target3;
 };
 
 struct X1X {
     float4 _POSITION : SV_Position;
     float3 _TEXCOORD0 : TEXCOORD0;
     float _TEXCOORD1 : TEXCOORD1;
+    float3 _TEXCOORD2 : TEXCOORD2;
 };
 
+static float3 _TMP1;
 static float3 _TMP0;
 uniform float4 _DiffuseColor;
 
@@ -47,13 +54,17 @@ POutput main( in X1X cin)
 
     float3 _normal1;
     float _linearDepth;
+    float3 _viewNormal1;
     POutput _OUT;
 
     _normal1 = cin._TEXCOORD0;
     _linearDepth = cin._TEXCOORD1;
+    _viewNormal1 = cin._TEXCOORD2;
     _OUT._color = _DiffuseColor;
-    _TMP0 =   5.00000000000000000E-01f + _normal1*  5.00000000000000000E-01f;
+    _TMP0 = _normal1*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
     _OUT._normal = float4(_TMP0.x, _TMP0.y, _TMP0.z,   1.00000000000000000E00f);
     _OUT._depth = float4(_linearDepth, _linearDepth, _linearDepth,   1.00000000000000000E00f);
+    _TMP1 = _viewNormal1*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
+    _OUT._viewNormal = float4(_TMP1.x, _TMP1.y, _TMP1.z,   1.00000000000000000E00f);
     return _OUT;
 } // main end

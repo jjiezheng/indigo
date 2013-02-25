@@ -12,9 +12,10 @@ public:
 
 public:
 
-  DeferredGeometryPass(RenderTarget colorRenderTarget, RenderTarget normalRenderTarget, RenderTarget depthRenderTarget)
+  DeferredGeometryPass(RenderTarget colorRenderTarget, RenderTarget normalRenderTarget, RenderTarget normalViewSpaceRenderTarget, RenderTarget depthRenderTarget)
     : colorRenderTarget_(colorRenderTarget)
     , normalRenderTarget_(normalRenderTarget)
+    , normalViewSpaceRenderTarget_(normalViewSpaceRenderTarget)
     , depthRenderTarget_(depthRenderTarget)
     , gBufferFrameBuffer_(0) { }
 
@@ -28,6 +29,7 @@ private:
 
   RenderTarget colorRenderTarget_;
   RenderTarget normalRenderTarget_;
+  RenderTarget normalViewSpaceRenderTarget_;
   RenderTarget depthRenderTarget_;
 
   FrameBuffer gBufferFrameBuffer_;

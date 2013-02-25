@@ -48,7 +48,7 @@ void main()
     _TMP0 = texture2D(_ColorMap, _c0006);
     _OUT._color = vec4(float(_TMP0.x), float(_TMP0.y), float(_TMP0.z), float(_TMP0.w));
     _unPackedNormal0008 = vec3(float(_normal1.x), float(_normal1.y), float(_normal1.z));
-    _TMP1 = 5.00000000E-01 + _unPackedNormal0008*5.00000000E-01;
+    _TMP1 = _unPackedNormal0008*5.00000000E-01 + 5.00000000E-01;
     _OUT._normal3 = vec4(float(_TMP1.x), float(_TMP1.y), float(_TMP1.z), 0.00000000E+00);
     gl_FragData[1] = vec4(float(_OUT._normal3.x), float(_OUT._normal3.y), float(_OUT._normal3.z), float(_OUT._normal3.w));
     gl_FragData[0] = vec4(float(_OUT._color.x), float(_OUT._color.y), float(_OUT._color.z), float(_OUT._color.w));

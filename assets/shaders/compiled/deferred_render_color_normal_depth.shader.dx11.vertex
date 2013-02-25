@@ -8,11 +8,13 @@
 //program vs
 //semantic WorldView
 //semantic WorldViewProj
+//semantic NormalMatrix
 //semantic DiffuseColor
 //semantic Near
 //semantic Far
 //var float4x4 WorldView :  : _WorldView[0], 4 : -1 : 1
 //var float4x4 WorldViewProj :  : _WorldViewProj[0], 4 : -1 : 1
+//var float3x3 NormalMatrix :  : _NormalMatrix[0], 3 : -1 : 1
 //var float Near :  : _Near : -1 : 1
 //var float Far :  : _Far : -1 : 1
 //var float4 position : $vin.POSITION : POSITION : 0 : 1
@@ -20,6 +22,7 @@
 //var float4 vs.position : $vout.POSITION :  : -1 : 1
 //var float3 vs.normal : $vout.TEXCOORD0 :  : -1 : 1
 //var float vs.linearDepth : $vout.TEXCOORD1 :  : -1 : 1
+//var float3 vs.viewNormal : $vout.TEXCOORD2 :  : -1 : 1
 
 #pragma pack_matrix(row_major)
 
@@ -27,27 +30,33 @@ struct VOutput {
     float4 _position1 : POSITION;
     float3 _normal1 : TEXCOORD0;
     float _linearDepth : TEXCOORD1;
+    float3 _viewNormal : TEXCOORD2;
 };
 
 struct POutput {
     float4 _color : COLOR0;
     float4 _normal2 : COLOR1;
     float4 _depth : COLOR2;
+    float4 _viewNormal1 : COLOR3;
 };
 
 struct X1X {
     float4 _POSITION : SV_Position;
     float3 _TEXCOORD0 : TEXCOORD0;
     float _TEXCOORD1 : TEXCOORD1;
+    float3 _TEXCOORD2 : TEXCOORD2;
 };
 
 static float4 _r0001;
 static float4 _v0001;
 static float4 _r0003;
 static float4 _v0003;
+static float3 _r0005;
+static float3 _v0005;
 static X1X cout;
 uniform float4x4 _WorldView;
 uniform float4x4 _WorldViewProj;
+uniform float3x3 _NormalMatrix;
 float _Near;
 float _Far;
 
@@ -67,8 +76,14 @@ X1X main(in float4 _position : POSITION, in float3 _normal : NORMAL0)
     _r0003.z = dot(_WorldView._31_32_33_34, _v0003);
     _OUT._linearDepth = (-_r0003.z - _Near)/(_Far - _Near);
     _OUT._normal1 = (float3) _normal;
+    _v0005 = (float3) _normal;
+    _r0005.x = dot(_NormalMatrix._11_12_13, _v0005);
+    _r0005.y = dot(_NormalMatrix._21_22_23, _v0005);
+    _r0005.z = dot(_NormalMatrix._31_32_33, _v0005);
+    _OUT._viewNormal = _r0005;
     cout._POSITION = _OUT._position1;
     cout._TEXCOORD0 = _OUT._normal1;
     cout._TEXCOORD1 = _OUT._linearDepth;
+    cout._TEXCOORD2 = _OUT._viewNormal;
     return cout;
 } // main end

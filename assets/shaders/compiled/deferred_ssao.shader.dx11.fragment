@@ -13,13 +13,35 @@
 //semantic Far
 //semantic Near
 //semantic NoiseMap : TEXUNIT0
-//semantic NormalMap : TEXUNIT1
+//semantic NormalViewSpaceMap : TEXUNIT1
 //semantic LinearDepthMap : TEXUNIT2
 //semantic DepthMap : TEXUNIT3
 //semantic Projection
 //semantic ProjInv
+//semantic ModelView
 //semantic View
-//var sampler2D LinearDepthMap : TEXUNIT2 : _LinearDepthMap 2 : -1 : 1
+//var float Radius :  : _Radius : -1 : 1
+//var float2 NoiseScale :  : _NoiseScale : -1 : 1
+//var float4 Kernel[0] :  : _Kernel[0] : -1 : 1
+//var float4 Kernel[1] :  : _Kernel[1] : -1 : 1
+//var float4 Kernel[2] :  : _Kernel[2] : -1 : 1
+//var float4 Kernel[3] :  : _Kernel[3] : -1 : 1
+//var float4 Kernel[4] :  : _Kernel[4] : -1 : 1
+//var float4 Kernel[5] :  : _Kernel[5] : -1 : 1
+//var float4 Kernel[6] :  : _Kernel[6] : -1 : 1
+//var float4 Kernel[7] :  : _Kernel[7] : -1 : 1
+//var float4 Kernel[8] :  : _Kernel[8] : -1 : 1
+//var float4 Kernel[9] :  : _Kernel[9] : -1 : 1
+//var float4 Kernel[10] :  : _Kernel[10] : -1 : 1
+//var float4 Kernel[11] :  : _Kernel[11] : -1 : 1
+//var float4 Kernel[12] :  : _Kernel[12] : -1 : 1
+//var float4 Kernel[13] :  : _Kernel[13] : -1 : 1
+//var float4 Kernel[14] :  : _Kernel[14] : -1 : 1
+//var float4 Kernel[15] :  : _Kernel[15] : -1 : 1
+//var sampler2D NoiseMap : TEXUNIT0 : _NoiseMap 0 : -1 : 1
+//var sampler2D NormalViewSpaceMap : TEXUNIT1 : _NormalViewSpaceMap 1 : -1 : 1
+//var sampler2D DepthMap : TEXUNIT3 : _DepthMap 3 : -1 : 1
+//var float4x4 Projection :  : _Projection[0], 4 : -1 : 1
 //var float4x4 ProjInv :  : _ProjInv[0], 4 : -1 : 1
 //var float2 texCoord : $vin.TEXCOORD0 :  : 1 : 1
 //var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
@@ -28,7 +50,7 @@
 
 struct VOutput {
     float4 _position1 : SV_Position;
-    float2 _texCoord3 : TEXCOORD0;
+    float2 _texCoord4 : TEXCOORD0;
 };
 
 struct X1X {
@@ -36,32 +58,91 @@ struct X1X {
     float2 _TEXCOORD0 : TEXCOORD0;
 };
 
+static float4 _TMP5;
+static float _TMP2;
+static float _TMP4;
+static float _TMP3;
 static float4 _TMP1;
-static float4 _positionScreen0012;
-static float _depth0012;
-static float4 _r0014;
-Texture2D<float4> _TMP15 : register(t2);
-SamplerState _LinearDepthMap : TEXUNIT2;
+static float4 _unPackedNormal0009;
+static float4 _normalData0009;
+static float4 _positionScreen0015;
+static float4 _r0017;
+static float3 _v0019;
+static float3 _r0023;
+static float4 _r0025;
+static float4 _v0025;
+static float2 _flipped0027;
+static float2 _tex0027;
+Texture2D<float4> _TMP32 : register(t1);
+Texture2D<float4> _TMP33 : register(t3);
+Texture2D<float4> _TMP34 : register(t0);
+uniform float _Radius;
+uniform float2 _NoiseScale;
+uniform float4 _Kernel[16];
+SamplerState _NoiseMap : TEXUNIT0;
+SamplerState _NormalViewSpaceMap : TEXUNIT1;
+SamplerState _DepthMap : TEXUNIT3;
+uniform float4x4 _Projection;
 uniform float4x4 _ProjInv;
 
  // main procedure, the original name was ps
 float4 main( in X1X cin) : SV_Target0
 {
 
-    float2 _texCoord2;
+    float2 _texCoord3;
+    float3 _normal;
+    float _depth1;
     float4 _positionView;
+    float2 _noiseTexCoords;
+    float3 _tangent;
+    float3 _bitangent;
+    float3 _sample1;
+    float3 _sampleAtViewPosition1;
+    float4 _sampleNDC1;
+    float _occlusionFactor1;
 
-    _texCoord2 = cin._TEXCOORD0;
-    _TMP1 = _TMP15.Sample(_LinearDepthMap, _texCoord2);
-    _depth0012 = -_TMP1.x;
-    _positionScreen0012.xy = _texCoord2.xy*  2.00000000000000000E00f -   1.00000000000000000E00f;
-    _positionScreen0012.y =   1.00000000000000000E00f - _positionScreen0012.y;
-    _positionScreen0012.z = _depth0012;
-    _positionScreen0012.w =   1.00000000000000000E00f;
-    _r0014.x = dot(_ProjInv._11_12_13_14, _positionScreen0012);
-    _r0014.y = dot(_ProjInv._21_22_23_24, _positionScreen0012);
-    _r0014.z = dot(_ProjInv._31_32_33_34, _positionScreen0012);
-    _r0014.w = dot(_ProjInv._41_42_43_44, _positionScreen0012);
-    _positionView = _r0014/_r0014.w;
-    return _positionView;
+    _texCoord3 = cin._TEXCOORD0;
+    _normalData0009 = _TMP32.Sample(_NormalViewSpaceMap, _texCoord3);
+    _unPackedNormal0009 = _normalData0009*  2.00000000000000000E00f -   1.00000000000000000E00f;
+    _TMP3 = dot(_unPackedNormal0009.xyz, _unPackedNormal0009.xyz);
+    _TMP4 = rsqrt(_TMP3);
+    _normal = _TMP4*_unPackedNormal0009.xyz;
+    _TMP5 = _TMP33.Sample(_DepthMap, _texCoord3);
+    _depth1 = _TMP5.x;
+    _positionScreen0015.xy = _texCoord3.xy*  2.00000000000000000E00f -   1.00000000000000000E00f;
+    _positionScreen0015.y =   1.00000000000000000E00f - _positionScreen0015.y;
+    _positionScreen0015.z = _TMP5.x;
+    _positionScreen0015.w =   1.00000000000000000E00f;
+    _r0017.x = dot(_ProjInv._11_12_13_14, _positionScreen0015);
+    _r0017.y = dot(_ProjInv._21_22_23_24, _positionScreen0015);
+    _r0017.z = dot(_ProjInv._31_32_33_34, _positionScreen0015);
+    _r0017.w = dot(_ProjInv._41_42_43_44, _positionScreen0015);
+    _positionView = _r0017/_r0017.w;
+    _noiseTexCoords = _texCoord3*_NoiseScale;
+    _TMP1 = _TMP34.Sample(_NoiseMap, _noiseTexCoords);
+    _TMP2 = dot(_TMP1.xyz, _normal);
+    _v0019 = _TMP1.xyz - _normal*_TMP2;
+    _TMP3 = dot(_v0019, _v0019);
+    _TMP4 = rsqrt(_TMP3);
+    _tangent = _TMP4*_v0019;
+    _bitangent = _tangent.yzx*_normal.zxy - _tangent.zxy*_normal.yzx;
+    _sample1 = _Kernel[0].xyz*_Radius;
+    _r0023 = _sample1.x*_tangent;
+    _r0023 = _r0023 + _sample1.y*_bitangent;
+    _r0023 = _r0023 + _sample1.z*_normal;
+    _sampleAtViewPosition1 = _positionView.xyz + _r0023;
+    _v0025 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,   1.00000000000000000E00f);
+    _r0025.x = dot(_Projection._11_12_13_14, _v0025);
+    _r0025.y = dot(_Projection._21_22_23_24, _v0025);
+    _r0025.z = dot(_Projection._31_32_33_34, _v0025);
+    _r0025.w = dot(_Projection._41_42_43_44, _v0025);
+    _sampleNDC1 = _r0025/_r0025.w;
+    _tex0027 = _sampleNDC1.xy*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
+    _flipped0027 = float2(_tex0027.x,   1.00000000000000000E00f - _tex0027.y);
+    _TMP5 = _TMP33.Sample(_DepthMap, _flipped0027);
+    _occlusionFactor1 =   1.00000000000000000E00f;
+    if (_TMP5.x < _depth1) { // if begin
+        _occlusionFactor1 =   0.00000000000000000E00f;
+    } // end if
+    return float4(_occlusionFactor1, _occlusionFactor1, _occlusionFactor1,   1.00000000000000000E00f);
 } // main end

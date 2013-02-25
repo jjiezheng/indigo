@@ -13,13 +13,35 @@
 //semantic Far
 //semantic Near
 //semantic NoiseMap : TEXUNIT0
-//semantic NormalMap : TEXUNIT1
+//semantic NormalViewSpaceMap : TEXUNIT1
 //semantic LinearDepthMap : TEXUNIT2
 //semantic DepthMap : TEXUNIT3
 //semantic Projection
 //semantic ProjInv
+//semantic ModelView
 //semantic View
-//var sampler2D LinearDepthMap : TEXUNIT2 : _LinearDepthMap 2 : -1 : 1
+//var float Radius :  : _Radius : -1 : 1
+//var float2 NoiseScale :  : _NoiseScale : -1 : 1
+//var float4 Kernel[0] :  : _Kernel[0] : -1 : 1
+//var float4 Kernel[1] :  : _Kernel[1] : -1 : 1
+//var float4 Kernel[2] :  : _Kernel[2] : -1 : 1
+//var float4 Kernel[3] :  : _Kernel[3] : -1 : 1
+//var float4 Kernel[4] :  : _Kernel[4] : -1 : 1
+//var float4 Kernel[5] :  : _Kernel[5] : -1 : 1
+//var float4 Kernel[6] :  : _Kernel[6] : -1 : 1
+//var float4 Kernel[7] :  : _Kernel[7] : -1 : 1
+//var float4 Kernel[8] :  : _Kernel[8] : -1 : 1
+//var float4 Kernel[9] :  : _Kernel[9] : -1 : 1
+//var float4 Kernel[10] :  : _Kernel[10] : -1 : 1
+//var float4 Kernel[11] :  : _Kernel[11] : -1 : 1
+//var float4 Kernel[12] :  : _Kernel[12] : -1 : 1
+//var float4 Kernel[13] :  : _Kernel[13] : -1 : 1
+//var float4 Kernel[14] :  : _Kernel[14] : -1 : 1
+//var float4 Kernel[15] :  : _Kernel[15] : -1 : 1
+//var sampler2D NoiseMap : TEXUNIT0 : _NoiseMap 0 : -1 : 1
+//var sampler2D NormalViewSpaceMap : TEXUNIT1 : _NormalViewSpaceMap 1 : -1 : 1
+//var sampler2D DepthMap : TEXUNIT3 : _DepthMap 3 : -1 : 1
+//var float4x4 Projection :  : _Projection[0], 4 : -1 : 1
 //var float4x4 ProjInv :  : _ProjInv[0], 4 : -1 : 1
 //var float2 texCoord : $vin.TEXCOORD0 : TEX0 : 1 : 1
 //var float4 ps : $vout.COLOR0 : COL : -1 : 1
@@ -27,32 +49,91 @@
 #version 110
 
 struct VOutput {
-    vec2 _texCoord4;
+    vec2 _texCoord5;
 };
 
+vec4 _ret_0;
+vec4 _TMP5;
+float _TMP2;
+float _TMP4;
+float _TMP3;
 vec4 _TMP1;
-vec4 _positionScreen0041;
-float _depth0041;
-vec4 _r0043;
-uniform sampler2D _LinearDepthMap;
+vec4 _normalData0023;
+vec4 _unPackedNormal0023;
+vec4 _positionScreen0037;
+vec4 _r0039;
+vec3 _v0053;
+vec3 _r0061;
+vec4 _r0063;
+vec4 _v0063;
+vec2 _tex0073;
+uniform float _Radius;
+uniform vec2 _NoiseScale;
+uniform vec4 _Kernel[16];
+uniform sampler2D _NoiseMap;
+uniform sampler2D _NormalViewSpaceMap;
+uniform sampler2D _DepthMap;
+uniform vec4 _Projection[4];
 uniform vec4 _ProjInv[4];
 
  // main procedure, the original name was ps
 void main()
 {
 
+    vec3 _normal;
+    float _depth1;
     vec4 _positionView;
+    vec2 _noiseTexCoords;
+    vec3 _tangent;
+    vec3 _bitangent;
+    vec3 _sample1;
+    vec3 _sampleAtViewPosition1;
+    vec4 _sampleNDC1;
+    float _sampleDepth1;
+    float _occlusionFactor1;
 
-    _TMP1 = texture2D(_LinearDepthMap, gl_TexCoord[0].xy);
-    _depth0041 = -_TMP1.x;
-    _positionScreen0041.xy = gl_TexCoord[0].xy*2.00000000E+00 - 1.00000000E+00;
-    _positionScreen0041.z = _depth0041;
-    _positionScreen0041.w = 1.00000000E+00;
-    _r0043.x = dot(_ProjInv[0], _positionScreen0041);
-    _r0043.y = dot(_ProjInv[1], _positionScreen0041);
-    _r0043.z = dot(_ProjInv[2], _positionScreen0041);
-    _r0043.w = dot(_ProjInv[3], _positionScreen0041);
-    _positionView = _r0043/_r0043.w;
-    gl_FragColor = _positionView;
+    _normalData0023 = texture2D(_NormalViewSpaceMap, gl_TexCoord[0].xy);
+    _unPackedNormal0023 = _normalData0023*2.00000000E+00 - 1.00000000E+00;
+    _TMP3 = dot(_unPackedNormal0023.xyz, _unPackedNormal0023.xyz);
+    _TMP4 = inversesqrt(_TMP3);
+    _normal = _TMP4*_unPackedNormal0023.xyz;
+    _TMP5 = texture2D(_DepthMap, gl_TexCoord[0].xy);
+    _depth1 = _TMP5.x*2.00000000E+00 - 1.00000000E+00;
+    _positionScreen0037.xy = gl_TexCoord[0].xy*2.00000000E+00 - 1.00000000E+00;
+    _positionScreen0037.z = _depth1;
+    _positionScreen0037.w = 1.00000000E+00;
+    _r0039.x = dot(_ProjInv[0], _positionScreen0037);
+    _r0039.y = dot(_ProjInv[1], _positionScreen0037);
+    _r0039.z = dot(_ProjInv[2], _positionScreen0037);
+    _r0039.w = dot(_ProjInv[3], _positionScreen0037);
+    _positionView = _r0039/_r0039.w;
+    _noiseTexCoords = gl_TexCoord[0].xy*_NoiseScale;
+    _TMP1 = texture2D(_NoiseMap, _noiseTexCoords);
+    _TMP2 = dot(_TMP1.xyz, _normal);
+    _v0053 = _TMP1.xyz - _normal*_TMP2;
+    _TMP3 = dot(_v0053, _v0053);
+    _TMP4 = inversesqrt(_TMP3);
+    _tangent = _TMP4*_v0053;
+    _bitangent = _tangent.yzx*_normal.zxy - _tangent.zxy*_normal.yzx;
+    _sample1 = _Kernel[0].xyz*_Radius;
+    _r0061 = _sample1.x*_tangent;
+    _r0061 = _r0061 + _sample1.y*_bitangent;
+    _r0061 = _r0061 + _sample1.z*_normal;
+    _sampleAtViewPosition1 = _positionView.xyz + _r0061;
+    _v0063 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+00);
+    _r0063.x = dot(_Projection[0], _v0063);
+    _r0063.y = dot(_Projection[1], _v0063);
+    _r0063.z = dot(_Projection[2], _v0063);
+    _r0063.w = dot(_Projection[3], _v0063);
+    _sampleNDC1 = _r0063/_r0063.w;
+    _tex0073 = _sampleNDC1.xy*5.00000000E-01 + 5.00000000E-01;
+    _TMP5 = texture2D(_DepthMap, _tex0073);
+    _sampleDepth1 = _TMP5.x*2.00000000E+00 - 1.00000000E+00;
+    _occlusionFactor1 = 1.00000000E+00;
+    if (_sampleDepth1 < _depth1) { // if begin
+        _occlusionFactor1 = 0.00000000E+00;
+    } // end if
+    _ret_0 = vec4(_occlusionFactor1, _occlusionFactor1, _occlusionFactor1, 1.00000000E+00);
+    gl_FragColor = _ret_0;
     return;
 } // main end

@@ -16,8 +16,8 @@
 #include "SceneContext.h"
 
 void DeferredGeometryPass::init() {
-	const int kRenderTargetCount = 3;
-	RenderTarget renderTargets[kRenderTargetCount] = {colorRenderTarget_, normalRenderTarget_, depthRenderTarget_};
+	const int kRenderTargetCount = 4;
+	RenderTarget renderTargets[kRenderTargetCount] = {colorRenderTarget_, normalRenderTarget_, depthRenderTarget_, normalViewSpaceRenderTarget_};
 	gBufferFrameBuffer_ = GraphicsInterface::createFrameBuffer(renderTargets, kRenderTargetCount, true);
 }
 
