@@ -1,5 +1,5 @@
 // glslf output by Cg compiler
-// cgc version 3.1.0013, build date Apr 24 2012
+// cgc version 3.1.0013, build date Apr 18 2012
 // command line args: -DGL=1 -DGL32=1 -q -profileopts version=130 -profile glslf
 // source file: deferred_ssao.cg
 //vendor NVIDIA Corporation
@@ -97,14 +97,14 @@ void main()
     float _occlusion;
 
     _TMP1 = texture(_NormalViewSpaceMap, cg_TexCoord0.xy);
-    _v0027 = _TMP1.xyz*2.00000000E+00 - 1.00000000E+00;
+    _v0027 = _TMP1.xyz*2.00000000E+000 - 1.00000000E+000;
     _TMP6 = dot(_v0027, _v0027);
     _TMP7 = inversesqrt(_TMP6);
     _normal = _TMP7*_v0027;
     _TMP2 = texture(_DepthMap, cg_TexCoord0.xy);
-    _positionScreen0035.xy = cg_TexCoord0.xy*2.00000000E+00 - 1.00000000E+00;
+    _positionScreen0035.xy = cg_TexCoord0.xy*2.00000000E+000 - 1.00000000E+000;
     _positionScreen0035.z = _TMP2.x;
-    _positionScreen0035.w = 1.00000000E+00;
+    _positionScreen0035.w = 1.00000000E+000;
     _r0037.x = dot(_ProjInv[0], _positionScreen0035);
     _r0037.y = dot(_ProjInv[1], _positionScreen0035);
     _r0037.z = dot(_ProjInv[2], _positionScreen0035);
@@ -112,7 +112,7 @@ void main()
     _positionView = _r0037/_r0037.w;
     _noiseTexCoords = cg_TexCoord0.xy*_NoiseScale;
     _TMP3 = texture(_NoiseMap, _noiseTexCoords);
-    _rvec = _TMP3.xyz*2.00000000E+00 - 1.00000000E+00;
+    _rvec = _TMP3.xyz*2.00000000E+000 - 1.00000000E+000;
     _TMP4 = dot(_rvec, _normal);
     _v0051 = _rvec - _normal*_TMP4;
     _TMP6 = dot(_v0051, _v0051);
@@ -124,17 +124,17 @@ void main()
     _r0059 = _r0059 + _sample1.y*_bitangent;
     _r0059 = _r0059 + _sample1.z*_normal;
     _sampleAtViewPosition1 = _positionView.xyz + _r0059;
-    _v0061 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+00);
+    _v0061 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
     _r0061.x = dot(_Projection[0], _v0061);
     _r0061.y = dot(_Projection[1], _v0061);
     _r0061.z = dot(_Projection[2], _v0061);
     _r0061.w = dot(_Projection[3], _v0061);
     _sampleNDC1 = _r0061/_r0061.w;
-    _tex0071 = _sampleNDC1.xy*5.00000000E-01 + 5.00000000E-01;
+    _tex0071 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
     _TMP5 = texture(_DepthMap, _tex0071);
-    _occlusionFactor1 = 1.00000000E+00;
+    _occlusionFactor1 = 1.00000000E+000;
     if (_TMP5.x < _TMP2.x) { // if begin
-        _occlusionFactor1 = 0.00000000E+00;
+        _occlusionFactor1 = 0.00000000E+000;
     } // end if
     _occlusionContribution = _occlusionFactor1;
     _sample1 = _Kernel[1].xyz*_Radius;
@@ -142,17 +142,17 @@ void main()
     _r0059 = _r0059 + _sample1.y*_bitangent;
     _r0059 = _r0059 + _sample1.z*_normal;
     _sampleAtViewPosition1 = _positionView.xyz + _r0059;
-    _v0061 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+00);
+    _v0061 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
     _r0061.x = dot(_Projection[0], _v0061);
     _r0061.y = dot(_Projection[1], _v0061);
     _r0061.z = dot(_Projection[2], _v0061);
     _r0061.w = dot(_Projection[3], _v0061);
     _sampleNDC1 = _r0061/_r0061.w;
-    _tex0071 = _sampleNDC1.xy*5.00000000E-01 + 5.00000000E-01;
+    _tex0071 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
     _TMP5 = texture(_DepthMap, _tex0071);
-    _occlusionFactor1 = 1.00000000E+00;
+    _occlusionFactor1 = 1.00000000E+000;
     if (_TMP5.x < _TMP2.x) { // if begin
-        _occlusionFactor1 = 0.00000000E+00;
+        _occlusionFactor1 = 0.00000000E+000;
     } // end if
     _occlusionContribution = _occlusionContribution + _occlusionFactor1;
     _sample1 = _Kernel[2].xyz*_Radius;
@@ -160,17 +160,17 @@ void main()
     _r0059 = _r0059 + _sample1.y*_bitangent;
     _r0059 = _r0059 + _sample1.z*_normal;
     _sampleAtViewPosition1 = _positionView.xyz + _r0059;
-    _v0061 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+00);
+    _v0061 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
     _r0061.x = dot(_Projection[0], _v0061);
     _r0061.y = dot(_Projection[1], _v0061);
     _r0061.z = dot(_Projection[2], _v0061);
     _r0061.w = dot(_Projection[3], _v0061);
     _sampleNDC1 = _r0061/_r0061.w;
-    _tex0071 = _sampleNDC1.xy*5.00000000E-01 + 5.00000000E-01;
+    _tex0071 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
     _TMP5 = texture(_DepthMap, _tex0071);
-    _occlusionFactor1 = 1.00000000E+00;
+    _occlusionFactor1 = 1.00000000E+000;
     if (_TMP5.x < _TMP2.x) { // if begin
-        _occlusionFactor1 = 0.00000000E+00;
+        _occlusionFactor1 = 0.00000000E+000;
     } // end if
     _occlusionContribution = _occlusionContribution + _occlusionFactor1;
     _sample1 = _Kernel[3].xyz*_Radius;
@@ -178,17 +178,17 @@ void main()
     _r0059 = _r0059 + _sample1.y*_bitangent;
     _r0059 = _r0059 + _sample1.z*_normal;
     _sampleAtViewPosition1 = _positionView.xyz + _r0059;
-    _v0061 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+00);
+    _v0061 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
     _r0061.x = dot(_Projection[0], _v0061);
     _r0061.y = dot(_Projection[1], _v0061);
     _r0061.z = dot(_Projection[2], _v0061);
     _r0061.w = dot(_Projection[3], _v0061);
     _sampleNDC1 = _r0061/_r0061.w;
-    _tex0071 = _sampleNDC1.xy*5.00000000E-01 + 5.00000000E-01;
+    _tex0071 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
     _TMP5 = texture(_DepthMap, _tex0071);
-    _occlusionFactor1 = 1.00000000E+00;
+    _occlusionFactor1 = 1.00000000E+000;
     if (_TMP5.x < _TMP2.x) { // if begin
-        _occlusionFactor1 = 0.00000000E+00;
+        _occlusionFactor1 = 0.00000000E+000;
     } // end if
     _occlusionContribution = _occlusionContribution + _occlusionFactor1;
     _sample1 = _Kernel[4].xyz*_Radius;
@@ -196,17 +196,17 @@ void main()
     _r0059 = _r0059 + _sample1.y*_bitangent;
     _r0059 = _r0059 + _sample1.z*_normal;
     _sampleAtViewPosition1 = _positionView.xyz + _r0059;
-    _v0061 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+00);
+    _v0061 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
     _r0061.x = dot(_Projection[0], _v0061);
     _r0061.y = dot(_Projection[1], _v0061);
     _r0061.z = dot(_Projection[2], _v0061);
     _r0061.w = dot(_Projection[3], _v0061);
     _sampleNDC1 = _r0061/_r0061.w;
-    _tex0071 = _sampleNDC1.xy*5.00000000E-01 + 5.00000000E-01;
+    _tex0071 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
     _TMP5 = texture(_DepthMap, _tex0071);
-    _occlusionFactor1 = 1.00000000E+00;
+    _occlusionFactor1 = 1.00000000E+000;
     if (_TMP5.x < _TMP2.x) { // if begin
-        _occlusionFactor1 = 0.00000000E+00;
+        _occlusionFactor1 = 0.00000000E+000;
     } // end if
     _occlusionContribution = _occlusionContribution + _occlusionFactor1;
     _sample1 = _Kernel[5].xyz*_Radius;
@@ -214,17 +214,17 @@ void main()
     _r0059 = _r0059 + _sample1.y*_bitangent;
     _r0059 = _r0059 + _sample1.z*_normal;
     _sampleAtViewPosition1 = _positionView.xyz + _r0059;
-    _v0061 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+00);
+    _v0061 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
     _r0061.x = dot(_Projection[0], _v0061);
     _r0061.y = dot(_Projection[1], _v0061);
     _r0061.z = dot(_Projection[2], _v0061);
     _r0061.w = dot(_Projection[3], _v0061);
     _sampleNDC1 = _r0061/_r0061.w;
-    _tex0071 = _sampleNDC1.xy*5.00000000E-01 + 5.00000000E-01;
+    _tex0071 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
     _TMP5 = texture(_DepthMap, _tex0071);
-    _occlusionFactor1 = 1.00000000E+00;
+    _occlusionFactor1 = 1.00000000E+000;
     if (_TMP5.x < _TMP2.x) { // if begin
-        _occlusionFactor1 = 0.00000000E+00;
+        _occlusionFactor1 = 0.00000000E+000;
     } // end if
     _occlusionContribution = _occlusionContribution + _occlusionFactor1;
     _sample1 = _Kernel[6].xyz*_Radius;
@@ -232,17 +232,17 @@ void main()
     _r0059 = _r0059 + _sample1.y*_bitangent;
     _r0059 = _r0059 + _sample1.z*_normal;
     _sampleAtViewPosition1 = _positionView.xyz + _r0059;
-    _v0061 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+00);
+    _v0061 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
     _r0061.x = dot(_Projection[0], _v0061);
     _r0061.y = dot(_Projection[1], _v0061);
     _r0061.z = dot(_Projection[2], _v0061);
     _r0061.w = dot(_Projection[3], _v0061);
     _sampleNDC1 = _r0061/_r0061.w;
-    _tex0071 = _sampleNDC1.xy*5.00000000E-01 + 5.00000000E-01;
+    _tex0071 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
     _TMP5 = texture(_DepthMap, _tex0071);
-    _occlusionFactor1 = 1.00000000E+00;
+    _occlusionFactor1 = 1.00000000E+000;
     if (_TMP5.x < _TMP2.x) { // if begin
-        _occlusionFactor1 = 0.00000000E+00;
+        _occlusionFactor1 = 0.00000000E+000;
     } // end if
     _occlusionContribution = _occlusionContribution + _occlusionFactor1;
     _sample1 = _Kernel[7].xyz*_Radius;
@@ -250,17 +250,17 @@ void main()
     _r0059 = _r0059 + _sample1.y*_bitangent;
     _r0059 = _r0059 + _sample1.z*_normal;
     _sampleAtViewPosition1 = _positionView.xyz + _r0059;
-    _v0061 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+00);
+    _v0061 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
     _r0061.x = dot(_Projection[0], _v0061);
     _r0061.y = dot(_Projection[1], _v0061);
     _r0061.z = dot(_Projection[2], _v0061);
     _r0061.w = dot(_Projection[3], _v0061);
     _sampleNDC1 = _r0061/_r0061.w;
-    _tex0071 = _sampleNDC1.xy*5.00000000E-01 + 5.00000000E-01;
+    _tex0071 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
     _TMP5 = texture(_DepthMap, _tex0071);
-    _occlusionFactor1 = 1.00000000E+00;
+    _occlusionFactor1 = 1.00000000E+000;
     if (_TMP5.x < _TMP2.x) { // if begin
-        _occlusionFactor1 = 0.00000000E+00;
+        _occlusionFactor1 = 0.00000000E+000;
     } // end if
     _occlusionContribution = _occlusionContribution + _occlusionFactor1;
     _sample1 = _Kernel[8].xyz*_Radius;
@@ -268,17 +268,17 @@ void main()
     _r0059 = _r0059 + _sample1.y*_bitangent;
     _r0059 = _r0059 + _sample1.z*_normal;
     _sampleAtViewPosition1 = _positionView.xyz + _r0059;
-    _v0061 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+00);
+    _v0061 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
     _r0061.x = dot(_Projection[0], _v0061);
     _r0061.y = dot(_Projection[1], _v0061);
     _r0061.z = dot(_Projection[2], _v0061);
     _r0061.w = dot(_Projection[3], _v0061);
     _sampleNDC1 = _r0061/_r0061.w;
-    _tex0071 = _sampleNDC1.xy*5.00000000E-01 + 5.00000000E-01;
+    _tex0071 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
     _TMP5 = texture(_DepthMap, _tex0071);
-    _occlusionFactor1 = 1.00000000E+00;
+    _occlusionFactor1 = 1.00000000E+000;
     if (_TMP5.x < _TMP2.x) { // if begin
-        _occlusionFactor1 = 0.00000000E+00;
+        _occlusionFactor1 = 0.00000000E+000;
     } // end if
     _occlusionContribution = _occlusionContribution + _occlusionFactor1;
     _sample1 = _Kernel[9].xyz*_Radius;
@@ -286,17 +286,17 @@ void main()
     _r0059 = _r0059 + _sample1.y*_bitangent;
     _r0059 = _r0059 + _sample1.z*_normal;
     _sampleAtViewPosition1 = _positionView.xyz + _r0059;
-    _v0061 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+00);
+    _v0061 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
     _r0061.x = dot(_Projection[0], _v0061);
     _r0061.y = dot(_Projection[1], _v0061);
     _r0061.z = dot(_Projection[2], _v0061);
     _r0061.w = dot(_Projection[3], _v0061);
     _sampleNDC1 = _r0061/_r0061.w;
-    _tex0071 = _sampleNDC1.xy*5.00000000E-01 + 5.00000000E-01;
+    _tex0071 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
     _TMP5 = texture(_DepthMap, _tex0071);
-    _occlusionFactor1 = 1.00000000E+00;
+    _occlusionFactor1 = 1.00000000E+000;
     if (_TMP5.x < _TMP2.x) { // if begin
-        _occlusionFactor1 = 0.00000000E+00;
+        _occlusionFactor1 = 0.00000000E+000;
     } // end if
     _occlusionContribution = _occlusionContribution + _occlusionFactor1;
     _sample1 = _Kernel[10].xyz*_Radius;
@@ -304,17 +304,17 @@ void main()
     _r0059 = _r0059 + _sample1.y*_bitangent;
     _r0059 = _r0059 + _sample1.z*_normal;
     _sampleAtViewPosition1 = _positionView.xyz + _r0059;
-    _v0061 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+00);
+    _v0061 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
     _r0061.x = dot(_Projection[0], _v0061);
     _r0061.y = dot(_Projection[1], _v0061);
     _r0061.z = dot(_Projection[2], _v0061);
     _r0061.w = dot(_Projection[3], _v0061);
     _sampleNDC1 = _r0061/_r0061.w;
-    _tex0071 = _sampleNDC1.xy*5.00000000E-01 + 5.00000000E-01;
+    _tex0071 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
     _TMP5 = texture(_DepthMap, _tex0071);
-    _occlusionFactor1 = 1.00000000E+00;
+    _occlusionFactor1 = 1.00000000E+000;
     if (_TMP5.x < _TMP2.x) { // if begin
-        _occlusionFactor1 = 0.00000000E+00;
+        _occlusionFactor1 = 0.00000000E+000;
     } // end if
     _occlusionContribution = _occlusionContribution + _occlusionFactor1;
     _sample1 = _Kernel[11].xyz*_Radius;
@@ -322,17 +322,17 @@ void main()
     _r0059 = _r0059 + _sample1.y*_bitangent;
     _r0059 = _r0059 + _sample1.z*_normal;
     _sampleAtViewPosition1 = _positionView.xyz + _r0059;
-    _v0061 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+00);
+    _v0061 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
     _r0061.x = dot(_Projection[0], _v0061);
     _r0061.y = dot(_Projection[1], _v0061);
     _r0061.z = dot(_Projection[2], _v0061);
     _r0061.w = dot(_Projection[3], _v0061);
     _sampleNDC1 = _r0061/_r0061.w;
-    _tex0071 = _sampleNDC1.xy*5.00000000E-01 + 5.00000000E-01;
+    _tex0071 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
     _TMP5 = texture(_DepthMap, _tex0071);
-    _occlusionFactor1 = 1.00000000E+00;
+    _occlusionFactor1 = 1.00000000E+000;
     if (_TMP5.x < _TMP2.x) { // if begin
-        _occlusionFactor1 = 0.00000000E+00;
+        _occlusionFactor1 = 0.00000000E+000;
     } // end if
     _occlusionContribution = _occlusionContribution + _occlusionFactor1;
     _sample1 = _Kernel[12].xyz*_Radius;
@@ -340,17 +340,17 @@ void main()
     _r0059 = _r0059 + _sample1.y*_bitangent;
     _r0059 = _r0059 + _sample1.z*_normal;
     _sampleAtViewPosition1 = _positionView.xyz + _r0059;
-    _v0061 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+00);
+    _v0061 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
     _r0061.x = dot(_Projection[0], _v0061);
     _r0061.y = dot(_Projection[1], _v0061);
     _r0061.z = dot(_Projection[2], _v0061);
     _r0061.w = dot(_Projection[3], _v0061);
     _sampleNDC1 = _r0061/_r0061.w;
-    _tex0071 = _sampleNDC1.xy*5.00000000E-01 + 5.00000000E-01;
+    _tex0071 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
     _TMP5 = texture(_DepthMap, _tex0071);
-    _occlusionFactor1 = 1.00000000E+00;
+    _occlusionFactor1 = 1.00000000E+000;
     if (_TMP5.x < _TMP2.x) { // if begin
-        _occlusionFactor1 = 0.00000000E+00;
+        _occlusionFactor1 = 0.00000000E+000;
     } // end if
     _occlusionContribution = _occlusionContribution + _occlusionFactor1;
     _sample1 = _Kernel[13].xyz*_Radius;
@@ -358,17 +358,17 @@ void main()
     _r0059 = _r0059 + _sample1.y*_bitangent;
     _r0059 = _r0059 + _sample1.z*_normal;
     _sampleAtViewPosition1 = _positionView.xyz + _r0059;
-    _v0061 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+00);
+    _v0061 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
     _r0061.x = dot(_Projection[0], _v0061);
     _r0061.y = dot(_Projection[1], _v0061);
     _r0061.z = dot(_Projection[2], _v0061);
     _r0061.w = dot(_Projection[3], _v0061);
     _sampleNDC1 = _r0061/_r0061.w;
-    _tex0071 = _sampleNDC1.xy*5.00000000E-01 + 5.00000000E-01;
+    _tex0071 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
     _TMP5 = texture(_DepthMap, _tex0071);
-    _occlusionFactor1 = 1.00000000E+00;
+    _occlusionFactor1 = 1.00000000E+000;
     if (_TMP5.x < _TMP2.x) { // if begin
-        _occlusionFactor1 = 0.00000000E+00;
+        _occlusionFactor1 = 0.00000000E+000;
     } // end if
     _occlusionContribution = _occlusionContribution + _occlusionFactor1;
     _sample1 = _Kernel[14].xyz*_Radius;
@@ -376,17 +376,17 @@ void main()
     _r0059 = _r0059 + _sample1.y*_bitangent;
     _r0059 = _r0059 + _sample1.z*_normal;
     _sampleAtViewPosition1 = _positionView.xyz + _r0059;
-    _v0061 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+00);
+    _v0061 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
     _r0061.x = dot(_Projection[0], _v0061);
     _r0061.y = dot(_Projection[1], _v0061);
     _r0061.z = dot(_Projection[2], _v0061);
     _r0061.w = dot(_Projection[3], _v0061);
     _sampleNDC1 = _r0061/_r0061.w;
-    _tex0071 = _sampleNDC1.xy*5.00000000E-01 + 5.00000000E-01;
+    _tex0071 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
     _TMP5 = texture(_DepthMap, _tex0071);
-    _occlusionFactor1 = 1.00000000E+00;
+    _occlusionFactor1 = 1.00000000E+000;
     if (_TMP5.x < _TMP2.x) { // if begin
-        _occlusionFactor1 = 0.00000000E+00;
+        _occlusionFactor1 = 0.00000000E+000;
     } // end if
     _occlusionContribution = _occlusionContribution + _occlusionFactor1;
     _sample1 = _Kernel[15].xyz*_Radius;
@@ -394,21 +394,21 @@ void main()
     _r0059 = _r0059 + _sample1.y*_bitangent;
     _r0059 = _r0059 + _sample1.z*_normal;
     _sampleAtViewPosition1 = _positionView.xyz + _r0059;
-    _v0061 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+00);
+    _v0061 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
     _r0061.x = dot(_Projection[0], _v0061);
     _r0061.y = dot(_Projection[1], _v0061);
     _r0061.z = dot(_Projection[2], _v0061);
     _r0061.w = dot(_Projection[3], _v0061);
     _sampleNDC1 = _r0061/_r0061.w;
-    _tex0071 = _sampleNDC1.xy*5.00000000E-01 + 5.00000000E-01;
+    _tex0071 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
     _TMP5 = texture(_DepthMap, _tex0071);
-    _occlusionFactor1 = 1.00000000E+00;
+    _occlusionFactor1 = 1.00000000E+000;
     if (_TMP5.x < _TMP2.x) { // if begin
-        _occlusionFactor1 = 0.00000000E+00;
+        _occlusionFactor1 = 0.00000000E+000;
     } // end if
     _occlusionContribution = _occlusionContribution + _occlusionFactor1;
-    _occlusion = _occlusionContribution/1.60000000E+01;
-    _ret_0 = vec4(_occlusion, _occlusion, _occlusion, 1.00000000E+00);
+    _occlusion = _occlusionContribution/1.60000000E+001;
+    _ret_0 = vec4(_occlusion, _occlusion, _occlusion, 1.00000000E+000);
     cg_FragColor = _ret_0;
     return;
 } // main end

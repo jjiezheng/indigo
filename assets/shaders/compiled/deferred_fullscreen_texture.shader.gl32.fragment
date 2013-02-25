@@ -1,5 +1,5 @@
 // glslf output by Cg compiler
-// cgc version 3.1.0013, build date Apr 24 2012
+// cgc version 3.1.0013, build date Apr 18 2012
 // command line args: -DGL=1 -DGL32=1 -q -profileopts version=130 -profile glslf
 // source file: deferred_fullscreen_texture.cg
 //vendor NVIDIA Corporation

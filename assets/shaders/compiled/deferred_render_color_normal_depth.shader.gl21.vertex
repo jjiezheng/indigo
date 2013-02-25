@@ -1,5 +1,5 @@
 // glslv output by Cg compiler
-// cgc version 3.1.0013, build date Apr 24 2012
+// cgc version 3.1.0013, build date Apr 18 2012
 // command line args: -DGL=1 -DGL21=1 -q -profile glslv
 // source file: deferred_render_color_normal_depth.cg
 //vendor NVIDIA Corporation
@@ -71,7 +71,7 @@ void main()
     _r0019.z = dot(_WorldView[2], _v0019);
     _OUT._linearDepth = (-_r0019.z - _Near)/(_Far - _Near);
     _OUT._normal2 = vec3(float(_normal1.x), float(_normal1.y), float(_normal1.z));
-    _v0029 = vec4(float(_normal1.x), float(_normal1.y), float(_normal1.z), 1.00000000E+00);
+    _v0029 = vec4(float(_normal1.x), float(_normal1.y), float(_normal1.z), 1.00000000E+000);
     _r0029.x = dot(_NormalMatrix[0], _v0029);
     _r0029.y = dot(_NormalMatrix[1], _v0029);
     _r0029.z = dot(_NormalMatrix[2], _v0029);

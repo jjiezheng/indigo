@@ -29,6 +29,7 @@ private:
 
 inline bool PCApp::wantsToQuit() const {
 	return wantsToQuit_;
-}
+}
+
 
 #endif

@@ -1,5 +1,5 @@
 // ps_4_0 output by Cg compiler
-// cgc version 3.1.0013, build date Apr 24 2012
+// cgc version 3.1.0013, build date Apr 18 2012
 // command line args: -DDX11=1 -q -unroll all -profile ps_5_0
 // source file: deferred_render_color_normal_depth.cg
 //vendor NVIDIA Corporation
@@ -59,8 +59,8 @@ POutput main( in X1X cin)
     _linearDepth = cin._TEXCOORD1;
     _viewNormal1 = cin._TEXCOORD2;
     _OUT._color = _DiffuseColor;
-    _OUT._normal = float4(_normal1.x, _normal1.y, _normal1.z,   1.00000000000000000E00f);
-    _OUT._depth = float4(_linearDepth, _linearDepth, _linearDepth,   1.00000000000000000E00f);
-    _OUT._viewNormal = float4(_viewNormal1.x, _viewNormal1.y, _viewNormal1.z,   1.00000000000000000E00f);
+    _OUT._normal = float4(_normal1.x, _normal1.y, _normal1.z,  1.00000000000000000E000f);
+    _OUT._depth = float4(_linearDepth, _linearDepth, _linearDepth,  1.00000000000000000E000f);
+    _OUT._viewNormal = float4(_viewNormal1.x, _viewNormal1.y, _viewNormal1.z,  1.00000000000000000E000f);
     return _OUT;
 } // main end

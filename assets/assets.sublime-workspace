@@ -415,7 +415,7 @@
 			"file": "shaders/deferred_ssao.cg",
 			"settings":
 			{
-				"buffer_size": 2504,
+				"buffer_size": 2928,
 				"line_ending": "Windows"
 			}
 		},
@@ -423,7 +423,7 @@
 			"file": "/home/nk/Development/prototype/src/engine/platform/renderer/gl32/OpenGL32GraphicsInterface.cpp",
 			"settings":
 			{
-				"buffer_size": 12389,
+				"buffer_size": 0,
 				"line_ending": "Windows"
 			}
 		},
@@ -431,7 +431,7 @@
 			"file": "/home/nk/Development/prototype/src/engine/common/renderer/DeferredSSAOPass.cpp",
 			"settings":
 			{
-				"buffer_size": 5930,
+				"buffer_size": 0,
 				"line_ending": "Windows"
 			}
 		},
@@ -439,7 +439,7 @@
 			"file": "/home/nk/Development/prototype/src/engine/common/renderer/DeferredSSAOPass.h",
 			"settings":
 			{
-				"buffer_size": 1687,
+				"buffer_size": 0,
 				"line_ending": "Windows"
 			}
 		},
@@ -447,15 +447,15 @@
 			"file": "/home/nk/Development/prototype/src/engine/platform/renderer/gl32/OpenGLEffect.cpp",
 			"settings":
 			{
-				"buffer_size": 8294,
-				"line_ending": "Unix"
+				"buffer_size": 0,
+				"line_ending": "Windows"
 			}
 		},
 		{
 			"file": "shaders/deferred_render_color_normal_depth.cg",
 			"settings":
 			{
-				"buffer_size": 802,
+				"buffer_size": 1247,
 				"line_ending": "Windows"
 			}
 		}
@@ -777,15 +777,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2504,
+						"buffer_size": 2928,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2020,
-								2020
+								0,
+								0
 							]
 						],
 						"settings":
@@ -805,15 +805,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 12389,
+						"buffer_size": 0,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								7887,
-								7887
+								0,
+								0
 							]
 						],
 						"settings":
@@ -834,15 +834,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5930,
+						"buffer_size": 0,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4209,
-								4209
+								0,
+								0
 							]
 						],
 						"settings":
@@ -863,15 +863,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1687,
+						"buffer_size": 0,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1473,
-								1473
+								0,
+								0
 							]
 						],
 						"settings":
@@ -892,15 +892,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 8294,
+						"buffer_size": 0,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5805,
-								5805
+								0,
+								0
 							]
 						],
 						"settings":
@@ -921,15 +921,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 802,
+						"buffer_size": 1247,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								528,
-								528
+								185,
+								185
 							]
 						],
 						"settings":

@@ -1,5 +1,5 @@
 // ps_4_0 output by Cg compiler
-// cgc version 3.1.0013, build date Apr 24 2012
+// cgc version 3.1.0013, build date Apr 18 2012
 // command line args: -DDX11=1 -q -unroll all -profile ps_5_0
 // source file: deferred_ssao.cg
 //vendor NVIDIA Corporation
@@ -106,15 +106,15 @@ float4 main( in X1X cin) : SV_Target0
 
     _texCoord1 = cin._TEXCOORD0;
     _TMP1 = _TMP28.Sample(_NormalViewSpaceMap, _texCoord1);
-    _v0011 = _TMP1.xyz*  2.00000000000000000E00f -   1.00000000000000000E00f;
+    _v0011 = _TMP1.xyz* 2.00000000000000000E000f -  1.00000000000000000E000f;
     _TMP6 = dot(_v0011, _v0011);
     _TMP7 = rsqrt(_TMP6);
     _normal = _TMP7*_v0011;
     _TMP2 = _TMP29.Sample(_DepthMap, _texCoord1);
-    _positionScreen0013.xy = _texCoord1.xy*  2.00000000000000000E00f -   1.00000000000000000E00f;
-    _positionScreen0013.y =   1.00000000000000000E00f - _positionScreen0013.y;
+    _positionScreen0013.xy = _texCoord1.xy* 2.00000000000000000E000f -  1.00000000000000000E000f;
+    _positionScreen0013.y =  1.00000000000000000E000f - _positionScreen0013.y;
     _positionScreen0013.z = _TMP2.x;
-    _positionScreen0013.w =   1.00000000000000000E00f;
+    _positionScreen0013.w =  1.00000000000000000E000f;
     _r0015.x = dot(_ProjInv._11_12_13_14, _positionScreen0013);
     _r0015.y = dot(_ProjInv._21_22_23_24, _positionScreen0013);
     _r0015.z = dot(_ProjInv._31_32_33_34, _positionScreen0013);
@@ -122,7 +122,7 @@ float4 main( in X1X cin) : SV_Target0
     _positionView = _r0015/_r0015.w;
     _noiseTexCoords = _texCoord1*_NoiseScale;
     _TMP3 = _TMP30.Sample(_NoiseMap, _noiseTexCoords);
-    _rvec = _TMP3.xyz*  2.00000000000000000E00f -   1.00000000000000000E00f;
+    _rvec = _TMP3.xyz* 2.00000000000000000E000f -  1.00000000000000000E000f;
     _TMP4 = dot(_rvec, _normal);
     _v0017 = _rvec - _normal*_TMP4;
     _TMP6 = dot(_v0017, _v0017);
@@ -134,18 +134,18 @@ float4 main( in X1X cin) : SV_Target0
     _r0021 = _r0021 + _sample1.y*_bitangent;
     _r0021 = _r0021 + _sample1.z*_normal;
     _sampleAtViewPosition1 = _positionView.xyz + _r0021;
-    _v0023 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,   1.00000000000000000E00f);
+    _v0023 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,  1.00000000000000000E000f);
     _r0023.x = dot(_Projection._11_12_13_14, _v0023);
     _r0023.y = dot(_Projection._21_22_23_24, _v0023);
     _r0023.z = dot(_Projection._31_32_33_34, _v0023);
     _r0023.w = dot(_Projection._41_42_43_44, _v0023);
     _sampleNDC1 = _r0023/_r0023.w;
-    _tex0025 = _sampleNDC1.xy*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
-    _flipped0025 = float2(_tex0025.x,   1.00000000000000000E00f - _tex0025.y);
+    _tex0025 = _sampleNDC1.xy* 5.00000000000000000E-001f +  5.00000000000000000E-001f;
+    _flipped0025 = float2(_tex0025.x,  1.00000000000000000E000f - _tex0025.y);
     _TMP5 = _TMP29.Sample(_DepthMap, _flipped0025);
-    _occlusionFactor1 =   1.00000000000000000E00f;
+    _occlusionFactor1 =  1.00000000000000000E000f;
     if (_TMP5.x < _TMP2.x) { // if begin
-        _occlusionFactor1 =   0.00000000000000000E00f;
+        _occlusionFactor1 =  0.00000000000000000E000f;
     } // end if
     _occlusionContribution = _occlusionFactor1;
     _sample1 = _Kernel[1].xyz*_Radius;
@@ -153,18 +153,18 @@ float4 main( in X1X cin) : SV_Target0
     _r0021 = _r0021 + _sample1.y*_bitangent;
     _r0021 = _r0021 + _sample1.z*_normal;
     _sampleAtViewPosition1 = _positionView.xyz + _r0021;
-    _v0023 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,   1.00000000000000000E00f);
+    _v0023 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,  1.00000000000000000E000f);
     _r0023.x = dot(_Projection._11_12_13_14, _v0023);
     _r0023.y = dot(_Projection._21_22_23_24, _v0023);
     _r0023.z = dot(_Projection._31_32_33_34, _v0023);
     _r0023.w = dot(_Projection._41_42_43_44, _v0023);
     _sampleNDC1 = _r0023/_r0023.w;
-    _tex0025 = _sampleNDC1.xy*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
-    _flipped0025 = float2(_tex0025.x,   1.00000000000000000E00f - _tex0025.y);
+    _tex0025 = _sampleNDC1.xy* 5.00000000000000000E-001f +  5.00000000000000000E-001f;
+    _flipped0025 = float2(_tex0025.x,  1.00000000000000000E000f - _tex0025.y);
     _TMP5 = _TMP29.Sample(_DepthMap, _flipped0025);
-    _occlusionFactor1 =   1.00000000000000000E00f;
+    _occlusionFactor1 =  1.00000000000000000E000f;
     if (_TMP5.x < _TMP2.x) { // if begin
-        _occlusionFactor1 =   0.00000000000000000E00f;
+        _occlusionFactor1 =  0.00000000000000000E000f;
     } // end if
     _occlusionContribution = _occlusionContribution + _occlusionFactor1;
     _sample1 = _Kernel[2].xyz*_Radius;
@@ -172,18 +172,18 @@ float4 main( in X1X cin) : SV_Target0
     _r0021 = _r0021 + _sample1.y*_bitangent;
     _r0021 = _r0021 + _sample1.z*_normal;
     _sampleAtViewPosition1 = _positionView.xyz + _r0021;
-    _v0023 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,   1.00000000000000000E00f);
+    _v0023 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,  1.00000000000000000E000f);
     _r0023.x = dot(_Projection._11_12_13_14, _v0023);
     _r0023.y = dot(_Projection._21_22_23_24, _v0023);
     _r0023.z = dot(_Projection._31_32_33_34, _v0023);
     _r0023.w = dot(_Projection._41_42_43_44, _v0023);
     _sampleNDC1 = _r0023/_r0023.w;
-    _tex0025 = _sampleNDC1.xy*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
-    _flipped0025 = float2(_tex0025.x,   1.00000000000000000E00f - _tex0025.y);
+    _tex0025 = _sampleNDC1.xy* 5.00000000000000000E-001f +  5.00000000000000000E-001f;
+    _flipped0025 = float2(_tex0025.x,  1.00000000000000000E000f - _tex0025.y);
     _TMP5 = _TMP29.Sample(_DepthMap, _flipped0025);
-    _occlusionFactor1 =   1.00000000000000000E00f;
+    _occlusionFactor1 =  1.00000000000000000E000f;
     if (_TMP5.x < _TMP2.x) { // if begin
-        _occlusionFactor1 =   0.00000000000000000E00f;
+        _occlusionFactor1 =  0.00000000000000000E000f;
     } // end if
     _occlusionContribution = _occlusionContribution + _occlusionFactor1;
     _sample1 = _Kernel[3].xyz*_Radius;
@@ -191,18 +191,18 @@ float4 main( in X1X cin) : SV_Target0
     _r0021 = _r0021 + _sample1.y*_bitangent;
     _r0021 = _r0021 + _sample1.z*_normal;
     _sampleAtViewPosition1 = _positionView.xyz + _r0021;
-    _v0023 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,   1.00000000000000000E00f);
+    _v0023 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,  1.00000000000000000E000f);
     _r0023.x = dot(_Projection._11_12_13_14, _v0023);
     _r0023.y = dot(_Projection._21_22_23_24, _v0023);
     _r0023.z = dot(_Projection._31_32_33_34, _v0023);
     _r0023.w = dot(_Projection._41_42_43_44, _v0023);
     _sampleNDC1 = _r0023/_r0023.w;
-    _tex0025 = _sampleNDC1.xy*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
-    _flipped0025 = float2(_tex0025.x,   1.00000000000000000E00f - _tex0025.y);
+    _tex0025 = _sampleNDC1.xy* 5.00000000000000000E-001f +  5.00000000000000000E-001f;
+    _flipped0025 = float2(_tex0025.x,  1.00000000000000000E000f - _tex0025.y);
     _TMP5 = _TMP29.Sample(_DepthMap, _flipped0025);
-    _occlusionFactor1 =   1.00000000000000000E00f;
+    _occlusionFactor1 =  1.00000000000000000E000f;
     if (_TMP5.x < _TMP2.x) { // if begin
-        _occlusionFactor1 =   0.00000000000000000E00f;
+        _occlusionFactor1 =  0.00000000000000000E000f;
     } // end if
     _occlusionContribution = _occlusionContribution + _occlusionFactor1;
     _sample1 = _Kernel[4].xyz*_Radius;
@@ -210,18 +210,18 @@ float4 main( in X1X cin) : SV_Target0
     _r0021 = _r0021 + _sample1.y*_bitangent;
     _r0021 = _r0021 + _sample1.z*_normal;
     _sampleAtViewPosition1 = _positionView.xyz + _r0021;
-    _v0023 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,   1.00000000000000000E00f);
+    _v0023 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,  1.00000000000000000E000f);
     _r0023.x = dot(_Projection._11_12_13_14, _v0023);
     _r0023.y = dot(_Projection._21_22_23_24, _v0023);
     _r0023.z = dot(_Projection._31_32_33_34, _v0023);
     _r0023.w = dot(_Projection._41_42_43_44, _v0023);
     _sampleNDC1 = _r0023/_r0023.w;
-    _tex0025 = _sampleNDC1.xy*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
-    _flipped0025 = float2(_tex0025.x,   1.00000000000000000E00f - _tex0025.y);
+    _tex0025 = _sampleNDC1.xy* 5.00000000000000000E-001f +  5.00000000000000000E-001f;
+    _flipped0025 = float2(_tex0025.x,  1.00000000000000000E000f - _tex0025.y);
     _TMP5 = _TMP29.Sample(_DepthMap, _flipped0025);
-    _occlusionFactor1 =   1.00000000000000000E00f;
+    _occlusionFactor1 =  1.00000000000000000E000f;
     if (_TMP5.x < _TMP2.x) { // if begin
-        _occlusionFactor1 =   0.00000000000000000E00f;
+        _occlusionFactor1 =  0.00000000000000000E000f;
     } // end if
     _occlusionContribution = _occlusionContribution + _occlusionFactor1;
     _sample1 = _Kernel[5].xyz*_Radius;
@@ -229,18 +229,18 @@ float4 main( in X1X cin) : SV_Target0
     _r0021 = _r0021 + _sample1.y*_bitangent;
     _r0021 = _r0021 + _sample1.z*_normal;
     _sampleAtViewPosition1 = _positionView.xyz + _r0021;
-    _v0023 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,   1.00000000000000000E00f);
+    _v0023 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,  1.00000000000000000E000f);
     _r0023.x = dot(_Projection._11_12_13_14, _v0023);
     _r0023.y = dot(_Projection._21_22_23_24, _v0023);
     _r0023.z = dot(_Projection._31_32_33_34, _v0023);
     _r0023.w = dot(_Projection._41_42_43_44, _v0023);
     _sampleNDC1 = _r0023/_r0023.w;
-    _tex0025 = _sampleNDC1.xy*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
-    _flipped0025 = float2(_tex0025.x,   1.00000000000000000E00f - _tex0025.y);
+    _tex0025 = _sampleNDC1.xy* 5.00000000000000000E-001f +  5.00000000000000000E-001f;
+    _flipped0025 = float2(_tex0025.x,  1.00000000000000000E000f - _tex0025.y);
     _TMP5 = _TMP29.Sample(_DepthMap, _flipped0025);
-    _occlusionFactor1 =   1.00000000000000000E00f;
+    _occlusionFactor1 =  1.00000000000000000E000f;
     if (_TMP5.x < _TMP2.x) { // if begin
-        _occlusionFactor1 =   0.00000000000000000E00f;
+        _occlusionFactor1 =  0.00000000000000000E000f;
     } // end if
     _occlusionContribution = _occlusionContribution + _occlusionFactor1;
     _sample1 = _Kernel[6].xyz*_Radius;
@@ -248,18 +248,18 @@ float4 main( in X1X cin) : SV_Target0
     _r0021 = _r0021 + _sample1.y*_bitangent;
     _r0021 = _r0021 + _sample1.z*_normal;
     _sampleAtViewPosition1 = _positionView.xyz + _r0021;
-    _v0023 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,   1.00000000000000000E00f);
+    _v0023 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,  1.00000000000000000E000f);
     _r0023.x = dot(_Projection._11_12_13_14, _v0023);
     _r0023.y = dot(_Projection._21_22_23_24, _v0023);
     _r0023.z = dot(_Projection._31_32_33_34, _v0023);
     _r0023.w = dot(_Projection._41_42_43_44, _v0023);
     _sampleNDC1 = _r0023/_r0023.w;
-    _tex0025 = _sampleNDC1.xy*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
-    _flipped0025 = float2(_tex0025.x,   1.00000000000000000E00f - _tex0025.y);
+    _tex0025 = _sampleNDC1.xy* 5.00000000000000000E-001f +  5.00000000000000000E-001f;
+    _flipped0025 = float2(_tex0025.x,  1.00000000000000000E000f - _tex0025.y);
     _TMP5 = _TMP29.Sample(_DepthMap, _flipped0025);
-    _occlusionFactor1 =   1.00000000000000000E00f;
+    _occlusionFactor1 =  1.00000000000000000E000f;
     if (_TMP5.x < _TMP2.x) { // if begin
-        _occlusionFactor1 =   0.00000000000000000E00f;
+        _occlusionFactor1 =  0.00000000000000000E000f;
     } // end if
     _occlusionContribution = _occlusionContribution + _occlusionFactor1;
     _sample1 = _Kernel[7].xyz*_Radius;
@@ -267,18 +267,18 @@ float4 main( in X1X cin) : SV_Target0
     _r0021 = _r0021 + _sample1.y*_bitangent;
     _r0021 = _r0021 + _sample1.z*_normal;
     _sampleAtViewPosition1 = _positionView.xyz + _r0021;
-    _v0023 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,   1.00000000000000000E00f);
+    _v0023 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,  1.00000000000000000E000f);
     _r0023.x = dot(_Projection._11_12_13_14, _v0023);
     _r0023.y = dot(_Projection._21_22_23_24, _v0023);
     _r0023.z = dot(_Projection._31_32_33_34, _v0023);
     _r0023.w = dot(_Projection._41_42_43_44, _v0023);
     _sampleNDC1 = _r0023/_r0023.w;
-    _tex0025 = _sampleNDC1.xy*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
-    _flipped0025 = float2(_tex0025.x,   1.00000000000000000E00f - _tex0025.y);
+    _tex0025 = _sampleNDC1.xy* 5.00000000000000000E-001f +  5.00000000000000000E-001f;
+    _flipped0025 = float2(_tex0025.x,  1.00000000000000000E000f - _tex0025.y);
     _TMP5 = _TMP29.Sample(_DepthMap, _flipped0025);
-    _occlusionFactor1 =   1.00000000000000000E00f;
+    _occlusionFactor1 =  1.00000000000000000E000f;
     if (_TMP5.x < _TMP2.x) { // if begin
-        _occlusionFactor1 =   0.00000000000000000E00f;
+        _occlusionFactor1 =  0.00000000000000000E000f;
     } // end if
     _occlusionContribution = _occlusionContribution + _occlusionFactor1;
     _sample1 = _Kernel[8].xyz*_Radius;
@@ -286,18 +286,18 @@ float4 main( in X1X cin) : SV_Target0
     _r0021 = _r0021 + _sample1.y*_bitangent;
     _r0021 = _r0021 + _sample1.z*_normal;
     _sampleAtViewPosition1 = _positionView.xyz + _r0021;
-    _v0023 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,   1.00000000000000000E00f);
+    _v0023 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,  1.00000000000000000E000f);
     _r0023.x = dot(_Projection._11_12_13_14, _v0023);
     _r0023.y = dot(_Projection._21_22_23_24, _v0023);
     _r0023.z = dot(_Projection._31_32_33_34, _v0023);
     _r0023.w = dot(_Projection._41_42_43_44, _v0023);
     _sampleNDC1 = _r0023/_r0023.w;
-    _tex0025 = _sampleNDC1.xy*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
-    _flipped0025 = float2(_tex0025.x,   1.00000000000000000E00f - _tex0025.y);
+    _tex0025 = _sampleNDC1.xy* 5.00000000000000000E-001f +  5.00000000000000000E-001f;
+    _flipped0025 = float2(_tex0025.x,  1.00000000000000000E000f - _tex0025.y);
     _TMP5 = _TMP29.Sample(_DepthMap, _flipped0025);
-    _occlusionFactor1 =   1.00000000000000000E00f;
+    _occlusionFactor1 =  1.00000000000000000E000f;
     if (_TMP5.x < _TMP2.x) { // if begin
-        _occlusionFactor1 =   0.00000000000000000E00f;
+        _occlusionFactor1 =  0.00000000000000000E000f;
     } // end if
     _occlusionContribution = _occlusionContribution + _occlusionFactor1;
     _sample1 = _Kernel[9].xyz*_Radius;
@@ -305,18 +305,18 @@ float4 main( in X1X cin) : SV_Target0
     _r0021 = _r0021 + _sample1.y*_bitangent;
     _r0021 = _r0021 + _sample1.z*_normal;
     _sampleAtViewPosition1 = _positionView.xyz + _r0021;
-    _v0023 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,   1.00000000000000000E00f);
+    _v0023 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,  1.00000000000000000E000f);
     _r0023.x = dot(_Projection._11_12_13_14, _v0023);
     _r0023.y = dot(_Projection._21_22_23_24, _v0023);
     _r0023.z = dot(_Projection._31_32_33_34, _v0023);
     _r0023.w = dot(_Projection._41_42_43_44, _v0023);
     _sampleNDC1 = _r0023/_r0023.w;
-    _tex0025 = _sampleNDC1.xy*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
-    _flipped0025 = float2(_tex0025.x,   1.00000000000000000E00f - _tex0025.y);
+    _tex0025 = _sampleNDC1.xy* 5.00000000000000000E-001f +  5.00000000000000000E-001f;
+    _flipped0025 = float2(_tex0025.x,  1.00000000000000000E000f - _tex0025.y);
     _TMP5 = _TMP29.Sample(_DepthMap, _flipped0025);
-    _occlusionFactor1 =   1.00000000000000000E00f;
+    _occlusionFactor1 =  1.00000000000000000E000f;
     if (_TMP5.x < _TMP2.x) { // if begin
-        _occlusionFactor1 =   0.00000000000000000E00f;
+        _occlusionFactor1 =  0.00000000000000000E000f;
     } // end if
     _occlusionContribution = _occlusionContribution + _occlusionFactor1;
     _sample1 = _Kernel[10].xyz*_Radius;
@@ -324,18 +324,18 @@ float4 main( in X1X cin) : SV_Target0
     _r0021 = _r0021 + _sample1.y*_bitangent;
     _r0021 = _r0021 + _sample1.z*_normal;
     _sampleAtViewPosition1 = _positionView.xyz + _r0021;
-    _v0023 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,   1.00000000000000000E00f);
+    _v0023 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,  1.00000000000000000E000f);
     _r0023.x = dot(_Projection._11_12_13_14, _v0023);
     _r0023.y = dot(_Projection._21_22_23_24, _v0023);
     _r0023.z = dot(_Projection._31_32_33_34, _v0023);
     _r0023.w = dot(_Projection._41_42_43_44, _v0023);
     _sampleNDC1 = _r0023/_r0023.w;
-    _tex0025 = _sampleNDC1.xy*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
-    _flipped0025 = float2(_tex0025.x,   1.00000000000000000E00f - _tex0025.y);
+    _tex0025 = _sampleNDC1.xy* 5.00000000000000000E-001f +  5.00000000000000000E-001f;
+    _flipped0025 = float2(_tex0025.x,  1.00000000000000000E000f - _tex0025.y);
     _TMP5 = _TMP29.Sample(_DepthMap, _flipped0025);
-    _occlusionFactor1 =   1.00000000000000000E00f;
+    _occlusionFactor1 =  1.00000000000000000E000f;
     if (_TMP5.x < _TMP2.x) { // if begin
-        _occlusionFactor1 =   0.00000000000000000E00f;
+        _occlusionFactor1 =  0.00000000000000000E000f;
     } // end if
     _occlusionContribution = _occlusionContribution + _occlusionFactor1;
     _sample1 = _Kernel[11].xyz*_Radius;
@@ -343,18 +343,18 @@ float4 main( in X1X cin) : SV_Target0
     _r0021 = _r0021 + _sample1.y*_bitangent;
     _r0021 = _r0021 + _sample1.z*_normal;
     _sampleAtViewPosition1 = _positionView.xyz + _r0021;
-    _v0023 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,   1.00000000000000000E00f);
+    _v0023 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,  1.00000000000000000E000f);
     _r0023.x = dot(_Projection._11_12_13_14, _v0023);
     _r0023.y = dot(_Projection._21_22_23_24, _v0023);
     _r0023.z = dot(_Projection._31_32_33_34, _v0023);
     _r0023.w = dot(_Projection._41_42_43_44, _v0023);
     _sampleNDC1 = _r0023/_r0023.w;
-    _tex0025 = _sampleNDC1.xy*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
-    _flipped0025 = float2(_tex0025.x,   1.00000000000000000E00f - _tex0025.y);
+    _tex0025 = _sampleNDC1.xy* 5.00000000000000000E-001f +  5.00000000000000000E-001f;
+    _flipped0025 = float2(_tex0025.x,  1.00000000000000000E000f - _tex0025.y);
     _TMP5 = _TMP29.Sample(_DepthMap, _flipped0025);
-    _occlusionFactor1 =   1.00000000000000000E00f;
+    _occlusionFactor1 =  1.00000000000000000E000f;
     if (_TMP5.x < _TMP2.x) { // if begin
-        _occlusionFactor1 =   0.00000000000000000E00f;
+        _occlusionFactor1 =  0.00000000000000000E000f;
     } // end if
     _occlusionContribution = _occlusionContribution + _occlusionFactor1;
     _sample1 = _Kernel[12].xyz*_Radius;
@@ -362,18 +362,18 @@ float4 main( in X1X cin) : SV_Target0
     _r0021 = _r0021 + _sample1.y*_bitangent;
     _r0021 = _r0021 + _sample1.z*_normal;
     _sampleAtViewPosition1 = _positionView.xyz + _r0021;
-    _v0023 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,   1.00000000000000000E00f);
+    _v0023 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,  1.00000000000000000E000f);
     _r0023.x = dot(_Projection._11_12_13_14, _v0023);
     _r0023.y = dot(_Projection._21_22_23_24, _v0023);
     _r0023.z = dot(_Projection._31_32_33_34, _v0023);
     _r0023.w = dot(_Projection._41_42_43_44, _v0023);
     _sampleNDC1 = _r0023/_r0023.w;
-    _tex0025 = _sampleNDC1.xy*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
-    _flipped0025 = float2(_tex0025.x,   1.00000000000000000E00f - _tex0025.y);
+    _tex0025 = _sampleNDC1.xy* 5.00000000000000000E-001f +  5.00000000000000000E-001f;
+    _flipped0025 = float2(_tex0025.x,  1.00000000000000000E000f - _tex0025.y);
     _TMP5 = _TMP29.Sample(_DepthMap, _flipped0025);
-    _occlusionFactor1 =   1.00000000000000000E00f;
+    _occlusionFactor1 =  1.00000000000000000E000f;
     if (_TMP5.x < _TMP2.x) { // if begin
-        _occlusionFactor1 =   0.00000000000000000E00f;
+        _occlusionFactor1 =  0.00000000000000000E000f;
     } // end if
     _occlusionContribution = _occlusionContribution + _occlusionFactor1;
     _sample1 = _Kernel[13].xyz*_Radius;
@@ -381,18 +381,18 @@ float4 main( in X1X cin) : SV_Target0
     _r0021 = _r0021 + _sample1.y*_bitangent;
     _r0021 = _r0021 + _sample1.z*_normal;
     _sampleAtViewPosition1 = _positionView.xyz + _r0021;
-    _v0023 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,   1.00000000000000000E00f);
+    _v0023 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,  1.00000000000000000E000f);
     _r0023.x = dot(_Projection._11_12_13_14, _v0023);
     _r0023.y = dot(_Projection._21_22_23_24, _v0023);
     _r0023.z = dot(_Projection._31_32_33_34, _v0023);
     _r0023.w = dot(_Projection._41_42_43_44, _v0023);
     _sampleNDC1 = _r0023/_r0023.w;
-    _tex0025 = _sampleNDC1.xy*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
-    _flipped0025 = float2(_tex0025.x,   1.00000000000000000E00f - _tex0025.y);
+    _tex0025 = _sampleNDC1.xy* 5.00000000000000000E-001f +  5.00000000000000000E-001f;
+    _flipped0025 = float2(_tex0025.x,  1.00000000000000000E000f - _tex0025.y);
     _TMP5 = _TMP29.Sample(_DepthMap, _flipped0025);
-    _occlusionFactor1 =   1.00000000000000000E00f;
+    _occlusionFactor1 =  1.00000000000000000E000f;
     if (_TMP5.x < _TMP2.x) { // if begin
-        _occlusionFactor1 =   0.00000000000000000E00f;
+        _occlusionFactor1 =  0.00000000000000000E000f;
     } // end if
     _occlusionContribution = _occlusionContribution + _occlusionFactor1;
     _sample1 = _Kernel[14].xyz*_Radius;
@@ -400,18 +400,18 @@ float4 main( in X1X cin) : SV_Target0
     _r0021 = _r0021 + _sample1.y*_bitangent;
     _r0021 = _r0021 + _sample1.z*_normal;
     _sampleAtViewPosition1 = _positionView.xyz + _r0021;
-    _v0023 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,   1.00000000000000000E00f);
+    _v0023 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,  1.00000000000000000E000f);
     _r0023.x = dot(_Projection._11_12_13_14, _v0023);
     _r0023.y = dot(_Projection._21_22_23_24, _v0023);
     _r0023.z = dot(_Projection._31_32_33_34, _v0023);
     _r0023.w = dot(_Projection._41_42_43_44, _v0023);
     _sampleNDC1 = _r0023/_r0023.w;
-    _tex0025 = _sampleNDC1.xy*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
-    _flipped0025 = float2(_tex0025.x,   1.00000000000000000E00f - _tex0025.y);
+    _tex0025 = _sampleNDC1.xy* 5.00000000000000000E-001f +  5.00000000000000000E-001f;
+    _flipped0025 = float2(_tex0025.x,  1.00000000000000000E000f - _tex0025.y);
     _TMP5 = _TMP29.Sample(_DepthMap, _flipped0025);
-    _occlusionFactor1 =   1.00000000000000000E00f;
+    _occlusionFactor1 =  1.00000000000000000E000f;
     if (_TMP5.x < _TMP2.x) { // if begin
-        _occlusionFactor1 =   0.00000000000000000E00f;
+        _occlusionFactor1 =  0.00000000000000000E000f;
     } // end if
     _occlusionContribution = _occlusionContribution + _occlusionFactor1;
     _sample1 = _Kernel[15].xyz*_Radius;
@@ -419,20 +419,20 @@ float4 main( in X1X cin) : SV_Target0
     _r0021 = _r0021 + _sample1.y*_bitangent;
     _r0021 = _r0021 + _sample1.z*_normal;
     _sampleAtViewPosition1 = _positionView.xyz + _r0021;
-    _v0023 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,   1.00000000000000000E00f);
+    _v0023 = float4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z,  1.00000000000000000E000f);
     _r0023.x = dot(_Projection._11_12_13_14, _v0023);
     _r0023.y = dot(_Projection._21_22_23_24, _v0023);
     _r0023.z = dot(_Projection._31_32_33_34, _v0023);
     _r0023.w = dot(_Projection._41_42_43_44, _v0023);
     _sampleNDC1 = _r0023/_r0023.w;
-    _tex0025 = _sampleNDC1.xy*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
-    _flipped0025 = float2(_tex0025.x,   1.00000000000000000E00f - _tex0025.y);
+    _tex0025 = _sampleNDC1.xy* 5.00000000000000000E-001f +  5.00000000000000000E-001f;
+    _flipped0025 = float2(_tex0025.x,  1.00000000000000000E000f - _tex0025.y);
     _TMP5 = _TMP29.Sample(_DepthMap, _flipped0025);
-    _occlusionFactor1 =   1.00000000000000000E00f;
+    _occlusionFactor1 =  1.00000000000000000E000f;
     if (_TMP5.x < _TMP2.x) { // if begin
-        _occlusionFactor1 =   0.00000000000000000E00f;
+        _occlusionFactor1 =  0.00000000000000000E000f;
     } // end if
     _occlusionContribution = _occlusionContribution + _occlusionFactor1;
-    _occlusion = _occlusionContribution/  1.60000000000000000E01f;
-    return float4(_occlusion, _occlusion, _occlusion,   1.00000000000000000E00f);
+    _occlusion = _occlusionContribution/ 1.60000000000000000E001f;
+    return float4(_occlusion, _occlusion, _occlusion,  1.00000000000000000E000f);
 } // main end
