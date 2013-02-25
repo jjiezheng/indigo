@@ -19,25 +19,40 @@
 //semantic ProjInv
 //semantic ModelView
 //semantic View
+//var float4x4 ProjInv :  : _ProjInv[0], 4 : -1 : 1
 //var float4 position : $vin.POSITION : ATTR0 : 0 : 1
 //var float2 texCoord : $vin.TEXCOORD0 : ATTR8 : 1 : 1
 //var float4 vs.position : $vout.POSITION : HPOS : -1 : 1
 //var float2 vs.texCoord : $vout.TEXCOORD0 : TEX0 : -1 : 1
+//var float4 vs.positionVS : $vout.TEXCOORD1 : TEX1 : -1 : 1
 
 #version 110
 
 struct VOutput {
     vec4 _position2;
     vec2 _texCoord2;
+    vec4 _positionVS;
 };
 
+struct POutput {
+    vec4 _ssao;
+    vec4 _temp;
+};
+
+vec4 _r0014;
+uniform vec4 _ProjInv[4];
 
  // main procedure, the original name was vs
 void main()
 {
 
 
+    _r0014.x = dot(_ProjInv[0], gl_Vertex);
+    _r0014.y = dot(_ProjInv[1], gl_Vertex);
+    _r0014.z = dot(_ProjInv[2], gl_Vertex);
+    _r0014.w = dot(_ProjInv[3], gl_Vertex);
     gl_TexCoord[0].xy = gl_MultiTexCoord0.xy;
+    gl_TexCoord[1] = _r0014;
     gl_Position = gl_Vertex;
     return;
 } // main end

@@ -32,7 +32,7 @@ void Game::init(const char* sceneFile) {
 	//camera_.rotateX(toRadians(-90));
   camera_.setIsPlayerControlled(true);
   
-  camera_.setProjection(45.0f, GraphicsInterface::aspectRatio(), 1.0f, 300.0f);
+  camera_.setProjection(45.0f, GraphicsInterface::aspectRatio(), 1.0f, 100.0f);
 
   if (sceneFile) {
 		WorldLoader loader; 
@@ -63,6 +63,7 @@ void Game::mainLoop() {
 }
 
 void Game::keyUp(int keyCode) {
+	LOG(LOG_CHANNEL_TEMP, "%d\n", keyCode);
 	if (keyCode > 47 && keyCode < 59) {
 	  int renderTargetgId = keyCode - 49;// + 5;
 	  renderer_.presentRenderTarget(renderTargetgId);

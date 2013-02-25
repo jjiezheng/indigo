@@ -23,6 +23,7 @@ uniform float4x4 View;
 struct VOutput {
       float4 position 		: POSITION;
       float2 texCoord		: TEXCOORD0;
+      float4 positionVS		: TEXCOORD1;
 };
 
 VOutput vs(float4 position 	: POSITION,
@@ -30,28 +31,39 @@ VOutput vs(float4 position 	: POSITION,
     VOutput OUT;
     OUT.position = position;
     OUT.texCoord = texCoord;
+    OUT.positionVS = mul(ProjInv, position);
     return OUT;
 }
 
-float4 ps(float4 position 		: POSITION,
-		  float2 texCoord 		: TEXCOORD0) : COLOR0 {
+struct POutput {
+      float4 ssao 			: COLOR0;
+      float4 temp			: COLOR1;
+};
+
+POutput ps(float4 position 		: POSITION,
+		  float2 texCoord 		: TEXCOORD0,
+		  float4 positionVS		: TEXCOORD1) {
+
+	POutput OUT;
 
 	float3 normalView = unpackNormal(NormalViewSpaceMap, texCoord);
 	float3 normal = normalize(normalView);
 
-	//float linearDepth = tex2D(LinearDepthMap, texCoord).r;
-	//float depth = linearDepth;
+	OUT.temp = float4(normal, 1);
 
-	float depth = unpackDepth(DepthMap, texCoord);
+	float3 viewRay = positionVS.xyz;
 
-	float4 positionNDC = tex2NDC(texCoord, depth);
-	// -- works
-	float4 positionViewRaw = mul(ProjInv, positionNDC);
-	float4 positionView = positionViewRaw / positionViewRaw.w;
+	float depth = tex2D(DepthMap, texCoord).r;// unpackDepth(DepthMap, texCoord);
+	float3 positionView = viewRay * depth;
 
+	float3 origin = viewRay * -depth;
+
+	//OUT.ssao = float4(viewRay * depth, 1);
+	//OUT.ssao *= 100;
+	
 
 	float2 noiseTexCoords = texCoord * NoiseScale;
-	float3 rvec = tex2D(NoiseMap, noiseTexCoords).xyz;
+	float3 rvec = tex2D(NoiseMap, noiseTexCoords).xyz * 2.0f - 1.0f;
 	
 	float3 tangent = normalize(rvec - normal * dot(rvec, normal));
 	float3 bitangent = cross(tangent, normal);
@@ -74,21 +86,30 @@ float4 ps(float4 position 		: POSITION,
 		float2 sampleTexCoord = ndc2tex(sampleNDC.xy);
 		float sampleDepth = unpackDepth(DepthMap, sampleTexCoord);
 
-		float occlusionFactor = 1.0f;
+		//OUT.ssao.x = (abs(origin.z - sampleDepth) < Radius) * 100;
+		//OUT.ssao.y = (abs(origin.z - sampleDepth) < Radius) * 100;
+		//OUT.ssao.z = (abs(origin.z - sampleDepth) < Radius) * 100;
+		//OUT.ssao.w = 1;
 
-		//float rangeCheck = abs(positionView.z - sampleDepth) < Radius ? 1.0 : 0.0;
 
-		if (sampleDepth < depth && positionView.z - sampleDepth < Radius) {
-			occlusionFactor = 0.5f;// 1.0f * rangeCheck;
-		}
 
-		//float sampleDepth = depthCompare(SSAODepthMap, sampleTexCoord, sampleScreen.z);
+		//float rangeCheck = abs(origin.z - sampleDepth) < Radius ? 1.0 : 0.0;
+		//occlusionContribution += (sampleDepth <= sample.z ? 1.0 : 0.0);// * rangeCheck;
 
-		//float rangeCheck = abs(sampleScreen.z - sampleDepth) < Radius ? 1.0 : 0.0; // probably going to need this?
-		occlusionContribution += occlusionFactor;
+		//float rangeCheck = abs(origin.z - sampleDepth) < Radius ? 1.0 : 0.0;
+   		occlusionContribution += (sampleDepth <= sample.z ? 1.0 : 0.0);// * rangeCheck;
+
+		//if (sampleDepth <= depth) {
+		//	occlusionContribution += 1.0f * rangeCheck;// 1.0f * rangeCheck;
+		//}
+		
 	}
 
-	float occlusion = (occlusionContribution / (float)kSamples);
+	//return OUT;
 
-	return float4(occlusion, occlusion, occlusion, 1.0f);
+	float occlusion = 1.0f - (occlusionContribution / (float)kSamples);
+
+	OUT.ssao = float4(occlusion, occlusion, occlusion, 1.0f);
+
+	return OUT;// float4(occlusion, occlusion, occlusion, 1.0f);
 }

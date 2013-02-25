@@ -14,6 +14,8 @@ public:
 #ifdef PLATFORM_WINDOWS
   enum KeyStates {
     KEY_UNKNOWN = 0,
+		KEY_G = 71,
+		KEY_H = 72,
     KEY_ESCAPE = 27
   };
 #elif PLATFORM_PS3

@@ -15,6 +15,8 @@
 #include "maths/Interpolation.h"
 #include "maths/Matrix3x3.h"
 
+#include "input/Keyboard.h"
+
 #include "io/Log.h"
 
 #include "DeferredInitRenderStage.h"
@@ -30,7 +32,7 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
   ssaoEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_ssao.shader");
 	
 	ssaoEffect_->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
-	//ssaoEffect_->setSamplerState(1, UV_ADDRESS_CLAMP, FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT, COMPARISON_LESS_SHADOW);
+	ssaoEffect_->setSamplerState(1, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
 	ssaoEffect_->setSamplerState(2, UV_ADDRESS_WRAP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
 	//ssaoEffect_->setSamplerState(3, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
 
@@ -100,12 +102,22 @@ TextureId DeferredSSAOPass::render(IViewer* viewer, unsigned int inputMap, const
     ssaoEffect_->setUniform(viewer->farDistance(), "Far");
 
     ssaoEffect_->setTexture(initStage.normalViewSpaceMap(), "NormalViewSpaceMap");
-    ssaoEffect_->setTexture(GraphicsInterface::depthBufferTexture(), "DepthMap");
+    ssaoEffect_->setTexture(initStage.depthMap(), "DepthMap");
     ssaoEffect_->setTexture(noiseTexture_, "NoiseMap");
 
 		ssaoEffect_->setUniform(GraphicsInterface::halfBackBufferPixel(), "HalfPixel");
 
-    ssaoEffect_->setUniform(0.1f, "Radius");
+		static float radius = 0.001f;
+
+		if (Keyboard::keyState(IKeyboard::KEY_G)) {
+			radius -= 0.00001f;
+		}
+
+		if (Keyboard::keyState(IKeyboard::KEY_H)) {
+			radius += 0.00001f;
+		}
+
+    ssaoEffect_->setUniform(radius, "Radius");
 
     ssaoEffect_->setUniform(kernel, kKernelSize, "Kernel");
     ssaoEffect_->setUniform(kKernelSize, "KernelSize");
