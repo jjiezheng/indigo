@@ -6,15 +6,23 @@
 //version 3.1.0.13
 //profile vs_5_0
 //program vs
-//semantic ColorMap
+//semantic WorldView
 //semantic WorldViewProj
+//semantic NormalMatrix
+//semantic ColorMap
+//semantic Near
+//semantic Far
+//var float4x4 WorldView :  : _WorldView[0], 4 : -1 : 1
 //var float4x4 WorldViewProj :  : _WorldViewProj[0], 4 : -1 : 1
+//var float4x4 NormalMatrix :  : _NormalMatrix[0], 4 : -1 : 1
 //var float4 position : $vin.POSITION : POSITION : 0 : 1
 //var float3 normal : $vin.NORMAL : NORMAL : 1 : 1
 //var float2 texCoord : $vin.TEXCOORD0 : TEXCOORD0 : 2 : 1
 //var float4 vs.position : $vout.POSITION :  : -1 : 1
 //var float3 vs.normal : $vout.TEXCOORD0 :  : -1 : 1
 //var float2 vs.texCoord : $vout.TEXCOORD1 :  : -1 : 1
+//var float3 vs.viewNormal : $vout.TEXCOORD2 :  : -1 : 1
+//var float4 vs.viewPosition : $vout.TEXCOORD3 :  : -1 : 1
 
 #pragma pack_matrix(row_major)
 
@@ -22,22 +30,33 @@ struct VOutput {
     float4 _position1 : POSITION;
     float3 _normal1 : TEXCOORD0;
     float2 _texCoord1 : TEXCOORD1;
+    float3 _viewNormal : TEXCOORD2;
+    float4 _viewPosition : TEXCOORD3;
 };
 
 struct POutput {
     float4 _color : COLOR0;
-    float4 _normal2 : COLOR1;
+    float3 _normal2 : COLOR1;
+    float4 _depth : COLOR2;
+    float3 _viewNormal1 : COLOR3;
 };
 
 struct X1X {
     float4 _POSITION : SV_Position;
     float3 _TEXCOORD0 : TEXCOORD0;
     float2 _TEXCOORD1 : TEXCOORD1;
+    float3 _TEXCOORD2 : TEXCOORD2;
+    float4 _TEXCOORD3 : TEXCOORD3;
 };
 
-static float4 _r0002;
+static float4 _r0003;
+static float4 _r0005;
+static float4 _v0005;
+static float4 _r0007;
 static X1X cout;
+uniform float4x4 _WorldView;
 uniform float4x4 _WorldViewProj;
+uniform float4x4 _NormalMatrix;
 
  // main procedure, the original name was vs
 X1X main(in float4 _position : POSITION, in float3 _normal : NORMAL0, in float2 _texCoord : TEXCOORD0)
@@ -45,15 +64,27 @@ X1X main(in float4 _position : POSITION, in float3 _normal : NORMAL0, in float2 
 
     VOutput _OUT;
 
-    _r0002.x = dot(_WorldViewProj._11_12_13_14, _position);
-    _r0002.y = dot(_WorldViewProj._21_22_23_24, _position);
-    _r0002.z = dot(_WorldViewProj._31_32_33_34, _position);
-    _r0002.w = dot(_WorldViewProj._41_42_43_44, _position);
-    _OUT._position1 = (float4) _r0002;
-    _OUT._normal1 = (float3) _normal;
-    _OUT._texCoord1 = (float2) _texCoord;
-    cout._POSITION = (float4) _OUT._position1;
-    cout._TEXCOORD0 = (float3) _OUT._normal1;
-    cout._TEXCOORD1 = (float2) _OUT._texCoord1;
+    _r0003.x = dot(_WorldViewProj._11_12_13_14, _position);
+    _r0003.y = dot(_WorldViewProj._21_22_23_24, _position);
+    _r0003.z = dot(_WorldViewProj._31_32_33_34, _position);
+    _r0003.w = dot(_WorldViewProj._41_42_43_44, _position);
+    _OUT._position1 = _r0003;
+    _OUT._normal1 = _normal;
+    _OUT._texCoord1 = _texCoord;
+    _v0005 = float4(_normal.x, _normal.y, _normal.z,  0.00000000000000000E000f);
+    _r0005.x = dot(_NormalMatrix._11_12_13_14, _v0005);
+    _r0005.y = dot(_NormalMatrix._21_22_23_24, _v0005);
+    _r0005.z = dot(_NormalMatrix._31_32_33_34, _v0005);
+    _OUT._viewNormal = _r0005.xyz;
+    _r0007.x = dot(_WorldView._11_12_13_14, _position);
+    _r0007.y = dot(_WorldView._21_22_23_24, _position);
+    _r0007.z = dot(_WorldView._31_32_33_34, _position);
+    _r0007.w = dot(_WorldView._41_42_43_44, _position);
+    _OUT._viewPosition = _r0007;
+    cout._POSITION = _OUT._position1;
+    cout._TEXCOORD0 = _OUT._normal1;
+    cout._TEXCOORD1 = _OUT._texCoord1;
+    cout._TEXCOORD2 = _OUT._viewNormal;
+    cout._TEXCOORD3 = _OUT._viewPosition;
     return cout;
 } // main end

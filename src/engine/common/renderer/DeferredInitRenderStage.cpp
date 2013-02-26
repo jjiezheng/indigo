@@ -13,7 +13,7 @@ void DeferredInitRenderStage::init(const CSize& screenSize) {
   colorMapTexture_ = GraphicsInterface::createTexture(GraphicsInterface::backBufferSize(), IGraphicsInterface::R8G8B8A8);
   colorRenderTarget_ = GraphicsInterface::createRenderTarget(colorMapTexture_);
 
-  normalMapTexture_ = GraphicsInterface::createTexture(GraphicsInterface::backBufferSize(), IGraphicsInterface::R8G8B8A8);
+  normalMapTexture_ = GraphicsInterface::createTexture(GraphicsInterface::backBufferSize(), IGraphicsInterface::R32G32B32A32);
   normalRenderTarget_ = GraphicsInterface::createRenderTarget(normalMapTexture_);
 
   normalViewSpaceMapTexture_ = GraphicsInterface::createTexture(GraphicsInterface::backBufferSize(), IGraphicsInterface::R32G32B32A32);

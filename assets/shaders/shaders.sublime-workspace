@@ -4,7 +4,43 @@
 		"selected_items":
 		[
 			[
+				"sa",
+				"sampleOffsets"
+			],
+			[
+				"tex",
+				"texCoord"
+			],
+			[
+				"Pos",
+				"PositionMap"
+			],
+			[
+				"view",
+				"viewPosition"
+			],
+			[
 				"nor",
+				"normalVS"
+			],
+			[
+				"sam",
+				"samplePositionWS"
+			],
+			[
+				"pos",
+				"positionVS"
+			],
+			[
+				"NOr",
+				"NormalMatrix"
+			],
+			[
+				"View",
+				"ViewProjInv"
+			],
+			[
+				"no",
 				"normalVS"
 			],
 			[
@@ -20,10 +56,6 @@
 				"normalVS"
 			],
 			[
-				"pos",
-				"positionVS"
-			],
-			[
 				"Vi",
 				"View"
 			],
@@ -32,16 +64,8 @@
 				"normalWS"
 			],
 			[
-				"sam",
-				"sampleDepth"
-			],
-			[
 				"PO",
 				"POutput"
-			],
-			[
-				"tex",
-				"texCoord"
 			],
 			[
 				"Dep",
@@ -58,10 +82,6 @@
 			[
 				"ker",
 				"kernelAtNormalBasis"
-			],
-			[
-				"no",
-				"normal"
 			],
 			[
 				"T",
@@ -464,10 +484,6 @@
 				"shadowCoord"
 			],
 			[
-				"sa",
-				"sampleAtViewPositionZ"
-			],
-			[
 				"Sha",
 				"ShadowMap"
 			],
@@ -498,22 +514,6 @@
 			[
 				"s",
 				"shifts"
-			],
-			[
-				"nora",
-				"normalData"
-			],
-			[
-				"unp",
-				"unpackedNormal"
-			],
-			[
-				"Aug",
-				"AugmentedRevealFilter"
-			],
-			[
-				"posi",
-				"positionWorld"
 			]
 		]
 	},
@@ -523,7 +523,7 @@
 			"file": "deferred_render_color_normal_depth.cg",
 			"settings":
 			{
-				"buffer_size": 1089,
+				"buffer_size": 1042,
 				"line_ending": "Windows"
 			}
 		},
@@ -531,7 +531,7 @@
 			"file": "deferred_ssao.cg",
 			"settings":
 			{
-				"buffer_size": 2920,
+				"buffer_size": 2363,
 				"line_ending": "Windows"
 			}
 		},
@@ -555,7 +555,7 @@
 			"file": "utils.h",
 			"settings":
 			{
-				"buffer_size": 1090,
+				"buffer_size": 1153,
 				"line_ending": "Windows"
 			}
 		}
@@ -738,13 +738,14 @@
 	},
 	"file_history":
 	[
+		"/C/Users/GBKosteNi/Development/game/assets/shaders/compiled/deferred_render_color_normal_depth.shader.dx11.fragment",
+		"/C/Users/GBKosteNi/Development/game/assets/shaders/compiled/deferred_render_color_normal_depth.shader.dx11.vertex",
+		"/C/cygwin/home/GBkosteni/Development/game/assets/scenes/simple/buddha.scene",
+		"/C/Users/GBKosteNi/Development/game/assets/shaders/deferred_lighting_spot_light_shadow.cg",
 		"/C/Users/GBKosteNi/Development/game/assets/scenes/cars/cars.scene",
 		"/C/Users/GBKosteNi/Development/game/assets/scenes/simple/car.scene",
 		"/C/Users/GBKosteNi/Development/game/assets/shaders/utils.h",
-		"/C/Users/GBKosteNi/Development/game/assets/shaders/compiled/deferred_render_color_normal_depth.shader.dx11.vertex",
-		"/C/Users/GBKosteNi/Development/game/assets/shaders/deferred_lighting_spot_light_shadow.cg",
 		"/C/Users/GBKosteNi/Development/game/assets/shaders/depth.h",
-		"/C/Users/GBKosteNi/Development/game/assets/shaders/compiled/deferred_render_color_normal_depth.shader.dx11.fragment",
 		"/C/Users/GBKosteNi/Development/game/assets/shaders/compiled/deferred_ssao.shader.dx11.fragment",
 		"/C/Users/GBKosteNi/Development/game/assets/shaders/compiled/deferred_ssao.shader.dx11.vertex",
 		"/C/Users/GBKosteNi/Development/game/assets/shaders/standard.h",
@@ -864,8 +865,7 @@
 		"/C/Dev/Wb/Content/BookOfPotions/EyeToySDK/Code/Framework/Et/Renderer/RendererConstants.h",
 		"/C/Dev/Wb/Content/BookOfPotions/EyeToySDK/Code/Framework/Et/Renderer/Blt/Blt.cpp",
 		"/C/Dev/Wb/Content/BookOfPotions/EyeToySDK/Code/Framework/Et/Renderer/RendererGraph.cpp",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Potions/ShrinkingSolution/ShrinkingSolution.chapter",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Potions/ShrinkingSolution/Ingredient_1/SpreadBleed.prefab"
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Potions/ShrinkingSolution/ShrinkingSolution.chapter"
 	],
 	"find":
 	{
@@ -890,6 +890,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"ssao",
 			"normalWS",
 			"positionWS",
 			"NormalMatrix",
@@ -1016,8 +1017,7 @@
 			"m_uiTimeStamp",
 			"pTexScratch",
 			"gctexture",
-			"ctexture",
-			"gctexture"
+			"ctexture"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1129,15 +1129,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1089,
+						"buffer_size": 1042,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								359,
+								359
 							]
 						],
 						"settings":
@@ -1147,7 +1147,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 126.0,
+						"translation.y": 108.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1158,25 +1158,25 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2920,
+						"buffer_size": 2363,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1885,
-								1885
+								1649,
+								1649
 							]
 						],
 						"settings":
 						{
-							"spell_check": true,
+							"spell_check": false,
 							"syntax": "Packages/Shader Languages/Cg.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1127.0,
+						"translation.y": 918.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1194,8 +1194,8 @@
 						"selection":
 						[
 							[
-								320,
-								320
+								119,
+								119
 							]
 						],
 						"settings":
@@ -1222,8 +1222,8 @@
 						"selection":
 						[
 							[
-								189,
-								189
+								188,
+								188
 							]
 						],
 						"settings":
@@ -1242,15 +1242,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1090,
+						"buffer_size": 1153,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								477,
-								477
+								390,
+								390
 							]
 						],
 						"settings":

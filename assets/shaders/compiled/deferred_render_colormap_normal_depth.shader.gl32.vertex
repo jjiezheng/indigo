@@ -6,15 +6,23 @@
 //version 3.1.0.13
 //profile glslv
 //program vs
-//semantic ColorMap
+//semantic WorldView
 //semantic WorldViewProj
+//semantic NormalMatrix
+//semantic ColorMap
+//semantic Near
+//semantic Far
+//var float4x4 WorldView :  : _WorldView[0], 4 : -1 : 1
 //var float4x4 WorldViewProj :  : _WorldViewProj[0], 4 : -1 : 1
+//var float4x4 NormalMatrix :  : _NormalMatrix[0], 4 : -1 : 1
 //var float4 position : $vin.POSITION : POSITION : 0 : 1
 //var float3 normal : $vin.NORMAL : NORMAL : 1 : 1
 //var float2 texCoord : $vin.TEXCOORD0 : TEXCOORD0 : 2 : 1
 //var float4 vs.position : $vout.POSITION : HPOS : -1 : 1
 //var float3 vs.normal : $vout.TEXCOORD0 : TEXCOORD0 : -1 : 1
 //var float2 vs.texCoord : $vout.TEXCOORD1 : TEXCOORD1 : -1 : 1
+//var float3 vs.viewNormal : $vout.TEXCOORD2 : TEXCOORD2 : -1 : 1
+//var float4 vs.viewPosition : $vout.TEXCOORD3 : TEXCOORD3 : -1 : 1
 
 #version 130
 
@@ -22,36 +30,53 @@ struct VOutput {
     vec4 _position2;
     vec3 _normal1;
     vec2 _texCoord1;
+    vec3 _viewNormal;
+    vec4 _viewPosition;
 };
 
 struct POutput {
     vec4 _color;
-    vec4 _normal2;
+    vec3 _normal2;
+    vec4 _depth;
+    vec3 _viewNormal1;
 };
 
-vec4 _r0004;
+vec4 _r0009;
+vec4 _r0019;
+vec4 _v0019;
+vec4 _r0029;
 in vec4 NORMAL;
 in vec4 TEXCOORD0;
+uniform vec4 _WorldView[4];
 uniform vec4 _WorldViewProj[4];
+uniform vec4 _NormalMatrix[4];
 in vec4 cg_Vertex;
 out vec4 cg_TexCoord1;
+out vec4 cg_TexCoord3;
 out vec4 cg_TexCoord0;
+out vec4 cg_TexCoord2;
 
  // main procedure, the original name was vs
 void main()
 {
 
-    VOutput _OUT;
 
-    _r0004.x = dot(_WorldViewProj[0], cg_Vertex);
-    _r0004.y = dot(_WorldViewProj[1], cg_Vertex);
-    _r0004.z = dot(_WorldViewProj[2], cg_Vertex);
-    _r0004.w = dot(_WorldViewProj[3], cg_Vertex);
-    _OUT._position2 = vec4(float(_r0004.x), float(_r0004.y), float(_r0004.z), float(_r0004.w));
-    _OUT._normal1 = vec3(float(NORMAL.x), float(NORMAL.y), float(NORMAL.z));
-    _OUT._texCoord1 = vec2(float(TEXCOORD0.x), float(TEXCOORD0.y));
-    cg_TexCoord0.xyz = vec3(float(_OUT._normal1.x), float(_OUT._normal1.y), float(_OUT._normal1.z));
-    cg_TexCoord1.xy = vec2(float(_OUT._texCoord1.x), float(_OUT._texCoord1.y));
-    gl_Position = vec4(float(_OUT._position2.x), float(_OUT._position2.y), float(_OUT._position2.z), float(_OUT._position2.w));
+    _r0009.x = dot(_WorldViewProj[0], cg_Vertex);
+    _r0009.y = dot(_WorldViewProj[1], cg_Vertex);
+    _r0009.z = dot(_WorldViewProj[2], cg_Vertex);
+    _r0009.w = dot(_WorldViewProj[3], cg_Vertex);
+    _v0019 = vec4(NORMAL.x, NORMAL.y, NORMAL.z, 0.00000000E+000);
+    _r0019.x = dot(_NormalMatrix[0], _v0019);
+    _r0019.y = dot(_NormalMatrix[1], _v0019);
+    _r0019.z = dot(_NormalMatrix[2], _v0019);
+    _r0029.x = dot(_WorldView[0], cg_Vertex);
+    _r0029.y = dot(_WorldView[1], cg_Vertex);
+    _r0029.z = dot(_WorldView[2], cg_Vertex);
+    _r0029.w = dot(_WorldView[3], cg_Vertex);
+    cg_TexCoord2.xyz = _r0019.xyz;
+    cg_TexCoord0.xyz = NORMAL.xyz;
+    cg_TexCoord3 = _r0029;
+    cg_TexCoord1.xy = TEXCOORD0.xy;
+    gl_Position = _r0009;
     return;
 } // main end

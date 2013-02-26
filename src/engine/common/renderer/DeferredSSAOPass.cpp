@@ -33,8 +33,8 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
 	
 	ssaoEffect_->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
 	ssaoEffect_->setSamplerState(1, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
-	ssaoEffect_->setSamplerState(2, UV_ADDRESS_WRAP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
-	//ssaoEffect_->setSamplerState(3, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
+	ssaoEffect_->setSamplerState(2, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
+	ssaoEffect_->setSamplerState(3, UV_ADDRESS_WRAP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
 
   combineEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_ssao_combine.shader");
   quadVbo_ = Geometry::screenPlane();
@@ -111,19 +111,22 @@ TextureId DeferredSSAOPass::render(IViewer* viewer, unsigned int inputMap, const
 
     ssaoEffect_->setTexture(initStage.normalViewSpaceMap(), "NormalMap");
     ssaoEffect_->setTexture(GraphicsInterface::depthBufferTexture(), "DepthMap");
+		ssaoEffect_->setTexture(initStage.depthMap(), "PositionMap");
     ssaoEffect_->setTexture(noiseTexture_, "NoiseMap");
 
 		ssaoEffect_->setUniform(GraphicsInterface::halfBackBufferPixel(), "HalfPixel");
 
-		static float radius = 0.5f;
+		static float radius = 0.015f;
 
 		if (Keyboard::keyState(IKeyboard::KEY_G)) {
-			radius -= 0.001f;
+			radius -= 0.0001f;
+			LOG(LOG_CHANNEL_TEMP, "SSAO radius %f", radius);
 		}
 
 		if (Keyboard::keyState(IKeyboard::KEY_H)) {
-			radius += 0.001f;
-		}
+			radius += 0.0001f;
+			LOG(LOG_CHANNEL_TEMP, "SSAO radius %f", radius);
+		}		
 
     ssaoEffect_->setUniform(radius, "Radius");
 

@@ -14,12 +14,13 @@
 //semantic Far
 //var float4x4 WorldView :  : _WorldView[0], 4 : -1 : 1
 //var float4x4 WorldViewProj :  : _WorldViewProj[0], 4 : -1 : 1
+//var float4x4 NormalMatrix :  : _NormalMatrix[0], 4 : -1 : 1
 //var float4 position : $vin.POSITION : ATTR0 : 0 : 1
 //var float3 normal : $vin.NORMAL : ATTR2 : 1 : 1
 //var float4 vs.position : $vout.POSITION : HPOS : -1 : 1
 //var float3 vs.normal : $vout.TEXCOORD0 : TEX0 : -1 : 1
 //var float3 vs.viewNormal : $vout.TEXCOORD1 : TEX1 : -1 : 1
-//var float3 vs.viewPosition : $vout.TEXCOORD2 : TEX2 : -1 : 1
+//var float4 vs.viewPosition : $vout.TEXCOORD2 : TEX2 : -1 : 1
 
 #version 110
 
@@ -27,7 +28,7 @@ struct VOutput {
     vec4 _position2;
     vec3 _normal2;
     vec3 _viewNormal;
-    vec3 _viewPosition;
+    vec4 _viewPosition;
 };
 
 struct POutput {
@@ -37,32 +38,34 @@ struct POutput {
     vec3 _viewNormal1;
 };
 
-vec4 _r0010;
-vec4 _r0020;
-vec4 _v0020;
-vec4 _r0030;
+vec4 _r0009;
+vec4 _r0019;
+vec4 _v0019;
+vec4 _r0029;
 uniform vec4 _WorldView[4];
 uniform vec4 _WorldViewProj[4];
+uniform vec4 _NormalMatrix[4];
 
  // main procedure, the original name was vs
 void main()
 {
 
 
-    _r0010.x = dot(_WorldViewProj[0], gl_Vertex);
-    _r0010.y = dot(_WorldViewProj[1], gl_Vertex);
-    _r0010.z = dot(_WorldViewProj[2], gl_Vertex);
-    _r0010.w = dot(_WorldViewProj[3], gl_Vertex);
-    _v0020 = vec4(gl_Normal.x, gl_Normal.y, gl_Normal.z, 0.00000000E+000);
-    _r0020.x = dot(_WorldView[0], _v0020);
-    _r0020.y = dot(_WorldView[1], _v0020);
-    _r0020.z = dot(_WorldView[2], _v0020);
-    _r0030.x = dot(_WorldView[0], gl_Vertex);
-    _r0030.y = dot(_WorldView[1], gl_Vertex);
-    _r0030.z = dot(_WorldView[2], gl_Vertex);
-    gl_TexCoord[2].xyz = _r0030.xyz;
+    _r0009.x = dot(_WorldViewProj[0], gl_Vertex);
+    _r0009.y = dot(_WorldViewProj[1], gl_Vertex);
+    _r0009.z = dot(_WorldViewProj[2], gl_Vertex);
+    _r0009.w = dot(_WorldViewProj[3], gl_Vertex);
+    _v0019 = vec4(gl_Normal.x, gl_Normal.y, gl_Normal.z, 0.00000000E+000);
+    _r0019.x = dot(_NormalMatrix[0], _v0019);
+    _r0019.y = dot(_NormalMatrix[1], _v0019);
+    _r0019.z = dot(_NormalMatrix[2], _v0019);
+    _r0029.x = dot(_WorldView[0], gl_Vertex);
+    _r0029.y = dot(_WorldView[1], gl_Vertex);
+    _r0029.z = dot(_WorldView[2], gl_Vertex);
+    _r0029.w = dot(_WorldView[3], gl_Vertex);
+    gl_TexCoord[2] = _r0029;
     gl_TexCoord[0].xyz = gl_Normal;
-    gl_TexCoord[1].xyz = _r0020.xyz;
-    gl_Position = _r0010;
+    gl_TexCoord[1].xyz = _r0019.xyz;
+    gl_Position = _r0009;
     return;
 } // main end

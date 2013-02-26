@@ -12,9 +12,10 @@
 //semantic Kernel
 //semantic Far
 //semantic Near
-//semantic NormalMap : TEXUNIT0
-//semantic DepthMap : TEXUNIT1
-//semantic NoiseMap : TEXUNIT2
+//semantic PositionMap : TEXUNIT0
+//semantic NormalMap : TEXUNIT1
+//semantic DepthMap : TEXUNIT2
+//semantic NoiseMap : TEXUNIT3
 //semantic Projection
 //semantic ProjInv
 //semantic ModelView
@@ -31,11 +32,6 @@
 struct VOutput {
     float4 _position1 : POSITION;
     float2 _texCoord1 : TEXCOORD0;
-};
-
-struct POutput {
-    float4 _ssao : COLOR0;
-    float4 _temp : COLOR1;
 };
 
 struct X1X {

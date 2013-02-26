@@ -13,19 +13,17 @@ struct VOutput {
 	float4 position			: POSITION;
 	float3 normal			: TEXCOORD0;
 	float3 viewNormal		: TEXCOORD1;
-	float3 viewPosition		: TEXCOORD2;
+	float4 viewPosition		: TEXCOORD2;
 };
 
 VOutput vs(	float4 position 	: POSITION,
 		  	float3 normal 		: NORMAL) {
-
 	VOutput OUT;
 
 	OUT.normal = normal;
-	
 	OUT.position = mul(WorldViewProj, position);
-	OUT.viewNormal = mul(WorldView, float4(normal, 0)).xyz;
-	OUT.viewPosition = mul(WorldView, position).xyz;
+	OUT.viewNormal = mul(NormalMatrix, float4(normal, 0)).rgb;
+	OUT.viewPosition = mul(WorldView, position);
 	
  	return OUT;
 }
@@ -40,15 +38,14 @@ struct POutput {
 POutput ps(	float4 position			: POSITION,
 		   	float3 normal			: TEXCOORD0,
 		   	float3 viewNormal		: TEXCOORD1,
-		   	float3 viewPosition		: TEXCOORD2) {
+		   	float4 viewPosition		: TEXCOORD2) {
 
 	POutput OUT;
 	
 	OUT.color = DiffuseColor;
-	OUT.depth.xyz = -viewPosition.z / Far;
-	OUT.depth.w = 1;
+	OUT.depth = viewPosition;
 	OUT.normal = packNormal(normal);
-	OUT.viewNormal = packNormal(viewNormal);
+	OUT.viewNormal = viewNormal;
 	
 	return OUT;
 }

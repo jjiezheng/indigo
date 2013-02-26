@@ -12,9 +12,10 @@
 //semantic Kernel
 //semantic Far
 //semantic Near
-//semantic NormalMap : TEXUNIT0
-//semantic DepthMap : TEXUNIT1
-//semantic NoiseMap : TEXUNIT2
+//semantic PositionMap : TEXUNIT0
+//semantic NormalMap : TEXUNIT1
+//semantic DepthMap : TEXUNIT2
+//semantic NoiseMap : TEXUNIT3
 //semantic Projection
 //semantic ProjInv
 //semantic ModelView
@@ -23,10 +24,9 @@
 //semantic ViewProjInv
 //var float Radius :  : _Radius : -1 : 1
 //var float2 NoiseScale :  : _NoiseScale : -1 : 1
-//var sampler2D NormalMap : TEXUNIT0 : _NormalMap 0 : -1 : 1
-//var sampler2D DepthMap : TEXUNIT1 : _DepthMap 1 : -1 : 1
-//var sampler2D NoiseMap : TEXUNIT2 : _NoiseMap 2 : -1 : 1
-//var float4x4 ProjInv :  : _ProjInv[0], 4 : -1 : 1
+//var sampler2D PositionMap : TEXUNIT0 : _PositionMap 0 : -1 : 1
+//var sampler2D NormalMap : TEXUNIT1 : _NormalMap 1 : -1 : 1
+//var sampler2D NoiseMap : TEXUNIT3 : _NoiseMap 3 : -1 : 1
 //var float2 texCoord : $vin.TEXCOORD0 :  : 1 : 1
 //var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
 
@@ -34,12 +34,7 @@
 
 struct VOutput {
     float4 _position1 : SV_Position;
-    float2 _texCoord5 : TEXCOORD0;
-};
-
-struct POutput {
-    float4 _ssao : COLOR0;
-    float4 _temp : COLOR1;
+    float2 _texCoord2 : TEXCOORD0;
 };
 
 struct X1X {
@@ -48,440 +43,369 @@ struct X1X {
 };
 
 static float _TMP11;
-static float _TMP12;
-static float _TMP13;
-static float _TMP9;
-static float _TMP8;
-static float2 _TMP2;
 static float _TMP10;
+static float _TMP14;
+static float _TMP15;
+static float _TMP13;
+static float _TMP12;
+static float2 _TMP4;
+static float _TMP9;
+static float _TMP3;
+static float4 _TMP2;
 static float4 _TMP1;
-static float4 _TMP7;
-static float4 _positionScreen0018;
-static float4 _r0020;
-static float4 _unPackedNormal0022;
-static float4 _normalData0022;
-static float _occlusion0028;
+static float _TMP19;
+static float _occlusion10020;
+static float3 _v0020;
+static float3 _diff0020;
+static float4 _samplePositionVS0020;
+static float2 _sampleOffset0020;
+static float _TMP23;
+static float _TMP27;
+static float _occlusion10028;
 static float3 _v0028;
 static float3 _diff0028;
-static float4 _samplepositionVS0028;
-static float2 _sampleCoord0028;
+static float4 _samplePositionVS0028;
 static float2 _sampleOffset0028;
-static float4 _positionScreen0030;
-static float4 _r0032;
+static float _TMP31;
 static float _TMP35;
-static float _occlusion0040;
-static float3 _v0040;
-static float3 _diff0040;
-static float4 _samplepositionVS0040;
-static float2 _sampleCoord0040;
-static float2 _sampleOffset0040;
-static float4 _positionScreen0042;
-static float4 _r0044;
+static float _occlusion10036;
+static float3 _v0036;
+static float3 _diff0036;
+static float4 _samplePositionVS0036;
+static float2 _sampleOffset0036;
+static float _TMP39;
+static float _TMP43;
+static float _occlusion10044;
+static float3 _v0044;
+static float3 _diff0044;
+static float4 _samplePositionVS0044;
 static float _TMP47;
-static float _occlusion0052;
-static float3 _v0052;
-static float3 _diff0052;
-static float4 _samplepositionVS0052;
-static float2 _sampleCoord0052;
-static float2 _sampleOffset0052;
-static float4 _positionScreen0054;
-static float4 _r0056;
-static float _TMP59;
-static float _occlusion0064;
-static float3 _v0064;
-static float3 _diff0064;
-static float4 _samplepositionVS0064;
-static float2 _sampleCoord0064;
-static float4 _positionScreen0066;
-static float4 _r0068;
-static float _TMP71;
-Texture2D<float4> _TMP75 : register(t1);
-Texture2D<float4> _TMP76 : register(t0);
-Texture2D<float4> _TMP77 : register(t2);
+Texture2D<float4> _TMP51 : register(t0);
+Texture2D<float4> _TMP52 : register(t1);
+Texture2D<float4> _TMP53 : register(t3);
 uniform float _Radius;
 uniform float2 _NoiseScale;
-SamplerState _NormalMap : TEXUNIT0;
-SamplerState _DepthMap : TEXUNIT1;
-SamplerState _NoiseMap : TEXUNIT2;
-uniform float4x4 _ProjInv;
+SamplerState _PositionMap : TEXUNIT0;
+SamplerState _NormalMap : TEXUNIT1;
+SamplerState _NoiseMap : TEXUNIT3;
 
  // main procedure, the original name was ps
 float4 main( in X1X cin) : SV_Target0
 {
 
-    float2 _texCoord4;
+    float2 _texCoord1;
     float4 _positionVS1;
-    float3 _normalVS1;
     float3 _random;
     float _rad;
-    float _occlusion1;
+    float _occlusion;
     float2 _sampleOffset1;
     float2 _coord21;
 
-    _texCoord4 = cin._TEXCOORD0;
-    _TMP7 = _TMP75.Sample(_DepthMap, _texCoord4);
-    _positionScreen0018.x = _texCoord4.x* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _positionScreen0018.y = ( 1.00000000000000000E000f - _texCoord4.y)* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _positionScreen0018.z = _TMP7.x;
-    _positionScreen0018.w =  1.00000000000000000E000f;
-    _r0020.x = dot(_ProjInv._11_12_13_14, _positionScreen0018);
-    _r0020.y = dot(_ProjInv._21_22_23_24, _positionScreen0018);
-    _r0020.z = dot(_ProjInv._31_32_33_34, _positionScreen0018);
-    _r0020.w = dot(_ProjInv._41_42_43_44, _positionScreen0018);
-    _positionVS1 = _r0020/_r0020.w;
-    _normalData0022 = _TMP76.Sample(_NormalMap, _texCoord4);
-    _unPackedNormal0022 = _normalData0022* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _TMP8 = dot(_unPackedNormal0022.xyz, _unPackedNormal0022.xyz);
-    _TMP9 = rsqrt(_TMP8);
-    _normalVS1 = _TMP9*_unPackedNormal0022.xyz;
-    _TMP1 = _TMP77.Sample(_NoiseMap, _texCoord4*_NoiseScale);
-    _random = _TMP1.xyz* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _rad = _Radius/_positionVS1.z;
-    _TMP2 = float2(  1.00000000000000000E000f,  0.00000000000000000E000f) - ( 2.00000000000000000E000f*_random.xy)*_random.x;
-    _sampleOffset1 = _TMP2*_rad;
+    _texCoord1 = cin._TEXCOORD0;
+    _positionVS1 = _TMP51.Sample(_PositionMap, _texCoord1);
+    _TMP1 = _TMP52.Sample(_NormalMap, _texCoord1);
+    _TMP2 = _TMP53.Sample(_NoiseMap, _texCoord1*_NoiseScale);
+    _random = _TMP2.xyz* 2.00000000000000000E000f -  1.00000000000000000E000f;
+    _TMP3 = abs(_positionVS1.z);
+    _rad = _Radius/_TMP3;
+    _TMP4 = float2(  1.00000000000000000E000f,  0.00000000000000000E000f) - ( 2.00000000000000000E000f*_random.xy)*_random.x;
+    _sampleOffset1 = _TMP4*_rad;
     _coord21 = float2(_sampleOffset1.x* 7.07000017166137700E-001f - _sampleOffset1.y* 7.07000017166137700E-001f, _sampleOffset1.x* 7.07000017166137700E-001f + _sampleOffset1.y* 7.07000017166137700E-001f);
-    _sampleOffset0028 = _sampleOffset1* 2.50000000000000000E-001f;
-    _sampleCoord0028 = _texCoord4 + _sampleOffset0028;
-    _positionScreen0030.x = _sampleCoord0028.x* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _positionScreen0030.y = ( 1.00000000000000000E000f - _sampleCoord0028.y)* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _positionScreen0030.z = _TMP7.x;
-    _positionScreen0030.w =  1.00000000000000000E000f;
-    _r0032.x = dot(_ProjInv._11_12_13_14, _positionScreen0030);
-    _r0032.y = dot(_ProjInv._21_22_23_24, _positionScreen0030);
-    _r0032.z = dot(_ProjInv._31_32_33_34, _positionScreen0030);
-    _r0032.w = dot(_ProjInv._41_42_43_44, _positionScreen0030);
-    _samplepositionVS0028 = _r0032/_r0032.w;
-    _diff0028 = _samplepositionVS0028.xyz - _positionVS1.xyz;
-    _TMP8 = dot(_diff0028, _diff0028);
-    _TMP9 = rsqrt(_TMP8);
-    _v0028 = _TMP9*_diff0028;
+    _sampleOffset0020 = _sampleOffset1* 2.50000000000000000E-001f;
+    _samplePositionVS0020 = _TMP51.Sample(_PositionMap, _texCoord1 + _sampleOffset0020);
+    _diff0020 = _samplePositionVS0020.xyz - _positionVS1.xyz;
+    _TMP12 = dot(_diff0020, _diff0020);
+    _TMP13 = rsqrt(_TMP12);
+    _v0020 = _TMP13*_diff0020;
+    _TMP14 = dot(_diff0020, _diff0020);
+    _TMP15 = rsqrt(_TMP14);
+    _TMP23 =  1.00000000000000000E000f/_TMP15;
+    if (_TMP23 <  1.00000001490116120E-001f) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0020);
+        _TMP11 = max( 0.00000000000000000E000f, _TMP10*( 1.00000000000000000E000f + _TMP23));
+        _occlusion10020 = min( 1.00000000000000000E000f, _TMP11);
+        _TMP19 = _occlusion10020;
+    } else {
+        _TMP19 =  0.00000000000000000E000f;
+    } // end if
+    _sampleOffset0028 = _coord21* 5.00000000000000000E-001f;
+    _samplePositionVS0028 = _TMP51.Sample(_PositionMap, _texCoord1 + _sampleOffset0028);
+    _diff0028 = _samplePositionVS0028.xyz - _positionVS1.xyz;
     _TMP12 = dot(_diff0028, _diff0028);
     _TMP13 = rsqrt(_TMP12);
-    _TMP35 =  1.00000000000000000E000f/_TMP13;
-    _TMP11 = dot(_normalVS1.xyz, _v0028);
-    _occlusion0028 = max( 0.00000000000000000E000f, _TMP11*( 1.00000000000000000E000f + _TMP35));
-    _sampleOffset0040 = _coord21* 5.00000000000000000E-001f;
-    _sampleCoord0040 = _texCoord4 + _sampleOffset0040;
-    _positionScreen0042.x = _sampleCoord0040.x* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _positionScreen0042.y = ( 1.00000000000000000E000f - _sampleCoord0040.y)* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _positionScreen0042.z = _TMP7.x;
-    _positionScreen0042.w =  1.00000000000000000E000f;
-    _r0044.x = dot(_ProjInv._11_12_13_14, _positionScreen0042);
-    _r0044.y = dot(_ProjInv._21_22_23_24, _positionScreen0042);
-    _r0044.z = dot(_ProjInv._31_32_33_34, _positionScreen0042);
-    _r0044.w = dot(_ProjInv._41_42_43_44, _positionScreen0042);
-    _samplepositionVS0040 = _r0044/_r0044.w;
-    _diff0040 = _samplepositionVS0040.xyz - _positionVS1.xyz;
-    _TMP8 = dot(_diff0040, _diff0040);
-    _TMP9 = rsqrt(_TMP8);
-    _v0040 = _TMP9*_diff0040;
-    _TMP12 = dot(_diff0040, _diff0040);
+    _v0028 = _TMP13*_diff0028;
+    _TMP14 = dot(_diff0028, _diff0028);
+    _TMP15 = rsqrt(_TMP14);
+    _TMP31 =  1.00000000000000000E000f/_TMP15;
+    if (_TMP31 <  1.00000001490116120E-001f) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0028);
+        _TMP11 = max( 0.00000000000000000E000f, _TMP10*( 1.00000000000000000E000f + _TMP31));
+        _occlusion10028 = min( 1.00000000000000000E000f, _TMP11);
+        _TMP27 = _occlusion10028;
+    } else {
+        _TMP27 =  0.00000000000000000E000f;
+    } // end if
+    _occlusion = _TMP19 + _TMP27;
+    _sampleOffset0036 = _sampleOffset1* 7.50000000000000000E-001f;
+    _samplePositionVS0036 = _TMP51.Sample(_PositionMap, _texCoord1 + _sampleOffset0036);
+    _diff0036 = _samplePositionVS0036.xyz - _positionVS1.xyz;
+    _TMP12 = dot(_diff0036, _diff0036);
     _TMP13 = rsqrt(_TMP12);
-    _TMP47 =  1.00000000000000000E000f/_TMP13;
-    _TMP11 = dot(_normalVS1.xyz, _v0040);
-    _occlusion0040 = max( 0.00000000000000000E000f, _TMP11*( 1.00000000000000000E000f + _TMP47));
-    _occlusion1 = _occlusion0028 + _occlusion0040;
-    _sampleOffset0052 = _sampleOffset1* 7.50000000000000000E-001f;
-    _sampleCoord0052 = _texCoord4 + _sampleOffset0052;
-    _positionScreen0054.x = _sampleCoord0052.x* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _positionScreen0054.y = ( 1.00000000000000000E000f - _sampleCoord0052.y)* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _positionScreen0054.z = _TMP7.x;
-    _positionScreen0054.w =  1.00000000000000000E000f;
-    _r0056.x = dot(_ProjInv._11_12_13_14, _positionScreen0054);
-    _r0056.y = dot(_ProjInv._21_22_23_24, _positionScreen0054);
-    _r0056.z = dot(_ProjInv._31_32_33_34, _positionScreen0054);
-    _r0056.w = dot(_ProjInv._41_42_43_44, _positionScreen0054);
-    _samplepositionVS0052 = _r0056/_r0056.w;
-    _diff0052 = _samplepositionVS0052.xyz - _positionVS1.xyz;
-    _TMP8 = dot(_diff0052, _diff0052);
-    _TMP9 = rsqrt(_TMP8);
-    _v0052 = _TMP9*_diff0052;
-    _TMP12 = dot(_diff0052, _diff0052);
+    _v0036 = _TMP13*_diff0036;
+    _TMP14 = dot(_diff0036, _diff0036);
+    _TMP15 = rsqrt(_TMP14);
+    _TMP39 =  1.00000000000000000E000f/_TMP15;
+    if (_TMP39 <  1.00000001490116120E-001f) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0036);
+        _TMP11 = max( 0.00000000000000000E000f, _TMP10*( 1.00000000000000000E000f + _TMP39));
+        _occlusion10036 = min( 1.00000000000000000E000f, _TMP11);
+        _TMP35 = _occlusion10036;
+    } else {
+        _TMP35 =  0.00000000000000000E000f;
+    } // end if
+    _occlusion = _occlusion + _TMP35;
+    _samplePositionVS0044 = _TMP51.Sample(_PositionMap, _texCoord1 + _coord21);
+    _diff0044 = _samplePositionVS0044.xyz - _positionVS1.xyz;
+    _TMP12 = dot(_diff0044, _diff0044);
     _TMP13 = rsqrt(_TMP12);
-    _TMP59 =  1.00000000000000000E000f/_TMP13;
-    _TMP11 = dot(_normalVS1.xyz, _v0052);
-    _occlusion0052 = max( 0.00000000000000000E000f, _TMP11*( 1.00000000000000000E000f + _TMP59));
-    _occlusion1 = _occlusion1 + _occlusion0052;
-    _sampleCoord0064 = _texCoord4 + _coord21;
-    _positionScreen0066.x = _sampleCoord0064.x* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _positionScreen0066.y = ( 1.00000000000000000E000f - _sampleCoord0064.y)* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _positionScreen0066.z = _TMP7.x;
-    _positionScreen0066.w =  1.00000000000000000E000f;
-    _r0068.x = dot(_ProjInv._11_12_13_14, _positionScreen0066);
-    _r0068.y = dot(_ProjInv._21_22_23_24, _positionScreen0066);
-    _r0068.z = dot(_ProjInv._31_32_33_34, _positionScreen0066);
-    _r0068.w = dot(_ProjInv._41_42_43_44, _positionScreen0066);
-    _samplepositionVS0064 = _r0068/_r0068.w;
-    _diff0064 = _samplepositionVS0064.xyz - _positionVS1.xyz;
-    _TMP8 = dot(_diff0064, _diff0064);
-    _TMP9 = rsqrt(_TMP8);
-    _v0064 = _TMP9*_diff0064;
-    _TMP12 = dot(_diff0064, _diff0064);
-    _TMP13 = rsqrt(_TMP12);
-    _TMP71 =  1.00000000000000000E000f/_TMP13;
-    _TMP11 = dot(_normalVS1.xyz, _v0064);
-    _occlusion0064 = max( 0.00000000000000000E000f, _TMP11*( 1.00000000000000000E000f + _TMP71));
-    _occlusion1 = _occlusion1 + _occlusion0064;
-    _TMP10 = dot(_random.xy, float2( -1.00000000000000000E000f,  0.00000000000000000E000f));
-    _TMP2 = float2( -1.00000000000000000E000f,  0.00000000000000000E000f) - ( 2.00000000000000000E000f*_random.xy)*_TMP10;
-    _sampleOffset1 = _TMP2*_rad;
+    _v0044 = _TMP13*_diff0044;
+    _TMP14 = dot(_diff0044, _diff0044);
+    _TMP15 = rsqrt(_TMP14);
+    _TMP47 =  1.00000000000000000E000f/_TMP15;
+    if (_TMP47 <  1.00000001490116120E-001f) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0044);
+        _TMP11 = max( 0.00000000000000000E000f, _TMP10*( 1.00000000000000000E000f + _TMP47));
+        _occlusion10044 = min( 1.00000000000000000E000f, _TMP11);
+        _TMP43 = _occlusion10044;
+    } else {
+        _TMP43 =  0.00000000000000000E000f;
+    } // end if
+    _occlusion = _occlusion + _TMP43;
+    _TMP9 = dot(_random.xy, float2( -1.00000000000000000E000f,  0.00000000000000000E000f));
+    _TMP4 = float2( -1.00000000000000000E000f,  0.00000000000000000E000f) - ( 2.00000000000000000E000f*_random.xy)*_TMP9;
+    _sampleOffset1 = _TMP4*_rad;
     _coord21 = float2(_sampleOffset1.x* 7.07000017166137700E-001f - _sampleOffset1.y* 7.07000017166137700E-001f, _sampleOffset1.x* 7.07000017166137700E-001f + _sampleOffset1.y* 7.07000017166137700E-001f);
-    _sampleOffset0028 = _sampleOffset1* 2.50000000000000000E-001f;
-    _sampleCoord0028 = _texCoord4 + _sampleOffset0028;
-    _positionScreen0030.x = _sampleCoord0028.x* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _positionScreen0030.y = ( 1.00000000000000000E000f - _sampleCoord0028.y)* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _positionScreen0030.z = _TMP7.x;
-    _positionScreen0030.w =  1.00000000000000000E000f;
-    _r0032.x = dot(_ProjInv._11_12_13_14, _positionScreen0030);
-    _r0032.y = dot(_ProjInv._21_22_23_24, _positionScreen0030);
-    _r0032.z = dot(_ProjInv._31_32_33_34, _positionScreen0030);
-    _r0032.w = dot(_ProjInv._41_42_43_44, _positionScreen0030);
-    _samplepositionVS0028 = _r0032/_r0032.w;
-    _diff0028 = _samplepositionVS0028.xyz - _positionVS1.xyz;
-    _TMP8 = dot(_diff0028, _diff0028);
-    _TMP9 = rsqrt(_TMP8);
-    _v0028 = _TMP9*_diff0028;
+    _sampleOffset0020 = _sampleOffset1* 2.50000000000000000E-001f;
+    _samplePositionVS0020 = _TMP51.Sample(_PositionMap, _texCoord1 + _sampleOffset0020);
+    _diff0020 = _samplePositionVS0020.xyz - _positionVS1.xyz;
+    _TMP12 = dot(_diff0020, _diff0020);
+    _TMP13 = rsqrt(_TMP12);
+    _v0020 = _TMP13*_diff0020;
+    _TMP14 = dot(_diff0020, _diff0020);
+    _TMP15 = rsqrt(_TMP14);
+    _TMP23 =  1.00000000000000000E000f/_TMP15;
+    if (_TMP23 <  1.00000001490116120E-001f) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0020);
+        _TMP11 = max( 0.00000000000000000E000f, _TMP10*( 1.00000000000000000E000f + _TMP23));
+        _occlusion10020 = min( 1.00000000000000000E000f, _TMP11);
+        _TMP19 = _occlusion10020;
+    } else {
+        _TMP19 =  0.00000000000000000E000f;
+    } // end if
+    _occlusion = _occlusion + _TMP19;
+    _sampleOffset0028 = _coord21* 5.00000000000000000E-001f;
+    _samplePositionVS0028 = _TMP51.Sample(_PositionMap, _texCoord1 + _sampleOffset0028);
+    _diff0028 = _samplePositionVS0028.xyz - _positionVS1.xyz;
     _TMP12 = dot(_diff0028, _diff0028);
     _TMP13 = rsqrt(_TMP12);
-    _TMP35 =  1.00000000000000000E000f/_TMP13;
-    _TMP11 = dot(_normalVS1.xyz, _v0028);
-    _occlusion0028 = max( 0.00000000000000000E000f, _TMP11*( 1.00000000000000000E000f + _TMP35));
-    _occlusion1 = _occlusion1 + _occlusion0028;
-    _sampleOffset0040 = _coord21* 5.00000000000000000E-001f;
-    _sampleCoord0040 = _texCoord4 + _sampleOffset0040;
-    _positionScreen0042.x = _sampleCoord0040.x* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _positionScreen0042.y = ( 1.00000000000000000E000f - _sampleCoord0040.y)* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _positionScreen0042.z = _TMP7.x;
-    _positionScreen0042.w =  1.00000000000000000E000f;
-    _r0044.x = dot(_ProjInv._11_12_13_14, _positionScreen0042);
-    _r0044.y = dot(_ProjInv._21_22_23_24, _positionScreen0042);
-    _r0044.z = dot(_ProjInv._31_32_33_34, _positionScreen0042);
-    _r0044.w = dot(_ProjInv._41_42_43_44, _positionScreen0042);
-    _samplepositionVS0040 = _r0044/_r0044.w;
-    _diff0040 = _samplepositionVS0040.xyz - _positionVS1.xyz;
-    _TMP8 = dot(_diff0040, _diff0040);
-    _TMP9 = rsqrt(_TMP8);
-    _v0040 = _TMP9*_diff0040;
-    _TMP12 = dot(_diff0040, _diff0040);
+    _v0028 = _TMP13*_diff0028;
+    _TMP14 = dot(_diff0028, _diff0028);
+    _TMP15 = rsqrt(_TMP14);
+    _TMP31 =  1.00000000000000000E000f/_TMP15;
+    if (_TMP31 <  1.00000001490116120E-001f) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0028);
+        _TMP11 = max( 0.00000000000000000E000f, _TMP10*( 1.00000000000000000E000f + _TMP31));
+        _occlusion10028 = min( 1.00000000000000000E000f, _TMP11);
+        _TMP27 = _occlusion10028;
+    } else {
+        _TMP27 =  0.00000000000000000E000f;
+    } // end if
+    _occlusion = _occlusion + _TMP27;
+    _sampleOffset0036 = _sampleOffset1* 7.50000000000000000E-001f;
+    _samplePositionVS0036 = _TMP51.Sample(_PositionMap, _texCoord1 + _sampleOffset0036);
+    _diff0036 = _samplePositionVS0036.xyz - _positionVS1.xyz;
+    _TMP12 = dot(_diff0036, _diff0036);
     _TMP13 = rsqrt(_TMP12);
-    _TMP47 =  1.00000000000000000E000f/_TMP13;
-    _TMP11 = dot(_normalVS1.xyz, _v0040);
-    _occlusion0040 = max( 0.00000000000000000E000f, _TMP11*( 1.00000000000000000E000f + _TMP47));
-    _occlusion1 = _occlusion1 + _occlusion0040;
-    _sampleOffset0052 = _sampleOffset1* 7.50000000000000000E-001f;
-    _sampleCoord0052 = _texCoord4 + _sampleOffset0052;
-    _positionScreen0054.x = _sampleCoord0052.x* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _positionScreen0054.y = ( 1.00000000000000000E000f - _sampleCoord0052.y)* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _positionScreen0054.z = _TMP7.x;
-    _positionScreen0054.w =  1.00000000000000000E000f;
-    _r0056.x = dot(_ProjInv._11_12_13_14, _positionScreen0054);
-    _r0056.y = dot(_ProjInv._21_22_23_24, _positionScreen0054);
-    _r0056.z = dot(_ProjInv._31_32_33_34, _positionScreen0054);
-    _r0056.w = dot(_ProjInv._41_42_43_44, _positionScreen0054);
-    _samplepositionVS0052 = _r0056/_r0056.w;
-    _diff0052 = _samplepositionVS0052.xyz - _positionVS1.xyz;
-    _TMP8 = dot(_diff0052, _diff0052);
-    _TMP9 = rsqrt(_TMP8);
-    _v0052 = _TMP9*_diff0052;
-    _TMP12 = dot(_diff0052, _diff0052);
+    _v0036 = _TMP13*_diff0036;
+    _TMP14 = dot(_diff0036, _diff0036);
+    _TMP15 = rsqrt(_TMP14);
+    _TMP39 =  1.00000000000000000E000f/_TMP15;
+    if (_TMP39 <  1.00000001490116120E-001f) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0036);
+        _TMP11 = max( 0.00000000000000000E000f, _TMP10*( 1.00000000000000000E000f + _TMP39));
+        _occlusion10036 = min( 1.00000000000000000E000f, _TMP11);
+        _TMP35 = _occlusion10036;
+    } else {
+        _TMP35 =  0.00000000000000000E000f;
+    } // end if
+    _occlusion = _occlusion + _TMP35;
+    _samplePositionVS0044 = _TMP51.Sample(_PositionMap, _texCoord1 + _coord21);
+    _diff0044 = _samplePositionVS0044.xyz - _positionVS1.xyz;
+    _TMP12 = dot(_diff0044, _diff0044);
     _TMP13 = rsqrt(_TMP12);
-    _TMP59 =  1.00000000000000000E000f/_TMP13;
-    _TMP11 = dot(_normalVS1.xyz, _v0052);
-    _occlusion0052 = max( 0.00000000000000000E000f, _TMP11*( 1.00000000000000000E000f + _TMP59));
-    _occlusion1 = _occlusion1 + _occlusion0052;
-    _sampleCoord0064 = _texCoord4 + _coord21;
-    _positionScreen0066.x = _sampleCoord0064.x* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _positionScreen0066.y = ( 1.00000000000000000E000f - _sampleCoord0064.y)* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _positionScreen0066.z = _TMP7.x;
-    _positionScreen0066.w =  1.00000000000000000E000f;
-    _r0068.x = dot(_ProjInv._11_12_13_14, _positionScreen0066);
-    _r0068.y = dot(_ProjInv._21_22_23_24, _positionScreen0066);
-    _r0068.z = dot(_ProjInv._31_32_33_34, _positionScreen0066);
-    _r0068.w = dot(_ProjInv._41_42_43_44, _positionScreen0066);
-    _samplepositionVS0064 = _r0068/_r0068.w;
-    _diff0064 = _samplepositionVS0064.xyz - _positionVS1.xyz;
-    _TMP8 = dot(_diff0064, _diff0064);
-    _TMP9 = rsqrt(_TMP8);
-    _v0064 = _TMP9*_diff0064;
-    _TMP12 = dot(_diff0064, _diff0064);
-    _TMP13 = rsqrt(_TMP12);
-    _TMP71 =  1.00000000000000000E000f/_TMP13;
-    _TMP11 = dot(_normalVS1.xyz, _v0064);
-    _occlusion0064 = max( 0.00000000000000000E000f, _TMP11*( 1.00000000000000000E000f + _TMP71));
-    _occlusion1 = _occlusion1 + _occlusion0064;
-    _TMP2 = float2(  0.00000000000000000E000f,  1.00000000000000000E000f) - ( 2.00000000000000000E000f*_random.xy)*_random.y;
-    _sampleOffset1 = _TMP2*_rad;
+    _v0044 = _TMP13*_diff0044;
+    _TMP14 = dot(_diff0044, _diff0044);
+    _TMP15 = rsqrt(_TMP14);
+    _TMP47 =  1.00000000000000000E000f/_TMP15;
+    if (_TMP47 <  1.00000001490116120E-001f) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0044);
+        _TMP11 = max( 0.00000000000000000E000f, _TMP10*( 1.00000000000000000E000f + _TMP47));
+        _occlusion10044 = min( 1.00000000000000000E000f, _TMP11);
+        _TMP43 = _occlusion10044;
+    } else {
+        _TMP43 =  0.00000000000000000E000f;
+    } // end if
+    _occlusion = _occlusion + _TMP43;
+    _TMP4 = float2(  0.00000000000000000E000f,  1.00000000000000000E000f) - ( 2.00000000000000000E000f*_random.xy)*_random.y;
+    _sampleOffset1 = _TMP4*_rad;
     _coord21 = float2(_sampleOffset1.x* 7.07000017166137700E-001f - _sampleOffset1.y* 7.07000017166137700E-001f, _sampleOffset1.x* 7.07000017166137700E-001f + _sampleOffset1.y* 7.07000017166137700E-001f);
-    _sampleOffset0028 = _sampleOffset1* 2.50000000000000000E-001f;
-    _sampleCoord0028 = _texCoord4 + _sampleOffset0028;
-    _positionScreen0030.x = _sampleCoord0028.x* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _positionScreen0030.y = ( 1.00000000000000000E000f - _sampleCoord0028.y)* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _positionScreen0030.z = _TMP7.x;
-    _positionScreen0030.w =  1.00000000000000000E000f;
-    _r0032.x = dot(_ProjInv._11_12_13_14, _positionScreen0030);
-    _r0032.y = dot(_ProjInv._21_22_23_24, _positionScreen0030);
-    _r0032.z = dot(_ProjInv._31_32_33_34, _positionScreen0030);
-    _r0032.w = dot(_ProjInv._41_42_43_44, _positionScreen0030);
-    _samplepositionVS0028 = _r0032/_r0032.w;
-    _diff0028 = _samplepositionVS0028.xyz - _positionVS1.xyz;
-    _TMP8 = dot(_diff0028, _diff0028);
-    _TMP9 = rsqrt(_TMP8);
-    _v0028 = _TMP9*_diff0028;
+    _sampleOffset0020 = _sampleOffset1* 2.50000000000000000E-001f;
+    _samplePositionVS0020 = _TMP51.Sample(_PositionMap, _texCoord1 + _sampleOffset0020);
+    _diff0020 = _samplePositionVS0020.xyz - _positionVS1.xyz;
+    _TMP12 = dot(_diff0020, _diff0020);
+    _TMP13 = rsqrt(_TMP12);
+    _v0020 = _TMP13*_diff0020;
+    _TMP14 = dot(_diff0020, _diff0020);
+    _TMP15 = rsqrt(_TMP14);
+    _TMP23 =  1.00000000000000000E000f/_TMP15;
+    if (_TMP23 <  1.00000001490116120E-001f) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0020);
+        _TMP11 = max( 0.00000000000000000E000f, _TMP10*( 1.00000000000000000E000f + _TMP23));
+        _occlusion10020 = min( 1.00000000000000000E000f, _TMP11);
+        _TMP19 = _occlusion10020;
+    } else {
+        _TMP19 =  0.00000000000000000E000f;
+    } // end if
+    _occlusion = _occlusion + _TMP19;
+    _sampleOffset0028 = _coord21* 5.00000000000000000E-001f;
+    _samplePositionVS0028 = _TMP51.Sample(_PositionMap, _texCoord1 + _sampleOffset0028);
+    _diff0028 = _samplePositionVS0028.xyz - _positionVS1.xyz;
     _TMP12 = dot(_diff0028, _diff0028);
     _TMP13 = rsqrt(_TMP12);
-    _TMP35 =  1.00000000000000000E000f/_TMP13;
-    _TMP11 = dot(_normalVS1.xyz, _v0028);
-    _occlusion0028 = max( 0.00000000000000000E000f, _TMP11*( 1.00000000000000000E000f + _TMP35));
-    _occlusion1 = _occlusion1 + _occlusion0028;
-    _sampleOffset0040 = _coord21* 5.00000000000000000E-001f;
-    _sampleCoord0040 = _texCoord4 + _sampleOffset0040;
-    _positionScreen0042.x = _sampleCoord0040.x* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _positionScreen0042.y = ( 1.00000000000000000E000f - _sampleCoord0040.y)* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _positionScreen0042.z = _TMP7.x;
-    _positionScreen0042.w =  1.00000000000000000E000f;
-    _r0044.x = dot(_ProjInv._11_12_13_14, _positionScreen0042);
-    _r0044.y = dot(_ProjInv._21_22_23_24, _positionScreen0042);
-    _r0044.z = dot(_ProjInv._31_32_33_34, _positionScreen0042);
-    _r0044.w = dot(_ProjInv._41_42_43_44, _positionScreen0042);
-    _samplepositionVS0040 = _r0044/_r0044.w;
-    _diff0040 = _samplepositionVS0040.xyz - _positionVS1.xyz;
-    _TMP8 = dot(_diff0040, _diff0040);
-    _TMP9 = rsqrt(_TMP8);
-    _v0040 = _TMP9*_diff0040;
-    _TMP12 = dot(_diff0040, _diff0040);
+    _v0028 = _TMP13*_diff0028;
+    _TMP14 = dot(_diff0028, _diff0028);
+    _TMP15 = rsqrt(_TMP14);
+    _TMP31 =  1.00000000000000000E000f/_TMP15;
+    if (_TMP31 <  1.00000001490116120E-001f) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0028);
+        _TMP11 = max( 0.00000000000000000E000f, _TMP10*( 1.00000000000000000E000f + _TMP31));
+        _occlusion10028 = min( 1.00000000000000000E000f, _TMP11);
+        _TMP27 = _occlusion10028;
+    } else {
+        _TMP27 =  0.00000000000000000E000f;
+    } // end if
+    _occlusion = _occlusion + _TMP27;
+    _sampleOffset0036 = _sampleOffset1* 7.50000000000000000E-001f;
+    _samplePositionVS0036 = _TMP51.Sample(_PositionMap, _texCoord1 + _sampleOffset0036);
+    _diff0036 = _samplePositionVS0036.xyz - _positionVS1.xyz;
+    _TMP12 = dot(_diff0036, _diff0036);
     _TMP13 = rsqrt(_TMP12);
-    _TMP47 =  1.00000000000000000E000f/_TMP13;
-    _TMP11 = dot(_normalVS1.xyz, _v0040);
-    _occlusion0040 = max( 0.00000000000000000E000f, _TMP11*( 1.00000000000000000E000f + _TMP47));
-    _occlusion1 = _occlusion1 + _occlusion0040;
-    _sampleOffset0052 = _sampleOffset1* 7.50000000000000000E-001f;
-    _sampleCoord0052 = _texCoord4 + _sampleOffset0052;
-    _positionScreen0054.x = _sampleCoord0052.x* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _positionScreen0054.y = ( 1.00000000000000000E000f - _sampleCoord0052.y)* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _positionScreen0054.z = _TMP7.x;
-    _positionScreen0054.w =  1.00000000000000000E000f;
-    _r0056.x = dot(_ProjInv._11_12_13_14, _positionScreen0054);
-    _r0056.y = dot(_ProjInv._21_22_23_24, _positionScreen0054);
-    _r0056.z = dot(_ProjInv._31_32_33_34, _positionScreen0054);
-    _r0056.w = dot(_ProjInv._41_42_43_44, _positionScreen0054);
-    _samplepositionVS0052 = _r0056/_r0056.w;
-    _diff0052 = _samplepositionVS0052.xyz - _positionVS1.xyz;
-    _TMP8 = dot(_diff0052, _diff0052);
-    _TMP9 = rsqrt(_TMP8);
-    _v0052 = _TMP9*_diff0052;
-    _TMP12 = dot(_diff0052, _diff0052);
+    _v0036 = _TMP13*_diff0036;
+    _TMP14 = dot(_diff0036, _diff0036);
+    _TMP15 = rsqrt(_TMP14);
+    _TMP39 =  1.00000000000000000E000f/_TMP15;
+    if (_TMP39 <  1.00000001490116120E-001f) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0036);
+        _TMP11 = max( 0.00000000000000000E000f, _TMP10*( 1.00000000000000000E000f + _TMP39));
+        _occlusion10036 = min( 1.00000000000000000E000f, _TMP11);
+        _TMP35 = _occlusion10036;
+    } else {
+        _TMP35 =  0.00000000000000000E000f;
+    } // end if
+    _occlusion = _occlusion + _TMP35;
+    _samplePositionVS0044 = _TMP51.Sample(_PositionMap, _texCoord1 + _coord21);
+    _diff0044 = _samplePositionVS0044.xyz - _positionVS1.xyz;
+    _TMP12 = dot(_diff0044, _diff0044);
     _TMP13 = rsqrt(_TMP12);
-    _TMP59 =  1.00000000000000000E000f/_TMP13;
-    _TMP11 = dot(_normalVS1.xyz, _v0052);
-    _occlusion0052 = max( 0.00000000000000000E000f, _TMP11*( 1.00000000000000000E000f + _TMP59));
-    _occlusion1 = _occlusion1 + _occlusion0052;
-    _sampleCoord0064 = _texCoord4 + _coord21;
-    _positionScreen0066.x = _sampleCoord0064.x* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _positionScreen0066.y = ( 1.00000000000000000E000f - _sampleCoord0064.y)* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _positionScreen0066.z = _TMP7.x;
-    _positionScreen0066.w =  1.00000000000000000E000f;
-    _r0068.x = dot(_ProjInv._11_12_13_14, _positionScreen0066);
-    _r0068.y = dot(_ProjInv._21_22_23_24, _positionScreen0066);
-    _r0068.z = dot(_ProjInv._31_32_33_34, _positionScreen0066);
-    _r0068.w = dot(_ProjInv._41_42_43_44, _positionScreen0066);
-    _samplepositionVS0064 = _r0068/_r0068.w;
-    _diff0064 = _samplepositionVS0064.xyz - _positionVS1.xyz;
-    _TMP8 = dot(_diff0064, _diff0064);
-    _TMP9 = rsqrt(_TMP8);
-    _v0064 = _TMP9*_diff0064;
-    _TMP12 = dot(_diff0064, _diff0064);
-    _TMP13 = rsqrt(_TMP12);
-    _TMP71 =  1.00000000000000000E000f/_TMP13;
-    _TMP11 = dot(_normalVS1.xyz, _v0064);
-    _occlusion0064 = max( 0.00000000000000000E000f, _TMP11*( 1.00000000000000000E000f + _TMP71));
-    _occlusion1 = _occlusion1 + _occlusion0064;
-    _TMP10 = dot(_random.xy, float2(  0.00000000000000000E000f, -1.00000000000000000E000f));
-    _TMP2 = float2(  0.00000000000000000E000f, -1.00000000000000000E000f) - ( 2.00000000000000000E000f*_random.xy)*_TMP10;
-    _sampleOffset1 = _TMP2*_rad;
+    _v0044 = _TMP13*_diff0044;
+    _TMP14 = dot(_diff0044, _diff0044);
+    _TMP15 = rsqrt(_TMP14);
+    _TMP47 =  1.00000000000000000E000f/_TMP15;
+    if (_TMP47 <  1.00000001490116120E-001f) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0044);
+        _TMP11 = max( 0.00000000000000000E000f, _TMP10*( 1.00000000000000000E000f + _TMP47));
+        _occlusion10044 = min( 1.00000000000000000E000f, _TMP11);
+        _TMP43 = _occlusion10044;
+    } else {
+        _TMP43 =  0.00000000000000000E000f;
+    } // end if
+    _occlusion = _occlusion + _TMP43;
+    _TMP9 = dot(_random.xy, float2(  0.00000000000000000E000f, -1.00000000000000000E000f));
+    _TMP4 = float2(  0.00000000000000000E000f, -1.00000000000000000E000f) - ( 2.00000000000000000E000f*_random.xy)*_TMP9;
+    _sampleOffset1 = _TMP4*_rad;
     _coord21 = float2(_sampleOffset1.x* 7.07000017166137700E-001f - _sampleOffset1.y* 7.07000017166137700E-001f, _sampleOffset1.x* 7.07000017166137700E-001f + _sampleOffset1.y* 7.07000017166137700E-001f);
-    _sampleOffset0028 = _sampleOffset1* 2.50000000000000000E-001f;
-    _sampleCoord0028 = _texCoord4 + _sampleOffset0028;
-    _positionScreen0030.x = _sampleCoord0028.x* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _positionScreen0030.y = ( 1.00000000000000000E000f - _sampleCoord0028.y)* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _positionScreen0030.z = _TMP7.x;
-    _positionScreen0030.w =  1.00000000000000000E000f;
-    _r0032.x = dot(_ProjInv._11_12_13_14, _positionScreen0030);
-    _r0032.y = dot(_ProjInv._21_22_23_24, _positionScreen0030);
-    _r0032.z = dot(_ProjInv._31_32_33_34, _positionScreen0030);
-    _r0032.w = dot(_ProjInv._41_42_43_44, _positionScreen0030);
-    _samplepositionVS0028 = _r0032/_r0032.w;
-    _diff0028 = _samplepositionVS0028.xyz - _positionVS1.xyz;
-    _TMP8 = dot(_diff0028, _diff0028);
-    _TMP9 = rsqrt(_TMP8);
-    _v0028 = _TMP9*_diff0028;
+    _sampleOffset0020 = _sampleOffset1* 2.50000000000000000E-001f;
+    _samplePositionVS0020 = _TMP51.Sample(_PositionMap, _texCoord1 + _sampleOffset0020);
+    _diff0020 = _samplePositionVS0020.xyz - _positionVS1.xyz;
+    _TMP12 = dot(_diff0020, _diff0020);
+    _TMP13 = rsqrt(_TMP12);
+    _v0020 = _TMP13*_diff0020;
+    _TMP14 = dot(_diff0020, _diff0020);
+    _TMP15 = rsqrt(_TMP14);
+    _TMP23 =  1.00000000000000000E000f/_TMP15;
+    if (_TMP23 <  1.00000001490116120E-001f) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0020);
+        _TMP11 = max( 0.00000000000000000E000f, _TMP10*( 1.00000000000000000E000f + _TMP23));
+        _occlusion10020 = min( 1.00000000000000000E000f, _TMP11);
+        _TMP19 = _occlusion10020;
+    } else {
+        _TMP19 =  0.00000000000000000E000f;
+    } // end if
+    _occlusion = _occlusion + _TMP19;
+    _sampleOffset0028 = _coord21* 5.00000000000000000E-001f;
+    _samplePositionVS0028 = _TMP51.Sample(_PositionMap, _texCoord1 + _sampleOffset0028);
+    _diff0028 = _samplePositionVS0028.xyz - _positionVS1.xyz;
     _TMP12 = dot(_diff0028, _diff0028);
     _TMP13 = rsqrt(_TMP12);
-    _TMP35 =  1.00000000000000000E000f/_TMP13;
-    _TMP11 = dot(_normalVS1.xyz, _v0028);
-    _occlusion0028 = max( 0.00000000000000000E000f, _TMP11*( 1.00000000000000000E000f + _TMP35));
-    _occlusion1 = _occlusion1 + _occlusion0028;
-    _sampleOffset0040 = _coord21* 5.00000000000000000E-001f;
-    _sampleCoord0040 = _texCoord4 + _sampleOffset0040;
-    _positionScreen0042.x = _sampleCoord0040.x* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _positionScreen0042.y = ( 1.00000000000000000E000f - _sampleCoord0040.y)* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _positionScreen0042.z = _TMP7.x;
-    _positionScreen0042.w =  1.00000000000000000E000f;
-    _r0044.x = dot(_ProjInv._11_12_13_14, _positionScreen0042);
-    _r0044.y = dot(_ProjInv._21_22_23_24, _positionScreen0042);
-    _r0044.z = dot(_ProjInv._31_32_33_34, _positionScreen0042);
-    _r0044.w = dot(_ProjInv._41_42_43_44, _positionScreen0042);
-    _samplepositionVS0040 = _r0044/_r0044.w;
-    _diff0040 = _samplepositionVS0040.xyz - _positionVS1.xyz;
-    _TMP8 = dot(_diff0040, _diff0040);
-    _TMP9 = rsqrt(_TMP8);
-    _v0040 = _TMP9*_diff0040;
-    _TMP12 = dot(_diff0040, _diff0040);
+    _v0028 = _TMP13*_diff0028;
+    _TMP14 = dot(_diff0028, _diff0028);
+    _TMP15 = rsqrt(_TMP14);
+    _TMP31 =  1.00000000000000000E000f/_TMP15;
+    if (_TMP31 <  1.00000001490116120E-001f) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0028);
+        _TMP11 = max( 0.00000000000000000E000f, _TMP10*( 1.00000000000000000E000f + _TMP31));
+        _occlusion10028 = min( 1.00000000000000000E000f, _TMP11);
+        _TMP27 = _occlusion10028;
+    } else {
+        _TMP27 =  0.00000000000000000E000f;
+    } // end if
+    _occlusion = _occlusion + _TMP27;
+    _sampleOffset0036 = _sampleOffset1* 7.50000000000000000E-001f;
+    _samplePositionVS0036 = _TMP51.Sample(_PositionMap, _texCoord1 + _sampleOffset0036);
+    _diff0036 = _samplePositionVS0036.xyz - _positionVS1.xyz;
+    _TMP12 = dot(_diff0036, _diff0036);
     _TMP13 = rsqrt(_TMP12);
-    _TMP47 =  1.00000000000000000E000f/_TMP13;
-    _TMP11 = dot(_normalVS1.xyz, _v0040);
-    _occlusion0040 = max( 0.00000000000000000E000f, _TMP11*( 1.00000000000000000E000f + _TMP47));
-    _occlusion1 = _occlusion1 + _occlusion0040;
-    _sampleOffset0052 = _sampleOffset1* 7.50000000000000000E-001f;
-    _sampleCoord0052 = _texCoord4 + _sampleOffset0052;
-    _positionScreen0054.x = _sampleCoord0052.x* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _positionScreen0054.y = ( 1.00000000000000000E000f - _sampleCoord0052.y)* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _positionScreen0054.z = _TMP7.x;
-    _positionScreen0054.w =  1.00000000000000000E000f;
-    _r0056.x = dot(_ProjInv._11_12_13_14, _positionScreen0054);
-    _r0056.y = dot(_ProjInv._21_22_23_24, _positionScreen0054);
-    _r0056.z = dot(_ProjInv._31_32_33_34, _positionScreen0054);
-    _r0056.w = dot(_ProjInv._41_42_43_44, _positionScreen0054);
-    _samplepositionVS0052 = _r0056/_r0056.w;
-    _diff0052 = _samplepositionVS0052.xyz - _positionVS1.xyz;
-    _TMP8 = dot(_diff0052, _diff0052);
-    _TMP9 = rsqrt(_TMP8);
-    _v0052 = _TMP9*_diff0052;
-    _TMP12 = dot(_diff0052, _diff0052);
+    _v0036 = _TMP13*_diff0036;
+    _TMP14 = dot(_diff0036, _diff0036);
+    _TMP15 = rsqrt(_TMP14);
+    _TMP39 =  1.00000000000000000E000f/_TMP15;
+    if (_TMP39 <  1.00000001490116120E-001f) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0036);
+        _TMP11 = max( 0.00000000000000000E000f, _TMP10*( 1.00000000000000000E000f + _TMP39));
+        _occlusion10036 = min( 1.00000000000000000E000f, _TMP11);
+        _TMP35 = _occlusion10036;
+    } else {
+        _TMP35 =  0.00000000000000000E000f;
+    } // end if
+    _occlusion = _occlusion + _TMP35;
+    _samplePositionVS0044 = _TMP51.Sample(_PositionMap, _texCoord1 + _coord21);
+    _diff0044 = _samplePositionVS0044.xyz - _positionVS1.xyz;
+    _TMP12 = dot(_diff0044, _diff0044);
     _TMP13 = rsqrt(_TMP12);
-    _TMP59 =  1.00000000000000000E000f/_TMP13;
-    _TMP11 = dot(_normalVS1.xyz, _v0052);
-    _occlusion0052 = max( 0.00000000000000000E000f, _TMP11*( 1.00000000000000000E000f + _TMP59));
-    _occlusion1 = _occlusion1 + _occlusion0052;
-    _sampleCoord0064 = _texCoord4 + _coord21;
-    _positionScreen0066.x = _sampleCoord0064.x* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _positionScreen0066.y = ( 1.00000000000000000E000f - _sampleCoord0064.y)* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _positionScreen0066.z = _TMP7.x;
-    _positionScreen0066.w =  1.00000000000000000E000f;
-    _r0068.x = dot(_ProjInv._11_12_13_14, _positionScreen0066);
-    _r0068.y = dot(_ProjInv._21_22_23_24, _positionScreen0066);
-    _r0068.z = dot(_ProjInv._31_32_33_34, _positionScreen0066);
-    _r0068.w = dot(_ProjInv._41_42_43_44, _positionScreen0066);
-    _samplepositionVS0064 = _r0068/_r0068.w;
-    _diff0064 = _samplepositionVS0064.xyz - _positionVS1.xyz;
-    _TMP8 = dot(_diff0064, _diff0064);
-    _TMP9 = rsqrt(_TMP8);
-    _v0064 = _TMP9*_diff0064;
-    _TMP12 = dot(_diff0064, _diff0064);
-    _TMP13 = rsqrt(_TMP12);
-    _TMP71 =  1.00000000000000000E000f/_TMP13;
-    _TMP11 = dot(_normalVS1.xyz, _v0064);
-    _occlusion0064 = max( 0.00000000000000000E000f, _TMP11*( 1.00000000000000000E000f + _TMP71));
-    _occlusion1 = _occlusion1 + _occlusion0064;
-    _occlusion1 = _occlusion1/ 1.60000000000000000E001f;
-    return float4(_occlusion1, _occlusion1, _occlusion1,  1.00000000000000000E000f);
+    _v0044 = _TMP13*_diff0044;
+    _TMP14 = dot(_diff0044, _diff0044);
+    _TMP15 = rsqrt(_TMP14);
+    _TMP47 =  1.00000000000000000E000f/_TMP15;
+    if (_TMP47 <  1.00000001490116120E-001f) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0044);
+        _TMP11 = max( 0.00000000000000000E000f, _TMP10*( 1.00000000000000000E000f + _TMP47));
+        _occlusion10044 = min( 1.00000000000000000E000f, _TMP11);
+        _TMP43 = _occlusion10044;
+    } else {
+        _TMP43 =  0.00000000000000000E000f;
+    } // end if
+    _occlusion = _occlusion + _TMP43;
+    _occlusion = _occlusion/ 1.60000000000000000E001f;
+    _occlusion =  1.00000000000000000E000f - _occlusion;
+    return float4(_occlusion, _occlusion, _occlusion,  1.00000000000000000E000f);
 } // main end

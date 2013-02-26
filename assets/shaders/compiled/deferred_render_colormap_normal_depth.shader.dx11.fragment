@@ -6,13 +6,21 @@
 //version 3.1.0.13
 //profile ps_5_0
 //program ps
-//semantic ColorMap
+//semantic WorldView
 //semantic WorldViewProj
+//semantic NormalMatrix
+//semantic ColorMap
+//semantic Near
+//semantic Far
 //var sampler2D ColorMap :  : _ColorMap : -1 : 1
 //var float3 normal : $vin.TEXCOORD0 :  : 1 : 1
 //var float2 texCoord : $vin.TEXCOORD1 :  : 2 : 1
+//var float3 viewNormal : $vin.TEXCOORD2 :  : 3 : 1
+//var float4 viewPosition : $vin.TEXCOORD3 :  : 4 : 1
 //var float4 ps.color : $vout.COLOR0 : COLOR0 : -1 : 1
-//var float4 ps.normal : $vout.COLOR1 : COLOR1 : -1 : 1
+//var float3 ps.normal : $vout.COLOR1 : COLOR1 : -1 : 1
+//var float4 ps.depth : $vout.COLOR2 : COLOR2 : -1 : 1
+//var float3 ps.viewNormal : $vout.COLOR3 : COLOR3 : -1 : 1
 
 #pragma pack_matrix(row_major)
 
@@ -20,23 +28,26 @@ struct VOutput {
     float4 _position1 : SV_Position;
     float3 _normal2 : TEXCOORD0;
     float2 _texCoord1 : TEXCOORD1;
+    float3 _viewNormal2 : TEXCOORD2;
+    float4 _viewPosition1 : TEXCOORD3;
 };
 
 struct POutput {
     float4 _color : SV_Target0;
-    float4 _normal : SV_Target1;
+    float3 _normal : SV_Target1;
+    float4 _depth : SV_Target2;
+    float3 _viewNormal : SV_Target3;
 };
 
 struct X1X {
     float4 _POSITION : SV_Position;
     float3 _TEXCOORD0 : TEXCOORD0;
     float2 _TEXCOORD1 : TEXCOORD1;
+    float3 _TEXCOORD2 : TEXCOORD2;
+    float4 _TEXCOORD3 : TEXCOORD3;
 };
 
-static float3 _TMP1;
-static float4 _TMP0;
-static float3 _unPackedNormal0004;
-Texture2D<float4> _TMP5;
+Texture2D<float4> _TMP2;
 SamplerState _ColorMap;
 
  // main procedure, the original name was ps
@@ -45,14 +56,17 @@ POutput main( in X1X cin)
 
     float3 _normal1;
     float2 _texCoord;
+    float3 _viewNormal1;
+    float4 _viewPosition;
     POutput _OUT;
 
-    _normal1 = (float3) cin._TEXCOORD0;
-    _texCoord = (float2) cin._TEXCOORD1;
-    _TMP0 = _TMP5.Sample(_ColorMap, (float2) _texCoord);
-    _OUT._color = (float4) _TMP0;
-    _unPackedNormal0004 = (float3) _normal1;
-    _TMP1 = _unPackedNormal0004* 5.00000000000000000E-001f +  5.00000000000000000E-001f;
-    _OUT._normal = (float4) float4(_TMP1.x, _TMP1.y, _TMP1.z,  0.00000000000000000E000f);
+    _normal1 = cin._TEXCOORD0;
+    _texCoord = cin._TEXCOORD1;
+    _viewNormal1 = cin._TEXCOORD2;
+    _viewPosition = cin._TEXCOORD3;
+    _OUT._color = _TMP2.Sample(_ColorMap, _texCoord);
+    _OUT._depth = _viewPosition;
+    _OUT._normal = _normal1* 5.00000000000000000E-001f +  5.00000000000000000E-001f;
+    _OUT._viewNormal = _viewNormal1;
     return _OUT;
 } // main end

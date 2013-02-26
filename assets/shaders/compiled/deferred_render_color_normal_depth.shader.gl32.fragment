@@ -13,10 +13,9 @@
 //semantic Near
 //semantic Far
 //var float4 DiffuseColor :  : _DiffuseColor : -1 : 1
-//var float Far :  : _Far : -1 : 1
 //var float3 normal : $vin.TEXCOORD0 : TEXCOORD0 : 1 : 1
 //var float3 viewNormal : $vin.TEXCOORD1 : TEXCOORD1 : 2 : 1
-//var float3 viewPosition : $vin.TEXCOORD2 : TEXCOORD2 : 3 : 1
+//var float4 viewPosition : $vin.TEXCOORD2 : TEXCOORD2 : 3 : 1
 //var float4 ps.color : $vout.COLOR0 : COLOR0 : -1 : 1
 //var float3 ps.normal : $vout.COLOR1 : COLOR1 : -1 : 1
 //var float4 ps.depth : $vout.COLOR2 : COLOR2 : -1 : 1
@@ -29,7 +28,7 @@
 struct VOutput {
     vec3 _normal2;
     vec3 _viewNormal2;
-    vec3 _viewPosition2;
+    vec4 _viewPosition2;
 };
 
 struct POutput {
@@ -40,7 +39,6 @@ struct POutput {
 };
 
 uniform vec4 _DiffuseColor;
-uniform float _Far;
 in vec4 cg_TexCoord1;
 in vec4 cg_TexCoord0;
 in vec4 cg_TexCoord2;
@@ -55,13 +53,10 @@ void main()
 
     POutput _OUT;
 
-    _OUT._depth.xyz = vec3(-cg_TexCoord2.z/_Far, -cg_TexCoord2.z/_Far, -cg_TexCoord2.z/_Far);
-    _OUT._depth.w = 1.00000000E+000;
     _OUT._normal3 = cg_TexCoord0.xyz*5.00000000E-001 + 5.00000000E-001;
-    _OUT._viewNormal3 = cg_TexCoord1.xyz*5.00000000E-001 + 5.00000000E-001;
-    cg_FragData3.xyz = _OUT._viewNormal3;
+    cg_FragData3.xyz = cg_TexCoord1.xyz;
     cg_FragData1.xyz = _OUT._normal3;
-    cg_FragData2 = _OUT._depth;
+    cg_FragData2 = cg_TexCoord2;
     cg_FragColor = _DiffuseColor;
     return;
 } // main end
