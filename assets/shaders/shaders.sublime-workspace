@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"sam",
+				"sampleAtViewPosition"
+			],
+			[
+				"norm",
+				"normalView"
+			],
+			[
 				"T",
 				"TEXCOORD2"
 			],
@@ -420,10 +428,6 @@
 				"sampleAtViewPositionZ"
 			],
 			[
-				"norm",
-				"normal"
-			],
-			[
 				"Sha",
 				"ShadowMap"
 			],
@@ -510,28 +514,24 @@
 			[
 				"sampl",
 				"sampleDepth"
-			],
-			[
-				"sam",
-				"sampleDepth"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "deferred_render_color_normal_depth.cg",
+			"file": "deferred_fullscreen_texture.cg",
 			"settings":
 			{
-				"buffer_size": 1210,
+				"buffer_size": 457,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "deferred_lighting_spot_light_shadow.cg",
+			"file": "deferred_render_color_normal_depth.cg",
 			"settings":
 			{
-				"buffer_size": 4358,
+				"buffer_size": 1065,
 				"line_ending": "Windows"
 			}
 		},
@@ -539,15 +539,7 @@
 			"file": "deferred_ssao.cg",
 			"settings":
 			{
-				"buffer_size": 2682,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "standard.h",
-			"settings":
-			{
-				"buffer_size": 1251,
+				"buffer_size": 2514,
 				"line_ending": "Windows"
 			}
 		},
@@ -555,15 +547,7 @@
 			"file": "utils.h",
 			"settings":
 			{
-				"buffer_size": 1175,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "compiled/deferred_render_color_normal_depth.shader.dx11.vertex",
-			"settings":
-			{
-				"buffer_size": 2607,
+				"buffer_size": 1090,
 				"line_ending": "Windows"
 			}
 		}
@@ -1126,31 +1110,29 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "deferred_render_color_normal_depth.cg",
-					"semi_transient": false,
+					"file": "deferred_fullscreen_texture.cg",
+					"semi_transient": true,
 					"settings":
 					{
-						"buffer_size": 1210,
+						"buffer_size": 457,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								313,
-								313
+								336,
+								336
 							]
 						],
 						"settings":
 						{
-							"spell_check": true,
-							"syntax": "Packages/Shader Languages/Cg.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/Shader Languages/Cg.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1160,19 +1142,19 @@
 				},
 				{
 					"buffer": 1,
-					"file": "deferred_lighting_spot_light_shadow.cg",
+					"file": "deferred_render_color_normal_depth.cg",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4358,
+						"buffer_size": 1065,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1115,
-								1115
+								1065,
+								1065
 							]
 						],
 						"settings":
@@ -1181,7 +1163,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 709.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1192,72 +1174,43 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2682,
+						"buffer_size": 2514,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								909,
-								909
+								1104,
+								1104
 							]
 						],
 						"settings":
 						{
-							"spell_check": false,
 							"syntax": "Packages/Shader Languages/Cg.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 228.0,
+						"translation.y": 450.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "standard.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1251,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								169,
-								169
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
 					"file": "utils.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1175,
+						"buffer_size": 1090,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								83,
-								83
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1266,35 +1219,6 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "compiled/deferred_render_color_normal_depth.shader.dx11.vertex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2607,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1537,
-								1537
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 912.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1333,15 +1257,11 @@
 		]
 	},
 	"menu_visible": true,
-	"output.clang":
-	{
-		"height": 178.0
-	},
 	"output.exec":
 	{
-		"height": 222.0
+		"height": 374.0
 	},
-	"project": "/C/Users/GBKosteNi/Development/game/assets/shaders/shaders.sublime-project",
+	"project": "/C/Users/NK/Development/game/assets/shaders/shaders.sublime-project",
 	"replace":
 	{
 		"height": 64.0
@@ -1352,6 +1272,18 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"color_",
+				"deferred_render_color_normal_depth.cg"
+			],
+			[
+				"utils",
+				"utils.h"
+			],
+			[
+				"ssao",
+				"deferred_ssao.cg"
+			],
 			[
 				"color_normal",
 				"compiled/deferred_render_color_normal_depth.shader.dx11.vertex"
@@ -1375,14 +1307,6 @@
 			[
 				"normal",
 				"compiled/deferred_render_color_normal_depth.shader.dx11.vertex"
-			],
-			[
-				"color_",
-				"deferred_render_color_normal_depth.cg"
-			],
-			[
-				"ssao",
-				"deferred_ssao.cg"
 			],
 			[
 				"ssao.sha",
@@ -1411,10 +1335,6 @@
 			[
 				"sta",
 				"standard.h"
-			],
-			[
-				"utils",
-				"utils.h"
 			],
 			[
 				"narrator",

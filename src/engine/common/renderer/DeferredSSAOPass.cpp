@@ -107,7 +107,7 @@ TextureId DeferredSSAOPass::render(IViewer* viewer, unsigned int inputMap, const
 
 		ssaoEffect_->setUniform(GraphicsInterface::halfBackBufferPixel(), "HalfPixel");
 
-		static float radius = 0.001f;
+		static float radius = 0.051f;
 
 		if (Keyboard::keyState(IKeyboard::KEY_G)) {
 			radius -= 0.00001f;

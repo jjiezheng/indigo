@@ -299,6 +299,22 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "assets.sublime-project",
+			"settings":
+			{
+				"buffer_size": 853,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "shaders/deferred_lighting_spot_light.cg",
+			"settings":
+			{
+				"buffer_size": 3816,
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "CG",
 	"command_palette":
@@ -327,6 +343,7 @@
 	},
 	"file_history":
 	[
+		"/C/Users/NK/Development/game/assets/shaders/shaders.sublime-project",
 		"/C/Users/NK/Development/game/assets/shaders/deferred_lighting_directional_light.cg",
 		"/C/Users/NK/Development/game/assets/shaders/utils.h",
 		"/C/Users/NK/Development/game/assets/shaders/standard.h",
@@ -453,8 +470,7 @@
 		"/C/Users/NK/Development/game/assets/terrain/flat.raw",
 		"/C/Users/NK/Desktop/terrain.raw",
 		"/C/Users/NK/Downloads/Adobe.Audition.CS5.5.v4.0.Multilingual.Incl.Keymaker-CORE/cr-9zw09/file_id.diz",
-		"/C/Users/NK/Development/game/libs/glm/core/type_mat4x4.hpp",
-		"/C/Users/NK/Development/game/assets/cgfx/composite.hlsl"
+		"/C/Users/NK/Development/game/libs/glm/core/type_mat4x4.hpp"
 	],
 	"find":
 	{
@@ -568,8 +584,66 @@
 	"groups":
 	[
 		{
+			"selected": 1,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "assets.sublime-project",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 853,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								213,
+								213
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "shaders/deferred_lighting_spot_light.cg",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3816,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								565,
+								565
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -608,7 +682,7 @@
 	{
 		"height": 369.0
 	},
-	"project": "/C/Users/NK/Development/game/assets/assets.sublime-project",
+	"project": "/C/Users/NK/Development/game/assets/assets.w32.sublime-project",
 	"replace":
 	{
 		"height": 62.0

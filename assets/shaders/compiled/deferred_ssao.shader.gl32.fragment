@@ -60,20 +60,23 @@ struct POutput {
     vec4 _temp;
 };
 
-float _TMP4;
-vec4 _TMP7;
-float _TMP3;
 float _TMP6;
+float _TMP4;
 float _TMP5;
+vec4 _TMP9;
+float _TMP3;
+float _TMP8;
+float _TMP7;
 vec4 _TMP2;
 vec4 _TMP1;
-vec4 _normalData0025;
-vec4 _unPackedNormal0025;
-vec3 _v0041;
-vec3 _r0049;
-vec4 _r0057;
-vec4 _v0057;
-vec2 _texCoord0067;
+vec4 _normalData0027;
+vec4 _unPackedNormal0027;
+vec3 _v0043;
+vec3 _r0051;
+vec4 _r0059;
+vec4 _v0059;
+vec2 _texCoord0069;
+float _a0075;
 uniform float _Radius;
 uniform vec2 _NoiseScale;
 uniform vec4 _Kernel[16];
@@ -102,13 +105,14 @@ void main()
     vec3 _sampleAtViewPosition1;
     vec4 _sampleNDC1;
     float _sampleDepth1;
+    float _rangeCheck1;
     float _occlusion;
 
-    _normalData0025 = texture(_NormalViewSpaceMap, cg_TexCoord0.xy);
-    _unPackedNormal0025 = _normalData0025*2.00000000E+000 - 1.00000000E+000;
-    _TMP5 = dot(_unPackedNormal0025.xyz, _unPackedNormal0025.xyz);
-    _TMP6 = inversesqrt(_TMP5);
-    _normal = _TMP6*_unPackedNormal0025.xyz;
+    _normalData0027 = texture(_NormalViewSpaceMap, cg_TexCoord0.xy);
+    _unPackedNormal0027 = _normalData0027*2.00000000E+000 - 1.00000000E+000;
+    _TMP7 = dot(_unPackedNormal0027.xyz, _unPackedNormal0027.xyz);
+    _TMP8 = inversesqrt(_TMP7);
+    _normal = _TMP8*_unPackedNormal0027.xyz;
     _OUT._temp = vec4(_normal.x, _normal.y, _normal.z, 1.00000000E+000);
     _TMP1 = texture(_DepthMap, cg_TexCoord0.xy);
     _positionView = cg_TexCoord1.xyz*_TMP1.x;
@@ -116,331 +120,459 @@ void main()
     _TMP2 = texture(_NoiseMap, _noiseTexCoords);
     _rvec = _TMP2.xyz*2.00000000E+000 - 1.00000000E+000;
     _TMP3 = dot(_rvec, _normal);
-    _v0041 = _rvec - _normal*_TMP3;
-    _TMP5 = dot(_v0041, _v0041);
-    _TMP6 = inversesqrt(_TMP5);
-    _tangent = _TMP6*_v0041;
+    _v0043 = _rvec - _normal*_TMP3;
+    _TMP7 = dot(_v0043, _v0043);
+    _TMP8 = inversesqrt(_TMP7);
+    _tangent = _TMP8*_v0043;
     _bitangent = _tangent.yzx*_normal.zxy - _tangent.zxy*_normal.yzx;
-    _r0049.x = dot(_tangent, _Kernel[0].xyz);
-    _r0049.y = dot(_bitangent, _Kernel[0].xyz);
-    _r0049.z = dot(_normal, _Kernel[0].xyz);
-    _sample1 = _r0049*_Radius;
+    _r0051.x = dot(_tangent, _Kernel[0].xyz);
+    _r0051.y = dot(_bitangent, _Kernel[0].xyz);
+    _r0051.z = dot(_normal, _Kernel[0].xyz);
+    _sample1 = _r0051*_Radius;
     _sampleAtViewPosition1 = _sample1 + _positionView.xyz;
-    _v0057 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
-    _r0057.x = dot(_Projection[0], _v0057);
-    _r0057.y = dot(_Projection[1], _v0057);
-    _r0057.z = dot(_Projection[2], _v0057);
-    _r0057.w = dot(_Projection[3], _v0057);
-    _sampleNDC1 = _r0057/_r0057.w;
-    _texCoord0067 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
-    _TMP7 = texture(_DepthMap, _texCoord0067);
-    _sampleDepth1 = _TMP7.x*2.00000000E+000 - 1.00000000E+000;
-    if (_sampleDepth1 <= _sample1.z) { // if begin
+    _v0059 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
+    _r0059.x = dot(_Projection[0], _v0059);
+    _r0059.y = dot(_Projection[1], _v0059);
+    _r0059.z = dot(_Projection[2], _v0059);
+    _r0059.w = dot(_Projection[3], _v0059);
+    _sampleNDC1 = _r0059/_r0059.w;
+    _texCoord0069 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
+    _TMP9 = texture(_DepthMap, _texCoord0069);
+    _sampleDepth1 = _TMP9.x*2.00000000E+000 - 1.00000000E+000;
+    _a0075 = _positionView.z - _sampleDepth1;
+    _TMP5 = abs(_a0075);
+    if (_TMP5 < _Radius) { // if begin
         _TMP4 = 1.00000000E+000;
     } else {
         _TMP4 = 0.00000000E+000;
     } // end if
-    _occlusionContribution = float(_TMP4);
-    _r0049.x = dot(_tangent, _Kernel[1].xyz);
-    _r0049.y = dot(_bitangent, _Kernel[1].xyz);
-    _r0049.z = dot(_normal, _Kernel[1].xyz);
-    _sample1 = _r0049*_Radius;
+    _rangeCheck1 = float(_TMP4);
+    if (_sampleDepth1 <= -_sampleAtViewPosition1.z) { // if begin
+        _TMP6 = 1.00000000E+000;
+    } else {
+        _TMP6 = 0.00000000E+000;
+    } // end if
+    _occlusionContribution = float(_TMP6)*_rangeCheck1;
+    _r0051.x = dot(_tangent, _Kernel[1].xyz);
+    _r0051.y = dot(_bitangent, _Kernel[1].xyz);
+    _r0051.z = dot(_normal, _Kernel[1].xyz);
+    _sample1 = _r0051*_Radius;
     _sampleAtViewPosition1 = _sample1 + _positionView.xyz;
-    _v0057 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
-    _r0057.x = dot(_Projection[0], _v0057);
-    _r0057.y = dot(_Projection[1], _v0057);
-    _r0057.z = dot(_Projection[2], _v0057);
-    _r0057.w = dot(_Projection[3], _v0057);
-    _sampleNDC1 = _r0057/_r0057.w;
-    _texCoord0067 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
-    _TMP7 = texture(_DepthMap, _texCoord0067);
-    _sampleDepth1 = _TMP7.x*2.00000000E+000 - 1.00000000E+000;
-    if (_sampleDepth1 <= _sample1.z) { // if begin
+    _v0059 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
+    _r0059.x = dot(_Projection[0], _v0059);
+    _r0059.y = dot(_Projection[1], _v0059);
+    _r0059.z = dot(_Projection[2], _v0059);
+    _r0059.w = dot(_Projection[3], _v0059);
+    _sampleNDC1 = _r0059/_r0059.w;
+    _texCoord0069 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
+    _TMP9 = texture(_DepthMap, _texCoord0069);
+    _sampleDepth1 = _TMP9.x*2.00000000E+000 - 1.00000000E+000;
+    _a0075 = _positionView.z - _sampleDepth1;
+    _TMP5 = abs(_a0075);
+    if (_TMP5 < _Radius) { // if begin
         _TMP4 = 1.00000000E+000;
     } else {
         _TMP4 = 0.00000000E+000;
     } // end if
-    _occlusionContribution = _occlusionContribution + float(_TMP4);
-    _r0049.x = dot(_tangent, _Kernel[2].xyz);
-    _r0049.y = dot(_bitangent, _Kernel[2].xyz);
-    _r0049.z = dot(_normal, _Kernel[2].xyz);
-    _sample1 = _r0049*_Radius;
+    _rangeCheck1 = float(_TMP4);
+    if (_sampleDepth1 <= -_sampleAtViewPosition1.z) { // if begin
+        _TMP6 = 1.00000000E+000;
+    } else {
+        _TMP6 = 0.00000000E+000;
+    } // end if
+    _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
+    _r0051.x = dot(_tangent, _Kernel[2].xyz);
+    _r0051.y = dot(_bitangent, _Kernel[2].xyz);
+    _r0051.z = dot(_normal, _Kernel[2].xyz);
+    _sample1 = _r0051*_Radius;
     _sampleAtViewPosition1 = _sample1 + _positionView.xyz;
-    _v0057 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
-    _r0057.x = dot(_Projection[0], _v0057);
-    _r0057.y = dot(_Projection[1], _v0057);
-    _r0057.z = dot(_Projection[2], _v0057);
-    _r0057.w = dot(_Projection[3], _v0057);
-    _sampleNDC1 = _r0057/_r0057.w;
-    _texCoord0067 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
-    _TMP7 = texture(_DepthMap, _texCoord0067);
-    _sampleDepth1 = _TMP7.x*2.00000000E+000 - 1.00000000E+000;
-    if (_sampleDepth1 <= _sample1.z) { // if begin
+    _v0059 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
+    _r0059.x = dot(_Projection[0], _v0059);
+    _r0059.y = dot(_Projection[1], _v0059);
+    _r0059.z = dot(_Projection[2], _v0059);
+    _r0059.w = dot(_Projection[3], _v0059);
+    _sampleNDC1 = _r0059/_r0059.w;
+    _texCoord0069 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
+    _TMP9 = texture(_DepthMap, _texCoord0069);
+    _sampleDepth1 = _TMP9.x*2.00000000E+000 - 1.00000000E+000;
+    _a0075 = _positionView.z - _sampleDepth1;
+    _TMP5 = abs(_a0075);
+    if (_TMP5 < _Radius) { // if begin
         _TMP4 = 1.00000000E+000;
     } else {
         _TMP4 = 0.00000000E+000;
     } // end if
-    _occlusionContribution = _occlusionContribution + float(_TMP4);
-    _r0049.x = dot(_tangent, _Kernel[3].xyz);
-    _r0049.y = dot(_bitangent, _Kernel[3].xyz);
-    _r0049.z = dot(_normal, _Kernel[3].xyz);
-    _sample1 = _r0049*_Radius;
+    _rangeCheck1 = float(_TMP4);
+    if (_sampleDepth1 <= -_sampleAtViewPosition1.z) { // if begin
+        _TMP6 = 1.00000000E+000;
+    } else {
+        _TMP6 = 0.00000000E+000;
+    } // end if
+    _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
+    _r0051.x = dot(_tangent, _Kernel[3].xyz);
+    _r0051.y = dot(_bitangent, _Kernel[3].xyz);
+    _r0051.z = dot(_normal, _Kernel[3].xyz);
+    _sample1 = _r0051*_Radius;
     _sampleAtViewPosition1 = _sample1 + _positionView.xyz;
-    _v0057 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
-    _r0057.x = dot(_Projection[0], _v0057);
-    _r0057.y = dot(_Projection[1], _v0057);
-    _r0057.z = dot(_Projection[2], _v0057);
-    _r0057.w = dot(_Projection[3], _v0057);
-    _sampleNDC1 = _r0057/_r0057.w;
-    _texCoord0067 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
-    _TMP7 = texture(_DepthMap, _texCoord0067);
-    _sampleDepth1 = _TMP7.x*2.00000000E+000 - 1.00000000E+000;
-    if (_sampleDepth1 <= _sample1.z) { // if begin
+    _v0059 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
+    _r0059.x = dot(_Projection[0], _v0059);
+    _r0059.y = dot(_Projection[1], _v0059);
+    _r0059.z = dot(_Projection[2], _v0059);
+    _r0059.w = dot(_Projection[3], _v0059);
+    _sampleNDC1 = _r0059/_r0059.w;
+    _texCoord0069 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
+    _TMP9 = texture(_DepthMap, _texCoord0069);
+    _sampleDepth1 = _TMP9.x*2.00000000E+000 - 1.00000000E+000;
+    _a0075 = _positionView.z - _sampleDepth1;
+    _TMP5 = abs(_a0075);
+    if (_TMP5 < _Radius) { // if begin
         _TMP4 = 1.00000000E+000;
     } else {
         _TMP4 = 0.00000000E+000;
     } // end if
-    _occlusionContribution = _occlusionContribution + float(_TMP4);
-    _r0049.x = dot(_tangent, _Kernel[4].xyz);
-    _r0049.y = dot(_bitangent, _Kernel[4].xyz);
-    _r0049.z = dot(_normal, _Kernel[4].xyz);
-    _sample1 = _r0049*_Radius;
+    _rangeCheck1 = float(_TMP4);
+    if (_sampleDepth1 <= -_sampleAtViewPosition1.z) { // if begin
+        _TMP6 = 1.00000000E+000;
+    } else {
+        _TMP6 = 0.00000000E+000;
+    } // end if
+    _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
+    _r0051.x = dot(_tangent, _Kernel[4].xyz);
+    _r0051.y = dot(_bitangent, _Kernel[4].xyz);
+    _r0051.z = dot(_normal, _Kernel[4].xyz);
+    _sample1 = _r0051*_Radius;
     _sampleAtViewPosition1 = _sample1 + _positionView.xyz;
-    _v0057 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
-    _r0057.x = dot(_Projection[0], _v0057);
-    _r0057.y = dot(_Projection[1], _v0057);
-    _r0057.z = dot(_Projection[2], _v0057);
-    _r0057.w = dot(_Projection[3], _v0057);
-    _sampleNDC1 = _r0057/_r0057.w;
-    _texCoord0067 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
-    _TMP7 = texture(_DepthMap, _texCoord0067);
-    _sampleDepth1 = _TMP7.x*2.00000000E+000 - 1.00000000E+000;
-    if (_sampleDepth1 <= _sample1.z) { // if begin
+    _v0059 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
+    _r0059.x = dot(_Projection[0], _v0059);
+    _r0059.y = dot(_Projection[1], _v0059);
+    _r0059.z = dot(_Projection[2], _v0059);
+    _r0059.w = dot(_Projection[3], _v0059);
+    _sampleNDC1 = _r0059/_r0059.w;
+    _texCoord0069 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
+    _TMP9 = texture(_DepthMap, _texCoord0069);
+    _sampleDepth1 = _TMP9.x*2.00000000E+000 - 1.00000000E+000;
+    _a0075 = _positionView.z - _sampleDepth1;
+    _TMP5 = abs(_a0075);
+    if (_TMP5 < _Radius) { // if begin
         _TMP4 = 1.00000000E+000;
     } else {
         _TMP4 = 0.00000000E+000;
     } // end if
-    _occlusionContribution = _occlusionContribution + float(_TMP4);
-    _r0049.x = dot(_tangent, _Kernel[5].xyz);
-    _r0049.y = dot(_bitangent, _Kernel[5].xyz);
-    _r0049.z = dot(_normal, _Kernel[5].xyz);
-    _sample1 = _r0049*_Radius;
+    _rangeCheck1 = float(_TMP4);
+    if (_sampleDepth1 <= -_sampleAtViewPosition1.z) { // if begin
+        _TMP6 = 1.00000000E+000;
+    } else {
+        _TMP6 = 0.00000000E+000;
+    } // end if
+    _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
+    _r0051.x = dot(_tangent, _Kernel[5].xyz);
+    _r0051.y = dot(_bitangent, _Kernel[5].xyz);
+    _r0051.z = dot(_normal, _Kernel[5].xyz);
+    _sample1 = _r0051*_Radius;
     _sampleAtViewPosition1 = _sample1 + _positionView.xyz;
-    _v0057 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
-    _r0057.x = dot(_Projection[0], _v0057);
-    _r0057.y = dot(_Projection[1], _v0057);
-    _r0057.z = dot(_Projection[2], _v0057);
-    _r0057.w = dot(_Projection[3], _v0057);
-    _sampleNDC1 = _r0057/_r0057.w;
-    _texCoord0067 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
-    _TMP7 = texture(_DepthMap, _texCoord0067);
-    _sampleDepth1 = _TMP7.x*2.00000000E+000 - 1.00000000E+000;
-    if (_sampleDepth1 <= _sample1.z) { // if begin
+    _v0059 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
+    _r0059.x = dot(_Projection[0], _v0059);
+    _r0059.y = dot(_Projection[1], _v0059);
+    _r0059.z = dot(_Projection[2], _v0059);
+    _r0059.w = dot(_Projection[3], _v0059);
+    _sampleNDC1 = _r0059/_r0059.w;
+    _texCoord0069 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
+    _TMP9 = texture(_DepthMap, _texCoord0069);
+    _sampleDepth1 = _TMP9.x*2.00000000E+000 - 1.00000000E+000;
+    _a0075 = _positionView.z - _sampleDepth1;
+    _TMP5 = abs(_a0075);
+    if (_TMP5 < _Radius) { // if begin
         _TMP4 = 1.00000000E+000;
     } else {
         _TMP4 = 0.00000000E+000;
     } // end if
-    _occlusionContribution = _occlusionContribution + float(_TMP4);
-    _r0049.x = dot(_tangent, _Kernel[6].xyz);
-    _r0049.y = dot(_bitangent, _Kernel[6].xyz);
-    _r0049.z = dot(_normal, _Kernel[6].xyz);
-    _sample1 = _r0049*_Radius;
+    _rangeCheck1 = float(_TMP4);
+    if (_sampleDepth1 <= -_sampleAtViewPosition1.z) { // if begin
+        _TMP6 = 1.00000000E+000;
+    } else {
+        _TMP6 = 0.00000000E+000;
+    } // end if
+    _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
+    _r0051.x = dot(_tangent, _Kernel[6].xyz);
+    _r0051.y = dot(_bitangent, _Kernel[6].xyz);
+    _r0051.z = dot(_normal, _Kernel[6].xyz);
+    _sample1 = _r0051*_Radius;
     _sampleAtViewPosition1 = _sample1 + _positionView.xyz;
-    _v0057 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
-    _r0057.x = dot(_Projection[0], _v0057);
-    _r0057.y = dot(_Projection[1], _v0057);
-    _r0057.z = dot(_Projection[2], _v0057);
-    _r0057.w = dot(_Projection[3], _v0057);
-    _sampleNDC1 = _r0057/_r0057.w;
-    _texCoord0067 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
-    _TMP7 = texture(_DepthMap, _texCoord0067);
-    _sampleDepth1 = _TMP7.x*2.00000000E+000 - 1.00000000E+000;
-    if (_sampleDepth1 <= _sample1.z) { // if begin
+    _v0059 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
+    _r0059.x = dot(_Projection[0], _v0059);
+    _r0059.y = dot(_Projection[1], _v0059);
+    _r0059.z = dot(_Projection[2], _v0059);
+    _r0059.w = dot(_Projection[3], _v0059);
+    _sampleNDC1 = _r0059/_r0059.w;
+    _texCoord0069 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
+    _TMP9 = texture(_DepthMap, _texCoord0069);
+    _sampleDepth1 = _TMP9.x*2.00000000E+000 - 1.00000000E+000;
+    _a0075 = _positionView.z - _sampleDepth1;
+    _TMP5 = abs(_a0075);
+    if (_TMP5 < _Radius) { // if begin
         _TMP4 = 1.00000000E+000;
     } else {
         _TMP4 = 0.00000000E+000;
     } // end if
-    _occlusionContribution = _occlusionContribution + float(_TMP4);
-    _r0049.x = dot(_tangent, _Kernel[7].xyz);
-    _r0049.y = dot(_bitangent, _Kernel[7].xyz);
-    _r0049.z = dot(_normal, _Kernel[7].xyz);
-    _sample1 = _r0049*_Radius;
+    _rangeCheck1 = float(_TMP4);
+    if (_sampleDepth1 <= -_sampleAtViewPosition1.z) { // if begin
+        _TMP6 = 1.00000000E+000;
+    } else {
+        _TMP6 = 0.00000000E+000;
+    } // end if
+    _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
+    _r0051.x = dot(_tangent, _Kernel[7].xyz);
+    _r0051.y = dot(_bitangent, _Kernel[7].xyz);
+    _r0051.z = dot(_normal, _Kernel[7].xyz);
+    _sample1 = _r0051*_Radius;
     _sampleAtViewPosition1 = _sample1 + _positionView.xyz;
-    _v0057 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
-    _r0057.x = dot(_Projection[0], _v0057);
-    _r0057.y = dot(_Projection[1], _v0057);
-    _r0057.z = dot(_Projection[2], _v0057);
-    _r0057.w = dot(_Projection[3], _v0057);
-    _sampleNDC1 = _r0057/_r0057.w;
-    _texCoord0067 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
-    _TMP7 = texture(_DepthMap, _texCoord0067);
-    _sampleDepth1 = _TMP7.x*2.00000000E+000 - 1.00000000E+000;
-    if (_sampleDepth1 <= _sample1.z) { // if begin
+    _v0059 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
+    _r0059.x = dot(_Projection[0], _v0059);
+    _r0059.y = dot(_Projection[1], _v0059);
+    _r0059.z = dot(_Projection[2], _v0059);
+    _r0059.w = dot(_Projection[3], _v0059);
+    _sampleNDC1 = _r0059/_r0059.w;
+    _texCoord0069 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
+    _TMP9 = texture(_DepthMap, _texCoord0069);
+    _sampleDepth1 = _TMP9.x*2.00000000E+000 - 1.00000000E+000;
+    _a0075 = _positionView.z - _sampleDepth1;
+    _TMP5 = abs(_a0075);
+    if (_TMP5 < _Radius) { // if begin
         _TMP4 = 1.00000000E+000;
     } else {
         _TMP4 = 0.00000000E+000;
     } // end if
-    _occlusionContribution = _occlusionContribution + float(_TMP4);
-    _r0049.x = dot(_tangent, _Kernel[8].xyz);
-    _r0049.y = dot(_bitangent, _Kernel[8].xyz);
-    _r0049.z = dot(_normal, _Kernel[8].xyz);
-    _sample1 = _r0049*_Radius;
+    _rangeCheck1 = float(_TMP4);
+    if (_sampleDepth1 <= -_sampleAtViewPosition1.z) { // if begin
+        _TMP6 = 1.00000000E+000;
+    } else {
+        _TMP6 = 0.00000000E+000;
+    } // end if
+    _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
+    _r0051.x = dot(_tangent, _Kernel[8].xyz);
+    _r0051.y = dot(_bitangent, _Kernel[8].xyz);
+    _r0051.z = dot(_normal, _Kernel[8].xyz);
+    _sample1 = _r0051*_Radius;
     _sampleAtViewPosition1 = _sample1 + _positionView.xyz;
-    _v0057 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
-    _r0057.x = dot(_Projection[0], _v0057);
-    _r0057.y = dot(_Projection[1], _v0057);
-    _r0057.z = dot(_Projection[2], _v0057);
-    _r0057.w = dot(_Projection[3], _v0057);
-    _sampleNDC1 = _r0057/_r0057.w;
-    _texCoord0067 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
-    _TMP7 = texture(_DepthMap, _texCoord0067);
-    _sampleDepth1 = _TMP7.x*2.00000000E+000 - 1.00000000E+000;
-    if (_sampleDepth1 <= _sample1.z) { // if begin
+    _v0059 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
+    _r0059.x = dot(_Projection[0], _v0059);
+    _r0059.y = dot(_Projection[1], _v0059);
+    _r0059.z = dot(_Projection[2], _v0059);
+    _r0059.w = dot(_Projection[3], _v0059);
+    _sampleNDC1 = _r0059/_r0059.w;
+    _texCoord0069 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
+    _TMP9 = texture(_DepthMap, _texCoord0069);
+    _sampleDepth1 = _TMP9.x*2.00000000E+000 - 1.00000000E+000;
+    _a0075 = _positionView.z - _sampleDepth1;
+    _TMP5 = abs(_a0075);
+    if (_TMP5 < _Radius) { // if begin
         _TMP4 = 1.00000000E+000;
     } else {
         _TMP4 = 0.00000000E+000;
     } // end if
-    _occlusionContribution = _occlusionContribution + float(_TMP4);
-    _r0049.x = dot(_tangent, _Kernel[9].xyz);
-    _r0049.y = dot(_bitangent, _Kernel[9].xyz);
-    _r0049.z = dot(_normal, _Kernel[9].xyz);
-    _sample1 = _r0049*_Radius;
+    _rangeCheck1 = float(_TMP4);
+    if (_sampleDepth1 <= -_sampleAtViewPosition1.z) { // if begin
+        _TMP6 = 1.00000000E+000;
+    } else {
+        _TMP6 = 0.00000000E+000;
+    } // end if
+    _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
+    _r0051.x = dot(_tangent, _Kernel[9].xyz);
+    _r0051.y = dot(_bitangent, _Kernel[9].xyz);
+    _r0051.z = dot(_normal, _Kernel[9].xyz);
+    _sample1 = _r0051*_Radius;
     _sampleAtViewPosition1 = _sample1 + _positionView.xyz;
-    _v0057 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
-    _r0057.x = dot(_Projection[0], _v0057);
-    _r0057.y = dot(_Projection[1], _v0057);
-    _r0057.z = dot(_Projection[2], _v0057);
-    _r0057.w = dot(_Projection[3], _v0057);
-    _sampleNDC1 = _r0057/_r0057.w;
-    _texCoord0067 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
-    _TMP7 = texture(_DepthMap, _texCoord0067);
-    _sampleDepth1 = _TMP7.x*2.00000000E+000 - 1.00000000E+000;
-    if (_sampleDepth1 <= _sample1.z) { // if begin
+    _v0059 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
+    _r0059.x = dot(_Projection[0], _v0059);
+    _r0059.y = dot(_Projection[1], _v0059);
+    _r0059.z = dot(_Projection[2], _v0059);
+    _r0059.w = dot(_Projection[3], _v0059);
+    _sampleNDC1 = _r0059/_r0059.w;
+    _texCoord0069 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
+    _TMP9 = texture(_DepthMap, _texCoord0069);
+    _sampleDepth1 = _TMP9.x*2.00000000E+000 - 1.00000000E+000;
+    _a0075 = _positionView.z - _sampleDepth1;
+    _TMP5 = abs(_a0075);
+    if (_TMP5 < _Radius) { // if begin
         _TMP4 = 1.00000000E+000;
     } else {
         _TMP4 = 0.00000000E+000;
     } // end if
-    _occlusionContribution = _occlusionContribution + float(_TMP4);
-    _r0049.x = dot(_tangent, _Kernel[10].xyz);
-    _r0049.y = dot(_bitangent, _Kernel[10].xyz);
-    _r0049.z = dot(_normal, _Kernel[10].xyz);
-    _sample1 = _r0049*_Radius;
+    _rangeCheck1 = float(_TMP4);
+    if (_sampleDepth1 <= -_sampleAtViewPosition1.z) { // if begin
+        _TMP6 = 1.00000000E+000;
+    } else {
+        _TMP6 = 0.00000000E+000;
+    } // end if
+    _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
+    _r0051.x = dot(_tangent, _Kernel[10].xyz);
+    _r0051.y = dot(_bitangent, _Kernel[10].xyz);
+    _r0051.z = dot(_normal, _Kernel[10].xyz);
+    _sample1 = _r0051*_Radius;
     _sampleAtViewPosition1 = _sample1 + _positionView.xyz;
-    _v0057 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
-    _r0057.x = dot(_Projection[0], _v0057);
-    _r0057.y = dot(_Projection[1], _v0057);
-    _r0057.z = dot(_Projection[2], _v0057);
-    _r0057.w = dot(_Projection[3], _v0057);
-    _sampleNDC1 = _r0057/_r0057.w;
-    _texCoord0067 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
-    _TMP7 = texture(_DepthMap, _texCoord0067);
-    _sampleDepth1 = _TMP7.x*2.00000000E+000 - 1.00000000E+000;
-    if (_sampleDepth1 <= _sample1.z) { // if begin
+    _v0059 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
+    _r0059.x = dot(_Projection[0], _v0059);
+    _r0059.y = dot(_Projection[1], _v0059);
+    _r0059.z = dot(_Projection[2], _v0059);
+    _r0059.w = dot(_Projection[3], _v0059);
+    _sampleNDC1 = _r0059/_r0059.w;
+    _texCoord0069 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
+    _TMP9 = texture(_DepthMap, _texCoord0069);
+    _sampleDepth1 = _TMP9.x*2.00000000E+000 - 1.00000000E+000;
+    _a0075 = _positionView.z - _sampleDepth1;
+    _TMP5 = abs(_a0075);
+    if (_TMP5 < _Radius) { // if begin
         _TMP4 = 1.00000000E+000;
     } else {
         _TMP4 = 0.00000000E+000;
     } // end if
-    _occlusionContribution = _occlusionContribution + float(_TMP4);
-    _r0049.x = dot(_tangent, _Kernel[11].xyz);
-    _r0049.y = dot(_bitangent, _Kernel[11].xyz);
-    _r0049.z = dot(_normal, _Kernel[11].xyz);
-    _sample1 = _r0049*_Radius;
+    _rangeCheck1 = float(_TMP4);
+    if (_sampleDepth1 <= -_sampleAtViewPosition1.z) { // if begin
+        _TMP6 = 1.00000000E+000;
+    } else {
+        _TMP6 = 0.00000000E+000;
+    } // end if
+    _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
+    _r0051.x = dot(_tangent, _Kernel[11].xyz);
+    _r0051.y = dot(_bitangent, _Kernel[11].xyz);
+    _r0051.z = dot(_normal, _Kernel[11].xyz);
+    _sample1 = _r0051*_Radius;
     _sampleAtViewPosition1 = _sample1 + _positionView.xyz;
-    _v0057 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
-    _r0057.x = dot(_Projection[0], _v0057);
-    _r0057.y = dot(_Projection[1], _v0057);
-    _r0057.z = dot(_Projection[2], _v0057);
-    _r0057.w = dot(_Projection[3], _v0057);
-    _sampleNDC1 = _r0057/_r0057.w;
-    _texCoord0067 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
-    _TMP7 = texture(_DepthMap, _texCoord0067);
-    _sampleDepth1 = _TMP7.x*2.00000000E+000 - 1.00000000E+000;
-    if (_sampleDepth1 <= _sample1.z) { // if begin
+    _v0059 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
+    _r0059.x = dot(_Projection[0], _v0059);
+    _r0059.y = dot(_Projection[1], _v0059);
+    _r0059.z = dot(_Projection[2], _v0059);
+    _r0059.w = dot(_Projection[3], _v0059);
+    _sampleNDC1 = _r0059/_r0059.w;
+    _texCoord0069 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
+    _TMP9 = texture(_DepthMap, _texCoord0069);
+    _sampleDepth1 = _TMP9.x*2.00000000E+000 - 1.00000000E+000;
+    _a0075 = _positionView.z - _sampleDepth1;
+    _TMP5 = abs(_a0075);
+    if (_TMP5 < _Radius) { // if begin
         _TMP4 = 1.00000000E+000;
     } else {
         _TMP4 = 0.00000000E+000;
     } // end if
-    _occlusionContribution = _occlusionContribution + float(_TMP4);
-    _r0049.x = dot(_tangent, _Kernel[12].xyz);
-    _r0049.y = dot(_bitangent, _Kernel[12].xyz);
-    _r0049.z = dot(_normal, _Kernel[12].xyz);
-    _sample1 = _r0049*_Radius;
+    _rangeCheck1 = float(_TMP4);
+    if (_sampleDepth1 <= -_sampleAtViewPosition1.z) { // if begin
+        _TMP6 = 1.00000000E+000;
+    } else {
+        _TMP6 = 0.00000000E+000;
+    } // end if
+    _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
+    _r0051.x = dot(_tangent, _Kernel[12].xyz);
+    _r0051.y = dot(_bitangent, _Kernel[12].xyz);
+    _r0051.z = dot(_normal, _Kernel[12].xyz);
+    _sample1 = _r0051*_Radius;
     _sampleAtViewPosition1 = _sample1 + _positionView.xyz;
-    _v0057 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
-    _r0057.x = dot(_Projection[0], _v0057);
-    _r0057.y = dot(_Projection[1], _v0057);
-    _r0057.z = dot(_Projection[2], _v0057);
-    _r0057.w = dot(_Projection[3], _v0057);
-    _sampleNDC1 = _r0057/_r0057.w;
-    _texCoord0067 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
-    _TMP7 = texture(_DepthMap, _texCoord0067);
-    _sampleDepth1 = _TMP7.x*2.00000000E+000 - 1.00000000E+000;
-    if (_sampleDepth1 <= _sample1.z) { // if begin
+    _v0059 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
+    _r0059.x = dot(_Projection[0], _v0059);
+    _r0059.y = dot(_Projection[1], _v0059);
+    _r0059.z = dot(_Projection[2], _v0059);
+    _r0059.w = dot(_Projection[3], _v0059);
+    _sampleNDC1 = _r0059/_r0059.w;
+    _texCoord0069 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
+    _TMP9 = texture(_DepthMap, _texCoord0069);
+    _sampleDepth1 = _TMP9.x*2.00000000E+000 - 1.00000000E+000;
+    _a0075 = _positionView.z - _sampleDepth1;
+    _TMP5 = abs(_a0075);
+    if (_TMP5 < _Radius) { // if begin
         _TMP4 = 1.00000000E+000;
     } else {
         _TMP4 = 0.00000000E+000;
     } // end if
-    _occlusionContribution = _occlusionContribution + float(_TMP4);
-    _r0049.x = dot(_tangent, _Kernel[13].xyz);
-    _r0049.y = dot(_bitangent, _Kernel[13].xyz);
-    _r0049.z = dot(_normal, _Kernel[13].xyz);
-    _sample1 = _r0049*_Radius;
+    _rangeCheck1 = float(_TMP4);
+    if (_sampleDepth1 <= -_sampleAtViewPosition1.z) { // if begin
+        _TMP6 = 1.00000000E+000;
+    } else {
+        _TMP6 = 0.00000000E+000;
+    } // end if
+    _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
+    _r0051.x = dot(_tangent, _Kernel[13].xyz);
+    _r0051.y = dot(_bitangent, _Kernel[13].xyz);
+    _r0051.z = dot(_normal, _Kernel[13].xyz);
+    _sample1 = _r0051*_Radius;
     _sampleAtViewPosition1 = _sample1 + _positionView.xyz;
-    _v0057 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
-    _r0057.x = dot(_Projection[0], _v0057);
-    _r0057.y = dot(_Projection[1], _v0057);
-    _r0057.z = dot(_Projection[2], _v0057);
-    _r0057.w = dot(_Projection[3], _v0057);
-    _sampleNDC1 = _r0057/_r0057.w;
-    _texCoord0067 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
-    _TMP7 = texture(_DepthMap, _texCoord0067);
-    _sampleDepth1 = _TMP7.x*2.00000000E+000 - 1.00000000E+000;
-    if (_sampleDepth1 <= _sample1.z) { // if begin
+    _v0059 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
+    _r0059.x = dot(_Projection[0], _v0059);
+    _r0059.y = dot(_Projection[1], _v0059);
+    _r0059.z = dot(_Projection[2], _v0059);
+    _r0059.w = dot(_Projection[3], _v0059);
+    _sampleNDC1 = _r0059/_r0059.w;
+    _texCoord0069 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
+    _TMP9 = texture(_DepthMap, _texCoord0069);
+    _sampleDepth1 = _TMP9.x*2.00000000E+000 - 1.00000000E+000;
+    _a0075 = _positionView.z - _sampleDepth1;
+    _TMP5 = abs(_a0075);
+    if (_TMP5 < _Radius) { // if begin
         _TMP4 = 1.00000000E+000;
     } else {
         _TMP4 = 0.00000000E+000;
     } // end if
-    _occlusionContribution = _occlusionContribution + float(_TMP4);
-    _r0049.x = dot(_tangent, _Kernel[14].xyz);
-    _r0049.y = dot(_bitangent, _Kernel[14].xyz);
-    _r0049.z = dot(_normal, _Kernel[14].xyz);
-    _sample1 = _r0049*_Radius;
+    _rangeCheck1 = float(_TMP4);
+    if (_sampleDepth1 <= -_sampleAtViewPosition1.z) { // if begin
+        _TMP6 = 1.00000000E+000;
+    } else {
+        _TMP6 = 0.00000000E+000;
+    } // end if
+    _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
+    _r0051.x = dot(_tangent, _Kernel[14].xyz);
+    _r0051.y = dot(_bitangent, _Kernel[14].xyz);
+    _r0051.z = dot(_normal, _Kernel[14].xyz);
+    _sample1 = _r0051*_Radius;
     _sampleAtViewPosition1 = _sample1 + _positionView.xyz;
-    _v0057 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
-    _r0057.x = dot(_Projection[0], _v0057);
-    _r0057.y = dot(_Projection[1], _v0057);
-    _r0057.z = dot(_Projection[2], _v0057);
-    _r0057.w = dot(_Projection[3], _v0057);
-    _sampleNDC1 = _r0057/_r0057.w;
-    _texCoord0067 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
-    _TMP7 = texture(_DepthMap, _texCoord0067);
-    _sampleDepth1 = _TMP7.x*2.00000000E+000 - 1.00000000E+000;
-    if (_sampleDepth1 <= _sample1.z) { // if begin
+    _v0059 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
+    _r0059.x = dot(_Projection[0], _v0059);
+    _r0059.y = dot(_Projection[1], _v0059);
+    _r0059.z = dot(_Projection[2], _v0059);
+    _r0059.w = dot(_Projection[3], _v0059);
+    _sampleNDC1 = _r0059/_r0059.w;
+    _texCoord0069 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
+    _TMP9 = texture(_DepthMap, _texCoord0069);
+    _sampleDepth1 = _TMP9.x*2.00000000E+000 - 1.00000000E+000;
+    _a0075 = _positionView.z - _sampleDepth1;
+    _TMP5 = abs(_a0075);
+    if (_TMP5 < _Radius) { // if begin
         _TMP4 = 1.00000000E+000;
     } else {
         _TMP4 = 0.00000000E+000;
     } // end if
-    _occlusionContribution = _occlusionContribution + float(_TMP4);
-    _r0049.x = dot(_tangent, _Kernel[15].xyz);
-    _r0049.y = dot(_bitangent, _Kernel[15].xyz);
-    _r0049.z = dot(_normal, _Kernel[15].xyz);
-    _sample1 = _r0049*_Radius;
+    _rangeCheck1 = float(_TMP4);
+    if (_sampleDepth1 <= -_sampleAtViewPosition1.z) { // if begin
+        _TMP6 = 1.00000000E+000;
+    } else {
+        _TMP6 = 0.00000000E+000;
+    } // end if
+    _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
+    _r0051.x = dot(_tangent, _Kernel[15].xyz);
+    _r0051.y = dot(_bitangent, _Kernel[15].xyz);
+    _r0051.z = dot(_normal, _Kernel[15].xyz);
+    _sample1 = _r0051*_Radius;
     _sampleAtViewPosition1 = _sample1 + _positionView.xyz;
-    _v0057 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
-    _r0057.x = dot(_Projection[0], _v0057);
-    _r0057.y = dot(_Projection[1], _v0057);
-    _r0057.z = dot(_Projection[2], _v0057);
-    _r0057.w = dot(_Projection[3], _v0057);
-    _sampleNDC1 = _r0057/_r0057.w;
-    _texCoord0067 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
-    _TMP7 = texture(_DepthMap, _texCoord0067);
-    _sampleDepth1 = _TMP7.x*2.00000000E+000 - 1.00000000E+000;
-    if (_sampleDepth1 <= _sample1.z) { // if begin
+    _v0059 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
+    _r0059.x = dot(_Projection[0], _v0059);
+    _r0059.y = dot(_Projection[1], _v0059);
+    _r0059.z = dot(_Projection[2], _v0059);
+    _r0059.w = dot(_Projection[3], _v0059);
+    _sampleNDC1 = _r0059/_r0059.w;
+    _texCoord0069 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
+    _TMP9 = texture(_DepthMap, _texCoord0069);
+    _sampleDepth1 = _TMP9.x*2.00000000E+000 - 1.00000000E+000;
+    _a0075 = _positionView.z - _sampleDepth1;
+    _TMP5 = abs(_a0075);
+    if (_TMP5 < _Radius) { // if begin
         _TMP4 = 1.00000000E+000;
     } else {
         _TMP4 = 0.00000000E+000;
     } // end if
-    _occlusionContribution = _occlusionContribution + float(_TMP4);
+    _rangeCheck1 = float(_TMP4);
+    if (_sampleDepth1 <= -_sampleAtViewPosition1.z) { // if begin
+        _TMP6 = 1.00000000E+000;
+    } else {
+        _TMP6 = 0.00000000E+000;
+    } // end if
+    _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
     _occlusion = 1.00000000E+000 - _occlusionContribution/1.60000000E+001;
     _OUT._ssao = vec4(_occlusion, _occlusion, _occlusion, 1.00000000E+000);
     cg_FragData1 = _OUT._temp;

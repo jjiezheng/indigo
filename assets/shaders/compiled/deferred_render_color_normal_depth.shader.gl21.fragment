@@ -16,7 +16,7 @@
 //var float Far :  : _Far : -1 : 1
 //var float3 normal : $vin.TEXCOORD0 : TEX0 : 1 : 1
 //var float3 viewNormal : $vin.TEXCOORD1 : TEX1 : 2 : 1
-//var float4 viewPosition : $vin.TEXCOORD2 : TEX2 : 3 : 1
+//var float3 viewPosition : $vin.TEXCOORD2 : TEX2 : 3 : 1
 //var float4 ps.color : $vout.COLOR0 : COL : -1 : 1
 //var float3 ps.normal : $vout.COLOR1 : COL1 : -1 : 1
 //var float4 ps.depth : $vout.COLOR2 : COL2 : -1 : 1
@@ -29,7 +29,7 @@
 struct VOutput {
     vec3 _normal2;
     vec3 _viewNormal2;
-    vec4 _viewPosition2;
+    vec3 _viewPosition2;
 };
 
 struct POutput {
@@ -48,7 +48,8 @@ void main()
 
     POutput _OUT;
 
-    _OUT._depth = vec4(-gl_TexCoord[2].z/_Far, -gl_TexCoord[2].z/_Far, -gl_TexCoord[2].z/_Far, -gl_TexCoord[2].z/_Far);
+    _OUT._depth.xyz = vec3(-gl_TexCoord[2].z/_Far, -gl_TexCoord[2].z/_Far, -gl_TexCoord[2].z/_Far);
+    _OUT._depth.w = 1.00000000E+000;
     _OUT._normal3 = gl_TexCoord[0].xyz*5.00000000E-001 + 5.00000000E-001;
     _OUT._viewNormal3 = gl_TexCoord[1].xyz*5.00000000E-001 + 5.00000000E-001;
     gl_FragData[3].xyz = _OUT._viewNormal3;

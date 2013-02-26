@@ -7,9 +7,9 @@
     "terrain": [],
     "objects": [
         {
-            "model": "actors/floor/floor.modelbinary",
+            "model": "actors/car/car.modelbinary",
             "position": {
-                "x": 0,
+                "x": 1,
                 "y": -1,
                 "z": 0
             }

@@ -20,7 +20,7 @@
 //var float4 vs.position : $vout.POSITION : HPOS : -1 : 1
 //var float3 vs.normal : $vout.TEXCOORD0 : TEXCOORD0 : -1 : 1
 //var float3 vs.viewNormal : $vout.TEXCOORD1 : TEXCOORD1 : -1 : 1
-//var float4 vs.viewPosition : $vout.TEXCOORD2 : TEXCOORD2 : -1 : 1
+//var float3 vs.viewPosition : $vout.TEXCOORD2 : TEXCOORD2 : -1 : 1
 
 #version 130
 
@@ -28,7 +28,7 @@ struct VOutput {
     vec4 _position2;
     vec3 _normal1;
     vec3 _viewNormal;
-    vec4 _viewPosition;
+    vec3 _viewPosition;
 };
 
 struct POutput {
@@ -38,10 +38,10 @@ struct POutput {
     vec3 _viewNormal1;
 };
 
-vec4 _r0011;
-vec4 _r0021;
-vec4 _v0021;
-vec4 _r0031;
+vec4 _r0010;
+vec4 _r0020;
+vec4 _v0020;
+vec4 _r0030;
 in vec4 NORMAL;
 uniform vec4 _WorldView[4];
 uniform vec4 _WorldViewProj[4];
@@ -55,23 +55,21 @@ out vec4 cg_TexCoord2;
 void main()
 {
 
-    VOutput _OUT;
 
-    _r0011.x = dot(_WorldViewProj[0], cg_Vertex);
-    _r0011.y = dot(_WorldViewProj[1], cg_Vertex);
-    _r0011.z = dot(_WorldViewProj[2], cg_Vertex);
-    _r0011.w = dot(_WorldViewProj[3], cg_Vertex);
-    _v0021 = vec4(NORMAL.x, NORMAL.y, NORMAL.z, 1.00000000E+000);
-    _r0021.x = dot(_NormalMatrix[0], _v0021);
-    _r0021.y = dot(_NormalMatrix[1], _v0021);
-    _r0021.z = dot(_NormalMatrix[2], _v0021);
-    _r0031.x = dot(_WorldView[0], cg_Vertex);
-    _r0031.y = dot(_WorldView[1], cg_Vertex);
-    _r0031.z = dot(_WorldView[2], cg_Vertex);
-    _OUT._viewPosition = vec4(_r0031.x, _r0031.y, _r0031.z, 1.00000000E+000);
-    cg_TexCoord2 = _OUT._viewPosition;
+    _r0010.x = dot(_WorldViewProj[0], cg_Vertex);
+    _r0010.y = dot(_WorldViewProj[1], cg_Vertex);
+    _r0010.z = dot(_WorldViewProj[2], cg_Vertex);
+    _r0010.w = dot(_WorldViewProj[3], cg_Vertex);
+    _v0020 = vec4(NORMAL.x, NORMAL.y, NORMAL.z, 1.00000000E+000);
+    _r0020.x = dot(_NormalMatrix[0], _v0020);
+    _r0020.y = dot(_NormalMatrix[1], _v0020);
+    _r0020.z = dot(_NormalMatrix[2], _v0020);
+    _r0030.x = dot(_WorldView[0], cg_Vertex);
+    _r0030.y = dot(_WorldView[1], cg_Vertex);
+    _r0030.z = dot(_WorldView[2], cg_Vertex);
+    cg_TexCoord2.xyz = _r0030.xyz;
     cg_TexCoord0.xyz = NORMAL.xyz;
-    cg_TexCoord1.xyz = _r0021.xyz;
-    gl_Position = _r0011;
+    cg_TexCoord1.xyz = _r0020.xyz;
+    gl_Position = _r0010;
     return;
 } // main end

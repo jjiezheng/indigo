@@ -16,7 +16,7 @@
 //var float Far :  : _Far : -1 : 1
 //var float3 normal : $vin.TEXCOORD0 :  : 1 : 1
 //var float3 viewNormal : $vin.TEXCOORD1 :  : 2 : 1
-//var float4 viewPosition : $vin.TEXCOORD2 :  : 3 : 1
+//var float3 viewPosition : $vin.TEXCOORD2 :  : 3 : 1
 //var float4 ps.color : $vout.COLOR0 : COLOR0 : -1 : 1
 //var float3 ps.normal : $vout.COLOR1 : COLOR1 : -1 : 1
 //var float4 ps.depth : $vout.COLOR2 : COLOR2 : -1 : 1
@@ -28,7 +28,7 @@ struct VOutput {
     float4 _position1 : SV_Position;
     float3 _normal2 : TEXCOORD0;
     float3 _viewNormal2 : TEXCOORD1;
-    float4 _viewPosition1 : TEXCOORD2;
+    float3 _viewPosition1 : TEXCOORD2;
 };
 
 struct POutput {
@@ -42,7 +42,7 @@ struct X1X {
     float4 _POSITION : SV_Position;
     float3 _TEXCOORD0 : TEXCOORD0;
     float3 _TEXCOORD1 : TEXCOORD1;
-    float4 _TEXCOORD2 : TEXCOORD2;
+    float3 _TEXCOORD2 : TEXCOORD2;
 };
 
 uniform float4 _DiffuseColor;
@@ -54,14 +54,15 @@ POutput main( in X1X cin)
 
     float3 _normal1;
     float3 _viewNormal1;
-    float4 _viewPosition;
+    float3 _viewPosition;
     POutput _OUT;
 
     _normal1 = cin._TEXCOORD0;
     _viewNormal1 = cin._TEXCOORD1;
     _viewPosition = cin._TEXCOORD2;
     _OUT._color = _DiffuseColor;
-    _OUT._depth = (-_viewPosition.z/_Far).xxxx;
+    _OUT._depth.xyz = (-_viewPosition.z/_Far).xxx;
+    _OUT._depth.w =  1.00000000000000000E000f;
     _OUT._normal = _normal1* 5.00000000000000000E-001f +  5.00000000000000000E-001f;
     _OUT._viewNormal = _viewNormal1* 5.00000000000000000E-001f +  5.00000000000000000E-001f;
     return _OUT;
