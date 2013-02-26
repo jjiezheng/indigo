@@ -11,7 +11,7 @@ uniform float4 Kernel[16];
 uniform float Far;
 uniform float Near;
 
-sampler2D NormalViewSpaceMap 	: TEXUNIT0;
+sampler2D NormalMap			 	: TEXUNIT0;
 sampler2D DepthMap 		 		: TEXUNIT1;
 sampler2D NoiseMap 		 		: TEXUNIT2;
 
@@ -19,11 +19,11 @@ uniform float4x4 Projection;
 uniform float4x4 ProjInv;
 uniform float4x4 ModelView;
 uniform float4x4 View;
+uniform float4x4 ViewProjInv;
 
 struct VOutput {
       float4 position 		: POSITION;
       float2 texCoord		: TEXCOORD0;
-      float4 positionVS		: TEXCOORD1;
 };
 
 VOutput vs(float4 position 	: POSITION,
@@ -31,7 +31,6 @@ VOutput vs(float4 position 	: POSITION,
     VOutput OUT;
     OUT.position = position;
     OUT.texCoord = texCoord;
-    OUT.positionVS = mul(ProjInv, float4(position.xy, -1, 1));
     return OUT;
 }
 
@@ -40,57 +39,53 @@ struct POutput {
       float4 temp			: COLOR1;
 };
 
-POutput ps(float4 position 		: POSITION,
-		  float2 texCoord 		: TEXCOORD0,
-		  float4 positionVS		: TEXCOORD1) {
+float ao(float3 normalWS, float3 positionWS, float depth, float2 texCoord, float2 sampleOffset) {
+	float2 sampleCoord = texCoord + sampleOffset;
+	float4 samplePositionClip = tex2NDC(sampleCoord, depth);
+	float4 samplePositionWS = mul(ViewProjInv, samplePositionClip);
+	samplePositionWS /= samplePositionWS.w;
 
-	POutput OUT;
+	float3 diff = samplePositionWS.xyz - positionWS.xyz;
+	float3 v = normalize(diff);
+	float d = length(diff);
 
-	float3 normalView = unpackNormal(NormalViewSpaceMap, texCoord);
-	float3 normal = normalize(normalView);
+	float occlusion = max(0.0, dot(normalWS, v) * (1.0f / 1.0f + d));
+	return occlusion;
+}
 
-	OUT.temp = float4(normal, 1);
+float4 ps(float4 position 		: POSITION,
+		  float2 texCoord 		: TEXCOORD0) : COLOR0 {
 
-	float3 viewRay = positionVS.xyz;
+	float3 normalRaw = unpackNormal(NormalMap, texCoord);
+	float3 normalWS = normalize(normalRaw);
 
-	float depth = tex2D(DepthMap, texCoord).r;// unpackDepth(DepthMap, texCoord);
-	float3 positionView = viewRay * depth;
+	float3 random = tex2D(NoiseMap, texCoord * NoiseScale).rgb * 2.0f - 1.0f;
 
-	//OUT.ssao = float4(viewRay * depth, 1+normal.x);
+	float depth = unpackDepth(DepthMap, texCoord);
+	float4 positionClip = tex2NDC(texCoord, depth);
+	float4 positionWS = mul(ViewProjInv, positionClip);
+	positionWS /= positionWS.w;
 
-	//return OUT;
-
-	float2 noiseTexCoords = texCoord * NoiseScale;
-	float3 rvec = tex2D(NoiseMap, noiseTexCoords).xyz * 2.0f - 1.0f;
-	
-	float3 tangent = normalize(rvec - normal * dot(rvec, normal));
-	float3 bitangent = cross(tangent, normal);
-	float3x3 normalBasis = float3x3(tangent, bitangent, normal);
-
-	float occlusionContribution = 0;
-
-	int kSamples = 16;
+	float2 sampleOffsets[4] = { float2(1, 0), float2(-1, 0), float2(0, 1), float2(0, -1) };
+	int kSamples = 4;
+	float rad = Radius / positionWS.z;
+	float occlusion = 0.0f;
 
 	for (int i = 0; i < kSamples; i++) {
-		float3 kernel = Kernel[i].xyz;
-		float3 kernelAtNormalBasis = mul(normalBasis, kernel);
+		float2 sampleOffsetRaw = sampleOffsets[i];
+		float2 sampleOffset = reflect(sampleOffsetRaw, random.xy) * rad;
 
-		float3 sample = kernelAtNormalBasis * Radius;
-		float3 sampleAtViewPosition = sample + positionView.xyz;
+		float2 coord1 = sampleOffset;
+  		float2 coord2 = float2(	coord1.x * 0.707 - coord1.y * 0.707,
+			  					coord1.x * 0.707 + coord1.y * 0.707);
 
-		float4 sampleClip = mul(Projection, float4(sampleAtViewPosition, 1));
-		float4 sampleNDC = sampleClip / sampleClip.w;
-
-		float2 sampleTexCoord = ndc2tex(sampleNDC.xy);
-		float sampleDepth = unpackDepth(DepthMap, sampleTexCoord);
-
-		float rangeCheck = abs(positionView.z - sampleDepth) < Radius ? 1.0 : 0.0;
-   		occlusionContribution += (sampleDepth <= -sampleAtViewPosition.z ? 1.0 : 0.0) * rangeCheck;
+		occlusion += ao(normalWS, positionWS.xyz, depth, texCoord, coord1 * 0.25);
+		occlusion += ao(normalWS, positionWS.xyz, depth, texCoord, coord2 * 0.5);
+		occlusion += ao(normalWS, positionWS.xyz, depth, texCoord, coord1 * 0.75);
+		occlusion += ao(normalWS, positionWS.xyz, depth, texCoord, coord2);
 	}
 
-	float occlusion = 1.0f - (occlusionContribution / (float)kSamples);
+	occlusion /= (float)kSamples * 4;
 
-	OUT.ssao = float4(occlusion, occlusion, occlusion, 1.0f);
-
-	return OUT;// float4(occlusion, occlusion, occlusion, 1.0f);
+	return float4(occlusion, occlusion, occlusion, 1.0f);
 }

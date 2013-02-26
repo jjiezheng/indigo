@@ -21,11 +21,15 @@ public:
 #elif PLATFORM_PS3
 	enum KeyStates {
 		KEY_UNKNOWN = 9999,
+    KEY_G = 71,
+    KEY_H = 72,
 		KEY_ESCAPE = 0
 	};
 #elif PLATFORM_LINUX
   enum KeyStates {
     KEY_UNKNOWN = 0,
+    KEY_G = 71,
+    KEY_H = 72,
     KEY_ESCAPE = 257
   };
 #endif

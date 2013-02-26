@@ -1,5 +1,5 @@
 // glslf output by Cg compiler
-// cgc version 3.1.0013, build date Apr 18 2012
+// cgc version 3.1.0013, build date Apr 24 2012
 // command line args: -DGL=1 -DGL32=1 -q -profileopts version=130 -profile glslf
 // source file: deferred_ssao.cg
 //vendor NVIDIA Corporation
@@ -12,47 +12,27 @@
 //semantic Kernel
 //semantic Far
 //semantic Near
-//semantic NormalViewSpaceMap : TEXUNIT0
+//semantic NormalMap : TEXUNIT0
 //semantic DepthMap : TEXUNIT1
 //semantic NoiseMap : TEXUNIT2
 //semantic Projection
 //semantic ProjInv
 //semantic ModelView
 //semantic View
+//semantic ViewProjInv
 //var float Radius :  : _Radius : -1 : 1
 //var float2 NoiseScale :  : _NoiseScale : -1 : 1
-//var float4 Kernel[0] :  : _Kernel[0] : -1 : 1
-//var float4 Kernel[1] :  : _Kernel[1] : -1 : 1
-//var float4 Kernel[2] :  : _Kernel[2] : -1 : 1
-//var float4 Kernel[3] :  : _Kernel[3] : -1 : 1
-//var float4 Kernel[4] :  : _Kernel[4] : -1 : 1
-//var float4 Kernel[5] :  : _Kernel[5] : -1 : 1
-//var float4 Kernel[6] :  : _Kernel[6] : -1 : 1
-//var float4 Kernel[7] :  : _Kernel[7] : -1 : 1
-//var float4 Kernel[8] :  : _Kernel[8] : -1 : 1
-//var float4 Kernel[9] :  : _Kernel[9] : -1 : 1
-//var float4 Kernel[10] :  : _Kernel[10] : -1 : 1
-//var float4 Kernel[11] :  : _Kernel[11] : -1 : 1
-//var float4 Kernel[12] :  : _Kernel[12] : -1 : 1
-//var float4 Kernel[13] :  : _Kernel[13] : -1 : 1
-//var float4 Kernel[14] :  : _Kernel[14] : -1 : 1
-//var float4 Kernel[15] :  : _Kernel[15] : -1 : 1
-//var sampler2D NormalViewSpaceMap : TEXUNIT0 : _NormalViewSpaceMap 0 : -1 : 1
+//var sampler2D NormalMap : TEXUNIT0 : _NormalMap 0 : -1 : 1
 //var sampler2D DepthMap : TEXUNIT1 : _DepthMap 1 : -1 : 1
 //var sampler2D NoiseMap : TEXUNIT2 : _NoiseMap 2 : -1 : 1
-//var float4x4 Projection :  : _Projection[0], 4 : -1 : 1
+//var float4x4 ViewProjInv :  : _ViewProjInv[0], 4 : -1 : 1
 //var float2 texCoord : $vin.TEXCOORD0 : TEXCOORD0 : 1 : 1
-//var float4 positionVS : $vin.TEXCOORD1 : TEXCOORD1 : 2 : 1
-//var float4 ps.ssao : $vout.COLOR0 : COLOR0 : -1 : 1
-//var float4 ps.temp : $vout.COLOR1 : COLOR1 : -1 : 1
+//var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
 
 #version 130
 
-#extension GL_ARB_draw_buffers : enable
-
 struct VOutput {
-    vec2 _texCoord5;
-    vec4 _positionVS2;
+    vec2 _texCoord6;
 };
 
 struct POutput {
@@ -60,522 +40,416 @@ struct POutput {
     vec4 _temp;
 };
 
-float _TMP6;
-float _TMP4;
-float _TMP5;
-vec4 _TMP9;
-float _TMP3;
+vec4 _ret_0;
+float _TMP11;
 float _TMP8;
 float _TMP7;
-vec4 _TMP2;
+vec2 _TMP2;
+float _TMP10;
+vec4 _TMP9;
 vec4 _TMP1;
-vec4 _normalData0027;
-vec4 _unPackedNormal0027;
-vec3 _v0043;
-vec3 _r0051;
-vec4 _r0059;
-vec4 _v0059;
-vec2 _texCoord0069;
-float _a0075;
+vec4 _normalData0028;
+vec4 _unPackedNormal0028;
+vec2 _c0038;
+vec4 _positionScreen0044;
+vec4 _r0046;
+vec2 _sampleCoord0060;
+vec2 _sampleOffset0060;
+vec4 _samplePositionWS0060;
+vec3 _diff0060;
+vec3 _v0060;
+float _d0060;
+float _occlusion0060;
+vec4 _positionScreen0062;
+vec4 _r0064;
+float _b0084;
+vec2 _sampleCoord0086;
+vec2 _sampleOffset0086;
+vec4 _samplePositionWS0086;
+vec3 _diff0086;
+vec3 _v0086;
+float _d0086;
+float _occlusion0086;
+vec4 _positionScreen0088;
+vec4 _r0090;
+float _b0110;
+vec2 _sampleCoord0112;
+vec2 _sampleOffset0112;
+vec4 _samplePositionWS0112;
+vec3 _diff0112;
+vec3 _v0112;
+float _d0112;
+float _occlusion0112;
+vec4 _positionScreen0114;
+vec4 _r0116;
+float _b0136;
+vec2 _sampleCoord0138;
+vec4 _samplePositionWS0138;
+vec3 _diff0138;
+vec3 _v0138;
+float _d0138;
+float _occlusion0138;
+vec4 _positionScreen0140;
+vec4 _r0142;
+float _b0162;
 uniform float _Radius;
 uniform vec2 _NoiseScale;
-uniform vec4 _Kernel[16];
-uniform sampler2D _NormalViewSpaceMap;
+uniform sampler2D _NormalMap;
 uniform sampler2D _DepthMap;
 uniform sampler2D _NoiseMap;
-uniform vec4 _Projection[4];
-in vec4 cg_TexCoord1;
+uniform vec4 _ViewProjInv[4];
 in vec4 cg_TexCoord0;
 out vec4 cg_FragColor;
-out vec4 cg_FragData1;
 
  // main procedure, the original name was ps
 void main()
 {
 
-    POutput _OUT;
-    vec3 _normal;
-    vec3 _positionView;
-    vec2 _noiseTexCoords;
-    vec3 _rvec;
-    vec3 _tangent;
-    vec3 _bitangent;
-    float _occlusionContribution;
-    vec3 _sample1;
-    vec3 _sampleAtViewPosition1;
-    vec4 _sampleNDC1;
-    float _sampleDepth1;
-    float _rangeCheck1;
-    float _occlusion;
+    vec3 _normalWS1;
+    vec3 _random;
+    float _depth2;
+    vec4 _positionWS1;
+    float _rad;
+    float _occlusion1;
+    vec2 _sampleOffset1;
+    vec2 _coord21;
 
-    _normalData0027 = texture(_NormalViewSpaceMap, cg_TexCoord0.xy);
-    _unPackedNormal0027 = _normalData0027*2.00000000E+000 - 1.00000000E+000;
-    _TMP7 = dot(_unPackedNormal0027.xyz, _unPackedNormal0027.xyz);
+    _normalData0028 = texture(_NormalMap, cg_TexCoord0.xy);
+    _unPackedNormal0028 = _normalData0028*2.00000000E+00 - 1.00000000E+00;
+    _TMP7 = dot(_unPackedNormal0028.xyz, _unPackedNormal0028.xyz);
     _TMP8 = inversesqrt(_TMP7);
-    _normal = _TMP8*_unPackedNormal0027.xyz;
-    _OUT._temp = vec4(_normal.x, _normal.y, _normal.z, 1.00000000E+000);
-    _TMP1 = texture(_DepthMap, cg_TexCoord0.xy);
-    _positionView = cg_TexCoord1.xyz*_TMP1.x;
-    _noiseTexCoords = cg_TexCoord0.xy*_NoiseScale;
-    _TMP2 = texture(_NoiseMap, _noiseTexCoords);
-    _rvec = _TMP2.xyz*2.00000000E+000 - 1.00000000E+000;
-    _TMP3 = dot(_rvec, _normal);
-    _v0043 = _rvec - _normal*_TMP3;
-    _TMP7 = dot(_v0043, _v0043);
+    _normalWS1 = _TMP8*_unPackedNormal0028.xyz;
+    _c0038 = cg_TexCoord0.xy*_NoiseScale;
+    _TMP1 = texture(_NoiseMap, _c0038);
+    _random = _TMP1.xyz*2.00000000E+00 - 1.00000000E+00;
+    _TMP9 = texture(_DepthMap, cg_TexCoord0.xy);
+    _depth2 = _TMP9.x*2.00000000E+00 - 1.00000000E+00;
+    _positionScreen0044.xy = cg_TexCoord0.xy*2.00000000E+00 - 1.00000000E+00;
+    _positionScreen0044.z = _depth2;
+    _positionScreen0044.w = 1.00000000E+00;
+    _r0046.x = dot(_ViewProjInv[0], _positionScreen0044);
+    _r0046.y = dot(_ViewProjInv[1], _positionScreen0044);
+    _r0046.z = dot(_ViewProjInv[2], _positionScreen0044);
+    _r0046.w = dot(_ViewProjInv[3], _positionScreen0044);
+    _positionWS1 = _r0046/_r0046.w;
+    _rad = _Radius/_positionWS1.z;
+    _TMP10 = dot(_random.xy, vec2( 1.00000000E+00, 0.00000000E+00));
+    _TMP2 = vec2( 1.00000000E+00, 0.00000000E+00) - (2.00000000E+00*_random.xy)*_TMP10;
+    _sampleOffset1 = _TMP2*_rad;
+    _coord21 = vec2(_sampleOffset1.x*7.07000017E-01 - _sampleOffset1.y*7.07000017E-01, _sampleOffset1.x*7.07000017E-01 + _sampleOffset1.y*7.07000017E-01);
+    _sampleOffset0060 = _sampleOffset1*2.50000000E-01;
+    _sampleCoord0060 = cg_TexCoord0.xy + _sampleOffset0060;
+    _positionScreen0062.xy = _sampleCoord0060.xy*2.00000000E+00 - 1.00000000E+00;
+    _positionScreen0062.z = _depth2;
+    _positionScreen0062.w = 1.00000000E+00;
+    _r0064.x = dot(_ViewProjInv[0], _positionScreen0062);
+    _r0064.y = dot(_ViewProjInv[1], _positionScreen0062);
+    _r0064.z = dot(_ViewProjInv[2], _positionScreen0062);
+    _r0064.w = dot(_ViewProjInv[3], _positionScreen0062);
+    _samplePositionWS0060 = _r0064/_r0064.w;
+    _diff0060 = _samplePositionWS0060.xyz - _positionWS1.xyz;
+    _TMP7 = dot(_diff0060, _diff0060);
     _TMP8 = inversesqrt(_TMP7);
-    _tangent = _TMP8*_v0043;
-    _bitangent = _tangent.yzx*_normal.zxy - _tangent.zxy*_normal.yzx;
-    _r0051.x = dot(_tangent, _Kernel[0].xyz);
-    _r0051.y = dot(_bitangent, _Kernel[0].xyz);
-    _r0051.z = dot(_normal, _Kernel[0].xyz);
-    _sample1 = _r0051*_Radius;
-    _sampleAtViewPosition1 = _sample1 + _positionView.xyz;
-    _v0059 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
-    _r0059.x = dot(_Projection[0], _v0059);
-    _r0059.y = dot(_Projection[1], _v0059);
-    _r0059.z = dot(_Projection[2], _v0059);
-    _r0059.w = dot(_Projection[3], _v0059);
-    _sampleNDC1 = _r0059/_r0059.w;
-    _texCoord0069 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
-    _TMP9 = texture(_DepthMap, _texCoord0069);
-    _sampleDepth1 = _TMP9.x*2.00000000E+000 - 1.00000000E+000;
-    _a0075 = _positionView.z - _sampleDepth1;
-    _TMP5 = abs(_a0075);
-    if (_TMP5 < _Radius) { // if begin
-        _TMP4 = 1.00000000E+000;
-    } else {
-        _TMP4 = 0.00000000E+000;
-    } // end if
-    _rangeCheck1 = float(_TMP4);
-    if (_sampleDepth1 <= -_sampleAtViewPosition1.z) { // if begin
-        _TMP6 = 1.00000000E+000;
-    } else {
-        _TMP6 = 0.00000000E+000;
-    } // end if
-    _occlusionContribution = float(_TMP6)*_rangeCheck1;
-    _r0051.x = dot(_tangent, _Kernel[1].xyz);
-    _r0051.y = dot(_bitangent, _Kernel[1].xyz);
-    _r0051.z = dot(_normal, _Kernel[1].xyz);
-    _sample1 = _r0051*_Radius;
-    _sampleAtViewPosition1 = _sample1 + _positionView.xyz;
-    _v0059 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
-    _r0059.x = dot(_Projection[0], _v0059);
-    _r0059.y = dot(_Projection[1], _v0059);
-    _r0059.z = dot(_Projection[2], _v0059);
-    _r0059.w = dot(_Projection[3], _v0059);
-    _sampleNDC1 = _r0059/_r0059.w;
-    _texCoord0069 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
-    _TMP9 = texture(_DepthMap, _texCoord0069);
-    _sampleDepth1 = _TMP9.x*2.00000000E+000 - 1.00000000E+000;
-    _a0075 = _positionView.z - _sampleDepth1;
-    _TMP5 = abs(_a0075);
-    if (_TMP5 < _Radius) { // if begin
-        _TMP4 = 1.00000000E+000;
-    } else {
-        _TMP4 = 0.00000000E+000;
-    } // end if
-    _rangeCheck1 = float(_TMP4);
-    if (_sampleDepth1 <= -_sampleAtViewPosition1.z) { // if begin
-        _TMP6 = 1.00000000E+000;
-    } else {
-        _TMP6 = 0.00000000E+000;
-    } // end if
-    _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
-    _r0051.x = dot(_tangent, _Kernel[2].xyz);
-    _r0051.y = dot(_bitangent, _Kernel[2].xyz);
-    _r0051.z = dot(_normal, _Kernel[2].xyz);
-    _sample1 = _r0051*_Radius;
-    _sampleAtViewPosition1 = _sample1 + _positionView.xyz;
-    _v0059 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
-    _r0059.x = dot(_Projection[0], _v0059);
-    _r0059.y = dot(_Projection[1], _v0059);
-    _r0059.z = dot(_Projection[2], _v0059);
-    _r0059.w = dot(_Projection[3], _v0059);
-    _sampleNDC1 = _r0059/_r0059.w;
-    _texCoord0069 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
-    _TMP9 = texture(_DepthMap, _texCoord0069);
-    _sampleDepth1 = _TMP9.x*2.00000000E+000 - 1.00000000E+000;
-    _a0075 = _positionView.z - _sampleDepth1;
-    _TMP5 = abs(_a0075);
-    if (_TMP5 < _Radius) { // if begin
-        _TMP4 = 1.00000000E+000;
-    } else {
-        _TMP4 = 0.00000000E+000;
-    } // end if
-    _rangeCheck1 = float(_TMP4);
-    if (_sampleDepth1 <= -_sampleAtViewPosition1.z) { // if begin
-        _TMP6 = 1.00000000E+000;
-    } else {
-        _TMP6 = 0.00000000E+000;
-    } // end if
-    _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
-    _r0051.x = dot(_tangent, _Kernel[3].xyz);
-    _r0051.y = dot(_bitangent, _Kernel[3].xyz);
-    _r0051.z = dot(_normal, _Kernel[3].xyz);
-    _sample1 = _r0051*_Radius;
-    _sampleAtViewPosition1 = _sample1 + _positionView.xyz;
-    _v0059 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
-    _r0059.x = dot(_Projection[0], _v0059);
-    _r0059.y = dot(_Projection[1], _v0059);
-    _r0059.z = dot(_Projection[2], _v0059);
-    _r0059.w = dot(_Projection[3], _v0059);
-    _sampleNDC1 = _r0059/_r0059.w;
-    _texCoord0069 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
-    _TMP9 = texture(_DepthMap, _texCoord0069);
-    _sampleDepth1 = _TMP9.x*2.00000000E+000 - 1.00000000E+000;
-    _a0075 = _positionView.z - _sampleDepth1;
-    _TMP5 = abs(_a0075);
-    if (_TMP5 < _Radius) { // if begin
-        _TMP4 = 1.00000000E+000;
-    } else {
-        _TMP4 = 0.00000000E+000;
-    } // end if
-    _rangeCheck1 = float(_TMP4);
-    if (_sampleDepth1 <= -_sampleAtViewPosition1.z) { // if begin
-        _TMP6 = 1.00000000E+000;
-    } else {
-        _TMP6 = 0.00000000E+000;
-    } // end if
-    _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
-    _r0051.x = dot(_tangent, _Kernel[4].xyz);
-    _r0051.y = dot(_bitangent, _Kernel[4].xyz);
-    _r0051.z = dot(_normal, _Kernel[4].xyz);
-    _sample1 = _r0051*_Radius;
-    _sampleAtViewPosition1 = _sample1 + _positionView.xyz;
-    _v0059 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
-    _r0059.x = dot(_Projection[0], _v0059);
-    _r0059.y = dot(_Projection[1], _v0059);
-    _r0059.z = dot(_Projection[2], _v0059);
-    _r0059.w = dot(_Projection[3], _v0059);
-    _sampleNDC1 = _r0059/_r0059.w;
-    _texCoord0069 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
-    _TMP9 = texture(_DepthMap, _texCoord0069);
-    _sampleDepth1 = _TMP9.x*2.00000000E+000 - 1.00000000E+000;
-    _a0075 = _positionView.z - _sampleDepth1;
-    _TMP5 = abs(_a0075);
-    if (_TMP5 < _Radius) { // if begin
-        _TMP4 = 1.00000000E+000;
-    } else {
-        _TMP4 = 0.00000000E+000;
-    } // end if
-    _rangeCheck1 = float(_TMP4);
-    if (_sampleDepth1 <= -_sampleAtViewPosition1.z) { // if begin
-        _TMP6 = 1.00000000E+000;
-    } else {
-        _TMP6 = 0.00000000E+000;
-    } // end if
-    _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
-    _r0051.x = dot(_tangent, _Kernel[5].xyz);
-    _r0051.y = dot(_bitangent, _Kernel[5].xyz);
-    _r0051.z = dot(_normal, _Kernel[5].xyz);
-    _sample1 = _r0051*_Radius;
-    _sampleAtViewPosition1 = _sample1 + _positionView.xyz;
-    _v0059 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
-    _r0059.x = dot(_Projection[0], _v0059);
-    _r0059.y = dot(_Projection[1], _v0059);
-    _r0059.z = dot(_Projection[2], _v0059);
-    _r0059.w = dot(_Projection[3], _v0059);
-    _sampleNDC1 = _r0059/_r0059.w;
-    _texCoord0069 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
-    _TMP9 = texture(_DepthMap, _texCoord0069);
-    _sampleDepth1 = _TMP9.x*2.00000000E+000 - 1.00000000E+000;
-    _a0075 = _positionView.z - _sampleDepth1;
-    _TMP5 = abs(_a0075);
-    if (_TMP5 < _Radius) { // if begin
-        _TMP4 = 1.00000000E+000;
-    } else {
-        _TMP4 = 0.00000000E+000;
-    } // end if
-    _rangeCheck1 = float(_TMP4);
-    if (_sampleDepth1 <= -_sampleAtViewPosition1.z) { // if begin
-        _TMP6 = 1.00000000E+000;
-    } else {
-        _TMP6 = 0.00000000E+000;
-    } // end if
-    _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
-    _r0051.x = dot(_tangent, _Kernel[6].xyz);
-    _r0051.y = dot(_bitangent, _Kernel[6].xyz);
-    _r0051.z = dot(_normal, _Kernel[6].xyz);
-    _sample1 = _r0051*_Radius;
-    _sampleAtViewPosition1 = _sample1 + _positionView.xyz;
-    _v0059 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
-    _r0059.x = dot(_Projection[0], _v0059);
-    _r0059.y = dot(_Projection[1], _v0059);
-    _r0059.z = dot(_Projection[2], _v0059);
-    _r0059.w = dot(_Projection[3], _v0059);
-    _sampleNDC1 = _r0059/_r0059.w;
-    _texCoord0069 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
-    _TMP9 = texture(_DepthMap, _texCoord0069);
-    _sampleDepth1 = _TMP9.x*2.00000000E+000 - 1.00000000E+000;
-    _a0075 = _positionView.z - _sampleDepth1;
-    _TMP5 = abs(_a0075);
-    if (_TMP5 < _Radius) { // if begin
-        _TMP4 = 1.00000000E+000;
-    } else {
-        _TMP4 = 0.00000000E+000;
-    } // end if
-    _rangeCheck1 = float(_TMP4);
-    if (_sampleDepth1 <= -_sampleAtViewPosition1.z) { // if begin
-        _TMP6 = 1.00000000E+000;
-    } else {
-        _TMP6 = 0.00000000E+000;
-    } // end if
-    _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
-    _r0051.x = dot(_tangent, _Kernel[7].xyz);
-    _r0051.y = dot(_bitangent, _Kernel[7].xyz);
-    _r0051.z = dot(_normal, _Kernel[7].xyz);
-    _sample1 = _r0051*_Radius;
-    _sampleAtViewPosition1 = _sample1 + _positionView.xyz;
-    _v0059 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
-    _r0059.x = dot(_Projection[0], _v0059);
-    _r0059.y = dot(_Projection[1], _v0059);
-    _r0059.z = dot(_Projection[2], _v0059);
-    _r0059.w = dot(_Projection[3], _v0059);
-    _sampleNDC1 = _r0059/_r0059.w;
-    _texCoord0069 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
-    _TMP9 = texture(_DepthMap, _texCoord0069);
-    _sampleDepth1 = _TMP9.x*2.00000000E+000 - 1.00000000E+000;
-    _a0075 = _positionView.z - _sampleDepth1;
-    _TMP5 = abs(_a0075);
-    if (_TMP5 < _Radius) { // if begin
-        _TMP4 = 1.00000000E+000;
-    } else {
-        _TMP4 = 0.00000000E+000;
-    } // end if
-    _rangeCheck1 = float(_TMP4);
-    if (_sampleDepth1 <= -_sampleAtViewPosition1.z) { // if begin
-        _TMP6 = 1.00000000E+000;
-    } else {
-        _TMP6 = 0.00000000E+000;
-    } // end if
-    _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
-    _r0051.x = dot(_tangent, _Kernel[8].xyz);
-    _r0051.y = dot(_bitangent, _Kernel[8].xyz);
-    _r0051.z = dot(_normal, _Kernel[8].xyz);
-    _sample1 = _r0051*_Radius;
-    _sampleAtViewPosition1 = _sample1 + _positionView.xyz;
-    _v0059 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
-    _r0059.x = dot(_Projection[0], _v0059);
-    _r0059.y = dot(_Projection[1], _v0059);
-    _r0059.z = dot(_Projection[2], _v0059);
-    _r0059.w = dot(_Projection[3], _v0059);
-    _sampleNDC1 = _r0059/_r0059.w;
-    _texCoord0069 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
-    _TMP9 = texture(_DepthMap, _texCoord0069);
-    _sampleDepth1 = _TMP9.x*2.00000000E+000 - 1.00000000E+000;
-    _a0075 = _positionView.z - _sampleDepth1;
-    _TMP5 = abs(_a0075);
-    if (_TMP5 < _Radius) { // if begin
-        _TMP4 = 1.00000000E+000;
-    } else {
-        _TMP4 = 0.00000000E+000;
-    } // end if
-    _rangeCheck1 = float(_TMP4);
-    if (_sampleDepth1 <= -_sampleAtViewPosition1.z) { // if begin
-        _TMP6 = 1.00000000E+000;
-    } else {
-        _TMP6 = 0.00000000E+000;
-    } // end if
-    _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
-    _r0051.x = dot(_tangent, _Kernel[9].xyz);
-    _r0051.y = dot(_bitangent, _Kernel[9].xyz);
-    _r0051.z = dot(_normal, _Kernel[9].xyz);
-    _sample1 = _r0051*_Radius;
-    _sampleAtViewPosition1 = _sample1 + _positionView.xyz;
-    _v0059 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
-    _r0059.x = dot(_Projection[0], _v0059);
-    _r0059.y = dot(_Projection[1], _v0059);
-    _r0059.z = dot(_Projection[2], _v0059);
-    _r0059.w = dot(_Projection[3], _v0059);
-    _sampleNDC1 = _r0059/_r0059.w;
-    _texCoord0069 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
-    _TMP9 = texture(_DepthMap, _texCoord0069);
-    _sampleDepth1 = _TMP9.x*2.00000000E+000 - 1.00000000E+000;
-    _a0075 = _positionView.z - _sampleDepth1;
-    _TMP5 = abs(_a0075);
-    if (_TMP5 < _Radius) { // if begin
-        _TMP4 = 1.00000000E+000;
-    } else {
-        _TMP4 = 0.00000000E+000;
-    } // end if
-    _rangeCheck1 = float(_TMP4);
-    if (_sampleDepth1 <= -_sampleAtViewPosition1.z) { // if begin
-        _TMP6 = 1.00000000E+000;
-    } else {
-        _TMP6 = 0.00000000E+000;
-    } // end if
-    _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
-    _r0051.x = dot(_tangent, _Kernel[10].xyz);
-    _r0051.y = dot(_bitangent, _Kernel[10].xyz);
-    _r0051.z = dot(_normal, _Kernel[10].xyz);
-    _sample1 = _r0051*_Radius;
-    _sampleAtViewPosition1 = _sample1 + _positionView.xyz;
-    _v0059 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
-    _r0059.x = dot(_Projection[0], _v0059);
-    _r0059.y = dot(_Projection[1], _v0059);
-    _r0059.z = dot(_Projection[2], _v0059);
-    _r0059.w = dot(_Projection[3], _v0059);
-    _sampleNDC1 = _r0059/_r0059.w;
-    _texCoord0069 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
-    _TMP9 = texture(_DepthMap, _texCoord0069);
-    _sampleDepth1 = _TMP9.x*2.00000000E+000 - 1.00000000E+000;
-    _a0075 = _positionView.z - _sampleDepth1;
-    _TMP5 = abs(_a0075);
-    if (_TMP5 < _Radius) { // if begin
-        _TMP4 = 1.00000000E+000;
-    } else {
-        _TMP4 = 0.00000000E+000;
-    } // end if
-    _rangeCheck1 = float(_TMP4);
-    if (_sampleDepth1 <= -_sampleAtViewPosition1.z) { // if begin
-        _TMP6 = 1.00000000E+000;
-    } else {
-        _TMP6 = 0.00000000E+000;
-    } // end if
-    _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
-    _r0051.x = dot(_tangent, _Kernel[11].xyz);
-    _r0051.y = dot(_bitangent, _Kernel[11].xyz);
-    _r0051.z = dot(_normal, _Kernel[11].xyz);
-    _sample1 = _r0051*_Radius;
-    _sampleAtViewPosition1 = _sample1 + _positionView.xyz;
-    _v0059 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
-    _r0059.x = dot(_Projection[0], _v0059);
-    _r0059.y = dot(_Projection[1], _v0059);
-    _r0059.z = dot(_Projection[2], _v0059);
-    _r0059.w = dot(_Projection[3], _v0059);
-    _sampleNDC1 = _r0059/_r0059.w;
-    _texCoord0069 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
-    _TMP9 = texture(_DepthMap, _texCoord0069);
-    _sampleDepth1 = _TMP9.x*2.00000000E+000 - 1.00000000E+000;
-    _a0075 = _positionView.z - _sampleDepth1;
-    _TMP5 = abs(_a0075);
-    if (_TMP5 < _Radius) { // if begin
-        _TMP4 = 1.00000000E+000;
-    } else {
-        _TMP4 = 0.00000000E+000;
-    } // end if
-    _rangeCheck1 = float(_TMP4);
-    if (_sampleDepth1 <= -_sampleAtViewPosition1.z) { // if begin
-        _TMP6 = 1.00000000E+000;
-    } else {
-        _TMP6 = 0.00000000E+000;
-    } // end if
-    _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
-    _r0051.x = dot(_tangent, _Kernel[12].xyz);
-    _r0051.y = dot(_bitangent, _Kernel[12].xyz);
-    _r0051.z = dot(_normal, _Kernel[12].xyz);
-    _sample1 = _r0051*_Radius;
-    _sampleAtViewPosition1 = _sample1 + _positionView.xyz;
-    _v0059 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
-    _r0059.x = dot(_Projection[0], _v0059);
-    _r0059.y = dot(_Projection[1], _v0059);
-    _r0059.z = dot(_Projection[2], _v0059);
-    _r0059.w = dot(_Projection[3], _v0059);
-    _sampleNDC1 = _r0059/_r0059.w;
-    _texCoord0069 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
-    _TMP9 = texture(_DepthMap, _texCoord0069);
-    _sampleDepth1 = _TMP9.x*2.00000000E+000 - 1.00000000E+000;
-    _a0075 = _positionView.z - _sampleDepth1;
-    _TMP5 = abs(_a0075);
-    if (_TMP5 < _Radius) { // if begin
-        _TMP4 = 1.00000000E+000;
-    } else {
-        _TMP4 = 0.00000000E+000;
-    } // end if
-    _rangeCheck1 = float(_TMP4);
-    if (_sampleDepth1 <= -_sampleAtViewPosition1.z) { // if begin
-        _TMP6 = 1.00000000E+000;
-    } else {
-        _TMP6 = 0.00000000E+000;
-    } // end if
-    _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
-    _r0051.x = dot(_tangent, _Kernel[13].xyz);
-    _r0051.y = dot(_bitangent, _Kernel[13].xyz);
-    _r0051.z = dot(_normal, _Kernel[13].xyz);
-    _sample1 = _r0051*_Radius;
-    _sampleAtViewPosition1 = _sample1 + _positionView.xyz;
-    _v0059 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
-    _r0059.x = dot(_Projection[0], _v0059);
-    _r0059.y = dot(_Projection[1], _v0059);
-    _r0059.z = dot(_Projection[2], _v0059);
-    _r0059.w = dot(_Projection[3], _v0059);
-    _sampleNDC1 = _r0059/_r0059.w;
-    _texCoord0069 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
-    _TMP9 = texture(_DepthMap, _texCoord0069);
-    _sampleDepth1 = _TMP9.x*2.00000000E+000 - 1.00000000E+000;
-    _a0075 = _positionView.z - _sampleDepth1;
-    _TMP5 = abs(_a0075);
-    if (_TMP5 < _Radius) { // if begin
-        _TMP4 = 1.00000000E+000;
-    } else {
-        _TMP4 = 0.00000000E+000;
-    } // end if
-    _rangeCheck1 = float(_TMP4);
-    if (_sampleDepth1 <= -_sampleAtViewPosition1.z) { // if begin
-        _TMP6 = 1.00000000E+000;
-    } else {
-        _TMP6 = 0.00000000E+000;
-    } // end if
-    _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
-    _r0051.x = dot(_tangent, _Kernel[14].xyz);
-    _r0051.y = dot(_bitangent, _Kernel[14].xyz);
-    _r0051.z = dot(_normal, _Kernel[14].xyz);
-    _sample1 = _r0051*_Radius;
-    _sampleAtViewPosition1 = _sample1 + _positionView.xyz;
-    _v0059 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
-    _r0059.x = dot(_Projection[0], _v0059);
-    _r0059.y = dot(_Projection[1], _v0059);
-    _r0059.z = dot(_Projection[2], _v0059);
-    _r0059.w = dot(_Projection[3], _v0059);
-    _sampleNDC1 = _r0059/_r0059.w;
-    _texCoord0069 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
-    _TMP9 = texture(_DepthMap, _texCoord0069);
-    _sampleDepth1 = _TMP9.x*2.00000000E+000 - 1.00000000E+000;
-    _a0075 = _positionView.z - _sampleDepth1;
-    _TMP5 = abs(_a0075);
-    if (_TMP5 < _Radius) { // if begin
-        _TMP4 = 1.00000000E+000;
-    } else {
-        _TMP4 = 0.00000000E+000;
-    } // end if
-    _rangeCheck1 = float(_TMP4);
-    if (_sampleDepth1 <= -_sampleAtViewPosition1.z) { // if begin
-        _TMP6 = 1.00000000E+000;
-    } else {
-        _TMP6 = 0.00000000E+000;
-    } // end if
-    _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
-    _r0051.x = dot(_tangent, _Kernel[15].xyz);
-    _r0051.y = dot(_bitangent, _Kernel[15].xyz);
-    _r0051.z = dot(_normal, _Kernel[15].xyz);
-    _sample1 = _r0051*_Radius;
-    _sampleAtViewPosition1 = _sample1 + _positionView.xyz;
-    _v0059 = vec4(_sampleAtViewPosition1.x, _sampleAtViewPosition1.y, _sampleAtViewPosition1.z, 1.00000000E+000);
-    _r0059.x = dot(_Projection[0], _v0059);
-    _r0059.y = dot(_Projection[1], _v0059);
-    _r0059.z = dot(_Projection[2], _v0059);
-    _r0059.w = dot(_Projection[3], _v0059);
-    _sampleNDC1 = _r0059/_r0059.w;
-    _texCoord0069 = _sampleNDC1.xy*5.00000000E-001 + 5.00000000E-001;
-    _TMP9 = texture(_DepthMap, _texCoord0069);
-    _sampleDepth1 = _TMP9.x*2.00000000E+000 - 1.00000000E+000;
-    _a0075 = _positionView.z - _sampleDepth1;
-    _TMP5 = abs(_a0075);
-    if (_TMP5 < _Radius) { // if begin
-        _TMP4 = 1.00000000E+000;
-    } else {
-        _TMP4 = 0.00000000E+000;
-    } // end if
-    _rangeCheck1 = float(_TMP4);
-    if (_sampleDepth1 <= -_sampleAtViewPosition1.z) { // if begin
-        _TMP6 = 1.00000000E+000;
-    } else {
-        _TMP6 = 0.00000000E+000;
-    } // end if
-    _occlusionContribution = _occlusionContribution + float(_TMP6)*_rangeCheck1;
-    _occlusion = 1.00000000E+000 - _occlusionContribution/1.60000000E+001;
-    _OUT._ssao = vec4(_occlusion, _occlusion, _occlusion, 1.00000000E+000);
-    cg_FragData1 = _OUT._temp;
-    cg_FragColor = _OUT._ssao;
+    _v0060 = _TMP8*_diff0060;
+    _d0060 = length(_diff0060);
+    _TMP11 = dot(_normalWS1, _v0060);
+    _b0084 = _TMP11*(1.00000000E+00 + _d0060);
+    _occlusion0060 = max(0.00000000E+00, _b0084);
+    _sampleOffset0086 = _coord21*5.00000000E-01;
+    _sampleCoord0086 = cg_TexCoord0.xy + _sampleOffset0086;
+    _positionScreen0088.xy = _sampleCoord0086.xy*2.00000000E+00 - 1.00000000E+00;
+    _positionScreen0088.z = _depth2;
+    _positionScreen0088.w = 1.00000000E+00;
+    _r0090.x = dot(_ViewProjInv[0], _positionScreen0088);
+    _r0090.y = dot(_ViewProjInv[1], _positionScreen0088);
+    _r0090.z = dot(_ViewProjInv[2], _positionScreen0088);
+    _r0090.w = dot(_ViewProjInv[3], _positionScreen0088);
+    _samplePositionWS0086 = _r0090/_r0090.w;
+    _diff0086 = _samplePositionWS0086.xyz - _positionWS1.xyz;
+    _TMP7 = dot(_diff0086, _diff0086);
+    _TMP8 = inversesqrt(_TMP7);
+    _v0086 = _TMP8*_diff0086;
+    _d0086 = length(_diff0086);
+    _TMP11 = dot(_normalWS1, _v0086);
+    _b0110 = _TMP11*(1.00000000E+00 + _d0086);
+    _occlusion0086 = max(0.00000000E+00, _b0110);
+    _occlusion1 = _occlusion0060 + _occlusion0086;
+    _sampleOffset0112 = _sampleOffset1*7.50000000E-01;
+    _sampleCoord0112 = cg_TexCoord0.xy + _sampleOffset0112;
+    _positionScreen0114.xy = _sampleCoord0112.xy*2.00000000E+00 - 1.00000000E+00;
+    _positionScreen0114.z = _depth2;
+    _positionScreen0114.w = 1.00000000E+00;
+    _r0116.x = dot(_ViewProjInv[0], _positionScreen0114);
+    _r0116.y = dot(_ViewProjInv[1], _positionScreen0114);
+    _r0116.z = dot(_ViewProjInv[2], _positionScreen0114);
+    _r0116.w = dot(_ViewProjInv[3], _positionScreen0114);
+    _samplePositionWS0112 = _r0116/_r0116.w;
+    _diff0112 = _samplePositionWS0112.xyz - _positionWS1.xyz;
+    _TMP7 = dot(_diff0112, _diff0112);
+    _TMP8 = inversesqrt(_TMP7);
+    _v0112 = _TMP8*_diff0112;
+    _d0112 = length(_diff0112);
+    _TMP11 = dot(_normalWS1, _v0112);
+    _b0136 = _TMP11*(1.00000000E+00 + _d0112);
+    _occlusion0112 = max(0.00000000E+00, _b0136);
+    _occlusion1 = _occlusion1 + _occlusion0112;
+    _sampleCoord0138 = cg_TexCoord0.xy + _coord21;
+    _positionScreen0140.xy = _sampleCoord0138.xy*2.00000000E+00 - 1.00000000E+00;
+    _positionScreen0140.z = _depth2;
+    _positionScreen0140.w = 1.00000000E+00;
+    _r0142.x = dot(_ViewProjInv[0], _positionScreen0140);
+    _r0142.y = dot(_ViewProjInv[1], _positionScreen0140);
+    _r0142.z = dot(_ViewProjInv[2], _positionScreen0140);
+    _r0142.w = dot(_ViewProjInv[3], _positionScreen0140);
+    _samplePositionWS0138 = _r0142/_r0142.w;
+    _diff0138 = _samplePositionWS0138.xyz - _positionWS1.xyz;
+    _TMP7 = dot(_diff0138, _diff0138);
+    _TMP8 = inversesqrt(_TMP7);
+    _v0138 = _TMP8*_diff0138;
+    _d0138 = length(_diff0138);
+    _TMP11 = dot(_normalWS1, _v0138);
+    _b0162 = _TMP11*(1.00000000E+00 + _d0138);
+    _occlusion0138 = max(0.00000000E+00, _b0162);
+    _occlusion1 = _occlusion1 + _occlusion0138;
+    _TMP10 = dot(_random.xy, vec2( -1.00000000E+00, 0.00000000E+00));
+    _TMP2 = vec2( -1.00000000E+00, 0.00000000E+00) - (2.00000000E+00*_random.xy)*_TMP10;
+    _sampleOffset1 = _TMP2*_rad;
+    _coord21 = vec2(_sampleOffset1.x*7.07000017E-01 - _sampleOffset1.y*7.07000017E-01, _sampleOffset1.x*7.07000017E-01 + _sampleOffset1.y*7.07000017E-01);
+    _sampleOffset0060 = _sampleOffset1*2.50000000E-01;
+    _sampleCoord0060 = cg_TexCoord0.xy + _sampleOffset0060;
+    _positionScreen0062.xy = _sampleCoord0060.xy*2.00000000E+00 - 1.00000000E+00;
+    _positionScreen0062.z = _depth2;
+    _positionScreen0062.w = 1.00000000E+00;
+    _r0064.x = dot(_ViewProjInv[0], _positionScreen0062);
+    _r0064.y = dot(_ViewProjInv[1], _positionScreen0062);
+    _r0064.z = dot(_ViewProjInv[2], _positionScreen0062);
+    _r0064.w = dot(_ViewProjInv[3], _positionScreen0062);
+    _samplePositionWS0060 = _r0064/_r0064.w;
+    _diff0060 = _samplePositionWS0060.xyz - _positionWS1.xyz;
+    _TMP7 = dot(_diff0060, _diff0060);
+    _TMP8 = inversesqrt(_TMP7);
+    _v0060 = _TMP8*_diff0060;
+    _d0060 = length(_diff0060);
+    _TMP11 = dot(_normalWS1, _v0060);
+    _b0084 = _TMP11*(1.00000000E+00 + _d0060);
+    _occlusion0060 = max(0.00000000E+00, _b0084);
+    _occlusion1 = _occlusion1 + _occlusion0060;
+    _sampleOffset0086 = _coord21*5.00000000E-01;
+    _sampleCoord0086 = cg_TexCoord0.xy + _sampleOffset0086;
+    _positionScreen0088.xy = _sampleCoord0086.xy*2.00000000E+00 - 1.00000000E+00;
+    _positionScreen0088.z = _depth2;
+    _positionScreen0088.w = 1.00000000E+00;
+    _r0090.x = dot(_ViewProjInv[0], _positionScreen0088);
+    _r0090.y = dot(_ViewProjInv[1], _positionScreen0088);
+    _r0090.z = dot(_ViewProjInv[2], _positionScreen0088);
+    _r0090.w = dot(_ViewProjInv[3], _positionScreen0088);
+    _samplePositionWS0086 = _r0090/_r0090.w;
+    _diff0086 = _samplePositionWS0086.xyz - _positionWS1.xyz;
+    _TMP7 = dot(_diff0086, _diff0086);
+    _TMP8 = inversesqrt(_TMP7);
+    _v0086 = _TMP8*_diff0086;
+    _d0086 = length(_diff0086);
+    _TMP11 = dot(_normalWS1, _v0086);
+    _b0110 = _TMP11*(1.00000000E+00 + _d0086);
+    _occlusion0086 = max(0.00000000E+00, _b0110);
+    _occlusion1 = _occlusion1 + _occlusion0086;
+    _sampleOffset0112 = _sampleOffset1*7.50000000E-01;
+    _sampleCoord0112 = cg_TexCoord0.xy + _sampleOffset0112;
+    _positionScreen0114.xy = _sampleCoord0112.xy*2.00000000E+00 - 1.00000000E+00;
+    _positionScreen0114.z = _depth2;
+    _positionScreen0114.w = 1.00000000E+00;
+    _r0116.x = dot(_ViewProjInv[0], _positionScreen0114);
+    _r0116.y = dot(_ViewProjInv[1], _positionScreen0114);
+    _r0116.z = dot(_ViewProjInv[2], _positionScreen0114);
+    _r0116.w = dot(_ViewProjInv[3], _positionScreen0114);
+    _samplePositionWS0112 = _r0116/_r0116.w;
+    _diff0112 = _samplePositionWS0112.xyz - _positionWS1.xyz;
+    _TMP7 = dot(_diff0112, _diff0112);
+    _TMP8 = inversesqrt(_TMP7);
+    _v0112 = _TMP8*_diff0112;
+    _d0112 = length(_diff0112);
+    _TMP11 = dot(_normalWS1, _v0112);
+    _b0136 = _TMP11*(1.00000000E+00 + _d0112);
+    _occlusion0112 = max(0.00000000E+00, _b0136);
+    _occlusion1 = _occlusion1 + _occlusion0112;
+    _sampleCoord0138 = cg_TexCoord0.xy + _coord21;
+    _positionScreen0140.xy = _sampleCoord0138.xy*2.00000000E+00 - 1.00000000E+00;
+    _positionScreen0140.z = _depth2;
+    _positionScreen0140.w = 1.00000000E+00;
+    _r0142.x = dot(_ViewProjInv[0], _positionScreen0140);
+    _r0142.y = dot(_ViewProjInv[1], _positionScreen0140);
+    _r0142.z = dot(_ViewProjInv[2], _positionScreen0140);
+    _r0142.w = dot(_ViewProjInv[3], _positionScreen0140);
+    _samplePositionWS0138 = _r0142/_r0142.w;
+    _diff0138 = _samplePositionWS0138.xyz - _positionWS1.xyz;
+    _TMP7 = dot(_diff0138, _diff0138);
+    _TMP8 = inversesqrt(_TMP7);
+    _v0138 = _TMP8*_diff0138;
+    _d0138 = length(_diff0138);
+    _TMP11 = dot(_normalWS1, _v0138);
+    _b0162 = _TMP11*(1.00000000E+00 + _d0138);
+    _occlusion0138 = max(0.00000000E+00, _b0162);
+    _occlusion1 = _occlusion1 + _occlusion0138;
+    _TMP10 = dot(_random.xy, vec2( 0.00000000E+00, 1.00000000E+00));
+    _TMP2 = vec2( 0.00000000E+00, 1.00000000E+00) - (2.00000000E+00*_random.xy)*_TMP10;
+    _sampleOffset1 = _TMP2*_rad;
+    _coord21 = vec2(_sampleOffset1.x*7.07000017E-01 - _sampleOffset1.y*7.07000017E-01, _sampleOffset1.x*7.07000017E-01 + _sampleOffset1.y*7.07000017E-01);
+    _sampleOffset0060 = _sampleOffset1*2.50000000E-01;
+    _sampleCoord0060 = cg_TexCoord0.xy + _sampleOffset0060;
+    _positionScreen0062.xy = _sampleCoord0060.xy*2.00000000E+00 - 1.00000000E+00;
+    _positionScreen0062.z = _depth2;
+    _positionScreen0062.w = 1.00000000E+00;
+    _r0064.x = dot(_ViewProjInv[0], _positionScreen0062);
+    _r0064.y = dot(_ViewProjInv[1], _positionScreen0062);
+    _r0064.z = dot(_ViewProjInv[2], _positionScreen0062);
+    _r0064.w = dot(_ViewProjInv[3], _positionScreen0062);
+    _samplePositionWS0060 = _r0064/_r0064.w;
+    _diff0060 = _samplePositionWS0060.xyz - _positionWS1.xyz;
+    _TMP7 = dot(_diff0060, _diff0060);
+    _TMP8 = inversesqrt(_TMP7);
+    _v0060 = _TMP8*_diff0060;
+    _d0060 = length(_diff0060);
+    _TMP11 = dot(_normalWS1, _v0060);
+    _b0084 = _TMP11*(1.00000000E+00 + _d0060);
+    _occlusion0060 = max(0.00000000E+00, _b0084);
+    _occlusion1 = _occlusion1 + _occlusion0060;
+    _sampleOffset0086 = _coord21*5.00000000E-01;
+    _sampleCoord0086 = cg_TexCoord0.xy + _sampleOffset0086;
+    _positionScreen0088.xy = _sampleCoord0086.xy*2.00000000E+00 - 1.00000000E+00;
+    _positionScreen0088.z = _depth2;
+    _positionScreen0088.w = 1.00000000E+00;
+    _r0090.x = dot(_ViewProjInv[0], _positionScreen0088);
+    _r0090.y = dot(_ViewProjInv[1], _positionScreen0088);
+    _r0090.z = dot(_ViewProjInv[2], _positionScreen0088);
+    _r0090.w = dot(_ViewProjInv[3], _positionScreen0088);
+    _samplePositionWS0086 = _r0090/_r0090.w;
+    _diff0086 = _samplePositionWS0086.xyz - _positionWS1.xyz;
+    _TMP7 = dot(_diff0086, _diff0086);
+    _TMP8 = inversesqrt(_TMP7);
+    _v0086 = _TMP8*_diff0086;
+    _d0086 = length(_diff0086);
+    _TMP11 = dot(_normalWS1, _v0086);
+    _b0110 = _TMP11*(1.00000000E+00 + _d0086);
+    _occlusion0086 = max(0.00000000E+00, _b0110);
+    _occlusion1 = _occlusion1 + _occlusion0086;
+    _sampleOffset0112 = _sampleOffset1*7.50000000E-01;
+    _sampleCoord0112 = cg_TexCoord0.xy + _sampleOffset0112;
+    _positionScreen0114.xy = _sampleCoord0112.xy*2.00000000E+00 - 1.00000000E+00;
+    _positionScreen0114.z = _depth2;
+    _positionScreen0114.w = 1.00000000E+00;
+    _r0116.x = dot(_ViewProjInv[0], _positionScreen0114);
+    _r0116.y = dot(_ViewProjInv[1], _positionScreen0114);
+    _r0116.z = dot(_ViewProjInv[2], _positionScreen0114);
+    _r0116.w = dot(_ViewProjInv[3], _positionScreen0114);
+    _samplePositionWS0112 = _r0116/_r0116.w;
+    _diff0112 = _samplePositionWS0112.xyz - _positionWS1.xyz;
+    _TMP7 = dot(_diff0112, _diff0112);
+    _TMP8 = inversesqrt(_TMP7);
+    _v0112 = _TMP8*_diff0112;
+    _d0112 = length(_diff0112);
+    _TMP11 = dot(_normalWS1, _v0112);
+    _b0136 = _TMP11*(1.00000000E+00 + _d0112);
+    _occlusion0112 = max(0.00000000E+00, _b0136);
+    _occlusion1 = _occlusion1 + _occlusion0112;
+    _sampleCoord0138 = cg_TexCoord0.xy + _coord21;
+    _positionScreen0140.xy = _sampleCoord0138.xy*2.00000000E+00 - 1.00000000E+00;
+    _positionScreen0140.z = _depth2;
+    _positionScreen0140.w = 1.00000000E+00;
+    _r0142.x = dot(_ViewProjInv[0], _positionScreen0140);
+    _r0142.y = dot(_ViewProjInv[1], _positionScreen0140);
+    _r0142.z = dot(_ViewProjInv[2], _positionScreen0140);
+    _r0142.w = dot(_ViewProjInv[3], _positionScreen0140);
+    _samplePositionWS0138 = _r0142/_r0142.w;
+    _diff0138 = _samplePositionWS0138.xyz - _positionWS1.xyz;
+    _TMP7 = dot(_diff0138, _diff0138);
+    _TMP8 = inversesqrt(_TMP7);
+    _v0138 = _TMP8*_diff0138;
+    _d0138 = length(_diff0138);
+    _TMP11 = dot(_normalWS1, _v0138);
+    _b0162 = _TMP11*(1.00000000E+00 + _d0138);
+    _occlusion0138 = max(0.00000000E+00, _b0162);
+    _occlusion1 = _occlusion1 + _occlusion0138;
+    _TMP10 = dot(_random.xy, vec2( 0.00000000E+00, -1.00000000E+00));
+    _TMP2 = vec2( 0.00000000E+00, -1.00000000E+00) - (2.00000000E+00*_random.xy)*_TMP10;
+    _sampleOffset1 = _TMP2*_rad;
+    _coord21 = vec2(_sampleOffset1.x*7.07000017E-01 - _sampleOffset1.y*7.07000017E-01, _sampleOffset1.x*7.07000017E-01 + _sampleOffset1.y*7.07000017E-01);
+    _sampleOffset0060 = _sampleOffset1*2.50000000E-01;
+    _sampleCoord0060 = cg_TexCoord0.xy + _sampleOffset0060;
+    _positionScreen0062.xy = _sampleCoord0060.xy*2.00000000E+00 - 1.00000000E+00;
+    _positionScreen0062.z = _depth2;
+    _positionScreen0062.w = 1.00000000E+00;
+    _r0064.x = dot(_ViewProjInv[0], _positionScreen0062);
+    _r0064.y = dot(_ViewProjInv[1], _positionScreen0062);
+    _r0064.z = dot(_ViewProjInv[2], _positionScreen0062);
+    _r0064.w = dot(_ViewProjInv[3], _positionScreen0062);
+    _samplePositionWS0060 = _r0064/_r0064.w;
+    _diff0060 = _samplePositionWS0060.xyz - _positionWS1.xyz;
+    _TMP7 = dot(_diff0060, _diff0060);
+    _TMP8 = inversesqrt(_TMP7);
+    _v0060 = _TMP8*_diff0060;
+    _d0060 = length(_diff0060);
+    _TMP11 = dot(_normalWS1, _v0060);
+    _b0084 = _TMP11*(1.00000000E+00 + _d0060);
+    _occlusion0060 = max(0.00000000E+00, _b0084);
+    _occlusion1 = _occlusion1 + _occlusion0060;
+    _sampleOffset0086 = _coord21*5.00000000E-01;
+    _sampleCoord0086 = cg_TexCoord0.xy + _sampleOffset0086;
+    _positionScreen0088.xy = _sampleCoord0086.xy*2.00000000E+00 - 1.00000000E+00;
+    _positionScreen0088.z = _depth2;
+    _positionScreen0088.w = 1.00000000E+00;
+    _r0090.x = dot(_ViewProjInv[0], _positionScreen0088);
+    _r0090.y = dot(_ViewProjInv[1], _positionScreen0088);
+    _r0090.z = dot(_ViewProjInv[2], _positionScreen0088);
+    _r0090.w = dot(_ViewProjInv[3], _positionScreen0088);
+    _samplePositionWS0086 = _r0090/_r0090.w;
+    _diff0086 = _samplePositionWS0086.xyz - _positionWS1.xyz;
+    _TMP7 = dot(_diff0086, _diff0086);
+    _TMP8 = inversesqrt(_TMP7);
+    _v0086 = _TMP8*_diff0086;
+    _d0086 = length(_diff0086);
+    _TMP11 = dot(_normalWS1, _v0086);
+    _b0110 = _TMP11*(1.00000000E+00 + _d0086);
+    _occlusion0086 = max(0.00000000E+00, _b0110);
+    _occlusion1 = _occlusion1 + _occlusion0086;
+    _sampleOffset0112 = _sampleOffset1*7.50000000E-01;
+    _sampleCoord0112 = cg_TexCoord0.xy + _sampleOffset0112;
+    _positionScreen0114.xy = _sampleCoord0112.xy*2.00000000E+00 - 1.00000000E+00;
+    _positionScreen0114.z = _depth2;
+    _positionScreen0114.w = 1.00000000E+00;
+    _r0116.x = dot(_ViewProjInv[0], _positionScreen0114);
+    _r0116.y = dot(_ViewProjInv[1], _positionScreen0114);
+    _r0116.z = dot(_ViewProjInv[2], _positionScreen0114);
+    _r0116.w = dot(_ViewProjInv[3], _positionScreen0114);
+    _samplePositionWS0112 = _r0116/_r0116.w;
+    _diff0112 = _samplePositionWS0112.xyz - _positionWS1.xyz;
+    _TMP7 = dot(_diff0112, _diff0112);
+    _TMP8 = inversesqrt(_TMP7);
+    _v0112 = _TMP8*_diff0112;
+    _d0112 = length(_diff0112);
+    _TMP11 = dot(_normalWS1, _v0112);
+    _b0136 = _TMP11*(1.00000000E+00 + _d0112);
+    _occlusion0112 = max(0.00000000E+00, _b0136);
+    _occlusion1 = _occlusion1 + _occlusion0112;
+    _sampleCoord0138 = cg_TexCoord0.xy + _coord21;
+    _positionScreen0140.xy = _sampleCoord0138.xy*2.00000000E+00 - 1.00000000E+00;
+    _positionScreen0140.z = _depth2;
+    _positionScreen0140.w = 1.00000000E+00;
+    _r0142.x = dot(_ViewProjInv[0], _positionScreen0140);
+    _r0142.y = dot(_ViewProjInv[1], _positionScreen0140);
+    _r0142.z = dot(_ViewProjInv[2], _positionScreen0140);
+    _r0142.w = dot(_ViewProjInv[3], _positionScreen0140);
+    _samplePositionWS0138 = _r0142/_r0142.w;
+    _diff0138 = _samplePositionWS0138.xyz - _positionWS1.xyz;
+    _TMP7 = dot(_diff0138, _diff0138);
+    _TMP8 = inversesqrt(_TMP7);
+    _v0138 = _TMP8*_diff0138;
+    _d0138 = length(_diff0138);
+    _TMP11 = dot(_normalWS1, _v0138);
+    _b0162 = _TMP11*(1.00000000E+00 + _d0138);
+    _occlusion0138 = max(0.00000000E+00, _b0162);
+    _occlusion1 = _occlusion1 + _occlusion0138;
+    _occlusion1 = _occlusion1/1.60000000E+01;
+    _ret_0 = vec4(_occlusion1, _occlusion1, _occlusion1, 1.00000000E+00);
+    cg_FragColor = _ret_0;
     return;
 } // main end

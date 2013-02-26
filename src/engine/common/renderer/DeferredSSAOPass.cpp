@@ -93,16 +93,21 @@ TextureId DeferredSSAOPass::render(IViewer* viewer, unsigned int inputMap, const
     Matrix4x4 projection = viewer->projection();
     ssaoEffect_->setUniform(projection, "Projection");
 
-    ssaoEffect_->setUniform(viewer->viewTransform(), "View");
+    Matrix4x4 view = viewer->viewTransform();
+    ssaoEffect_->setUniform(view, "View");
 
     Matrix4x4 projectionInverse = projection.inverse();
     ssaoEffect_->setUniform(projectionInverse, "ProjInv");
 
+    Matrix4x4 viewProjection = projection * view;
+    Matrix4x4 viewProjectionInverse = viewProjection.inverse();
+    ssaoEffect_->setUniform(viewProjectionInverse, "ViewProjInv");
+
     ssaoEffect_->setUniform(viewer->nearDistance(), "Near");
     ssaoEffect_->setUniform(viewer->farDistance(), "Far");
 
-    ssaoEffect_->setTexture(initStage.normalViewSpaceMap(), "NormalViewSpaceMap");
-    ssaoEffect_->setTexture(initStage.depthMap(), "DepthMap");
+    ssaoEffect_->setTexture(initStage.normalMap(), "NormalMap");
+    ssaoEffect_->setTexture(GraphicsInterface::depthBufferTexture(), "DepthMap");
     ssaoEffect_->setTexture(noiseTexture_, "NoiseMap");
 
 		ssaoEffect_->setUniform(GraphicsInterface::halfBackBufferPixel(), "HalfPixel");

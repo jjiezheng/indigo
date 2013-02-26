@@ -1,0 +1,96 @@
+#include "standard.h"
+
+static const float KernelSize = 16;
+
+uniform float2 HalfPixel;
+
+uniform float Radius;
+uniform float2 NoiseScale;
+uniform float4 Kernel[16];
+
+uniform float Far;
+uniform float Near;
+
+sampler2D NormalViewSpaceMap 	: TEXUNIT0;
+sampler2D DepthMap 		 		: TEXUNIT1;
+sampler2D NoiseMap 		 		: TEXUNIT2;
+
+uniform float4x4 Projection;
+uniform float4x4 ProjInv;
+uniform float4x4 ModelView;
+uniform float4x4 View;
+
+struct VOutput {
+      float4 position 		: POSITION;
+      float2 texCoord		: TEXCOORD0;
+      float4 positionVS		: TEXCOORD1;
+};
+
+VOutput vs(float4 position 	: POSITION,
+		   float2 texCoord 	: TEXCOORD0) {
+    VOutput OUT;
+    OUT.position = position;
+    OUT.texCoord = texCoord;
+    OUT.positionVS = mul(ProjInv, float4(position.xy, -1, 1));
+    return OUT;
+}
+
+struct POutput {
+      float4 ssao 			: COLOR0;
+      float4 temp			: COLOR1;
+};
+
+POutput ps(float4 position 		: POSITION,
+		  float2 texCoord 		: TEXCOORD0,
+		  float4 positionVS		: TEXCOORD1) {
+
+	POutput OUT;
+
+	float3 normalView = unpackNormal(NormalViewSpaceMap, texCoord);
+	float3 normal = normalize(normalView);
+
+	OUT.temp = float4(normal, 1);
+
+	float3 viewRay = positionVS.xyz;
+
+	float depth = unpackDepth(DepthMap, texCoord);
+	float3 positionView = viewRay * depth;
+
+	//OUT.ssao = float4(viewRay * depth, 1+normal.x);
+
+	//return OUT;
+
+	float2 noiseTexCoords = texCoord * NoiseScale;
+	float3 rvec = tex2D(NoiseMap, noiseTexCoords).xyz * 2.0f - 1.0f;
+	
+	float3 tangent = normalize(rvec - normal * dot(rvec, normal));
+	float3 bitangent = cross(tangent, normal);
+	float3x3 normalBasis = float3x3(tangent, bitangent, normal);
+
+	float occlusionContribution = 0;
+
+	int kSamples = 16;
+
+	for (int i = 0; i < kSamples; i++) {
+		float3 kernel = Kernel[i].xyz;
+		float3 kernelAtNormalBasis = mul(normalBasis, kernel);
+
+		float3 sample = kernelAtNormalBasis * Radius;
+		float3 sampleAtViewPosition = sample + positionView.xyz;
+
+		float4 sampleClip = mul(Projection, float4(sampleAtViewPosition, 1));
+		float4 sampleNDC = sampleClip / sampleClip.w;
+
+		float2 sampleTexCoord = ndc2tex(sampleNDC.xy);
+		float sampleDepth = unpackDepth(DepthMap, sampleTexCoord);
+
+		float rangeCheck = abs(positionView.z - sampleDepth) < Radius ? 1.0 : 0.0;
+   		occlusionContribution += (sampleDepth <= -sampleAtViewPosition.z ? 1.0 : 0.0) * rangeCheck;
+	}
+
+	float occlusion = 1.0f - (occlusionContribution / (float)kSamples);
+
+	OUT.ssao = float4(occlusion, occlusion, occlusion, 1.0f);
+
+	return OUT;// float4(occlusion, occlusion, occlusion, 1.0f);
+}

@@ -1,5 +1,5 @@
 // glslv output by Cg compiler
-// cgc version 3.1.0013, build date Apr 18 2012
+// cgc version 3.1.0013, build date Apr 24 2012
 // command line args: -DGL=1 -DGL32=1 -q -profileopts version=130 -profile glslv
 // source file: deferred_ssao.cg
 //vendor NVIDIA Corporation
@@ -12,26 +12,24 @@
 //semantic Kernel
 //semantic Far
 //semantic Near
-//semantic NormalViewSpaceMap : TEXUNIT0
+//semantic NormalMap : TEXUNIT0
 //semantic DepthMap : TEXUNIT1
 //semantic NoiseMap : TEXUNIT2
 //semantic Projection
 //semantic ProjInv
 //semantic ModelView
 //semantic View
-//var float4x4 ProjInv :  : _ProjInv[0], 4 : -1 : 1
+//semantic ViewProjInv
 //var float4 position : $vin.POSITION : POSITION : 0 : 1
 //var float2 texCoord : $vin.TEXCOORD0 : TEXCOORD0 : 1 : 1
 //var float4 vs.position : $vout.POSITION : HPOS : -1 : 1
 //var float2 vs.texCoord : $vout.TEXCOORD0 : TEXCOORD0 : -1 : 1
-//var float4 vs.positionVS : $vout.TEXCOORD1 : TEXCOORD1 : -1 : 1
 
 #version 130
 
 struct VOutput {
     vec4 _position2;
     vec2 _texCoord1;
-    vec4 _positionVS;
 };
 
 struct POutput {
@@ -39,12 +37,8 @@ struct POutput {
     vec4 _temp;
 };
 
-vec4 _r0015;
-vec4 _v0015;
 in vec4 TEXCOORD0;
-uniform vec4 _ProjInv[4];
 in vec4 cg_Vertex;
-out vec4 cg_TexCoord1;
 out vec4 cg_TexCoord0;
 
  // main procedure, the original name was vs
@@ -52,13 +46,7 @@ void main()
 {
 
 
-    _v0015 = vec4(cg_Vertex.x, cg_Vertex.y, -1.00000000E+000, 1.00000000E+000);
-    _r0015.x = dot(_ProjInv[0], _v0015);
-    _r0015.y = dot(_ProjInv[1], _v0015);
-    _r0015.z = dot(_ProjInv[2], _v0015);
-    _r0015.w = dot(_ProjInv[3], _v0015);
     cg_TexCoord0.xy = TEXCOORD0.xy;
-    cg_TexCoord1 = _r0015;
     gl_Position = cg_Vertex;
     return;
 } // main end
