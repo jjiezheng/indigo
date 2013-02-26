@@ -4,24 +4,68 @@
 		"selected_items":
 		[
 			[
-				"sam",
-				"sampleAtViewPosition"
+				"nor",
+				"normalVS"
+			],
+			[
+				"nr",
+				"normalVS"
+			],
+			[
+				"tex2",
+				"tex2D"
 			],
 			[
 				"norm",
-				"normalView"
+				"normalVS"
+			],
+			[
+				"pos",
+				"positionVS"
+			],
+			[
+				"Vi",
+				"View"
+			],
+			[
+				"n",
+				"normalWS"
+			],
+			[
+				"sam",
+				"sampleDepth"
+			],
+			[
+				"PO",
+				"POutput"
+			],
+			[
+				"tex",
+				"texCoord"
+			],
+			[
+				"Dep",
+				"DepthMap"
+			],
+			[
+				"TEX",
+				"TEXCOORD1"
+			],
+			[
+				"sma",
+				"sampleNDC"
+			],
+			[
+				"ker",
+				"kernelAtNormalBasis"
+			],
+			[
+				"no",
+				"normal"
 			],
 			[
 				"T",
 				"TEXCOORD2"
-			],
-			[
-				"nor",
-				"normalView"
-			],
-			[
-				"pos",
-				"positionView"
 			],
 			[
 				"m_p",
@@ -178,10 +222,6 @@
 			[
 				"SetSampl",
 				"SetSamplerTexture"
-			],
-			[
-				"tex",
-				"textureName"
 			],
 			[
 				"Fin",
@@ -468,70 +508,22 @@
 				"unpackedNormal"
 			],
 			[
-				"no",
-				"normalData"
-			],
-			[
 				"Aug",
 				"AugmentedRevealFilter"
 			],
 			[
 				"posi",
 				"positionWorld"
-			],
-			[
-				"Spe",
-				"SpecularPower"
-			],
-			[
-				"View",
-				"ViewProjInv"
-			],
-			[
-				"Light",
-				"LightDirection"
-			],
-			[
-				"Root",
-				"RootTransform"
-			],
-			[
-				"l",
-				"lightPosition"
-			],
-			[
-				"NormalMa",
-				"NormalMatrix"
-			],
-			[
-				"light",
-				"lightVector"
-			],
-			[
-				"spe",
-				"specularContribution"
-			],
-			[
-				"sampl",
-				"sampleDepth"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "deferred_fullscreen_texture.cg",
-			"settings":
-			{
-				"buffer_size": 457,
-				"line_ending": "Windows"
-			}
-		},
-		{
 			"file": "deferred_render_color_normal_depth.cg",
 			"settings":
 			{
-				"buffer_size": 1065,
+				"buffer_size": 1089,
 				"line_ending": "Windows"
 			}
 		},
@@ -539,7 +531,23 @@
 			"file": "deferred_ssao.cg",
 			"settings":
 			{
-				"buffer_size": 2514,
+				"buffer_size": 2920,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "standard.h",
+			"settings":
+			{
+				"buffer_size": 1251,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "depth.h",
+			"settings":
+			{
+				"buffer_size": 840,
 				"line_ending": "Windows"
 			}
 		},
@@ -730,10 +738,15 @@
 	},
 	"file_history":
 	[
+		"/C/Users/GBKosteNi/Development/game/assets/scenes/cars/cars.scene",
+		"/C/Users/GBKosteNi/Development/game/assets/scenes/simple/car.scene",
+		"/C/Users/GBKosteNi/Development/game/assets/shaders/utils.h",
+		"/C/Users/GBKosteNi/Development/game/assets/shaders/compiled/deferred_render_color_normal_depth.shader.dx11.vertex",
+		"/C/Users/GBKosteNi/Development/game/assets/shaders/deferred_lighting_spot_light_shadow.cg",
+		"/C/Users/GBKosteNi/Development/game/assets/shaders/depth.h",
 		"/C/Users/GBKosteNi/Development/game/assets/shaders/compiled/deferred_render_color_normal_depth.shader.dx11.fragment",
 		"/C/Users/GBKosteNi/Development/game/assets/shaders/compiled/deferred_ssao.shader.dx11.fragment",
 		"/C/Users/GBKosteNi/Development/game/assets/shaders/compiled/deferred_ssao.shader.dx11.vertex",
-		"/C/Users/GBKosteNi/Development/game/assets/shaders/compiled/deferred_render_color_normal_depth.shader.dx11.vertex",
 		"/C/Users/GBKosteNi/Development/game/assets/shaders/standard.h",
 		"/C/Users/GBKosteNi/Development/game/assets/shaders/shaders.sublime-project",
 		"/C/Users/GBKosteNi/Development/game/assets/shaders/deferred_lighting_spot_light.cg",
@@ -743,8 +756,6 @@
 		"/C/Users/GBKosteNi/AppData/Roaming/Sublime Text 3/Packages/Shader Languages/GLSL.tmLanguage",
 		"/C/Users/GBKosteNi/AppData/Roaming/Sublime Text 3/Packages/Shader Languages/Cg.tmLanguage",
 		"/C/Users/GBKosteNi/AppData/Roaming/Sublime Text 3/Packages/User/Cg.tmLanguage",
-		"/C/Users/GBKosteNi/Development/game/assets/shaders/utils.h",
-		"/C/Users/GBKosteNi/Development/game/assets/shaders/depth.h",
 		"/C/Users/GBKosteNi/Development/game/assets/assets.sublime-project",
 		"/C/cygwin/home/GBkosteni/Development/game/assets/assets.w32.sublime-project.old",
 		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/Cauldron/Cauldron.prefab",
@@ -854,10 +865,7 @@
 		"/C/Dev/Wb/Content/BookOfPotions/EyeToySDK/Code/Framework/Et/Renderer/Blt/Blt.cpp",
 		"/C/Dev/Wb/Content/BookOfPotions/EyeToySDK/Code/Framework/Et/Renderer/RendererGraph.cpp",
 		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Potions/ShrinkingSolution/ShrinkingSolution.chapter",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Potions/ShrinkingSolution/Ingredient_1/SpreadBleed.prefab",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfSpells/Common/BookOfSpellsBlackboard.part",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfSpells/Common/BookOfSpellsGlobal_Complete.prefab",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Data/Books/BookOfSpells/globalscenes/global_scene.scene"
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Potions/ShrinkingSolution/Ingredient_1/SpreadBleed.prefab"
 	],
 	"find":
 	{
@@ -882,6 +890,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"normalWS",
+			"positionWS",
 			"NormalMatrix",
 			"shrivel",
 			"Cauldron_2",
@@ -1007,9 +1017,7 @@
 			"pTexScratch",
 			"gctexture",
 			"ctexture",
-			"gctexture",
-			"blend",
-			"allocatesur"
+			"gctexture"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1017,6 +1025,8 @@
 		"regex": false,
 		"replace_history":
 		[
+			"normalVS",
+			"positionVS",
 			"Cauldron",
 			"BookOfPotions",
 			"vec2u_t",
@@ -1115,51 +1125,82 @@
 			[
 				{
 					"buffer": 0,
-					"file": "deferred_fullscreen_texture.cg",
-					"semi_transient": true,
+					"file": "deferred_render_color_normal_depth.cg",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 457,
+						"buffer_size": 1089,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								336,
-								336
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Shader Languages/Cg.tmLanguage"
+							"spell_check": true,
+							"syntax": "Packages/Shader Languages/Cg.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 126.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "deferred_render_color_normal_depth.cg",
+					"file": "deferred_ssao.cg",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1065,
+						"buffer_size": 2920,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1065,
-								1065
+								1885,
+								1885
 							]
 						],
 						"settings":
 						{
+							"spell_check": true,
 							"syntax": "Packages/Shader Languages/Cg.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1127.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "standard.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1251,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								320,
+								320
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
@@ -1169,35 +1210,34 @@
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "deferred_ssao.cg",
+					"buffer": 3,
+					"file": "depth.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2514,
+						"buffer_size": 840,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1104,
-								1104
+								189,
+								189
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Shader Languages/Cg.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/C++/C++.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 450.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 4,
 					"file": "utils.h",
 					"semi_transient": false,
 					"settings":
@@ -1209,8 +1249,8 @@
 						"selection":
 						[
 							[
-								0,
-								0
+								477,
+								477
 							]
 						],
 						"settings":
@@ -1257,11 +1297,15 @@
 		]
 	},
 	"menu_visible": true,
+	"output.clang":
+	{
+		"height": 178.0
+	},
 	"output.exec":
 	{
-		"height": 374.0
+		"height": 222.0
 	},
-	"project": "/C/Users/NK/Development/game/assets/shaders/shaders.sublime-project",
+	"project": "/C/Users/GBKosteNi/Development/game/assets/shaders/shaders.sublime-project",
 	"replace":
 	{
 		"height": 64.0
@@ -1277,8 +1321,12 @@
 				"deferred_render_color_normal_depth.cg"
 			],
 			[
-				"utils",
+				"uti",
 				"utils.h"
+			],
+			[
+				"depth",
+				"depth.h"
 			],
 			[
 				"ssao",
@@ -1317,10 +1365,6 @@
 				"standard.h"
 			],
 			[
-				"uti",
-				"utils.h"
-			],
-			[
 				"sot_light",
 				"deferred_lighting_spot_light_shadow.cg"
 			],
@@ -1335,6 +1379,10 @@
 			[
 				"sta",
 				"standard.h"
+			],
+			[
+				"utils",
+				"utils.h"
 			],
 			[
 				"narrator",
@@ -1779,10 +1827,6 @@
 			[
 				"spufluid.cp",
 				"Code/Framework/Spu/SpuFluid/SpuFluidDensity.cpp"
-			],
-			[
-				"vector4",
-				"Code/FrameworkTools/Libraries/Maths/Vector4.h"
 			]
 		],
 		"width": 0.0

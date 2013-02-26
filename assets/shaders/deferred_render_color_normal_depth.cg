@@ -24,7 +24,7 @@ VOutput vs(	float4 position 	: POSITION,
 	OUT.normal = normal;
 	
 	OUT.position = mul(WorldViewProj, position);
-	OUT.viewNormal = mul(NormalMatrix, float4(normal, 1)).xyz;
+	OUT.viewNormal = mul(WorldView, float4(normal, 0)).xyz;
 	OUT.viewPosition = mul(WorldView, position).xyz;
 	
  	return OUT;

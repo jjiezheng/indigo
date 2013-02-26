@@ -1,5 +1,5 @@
 // glslv output by Cg compiler
-// cgc version 3.1.0013, build date Apr 24 2012
+// cgc version 3.1.0013, build date Apr 18 2012
 // command line args: -DGL=1 -DGL32=1 -q -profileopts version=130 -profile glslv
 // source file: deferred_ssao.cg
 //vendor NVIDIA Corporation
@@ -19,6 +19,7 @@
 //semantic ProjInv
 //semantic ModelView
 //semantic View
+//semantic ViewInv
 //semantic ViewProjInv
 //var float4 position : $vin.POSITION : POSITION : 0 : 1
 //var float2 texCoord : $vin.TEXCOORD0 : TEXCOORD0 : 1 : 1

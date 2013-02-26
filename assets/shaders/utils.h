@@ -11,10 +11,12 @@ float2 ndc2tex(float2 ndc) {
 
 float4 tex2NDC(float2 texCoord, float depth) {
 	float4 positionScreen;
-	positionScreen.xy = texCoord.xy * 2.0f - 1.0f;
+	positionScreen.x = texCoord.x * 2.0f - 1.0f;
 
 #ifndef GL
-	positionScreen.y = -positionScreen.y;
+	positionScreen.y = (1 - texCoord.y) * 2.0f - 1.0f;
+#else
+	positionScreen.y = texCoord.y * 2.0f - 1.0f;
 #endif
 
 	positionScreen.z = depth;

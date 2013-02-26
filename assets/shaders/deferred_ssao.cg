@@ -19,6 +19,7 @@ uniform float4x4 Projection;
 uniform float4x4 ProjInv;
 uniform float4x4 ModelView;
 uniform float4x4 View;
+uniform float4x4 ViewInv;
 uniform float4x4 ViewProjInv;
 
 struct VOutput {
@@ -39,36 +40,44 @@ struct POutput {
       float4 temp			: COLOR1;
 };
 
-float ao(float3 normalWS, float3 positionWS, float depth, float2 texCoord, float2 sampleOffset) {
+float ao(float3 normalVS, float3 positionVS, float depth, float2 texCoord, float2 sampleOffset) {
 	float2 sampleCoord = texCoord + sampleOffset;
 	float4 samplePositionClip = tex2NDC(sampleCoord, depth);
-	float4 samplePositionWS = mul(ViewProjInv, samplePositionClip);
-	samplePositionWS /= samplePositionWS.w;
+	float4 samplepositionVS = mul(ProjInv, samplePositionClip);
+	samplepositionVS /= samplepositionVS.w;
 
-	float3 diff = samplePositionWS.xyz - positionWS.xyz;
+	float3 diff = samplepositionVS.xyz - positionVS.xyz;
 	float3 v = normalize(diff);
 	float d = length(diff);
 
-	float occlusion = max(0.0, dot(normalWS, v) * (1.0f / 1.0f + d));
+	float occlusion = max(0.0, dot(normalVS, v) * (1.0f / 1.0f + d));
 	return occlusion;
+}
+
+float2 reflect( float2 i, float2 n )
+{
+  return i - 2.0 * n * dot(n,i);
 }
 
 float4 ps(float4 position 		: POSITION,
 		  float2 texCoord 		: TEXCOORD0) : COLOR0 {
 
-	float3 normalRaw = unpackNormal(NormalMap, texCoord);
-	float3 normalWS = normalize(normalRaw);
-
-	float3 random = tex2D(NoiseMap, texCoord * NoiseScale).rgb * 2.0f - 1.0f;
-
 	float depth = unpackDepth(DepthMap, texCoord);
 	float4 positionClip = tex2NDC(texCoord, depth);
-	float4 positionWS = mul(ViewProjInv, positionClip);
-	positionWS /= positionWS.w;
+	float4 positionVS = mul(ProjInv, positionClip);
+	positionVS /= positionVS.w;
+
+	float3 normalVS = unpackNormal(NormalMap, texCoord);
+	normalVS = normalize(normalVS);
+
+	//float4 normalWS = mul(ViewInv, float4(normalVS, 0));
+	//normalWS = normalize(normalWS);
+
+	float3 random = tex2D(NoiseMap, texCoord * NoiseScale).rgb * 2.0f - 1.0f;	
 
 	float2 sampleOffsets[4] = { float2(1, 0), float2(-1, 0), float2(0, 1), float2(0, -1) };
 	int kSamples = 4;
-	float rad = Radius / positionWS.z;
+	float rad = Radius / positionVS.z;
 	float occlusion = 0.0f;
 
 	for (int i = 0; i < kSamples; i++) {
@@ -79,10 +88,10 @@ float4 ps(float4 position 		: POSITION,
   		float2 coord2 = float2(	coord1.x * 0.707 - coord1.y * 0.707,
 			  					coord1.x * 0.707 + coord1.y * 0.707);
 
-		occlusion += ao(normalWS, positionWS.xyz, depth, texCoord, coord1 * 0.25);
-		occlusion += ao(normalWS, positionWS.xyz, depth, texCoord, coord2 * 0.5);
-		occlusion += ao(normalWS, positionWS.xyz, depth, texCoord, coord1 * 0.75);
-		occlusion += ao(normalWS, positionWS.xyz, depth, texCoord, coord2);
+		occlusion += ao(normalVS.xyz, positionVS.xyz, depth, texCoord, coord1 * 0.25);
+		occlusion += ao(normalVS.xyz, positionVS.xyz, depth, texCoord, coord2 * 0.5);
+		occlusion += ao(normalVS.xyz, positionVS.xyz, depth, texCoord, coord1 * 0.75);
+		occlusion += ao(normalVS.xyz, positionVS.xyz, depth, texCoord, coord2);
 	}
 
 	occlusion /= (float)kSamples * 4;

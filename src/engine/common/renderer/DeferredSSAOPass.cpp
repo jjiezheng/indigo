@@ -96,6 +96,9 @@ TextureId DeferredSSAOPass::render(IViewer* viewer, unsigned int inputMap, const
     Matrix4x4 view = viewer->viewTransform();
     ssaoEffect_->setUniform(view, "View");
 
+		Matrix4x4 viewInverse = view.inverse();
+		ssaoEffect_->setUniform(viewInverse, "ViewInv");
+
     Matrix4x4 projectionInverse = projection.inverse();
     ssaoEffect_->setUniform(projectionInverse, "ProjInv");
 
@@ -106,20 +109,20 @@ TextureId DeferredSSAOPass::render(IViewer* viewer, unsigned int inputMap, const
     ssaoEffect_->setUniform(viewer->nearDistance(), "Near");
     ssaoEffect_->setUniform(viewer->farDistance(), "Far");
 
-    ssaoEffect_->setTexture(initStage.normalMap(), "NormalMap");
+    ssaoEffect_->setTexture(initStage.normalViewSpaceMap(), "NormalMap");
     ssaoEffect_->setTexture(GraphicsInterface::depthBufferTexture(), "DepthMap");
     ssaoEffect_->setTexture(noiseTexture_, "NoiseMap");
 
 		ssaoEffect_->setUniform(GraphicsInterface::halfBackBufferPixel(), "HalfPixel");
 
-		static float radius = 0.051f;
+		static float radius = 0.5f;
 
 		if (Keyboard::keyState(IKeyboard::KEY_G)) {
-			radius -= 0.00001f;
+			radius -= 0.001f;
 		}
 
 		if (Keyboard::keyState(IKeyboard::KEY_H)) {
-			radius += 0.00001f;
+			radius += 0.001f;
 		}
 
     ssaoEffect_->setUniform(radius, "Radius");
