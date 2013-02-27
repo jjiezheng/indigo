@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"TEX",
+				"TEXCOORD0"
+			],
+			[
 				"sa",
 				"sampleOffsets"
 			],
@@ -70,10 +74,6 @@
 			[
 				"Dep",
 				"DepthMap"
-			],
-			[
-				"TEX",
-				"TEXCOORD1"
 			],
 			[
 				"sma",
@@ -523,15 +523,31 @@
 			"file": "deferred_render_color_normal_depth.cg",
 			"settings":
 			{
-				"buffer_size": 1042,
+				"buffer_size": 1039,
 				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "deferred_render_colormap_normal_depth.cg",
+			"settings":
+			{
+				"buffer_size": 1174,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/GBKosteNi/Development/game/assets/scenes/simple/assorted.scene",
+			"settings":
+			{
+				"buffer_size": 1639,
+				"line_ending": "Unix"
 			}
 		},
 		{
 			"file": "deferred_ssao.cg",
 			"settings":
 			{
-				"buffer_size": 2363,
+				"buffer_size": 2461,
 				"line_ending": "Windows"
 			}
 		},
@@ -548,14 +564,6 @@
 			"settings":
 			{
 				"buffer_size": 840,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "utils.h",
-			"settings":
-			{
-				"buffer_size": 1153,
 				"line_ending": "Windows"
 			}
 		}
@@ -738,13 +746,13 @@
 	},
 	"file_history":
 	[
+		"/C/Users/GBKosteNi/Development/game/assets/shaders/utils.h",
 		"/C/Users/GBKosteNi/Development/game/assets/shaders/compiled/deferred_render_color_normal_depth.shader.dx11.fragment",
 		"/C/Users/GBKosteNi/Development/game/assets/shaders/compiled/deferred_render_color_normal_depth.shader.dx11.vertex",
 		"/C/cygwin/home/GBkosteni/Development/game/assets/scenes/simple/buddha.scene",
 		"/C/Users/GBKosteNi/Development/game/assets/shaders/deferred_lighting_spot_light_shadow.cg",
 		"/C/Users/GBKosteNi/Development/game/assets/scenes/cars/cars.scene",
 		"/C/Users/GBKosteNi/Development/game/assets/scenes/simple/car.scene",
-		"/C/Users/GBKosteNi/Development/game/assets/shaders/utils.h",
 		"/C/Users/GBKosteNi/Development/game/assets/shaders/depth.h",
 		"/C/Users/GBKosteNi/Development/game/assets/shaders/compiled/deferred_ssao.shader.dx11.fragment",
 		"/C/Users/GBKosteNi/Development/game/assets/shaders/compiled/deferred_ssao.shader.dx11.vertex",
@@ -1120,7 +1128,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -1129,15 +1137,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1042,
+						"buffer_size": 1039,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								359,
-								359
+								581,
+								581
 							]
 						],
 						"settings":
@@ -1154,19 +1162,76 @@
 				},
 				{
 					"buffer": 1,
-					"file": "deferred_ssao.cg",
+					"file": "deferred_render_colormap_normal_depth.cg",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2363,
+						"buffer_size": 1174,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1649,
-								1649
+								813,
+								813
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Shader Languages/Cg.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 343.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/C/Users/GBKosteNi/Development/game/assets/scenes/simple/assorted.scene",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1639,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								231,
+								231
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 108.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "deferred_ssao.cg",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2461,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1076,
+								1076
 							]
 						],
 						"settings":
@@ -1176,13 +1241,13 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 918.0,
+						"translation.y": 486.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 4,
 					"file": "standard.h",
 					"semi_transient": false,
 					"settings":
@@ -1210,7 +1275,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 5,
 					"file": "depth.h",
 					"semi_transient": false,
 					"settings":
@@ -1224,33 +1289,6 @@
 							[
 								188,
 								188
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "utils.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1153,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								390,
-								390
 							]
 						],
 						"settings":
@@ -1317,8 +1355,12 @@
 		"selected_items":
 		[
 			[
+				"util",
+				"/C/Users/GBKosteNi/Development/game/assets/shaders/utils.h"
+			],
+			[
 				"color_",
-				"deferred_render_color_normal_depth.cg"
+				"/C/Users/GBKosteNi/Development/game/assets/shaders/deferred_render_color_normal_depth.cg"
 			],
 			[
 				"uti",
@@ -1823,10 +1865,6 @@
 			[
 				"stamfluid",
 				"Code/Components/BoP/StamFluidSolver.h"
-			],
-			[
-				"spufluid.cp",
-				"Code/Framework/Spu/SpuFluid/SpuFluidDensity.cpp"
 			]
 		],
 		"width": 0.0

@@ -29,3 +29,12 @@ void UI::update(float dt) {
     (*i)->update(dt);
   }
 }
+
+Control* UI::findControlByTag(unsigned int tag) const {
+	for (std::vector<Control*>::const_iterator i = controls_.begin(); i != controls_.end(); ++i) {
+		if (tag == (*i)->tag()) {
+			return (*i);
+		}
+	}
+	return NULL;
+}

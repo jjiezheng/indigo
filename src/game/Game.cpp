@@ -41,9 +41,11 @@ void Game::init(const char* sceneFile) {
 
   
   Keyboard::setKeydownListener(this);
-  Mouse::hideOSMouse(false);
+  Mouse::hideOSMouse(true);
   
   renderer_.presentRenderTarget(6);
+
+	keyUp(KEY_BACKTICK);
 }
  
 void Game::mainLoop() {
@@ -63,9 +65,35 @@ void Game::mainLoop() {
 }
 
 void Game::keyUp(int keyCode) {
-	LOG(LOG_CHANNEL_TEMP, "%d\n", keyCode);
-	if (keyCode > 47 && keyCode < 59) {
-	  int renderTargetgId = keyCode - 49;// + 5;
+	LOG(LOG_CHANNEL_TEMP, "Keycode: %d", keyCode);
+
+	static int mouseMode = 0;
+	if (keyCode == KEY_BACKTICK) {
+		switch(mouseMode++) {
+			case 0: 
+				Mouse::hideOSMouse(true);
+				camera_.setIsPlayerControlled(true);
+				ui_.showMouse(false);
+				break;
+			case 1:
+				Mouse::hideOSMouse(true);
+				camera_.setIsPlayerControlled(false);
+				ui_.showMouse(false);
+				break;
+			case 2:
+				Mouse::hideOSMouse(false);
+				camera_.setIsPlayerControlled(false);
+				ui_.showMouse(true);
+				break;
+		}
+
+		if (mouseMode > 2) {
+			mouseMode = 0;
+		}
+	}
+
+	if (keyCode > KEY_0 - 1 && keyCode < KEY_9 + 1) {
+	  int renderTargetgId = keyCode - KEY_1;
 	  renderer_.presentRenderTarget(renderTargetgId);
   }
 }

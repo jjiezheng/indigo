@@ -49,7 +49,7 @@ private:
   IEffect* ssaoEffect_;
   IEffect* combineEffect_;
 
-  unsigned int quadVbo_;
+  VertexBuffer quadVbo_;
 
   TextureId ssaoRawTexture_;
   RenderTarget ssaoRawRenderTarget_;
@@ -59,6 +59,7 @@ private:
 
   TextureId ssaoColorBlurCombinedTexture_;
   RenderTarget ssaoColorBlurCombinedRenderTarget_;
+	FrameBuffer ssaoColorBlurCombinedFrameBuffer_;
 
   AverageBlur blur_;
 

@@ -27,6 +27,10 @@ public:
 
 	void addControl(Control* control);
 
+public:
+
+	Control* findControlByTag(unsigned int tag) const;
+
 private:
 
 	std::vector<Control*> controls_;
