@@ -26,7 +26,7 @@ void Game::init(const char* sceneFile) {
   clock_.init();
   
 // 	camera_.translateZ(2.0f);
-// 	camera_.translateY(5.3f);
+ 	camera_.translateY(1.8f);
 // 	camera_.rotateX(-1.0f);
 	camera_.translateZ(4.0f);
 	//camera_.rotateX(toRadians(-90));
