@@ -7,7 +7,7 @@
 //profile glslv
 //program vs
 //semantic ModelProjection
-//semantic ColorMap
+//semantic ColorMap : TEXUNIT0
 //var float4x4 ModelProjection :  : _ModelProjection[0], 4 : -1 : 1
 //var float4 position : $vin.POSITION : ATTR0 : 0 : 1
 //var float2 texCoord : $vin.TEXCOORD0 : ATTR8 : 1 : 1

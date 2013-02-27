@@ -1,6 +1,6 @@
 uniform float4x4 ModelProjection;
 
-sampler2D ColorMap;
+sampler2D ColorMap : TEXUNIT0;
 
 struct VOutput {
 	float4 position		: POSITION;

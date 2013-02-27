@@ -10,7 +10,7 @@
 #include "OpenGLRenderTarget.h"
 #include "renderer/ShaderSemantics.h"
 
-#include "io/dds.h"
+#include "io/nv_dds.h"
 #include "io/DDSImage.h"
 #include "io/DDSMipLevel.h"
 #include "io/Log.h"
@@ -213,35 +213,31 @@ void OpenGL32GraphicsInterface::disableSmoothing() {
 }
 
 unsigned int OpenGL32GraphicsInterface::loadTexture(const std::string& filePath) {
-  DDSImage dds;
-  dds.load(filePath);
-  
+
   GLuint textureId = 0;
   glGenTextures(1, &textureId);
   glBindTexture(GL_TEXTURE_2D, textureId);
-  
-  GLuint format = 0;
-  
-  switch(dds.fourCC) {
-    case FOURCC_DXT1:
-      format = GL_COMPRESSED_RGBA_S3TC_DXT1_EXT;
-      break;
-    case FOURCC_DXT3:
-      format = GL_COMPRESSED_RGBA_S3TC_DXT3_EXT;
-      break;
-    case FOURCC_DXT5:
-      format = GL_COMPRESSED_RGBA_S3TC_DXT5_EXT;
-      break;
-    default:
-      assert(false);
+
+  nv_dds::CDDSImage dds;
+  {
+    bool result = dds.load(filePath, true);
+
+    if (!result) {
+      LOG(LOG_CHANNEL_RENDERER, "Failed to load texture %s", filePath.c_str());
+    }
   }
-  
-  for (int i = 0; i < dds.numMipLevels; i++) {
-    DDSMipLevel* mipLevel = dds.mipLevels[i];
-    glCompressedTexImage2D(GL_TEXTURE_2D, i, format, mipLevel->width, mipLevel->height, 0, mipLevel->size, dds.data + mipLevel->offset);
-    GLUtilities::checkForError();
+  {
+    bool result = dds.upload_texture2D();
+    if (!result) {
+      LOG(LOG_CHANNEL_RENDERER, "Failed to upload load texture %s", filePath.c_str());
+    }
   }
-  
+
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+  GLUtilities::checkForError();
+
   return textureId;
 }
 

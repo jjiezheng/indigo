@@ -10,18 +10,21 @@
 #include "input/Keyboard.h"
 
 #include "maths/Plane.h"
+#include "maths/Point.h"
 
 #include "entity/ActorRegistry.h"
 
 void Game::init(const char* sceneFile) {
+  CSize backBufferSize = GraphicsInterface::backBufferSize();
+	ActorRegistry::registerActors(actorFactory_);
+  renderer_.init(backBufferSize);
+  ui_.init(&renderer_);
+
   Pad::init();
   Mouse::init();
+  Point mousePosition(backBufferSize.width / 2.0f, backBufferSize.height / 2.0f);
+  Mouse::setPosition(mousePosition);
   Keyboard::init();
-
-	ActorRegistry::registerActors(actorFactory_);
-
-  renderer_.init(GraphicsInterface::backBufferSize());
-  ui_.init(&renderer_);
 
   clock_.init();
   
@@ -39,13 +42,9 @@ void Game::init(const char* sceneFile) {
 		loader.loadFromSceneFile(sceneFile, world_, sceneContext_, actorFactory_);
   }
 
-  
-  Keyboard::setKeydownListener(this);
-  Mouse::hideOSMouse(true);
-  
+  Keyboard::setKeydownListener(this);  
   renderer_.presentRenderTarget(6);
-
-	keyUp(KEY_BACKTICK);
+  keyUp(KEY_BACKTICK);
 }
  
 void Game::mainLoop() {
@@ -69,27 +68,29 @@ void Game::keyUp(int keyCode) {
 
 	static int mouseMode = 0;
 	if (keyCode == KEY_BACKTICK) {
-		switch(mouseMode++) {
-			case 0: 
-				Mouse::hideOSMouse(true);
-				camera_.setIsPlayerControlled(true);
-				ui_.showMouse(false);
-				break;
-			case 1:
-				Mouse::hideOSMouse(true);
-				camera_.setIsPlayerControlled(false);
-				ui_.showMouse(false);
-				break;
-			case 2:
-				Mouse::hideOSMouse(false);
-				camera_.setIsPlayerControlled(false);
-				ui_.showMouse(true);
-				break;
-		}
+    LOG(LOG_CHANNEL_TEMP, "%d", mouseMode);
+    switch(mouseMode++) {
+      case 0: 
+        Mouse::hideOSMouse(true);
+        camera_.setIsPlayerControlled(true);
+        ui_.showMouse(false);
+        break;
+      case 1:
+        Mouse::hideOSMouse(true);
+        camera_.setIsPlayerControlled(false);
+        ui_.showMouse(true);
+        break;
+      case 2:
+        Mouse::hideOSMouse(false);
+        camera_.setIsPlayerControlled(false);
+        ui_.showMouse(false);
+        break;
+    }
 
-		if (mouseMode > 2) {
-			mouseMode = 0;
-		}
+    if (mouseMode > 2) {
+      mouseMode = 0;
+    }
+
 	}
 
 	if (keyCode > KEY_0 - 1 && keyCode < KEY_9 + 1) {

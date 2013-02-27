@@ -7,8 +7,8 @@
 //profile glslf
 //program ps
 //semantic ModelProjection
-//semantic ColorMap
-//var sampler2D ColorMap :  : _ColorMap : -1 : 1
+//semantic ColorMap : TEXUNIT0
+//var sampler2D ColorMap : TEXUNIT0 : _ColorMap 0 : -1 : 1
 //var float2 texCoord : $vin.TEXCOORD0 : TEX0 : 1 : 1
 //var float4 ps : $vout.COLOR0 : COL : -1 : 1
 

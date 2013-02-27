@@ -3,7 +3,6 @@
 #include "GL/glfw.h"
 
 void LinuxMouse::setup() {
-
 }
 
 Point LinuxMouse::position() {
@@ -11,6 +10,10 @@ Point LinuxMouse::position() {
   int y = 0;
   glfwGetMousePos(&x, &y);
   return Point(x, y);
+}
+
+void LinuxMouse::setPosition(const Point& position) {
+	glfwSetMousePos(position.x, position.y);
 }
 
 bool LinuxMouse::isLeftButtonDown() {

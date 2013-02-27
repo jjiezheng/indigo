@@ -7,8 +7,8 @@
 //profile ps_5_0
 //program ps
 //semantic ModelProjection
-//semantic ColorMap
-//var sampler2D ColorMap :  : _ColorMap : -1 : 1
+//semantic ColorMap : TEXUNIT0
+//var sampler2D ColorMap : TEXUNIT0 : _ColorMap 0 : -1 : 1
 //var float2 texCoord : $vin.TEXCOORD0 :  : 1 : 1
 //var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
 
@@ -24,8 +24,8 @@ struct X1X {
     float2 _TEXCOORD0 : TEXCOORD0;
 };
 
-Texture2D<float4> _TMP0;
-SamplerState _ColorMap;
+Texture2D<float4> _TMP0 : register(t0);
+SamplerState _ColorMap : TEXUNIT0;
 
  // main procedure, the original name was ps
 float4 main( in X1X cin) : SV_Target0
