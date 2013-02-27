@@ -1,5 +1,5 @@
 // glslf output by Cg compiler
-// cgc version 3.1.0013, build date Apr 18 2012
+// cgc version 3.1.0013, build date Apr 24 2012
 // command line args: -DGL=1 -DGL21=1 -q -profile glslf
 // source file: deferred_lighting_spot_light_shadow.cg
 //vendor NVIDIA Corporation
@@ -110,85 +110,85 @@ void main()
     vec3 _pixelPositionFromLightNDC;
 
     _screenPositionClip = gl_TexCoord[0].xy/gl_TexCoord[0].z;
-    _texCoord0032 = _screenPositionClip*5.00000000E-001 + 5.00000000E-001;
+    _texCoord0032 = _screenPositionClip*5.00000000E-01 + 5.00000000E-01;
     _TMP5 = texture2D(_DepthMap, _texCoord0032);
-    _depth = _TMP5.x*2.00000000E+000 - 1.00000000E+000;
+    _depth = _TMP5.x*2.00000000E+00 - 1.00000000E+00;
     _normalData0038 = texture2D(_NormalMap, _texCoord0032);
-    _unPackedNormal0038 = _normalData0038*2.00000000E+000 - 1.00000000E+000;
+    _unPackedNormal0038 = _normalData0038*2.00000000E+00 - 1.00000000E+00;
     _TMP6 = dot(_unPackedNormal0038.xyz, _unPackedNormal0038.xyz);
     _TMP7 = inversesqrt(_TMP6);
     _normal = _TMP7*_unPackedNormal0038.xyz;
-    _positionScreen = vec4(_screenPositionClip.x, _screenPositionClip.y, _depth, 1.00000000E+000);
+    _positionScreen = vec4(_screenPositionClip.x, _screenPositionClip.y, _depth, 1.00000000E+00);
     _r0048.x = dot(_ViewProjInv[0], _positionScreen);
     _r0048.y = dot(_ViewProjInv[1], _positionScreen);
     _r0048.z = dot(_ViewProjInv[2], _positionScreen);
     _r0048.w = dot(_ViewProjInv[3], _positionScreen);
     _positionWorld = _r0048.xyz/_r0048.w;
-    _lightContribution = vec4( 0.00000000E+000, 0.00000000E+000, 0.00000000E+000, 1.00000000E+000);
+    _lightContribution = vec4( 0.00000000E+00, 0.00000000E+00, 0.00000000E+00, 1.00000000E+00);
     _v0058 = _positionWorld - _LightPosition;
     _TMP6 = dot(_v0058, _v0058);
     _TMP7 = inversesqrt(_TMP6);
     _pixelToLight = _TMP7*_v0058;
     _lightDirectionDot = dot(_LightDirection, _pixelToLight);
-    _diffuseStrength = 0.00000000E+000;
+    _diffuseStrength = 0.00000000E+00;
     _lightOuterCos = cos(_LightOuterAngle);
     _lightInnerCos = cos(_LightInnerAngle);
     if (_lightDirectionDot > _lightOuterCos) { // if begin
         _TMP0 = dot(_normal, _DirectionToLight);
-        _TMP8 = min(1.00000000E+000, _TMP0);
-        _TMP73 = max(0.00000000E+000, _TMP8);
+        _TMP8 = min(1.00000000E+00, _TMP0);
+        _TMP73 = max(0.00000000E+00, _TMP8);
         _x0082 = (_lightDirectionDot - _lightOuterCos)/(_lightInnerCos - _lightOuterCos);
-        _TMP8 = min(1.00000000E+000, _x0082);
-        _TMP83 = max(0.00000000E+000, _TMP8);
-        _TMP1 = _TMP83*_TMP83*(3.00000000E+000 - 2.00000000E+000*_TMP83);
+        _TMP8 = min(1.00000000E+00, _x0082);
+        _TMP83 = max(0.00000000E+00, _TMP8);
+        _TMP1 = _TMP83*_TMP83*(3.00000000E+00 - 2.00000000E+00*_TMP83);
         _diffuseStrength = _TMP73*_TMP1;
     } // end if
     if (_lightDirectionDot > _lightInnerCos) { // if begin
         _TMP2 = dot(_normal, _DirectionToLight);
-        _TMP8 = min(1.00000000E+000, _TMP2);
-        _TMP93 = max(0.00000000E+000, _TMP8);
+        _TMP8 = min(1.00000000E+00, _TMP2);
+        _TMP93 = max(0.00000000E+00, _TMP8);
         _diffuseStrength = _TMP93;
     } // end if
-    _lightContribution.xyz = _LightColor*_diffuseStrength*2.54999995E+000*_LightDistance;
-    if (_diffuseStrength > 0.00000000E+000) { // if begin
+    _lightContribution.xyz = _LightColor*_diffuseStrength*2.54999995E+00*_LightDistance;
+    if (_diffuseStrength > 0.00000000E+00) { // if begin
         _viewerDirectionUnNormalized1 = _ViewerPosition - _positionWorld;
         _TMP6 = dot(_viewerDirectionUnNormalized1, _viewerDirectionUnNormalized1);
         _TMP7 = inversesqrt(_TMP6);
         _viewDirection1 = _TMP7*_viewerDirectionUnNormalized1;
         _floatVectorRaw1 = _DirectionToLight + _viewDirection1;
         _TMP3 = dot(_normal, _floatVectorRaw1);
-        _TMP8 = min(1.00000000E+000, _TMP3);
-        _TMP109 = max(0.00000000E+000, _TMP8);
+        _TMP8 = min(1.00000000E+00, _TMP3);
+        _TMP109 = max(0.00000000E+00, _TMP8);
         _lightContribution.w = _TMP109*_LightDistance;
     } // end if
-    _v0116 = vec4(_positionWorld.x, _positionWorld.y, _positionWorld.z, 1.00000000E+000);
+    _v0116 = vec4(_positionWorld.x, _positionWorld.y, _positionWorld.z, 1.00000000E+00);
     _r0116.x = dot(_LightViewProj[0], _v0116);
     _r0116.y = dot(_LightViewProj[1], _v0116);
     _r0116.z = dot(_LightViewProj[2], _v0116);
     _r0116.w = dot(_LightViewProj[3], _v0116);
     _pixelPositionFromLightNDC = _r0116.xyz/_r0116.w;
-    _texCoord0126 = _pixelPositionFromLightNDC.xy*5.00000000E-001 + 5.00000000E-001;
-    _sum0128 = 0.00000000E+000;
-    _y0128 = -1.50000000E+000;
-    for (; _y0128 <= 1.50000000E+000; _y0128 = _y0128 + 1.00000000E+000) { // for begin
-        _shadowCoordOffset10128 = _texCoord0126 + vec2(-1.50000000E+000*_ShadowMapSize.x, _y0128*_ShadowMapSize.y);
-        _c0132 = vec4(_shadowCoordOffset10128.x, _shadowCoordOffset10128.y, _pixelPositionFromLightNDC.z*5.00000000E-001 + 5.00000000E-001, 1.00000000E+000);
+    _texCoord0126 = _pixelPositionFromLightNDC.xy*5.00000000E-01 + 5.00000000E-01;
+    _sum0128 = 0.00000000E+00;
+    _y0128 = -1.50000000E+00;
+    for (; _y0128 <= 1.50000000E+00; _y0128 = _y0128 + 1.00000000E+00) { // for begin
+        _shadowCoordOffset10128 = _texCoord0126 + vec2(-1.50000000E+00*_ShadowMapSize.x, _y0128*_ShadowMapSize.y);
+        _c0132 = vec4(_shadowCoordOffset10128.x, _shadowCoordOffset10128.y, _pixelPositionFromLightNDC.z*5.00000000E-01 + 5.00000000E-01, 1.00000000E+00);
         _TMP9 = shadow2DProj(_ShadowMap, _c0132);
         _sum0128 = _sum0128 + _TMP9.x;
-        _shadowCoordOffset10128 = _texCoord0126 + vec2(-5.00000000E-001*_ShadowMapSize.x, _y0128*_ShadowMapSize.y);
-        _c0132 = vec4(_shadowCoordOffset10128.x, _shadowCoordOffset10128.y, _pixelPositionFromLightNDC.z*5.00000000E-001 + 5.00000000E-001, 1.00000000E+000);
+        _shadowCoordOffset10128 = _texCoord0126 + vec2(-5.00000000E-01*_ShadowMapSize.x, _y0128*_ShadowMapSize.y);
+        _c0132 = vec4(_shadowCoordOffset10128.x, _shadowCoordOffset10128.y, _pixelPositionFromLightNDC.z*5.00000000E-01 + 5.00000000E-01, 1.00000000E+00);
         _TMP9 = shadow2DProj(_ShadowMap, _c0132);
         _sum0128 = _sum0128 + _TMP9.x;
-        _shadowCoordOffset10128 = _texCoord0126 + vec2(5.00000000E-001*_ShadowMapSize.x, _y0128*_ShadowMapSize.y);
-        _c0132 = vec4(_shadowCoordOffset10128.x, _shadowCoordOffset10128.y, _pixelPositionFromLightNDC.z*5.00000000E-001 + 5.00000000E-001, 1.00000000E+000);
+        _shadowCoordOffset10128 = _texCoord0126 + vec2(5.00000000E-01*_ShadowMapSize.x, _y0128*_ShadowMapSize.y);
+        _c0132 = vec4(_shadowCoordOffset10128.x, _shadowCoordOffset10128.y, _pixelPositionFromLightNDC.z*5.00000000E-01 + 5.00000000E-01, 1.00000000E+00);
         _TMP9 = shadow2DProj(_ShadowMap, _c0132);
         _sum0128 = _sum0128 + _TMP9.x;
-        _shadowCoordOffset10128 = _texCoord0126 + vec2(1.50000000E+000*_ShadowMapSize.x, _y0128*_ShadowMapSize.y);
-        _c0132 = vec4(_shadowCoordOffset10128.x, _shadowCoordOffset10128.y, _pixelPositionFromLightNDC.z*5.00000000E-001 + 5.00000000E-001, 1.00000000E+000);
+        _shadowCoordOffset10128 = _texCoord0126 + vec2(1.50000000E+00*_ShadowMapSize.x, _y0128*_ShadowMapSize.y);
+        _c0132 = vec4(_shadowCoordOffset10128.x, _shadowCoordOffset10128.y, _pixelPositionFromLightNDC.z*5.00000000E-01 + 5.00000000E-01, 1.00000000E+00);
         _TMP9 = shadow2DProj(_ShadowMap, _c0132);
         _sum0128 = _sum0128 + _TMP9.x;
     } // end for
-    _shadowFactor0128 = _sum0128/1.60000000E+001;
+    _shadowFactor0128 = _sum0128/1.60000000E+01;
     _lightContribution = _lightContribution*_shadowFactor0128;
     gl_FragColor = _lightContribution;
     return;

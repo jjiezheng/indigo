@@ -266,7 +266,7 @@ unsigned int OpenGL32GraphicsInterface::createTexture(const CSize& dimensions, T
       break;
     }
     case IGraphicsInterface::R32G32B32A32: {
-      openGLTextureFormat = GL_RGBA;
+      openGLTextureFormat = GL_RGBA32F;
       break;
     }
   }

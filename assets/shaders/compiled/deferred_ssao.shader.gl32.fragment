@@ -1,5 +1,5 @@
 // glslf output by Cg compiler
-// cgc version 3.1.0013, build date Apr 18 2012
+// cgc version 3.1.0013, build date Apr 24 2012
 // command line args: -DGL=1 -DGL32=1 -q -profileopts version=130 -profile glslf
 // source file: deferred_ssao.cg
 //vendor NVIDIA Corporation
@@ -12,21 +12,14 @@
 //semantic Kernel
 //semantic Far
 //semantic Near
-//semantic PositionMap : TEXUNIT0
-//semantic NormalMap : TEXUNIT1
-//semantic DepthMap : TEXUNIT2
-//semantic NoiseMap : TEXUNIT3
-//semantic Projection
-//semantic ProjInv
-//semantic ModelView
-//semantic View
-//semantic ViewInv
-//semantic ViewProjInv
+//semantic NormalMap : TEXUNIT0
+//semantic PositionMap : TEXUNIT1
+//semantic NoiseMap : TEXUNIT2
 //var float Radius :  : _Radius : -1 : 1
 //var float2 NoiseScale :  : _NoiseScale : -1 : 1
-//var sampler2D PositionMap : TEXUNIT0 : _PositionMap 0 : -1 : 1
-//var sampler2D NormalMap : TEXUNIT1 : _NormalMap 1 : -1 : 1
-//var sampler2D NoiseMap : TEXUNIT3 : _NoiseMap 3 : -1 : 1
+//var sampler2D NormalMap : TEXUNIT0 : _NormalMap 0 : -1 : 1
+//var sampler2D PositionMap : TEXUNIT1 : _PositionMap 1 : -1 : 1
+//var sampler2D NoiseMap : TEXUNIT2 : _NoiseMap 2 : -1 : 1
 //var float2 texCoord : $vin.TEXCOORD0 : TEXCOORD0 : 1 : 1
 //var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
 
@@ -37,55 +30,54 @@ struct VOutput {
 };
 
 vec4 _ret_0;
-float _TMP11;
 float _TMP10;
-float _TMP13;
 float _TMP12;
+float _TMP11;
 vec2 _TMP4;
 float _TMP9;
 float _TMP3;
 vec4 _TMP2;
 vec4 _TMP1;
-vec2 _c0036;
-float _TMP43;
-vec4 _samplePositionVS0044;
-vec2 _sampleOffset0044;
-vec3 _diff0044;
-vec3 _v0044;
-float _d0044;
-float _occlusion10044;
-vec2 _c0046;
-float _b0058;
-float _TMP61;
-vec4 _samplePositionVS0062;
-vec2 _sampleOffset0062;
-vec3 _diff0062;
-vec3 _v0062;
-float _d0062;
-float _occlusion10062;
-vec2 _c0064;
-float _b0076;
-float _TMP79;
-vec4 _samplePositionVS0080;
-vec2 _sampleOffset0080;
-vec3 _diff0080;
-vec3 _v0080;
-float _d0080;
-float _occlusion10080;
-vec2 _c0082;
-float _b0094;
-float _TMP97;
-vec4 _samplePositionVS0098;
-vec3 _diff0098;
-vec3 _v0098;
-float _d0098;
-float _occlusion10098;
-vec2 _c0100;
-float _b0112;
+vec2 _c0028;
+float _TMP35;
+vec4 _samplePositionVS0036;
+vec2 _sampleOffset0036;
+vec3 _diff0036;
+vec3 _v0036;
+float _d0036;
+float _occlusion10036;
+vec2 _c0038;
+float _b0050;
+float _TMP51;
+vec4 _samplePositionVS0052;
+vec2 _sampleOffset0052;
+vec3 _diff0052;
+vec3 _v0052;
+float _d0052;
+float _occlusion10052;
+vec2 _c0054;
+float _b0066;
+float _TMP67;
+vec4 _samplePositionVS0068;
+vec2 _sampleOffset0068;
+vec3 _diff0068;
+vec3 _v0068;
+float _d0068;
+float _occlusion10068;
+vec2 _c0070;
+float _b0082;
+float _TMP83;
+vec4 _samplePositionVS0084;
+vec3 _diff0084;
+vec3 _v0084;
+float _d0084;
+float _occlusion10084;
+vec2 _c0086;
+float _b0098;
 uniform float _Radius;
 uniform vec2 _NoiseScale;
-uniform sampler2D _PositionMap;
 uniform sampler2D _NormalMap;
+uniform sampler2D _PositionMap;
 uniform sampler2D _NoiseMap;
 in vec4 cg_TexCoord0;
 out vec4 cg_FragColor;
@@ -103,313 +95,297 @@ void main()
 
     _positionVS1 = texture(_PositionMap, cg_TexCoord0.xy);
     _TMP1 = texture(_NormalMap, cg_TexCoord0.xy);
-    _c0036 = cg_TexCoord0.xy*_NoiseScale;
-    _TMP2 = texture(_NoiseMap, _c0036);
-    _random = _TMP2.xyz*2.00000000E+000 - 1.00000000E+000;
+    _c0028 = cg_TexCoord0.xy*_NoiseScale;
+    _TMP2 = texture(_NoiseMap, _c0028);
+    _random = _TMP2.xyz*2.00000000E+00 - 1.00000000E+00;
     _TMP3 = abs(_positionVS1.z);
     _rad = _Radius/_TMP3;
-    _TMP9 = dot(_random.xy, vec2( 1.00000000E+000, 0.00000000E+000));
-    _TMP4 = vec2( 1.00000000E+000, 0.00000000E+000) - (2.00000000E+000*_random.xy)*_TMP9;
+    _TMP9 = dot(_random.xy, vec2( 1.00000000E+00, 0.00000000E+00));
+    _TMP4 = vec2( 1.00000000E+00, 0.00000000E+00) - (2.00000000E+00*_random.xy)*_TMP9;
     _sampleOffset1 = _TMP4*_rad;
-    _coord21 = vec2(_sampleOffset1.x*7.07000017E-001 - _sampleOffset1.y*7.07000017E-001, _sampleOffset1.x*7.07000017E-001 + _sampleOffset1.y*7.07000017E-001);
-    _sampleOffset0044 = _sampleOffset1*2.50000000E-001;
-    _c0046 = cg_TexCoord0.xy + _sampleOffset0044;
-    _samplePositionVS0044 = texture(_PositionMap, _c0046);
-    _diff0044 = _samplePositionVS0044.xyz - _positionVS1.xyz;
-    _TMP12 = dot(_diff0044, _diff0044);
-    _TMP13 = inversesqrt(_TMP12);
-    _v0044 = _TMP13*_diff0044;
-    _d0044 = length(_diff0044);
-    if (_d0044 < 1.00000001E-001) { // if begin
-        _TMP10 = dot(_TMP1.xyz, _v0044);
-        _b0058 = _TMP10*(1.00000000E+000 + _d0044);
-        _TMP11 = max(0.00000000E+000, _b0058);
-        _occlusion10044 = min(1.00000000E+000, _TMP11);
-        _TMP43 = _occlusion10044;
+    _coord21 = vec2(_sampleOffset1.x*7.07000017E-01 - _sampleOffset1.y*7.07000017E-01, _sampleOffset1.x*7.07000017E-01 + _sampleOffset1.y*7.07000017E-01);
+    _sampleOffset0036 = _sampleOffset1*2.50000000E-01;
+    _c0038 = cg_TexCoord0.xy + _sampleOffset0036;
+    _samplePositionVS0036 = texture(_PositionMap, _c0038);
+    _diff0036 = _samplePositionVS0036.xyz - _positionVS1.xyz;
+    _TMP11 = dot(_diff0036, _diff0036);
+    _TMP12 = inversesqrt(_TMP11);
+    _v0036 = _TMP12*_diff0036;
+    _d0036 = length(_diff0036);
+    if (_d0036 < 1.00000001E-01) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0036);
+        _b0050 = _TMP10*(1.00000000E+00 + _d0036);
+        _occlusion10036 = max(0.00000000E+00, _b0050);
+        _TMP35 = _occlusion10036;
     } else {
-        _TMP43 = 0.00000000E+000;
+        _TMP35 = 0.00000000E+00;
     } // end if
-    _sampleOffset0062 = _coord21*5.00000000E-001;
-    _c0064 = cg_TexCoord0.xy + _sampleOffset0062;
-    _samplePositionVS0062 = texture(_PositionMap, _c0064);
-    _diff0062 = _samplePositionVS0062.xyz - _positionVS1.xyz;
-    _TMP12 = dot(_diff0062, _diff0062);
-    _TMP13 = inversesqrt(_TMP12);
-    _v0062 = _TMP13*_diff0062;
-    _d0062 = length(_diff0062);
-    if (_d0062 < 1.00000001E-001) { // if begin
-        _TMP10 = dot(_TMP1.xyz, _v0062);
-        _b0076 = _TMP10*(1.00000000E+000 + _d0062);
-        _TMP11 = max(0.00000000E+000, _b0076);
-        _occlusion10062 = min(1.00000000E+000, _TMP11);
-        _TMP61 = _occlusion10062;
+    _sampleOffset0052 = _coord21*5.00000000E-01;
+    _c0054 = cg_TexCoord0.xy + _sampleOffset0052;
+    _samplePositionVS0052 = texture(_PositionMap, _c0054);
+    _diff0052 = _samplePositionVS0052.xyz - _positionVS1.xyz;
+    _TMP11 = dot(_diff0052, _diff0052);
+    _TMP12 = inversesqrt(_TMP11);
+    _v0052 = _TMP12*_diff0052;
+    _d0052 = length(_diff0052);
+    if (_d0052 < 1.00000001E-01) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0052);
+        _b0066 = _TMP10*(1.00000000E+00 + _d0052);
+        _occlusion10052 = max(0.00000000E+00, _b0066);
+        _TMP51 = _occlusion10052;
     } else {
-        _TMP61 = 0.00000000E+000;
+        _TMP51 = 0.00000000E+00;
     } // end if
-    _occlusion = _TMP43 + _TMP61;
-    _sampleOffset0080 = _sampleOffset1*7.50000000E-001;
-    _c0082 = cg_TexCoord0.xy + _sampleOffset0080;
-    _samplePositionVS0080 = texture(_PositionMap, _c0082);
-    _diff0080 = _samplePositionVS0080.xyz - _positionVS1.xyz;
-    _TMP12 = dot(_diff0080, _diff0080);
-    _TMP13 = inversesqrt(_TMP12);
-    _v0080 = _TMP13*_diff0080;
-    _d0080 = length(_diff0080);
-    if (_d0080 < 1.00000001E-001) { // if begin
-        _TMP10 = dot(_TMP1.xyz, _v0080);
-        _b0094 = _TMP10*(1.00000000E+000 + _d0080);
-        _TMP11 = max(0.00000000E+000, _b0094);
-        _occlusion10080 = min(1.00000000E+000, _TMP11);
-        _TMP79 = _occlusion10080;
+    _occlusion = _TMP35 + _TMP51;
+    _sampleOffset0068 = _sampleOffset1*7.50000000E-01;
+    _c0070 = cg_TexCoord0.xy + _sampleOffset0068;
+    _samplePositionVS0068 = texture(_PositionMap, _c0070);
+    _diff0068 = _samplePositionVS0068.xyz - _positionVS1.xyz;
+    _TMP11 = dot(_diff0068, _diff0068);
+    _TMP12 = inversesqrt(_TMP11);
+    _v0068 = _TMP12*_diff0068;
+    _d0068 = length(_diff0068);
+    if (_d0068 < 1.00000001E-01) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0068);
+        _b0082 = _TMP10*(1.00000000E+00 + _d0068);
+        _occlusion10068 = max(0.00000000E+00, _b0082);
+        _TMP67 = _occlusion10068;
     } else {
-        _TMP79 = 0.00000000E+000;
+        _TMP67 = 0.00000000E+00;
     } // end if
-    _occlusion = _occlusion + _TMP79;
-    _c0100 = cg_TexCoord0.xy + _coord21;
-    _samplePositionVS0098 = texture(_PositionMap, _c0100);
-    _diff0098 = _samplePositionVS0098.xyz - _positionVS1.xyz;
-    _TMP12 = dot(_diff0098, _diff0098);
-    _TMP13 = inversesqrt(_TMP12);
-    _v0098 = _TMP13*_diff0098;
-    _d0098 = length(_diff0098);
-    if (_d0098 < 1.00000001E-001) { // if begin
-        _TMP10 = dot(_TMP1.xyz, _v0098);
-        _b0112 = _TMP10*(1.00000000E+000 + _d0098);
-        _TMP11 = max(0.00000000E+000, _b0112);
-        _occlusion10098 = min(1.00000000E+000, _TMP11);
-        _TMP97 = _occlusion10098;
+    _occlusion = _occlusion + _TMP67;
+    _c0086 = cg_TexCoord0.xy + _coord21;
+    _samplePositionVS0084 = texture(_PositionMap, _c0086);
+    _diff0084 = _samplePositionVS0084.xyz - _positionVS1.xyz;
+    _TMP11 = dot(_diff0084, _diff0084);
+    _TMP12 = inversesqrt(_TMP11);
+    _v0084 = _TMP12*_diff0084;
+    _d0084 = length(_diff0084);
+    if (_d0084 < 1.00000001E-01) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0084);
+        _b0098 = _TMP10*(1.00000000E+00 + _d0084);
+        _occlusion10084 = max(0.00000000E+00, _b0098);
+        _TMP83 = _occlusion10084;
     } else {
-        _TMP97 = 0.00000000E+000;
+        _TMP83 = 0.00000000E+00;
     } // end if
-    _occlusion = _occlusion + _TMP97;
-    _TMP9 = dot(_random.xy, vec2( -1.00000000E+000, 0.00000000E+000));
-    _TMP4 = vec2( -1.00000000E+000, 0.00000000E+000) - (2.00000000E+000*_random.xy)*_TMP9;
+    _occlusion = _occlusion + _TMP83;
+    _TMP9 = dot(_random.xy, vec2( -1.00000000E+00, 0.00000000E+00));
+    _TMP4 = vec2( -1.00000000E+00, 0.00000000E+00) - (2.00000000E+00*_random.xy)*_TMP9;
     _sampleOffset1 = _TMP4*_rad;
-    _coord21 = vec2(_sampleOffset1.x*7.07000017E-001 - _sampleOffset1.y*7.07000017E-001, _sampleOffset1.x*7.07000017E-001 + _sampleOffset1.y*7.07000017E-001);
-    _sampleOffset0044 = _sampleOffset1*2.50000000E-001;
-    _c0046 = cg_TexCoord0.xy + _sampleOffset0044;
-    _samplePositionVS0044 = texture(_PositionMap, _c0046);
-    _diff0044 = _samplePositionVS0044.xyz - _positionVS1.xyz;
-    _TMP12 = dot(_diff0044, _diff0044);
-    _TMP13 = inversesqrt(_TMP12);
-    _v0044 = _TMP13*_diff0044;
-    _d0044 = length(_diff0044);
-    if (_d0044 < 1.00000001E-001) { // if begin
-        _TMP10 = dot(_TMP1.xyz, _v0044);
-        _b0058 = _TMP10*(1.00000000E+000 + _d0044);
-        _TMP11 = max(0.00000000E+000, _b0058);
-        _occlusion10044 = min(1.00000000E+000, _TMP11);
-        _TMP43 = _occlusion10044;
+    _coord21 = vec2(_sampleOffset1.x*7.07000017E-01 - _sampleOffset1.y*7.07000017E-01, _sampleOffset1.x*7.07000017E-01 + _sampleOffset1.y*7.07000017E-01);
+    _sampleOffset0036 = _sampleOffset1*2.50000000E-01;
+    _c0038 = cg_TexCoord0.xy + _sampleOffset0036;
+    _samplePositionVS0036 = texture(_PositionMap, _c0038);
+    _diff0036 = _samplePositionVS0036.xyz - _positionVS1.xyz;
+    _TMP11 = dot(_diff0036, _diff0036);
+    _TMP12 = inversesqrt(_TMP11);
+    _v0036 = _TMP12*_diff0036;
+    _d0036 = length(_diff0036);
+    if (_d0036 < 1.00000001E-01) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0036);
+        _b0050 = _TMP10*(1.00000000E+00 + _d0036);
+        _occlusion10036 = max(0.00000000E+00, _b0050);
+        _TMP35 = _occlusion10036;
     } else {
-        _TMP43 = 0.00000000E+000;
+        _TMP35 = 0.00000000E+00;
     } // end if
-    _occlusion = _occlusion + _TMP43;
-    _sampleOffset0062 = _coord21*5.00000000E-001;
-    _c0064 = cg_TexCoord0.xy + _sampleOffset0062;
-    _samplePositionVS0062 = texture(_PositionMap, _c0064);
-    _diff0062 = _samplePositionVS0062.xyz - _positionVS1.xyz;
-    _TMP12 = dot(_diff0062, _diff0062);
-    _TMP13 = inversesqrt(_TMP12);
-    _v0062 = _TMP13*_diff0062;
-    _d0062 = length(_diff0062);
-    if (_d0062 < 1.00000001E-001) { // if begin
-        _TMP10 = dot(_TMP1.xyz, _v0062);
-        _b0076 = _TMP10*(1.00000000E+000 + _d0062);
-        _TMP11 = max(0.00000000E+000, _b0076);
-        _occlusion10062 = min(1.00000000E+000, _TMP11);
-        _TMP61 = _occlusion10062;
+    _occlusion = _occlusion + _TMP35;
+    _sampleOffset0052 = _coord21*5.00000000E-01;
+    _c0054 = cg_TexCoord0.xy + _sampleOffset0052;
+    _samplePositionVS0052 = texture(_PositionMap, _c0054);
+    _diff0052 = _samplePositionVS0052.xyz - _positionVS1.xyz;
+    _TMP11 = dot(_diff0052, _diff0052);
+    _TMP12 = inversesqrt(_TMP11);
+    _v0052 = _TMP12*_diff0052;
+    _d0052 = length(_diff0052);
+    if (_d0052 < 1.00000001E-01) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0052);
+        _b0066 = _TMP10*(1.00000000E+00 + _d0052);
+        _occlusion10052 = max(0.00000000E+00, _b0066);
+        _TMP51 = _occlusion10052;
     } else {
-        _TMP61 = 0.00000000E+000;
+        _TMP51 = 0.00000000E+00;
     } // end if
-    _occlusion = _occlusion + _TMP61;
-    _sampleOffset0080 = _sampleOffset1*7.50000000E-001;
-    _c0082 = cg_TexCoord0.xy + _sampleOffset0080;
-    _samplePositionVS0080 = texture(_PositionMap, _c0082);
-    _diff0080 = _samplePositionVS0080.xyz - _positionVS1.xyz;
-    _TMP12 = dot(_diff0080, _diff0080);
-    _TMP13 = inversesqrt(_TMP12);
-    _v0080 = _TMP13*_diff0080;
-    _d0080 = length(_diff0080);
-    if (_d0080 < 1.00000001E-001) { // if begin
-        _TMP10 = dot(_TMP1.xyz, _v0080);
-        _b0094 = _TMP10*(1.00000000E+000 + _d0080);
-        _TMP11 = max(0.00000000E+000, _b0094);
-        _occlusion10080 = min(1.00000000E+000, _TMP11);
-        _TMP79 = _occlusion10080;
+    _occlusion = _occlusion + _TMP51;
+    _sampleOffset0068 = _sampleOffset1*7.50000000E-01;
+    _c0070 = cg_TexCoord0.xy + _sampleOffset0068;
+    _samplePositionVS0068 = texture(_PositionMap, _c0070);
+    _diff0068 = _samplePositionVS0068.xyz - _positionVS1.xyz;
+    _TMP11 = dot(_diff0068, _diff0068);
+    _TMP12 = inversesqrt(_TMP11);
+    _v0068 = _TMP12*_diff0068;
+    _d0068 = length(_diff0068);
+    if (_d0068 < 1.00000001E-01) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0068);
+        _b0082 = _TMP10*(1.00000000E+00 + _d0068);
+        _occlusion10068 = max(0.00000000E+00, _b0082);
+        _TMP67 = _occlusion10068;
     } else {
-        _TMP79 = 0.00000000E+000;
+        _TMP67 = 0.00000000E+00;
     } // end if
-    _occlusion = _occlusion + _TMP79;
-    _c0100 = cg_TexCoord0.xy + _coord21;
-    _samplePositionVS0098 = texture(_PositionMap, _c0100);
-    _diff0098 = _samplePositionVS0098.xyz - _positionVS1.xyz;
-    _TMP12 = dot(_diff0098, _diff0098);
-    _TMP13 = inversesqrt(_TMP12);
-    _v0098 = _TMP13*_diff0098;
-    _d0098 = length(_diff0098);
-    if (_d0098 < 1.00000001E-001) { // if begin
-        _TMP10 = dot(_TMP1.xyz, _v0098);
-        _b0112 = _TMP10*(1.00000000E+000 + _d0098);
-        _TMP11 = max(0.00000000E+000, _b0112);
-        _occlusion10098 = min(1.00000000E+000, _TMP11);
-        _TMP97 = _occlusion10098;
+    _occlusion = _occlusion + _TMP67;
+    _c0086 = cg_TexCoord0.xy + _coord21;
+    _samplePositionVS0084 = texture(_PositionMap, _c0086);
+    _diff0084 = _samplePositionVS0084.xyz - _positionVS1.xyz;
+    _TMP11 = dot(_diff0084, _diff0084);
+    _TMP12 = inversesqrt(_TMP11);
+    _v0084 = _TMP12*_diff0084;
+    _d0084 = length(_diff0084);
+    if (_d0084 < 1.00000001E-01) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0084);
+        _b0098 = _TMP10*(1.00000000E+00 + _d0084);
+        _occlusion10084 = max(0.00000000E+00, _b0098);
+        _TMP83 = _occlusion10084;
     } else {
-        _TMP97 = 0.00000000E+000;
+        _TMP83 = 0.00000000E+00;
     } // end if
-    _occlusion = _occlusion + _TMP97;
-    _TMP9 = dot(_random.xy, vec2( 0.00000000E+000, 1.00000000E+000));
-    _TMP4 = vec2( 0.00000000E+000, 1.00000000E+000) - (2.00000000E+000*_random.xy)*_TMP9;
+    _occlusion = _occlusion + _TMP83;
+    _TMP9 = dot(_random.xy, vec2( 0.00000000E+00, 1.00000000E+00));
+    _TMP4 = vec2( 0.00000000E+00, 1.00000000E+00) - (2.00000000E+00*_random.xy)*_TMP9;
     _sampleOffset1 = _TMP4*_rad;
-    _coord21 = vec2(_sampleOffset1.x*7.07000017E-001 - _sampleOffset1.y*7.07000017E-001, _sampleOffset1.x*7.07000017E-001 + _sampleOffset1.y*7.07000017E-001);
-    _sampleOffset0044 = _sampleOffset1*2.50000000E-001;
-    _c0046 = cg_TexCoord0.xy + _sampleOffset0044;
-    _samplePositionVS0044 = texture(_PositionMap, _c0046);
-    _diff0044 = _samplePositionVS0044.xyz - _positionVS1.xyz;
-    _TMP12 = dot(_diff0044, _diff0044);
-    _TMP13 = inversesqrt(_TMP12);
-    _v0044 = _TMP13*_diff0044;
-    _d0044 = length(_diff0044);
-    if (_d0044 < 1.00000001E-001) { // if begin
-        _TMP10 = dot(_TMP1.xyz, _v0044);
-        _b0058 = _TMP10*(1.00000000E+000 + _d0044);
-        _TMP11 = max(0.00000000E+000, _b0058);
-        _occlusion10044 = min(1.00000000E+000, _TMP11);
-        _TMP43 = _occlusion10044;
+    _coord21 = vec2(_sampleOffset1.x*7.07000017E-01 - _sampleOffset1.y*7.07000017E-01, _sampleOffset1.x*7.07000017E-01 + _sampleOffset1.y*7.07000017E-01);
+    _sampleOffset0036 = _sampleOffset1*2.50000000E-01;
+    _c0038 = cg_TexCoord0.xy + _sampleOffset0036;
+    _samplePositionVS0036 = texture(_PositionMap, _c0038);
+    _diff0036 = _samplePositionVS0036.xyz - _positionVS1.xyz;
+    _TMP11 = dot(_diff0036, _diff0036);
+    _TMP12 = inversesqrt(_TMP11);
+    _v0036 = _TMP12*_diff0036;
+    _d0036 = length(_diff0036);
+    if (_d0036 < 1.00000001E-01) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0036);
+        _b0050 = _TMP10*(1.00000000E+00 + _d0036);
+        _occlusion10036 = max(0.00000000E+00, _b0050);
+        _TMP35 = _occlusion10036;
     } else {
-        _TMP43 = 0.00000000E+000;
+        _TMP35 = 0.00000000E+00;
     } // end if
-    _occlusion = _occlusion + _TMP43;
-    _sampleOffset0062 = _coord21*5.00000000E-001;
-    _c0064 = cg_TexCoord0.xy + _sampleOffset0062;
-    _samplePositionVS0062 = texture(_PositionMap, _c0064);
-    _diff0062 = _samplePositionVS0062.xyz - _positionVS1.xyz;
-    _TMP12 = dot(_diff0062, _diff0062);
-    _TMP13 = inversesqrt(_TMP12);
-    _v0062 = _TMP13*_diff0062;
-    _d0062 = length(_diff0062);
-    if (_d0062 < 1.00000001E-001) { // if begin
-        _TMP10 = dot(_TMP1.xyz, _v0062);
-        _b0076 = _TMP10*(1.00000000E+000 + _d0062);
-        _TMP11 = max(0.00000000E+000, _b0076);
-        _occlusion10062 = min(1.00000000E+000, _TMP11);
-        _TMP61 = _occlusion10062;
+    _occlusion = _occlusion + _TMP35;
+    _sampleOffset0052 = _coord21*5.00000000E-01;
+    _c0054 = cg_TexCoord0.xy + _sampleOffset0052;
+    _samplePositionVS0052 = texture(_PositionMap, _c0054);
+    _diff0052 = _samplePositionVS0052.xyz - _positionVS1.xyz;
+    _TMP11 = dot(_diff0052, _diff0052);
+    _TMP12 = inversesqrt(_TMP11);
+    _v0052 = _TMP12*_diff0052;
+    _d0052 = length(_diff0052);
+    if (_d0052 < 1.00000001E-01) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0052);
+        _b0066 = _TMP10*(1.00000000E+00 + _d0052);
+        _occlusion10052 = max(0.00000000E+00, _b0066);
+        _TMP51 = _occlusion10052;
     } else {
-        _TMP61 = 0.00000000E+000;
+        _TMP51 = 0.00000000E+00;
     } // end if
-    _occlusion = _occlusion + _TMP61;
-    _sampleOffset0080 = _sampleOffset1*7.50000000E-001;
-    _c0082 = cg_TexCoord0.xy + _sampleOffset0080;
-    _samplePositionVS0080 = texture(_PositionMap, _c0082);
-    _diff0080 = _samplePositionVS0080.xyz - _positionVS1.xyz;
-    _TMP12 = dot(_diff0080, _diff0080);
-    _TMP13 = inversesqrt(_TMP12);
-    _v0080 = _TMP13*_diff0080;
-    _d0080 = length(_diff0080);
-    if (_d0080 < 1.00000001E-001) { // if begin
-        _TMP10 = dot(_TMP1.xyz, _v0080);
-        _b0094 = _TMP10*(1.00000000E+000 + _d0080);
-        _TMP11 = max(0.00000000E+000, _b0094);
-        _occlusion10080 = min(1.00000000E+000, _TMP11);
-        _TMP79 = _occlusion10080;
+    _occlusion = _occlusion + _TMP51;
+    _sampleOffset0068 = _sampleOffset1*7.50000000E-01;
+    _c0070 = cg_TexCoord0.xy + _sampleOffset0068;
+    _samplePositionVS0068 = texture(_PositionMap, _c0070);
+    _diff0068 = _samplePositionVS0068.xyz - _positionVS1.xyz;
+    _TMP11 = dot(_diff0068, _diff0068);
+    _TMP12 = inversesqrt(_TMP11);
+    _v0068 = _TMP12*_diff0068;
+    _d0068 = length(_diff0068);
+    if (_d0068 < 1.00000001E-01) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0068);
+        _b0082 = _TMP10*(1.00000000E+00 + _d0068);
+        _occlusion10068 = max(0.00000000E+00, _b0082);
+        _TMP67 = _occlusion10068;
     } else {
-        _TMP79 = 0.00000000E+000;
+        _TMP67 = 0.00000000E+00;
     } // end if
-    _occlusion = _occlusion + _TMP79;
-    _c0100 = cg_TexCoord0.xy + _coord21;
-    _samplePositionVS0098 = texture(_PositionMap, _c0100);
-    _diff0098 = _samplePositionVS0098.xyz - _positionVS1.xyz;
-    _TMP12 = dot(_diff0098, _diff0098);
-    _TMP13 = inversesqrt(_TMP12);
-    _v0098 = _TMP13*_diff0098;
-    _d0098 = length(_diff0098);
-    if (_d0098 < 1.00000001E-001) { // if begin
-        _TMP10 = dot(_TMP1.xyz, _v0098);
-        _b0112 = _TMP10*(1.00000000E+000 + _d0098);
-        _TMP11 = max(0.00000000E+000, _b0112);
-        _occlusion10098 = min(1.00000000E+000, _TMP11);
-        _TMP97 = _occlusion10098;
+    _occlusion = _occlusion + _TMP67;
+    _c0086 = cg_TexCoord0.xy + _coord21;
+    _samplePositionVS0084 = texture(_PositionMap, _c0086);
+    _diff0084 = _samplePositionVS0084.xyz - _positionVS1.xyz;
+    _TMP11 = dot(_diff0084, _diff0084);
+    _TMP12 = inversesqrt(_TMP11);
+    _v0084 = _TMP12*_diff0084;
+    _d0084 = length(_diff0084);
+    if (_d0084 < 1.00000001E-01) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0084);
+        _b0098 = _TMP10*(1.00000000E+00 + _d0084);
+        _occlusion10084 = max(0.00000000E+00, _b0098);
+        _TMP83 = _occlusion10084;
     } else {
-        _TMP97 = 0.00000000E+000;
+        _TMP83 = 0.00000000E+00;
     } // end if
-    _occlusion = _occlusion + _TMP97;
-    _TMP9 = dot(_random.xy, vec2( 0.00000000E+000, -1.00000000E+000));
-    _TMP4 = vec2( 0.00000000E+000, -1.00000000E+000) - (2.00000000E+000*_random.xy)*_TMP9;
+    _occlusion = _occlusion + _TMP83;
+    _TMP9 = dot(_random.xy, vec2( 0.00000000E+00, -1.00000000E+00));
+    _TMP4 = vec2( 0.00000000E+00, -1.00000000E+00) - (2.00000000E+00*_random.xy)*_TMP9;
     _sampleOffset1 = _TMP4*_rad;
-    _coord21 = vec2(_sampleOffset1.x*7.07000017E-001 - _sampleOffset1.y*7.07000017E-001, _sampleOffset1.x*7.07000017E-001 + _sampleOffset1.y*7.07000017E-001);
-    _sampleOffset0044 = _sampleOffset1*2.50000000E-001;
-    _c0046 = cg_TexCoord0.xy + _sampleOffset0044;
-    _samplePositionVS0044 = texture(_PositionMap, _c0046);
-    _diff0044 = _samplePositionVS0044.xyz - _positionVS1.xyz;
-    _TMP12 = dot(_diff0044, _diff0044);
-    _TMP13 = inversesqrt(_TMP12);
-    _v0044 = _TMP13*_diff0044;
-    _d0044 = length(_diff0044);
-    if (_d0044 < 1.00000001E-001) { // if begin
-        _TMP10 = dot(_TMP1.xyz, _v0044);
-        _b0058 = _TMP10*(1.00000000E+000 + _d0044);
-        _TMP11 = max(0.00000000E+000, _b0058);
-        _occlusion10044 = min(1.00000000E+000, _TMP11);
-        _TMP43 = _occlusion10044;
+    _coord21 = vec2(_sampleOffset1.x*7.07000017E-01 - _sampleOffset1.y*7.07000017E-01, _sampleOffset1.x*7.07000017E-01 + _sampleOffset1.y*7.07000017E-01);
+    _sampleOffset0036 = _sampleOffset1*2.50000000E-01;
+    _c0038 = cg_TexCoord0.xy + _sampleOffset0036;
+    _samplePositionVS0036 = texture(_PositionMap, _c0038);
+    _diff0036 = _samplePositionVS0036.xyz - _positionVS1.xyz;
+    _TMP11 = dot(_diff0036, _diff0036);
+    _TMP12 = inversesqrt(_TMP11);
+    _v0036 = _TMP12*_diff0036;
+    _d0036 = length(_diff0036);
+    if (_d0036 < 1.00000001E-01) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0036);
+        _b0050 = _TMP10*(1.00000000E+00 + _d0036);
+        _occlusion10036 = max(0.00000000E+00, _b0050);
+        _TMP35 = _occlusion10036;
     } else {
-        _TMP43 = 0.00000000E+000;
+        _TMP35 = 0.00000000E+00;
     } // end if
-    _occlusion = _occlusion + _TMP43;
-    _sampleOffset0062 = _coord21*5.00000000E-001;
-    _c0064 = cg_TexCoord0.xy + _sampleOffset0062;
-    _samplePositionVS0062 = texture(_PositionMap, _c0064);
-    _diff0062 = _samplePositionVS0062.xyz - _positionVS1.xyz;
-    _TMP12 = dot(_diff0062, _diff0062);
-    _TMP13 = inversesqrt(_TMP12);
-    _v0062 = _TMP13*_diff0062;
-    _d0062 = length(_diff0062);
-    if (_d0062 < 1.00000001E-001) { // if begin
-        _TMP10 = dot(_TMP1.xyz, _v0062);
-        _b0076 = _TMP10*(1.00000000E+000 + _d0062);
-        _TMP11 = max(0.00000000E+000, _b0076);
-        _occlusion10062 = min(1.00000000E+000, _TMP11);
-        _TMP61 = _occlusion10062;
+    _occlusion = _occlusion + _TMP35;
+    _sampleOffset0052 = _coord21*5.00000000E-01;
+    _c0054 = cg_TexCoord0.xy + _sampleOffset0052;
+    _samplePositionVS0052 = texture(_PositionMap, _c0054);
+    _diff0052 = _samplePositionVS0052.xyz - _positionVS1.xyz;
+    _TMP11 = dot(_diff0052, _diff0052);
+    _TMP12 = inversesqrt(_TMP11);
+    _v0052 = _TMP12*_diff0052;
+    _d0052 = length(_diff0052);
+    if (_d0052 < 1.00000001E-01) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0052);
+        _b0066 = _TMP10*(1.00000000E+00 + _d0052);
+        _occlusion10052 = max(0.00000000E+00, _b0066);
+        _TMP51 = _occlusion10052;
     } else {
-        _TMP61 = 0.00000000E+000;
+        _TMP51 = 0.00000000E+00;
     } // end if
-    _occlusion = _occlusion + _TMP61;
-    _sampleOffset0080 = _sampleOffset1*7.50000000E-001;
-    _c0082 = cg_TexCoord0.xy + _sampleOffset0080;
-    _samplePositionVS0080 = texture(_PositionMap, _c0082);
-    _diff0080 = _samplePositionVS0080.xyz - _positionVS1.xyz;
-    _TMP12 = dot(_diff0080, _diff0080);
-    _TMP13 = inversesqrt(_TMP12);
-    _v0080 = _TMP13*_diff0080;
-    _d0080 = length(_diff0080);
-    if (_d0080 < 1.00000001E-001) { // if begin
-        _TMP10 = dot(_TMP1.xyz, _v0080);
-        _b0094 = _TMP10*(1.00000000E+000 + _d0080);
-        _TMP11 = max(0.00000000E+000, _b0094);
-        _occlusion10080 = min(1.00000000E+000, _TMP11);
-        _TMP79 = _occlusion10080;
+    _occlusion = _occlusion + _TMP51;
+    _sampleOffset0068 = _sampleOffset1*7.50000000E-01;
+    _c0070 = cg_TexCoord0.xy + _sampleOffset0068;
+    _samplePositionVS0068 = texture(_PositionMap, _c0070);
+    _diff0068 = _samplePositionVS0068.xyz - _positionVS1.xyz;
+    _TMP11 = dot(_diff0068, _diff0068);
+    _TMP12 = inversesqrt(_TMP11);
+    _v0068 = _TMP12*_diff0068;
+    _d0068 = length(_diff0068);
+    if (_d0068 < 1.00000001E-01) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0068);
+        _b0082 = _TMP10*(1.00000000E+00 + _d0068);
+        _occlusion10068 = max(0.00000000E+00, _b0082);
+        _TMP67 = _occlusion10068;
     } else {
-        _TMP79 = 0.00000000E+000;
+        _TMP67 = 0.00000000E+00;
     } // end if
-    _occlusion = _occlusion + _TMP79;
-    _c0100 = cg_TexCoord0.xy + _coord21;
-    _samplePositionVS0098 = texture(_PositionMap, _c0100);
-    _diff0098 = _samplePositionVS0098.xyz - _positionVS1.xyz;
-    _TMP12 = dot(_diff0098, _diff0098);
-    _TMP13 = inversesqrt(_TMP12);
-    _v0098 = _TMP13*_diff0098;
-    _d0098 = length(_diff0098);
-    if (_d0098 < 1.00000001E-001) { // if begin
-        _TMP10 = dot(_TMP1.xyz, _v0098);
-        _b0112 = _TMP10*(1.00000000E+000 + _d0098);
-        _TMP11 = max(0.00000000E+000, _b0112);
-        _occlusion10098 = min(1.00000000E+000, _TMP11);
-        _TMP97 = _occlusion10098;
+    _occlusion = _occlusion + _TMP67;
+    _c0086 = cg_TexCoord0.xy + _coord21;
+    _samplePositionVS0084 = texture(_PositionMap, _c0086);
+    _diff0084 = _samplePositionVS0084.xyz - _positionVS1.xyz;
+    _TMP11 = dot(_diff0084, _diff0084);
+    _TMP12 = inversesqrt(_TMP11);
+    _v0084 = _TMP12*_diff0084;
+    _d0084 = length(_diff0084);
+    if (_d0084 < 1.00000001E-01) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0084);
+        _b0098 = _TMP10*(1.00000000E+00 + _d0084);
+        _occlusion10084 = max(0.00000000E+00, _b0098);
+        _TMP83 = _occlusion10084;
     } else {
-        _TMP97 = 0.00000000E+000;
+        _TMP83 = 0.00000000E+00;
     } // end if
-    _occlusion = _occlusion + _TMP97;
-    _occlusion = _occlusion/1.60000000E+001;
-    _occlusion = 1.00000000E+000 - _occlusion;
-    _ret_0 = vec4(_occlusion, _occlusion, _occlusion, 1.00000000E+000);
+    _occlusion = _occlusion + _TMP83;
+    _occlusion = _occlusion/1.60000000E+01;
+    _occlusion = 1.00000000E+00 - _occlusion;
+    _ret_0 = vec4(_occlusion, _occlusion, _occlusion, 1.00000000E+00);
     cg_FragColor = _ret_0;
     return;
 } // main end

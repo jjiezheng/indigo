@@ -1,5 +1,5 @@
 // ps_4_0 output by Cg compiler
-// cgc version 3.1.0013, build date Apr 18 2012
+// cgc version 3.1.0013, build date Apr 24 2012
 // command line args: -DDX11=1 -q -unroll all -profile ps_5_0
 // source file: deferred_lighting_spot_light_shadow.cg
 //vendor NVIDIA Corporation
@@ -115,42 +115,42 @@ float4 main( in X1X cin) : SV_Target0
 
     _screenPosition = cin._TEXCOORD0;
     _screenPositionClip = _screenPosition.xy/_screenPosition.z;
-    _texCoord0013 = _screenPositionClip* 5.00000000000000000E-001f +  5.00000000000000000E-001f;
-    _texCoord0013.y =  1.00000000000000000E000f - _texCoord0013.y;
+    _texCoord0013 = _screenPositionClip*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
+    _texCoord0013.y =   1.00000000000000000E00f - _texCoord0013.y;
     _TMP5 = _TMP38.Sample(_DepthMap, _texCoord0013);
     _normalData0017 = _TMP39.Sample(_NormalMap, _texCoord0013);
-    _unPackedNormal0017 = _normalData0017* 2.00000000000000000E000f -  1.00000000000000000E000f;
+    _unPackedNormal0017 = _normalData0017*  2.00000000000000000E00f -   1.00000000000000000E00f;
     _TMP6 = dot(_unPackedNormal0017.xyz, _unPackedNormal0017.xyz);
     _TMP7 = rsqrt(_TMP6);
     _normal = _TMP7*_unPackedNormal0017.xyz;
-    _positionScreen = float4(_screenPositionClip.x, _screenPositionClip.y, _TMP5.x,  1.00000000000000000E000f);
+    _positionScreen = float4(_screenPositionClip.x, _screenPositionClip.y, _TMP5.x,   1.00000000000000000E00f);
     _r0021.x = dot(_ViewProjInv._11_12_13_14, _positionScreen);
     _r0021.y = dot(_ViewProjInv._21_22_23_24, _positionScreen);
     _r0021.z = dot(_ViewProjInv._31_32_33_34, _positionScreen);
     _r0021.w = dot(_ViewProjInv._41_42_43_44, _positionScreen);
     _positionWorld = _r0021.xyz/_r0021.w;
-    _lightContribution = float4(  0.00000000000000000E000f,  0.00000000000000000E000f,  0.00000000000000000E000f,  1.00000000000000000E000f);
+    _lightContribution = float4(   0.00000000000000000E00f,   0.00000000000000000E00f,   0.00000000000000000E00f,   1.00000000000000000E00f);
     _v0023 = _positionWorld - _LightPosition;
     _TMP6 = dot(_v0023, _v0023);
     _TMP7 = rsqrt(_TMP6);
     _pixelToLight = _TMP7*_v0023;
     _lightDirectionDot = dot(_LightDirection, _pixelToLight);
-    _diffuseStrength =  0.00000000000000000E000f;
+    _diffuseStrength =   0.00000000000000000E00f;
     _lightOuterCos = cos(_LightOuterAngle);
     _lightInnerCos = cos(_LightInnerAngle);
     if (_lightDirectionDot > _lightOuterCos) { // if begin
         _TMP0 = dot(_normal, _DirectionToLight);
         _diffuseStrength = saturate(_TMP0);
         _y0025 = saturate((_lightDirectionDot - _lightOuterCos)/(_lightInnerCos - _lightOuterCos));
-        _TMP1 = _y0025*_y0025*( 3.00000000000000000E000f -  2.00000000000000000E000f*_y0025);
+        _TMP1 = _y0025*_y0025*(  3.00000000000000000E00f -   2.00000000000000000E00f*_y0025);
         _diffuseStrength = _diffuseStrength*_TMP1;
     } // end if
     if (_lightDirectionDot > _lightInnerCos) { // if begin
         _TMP2 = dot(_normal, _DirectionToLight);
         _diffuseStrength = saturate(_TMP2);
     } // end if
-    _lightContribution.xyz = _LightColor*_diffuseStrength* 2.54999995231628420E000f*_LightDistance;
-    if (_diffuseStrength >  0.00000000000000000E000f) { // if begin
+    _lightContribution.xyz = _LightColor*_diffuseStrength*  2.54999995231628418E00f*_LightDistance;
+    if (_diffuseStrength >   0.00000000000000000E00f) { // if begin
         _viewerDirectionUnNormalized1 = _ViewerPosition - _positionWorld;
         _TMP6 = dot(_viewerDirectionUnNormalized1, _viewerDirectionUnNormalized1);
         _TMP7 = rsqrt(_TMP6);
@@ -160,79 +160,79 @@ float4 main( in X1X cin) : SV_Target0
         _TMP4 = saturate(_TMP3);
         _lightContribution.w = _TMP4*_LightDistance;
     } // end if
-    _v0029 = float4(_positionWorld.x, _positionWorld.y, _positionWorld.z,  1.00000000000000000E000f);
+    _v0029 = float4(_positionWorld.x, _positionWorld.y, _positionWorld.z,   1.00000000000000000E00f);
     _r0029.x = dot(_LightViewProj._11_12_13_14, _v0029);
     _r0029.y = dot(_LightViewProj._21_22_23_24, _v0029);
     _r0029.z = dot(_LightViewProj._31_32_33_34, _v0029);
     _r0029.w = dot(_LightViewProj._41_42_43_44, _v0029);
     _pixelPositionFromLightNDC = _r0029.xyz/_r0029.w;
-    _texCoord0031 = _pixelPositionFromLightNDC.xy* 5.00000000000000000E-001f +  5.00000000000000000E-001f;
-    _texCoord0031.y =  1.00000000000000000E000f - _texCoord0031.y;
-    _shadowCoordOffset10033 = _texCoord0031 + float2(-1.50000000000000000E000f*_ShadowMapSize.x, -1.50000000000000000E000f*_ShadowMapSize.y);
-    _t0037 = float4(_shadowCoordOffset10033.x, _shadowCoordOffset10033.y, _pixelPositionFromLightNDC.z,  1.00000000000000000E000f);
+    _texCoord0031 = _pixelPositionFromLightNDC.xy*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
+    _texCoord0031.y =   1.00000000000000000E00f - _texCoord0031.y;
+    _shadowCoordOffset10033 = _texCoord0031 + float2( -1.50000000000000000E00f*_ShadowMapSize.x,  -1.50000000000000000E00f*_ShadowMapSize.y);
+    _t0037 = float4(_shadowCoordOffset10033.x, _shadowCoordOffset10033.y, _pixelPositionFromLightNDC.z,   1.00000000000000000E00f);
     _TMP8 = _TMP40.SampleCmp(_ShadowMap, (_t0037.xyz/_t0037.w).xy, (_t0037.xyz/_t0037.w).z);
     _sum0033 = _TMP8.x;
-    _shadowCoordOffset10033 = _texCoord0031 + float2(-5.00000000000000000E-001f*_ShadowMapSize.x, -1.50000000000000000E000f*_ShadowMapSize.y);
-    _t0037 = float4(_shadowCoordOffset10033.x, _shadowCoordOffset10033.y, _pixelPositionFromLightNDC.z,  1.00000000000000000E000f);
+    _shadowCoordOffset10033 = _texCoord0031 + float2( -5.00000000000000000E-01f*_ShadowMapSize.x,  -1.50000000000000000E00f*_ShadowMapSize.y);
+    _t0037 = float4(_shadowCoordOffset10033.x, _shadowCoordOffset10033.y, _pixelPositionFromLightNDC.z,   1.00000000000000000E00f);
     _TMP8 = _TMP40.SampleCmp(_ShadowMap, (_t0037.xyz/_t0037.w).xy, (_t0037.xyz/_t0037.w).z);
     _sum0033 = _sum0033 + _TMP8.x;
-    _shadowCoordOffset10033 = _texCoord0031 + float2( 5.00000000000000000E-001f*_ShadowMapSize.x, -1.50000000000000000E000f*_ShadowMapSize.y);
-    _t0037 = float4(_shadowCoordOffset10033.x, _shadowCoordOffset10033.y, _pixelPositionFromLightNDC.z,  1.00000000000000000E000f);
+    _shadowCoordOffset10033 = _texCoord0031 + float2(  5.00000000000000000E-01f*_ShadowMapSize.x,  -1.50000000000000000E00f*_ShadowMapSize.y);
+    _t0037 = float4(_shadowCoordOffset10033.x, _shadowCoordOffset10033.y, _pixelPositionFromLightNDC.z,   1.00000000000000000E00f);
     _TMP8 = _TMP40.SampleCmp(_ShadowMap, (_t0037.xyz/_t0037.w).xy, (_t0037.xyz/_t0037.w).z);
     _sum0033 = _sum0033 + _TMP8.x;
-    _shadowCoordOffset10033 = _texCoord0031 + float2( 1.50000000000000000E000f*_ShadowMapSize.x, -1.50000000000000000E000f*_ShadowMapSize.y);
-    _t0037 = float4(_shadowCoordOffset10033.x, _shadowCoordOffset10033.y, _pixelPositionFromLightNDC.z,  1.00000000000000000E000f);
+    _shadowCoordOffset10033 = _texCoord0031 + float2(  1.50000000000000000E00f*_ShadowMapSize.x,  -1.50000000000000000E00f*_ShadowMapSize.y);
+    _t0037 = float4(_shadowCoordOffset10033.x, _shadowCoordOffset10033.y, _pixelPositionFromLightNDC.z,   1.00000000000000000E00f);
     _TMP8 = _TMP40.SampleCmp(_ShadowMap, (_t0037.xyz/_t0037.w).xy, (_t0037.xyz/_t0037.w).z);
     _sum0033 = _sum0033 + _TMP8.x;
-    _shadowCoordOffset10033 = _texCoord0031 + float2(-1.50000000000000000E000f*_ShadowMapSize.x, -5.00000000000000000E-001f*_ShadowMapSize.y);
-    _t0037 = float4(_shadowCoordOffset10033.x, _shadowCoordOffset10033.y, _pixelPositionFromLightNDC.z,  1.00000000000000000E000f);
+    _shadowCoordOffset10033 = _texCoord0031 + float2( -1.50000000000000000E00f*_ShadowMapSize.x,  -5.00000000000000000E-01f*_ShadowMapSize.y);
+    _t0037 = float4(_shadowCoordOffset10033.x, _shadowCoordOffset10033.y, _pixelPositionFromLightNDC.z,   1.00000000000000000E00f);
     _TMP8 = _TMP40.SampleCmp(_ShadowMap, (_t0037.xyz/_t0037.w).xy, (_t0037.xyz/_t0037.w).z);
     _sum0033 = _sum0033 + _TMP8.x;
-    _shadowCoordOffset10033 = _texCoord0031 + float2(-5.00000000000000000E-001f*_ShadowMapSize.x, -5.00000000000000000E-001f*_ShadowMapSize.y);
-    _t0037 = float4(_shadowCoordOffset10033.x, _shadowCoordOffset10033.y, _pixelPositionFromLightNDC.z,  1.00000000000000000E000f);
+    _shadowCoordOffset10033 = _texCoord0031 + float2( -5.00000000000000000E-01f*_ShadowMapSize.x,  -5.00000000000000000E-01f*_ShadowMapSize.y);
+    _t0037 = float4(_shadowCoordOffset10033.x, _shadowCoordOffset10033.y, _pixelPositionFromLightNDC.z,   1.00000000000000000E00f);
     _TMP8 = _TMP40.SampleCmp(_ShadowMap, (_t0037.xyz/_t0037.w).xy, (_t0037.xyz/_t0037.w).z);
     _sum0033 = _sum0033 + _TMP8.x;
-    _shadowCoordOffset10033 = _texCoord0031 + float2( 5.00000000000000000E-001f*_ShadowMapSize.x, -5.00000000000000000E-001f*_ShadowMapSize.y);
-    _t0037 = float4(_shadowCoordOffset10033.x, _shadowCoordOffset10033.y, _pixelPositionFromLightNDC.z,  1.00000000000000000E000f);
+    _shadowCoordOffset10033 = _texCoord0031 + float2(  5.00000000000000000E-01f*_ShadowMapSize.x,  -5.00000000000000000E-01f*_ShadowMapSize.y);
+    _t0037 = float4(_shadowCoordOffset10033.x, _shadowCoordOffset10033.y, _pixelPositionFromLightNDC.z,   1.00000000000000000E00f);
     _TMP8 = _TMP40.SampleCmp(_ShadowMap, (_t0037.xyz/_t0037.w).xy, (_t0037.xyz/_t0037.w).z);
     _sum0033 = _sum0033 + _TMP8.x;
-    _shadowCoordOffset10033 = _texCoord0031 + float2( 1.50000000000000000E000f*_ShadowMapSize.x, -5.00000000000000000E-001f*_ShadowMapSize.y);
-    _t0037 = float4(_shadowCoordOffset10033.x, _shadowCoordOffset10033.y, _pixelPositionFromLightNDC.z,  1.00000000000000000E000f);
+    _shadowCoordOffset10033 = _texCoord0031 + float2(  1.50000000000000000E00f*_ShadowMapSize.x,  -5.00000000000000000E-01f*_ShadowMapSize.y);
+    _t0037 = float4(_shadowCoordOffset10033.x, _shadowCoordOffset10033.y, _pixelPositionFromLightNDC.z,   1.00000000000000000E00f);
     _TMP8 = _TMP40.SampleCmp(_ShadowMap, (_t0037.xyz/_t0037.w).xy, (_t0037.xyz/_t0037.w).z);
     _sum0033 = _sum0033 + _TMP8.x;
-    _shadowCoordOffset10033 = _texCoord0031 + float2(-1.50000000000000000E000f*_ShadowMapSize.x,  5.00000000000000000E-001f*_ShadowMapSize.y);
-    _t0037 = float4(_shadowCoordOffset10033.x, _shadowCoordOffset10033.y, _pixelPositionFromLightNDC.z,  1.00000000000000000E000f);
+    _shadowCoordOffset10033 = _texCoord0031 + float2( -1.50000000000000000E00f*_ShadowMapSize.x,   5.00000000000000000E-01f*_ShadowMapSize.y);
+    _t0037 = float4(_shadowCoordOffset10033.x, _shadowCoordOffset10033.y, _pixelPositionFromLightNDC.z,   1.00000000000000000E00f);
     _TMP8 = _TMP40.SampleCmp(_ShadowMap, (_t0037.xyz/_t0037.w).xy, (_t0037.xyz/_t0037.w).z);
     _sum0033 = _sum0033 + _TMP8.x;
-    _shadowCoordOffset10033 = _texCoord0031 + float2(-5.00000000000000000E-001f*_ShadowMapSize.x,  5.00000000000000000E-001f*_ShadowMapSize.y);
-    _t0037 = float4(_shadowCoordOffset10033.x, _shadowCoordOffset10033.y, _pixelPositionFromLightNDC.z,  1.00000000000000000E000f);
+    _shadowCoordOffset10033 = _texCoord0031 + float2( -5.00000000000000000E-01f*_ShadowMapSize.x,   5.00000000000000000E-01f*_ShadowMapSize.y);
+    _t0037 = float4(_shadowCoordOffset10033.x, _shadowCoordOffset10033.y, _pixelPositionFromLightNDC.z,   1.00000000000000000E00f);
     _TMP8 = _TMP40.SampleCmp(_ShadowMap, (_t0037.xyz/_t0037.w).xy, (_t0037.xyz/_t0037.w).z);
     _sum0033 = _sum0033 + _TMP8.x;
-    _shadowCoordOffset10033 = _texCoord0031 + float2( 5.00000000000000000E-001f*_ShadowMapSize.x,  5.00000000000000000E-001f*_ShadowMapSize.y);
-    _t0037 = float4(_shadowCoordOffset10033.x, _shadowCoordOffset10033.y, _pixelPositionFromLightNDC.z,  1.00000000000000000E000f);
+    _shadowCoordOffset10033 = _texCoord0031 + float2(  5.00000000000000000E-01f*_ShadowMapSize.x,   5.00000000000000000E-01f*_ShadowMapSize.y);
+    _t0037 = float4(_shadowCoordOffset10033.x, _shadowCoordOffset10033.y, _pixelPositionFromLightNDC.z,   1.00000000000000000E00f);
     _TMP8 = _TMP40.SampleCmp(_ShadowMap, (_t0037.xyz/_t0037.w).xy, (_t0037.xyz/_t0037.w).z);
     _sum0033 = _sum0033 + _TMP8.x;
-    _shadowCoordOffset10033 = _texCoord0031 + float2( 1.50000000000000000E000f*_ShadowMapSize.x,  5.00000000000000000E-001f*_ShadowMapSize.y);
-    _t0037 = float4(_shadowCoordOffset10033.x, _shadowCoordOffset10033.y, _pixelPositionFromLightNDC.z,  1.00000000000000000E000f);
+    _shadowCoordOffset10033 = _texCoord0031 + float2(  1.50000000000000000E00f*_ShadowMapSize.x,   5.00000000000000000E-01f*_ShadowMapSize.y);
+    _t0037 = float4(_shadowCoordOffset10033.x, _shadowCoordOffset10033.y, _pixelPositionFromLightNDC.z,   1.00000000000000000E00f);
     _TMP8 = _TMP40.SampleCmp(_ShadowMap, (_t0037.xyz/_t0037.w).xy, (_t0037.xyz/_t0037.w).z);
     _sum0033 = _sum0033 + _TMP8.x;
-    _shadowCoordOffset10033 = _texCoord0031 + float2(-1.50000000000000000E000f*_ShadowMapSize.x,  1.50000000000000000E000f*_ShadowMapSize.y);
-    _t0037 = float4(_shadowCoordOffset10033.x, _shadowCoordOffset10033.y, _pixelPositionFromLightNDC.z,  1.00000000000000000E000f);
+    _shadowCoordOffset10033 = _texCoord0031 + float2( -1.50000000000000000E00f*_ShadowMapSize.x,   1.50000000000000000E00f*_ShadowMapSize.y);
+    _t0037 = float4(_shadowCoordOffset10033.x, _shadowCoordOffset10033.y, _pixelPositionFromLightNDC.z,   1.00000000000000000E00f);
     _TMP8 = _TMP40.SampleCmp(_ShadowMap, (_t0037.xyz/_t0037.w).xy, (_t0037.xyz/_t0037.w).z);
     _sum0033 = _sum0033 + _TMP8.x;
-    _shadowCoordOffset10033 = _texCoord0031 + float2(-5.00000000000000000E-001f*_ShadowMapSize.x,  1.50000000000000000E000f*_ShadowMapSize.y);
-    _t0037 = float4(_shadowCoordOffset10033.x, _shadowCoordOffset10033.y, _pixelPositionFromLightNDC.z,  1.00000000000000000E000f);
+    _shadowCoordOffset10033 = _texCoord0031 + float2( -5.00000000000000000E-01f*_ShadowMapSize.x,   1.50000000000000000E00f*_ShadowMapSize.y);
+    _t0037 = float4(_shadowCoordOffset10033.x, _shadowCoordOffset10033.y, _pixelPositionFromLightNDC.z,   1.00000000000000000E00f);
     _TMP8 = _TMP40.SampleCmp(_ShadowMap, (_t0037.xyz/_t0037.w).xy, (_t0037.xyz/_t0037.w).z);
     _sum0033 = _sum0033 + _TMP8.x;
-    _shadowCoordOffset10033 = _texCoord0031 + float2( 5.00000000000000000E-001f*_ShadowMapSize.x,  1.50000000000000000E000f*_ShadowMapSize.y);
-    _t0037 = float4(_shadowCoordOffset10033.x, _shadowCoordOffset10033.y, _pixelPositionFromLightNDC.z,  1.00000000000000000E000f);
+    _shadowCoordOffset10033 = _texCoord0031 + float2(  5.00000000000000000E-01f*_ShadowMapSize.x,   1.50000000000000000E00f*_ShadowMapSize.y);
+    _t0037 = float4(_shadowCoordOffset10033.x, _shadowCoordOffset10033.y, _pixelPositionFromLightNDC.z,   1.00000000000000000E00f);
     _TMP8 = _TMP40.SampleCmp(_ShadowMap, (_t0037.xyz/_t0037.w).xy, (_t0037.xyz/_t0037.w).z);
     _sum0033 = _sum0033 + _TMP8.x;
-    _shadowCoordOffset10033 = _texCoord0031 + float2( 1.50000000000000000E000f*_ShadowMapSize.x,  1.50000000000000000E000f*_ShadowMapSize.y);
-    _t0037 = float4(_shadowCoordOffset10033.x, _shadowCoordOffset10033.y, _pixelPositionFromLightNDC.z,  1.00000000000000000E000f);
+    _shadowCoordOffset10033 = _texCoord0031 + float2(  1.50000000000000000E00f*_ShadowMapSize.x,   1.50000000000000000E00f*_ShadowMapSize.y);
+    _t0037 = float4(_shadowCoordOffset10033.x, _shadowCoordOffset10033.y, _pixelPositionFromLightNDC.z,   1.00000000000000000E00f);
     _TMP8 = _TMP40.SampleCmp(_ShadowMap, (_t0037.xyz/_t0037.w).xy, (_t0037.xyz/_t0037.w).z);
     _sum0033 = _sum0033 + _TMP8.x;
-    _shadowFactor0033 = _sum0033/ 1.60000000000000000E001f;
+    _shadowFactor0033 = _sum0033/  1.60000000000000000E01f;
     _lightContribution = _lightContribution*_shadowFactor0033;
     return _lightContribution;
 } // main end

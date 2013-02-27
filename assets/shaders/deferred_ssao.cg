@@ -1,7 +1,5 @@
 #include "standard.h"
 
-static const float KernelSize = 16;
-
 uniform float2 HalfPixel;
 
 uniform float Radius;
@@ -11,18 +9,9 @@ uniform float4 Kernel[16];
 uniform float Far;
 uniform float Near;
 
-sampler2D PositionMap	 		: TEXUNIT0;
-sampler2D NormalMap			 	: TEXUNIT1;
-sampler2D DepthMap 		 		: TEXUNIT2;
-sampler2D NoiseMap 		 		: TEXUNIT3;
-
-
-uniform float4x4 Projection;
-uniform float4x4 ProjInv;
-uniform float4x4 ModelView;
-uniform float4x4 View;
-uniform float4x4 ViewInv;
-uniform float4x4 ViewProjInv;
+sampler2D NormalMap			 	: TEXUNIT0;
+sampler2D PositionMap	 		: TEXUNIT1;
+sampler2D NoiseMap 		 		: TEXUNIT2;
 
 struct VOutput {
       float4 position 		: POSITION;
@@ -46,7 +35,7 @@ float ao(float3 normalVS, float3 positionVS, float2 texCoord, float2 sampleOffse
 
 	float kMinimumDistance = 0.1f;
 	if (d < kMinimumDistance) {
-		float occlusion = min(1.0, max(0.0, dot(normalVS, v) * (1.0f / 1.0f + d)));
+		float occlusion = max(0.0, dot(normalVS, v) * (1.0f / 1.0f + d));
 		return occlusion;
 	} else {
 		return 0;

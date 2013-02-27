@@ -1,5 +1,5 @@
 // glslf output by Cg compiler
-// cgc version 3.1.0013, build date Apr 18 2012
+// cgc version 3.1.0013, build date Apr 24 2012
 // command line args: -DGL=1 -DGL32=1 -q -profileopts version=130 -profile glslf
 // source file: deferred_render_color_normal_depth.cg
 //vendor NVIDIA Corporation
@@ -18,8 +18,8 @@
 //var float4 viewPosition : $vin.TEXCOORD2 : TEXCOORD2 : 3 : 1
 //var float4 ps.color : $vout.COLOR0 : COLOR0 : -1 : 1
 //var float3 ps.normal : $vout.COLOR1 : COLOR1 : -1 : 1
-//var float4 ps.depth : $vout.COLOR2 : COLOR2 : -1 : 1
-//var float3 ps.viewNormal : $vout.COLOR3 : COLOR3 : -1 : 1
+//var float4 ps.viewPosition : $vout.COLOR2 : COLOR2 : -1 : 1
+//var float4 ps.viewNormal : $vout.COLOR3 : COLOR3 : -1 : 1
 
 #version 130
 
@@ -34,8 +34,8 @@ struct VOutput {
 struct POutput {
     vec4 _color;
     vec3 _normal3;
-    vec4 _depth;
-    vec3 _viewNormal3;
+    vec4 _viewPosition3;
+    vec4 _viewNormal3;
 };
 
 uniform vec4 _DiffuseColor;
@@ -53,8 +53,9 @@ void main()
 
     POutput _OUT;
 
-    _OUT._normal3 = cg_TexCoord0.xyz*5.00000000E-001 + 5.00000000E-001;
-    cg_FragData3.xyz = cg_TexCoord1.xyz;
+    _OUT._normal3 = cg_TexCoord0.xyz*5.00000000E-01 + 5.00000000E-01;
+    _OUT._viewNormal3 = vec4(cg_TexCoord1.x, cg_TexCoord1.y, cg_TexCoord1.z, 1.00000000E+00);
+    cg_FragData3 = _OUT._viewNormal3;
     cg_FragData1.xyz = _OUT._normal3;
     cg_FragData2 = cg_TexCoord2;
     cg_FragColor = _DiffuseColor;
