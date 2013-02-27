@@ -1,5 +1,5 @@
 // ps_4_0 output by Cg compiler
-// cgc version 3.1.0013, build date Apr 24 2012
+// cgc version 3.1.0013, build date Apr 18 2012
 // command line args: -DDX11=1 -q -unroll all -profile ps_5_0
 // source file: deferred_render_color_normal_depth.cg
 //vendor NVIDIA Corporation
@@ -13,12 +13,13 @@
 //semantic Near
 //semantic Far
 //var float4 DiffuseColor :  : _DiffuseColor : -1 : 1
+//var float Far :  : _Far : -1 : 1
 //var float3 normal : $vin.TEXCOORD0 :  : 1 : 1
 //var float3 viewNormal : $vin.TEXCOORD1 :  : 2 : 1
 //var float4 viewPosition : $vin.TEXCOORD2 :  : 3 : 1
 //var float4 ps.color : $vout.COLOR0 : COLOR0 : -1 : 1
 //var float3 ps.normal : $vout.COLOR1 : COLOR1 : -1 : 1
-//var float4 ps.viewPosition : $vout.COLOR2 : COLOR2 : -1 : 1
+//var float4 ps.depth : $vout.COLOR2 : COLOR2 : -1 : 1
 //var float4 ps.viewNormal : $vout.COLOR3 : COLOR3 : -1 : 1
 
 #pragma pack_matrix(row_major)
@@ -27,13 +28,13 @@ struct VOutput {
     float4 _position1 : SV_Position;
     float3 _normal2 : TEXCOORD0;
     float3 _viewNormal2 : TEXCOORD1;
-    float4 _viewPosition2 : TEXCOORD2;
+    float4 _viewPosition1 : TEXCOORD2;
 };
 
 struct POutput {
     float4 _color : SV_Target0;
     float3 _normal : SV_Target1;
-    float4 _viewPosition : SV_Target2;
+    float4 _depth : SV_Target2;
     float4 _viewNormal : SV_Target3;
 };
 
@@ -45,6 +46,7 @@ struct X1X {
 };
 
 uniform float4 _DiffuseColor;
+float _Far;
 
  // main procedure, the original name was ps
 POutput main( in X1X cin)
@@ -52,15 +54,17 @@ POutput main( in X1X cin)
 
     float3 _normal1;
     float3 _viewNormal1;
-    float4 _viewPosition1;
+    float4 _viewPosition;
     POutput _OUT;
+    float _depth1;
 
     _normal1 = cin._TEXCOORD0;
     _viewNormal1 = cin._TEXCOORD1;
-    _viewPosition1 = cin._TEXCOORD2;
+    _viewPosition = cin._TEXCOORD2;
     _OUT._color = _DiffuseColor;
-    _OUT._normal = _normal1*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
-    _OUT._viewNormal = float4(_viewNormal1.x, _viewNormal1.y, _viewNormal1.z,   1.00000000000000000E00f);
-    _OUT._viewPosition = _viewPosition1;
+    _OUT._normal = _normal1* 5.00000000000000000E-001f +  5.00000000000000000E-001f;
+    _OUT._viewNormal = float4(_viewNormal1.x, _viewNormal1.y, _viewNormal1.z,  1.00000000000000000E000f);
+    _depth1 = -_viewPosition.z/_Far;
+    _OUT._depth = float4(_depth1, _depth1, _depth1,  1.00000000000000000E000f);
     return _OUT;
 } // main end

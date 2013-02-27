@@ -1,5 +1,5 @@
 // vs_4_0 output by Cg compiler
-// cgc version 3.1.0013, build date Apr 24 2012
+// cgc version 3.1.0013, build date Apr 18 2012
 // command line args: -DDX11=1 -q -unroll all -profile vs_5_0
 // source file: deferred_ssao.cg
 //vendor NVIDIA Corporation
@@ -12,27 +12,35 @@
 //semantic Kernel
 //semantic Far
 //semantic Near
-//semantic NormalMap : TEXUNIT0
-//semantic PositionMap : TEXUNIT1
+//semantic ProjInv
+//semantic Projection
+//semantic LinearDepthMap : TEXUNIT0
+//semantic NormalMap : TEXUNIT1
 //semantic NoiseMap : TEXUNIT2
+//var float4x4 ProjInv :  : _ProjInv[0], 4 : -1 : 1
 //var float4 position : $vin.POSITION : POSITION : 0 : 1
 //var float2 texCoord : $vin.TEXCOORD0 : TEXCOORD0 : 1 : 1
 //var float4 vs.position : $vout.POSITION :  : -1 : 1
 //var float2 vs.texCoord : $vout.TEXCOORD0 :  : -1 : 1
+//var float4 vs.frustumCorners : $vout.TEXCOORD1 :  : -1 : 1
 
 #pragma pack_matrix(row_major)
 
 struct VOutput {
     float4 _position1 : POSITION;
     float2 _texCoord1 : TEXCOORD0;
+    float4 _frustumCorners : TEXCOORD1;
 };
 
 struct X1X {
     float4 _POSITION : SV_Position;
     float2 _TEXCOORD0 : TEXCOORD0;
+    float4 _TEXCOORD1 : TEXCOORD1;
 };
 
+static float4 _r0001;
 static X1X cout;
+uniform float4x4 _ProjInv;
 
  // main procedure, the original name was vs
 X1X main(in float4 _position : POSITION, in float2 _texCoord : TEXCOORD0)
@@ -42,7 +50,13 @@ X1X main(in float4 _position : POSITION, in float2 _texCoord : TEXCOORD0)
 
     _OUT._position1 = _position;
     _OUT._texCoord1 = _texCoord;
+    _r0001.x = dot(_ProjInv._11_12_13_14, _position);
+    _r0001.y = dot(_ProjInv._21_22_23_24, _position);
+    _r0001.z = dot(_ProjInv._31_32_33_34, _position);
+    _r0001.w = dot(_ProjInv._41_42_43_44, _position);
+    _OUT._frustumCorners = _r0001;
     cout._POSITION = _OUT._position1;
     cout._TEXCOORD0 = _OUT._texCoord1;
+    cout._TEXCOORD1 = _OUT._frustumCorners;
     return cout;
 } // main end

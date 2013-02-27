@@ -1,5 +1,5 @@
 // glslf output by Cg compiler
-// cgc version 3.1.0013, build date Apr 24 2012
+// cgc version 3.1.0013, build date Apr 18 2012
 // command line args: -DGL=1 -DGL32=1 -q -profileopts version=130 -profile glslf
 // source file: deferred_render_colormap_normal_depth.cg
 //vendor NVIDIA Corporation
@@ -13,6 +13,7 @@
 //semantic Near
 //semantic Far
 //var sampler2D ColorMap :  : _ColorMap : -1 : 1
+//var float Far :  : _Far : -1 : 1
 //var float3 normal : $vin.TEXCOORD0 : TEXCOORD0 : 1 : 1
 //var float2 texCoord : $vin.TEXCOORD1 : TEXCOORD1 : 2 : 1
 //var float3 viewNormal : $vin.TEXCOORD2 : TEXCOORD2 : 3 : 1
@@ -36,11 +37,12 @@ struct VOutput {
 struct POutput {
     vec4 _color;
     vec3 _normal3;
-    vec4 _depth;
+    vec4 _depth1;
     vec3 _viewNormal3;
 };
 
 uniform sampler2D _ColorMap;
+uniform float _Far;
 in vec4 cg_TexCoord1;
 in vec4 cg_TexCoord3;
 in vec4 cg_TexCoord0;
@@ -55,12 +57,15 @@ void main()
 {
 
     POutput _OUT;
+    float _depth;
 
     _OUT._color = texture(_ColorMap, cg_TexCoord1.xy);
-    _OUT._normal3 = cg_TexCoord0.xyz*5.00000000E-01 + 5.00000000E-01;
+    _OUT._normal3 = cg_TexCoord0.xyz*5.00000000E-001 + 5.00000000E-001;
+    _depth = -cg_TexCoord3.z/_Far;
+    _OUT._depth1 = vec4(_depth, _depth, _depth, 1.00000000E+000);
     cg_FragData3.xyz = cg_TexCoord2.xyz;
     cg_FragData1.xyz = _OUT._normal3;
-    cg_FragData2 = cg_TexCoord3;
+    cg_FragData2 = _OUT._depth1;
     cg_FragColor = _OUT._color;
     return;
 } // main end

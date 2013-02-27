@@ -1,5 +1,5 @@
 // ps_4_0 output by Cg compiler
-// cgc version 3.1.0013, build date Apr 24 2012
+// cgc version 3.1.0013, build date Apr 18 2012
 // command line args: -DDX11=1 -q -unroll all -profile ps_5_0
 // source file: deferred_render_colormap_normal_depth.cg
 //vendor NVIDIA Corporation
@@ -13,6 +13,7 @@
 //semantic Near
 //semantic Far
 //var sampler2D ColorMap :  : _ColorMap : -1 : 1
+//var float Far :  : _Far : -1 : 1
 //var float3 normal : $vin.TEXCOORD0 :  : 1 : 1
 //var float2 texCoord : $vin.TEXCOORD1 :  : 2 : 1
 //var float3 viewNormal : $vin.TEXCOORD2 :  : 3 : 1
@@ -49,6 +50,7 @@ struct X1X {
 
 Texture2D<float4> _TMP2;
 SamplerState _ColorMap;
+float _Far;
 
  // main procedure, the original name was ps
 POutput main( in X1X cin)
@@ -59,14 +61,16 @@ POutput main( in X1X cin)
     float3 _viewNormal1;
     float4 _viewPosition;
     POutput _OUT;
+    float _depth1;
 
     _normal1 = cin._TEXCOORD0;
     _texCoord = cin._TEXCOORD1;
     _viewNormal1 = cin._TEXCOORD2;
     _viewPosition = cin._TEXCOORD3;
     _OUT._color = _TMP2.Sample(_ColorMap, _texCoord);
-    _OUT._depth = _viewPosition;
-    _OUT._normal = _normal1*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
+    _OUT._normal = _normal1* 5.00000000000000000E-001f +  5.00000000000000000E-001f;
     _OUT._viewNormal = _viewNormal1;
+    _depth1 = -_viewPosition.z/_Far;
+    _OUT._depth = float4(_depth1, _depth1, _depth1,  1.00000000000000000E000f);
     return _OUT;
 } // main end

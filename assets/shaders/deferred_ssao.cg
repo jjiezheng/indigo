@@ -9,25 +9,32 @@ uniform float4 Kernel[16];
 uniform float Far;
 uniform float Near;
 
-sampler2D NormalMap			 	: TEXUNIT0;
-sampler2D PositionMap	 		: TEXUNIT1;
+uniform float4x4 ProjInv;
+uniform float4x4 Projection;
+
+sampler2D LinearDepthMap		: TEXUNIT0;
+sampler2D NormalMap			 	: TEXUNIT1;
 sampler2D NoiseMap 		 		: TEXUNIT2;
 
 struct VOutput {
       float4 position 		: POSITION;
       float2 texCoord		: TEXCOORD0;
+      float4 frustumCorners : TEXCOORD1;
 };
 
-VOutput vs(float4 position 	: POSITION,
-		   float2 texCoord 	: TEXCOORD0) {
-    VOutput OUT;
-    OUT.position = position;
-    OUT.texCoord = texCoord;
-    return OUT;
-}
-
 float ao(float3 normalVS, float3 positionVS, float2 texCoord, float2 sampleOffset) {
-	float4 samplePositionVS = tex2D(PositionMap, texCoord + sampleOffset);
+	float2 sampleTexCoord = texCoord + sampleOffset;
+
+	float4 sampleSS = float4(sampleTexCoord.xy, 0, 1);
+	sampleSS.y = 1.0f - sampleSS.y;
+	sampleSS = sampleSS * 2 - 1;
+
+	float4 frustumCorner = mul(ProjInv, sampleSS);
+	frustumCorner /= frustumCorner.w;
+
+	float4 viewRay = float4(frustumCorner.xy * (-Far / frustumCorner.z), -Far, 1);
+	float depth = tex2D(LinearDepthMap, sampleTexCoord).r;
+	float4 samplePositionVS = viewRay * depth;
 
 	float3 diff = samplePositionVS.xyz - positionVS.xyz;
 	float3 v = normalize(diff);
@@ -47,14 +54,35 @@ float2 reflect( float2 i, float2 n )
   return i - 2.0 * n * dot(n,i);
 }
 
-float4 ps(float4 position 		: POSITION,
-		  float2 texCoord 		: TEXCOORD0) : COLOR0 {
+VOutput vs(float4 position 	: POSITION,
+		   float2 texCoord 	: TEXCOORD0) {
+    VOutput OUT;
+    OUT.position = position;
+    OUT.texCoord = texCoord;
+    OUT.frustumCorners = mul(ProjInv, float4(position));
+    return OUT;
+}
 
-	float4 positionVS = tex2D(PositionMap, texCoord);
+float4 ps(float4 position 		: POSITION,
+		  float2 texCoord 		: TEXCOORD0,
+		  float4 frustumCorner	: TEXCOORD1) : COLOR0 {
+
+	float4 viewRay = float4(frustumCorner.xy * (-Far / frustumCorner.z), -Far, 1);
+	float depth = tex2D(LinearDepthMap, texCoord).r;
+	float4 positionVS = viewRay * depth;
+
+	float4 positionSS = mul(Projection, positionVS);
+	positionSS /= positionSS.w;
+	positionSS = positionSS * 0.5 + 0.5;
+	positionSS.y = 1.0f - positionSS.y;
+
+	float2 texCoordSS = positionSS.xy;
+
 	float3 normalVS = tex2D(NormalMap, texCoord).rgb;
 	float3 random = tex2D(NoiseMap, texCoord * NoiseScale).rgb * 2.0f - 1.0f;	
 
 	float2 sampleOffsets[4] = { float2(1, 0), float2(-1, 0), float2(0, 1), float2(0, -1) };
+
 	int kSamples = 4;
 	float rad = Radius / abs(positionVS.z);
 	float occlusion = 0.0f;
@@ -67,15 +95,15 @@ float4 ps(float4 position 		: POSITION,
   		float2 coord2 = float2(	coord1.x * 0.707 - coord1.y * 0.707,
 			  					coord1.x * 0.707 + coord1.y * 0.707);
 
-		occlusion += ao(normalVS.xyz, positionVS.xyz, texCoord, coord1 * 0.25);
-		occlusion += ao(normalVS.xyz, positionVS.xyz, texCoord, coord2 * 0.5);
-		occlusion += ao(normalVS.xyz, positionVS.xyz, texCoord, coord1 * 0.75);
-		occlusion += ao(normalVS.xyz, positionVS.xyz, texCoord, coord2);
+		occlusion += ao(normalVS.xyz, positionVS.xyz, texCoordSS, coord1 * 0.25);
+		occlusion += ao(normalVS.xyz, positionVS.xyz, texCoordSS, coord2 * 0.5);
+		occlusion += ao(normalVS.xyz, positionVS.xyz, texCoordSS, coord1 * 0.75);
+		occlusion += ao(normalVS.xyz, positionVS.xyz, texCoordSS, coord2);
 	}
 
 	occlusion /= (float)kSamples * 4;
 
 	occlusion = 1.0f - occlusion;
 
-	return float4(occlusion, occlusion, occlusion, 1.0f);
+	return float4(occlusion, occlusion, occlusion, 1);
 }

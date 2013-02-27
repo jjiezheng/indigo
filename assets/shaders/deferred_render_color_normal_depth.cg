@@ -31,7 +31,7 @@ VOutput vs(	float4 position 	: POSITION,
 struct POutput {
 	float4 color 		: COLOR0;
 	float3 normal 		: COLOR1;
-	float4 viewPosition : COLOR2;
+	float4 depth : COLOR2;
 	float4 viewNormal 	: COLOR3;
 };
 
@@ -45,7 +45,9 @@ POutput ps(	float4 position			: POSITION,
 	OUT.color = DiffuseColor;
 	OUT.normal = packNormal(normal);
 	OUT.viewNormal = float4(viewNormal, 1);
-	OUT.viewPosition = viewPosition;
+
+	float depth = -viewPosition.z / Far;
+	OUT.depth = float4(depth, depth, depth, 1);
 	
 	return OUT;
 }
