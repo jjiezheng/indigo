@@ -10,7 +10,7 @@
 #include "OpenGLRenderTarget.h"
 #include "renderer/ShaderSemantics.h"
 
-#include "io/nv_dds.h"
+#include "nv_dds.h"
 #include "io/DDSImage.h"
 #include "io/DDSMipLevel.h"
 #include "io/Log.h"
