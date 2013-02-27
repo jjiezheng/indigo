@@ -22,7 +22,7 @@ void Game::init(const char* sceneFile) {
 
   Pad::init();
   Mouse::init();
-  Point mousePosition(backBufferSize.width / 2.0f, backBufferSize.height / 2.0f);
+  Point mousePosition((int)(backBufferSize.width / 2.0f), (int)(backBufferSize.height / 2.0f));
   Mouse::setPosition(mousePosition);
   Keyboard::init();
 
