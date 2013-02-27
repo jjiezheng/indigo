@@ -28,6 +28,8 @@ void Sprite::render(const Matrix4x4& projection) {
   GraphicsInterface::beginPerformanceEvent("Sprite");
 
   Point mousePosition = Mouse::position();
+  mousePosition.x = 320;
+  mousePosition.y = 320;
   Matrix4x4 model = Matrix4x4::translation(Vector4((float)mousePosition.x, (float)-mousePosition.y, 0.0f, 1.0f));
 
   TextureInfo cursorInfo = GraphicsInterface::textureInfo(textureId_);

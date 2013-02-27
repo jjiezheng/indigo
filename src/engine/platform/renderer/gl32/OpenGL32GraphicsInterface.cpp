@@ -419,7 +419,11 @@ void OpenGL32GraphicsInterface::setTextureData(unsigned int textureId, const voi
 }
 
 TextureInfo OpenGL32GraphicsInterface::textureInfo(unsigned int textureId) {
-  return TextureInfo();
+  glBindTexture(GL_TEXTURE_2D, textureId);
+  TextureInfo textureInfo;
+  glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, (GLint*)&textureInfo.width);
+  glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, (GLint*)&textureInfo.height);
+  return textureInfo;
 }
 
 

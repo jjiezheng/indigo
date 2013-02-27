@@ -21,7 +21,7 @@ void Game::init(const char* sceneFile) {
 	ActorRegistry::registerActors(actorFactory_);
 
   renderer_.init(GraphicsInterface::backBufferSize());
-//  ui_.init(&renderer_);
+  ui_.init(&renderer_);
 
   clock_.init();
   
@@ -30,7 +30,7 @@ void Game::init(const char* sceneFile) {
 // 	camera_.rotateX(-1.0f);
 	camera_.translateZ(4.0f);
 	//camera_.rotateX(toRadians(-90));
-  camera_.setIsPlayerControlled(true);
+  camera_.setIsPlayerControlled(false);
   
   camera_.setProjection(45.0f, GraphicsInterface::aspectRatio(), 1.0f, 100.0f);
 
@@ -41,7 +41,7 @@ void Game::init(const char* sceneFile) {
 
   
   Keyboard::setKeydownListener(this);
-  //Mouse::hideOSMouse(true);
+  Mouse::hideOSMouse(false);
   
   renderer_.presentRenderTarget(6);
 }
@@ -51,7 +51,7 @@ void Game::mainLoop() {
   camera_.update(dt);
   Pad::update();
   Keyboard::update();
-//  ui_.update(dt);
+  ui_.update(dt);
 
 	world_.update(dt);
   
@@ -59,7 +59,7 @@ void Game::mainLoop() {
 	
 //	world_.debugRender();
 
-//  ui_.render();  
+  ui_.render();  
 }
 
 void Game::keyUp(int keyCode) {

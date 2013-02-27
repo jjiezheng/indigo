@@ -10,14 +10,14 @@
 void GameUI::init(IRenderChannelInfoService* renderChannelInfoService) {
   ui_.init(GraphicsInterface::backBufferSize());
 
-  UIMouse* uiMouse = UIMouse::mouse("ui/aero_arrow.png");
+  UIMouse* uiMouse = UIMouse::mouse("ui/aero_arrow.dds");
   ui_.addControl(uiMouse);
 
-  FPSStats* fpsStats = FPSStats::stats();
-  ui_.addControl(fpsStats);
+  //FPSStats* fpsStats = FPSStats::stats();
+  //ui_.addControl(fpsStats);
 
-	RenderChannelInfo* renderChannelInfo = RenderChannelInfo::info(renderChannelInfoService);
-	ui_.addControl(renderChannelInfo);
+	//RenderChannelInfo* renderChannelInfo = RenderChannelInfo::info(renderChannelInfoService);
+	//ui_.addControl(renderChannelInfo);
 }
 
 void GameUI::render() {
