@@ -3,6 +3,8 @@
 
 #include <string>
 
+#include "core/Size.h"
+
 class IEffect;
 class Matrix4x4;
 
@@ -20,7 +22,11 @@ public:
 
 public:
 
-  void render(const Matrix4x4& projection);
+  void render(const Matrix4x4& projection, const Matrix4x4& model);
+
+public:
+
+	CSize size() const;
 
 private:
 
@@ -31,8 +37,14 @@ private:
   unsigned int textureId_;
   unsigned int vertexBuffer_;
 
+	CSize size_;
+
   IEffect* effect_;
 
 };
+
+inline CSize Sprite::size() const {
+	return size_;
+}
 
 #endif

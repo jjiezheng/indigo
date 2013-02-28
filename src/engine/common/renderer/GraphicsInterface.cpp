@@ -3,6 +3,8 @@
 #include "IGraphicsInterface.h"
 #include "io/Path.h"
 
+#include "io/Log.h"
+
 IGraphicsInterface* GraphicsInterface::graphicsInterface_ = 0;
 
 void GraphicsInterface::init(int width, int height, unsigned int multiSamples) {
@@ -59,6 +61,7 @@ void GraphicsInterface::clearActiveColorBuffers(const Color4& clearColor) {
 }
 
 unsigned int GraphicsInterface::loadTexture(const char* filePath) {
+  LOG(LOG_CHANNEL_RENDERER, "Loading texture %s", filePath);
   return graphicsInterface_->loadTexture(filePath);
 }
 
@@ -165,6 +168,10 @@ unsigned int GraphicsInterface::depthBufferTexture() {
 
 unsigned int GraphicsInterface::depthBufferTarget() {
   return graphicsInterface_->depthBufferTarget();
+}
+
+unsigned int GraphicsInterface::createDepthTexture(const CSize& dimensions, bool isShadowTexture) {
+  return graphicsInterface_->createDepthTexture(dimensions, isShadowTexture);
 }
 
 unsigned int GraphicsInterface::createDepthTexture(const CSize& dimensions) {

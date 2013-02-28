@@ -6,12 +6,20 @@
 //version 3.1.0.13
 //profile glslf
 //program ps
+//semantic WorldView
 //semantic WorldViewProj
+//semantic NormalMatrix
 //semantic DiffuseColor
+//semantic Near
+//semantic Far
 //var float4 DiffuseColor :  : _DiffuseColor : -1 : 1
 //var float3 normal : $vin.TEXCOORD0 : TEX0 : 1 : 1
+//var float3 viewNormal : $vin.TEXCOORD1 : TEX1 : 2 : 1
+//var float4 viewPosition : $vin.TEXCOORD2 : TEX2 : 3 : 1
 //var float4 ps.color : $vout.COLOR0 : COL : -1 : 1
-//var float4 ps.normal : $vout.COLOR1 : COL1 : -1 : 1
+//var float3 ps.normal : $vout.COLOR1 : COL1 : -1 : 1
+//var float4 ps.viewPosition : $vout.COLOR2 : COL2 : -1 : 1
+//var float4 ps.viewNormal : $vout.COLOR3 : COL3 : -1 : 1
 
 #version 110
 
@@ -19,14 +27,17 @@
 
 struct VOutput {
     vec3 _normal2;
+    vec3 _viewNormal2;
+    vec4 _viewPosition2;
 };
 
 struct POutput {
     vec4 _color;
-    vec4 _normal3;
+    vec3 _normal3;
+    vec4 _viewPosition3;
+    vec4 _viewNormal3;
 };
 
-vec3 _TMP0;
 uniform vec4 _DiffuseColor;
 
  // main procedure, the original name was ps
@@ -35,9 +46,11 @@ void main()
 
     POutput _OUT;
 
-    _TMP0 = 5.00000000E-01 + gl_TexCoord[0].xyz*5.00000000E-01;
-    _OUT._normal3 = vec4(_TMP0.x, _TMP0.y, _TMP0.z, 1.00000000E+00);
-    gl_FragData[1] = _OUT._normal3;
+    _OUT._normal3 = gl_TexCoord[0].xyz*5.00000000E-01 + 5.00000000E-01;
+    _OUT._viewNormal3 = vec4(gl_TexCoord[1].x, gl_TexCoord[1].y, gl_TexCoord[1].z, 1.00000000E+00);
+    gl_FragData[3] = _OUT._viewNormal3;
+    gl_FragData[1].xyz = _OUT._normal3;
+    gl_FragData[2] = gl_TexCoord[2];
     gl_FragData[0] = _DiffuseColor;
     return;
 } // main end

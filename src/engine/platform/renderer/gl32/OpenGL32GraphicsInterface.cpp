@@ -10,7 +10,7 @@
 #include "OpenGLRenderTarget.h"
 #include "renderer/ShaderSemantics.h"
 
-#include "io/dds.h"
+#include "nv_dds.h"
 #include "io/DDSImage.h"
 #include "io/DDSMipLevel.h"
 #include "io/Log.h"
@@ -213,35 +213,31 @@ void OpenGL32GraphicsInterface::disableSmoothing() {
 }
 
 unsigned int OpenGL32GraphicsInterface::loadTexture(const std::string& filePath) {
-  DDSImage dds;
-  dds.load(filePath);
-  
+
   GLuint textureId = 0;
   glGenTextures(1, &textureId);
   glBindTexture(GL_TEXTURE_2D, textureId);
-  
-  GLuint format = 0;
-  
-  switch(dds.fourCC) {
-    case FOURCC_DXT1:
-      format = GL_COMPRESSED_RGBA_S3TC_DXT1_EXT;
-      break;
-    case FOURCC_DXT3:
-      format = GL_COMPRESSED_RGBA_S3TC_DXT3_EXT;
-      break;
-    case FOURCC_DXT5:
-      format = GL_COMPRESSED_RGBA_S3TC_DXT5_EXT;
-      break;
-    default:
-      assert(false);
+
+  nv_dds::CDDSImage dds;
+  {
+    bool result = dds.load(filePath, true);
+
+    if (!result) {
+      LOG(LOG_CHANNEL_RENDERER, "Failed to load texture %s", filePath.c_str());
+    }
   }
-  
-  for (int i = 0; i < dds.numMipLevels; i++) {
-    DDSMipLevel* mipLevel = dds.mipLevels[i];
-    glCompressedTexImage2D(GL_TEXTURE_2D, i, format, mipLevel->width, mipLevel->height, 0, mipLevel->size, dds.data + mipLevel->offset);
-    GLUtilities::checkForError();
+  {
+    bool result = dds.upload_texture2D();
+    if (!result) {
+      LOG(LOG_CHANNEL_RENDERER, "Failed to upload load texture %s", filePath.c_str());
+    }
   }
-  
+
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+  GLUtilities::checkForError();
+
   return textureId;
 }
 
@@ -266,14 +262,16 @@ unsigned int OpenGL32GraphicsInterface::createTexture(const CSize& dimensions, T
       break;
     }
     case IGraphicsInterface::R32G32B32A32: {
-      openGLTextureFormat = GL_RGBA;
+      openGLTextureFormat = GL_RGBA32F;
       break;
     }
   }
   
-  glTexImage2D(GL_TEXTURE_2D, 0, openGLTextureFormat, dimensions.width, dimensions.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureData);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+  glTexImage2D(GL_TEXTURE_2D, 0, openGLTextureFormat, dimensions.width, dimensions.height, 0, GL_RGBA, GL_FLOAT, textureData);// GL_UNSIGNED_BYTE, textureData);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+  //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+  //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
   
   return textureId;
 }
@@ -358,7 +356,7 @@ unsigned int OpenGL32GraphicsInterface::createDepthTexture(const CSize& dimensio
   glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, dimensions.width, dimensions.height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_NONE);
   
   if (isShadowTexture) {
     GLfloat v_bc[] = {1.0f,1.0f,1.0f,1.0f};
@@ -417,7 +415,11 @@ void OpenGL32GraphicsInterface::setTextureData(unsigned int textureId, const voi
 }
 
 TextureInfo OpenGL32GraphicsInterface::textureInfo(unsigned int textureId) {
-  return TextureInfo();
+  glBindTexture(GL_TEXTURE_2D, textureId);
+  TextureInfo textureInfo;
+  glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, (GLint*)&textureInfo.width);
+  glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, (GLint*)&textureInfo.height);
+  return textureInfo;
 }
 
 

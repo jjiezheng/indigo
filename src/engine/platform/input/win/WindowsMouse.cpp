@@ -20,3 +20,7 @@ bool WindowsMouse::isLeftButtonDown() {
 void WindowsMouse::hideOSMouse(bool isHidden) {
 	WindowsUtils::SetShowCursor(!isHidden);
 }
+
+void WindowsMouse::setPosition(const Point& position) {
+
+}

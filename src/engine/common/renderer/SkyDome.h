@@ -24,7 +24,7 @@ public:
 
 private:
 
-  GraphicsInterface::TextureId skyTexture;
+  TextureId skyTexture;
 
   Model* skyDomeModel_;
   IEffect* skyEffect_;

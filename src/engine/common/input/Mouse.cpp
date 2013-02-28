@@ -31,6 +31,10 @@ Point Mouse::position() {
   return mouse_->position();
 }
 
+void Mouse::setPosition(const Point& position) {
+	mouse_->setPosition(position);
+}
+
 bool Mouse::isLeftButtonDown() {
 	return mouse_->isLeftButtonDown();
 }

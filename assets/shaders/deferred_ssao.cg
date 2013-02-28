@@ -1,7 +1,5 @@
 #include "standard.h"
 
-static const float KernelSize = 16;
-
 uniform float2 HalfPixel;
 
 uniform float Radius;
@@ -11,14 +9,9 @@ uniform float4 Kernel[16];
 uniform float Far;
 uniform float Near;
 
-sampler2D NoiseMap : TEXUNIT0;
-sampler2D NormalMap : TEXUNIT1;
-sampler2D SSAODepthMap : TEXUNIT2;
-sampler2D DepthMap : TEXUNIT3;
-
-uniform float4x4 Projection;
-uniform float4x4 ProjInv;
-uniform float4x4 View;
+sampler2D NormalMap			 	: TEXUNIT0;
+sampler2D PositionMap	 		: TEXUNIT1;
+sampler2D NoiseMap 		 		: TEXUNIT2;
 
 struct VOutput {
       float4 position 		: POSITION;
@@ -33,53 +26,56 @@ VOutput vs(float4 position 	: POSITION,
     return OUT;
 }
 
+float ao(float3 normalVS, float3 positionVS, float2 texCoord, float2 sampleOffset) {
+	float4 samplePositionVS = tex2D(PositionMap, texCoord + sampleOffset);
+
+	float3 diff = samplePositionVS.xyz - positionVS.xyz;
+	float3 v = normalize(diff);
+	float d = length(diff);
+
+	float kMinimumDistance = 0.1f;
+	if (d < kMinimumDistance) {
+		float occlusion = max(0.0, dot(normalVS, v) * (1.0f / 1.0f + d));
+		return occlusion;
+	} else {
+		return 0;
+	}
+}
+
+float2 reflect( float2 i, float2 n )
+{
+  return i - 2.0 * n * dot(n,i);
+}
+
 float4 ps(float4 position 		: POSITION,
 		  float2 texCoord 		: TEXCOORD0) : COLOR0 {
 
-	float3 normalData = unpackNormal(NormalMap, texCoord + HalfPixel);
-	float3 normalViewSpace = mul(View, float4(normalData, 0.0f)).xyz;
-	float3 normal = normalize(normalViewSpace);
+	float4 positionVS = tex2D(PositionMap, texCoord);
+	float3 normalVS = tex2D(NormalMap, texCoord).rgb;
+	float3 random = tex2D(NoiseMap, texCoord * NoiseScale).rgb * 2.0f - 1.0f;	
 
-	float depth = unpackDepth(DepthMap, texCoord + HalfPixel);
+	float2 sampleOffsets[4] = { float2(1, 0), float2(-1, 0), float2(0, 1), float2(0, -1) };
+	int kSamples = 4;
+	float rad = Radius / abs(positionVS.z);
+	float occlusion = 0.0f;
 
-	float4 positionScreen = float4(0, 0, 0, 1);
-	positionScreen.xy = texCoord.xy * 2.0f - 1.0f;
-	positionScreen.y = -positionScreen.y;
-	positionScreen.z = depth;
-	positionScreen.w = 1.0f;
+	for (int i = 0; i < kSamples; i++) {
+		float2 sampleOffsetRaw = sampleOffsets[i];
+		float2 sampleOffset = reflect(sampleOffsetRaw, random.xy) * rad;
 
-	float4 positionViewRaw = mul(ProjInv, positionScreen);
-	float4 positionView = positionViewRaw / positionViewRaw.w;
+		float2 coord1 = sampleOffset;
+  		float2 coord2 = float2(	coord1.x * 0.707 - coord1.y * 0.707,
+			  					coord1.x * 0.707 + coord1.y * 0.707);
 
-	float2 noiseTexCoords = texCoord * NoiseScale;
-	float3 rvec = tex2D(NoiseMap, noiseTexCoords).rgb;
-	
-	float3 tangent = normalize(rvec - normal * dot(rvec, normal));
-	float3 bitangent = cross(tangent, normal);
-	float3x3 normalBasis = float3x3(tangent, bitangent, normal);
-
-	float occlusionContribution = 0;
-
-	for (int i = 0; i < 16; i++) {
-		//int i = 0;
-		float3 sample = Kernel[i].xyz * Radius;
-
-		float3 sampleAtNormalBasis = mul(sample, normalBasis);
-		float3 sampleAtViewPosition = positionView.xyz + sampleAtNormalBasis;
-
-		float4 sampleClip = mul(Projection, float4(sampleAtViewPosition, 1));
-		float4 sampleScreen = sampleClip / sampleClip.w;
-
-		float2 sampleTexCoord = (sampleScreen.xy * 0.5f) + 0.5f;
-		sampleTexCoord.y = 1.0f - sampleTexCoord.y;
-
-		float sampleDepth = depthCompare(SSAODepthMap, sampleTexCoord + HalfPixel, sampleScreen.z);
-
-		//float rangeCheck = abs(sampleScreen.z - sampleDepth) < Radius ? 1.0 : 0.0; // probably going to need this?
-		occlusionContribution += sampleDepth;
+		occlusion += ao(normalVS.xyz, positionVS.xyz, texCoord, coord1 * 0.25);
+		occlusion += ao(normalVS.xyz, positionVS.xyz, texCoord, coord2 * 0.5);
+		occlusion += ao(normalVS.xyz, positionVS.xyz, texCoord, coord1 * 0.75);
+		occlusion += ao(normalVS.xyz, positionVS.xyz, texCoord, coord2);
 	}
 
-	float occlusion = (occlusionContribution / 16.0f);
+	occlusion /= (float)kSamples * 4;
+
+	occlusion = 1.0f - occlusion;
 
 	return float4(occlusion, occlusion, occlusion, 1.0f);
 }

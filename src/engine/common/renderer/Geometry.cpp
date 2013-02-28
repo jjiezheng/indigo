@@ -13,7 +13,7 @@ VertexFormat Geometry::FONT_PLANE_VERTEX_FORMAT = TRIANGLE_LIST;
 int Geometry::LINE_VERTEX_COUNT = 2;
 VertexFormat Geometry::LINE_VERTEX_FORMAT = LINE_LIST;
 
-unsigned int Geometry::screenPlane() {
+VertexBuffer Geometry::screenPlane() {
   VertexDef quadVertices[6];
   quadVertices[0].vertex = Vector3(-1.0f, -1.0f, 0.0f);
   quadVertices[1].vertex = Vector3(1.0f, 1.0f, 0.0f);
@@ -36,11 +36,11 @@ unsigned int Geometry::screenPlane() {
   quadVertices[4].uv = Vector2(1.0f, 1.0f);
   quadVertices[5].uv = Vector2(1.0f, 0.0f);
 
-  GraphicsInterface::VertexBuffer vbo = GraphicsInterface::createVertexBuffer(quadVertices, SCREEN_PLANE_VERTEX_COUNT);
+  VertexBuffer vbo = GraphicsInterface::createVertexBuffer(quadVertices, SCREEN_PLANE_VERTEX_COUNT);
   return vbo;
 }
 
-unsigned int Geometry::fontCharacter(const CSize& characterSize, const CSize& uvOffset, const CSize& fontTextureSize) {
+VertexBuffer Geometry::fontCharacter(const CSize& characterSize, const CSize& uvOffset, const CSize& fontTextureSize) {
   VertexDef quadVertices[6];
   quadVertices[0].vertex = Vector3(0.0f,                       (float)characterSize.height, 0.0f);
   quadVertices[1].vertex = Vector3(0.0f,                        0.0f,                       0.0f);
@@ -72,11 +72,11 @@ unsigned int Geometry::fontCharacter(const CSize& characterSize, const CSize& uv
   quadVertices[4].uv = Vector2(uvLeft, uvBottom);
   quadVertices[5].uv = Vector2(uvRight, uvBottom);
 
-  GraphicsInterface::VertexBuffer vbo = GraphicsInterface::createVertexBuffer(quadVertices, FONT_PLANE_VERTEX_COUNT);
+  VertexBuffer vbo = GraphicsInterface::createVertexBuffer(quadVertices, FONT_PLANE_VERTEX_COUNT);
   return vbo;
 }
 
-unsigned int Geometry::line() {
+VertexBuffer Geometry::line() {
 	VertexDef lineVertices[2];
 
 	lineVertices[0].vertex = Vector3(0.0f, 0.0f,	0.0f);
@@ -88,7 +88,7 @@ unsigned int Geometry::line() {
 	lineVertices[0].normal = Vector3(0.0f, 1.0f, 0.0f);
 	lineVertices[1].normal = Vector3(0.0f, 1.0f, 0.0f);
 
-	GraphicsInterface::VertexBuffer vbo = GraphicsInterface::createVertexBuffer(lineVertices, LINE_VERTEX_COUNT);
+	VertexBuffer vbo = GraphicsInterface::createVertexBuffer(lineVertices, LINE_VERTEX_COUNT);
 
 	return vbo;
 }

@@ -16,18 +16,18 @@ private:
 
   void init(const CSize& screenSize);
 
-  unsigned int render(IViewer* viewer, unsigned int inputMap, const SceneContext& sceneContext, const DeferredInitRenderStage& initStage);
+  TextureId render(IViewer* viewer, unsigned int inputMap, const SceneContext& sceneContext, const DeferredInitRenderStage& initStage);
 
   std::string passName() const;
 
-  GraphicsInterface::TextureId passMap() const;
+  TextureId passMap() const;
 
   void collectRenderTargets(IDeferredRenderTargetContainer* renderTargetContainer);
 
 private:
 
-  GraphicsInterface::TextureId godRaysTexture_;
-  GraphicsInterface::RenderTarget godRaysRenderTarget_;
+  TextureId godRaysTexture_;
+  RenderTarget godRaysRenderTarget_;
 
   IEffect* godRaysEffect_;
 

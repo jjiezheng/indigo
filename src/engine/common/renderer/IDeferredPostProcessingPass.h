@@ -27,7 +27,7 @@ public:
 
   virtual std::string passName() const = 0;
 
-  virtual GraphicsInterface::TextureId passMap() const = 0;
+  virtual TextureId passMap() const = 0;
 
   virtual void collectRenderTargets(IDeferredRenderTargetContainer* renderTargetContainer) = 0;
 

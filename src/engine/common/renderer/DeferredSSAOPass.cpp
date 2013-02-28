@@ -15,6 +15,8 @@
 #include "maths/Interpolation.h"
 #include "maths/Matrix3x3.h"
 
+#include "input/Keyboard.h"
+
 #include "io/Log.h"
 
 #include "DeferredInitRenderStage.h"
@@ -28,19 +30,22 @@ static const int kNoisePixelWidth = 4;
 
 void DeferredSSAOPass::init(const CSize& screenSize) {
   ssaoEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_ssao.shader");
-  ssaoEffect_->setSamplerState(0, UV_ADDRESS_WRAP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
-  ssaoEffect_->setSamplerState(1, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
-  ssaoEffect_->setSamplerState(2, UV_ADDRESS_CLAMP, FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT, COMPARISON_LESS_SHADOW);
-  ssaoEffect_->setSamplerState(3, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
+	
+	ssaoEffect_->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
+	ssaoEffect_->setSamplerState(1, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
+	ssaoEffect_->setSamplerState(2, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
+	ssaoEffect_->setSamplerState(3, UV_ADDRESS_WRAP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
 
   combineEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_ssao_combine.shader");
   quadVbo_ = Geometry::screenPlane();
 
-  ssaoRawTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R8G8B8A8);
+  ssaoRawTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R32G32B32A32);
   ssaoRawRenderTarget_ = GraphicsInterface::createRenderTarget(ssaoRawTexture_);
+  ssaoRawFrameBuffer_ = GraphicsInterface::createFrameBuffer(ssaoRawRenderTarget_, false);
 
   ssaoColorBlurCombinedTexture_ = GraphicsInterface::createTexture(GraphicsInterface::backBufferSize());
   ssaoColorBlurCombinedRenderTarget_ = GraphicsInterface::createRenderTarget(ssaoColorBlurCombinedTexture_);
+	ssaoColorBlurCombinedFrameBuffer_ = GraphicsInterface::createFrameBuffer(ssaoColorBlurCombinedRenderTarget_, false);
 
   blur_.init(GraphicsInterface::backBufferSize());
 
@@ -49,11 +54,9 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
   const unsigned int noiseSize = kNoisePixelWidth * kNoisePixelWidth;
   Vector4 noise[noiseSize];
   for (unsigned i = 0; i < noiseSize; ++i) {
-    float a = 0;
     float x = Random::random(-1.0f, 1.0f);
     float y = Random::random(-1.0f, 1.0f);
-    float z = 0;
-    Vector4 noiseV(x, y, z, a);
+    Vector4 noiseV(x, y, 0, 0);
 	  Vector4 noiseN = noiseV.normalize();
     noise[i] = noiseN;
   }
@@ -64,51 +67,71 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
     float x = Random::random(-1.0f, 1.0f);
     float y = Random::random(-1.0f, 1.0f);
     float z = Random::random(0.0f, 1.0f);
-
     Vector4 kernelV(x, y, z, 0.0f);
-//    Vector4 kernelN = kernelV.normalize();
-    kernel[i] = kernelV;
 
-    kernel[i] = kernel[i] * Random::random(0.0f, 1.0f);
+    Vector4 kernelN = kernelV.normalize();
+
+    float randomScale = Random::random(0.0f, 1.0f);
+    Vector4 kernelS = kernelN * randomScale;
 
     float scale = float(i) / float(kKernelSize);
-    scale = lerp(0.1f, 1.0f, scale * scale);
-    kernel[i] = kernel[i] * scale;
+    float lerpedScale = lerp(0.1f, 1.0f, scale * scale);
+    kernel[i] = kernelS * lerpedScale;
   }
 }
 
- GraphicsInterface::TextureId DeferredSSAOPass::render(IViewer* viewer, unsigned int inputMap, const SceneContext& sceneContext, const DeferredInitRenderStage& initStage) {
+TextureId DeferredSSAOPass::render(IViewer* viewer, unsigned int inputMap, const SceneContext& sceneContext, const DeferredInitRenderStage& initStage) {
   GraphicsInterface::beginPerformanceEvent("SSAO");
 
   {
     GraphicsInterface::beginPerformanceEvent("Depth");
 
-    GraphicsInterface::setRenderTarget(ssaoRawRenderTarget_, false);
+    GraphicsInterface::setFrameBuffer(ssaoRawFrameBuffer_);
     GraphicsInterface::clearActiveColorBuffers(Color4::BLACK);
 
-		 ssaoEffect_->beginDraw();
+		ssaoEffect_->beginDraw();
 
     Matrix4x4 projection = viewer->projection();
     ssaoEffect_->setUniform(projection, "Projection");
 
-    ssaoEffect_->setUniform(viewer->viewTransform(), "View");
+    Matrix4x4 view = viewer->viewTransform();
+    ssaoEffect_->setUniform(view, "View");
+
+		Matrix4x4 viewInverse = view.inverse();
+		ssaoEffect_->setUniform(viewInverse, "ViewInv");
 
     Matrix4x4 projectionInverse = projection.inverse();
     ssaoEffect_->setUniform(projectionInverse, "ProjInv");
 
+    Matrix4x4 viewProjection = projection * view;
+    Matrix4x4 viewProjectionInverse = viewProjection.inverse();
+    ssaoEffect_->setUniform(viewProjectionInverse, "ViewProjInv");
+
     ssaoEffect_->setUniform(viewer->nearDistance(), "Near");
     ssaoEffect_->setUniform(viewer->farDistance(), "Far");
 
-    ssaoEffect_->setTexture(initStage.normalMap(), "NormalMap");
-    ssaoEffect_->setTexture(GraphicsInterface::depthBufferTexture(), "DepthMap");
-    ssaoEffect_->setTexture(GraphicsInterface::depthBufferTexture(), "SSAODepthMap");
+    ssaoEffect_->setTexture(initStage.normalViewSpaceMap(), "NormalMap");
+    //ssaoEffect_->setTexture(GraphicsInterface::depthBufferTexture(), "DepthMap");
+		ssaoEffect_->setTexture(initStage.depthMap(), "PositionMap");
     ssaoEffect_->setTexture(noiseTexture_, "NoiseMap");
 
 		ssaoEffect_->setUniform(GraphicsInterface::halfBackBufferPixel(), "HalfPixel");
 
-    ssaoEffect_->setUniform(0.1f, "Radius");
+		static float radius = 0.0015f;
 
-    ssaoEffect_->setUniform(kernel, kKernelSize * sizeof(float) * 4, "Kernel");
+		if (Keyboard::keyState(KEY_G)) {
+			radius -= 0.0001f;
+			LOG(LOG_CHANNEL_TEMP, "SSAO radius %f", radius);
+		}
+
+		if (Keyboard::keyState(KEY_H)) {
+			radius += 0.0001f;
+			LOG(LOG_CHANNEL_TEMP, "SSAO radius %f", radius);
+		}		
+
+    ssaoEffect_->setUniform(radius, "Radius");
+
+    ssaoEffect_->setUniform(kernel, kKernelSize, "Kernel");
     ssaoEffect_->setUniform(kKernelSize, "KernelSize");
 
     Vector2 noiseScale = Vector2(GraphicsInterface::backBufferWidth() / float(kNoisePixelWidth), GraphicsInterface::backBufferHeight() / float(kNoisePixelWidth));
@@ -121,28 +144,28 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
     GraphicsInterface::endPerformanceEvent();
   }
 
-  {
-    blur_.render(ssaoRawTexture_);
+// {
+//   blur_.render(ssaoRawTexture_);
+// }
+
+ {
+		GraphicsInterface::beginPerformanceEvent("Combine");
+
+    GraphicsInterface::setFrameBuffer(ssaoColorBlurCombinedFrameBuffer_);
+
+		combineEffect_->beginDraw();
+
+		combineEffect_->setTexture(inputMap, "ColorMap");
+		combineEffect_->setTexture(ssaoRawTexture_, "SSAOMap");
+
+		combineEffect_->setUniform(GraphicsInterface::halfBackBufferPixel(), "HalfPixel");
+
+		combineEffect_->commitBuffers();
+		GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);
+		combineEffect_->endDraw();
+
+		GraphicsInterface::endPerformanceEvent();
   }
-  
-   {
-     GraphicsInterface::beginPerformanceEvent("Combine");
- 
-     GraphicsInterface::setRenderTarget(ssaoColorBlurCombinedRenderTarget_, false);
- 
-		 combineEffect_->beginDraw();
-
-     combineEffect_->setTexture(inputMap, "ColorMap");
-     combineEffect_->setTexture(ssaoRawTexture_, "SSAOMap");
-
-		 combineEffect_->setUniform(GraphicsInterface::halfBackBufferPixel(), "HalfPixel");
- 
-     combineEffect_->commitBuffers();
-     GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);
-     combineEffect_->endDraw();
- 
-     GraphicsInterface::endPerformanceEvent();
-   }
 
   GraphicsInterface::endPerformanceEvent();
 
@@ -151,6 +174,6 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
 
  void DeferredSSAOPass::collectRenderTargets(IDeferredRenderTargetContainer* renderTargetContainer) {
    renderTargetContainer->addRenderTarget("SSAO Raw", ssaoRawTexture_);
-   renderTargetContainer->addRenderTarget("SSAO Blur", blur_.outputTexture());
+   //renderTargetContainer->addRenderTarget("SSAO Blur", blur_.outputTexture());
    renderTargetContainer->addRenderTarget("SSAO Final", ssaoColorBlurCombinedTexture_);
  }

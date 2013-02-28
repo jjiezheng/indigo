@@ -2,14 +2,35 @@
 	"folders":
 	[
 		{
-			"path": "~/Development/game"
+			"path": "~/Development/prototype/src",
+			"file_exclude_patterns": ["*.d", "*.txt", "*.xml", "*.vlstatus", "*.modelbinary"]
+		},
+		{
+			"path": "~/Development/prototype/assets/shaders",
 		}
 	],
 	"build_systems":
     [
         {
             "name": "CG",
-            "cmd": ["bash", "$project_path/shaders/compile", "-s", "$file"]
+            "cmd": ["bash", "$project_path/shaders/compile", "-s", "$file"],
+            "selector": "source.cg"
+        },
+        {
+            "name": "Game Make",
+            "cmd": ["make", "config=debug"],
+            "working_dir": "${project_path}/../build",
+            "selector": "source.h, source.c++",
+            "variants" : [
+            	{
+            		"name": "Debug",
+            		"cmd": ["make", "config=debug"]
+            	},
+            	{
+            		"name": "Release",
+            		"cmd": ["make"]
+            	}
+            ]
         }
     ]
 }

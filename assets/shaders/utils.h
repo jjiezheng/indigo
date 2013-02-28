@@ -1,18 +1,28 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-float2 flipY(float2 vec) {
-#ifdef GL
-  return vec;
-#else
-  return float2(vec.x,  1.0 - vec.y);
- #endif
+float2 ndc2tex(float2 ndc) {
+	float2 texCoord = ndc * 0.5f + 0.5f;
+#ifndef GL
+	texCoord.y = 1.0f - texCoord.y;
+#endif
+	return texCoord;
 }
 
-float2 ndc2tex(float2 ndc) {
-	float2 tex = ndc * 0.5f + 0.5f;
-	float2 flipped = flipY(tex);
-	return flipped;
+float4 tex2NDC(float2 texCoord, float depth) {
+	float4 positionScreen;
+	positionScreen.x = texCoord.x * 2.0f - 1.0f;
+
+#ifndef GL
+	positionScreen.y = (1 - texCoord.y) * 2.0f - 1.0f;
+#else
+	positionScreen.y = texCoord.y * 2.0f - 1.0f;
+#endif
+
+	positionScreen.z = depth;
+	positionScreen.w = 1.0f;
+
+	return positionScreen;
 }
 
 float linstep(float min, float max, float v) {

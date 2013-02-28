@@ -1,0 +1,1900 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"TEX",
+				"TEXCOORD0"
+			],
+			[
+				"sa",
+				"sampleOffsets"
+			],
+			[
+				"tex",
+				"texCoord"
+			],
+			[
+				"Pos",
+				"PositionMap"
+			],
+			[
+				"view",
+				"viewPosition"
+			],
+			[
+				"nor",
+				"normalVS"
+			],
+			[
+				"sam",
+				"samplePositionWS"
+			],
+			[
+				"pos",
+				"positionVS"
+			],
+			[
+				"NOr",
+				"NormalMatrix"
+			],
+			[
+				"View",
+				"ViewProjInv"
+			],
+			[
+				"no",
+				"normalVS"
+			],
+			[
+				"nr",
+				"normalVS"
+			],
+			[
+				"tex2",
+				"tex2D"
+			],
+			[
+				"norm",
+				"normalVS"
+			],
+			[
+				"Vi",
+				"View"
+			],
+			[
+				"n",
+				"normalWS"
+			],
+			[
+				"PO",
+				"POutput"
+			],
+			[
+				"Dep",
+				"DepthMap"
+			],
+			[
+				"sma",
+				"sampleNDC"
+			],
+			[
+				"ker",
+				"kernelAtNormalBasis"
+			],
+			[
+				"T",
+				"TEXCOORD2"
+			],
+			[
+				"m_p",
+				"m_PendingJobListMarkers"
+			],
+			[
+				"In",
+				"Instantiate"
+			],
+			[
+				"da",
+				"dataSize_"
+			],
+			[
+				"data",
+				"dataIndex"
+			],
+			[
+				"fea",
+				"featherThreshold"
+			],
+			[
+				"fe",
+				"featherAlpha"
+			],
+			[
+				"feather",
+				"featherAlpha"
+			],
+			[
+				"den",
+				"density_"
+			],
+			[
+				"pa",
+				"particleColor"
+			],
+			[
+				"densi",
+				"densityOffsetLength"
+			],
+			[
+				"Pa",
+				"particleScale"
+			],
+			[
+				"par",
+				"particleScale"
+			],
+			[
+				"Tex",
+				"TextureManager"
+			],
+			[
+				"gr",
+				"gridSize"
+			],
+			[
+				"gri",
+				"gridSize_"
+			],
+			[
+				"rad",
+				"radius"
+			],
+			[
+				"radi",
+				"radius_"
+			],
+			[
+				"Na",
+				"NavierStokesSimulation"
+			],
+			[
+				"deb",
+				"debugLineScale_"
+			],
+			[
+				"vel",
+				"velocity_t"
+			],
+			[
+				"til",
+				"tileSize_"
+			],
+			[
+				"m_",
+				"m_PendingJobs"
+			],
+			[
+				"pJo",
+				"pJobList"
+			],
+			[
+				"Fluid",
+				"FluidJobHeader"
+			],
+			[
+				"FLui",
+				"FluidJobDispatcher"
+			],
+			[
+				"bou",
+				"bound_radius"
+			],
+			[
+				"EtPr",
+				"EtPrintMessage"
+			],
+			[
+				"pTe",
+				"pTexScratch"
+			],
+			[
+				"GetRe",
+				"GetReplacement"
+			],
+			[
+				"part",
+				"particleColor"
+			],
+			[
+				"outp",
+				"outputTexture_"
+			],
+			[
+				"sim",
+				"simulationOutput"
+			],
+			[
+				"m_h",
+				"m_hFluidSimulation"
+			],
+			[
+				"kTex",
+				"kTexFormatRGBA32F"
+			],
+			[
+				"h",
+				"hReplacement"
+			],
+			[
+				"hash",
+				"hashedName"
+			],
+			[
+				"hNew",
+				"hTexture"
+			],
+			[
+				"Texut",
+				"TextureManager"
+			],
+			[
+				"SetSampl",
+				"SetSamplerTexture"
+			],
+			[
+				"Fin",
+				"FindTexture"
+			],
+			[
+				"TExture",
+				"TextureHandle"
+			],
+			[
+				"ori",
+				"rhOriginalTexture"
+			],
+			[
+				"dens",
+				"density_t"
+			],
+			[
+				"text",
+				"texturePath"
+			],
+			[
+				"last",
+				"lastDensity_"
+			],
+			[
+				"tile",
+				"tileOffset"
+			],
+			[
+				"des",
+				"dens_t"
+			],
+			[
+				"ti",
+				"tileSize_"
+			],
+			[
+				"hal",
+				"halfGrid"
+			],
+			[
+				"ve",
+				"vec2u_t"
+			],
+			[
+				"job",
+				"jobData"
+			],
+			[
+				"ls",
+				"ls_density_ptr"
+			],
+			[
+				"ls_den",
+				"ls_density_stride"
+			],
+			[
+				"density",
+				"densityNormalizer"
+			],
+			[
+				"net",
+				"netDensity"
+			],
+			[
+				"de",
+				"densityNormalizer"
+			],
+			[
+				"grid",
+				"gridSize_"
+			],
+			[
+				"to",
+				"totalDensities"
+			],
+			[
+				"Flui",
+				"FluidJobDispatcher"
+			],
+			[
+				"m_jo",
+				"m_jobListMarker"
+			],
+			[
+				"fl",
+				"flipRight"
+			],
+			[
+				"bag",
+				"bAgainstTopEdge"
+			],
+			[
+				"vec",
+				"vec2u_t"
+			],
+			[
+				"bA",
+				"bAgainstLeftEdge"
+			],
+			[
+				"bAg",
+				"bAgainstTopEdge"
+			],
+			[
+				"bAga",
+				"bAgainstRightEdge"
+			],
+			[
+				"vis",
+				"viscosity_"
+			],
+			[
+				"velocity",
+				"velocity_stride"
+			],
+			[
+				"las",
+				"lastVelocityY_"
+			],
+			[
+				"read",
+				"readSurface"
+			],
+			[
+				"Fw",
+				"FwVector4"
+			],
+			[
+				"pas",
+				"passIndex"
+			],
+			[
+				"inc",
+				"include"
+			],
+			[
+				"re",
+				"read_buffer_1"
+			],
+			[
+				"rea",
+				"readSurface"
+			],
+			[
+				"wi",
+				"width"
+			],
+			[
+				"di",
+				"diff"
+			],
+			[
+				"ea",
+				"ea_data"
+			],
+			[
+				"st",
+				"stride"
+			],
+			[
+				"Len",
+				"Length"
+			],
+			[
+				"m_b",
+				"m_bAddRandomDensityToParticles"
+			],
+			[
+				"Ba",
+				"Base"
+			],
+			[
+				"addPa",
+				"addDensityParticles"
+			],
+			[
+				"pre",
+				"prefab_name"
+			],
+			[
+				"For",
+				"FOrwarder"
+			],
+			[
+				"Particle",
+				"Particle"
+			],
+			[
+				"scale",
+				"scaledTimeStep"
+			],
+			[
+				"Spu",
+				"SpuFluid"
+			],
+			[
+				"in",
+				"include"
+			],
+			[
+				"sCree",
+				"ScreenSize"
+			],
+			[
+				"sc",
+				"ScreenSize"
+			],
+			[
+				"Sc",
+				"ScreenSizeInv"
+			],
+			[
+				"sha",
+				"shadowMap"
+			],
+			[
+				"dep",
+				"depthSampler"
+			],
+			[
+				"un",
+				"unpackedDepth"
+			],
+			[
+				"flo",
+				"float4x4"
+			],
+			[
+				"pi",
+				"pixelPositionFromLight"
+			],
+			[
+				"lig",
+				"lightDepth"
+			],
+			[
+				"shadow",
+				"shadowCoord"
+			],
+			[
+				"Sha",
+				"ShadowMap"
+			],
+			[
+				"Di",
+				"diffusePower"
+			],
+			[
+				"No",
+				"NormalMap"
+			],
+			[
+				"Li",
+				"LightInnerAngle"
+			],
+			[
+				"dif",
+				"diffuseContribution"
+			],
+			[
+				"Lig",
+				"LightParams"
+			],
+			[
+				"sh",
+				"shiftedDepth"
+			],
+			[
+				"s",
+				"shifts"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "deferred_render_color_normal_depth.cg",
+			"settings":
+			{
+				"buffer_size": 1039,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "deferred_render_colormap_normal_depth.cg",
+			"settings":
+			{
+				"buffer_size": 1174,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/GBKosteNi/Development/game/assets/scenes/simple/assorted.scene",
+			"settings":
+			{
+				"buffer_size": 1639,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "deferred_ssao.cg",
+			"settings":
+			{
+				"buffer_size": 2461,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "standard.h",
+			"settings":
+			{
+				"buffer_size": 1251,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "depth.h",
+			"settings":
+			{
+				"buffer_size": 840,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 173.0,
+		"selected_items":
+		[
+			[
+				"dev",
+				"Build: DevProfile"
+			],
+			[
+				"de",
+				"Build: DevProfile"
+			],
+			[
+				"devpro",
+				"Build: DevProfile"
+			],
+			[
+				"rele",
+				"Build: Release"
+			],
+			[
+				"clean",
+				"Build: Clean DevProfile"
+			],
+			[
+				"releas",
+				"Build: Release"
+			],
+			[
+				"deb",
+				"Build: Debug"
+			],
+			[
+				"relea",
+				"Build: Release"
+			],
+			[
+				"profile",
+				"Build: Profile"
+			],
+			[
+				"deve",
+				"Build: Development"
+			],
+			[
+				"bu",
+				"Build: Debug"
+			],
+			[
+				"build",
+				"Build: Profile"
+			],
+			[
+				"devprio",
+				"Build: DevProfile"
+			],
+			[
+				"",
+				"Build: Release"
+			],
+			[
+				"debug",
+				"Build: Debug"
+			],
+			[
+				"clear",
+				"Build: Clean DevProfile"
+			],
+			[
+				"perforce",
+				"Perforce: List Checkedout Files"
+			],
+			[
+				"rever",
+				"Perforce: Revert"
+			],
+			[
+				"change",
+				"Perforce: Move Current File To Changelist"
+			],
+			[
+				"revert",
+				"Perforce: Revert"
+			],
+			[
+				"create",
+				"Perforce: Create Changelist"
+			],
+			[
+				"disable",
+				"Package Control: Disable Package"
+			],
+			[
+				"sub",
+				"Perforce: Submit"
+			],
+			[
+				"pa",
+				"Package Control: Install Package"
+			],
+			[
+				"brow",
+				"Preferences: Browse Packages"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"pakca",
+				"Package Control: Remove Package"
+			],
+			[
+				"clang",
+				"Preferences: SublimeClang Settings – Default"
+			],
+			[
+				"packa",
+				"Package Control: Enable Package"
+			],
+			[
+				"perfor",
+				"Perforce: List Checkedout Files"
+			],
+			[
+				"checko",
+				"Perforce: Checkout"
+			],
+			[
+				"disa",
+				"Package Control: Disable Package"
+			],
+			[
+				"package",
+				"Preferences: Browse Packages"
+			],
+			[
+				"sublime",
+				"Preferences: SublimeClang Settings – Default"
+			],
+			[
+				"sublimne",
+				"Preferences: SublimeClang Settings – User"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 392.0
+	},
+	"console":
+	{
+		"height": 359.0,
+		"history":
+		[
+			"sublime.log_commands(True)",
+			"view.run_command('p4checkout') ",
+			"sublime.log_commands(True)",
+			"view.run_command('p4checkout') ",
+			"view.run_command('rot13') ",
+			"view.runCommand('rot13') ",
+			"import urllib2,os; pf='Package Control.sublime-package'; ipp=sublime.installed_packages_path(); os.makedirs(ipp) if not os.path.exists(ipp) else None; urllib2.install_opener(urllib2.build_opener(urllib2.ProxyHandler())); open(os.path.join(ipp,pf),'wb').write(urllib2.urlopen('http://sublime.wbond.net/'+pf.replace(' ','%20')).read()); print('Please restart Sublime Text to finish installation')"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/GBKosteNi/Development/game/assets/shaders/utils.h",
+		"/C/Users/GBKosteNi/Development/game/assets/shaders/compiled/deferred_render_color_normal_depth.shader.dx11.fragment",
+		"/C/Users/GBKosteNi/Development/game/assets/shaders/compiled/deferred_render_color_normal_depth.shader.dx11.vertex",
+		"/C/cygwin/home/GBkosteni/Development/game/assets/scenes/simple/buddha.scene",
+		"/C/Users/GBKosteNi/Development/game/assets/shaders/deferred_lighting_spot_light_shadow.cg",
+		"/C/Users/GBKosteNi/Development/game/assets/scenes/cars/cars.scene",
+		"/C/Users/GBKosteNi/Development/game/assets/scenes/simple/car.scene",
+		"/C/Users/GBKosteNi/Development/game/assets/shaders/depth.h",
+		"/C/Users/GBKosteNi/Development/game/assets/shaders/compiled/deferred_ssao.shader.dx11.fragment",
+		"/C/Users/GBKosteNi/Development/game/assets/shaders/compiled/deferred_ssao.shader.dx11.vertex",
+		"/C/Users/GBKosteNi/Development/game/assets/shaders/standard.h",
+		"/C/Users/GBKosteNi/Development/game/assets/shaders/shaders.sublime-project",
+		"/C/Users/GBKosteNi/Development/game/assets/shaders/deferred_lighting_spot_light.cg",
+		"/C/Users/GBKosteNi/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/C/Users/GBKosteNi/AppData/Roaming/Sublime Text 3/Packages/User/Cg.sublime-settings",
+		"/C/Users/GBKosteNi/AppData/Roaming/Sublime Text 3/Packages/Shader Languages/HLSL.tmLanguage",
+		"/C/Users/GBKosteNi/AppData/Roaming/Sublime Text 3/Packages/Shader Languages/GLSL.tmLanguage",
+		"/C/Users/GBKosteNi/AppData/Roaming/Sublime Text 3/Packages/Shader Languages/Cg.tmLanguage",
+		"/C/Users/GBKosteNi/AppData/Roaming/Sublime Text 3/Packages/User/Cg.tmLanguage",
+		"/C/Users/GBKosteNi/Development/game/assets/assets.sublime-project",
+		"/C/cygwin/home/GBkosteni/Development/game/assets/assets.w32.sublime-project.old",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/Cauldron/Cauldron.prefab",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Common/Effects/Brewing/ShrinkingSolution/ShrivelFigJuiceVFX.prefab.etdep",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Common/Effects/Brewing/Templates/IngredientVFX_TestingTemplate.prefab",
+		"/C/cygwin/home/GBkosteni/Development/game/premake4.lua",
+		"/C/cygwin/home/GBkosteni/Development/game/src/engine/common/app/Game.h",
+		"/C/Dev/Wb/Content/Bosamp_Clean/WonderBook/Assets/Books/BookOfPotions/Common/Policies/GameplayActivityPolicies.part",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Common/Effects/Brewing/ShrinkingSolution/ShrivelFigJuiceVFX_Template.prefab",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Code/Components/BoP/NavierStokesSimulation.cpp",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Code/Components/BoP/CauldronSurface.h",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Preparing/Chopping/DaisyRootChop/Activity/ChopDaisyRootActivity.part",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Preparing/Preparing.chapter",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/BrewingChapter.part",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Data/Books/BookOfPotions/Preparing/Juicing/ShrivelFigJuice/ShrivelFigJuicingCauldronFx.scene",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Preparing/Juicing/ShrivelFigJuice/ShrivelFigJuicingCauldronFx.prefab",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Code/Components/BoP/CauldronSurface.cpp",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Preparing/Juicing/ShrivelFigJuice/ShrivelFigJuicing_activity.prefab",
+		"/C/cygwin/home/GBkosteni/Development/game/src/engine/platform/renderer/gl32/OpenGL32GraphicsInterface.cpp",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Chapters/ShrinkingSolution/ShrinkingSolution.chapter",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Chapters/ShrinkingSolution/Ingredient_2/SpreadBleed.prefab",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Preparing/PreparingChapter.part",
+		"/C/Dev/Wb/Content/BookOfPotions/EyeToyTechSDK/Code/Etx/Game/Narration/Narrator.cpp",
+		"/C/Dev/Wb/Content/BookOfPotions/EyeToyTechSDK/Code/3rdParty/Physics/RayCast/common/Ray.h",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Code/Prototyping/Climax/ChopAnywhere/ChopAnywhere.cpp",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Common/Actors/PottermorePewterCauldron/PottermorePewterCauldron_rig.part",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Code/Components/BoP/NavierStokesSimulation.h",
+		"/C/Dev/Wb/Content/BookOfPotions/EyeToySDK/Code/Framework/Et/Renderer/Fluid/FluidJob.cpp",
+		"/C/Dev/Wb/Content/BookOfPotions/EyeToySDK/Code/Framework/Et/Renderer/Fluid/FluidJob.h",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Code/Components/Internal/WonderBook/WonderBook.cpp",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Code/Components/Internal/BootStrap/BootStrap.cpp",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Code/Tools/BookTool/BookTool.cpp",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Code/Tools/BookTool/BookTool.h",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Code/Systems/App/WonderBookApp.cpp",
+		"/C/Dev/Wb/Content/BookOfPotions/EyeToySDK/Code/ATGAPI/PS3.old/Source/Fp/FpInput/FpKeyboard.cpp",
+		"/C/Dev/Wb/Content/BookOfPotions/EyeToySDK/Code/Framework/3rdParty/scea_shared/compression/psarc/src/psarc_multi.cpp",
+		"/C/Dev/Wb/Content/BookOfPotions/EyeToySDK/Code/Framework/Etc/Water/WaterSurface.cpp",
+		"/C/Dev/Wb/Content/BookOfPotions/EyeToySDK/Code/Framework/3rdParty/scea_shared/snd_stream/example/snd_stream_transition/src/snd_stream_transition.cpp",
+		"/C/Dev/Wb/Content/BookOfPotions/EyeToySDK/Code/ATGAPI/VITA/Include/Gp/GpAnimator/GpAnimator.h",
+		"/C/Dev/Wb/Content/BookOfPotions/EyeToySDK/Code/ATGAPI/PC/Include/Gp/GpAnimator/GpAnimator.h",
+		"/C/Dev/Wb/Content/BookOfPotions/EyeToySDK/Code/WwsSdk/components/wws_job/projects/job/include/ppu/jobapi/jobarraycontainer.h",
+		"/C/Dev/Wb/Content/BookOfPotions/EyeToySDK/Code/WwsSdk/components/wws_job/projects/job/include/ppu/jobsystem/helpers.h",
+		"/C/Dev/Wb/Internal/EyeToySDK/Code/WwsSdk/components/wws_job/projects/job/src/ppu/jobapi/jobarraycontainer.cpp",
+		"/C/Dev/Wb/Content/BookOfPotions/EyeToySDK/Code/WwsSdk/components/wws_job/projects/job/src/ppu/jobapi/jobarraycontainer.cpp",
+		"/C/Dev/Wb/Content/BookOfPotions/EyeToySDK/Code/WwsSdk/components/wws_job/projects/job/include/ppu/jobapi/jobheaderarray.h",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Data/Books/BookOfPotions/Brewing/Cauldron/Cauldron.scene",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Data/Books/BookOfPotions/Brewing/SurfaceIntersection/SurfaceIntersection.scene",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Code/Components/Internal/WonderBook/WonderBook.h",
+		"/C/Dev/Wb/Content/BookOfPotions/EyeToySDK/Code/Framework/3rdParty/scea_shared/sceacommon/example/basetypes/libspufwk.h",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Code/wb.sublime-project",
+		"/C/Dev/Wb/Content/BookOfPotions/EyeToySDK/Code/Framework/Et/Core/Std/StaticVector.h",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/PrePrepared/SeparateLiquidsJar/Statemachine/Main.lua",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Code/Prototyping/BOSAMP/FluidSim/FluidEquations.cpp",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Data/Books/BookOfPotions/common/Effects/Templates/Prefab/BrewingTemplate.scene",
+		"/C/Program Files/Autodesk/Maya2013.5/scripts/startup/uiRes.mel",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Common/Systems/ToolModules/Pouring/Main.lua",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/WonderEditorTemplates/Brewing/Assets/BrewingSpread.prefab",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Data/WonderEditorTemplates/Brewing/Assets/BrewingSpread.scene",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Data/Books/BookOfPotions/common/Systems/ToolModules/Pouring/PouringModule.scene",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Common/Systems/ToolModules/Pouring/PouringModule.part",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Common/Policies/GameplayActivityPolicies.part",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Data/WBPreview/BrewingSpread.scene",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Data/WBPreview/Brewing.book",
+		"/C/Dev/Wb/Content/Bosamp_Clean/WonderBook/Assets/Books/BookOfSpells/Common/GestureSystem/StateMachine/State_functionality.lua",
+		"/C/Dev/Wb/Content/Bosamp_Clean/WonderBook/Assets/Books/BookOfSpells/Common/GestureSystem/StateMachine/Machine_GestureSystem.stm",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/Stirring/CauldronStir/Statemachine/CauldronStir_machine.stm",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfSpells/GlobalScenes/Global_NewInterface.part",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfSpells/Common/Effects/AnimatedSpread/WrapperFilter.part",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Preparing/Juicing/Juicing_activity.prefab",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/Cauldron/StateMachine/CauldronSurfaceLiquidInterface.part",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Data/Books/BookOfPotions/Brewing/Cauldron/StateMachine/CauldronSurfaceLiquidInterface.scene",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Data/Books/BookOfPotions/Brewing/Cauldron/CauldronSurfaceLiquidInterface.scene",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/Cauldron/CauldronSurfaceLiquidInterface.prefab",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Data/Books/BookOfPotions/common/Policies/GameplayActivityPolicies.scene",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Chapters/ShrinkingSolution/Introduction/PotionRecipeActivity.prefab",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/Cauldron/StateMachine/CauldronSurfaceLiquidInterface.stmproj",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Chapters/ShrinkingSolution/Introduction/IntroActivity.prefab",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/InstructionPanel/InstructionPanel.prefab",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/Stirring/EnchantedSpoon/CauldronStir_activity.part",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Preparing/Juicing/ShrivelFigJuice/ShirvelFigJuicingCauldronFx.prefab",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Data/Books/BookOfPotions/Preparing/Juicing/ShrivelFigJuice/ShirvelFigJuicingCauldronFx.scene",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/BookOfPotions.book",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/Cauldron/CauldronInterface.prefab",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/Heating/BunsenBurner/BunsenBurner_activity.part",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfSpells/GlobalScenes/Global_Scene.part",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfSpells/GlobalScenes/Global_Objects.part",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfSpells/GlobalScenes/Global_Logic.part",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Application/Core/SceneTemplates/AnimatedItem.part",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/Stirring/CauldronStir/CauldronStir_Spread.part",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/Brewing.chapter",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfSpells/Common/BookOfSpellsGlobal_Interface.part",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Application/Config/ToolsConfig.xml",
+		"/C/Users/GBKosteNi/Downloads/toolchain-src-4.2.0-GCC411/build.sh",
+		"/C/Users/GBKosteNi/Downloads/toolchain-src-4.2.0-GCC411/build-ppu-lv2.sh",
+		"/C/Users/GBKosteNi/AppData/Roaming/Sublime Text 3/Packages/User/Default (Windows).sublime-keymap",
+		"/C/cygwin/home/GBkosteni/Development/Wb/Content/BookOfPotions/WonderBook/Assets/Application/Config/ToolsConfig.xml",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Code/Components/BoP/ScreenSmoke.cpp",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Code/Components/BoP/ScreenSmoke.h",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Code/Config/WbGlobalDefs.h",
+		"/C/Dev/Wb/Content/BookOfPotions/EyeToySDK/Code/Framework/Et/Core/Renderable.h",
+		"/C/Dev/Wb/Content/BookOfPotions/EyeToySDK/Code/Framework/Et/Core/Renderable.cpp",
+		"/C/Dev/Wb/Content/BookOfPotions/EyeToySDK/Code/Framework/Et/Core/Component.cpp",
+		"/C/Dev/Wb/Content/BookOfPotions/EyeToySDK/Code/Framework/Et/Core/Component.h",
+		"/C/Dev/Wb/Content/BookOfPotions/EyeToySDK/Code/Framework/Et/Renderer/Geometry/Renderable.h",
+		"/C/Dev/Wb/Content/BookOfPotions/EyeToySDK/Code/Framework/Et/Renderer/Geometry/Renderable.cpp",
+		"/C/Dev/Wb/Content/BookOfPotions/EyeToySDK/Code/Framework/Et/Renderer/RendererConstants.h",
+		"/C/Dev/Wb/Content/BookOfPotions/EyeToySDK/Code/Framework/Et/Renderer/Blt/Blt.cpp",
+		"/C/Dev/Wb/Content/BookOfPotions/EyeToySDK/Code/Framework/Et/Renderer/RendererGraph.cpp",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Potions/ShrinkingSolution/ShrinkingSolution.chapter"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 90.0,
+		"where_history":
+		[
+			"<open folders>",
+			"<open files>,<open folders>",
+			"<open files>",
+			"",
+			"<open files>",
+			"D:\\SLAM\\SLAM\\Prototype1\\Data\\IrresistibleForce",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"ssao",
+			"normalWS",
+			"positionWS",
+			"NormalMatrix",
+			"shrivel",
+			"Cauldron_2",
+			"cauldron",
+			"output",
+			"cauldron<",
+			"cauldron",
+			"activity",
+			"kPos",
+			"InjectFluid",
+			"ConvertToGridPosition",
+			"intersects",
+			"Ray\nRay",
+			"UnloadBook",
+			"UnloadBookStack",
+			"ReloadChapter",
+			"onreload(",
+			"m_sReloadBook",
+			"setreloadflag",
+			"bReloadBook",
+			"kKeyC",
+			"kKeyLeftAlt",
+			"key",
+			"alt",
+			"addjob",
+			"waitforcom",
+			"WaitForCompletion",
+			"wwsjob_assert",
+			"wws_jobassert",
+			"m_bytesWwsJobMarker",
+			"StallForJobMarker",
+			"fluidsur",
+			"inters",
+			"projectNDCToGrid",
+			"addflui",
+			"AddFluidToCauldron",
+			"addfluid",
+			"ConvertToGridPosition",
+			"injectflu",
+			"vector",
+			"ICauldronSurface",
+			"smd",
+			"theact",
+			".success",
+			"success",
+			"cauldronsurfaceli",
+			"cauldronsur",
+			"cauldronsurfaceli",
+			"cauldronsur",
+			"cauldron",
+			"propertybin",
+			"cauldron",
+			">interface<",
+			"<alias>",
+			"alias",
+			"interface<",
+			"activity",
+			">\n",
+			"deferredprepa",
+			"render(",
+			"SetRenderFlags",
+			"trans",
+			"kRenderFlagNone",
+			"kRenderFlagLit",
+			"flags",
+			"ShowScreen",
+			"BltTexture",
+			"kDefaultPipeline",
+			"render",
+			"profile",
+			"gridIndex",
+			"particles",
+			"particle",
+			"rect",
+			"backbu",
+			"grid",
+			"m_hSmokeTexture",
+			"ConditionalEvent",
+			"logic",
+			"spoonin",
+			"spoon",
+			"theTrueMoveTransform",
+			"wand",
+			"common",
+			"art",
+			"Bosamp_Clean",
+			"boundRadius_",
+			"densi",
+			"debug",
+			"m_bRenderDensityDebug",
+			"m_fCauldronRadius",
+			"renderde",
+			"m_bRenderDensityDebug",
+			"updateSimulation",
+			"tile_to_grid_offset",
+			"set_bnd",
+			"_circ",
+			"renderdebug",
+			"marker",
+			"pjoblist",
+			"JobHeader",
+			"active",
+			"max",
+			"set_bnd_circ",
+			"AddJobAndKick",
+			"StallForJobMarker",
+			"jobDispatcher_",
+			"printf",
+			"renderj",
+			"printf",
+			"printm",
+			"BindFragmentShader",
+			"print",
+			"printf",
+			"renderj",
+			"renderjo",
+			"IsValid",
+			"SPU",
+			"SetFragmentProgramTexture",
+			"GetTexture",
+			"SamplerBinding",
+			"m_uiTimeStamp",
+			"pTexScratch",
+			"gctexture",
+			"ctexture"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"normalVS",
+			"positionVS",
+			"Cauldron",
+			"BookOfPotions",
+			"vec2u_t",
+			"dt_v",
+			"dst",
+			"src",
+			"density_buffer_1",
+			"density_buffer_0",
+			"SpuFluid",
+			"dens_t",
+			")",
+			", ",
+			" ,",
+			" - ",
+			" * ",
+			" + ",
+			")",
+			" )",
+			"(",
+			"NW, int NH,",
+			"NW, NH,",
+			"int NW, int NH,",
+			"ls_density",
+			"write",
+			"jobData->",
+			"( N, S,",
+			"(N, S,",
+			"int N, int S, ",
+			"SurfaceIntersection",
+			"CauldronSurfaceRefractionTest",
+			"SpuFluidVelocity",
+			"SpuFluidDensity",
+			"SpuFluid",
+			"half",
+			"float",
+			"determinant",
+			"inverse",
+			"1",
+			"2",
+			"3",
+			"m1",
+			"m2",
+			"m3",
+			"1 ",
+			"2 ",
+			"3 ",
+			"",
+			"1)",
+			"2)",
+			"3)",
+			")",
+			"determinant",
+			"inverse",
+			"Inverse.m",
+			"m",
+			"",
+			"1_ ",
+			"2_ ",
+			"3_ ",
+			"1_",
+			"2_",
+			"3_",
+			"1",
+			"0",
+			"importer",
+			"Books\\BookOfSpells\\Chapters\\ImportanceOfPractice\\ChapterIntroduction\\WandVideoActivity\\WandConundrum",
+			"Misc\\ConundrumGeneric",
+			"PracticeHoles",
+			"Books\\BookOfSpells\\Chapters\\ShrewdnessAndCunning\\Exam\\Scenery\\Clump.prefab",
+			"Clump6",
+			"Clump5",
+			"Clump4",
+			"Clump3",
+			"Clump2",
+			"Clump1",
+			"ColumnEffect",
+			"Bogey",
+			"CandleFlame",
+			"IDamageable2",
+			"IDamageable",
+			"CandleTarget2",
+			"CandleTarget1",
+			"unlock.lua"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "deferred_render_color_normal_depth.cg",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1039,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								581,
+								581
+							]
+						],
+						"settings":
+						{
+							"spell_check": true,
+							"syntax": "Packages/Shader Languages/Cg.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 108.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "deferred_render_colormap_normal_depth.cg",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1174,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								813,
+								813
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Shader Languages/Cg.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 343.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/C/Users/GBKosteNi/Development/game/assets/scenes/simple/assorted.scene",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1639,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								231,
+								231
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 108.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "deferred_ssao.cg",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2461,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1076,
+								1076
+							]
+						],
+						"settings":
+						{
+							"spell_check": false,
+							"syntax": "Packages/Shader Languages/Cg.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 486.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "standard.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1251,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								119,
+								119
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "depth.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 840,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								188,
+								188
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 35.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.clang":
+	{
+		"height": 178.0
+	},
+	"output.exec":
+	{
+		"height": 222.0
+	},
+	"project": "/C/Users/GBKosteNi/Development/game/assets/shaders/shaders.sublime-project",
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"util",
+				"/C/Users/GBKosteNi/Development/game/assets/shaders/utils.h"
+			],
+			[
+				"color_",
+				"/C/Users/GBKosteNi/Development/game/assets/shaders/deferred_render_color_normal_depth.cg"
+			],
+			[
+				"uti",
+				"utils.h"
+			],
+			[
+				"depth",
+				"depth.h"
+			],
+			[
+				"ssao",
+				"deferred_ssao.cg"
+			],
+			[
+				"color_normal",
+				"compiled/deferred_render_color_normal_depth.shader.dx11.vertex"
+			],
+			[
+				"color_no",
+				"compiled/deferred_render_color_normal_depth.shader.dx11.fragment"
+			],
+			[
+				"color_d",
+				"compiled/deferred_render_color_normal_depth.shader.dx11.fragment"
+			],
+			[
+				"render",
+				"compiled/deferred_render_color_normal_depth.shader.dx11.vertex"
+			],
+			[
+				"color_normal_dep",
+				"compiled/deferred_render_color_normal_depth.shader.dx11.fragment"
+			],
+			[
+				"normal",
+				"compiled/deferred_render_color_normal_depth.shader.dx11.vertex"
+			],
+			[
+				"ssao.sha",
+				"compiled/deferred_ssao.shader.dx11.vertex"
+			],
+			[
+				"stand",
+				"standard.h"
+			],
+			[
+				"sot_light",
+				"deferred_lighting_spot_light_shadow.cg"
+			],
+			[
+				"spot",
+				"deferred_lighting_spot_light.cg"
+			],
+			[
+				"dept",
+				"depth.h"
+			],
+			[
+				"sta",
+				"standard.h"
+			],
+			[
+				"utils",
+				"utils.h"
+			],
+			[
+				"narrator",
+				"Code/Etx/Game/Narration/Narrator.cpp"
+			],
+			[
+				"navier",
+				"Code/Components/BoP/NavierStokesSimulation.cpp"
+			],
+			[
+				"ray",
+				"Code/3rdParty/Physics/RayCast/common/Ray.h"
+			],
+			[
+				"cauldron",
+				"Code/Components/BoP/CauldronSurface.cpp"
+			],
+			[
+				"naviers",
+				"Code/Components/BoP/NavierStokesSimulation.cpp"
+			],
+			[
+				"fluidjb",
+				"Code/Framework/Et/Renderer/Fluid/FluidJob.cpp"
+			],
+			[
+				"cauldr",
+				"Code/Components/BoP/CauldronSurface.cpp"
+			],
+			[
+				".project",
+				"Code/wb.sublime-project"
+			],
+			[
+				"fluidjob",
+				"Code/Framework/Et/Renderer/Fluid/FluidJob.cpp"
+			],
+			[
+				"fluidjob.h",
+				"Code/Framework/Et/Renderer/Fluid/FluidJob.h"
+			],
+			[
+				"navierstok",
+				"Code/Components/BoP/NavierStokesSimulation.cpp"
+			],
+			[
+				"fluidsim",
+				"Code/Prototyping/BOSAMP/FluidSim/FluidEquations.cpp"
+			],
+			[
+				"cauldronsur",
+				"Code/Components/BoP/CauldronSurface.cpp"
+			],
+			[
+				"cauldrons",
+				"Code/Components/BoP/CauldronSurface.h"
+			],
+			[
+				"cauldronsu",
+				"Code/Components/BoP/CauldronSurface.h"
+			],
+			[
+				"rendergr",
+				"Code/Framework/Et/Renderer/RendererGraph.cpp"
+			],
+			[
+				"renderconstants",
+				"Code/Framework/Et/Renderer/RendererConstants.h"
+			],
+			[
+				"renderable",
+				"Code/Framework/Et/Renderer/Geometry/Renderable.h"
+			],
+			[
+				"wbglobal",
+				"Code/Config/WbGlobalDefs.h"
+			],
+			[
+				"wbgloc",
+				"Code/WwsSdk/components/wws_binxml/libxml2/globals.c"
+			],
+			[
+				"globald",
+				"Code/GlobalDefs.h"
+			],
+			[
+				"applicaton.he",
+				"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Data/Application.hierarchy"
+			],
+			[
+				"instantian",
+				"Code/Systems/App/WonderBookInstantiations.cpp"
+			],
+			[
+				"smoke",
+				"Code/Components/BoP/ScreenSmoke.cpp"
+			],
+			[
+				"267",
+				"Code/FrameworkTools/3rdParty/IronPython 2.6/Lib/encodings/utf_7.py"
+			],
+			[
+				"stam",
+				"Code/Framework/Spu/SpuFluid/StamFluidSolver.cpp"
+			],
+			[
+				"navierst",
+				"Code/Components/BoP/NavierStokesSimulation.cpp"
+			],
+			[
+				"index",
+				"Code/Components/Logic/IndexedSwitch.cpp"
+			],
+			[
+				"screen",
+				"Code/Components/BoP/ScreenSmoke.cpp"
+			],
+			[
+				"indexed",
+				"Code/Components/Logic/IndexedSwitch.cpp"
+			],
+			[
+				"cauld",
+				"Code/Components/BoP/CauldronSurface.h"
+			],
+			[
+				"wonderbook",
+				"Code/Systems/App/WonderBookInstantiations.cpp"
+			],
+			[
+				"wonderbookapp",
+				"Code/Systems/App/WonderBookApp.cpp"
+			],
+			[
+				"navierstoke",
+				"Code/Components/BoP/NavierStokesSimulation.cpp"
+			],
+			[
+				"spuflui",
+				"Code/Framework/Spu/SpuFluid/SpuFluid.cpp"
+			],
+			[
+				"fluidjo",
+				"Code/Framework/Et/Renderer/Fluid/FluidJob.cpp"
+			],
+			[
+				"spufluid",
+				"Code/Framework/Spu/SpuFluid/SpuFluid.cpp"
+			],
+			[
+				"naveir",
+				"Code/Components/BoP/NavierStokesSimulation.cpp"
+			],
+			[
+				"naviersto",
+				"Code/Components/BoP/NavierStokesSimulation.h"
+			],
+			[
+				"component.h",
+				"Code/Framework/Et/Core/Component.h"
+			],
+			[
+				"clipping",
+				"Code/Framework/Et/Renderer/RenderableData/ClippingJobDispacher.cpp"
+			],
+			[
+				"fluid",
+				"Code/Framework/Et/Renderer/Fluid/FluidJob.h"
+			],
+			[
+				"clippingj",
+				"Code/Framework/Et/Renderer/RenderableData/ClippingJobDispacher.cpp"
+			],
+			[
+				"processj",
+				"Code/Framework/Et/Core/ProcessJob.h"
+			],
+			[
+				"navi",
+				"Code/Components/BoP/NavierStokesSimulation.h"
+			],
+			[
+				"streampro",
+				"Code/Framework/Et/System/StreamProcessor/StreamProcessor.cpp"
+			],
+			[
+				"caul",
+				"Code/Components/BoP/CauldronSurface.cpp"
+			],
+			[
+				"shaderstate.cpp",
+				"Code/Framework/Et/Renderer/State/ShaderState.cpp"
+			],
+			[
+				"eyetoys",
+				"Code/EyeToySDK.targets"
+			],
+			[
+				"eyetoysdk.t",
+				"Code/EyeToySDK.targets"
+			],
+			[
+				"convexbo",
+				"Code/Framework/Et/Renderer/Geometry/ConvexBound.cpp"
+			],
+			[
+				"renderjob",
+				"Code/Framework/Et/Renderer/RenderJob/RenderJob.cpp"
+			],
+			[
+				"fwintrus",
+				"Code/ATGAPI/PS3/Include/Fw/FwStd/FwStdIntrusivePtr.h"
+			],
+			[
+				"intrusiveptr",
+				"Code/Framework/Et/Core/Std/IntrusivePtr.h"
+			],
+			[
+				"intrusi",
+				"Code/Framework/Et/Core/Std/IntrusivePtr.h"
+			],
+			[
+				"fwstdin",
+				"Code/ATGAPI/PS3/Include/Fw/FwStd/FwStdIntrusivePtr.h"
+			],
+			[
+				"sample",
+				"Code/Framework/Et/Renderer/Texture/Sampler.cpp"
+			],
+			[
+				"texture.h",
+				"Code/ATGAPI/PC/Include/Gc/GcTexture.h"
+			],
+			[
+				"gcconstan",
+				"Code/ATGAPI/PS3/Include/Gc/GcConstants.h"
+			],
+			[
+				"gccon",
+				"Code/ATGAPI/PC/Source/Gc/GcConstants.cpp"
+			],
+			[
+				"gcconstanc",
+				"Code/ATGAPI/PC/Source/Gc/GcConstants.cpp"
+			],
+			[
+				"particlefor",
+				"Code/Framework/Etc/Particle/ParticleForwarder.cpp"
+			],
+			[
+				"compon",
+				"Code/Framework/Et/Core/Component.h"
+			],
+			[
+				"component",
+				"Code/Framework/Et/Core/Component.h"
+			],
+			[
+				"navierstokessi",
+				"Code/Components/BoP/NavierStokesSimulation.cpp"
+			],
+			[
+				"masked",
+				"Code/Etx/Particle/Emitters/MaskedEmitter.cpp"
+			],
+			[
+				"simula",
+				"Code/Components/BoP/NavierStokesSimulation.cpp"
+			],
+			[
+				"texture.cpp",
+				"Code/FrameworkTools/Libraries/AtgiObject/Texture.cpp"
+			],
+			[
+				"texture.",
+				"Code/Framework/Et/Renderer/Texture/Texture.h"
+			],
+			[
+				"sampler",
+				"Code/Framework/Et/Renderer/Texture/Sampler.cpp"
+			],
+			[
+				"materialstat",
+				"Code/Framework/Et/Renderer/State/MaterialState.cpp"
+			],
+			[
+				"materia",
+				"Code/Framework/Et/Renderer/Light/Material.cpp"
+			],
+			[
+				"texture",
+				"Code/Framework/Et/Renderer/Texture/TextureManager.h"
+			],
+			[
+				"texturemana",
+				"Code/Framework/Et/Renderer/Texture/TextureManager.cpp"
+			],
+			[
+				"texturem",
+				"Code/Framework/Et/Renderer/Texture/TextureManager.h"
+			],
+			[
+				"material.cpp",
+				"Code/Framework/Et/Renderer/Light/Material.cpp"
+			],
+			[
+				"decoder",
+				"Code/Framework/Etc/Camera/PS3/Decoders/Decoder.cpp"
+			],
+			[
+				"gctexture.h",
+				"Code/ATGAPI/PS3/Include/Gc/GcTexture.h"
+			],
+			[
+				"texturmana",
+				"Code/Framework/Et/Renderer/Texture/TextureManager.h"
+			],
+			[
+				"texturemanage",
+				"Code/Framework/Et/Renderer/Texture/TextureManager.h"
+			],
+			[
+				"gc.h",
+				"Code/ATGAPI/PC/Include/Gc/Gc.h"
+			],
+			[
+				"renderercon",
+				"Code/Framework/Et/Renderer/RendererConstants.h"
+			],
+			[
+				"maskede",
+				"Code/Etx/Particle/Emitters/MaskedEmitter.cpp"
+			],
+			[
+				"fwvector",
+				"Code/ATGAPI/PC/Include/Fw/FwMaths/FwVector4.h"
+			],
+			[
+				"simdp",
+				"Code/Framework/Et/Core/Maths/SimdProcessing.h"
+			],
+			[
+				"spufl",
+				"Code/Framework/Spu/SpuFluid/SpuFluidDensity.cpp"
+			],
+			[
+				"convex",
+				"Code/Framework/Et/Renderer/Geometry/ConvexBound.cpp"
+			],
+			[
+				"conve",
+				"Code/Framework/Et/Renderer/Geometry/ConvexBound.cpp"
+			],
+			[
+				"textbuffer",
+				"Code/Framework/Et/Renderer/Sprite/TextBuffer.cpp"
+			],
+			[
+				"constants",
+				"Code/Etx/Maths/Constants.h"
+			],
+			[
+				"maths.h",
+				"Code/Etx/Maths/Maths.h"
+			],
+			[
+				"clippingjo",
+				"Code/Framework/Et/Renderer/RenderableData/ClippingJobDispacher.cpp"
+			],
+			[
+				"apufluid",
+				"Code/Framework/Spu/SpuFluid/SpuFluid.cpp"
+			],
+			[
+				"cauldrom",
+				"Code/FrameworkTools/Maya/SCEA MTSG/2008/scripts/sceaAudioLayoutTranslatorOptions.mel"
+			],
+			[
+				"navierstoken",
+				"Code/Components/BoP/NavierStokesSimulation.cpp"
+			],
+			[
+				"fluidjob.",
+				"Code/Framework/Et/Renderer/Fluid/FluidJob.cpp"
+			],
+			[
+				"simulation",
+				"Code/Components/BoP/NavierStokesSimulation.h"
+			],
+			[
+				"spufluidd",
+				"Code/Framework/Spu/SpuFluid/SpuFluidDensity.cpp"
+			],
+			[
+				"fluidden",
+				"Code/Framework/Spu/SpuFluid/SpuFluidDensity.cpp"
+			],
+			[
+				"maths",
+				"Code/Etx/Maths/Maths.h"
+			],
+			[
+				"trackingpar",
+				"Code/Framework/Etc/Particle/TrackingParticleForwarder.cpp"
+			],
+			[
+				"spuvel",
+				"Code/Framework/Spu/SpuFluid/SpuFluidVelocity.cpp"
+			],
+			[
+				"fluidvel",
+				"Code/Framework/Spu/SpuFluid/SpuFluidVelocity.cpp"
+			],
+			[
+				"fluidd",
+				"Code/Framework/Spu/SpuFluid/SpuFluidDensity.cpp"
+			],
+			[
+				"particleef",
+				"Code/Framework/Etc/Particle/ParticleEffect.cpp"
+			],
+			[
+				"particleeffectinstance",
+				"Code/Framework/Etc/Particle/ParticleEffectInstance.cpp"
+			],
+			[
+				"effectinstance.cpp",
+				"Code/Framework/Etc/Particle/ParticleEffectInstanceLite.cpp"
+			],
+			[
+				"paticleef",
+				"Code/Framework/Etc/Particle/ParticleEffect.cpp"
+			],
+			[
+				"naiver",
+				"Code/Components/BoP/NavierStokesSimulation.cpp"
+			],
+			[
+				"stamfluid",
+				"Code/Components/BoP/StamFluidSolver.h"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 213.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

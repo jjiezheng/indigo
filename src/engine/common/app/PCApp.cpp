@@ -6,7 +6,7 @@
 void PCApp::mainLoop() {
 	App::mainLoop();
 
-	bool escapePressed = Keyboard::keyState(IKeyboard::KEY_ESCAPE);
+	bool escapePressed = Keyboard::keyState(KEY_ESCAPE);
 	bool windowClosed = GraphicsInterface::windowClosed();
 
 	if (escapePressed || windowClosed) {

@@ -1,12 +1,13 @@
 #include "depth.h"
+#include "utils.h"
 
 float3 packNormal(float3 unPackedNormal) {
-	return 0.5f + unPackedNormal * 0.5f;
+	return unPackedNormal * 0.5f + 0.5f;
 }
 
 float3 unpackNormal(sampler2D normalSampler, float2 texCoord) {
 	float4 normalData = tex2D(normalSampler, texCoord);
-	float4 unPackedNormal = (normalData * 2.0f) - 1.0f;
+	float4 unPackedNormal = normalData * 2.0f - 1.0f;
 	return unPackedNormal.xyz;
 }
 

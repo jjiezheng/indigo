@@ -1,6 +1,7 @@
 #ifndef DEFERRED_GEOMETRY_PASS_H
 #define DEFERRED_GEOMETRY_PASS_H
 
+#include "GraphicsInterface.h"
 #include "IDeferredPass.h"
 
 class DeferredGeometryPass : public IDeferredPass {
@@ -11,9 +12,11 @@ public:
 
 public:
 
-  DeferredGeometryPass(unsigned int colorRenderTarget, unsigned int normalRenderTarget)
+  DeferredGeometryPass(RenderTarget colorRenderTarget, RenderTarget normalRenderTarget, RenderTarget normalViewSpaceRenderTarget, RenderTarget depthRenderTarget)
     : colorRenderTarget_(colorRenderTarget)
     , normalRenderTarget_(normalRenderTarget)
+    , normalViewSpaceRenderTarget_(normalViewSpaceRenderTarget)
+    , depthRenderTarget_(depthRenderTarget)
     , gBufferFrameBuffer_(0) { }
 
 public:
@@ -24,10 +27,12 @@ public:
 
 private:
 
-  unsigned int colorRenderTarget_;
-  unsigned int normalRenderTarget_;
+  RenderTarget colorRenderTarget_;
+  RenderTarget normalRenderTarget_;
+  RenderTarget normalViewSpaceRenderTarget_;
+  RenderTarget depthRenderTarget_;
 
-  unsigned int gBufferFrameBuffer_;
+  FrameBuffer gBufferFrameBuffer_;
 };
 
 #endif

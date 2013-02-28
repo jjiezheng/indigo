@@ -20,31 +20,31 @@ void Material::bind(const Matrix4x4& projection, const Matrix4x4& view, const Ma
 		(callback_)(this, effect, callbackUserData_);
 	}
 
-  effect->setUniform(model, "World");
-  
-  Matrix4x4 worldView = view * model;
-  effect->setUniform(worldView, "WorldView");
-  
-  Matrix4x4 worldViewProjection = projection * worldView;
-  effect->setUniform(worldViewProjection, "WorldViewProj");
+	effect->setUniform(model, "World");
 
-  effect->setUniform(projection, "Projection");
+	Matrix4x4 worldView = view * model;
+	effect->setUniform(worldView, "WorldView");
 
-  Matrix4x4 viewProjection = projection * view;
-  effect->setUniform(viewProjection, "ViewProj");
+	Matrix4x4 worldViewProjection = projection * worldView;
+	effect->setUniform(worldViewProjection, "WorldViewProj");
 
-  //worldView.inverse().transpose().mat3x3()
-  effect->setUniform(Matrix4x4::IDENTITY.mat3x3(), "NormalMatrix");
- 
-  std::map<std::string, Texture>::const_iterator tit = textures_.begin(); 
-  for (; tit != textures_.end(); ++tit) {
-    effect->setTexture((*tit).second.textureId(), (*tit).first.c_str()); 
-  }
+	effect->setUniform(projection, "Projection");
 
-  std::map<std::string, MaterialParameter*>::const_iterator mit = parameters_.begin(); 
-  for (; mit != parameters_.end(); ++mit) {
-    (*mit).second->setEffect(effect);
-  }
+	Matrix4x4 viewProjection = projection * view;
+	effect->setUniform(viewProjection, "ViewProj");
+
+	Matrix4x4 normalMatrix = worldView.inverse().transpose().mat3x3(); // strips out the translation;
+	effect->setUniform(normalMatrix, "NormalMatrix");
+
+	std::map<std::string, Texture>::const_iterator tit = textures_.begin(); 
+	for (; tit != textures_.end(); ++tit) {
+		effect->setTexture((*tit).second.textureId(), (*tit).first.c_str()); 
+	}
+
+	std::map<std::string, MaterialParameter*>::const_iterator mit = parameters_.begin(); 
+	for (; mit != parameters_.end(); ++mit) {
+		(*mit).second->setEffect(effect);
+	}
 }
 
 void Material::setParameter(const std::string& name, const Vector3& parameter) {

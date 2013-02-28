@@ -9,8 +9,6 @@
 
 #include "renderer/Geometry.h"
 
-#include "input/Mouse.h"
-
 Sprite* Sprite::fromFile(const std::string& spriteFilePath) {
   Sprite* sprite = new Sprite();
   sprite->init(spriteFilePath);
@@ -19,23 +17,21 @@ Sprite* Sprite::fromFile(const std::string& spriteFilePath) {
 
 void Sprite::init(const std::string& spriteFilePath) {
   textureId_ = GraphicsInterface::loadTexture(spriteFilePath.c_str());
+	TextureInfo textureInfo = GraphicsInterface::textureInfo(textureId_);
+	
+	size_.width = textureInfo.width;
+	size_.height = textureInfo.height;
+
   vertexBuffer_ = Geometry::screenPlane();
 	effect_ = EffectCache::instance()->loadEffect("shaders/compiled/sprite.shader");
   effect_->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_NONE);
 }
 
-void Sprite::render(const Matrix4x4& projection) {
+void Sprite::render(const Matrix4x4& projection, const Matrix4x4& model) {
   GraphicsInterface::beginPerformanceEvent("Sprite");
 
-  Point mousePosition = Mouse::position();
-  Matrix4x4 model = Matrix4x4::translation(Vector4((float)mousePosition.x, (float)-mousePosition.y, 0.0f, 1.0f));
-
-  TextureInfo cursorInfo = GraphicsInterface::textureInfo(textureId_);
-
-  Matrix4x4 scale = Matrix4x4::scale(Vector4((float)cursorInfo.width / 2.0f, (float)cursorInfo.height / 2.0f, 1, 1));
-
 	effect_->beginDraw();
-  Matrix4x4 modelProjection = projection * model * scale;
+  Matrix4x4 modelProjection = projection * model;
   effect_->setUniform(modelProjection, "ModelProjection");
   effect_->setTexture(textureId_, "ColorMap");
 

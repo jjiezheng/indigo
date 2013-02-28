@@ -1,36 +1,51 @@
 #include "standard.h"
 
+uniform float4x4 WorldView;
 uniform	float4x4 WorldViewProj;
+uniform float4x4 NormalMatrix;
 
 uniform	float4 DiffuseColor;
 
+float Near;
+float Far;
+
 struct VOutput {
 	float4 position			: POSITION;
-	float3 normal				: TEXCOORD0;
+	float3 normal			: TEXCOORD0;
+	float3 viewNormal		: TEXCOORD1;
+	float4 viewPosition		: TEXCOORD2;
 };
 
-VOutput vs(	half4 position 		: POSITION,
-		  	half3 normal 		: NORMAL) {
-
+VOutput vs(	float4 position 	: POSITION,
+		  	float3 normal 		: NORMAL) {
 	VOutput OUT;
-	OUT.position = mul(WorldViewProj, position);
-	OUT.normal = normal;// mul(NormalMatrix, normal);
 
+	OUT.normal = normal;
+	OUT.position = mul(WorldViewProj, position);
+	OUT.viewNormal = mul(NormalMatrix, float4(normal, 0)).rgb;
+	OUT.viewPosition = mul(WorldView, position);
+	
  	return OUT;
 }
 
 struct POutput {
-	float4 color 	: COLOR0;
-	float4 normal 	: COLOR1;
+	float4 color 		: COLOR0;
+	float3 normal 		: COLOR1;
+	float4 viewPosition : COLOR2;
+	float4 viewNormal 	: COLOR3;
 };
 
 POutput ps(	float4 position			: POSITION,
-		   	float3 normal			: TEXCOORD0) {
+		   	float3 normal			: TEXCOORD0,
+		   	float3 viewNormal		: TEXCOORD1,
+		   	float4 viewPosition		: TEXCOORD2) {
 
 	POutput OUT;
 	
 	OUT.color = DiffuseColor;
-	OUT.normal = float4(packNormal(normal), 1);
+	OUT.normal = packNormal(normal);
+	OUT.viewNormal = float4(viewNormal, 1);
+	OUT.viewPosition = viewPosition;
 	
 	return OUT;
 }

@@ -19,6 +19,10 @@ public:
 
   void update(float dt);
 
+public:
+
+	void showMouse(bool isShowing);
+
 private:
 
   UI ui_;

@@ -112,16 +112,18 @@ bool WindowsUtils::pumpMessages() {
       mouseX_ += x;
       mouseY_ += y;
 
-      RECT rect;
-      if(GetWindowRect(msg.hwnd, &rect)) {
-        int width = rect.right - rect.left;
-        int height = rect.bottom - rect.top;
+			if (!isCursorVisible_) {
+				RECT rect;
+				if(GetWindowRect(msg.hwnd, &rect)) {
+					int width = rect.right - rect.left;
+					int height = rect.bottom - rect.top;
 
-        int newX = rect.left + (int)(width / 2.0f);
-        int newY = rect.top + (int)(height / 2.0f);
+					int newX = rect.left + (int)(width / 2.0f);
+					int newY = rect.top + (int)(height / 2.0f);
 
-        SetCursorPos(newX, newY);
-      }
+					SetCursorPos(newX, newY);
+				}
+			}
     }
 
     TranslateMessage(&msg);

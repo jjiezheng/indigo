@@ -10,40 +10,39 @@
 #include "input/Keyboard.h"
 
 #include "maths/Plane.h"
+#include "maths/Point.h"
 
 #include "entity/ActorRegistry.h"
 
 void Game::init(const char* sceneFile) {
-  Pad::init();
-  Mouse::init();
-  Keyboard::init();
-
+  CSize backBufferSize = GraphicsInterface::backBufferSize();
 	ActorRegistry::registerActors(actorFactory_);
-
-  renderer_.init(GraphicsInterface::backBufferSize());
+  renderer_.init(backBufferSize);
   ui_.init(&renderer_);
 
+  Pad::init();
+  Mouse::init();
+  Point mousePosition((int)(backBufferSize.width / 2.0f), (int)(backBufferSize.height / 2.0f));
+  Mouse::setPosition(mousePosition);
+  Keyboard::init();
   clock_.init();
   
 // 	camera_.translateZ(2.0f);
-// 	camera_.translateY(5.3f);
+ 	camera_.translateY(1.8f);
 // 	camera_.rotateX(-1.0f);
 	camera_.translateZ(4.0f);
 	//camera_.rotateX(toRadians(-90));
-  camera_.setIsPlayerControlled(true);
+  camera_.setIsPlayerControlled(false);
   
-  camera_.setProjection(45.0f, GraphicsInterface::aspectRatio(), 1.0f, 500);
+  camera_.setProjection(45.0f, GraphicsInterface::aspectRatio(), 1.0f, 100.0f);
 
   if (sceneFile) {
 		WorldLoader loader; 
 		loader.loadFromSceneFile(sceneFile, world_, sceneContext_, actorFactory_);
   }
 
-  
-  Keyboard::setKeydownListener(this);
-  Mouse::hideOSMouse(true);
-  
-  renderer_.presentRenderTarget(6);
+  Keyboard::setKeydownListener(this);  
+  keyUp(KEY_BACKTICK);
 }
  
 void Game::mainLoop() {
@@ -63,8 +62,37 @@ void Game::mainLoop() {
 }
 
 void Game::keyUp(int keyCode) {
-	if (keyCode > 47 && keyCode < 59) {
-	  int renderTargetgId = keyCode - 49;// + 5;
+	LOG(LOG_CHANNEL_TEMP, "Keycode: %d", keyCode);
+
+	static int mouseMode = 0;
+	if (keyCode == KEY_BACKTICK) {
+    LOG(LOG_CHANNEL_TEMP, "%d", mouseMode);
+    switch(mouseMode++) {
+      case 0: 
+        Mouse::hideOSMouse(true);
+        camera_.setIsPlayerControlled(true);
+        ui_.showMouse(false);
+        break;
+      case 1:
+        Mouse::hideOSMouse(true);
+        camera_.setIsPlayerControlled(false);
+        ui_.showMouse(true);
+        break;
+      case 2:
+        Mouse::hideOSMouse(false);
+        camera_.setIsPlayerControlled(false);
+        ui_.showMouse(false);
+        break;
+    }
+
+    if (mouseMode > 2) {
+      mouseMode = 0;
+    }
+
+	}
+
+	if (keyCode > KEY_0 - 1 && keyCode < KEY_9 + 1) {
+	  int renderTargetgId = keyCode - KEY_1;
 	  renderer_.presentRenderTarget(renderTargetgId);
   }
 }

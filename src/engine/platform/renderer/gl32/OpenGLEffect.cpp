@@ -172,7 +172,12 @@ void OpenGLEffect::setUniform(const Vector4& uniformData, const char* uniformNam
 }
 
 void OpenGLEffect::setUniform(const Vector4* uniformData, unsigned int uniformDataSize, const char* uniformName) const {
-  
+ std::string internalUnformName = getInternalUniformName(uniformName);
+  GLint uniformLocation = glGetUniformLocation(programId_, internalUnformName.c_str());
+  if (uniformLocation > -1 && uniformDataSize > 0) {
+    glUniform4fv(uniformLocation, uniformDataSize, uniformData[0].valuePtr());
+    GLUtilities::checkForError();
+  } 
 }
 
 void OpenGLEffect::setUniform(int uniformData, const char* uniformName) const {

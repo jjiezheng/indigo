@@ -28,7 +28,7 @@ void DDSImage::load(const std::string& filePath) {
 
 	FILE *fp = fopen(filePath.c_str(), "rb");
 	if (fp == NULL) {
-		LOG(LOG_CHANNEL_IO, "Failed to load %s", filePath.c_str());
+		LOG(LOG_CHANNEL_IO, "DDS Failed to load %s", filePath.c_str());
 		return;
 	}
 
@@ -36,6 +36,7 @@ void DDSImage::load(const std::string& filePath) {
 	size_t bytes = fread(filecode, 1, 4, fp);
 	if (strncmp(filecode, "DDS ", 4) != 0) {
 		fclose(fp);
+		LOG(LOG_CHANNEL_IO, "DDS Failed to load %s", filePath.c_str());
 		return;
 	}
 
