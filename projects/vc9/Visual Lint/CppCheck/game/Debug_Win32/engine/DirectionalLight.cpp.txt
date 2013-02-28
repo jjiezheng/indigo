@@ -1,4 +1,0 @@
-Checking C:\Users\NK\Development\game\src\engine\renderer\DirectionalLight.cpp...
-Checking usage of global functions..
-C:\Users\NK\Development\game\src\engine\renderer\DirectionalLight.cpp(5): style,unusedFunction,The function 'projection' is never used
-<error id="missingInclude" severity="style" msg="Cppcheck cannot find all the include files (use --check-config for details)"/>

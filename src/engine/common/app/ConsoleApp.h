@@ -15,17 +15,7 @@ public:
 
 public:
 
-	void init(const char* sceneFile);
-
-	void mainLoop();
-
-	void destroy();
-
 	bool wantsToQuit() const;
-
-private:
-
-	IGame* game_;
 
 };
 

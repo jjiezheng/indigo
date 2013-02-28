@@ -1,5 +1,5 @@
 // ps_4_0 output by Cg compiler
-// cgc version 3.1.0013, build date Apr 24 2012
+// cgc version 3.1.0013, build date Apr 18 2012
 // command line args: -DDX11=1 -q -unroll all -profile ps_5_0
 // source file: deferred_ssao.cg
 //vendor NVIDIA Corporation
@@ -97,13 +97,13 @@ float4 main( in X1X cin) : SV_Target0
     _positionVS1 = _TMP50.Sample(_PositionMap, _texCoord1);
     _TMP1 = _TMP51.Sample(_NormalMap, _texCoord1);
     _TMP2 = _TMP52.Sample(_NoiseMap, _texCoord1*_NoiseScale);
-    _random = _TMP2.xyz*  2.00000000000000000E00f -   1.00000000000000000E00f;
+    _random = _TMP2.xyz* 2.00000000000000000E000f -  1.00000000000000000E000f;
     _TMP3 = abs(_positionVS1.z);
     _rad = _Radius/_TMP3;
-    _TMP4 = float2(   1.00000000000000000E00f,   0.00000000000000000E00f) - (  2.00000000000000000E00f*_random.xy)*_random.x;
+    _TMP4 = float2(  1.00000000000000000E000f,  0.00000000000000000E000f) - ( 2.00000000000000000E000f*_random.xy)*_random.x;
     _sampleOffset1 = _TMP4*_rad;
-    _coord21 = float2(_sampleOffset1.x*  7.07000017166137695E-01f - _sampleOffset1.y*  7.07000017166137695E-01f, _sampleOffset1.x*  7.07000017166137695E-01f + _sampleOffset1.y*  7.07000017166137695E-01f);
-    _sampleOffset0019 = _sampleOffset1*  2.50000000000000000E-01f;
+    _coord21 = float2(_sampleOffset1.x* 7.07000017166137700E-001f - _sampleOffset1.y* 7.07000017166137700E-001f, _sampleOffset1.x* 7.07000017166137700E-001f + _sampleOffset1.y* 7.07000017166137700E-001f);
+    _sampleOffset0019 = _sampleOffset1* 2.50000000000000000E-001f;
     _samplePositionVS0019 = _TMP50.Sample(_PositionMap, _texCoord1 + _sampleOffset0019);
     _diff0019 = _samplePositionVS0019.xyz - _positionVS1.xyz;
     _TMP11 = dot(_diff0019, _diff0019);
@@ -111,15 +111,15 @@ float4 main( in X1X cin) : SV_Target0
     _v0019 = _TMP12*_diff0019;
     _TMP13 = dot(_diff0019, _diff0019);
     _TMP14 = rsqrt(_TMP13);
-    _TMP22 =   1.00000000000000000E00f/_TMP14;
-    if (_TMP22 <   1.00000001490116119E-01f) { // if begin
+    _TMP22 =  1.00000000000000000E000f/_TMP14;
+    if (_TMP22 <  1.00000001490116120E-001f) { // if begin
         _TMP10 = dot(_TMP1.xyz, _v0019);
-        _occlusion10019 = max(  0.00000000000000000E00f, _TMP10*(  1.00000000000000000E00f + _TMP22));
+        _occlusion10019 = max( 0.00000000000000000E000f, _TMP10*( 1.00000000000000000E000f + _TMP22));
         _TMP18 = _occlusion10019;
     } else {
-        _TMP18 =   0.00000000000000000E00f;
+        _TMP18 =  0.00000000000000000E000f;
     } // end if
-    _sampleOffset0027 = _coord21*  5.00000000000000000E-01f;
+    _sampleOffset0027 = _coord21* 5.00000000000000000E-001f;
     _samplePositionVS0027 = _TMP50.Sample(_PositionMap, _texCoord1 + _sampleOffset0027);
     _diff0027 = _samplePositionVS0027.xyz - _positionVS1.xyz;
     _TMP11 = dot(_diff0027, _diff0027);
@@ -127,16 +127,16 @@ float4 main( in X1X cin) : SV_Target0
     _v0027 = _TMP12*_diff0027;
     _TMP13 = dot(_diff0027, _diff0027);
     _TMP14 = rsqrt(_TMP13);
-    _TMP30 =   1.00000000000000000E00f/_TMP14;
-    if (_TMP30 <   1.00000001490116119E-01f) { // if begin
+    _TMP30 =  1.00000000000000000E000f/_TMP14;
+    if (_TMP30 <  1.00000001490116120E-001f) { // if begin
         _TMP10 = dot(_TMP1.xyz, _v0027);
-        _occlusion10027 = max(  0.00000000000000000E00f, _TMP10*(  1.00000000000000000E00f + _TMP30));
+        _occlusion10027 = max( 0.00000000000000000E000f, _TMP10*( 1.00000000000000000E000f + _TMP30));
         _TMP26 = _occlusion10027;
     } else {
-        _TMP26 =   0.00000000000000000E00f;
+        _TMP26 =  0.00000000000000000E000f;
     } // end if
     _occlusion = _TMP18 + _TMP26;
-    _sampleOffset0035 = _sampleOffset1*  7.50000000000000000E-01f;
+    _sampleOffset0035 = _sampleOffset1* 7.50000000000000000E-001f;
     _samplePositionVS0035 = _TMP50.Sample(_PositionMap, _texCoord1 + _sampleOffset0035);
     _diff0035 = _samplePositionVS0035.xyz - _positionVS1.xyz;
     _TMP11 = dot(_diff0035, _diff0035);
@@ -144,13 +144,13 @@ float4 main( in X1X cin) : SV_Target0
     _v0035 = _TMP12*_diff0035;
     _TMP13 = dot(_diff0035, _diff0035);
     _TMP14 = rsqrt(_TMP13);
-    _TMP38 =   1.00000000000000000E00f/_TMP14;
-    if (_TMP38 <   1.00000001490116119E-01f) { // if begin
+    _TMP38 =  1.00000000000000000E000f/_TMP14;
+    if (_TMP38 <  1.00000001490116120E-001f) { // if begin
         _TMP10 = dot(_TMP1.xyz, _v0035);
-        _occlusion10035 = max(  0.00000000000000000E00f, _TMP10*(  1.00000000000000000E00f + _TMP38));
+        _occlusion10035 = max( 0.00000000000000000E000f, _TMP10*( 1.00000000000000000E000f + _TMP38));
         _TMP34 = _occlusion10035;
     } else {
-        _TMP34 =   0.00000000000000000E00f;
+        _TMP34 =  0.00000000000000000E000f;
     } // end if
     _occlusion = _occlusion + _TMP34;
     _samplePositionVS0043 = _TMP50.Sample(_PositionMap, _texCoord1 + _coord21);
@@ -160,20 +160,20 @@ float4 main( in X1X cin) : SV_Target0
     _v0043 = _TMP12*_diff0043;
     _TMP13 = dot(_diff0043, _diff0043);
     _TMP14 = rsqrt(_TMP13);
-    _TMP46 =   1.00000000000000000E00f/_TMP14;
-    if (_TMP46 <   1.00000001490116119E-01f) { // if begin
+    _TMP46 =  1.00000000000000000E000f/_TMP14;
+    if (_TMP46 <  1.00000001490116120E-001f) { // if begin
         _TMP10 = dot(_TMP1.xyz, _v0043);
-        _occlusion10043 = max(  0.00000000000000000E00f, _TMP10*(  1.00000000000000000E00f + _TMP46));
+        _occlusion10043 = max( 0.00000000000000000E000f, _TMP10*( 1.00000000000000000E000f + _TMP46));
         _TMP42 = _occlusion10043;
     } else {
-        _TMP42 =   0.00000000000000000E00f;
+        _TMP42 =  0.00000000000000000E000f;
     } // end if
     _occlusion = _occlusion + _TMP42;
-    _TMP9 = dot(_random.xy, float2(  -1.00000000000000000E00f,   0.00000000000000000E00f));
-    _TMP4 = float2(  -1.00000000000000000E00f,   0.00000000000000000E00f) - (  2.00000000000000000E00f*_random.xy)*_TMP9;
+    _TMP9 = dot(_random.xy, float2( -1.00000000000000000E000f,  0.00000000000000000E000f));
+    _TMP4 = float2( -1.00000000000000000E000f,  0.00000000000000000E000f) - ( 2.00000000000000000E000f*_random.xy)*_TMP9;
     _sampleOffset1 = _TMP4*_rad;
-    _coord21 = float2(_sampleOffset1.x*  7.07000017166137695E-01f - _sampleOffset1.y*  7.07000017166137695E-01f, _sampleOffset1.x*  7.07000017166137695E-01f + _sampleOffset1.y*  7.07000017166137695E-01f);
-    _sampleOffset0019 = _sampleOffset1*  2.50000000000000000E-01f;
+    _coord21 = float2(_sampleOffset1.x* 7.07000017166137700E-001f - _sampleOffset1.y* 7.07000017166137700E-001f, _sampleOffset1.x* 7.07000017166137700E-001f + _sampleOffset1.y* 7.07000017166137700E-001f);
+    _sampleOffset0019 = _sampleOffset1* 2.50000000000000000E-001f;
     _samplePositionVS0019 = _TMP50.Sample(_PositionMap, _texCoord1 + _sampleOffset0019);
     _diff0019 = _samplePositionVS0019.xyz - _positionVS1.xyz;
     _TMP11 = dot(_diff0019, _diff0019);
@@ -181,16 +181,16 @@ float4 main( in X1X cin) : SV_Target0
     _v0019 = _TMP12*_diff0019;
     _TMP13 = dot(_diff0019, _diff0019);
     _TMP14 = rsqrt(_TMP13);
-    _TMP22 =   1.00000000000000000E00f/_TMP14;
-    if (_TMP22 <   1.00000001490116119E-01f) { // if begin
+    _TMP22 =  1.00000000000000000E000f/_TMP14;
+    if (_TMP22 <  1.00000001490116120E-001f) { // if begin
         _TMP10 = dot(_TMP1.xyz, _v0019);
-        _occlusion10019 = max(  0.00000000000000000E00f, _TMP10*(  1.00000000000000000E00f + _TMP22));
+        _occlusion10019 = max( 0.00000000000000000E000f, _TMP10*( 1.00000000000000000E000f + _TMP22));
         _TMP18 = _occlusion10019;
     } else {
-        _TMP18 =   0.00000000000000000E00f;
+        _TMP18 =  0.00000000000000000E000f;
     } // end if
     _occlusion = _occlusion + _TMP18;
-    _sampleOffset0027 = _coord21*  5.00000000000000000E-01f;
+    _sampleOffset0027 = _coord21* 5.00000000000000000E-001f;
     _samplePositionVS0027 = _TMP50.Sample(_PositionMap, _texCoord1 + _sampleOffset0027);
     _diff0027 = _samplePositionVS0027.xyz - _positionVS1.xyz;
     _TMP11 = dot(_diff0027, _diff0027);
@@ -198,16 +198,16 @@ float4 main( in X1X cin) : SV_Target0
     _v0027 = _TMP12*_diff0027;
     _TMP13 = dot(_diff0027, _diff0027);
     _TMP14 = rsqrt(_TMP13);
-    _TMP30 =   1.00000000000000000E00f/_TMP14;
-    if (_TMP30 <   1.00000001490116119E-01f) { // if begin
+    _TMP30 =  1.00000000000000000E000f/_TMP14;
+    if (_TMP30 <  1.00000001490116120E-001f) { // if begin
         _TMP10 = dot(_TMP1.xyz, _v0027);
-        _occlusion10027 = max(  0.00000000000000000E00f, _TMP10*(  1.00000000000000000E00f + _TMP30));
+        _occlusion10027 = max( 0.00000000000000000E000f, _TMP10*( 1.00000000000000000E000f + _TMP30));
         _TMP26 = _occlusion10027;
     } else {
-        _TMP26 =   0.00000000000000000E00f;
+        _TMP26 =  0.00000000000000000E000f;
     } // end if
     _occlusion = _occlusion + _TMP26;
-    _sampleOffset0035 = _sampleOffset1*  7.50000000000000000E-01f;
+    _sampleOffset0035 = _sampleOffset1* 7.50000000000000000E-001f;
     _samplePositionVS0035 = _TMP50.Sample(_PositionMap, _texCoord1 + _sampleOffset0035);
     _diff0035 = _samplePositionVS0035.xyz - _positionVS1.xyz;
     _TMP11 = dot(_diff0035, _diff0035);
@@ -215,13 +215,13 @@ float4 main( in X1X cin) : SV_Target0
     _v0035 = _TMP12*_diff0035;
     _TMP13 = dot(_diff0035, _diff0035);
     _TMP14 = rsqrt(_TMP13);
-    _TMP38 =   1.00000000000000000E00f/_TMP14;
-    if (_TMP38 <   1.00000001490116119E-01f) { // if begin
+    _TMP38 =  1.00000000000000000E000f/_TMP14;
+    if (_TMP38 <  1.00000001490116120E-001f) { // if begin
         _TMP10 = dot(_TMP1.xyz, _v0035);
-        _occlusion10035 = max(  0.00000000000000000E00f, _TMP10*(  1.00000000000000000E00f + _TMP38));
+        _occlusion10035 = max( 0.00000000000000000E000f, _TMP10*( 1.00000000000000000E000f + _TMP38));
         _TMP34 = _occlusion10035;
     } else {
-        _TMP34 =   0.00000000000000000E00f;
+        _TMP34 =  0.00000000000000000E000f;
     } // end if
     _occlusion = _occlusion + _TMP34;
     _samplePositionVS0043 = _TMP50.Sample(_PositionMap, _texCoord1 + _coord21);
@@ -231,19 +231,19 @@ float4 main( in X1X cin) : SV_Target0
     _v0043 = _TMP12*_diff0043;
     _TMP13 = dot(_diff0043, _diff0043);
     _TMP14 = rsqrt(_TMP13);
-    _TMP46 =   1.00000000000000000E00f/_TMP14;
-    if (_TMP46 <   1.00000001490116119E-01f) { // if begin
+    _TMP46 =  1.00000000000000000E000f/_TMP14;
+    if (_TMP46 <  1.00000001490116120E-001f) { // if begin
         _TMP10 = dot(_TMP1.xyz, _v0043);
-        _occlusion10043 = max(  0.00000000000000000E00f, _TMP10*(  1.00000000000000000E00f + _TMP46));
+        _occlusion10043 = max( 0.00000000000000000E000f, _TMP10*( 1.00000000000000000E000f + _TMP46));
         _TMP42 = _occlusion10043;
     } else {
-        _TMP42 =   0.00000000000000000E00f;
+        _TMP42 =  0.00000000000000000E000f;
     } // end if
     _occlusion = _occlusion + _TMP42;
-    _TMP4 = float2(   0.00000000000000000E00f,   1.00000000000000000E00f) - (  2.00000000000000000E00f*_random.xy)*_random.y;
+    _TMP4 = float2(  0.00000000000000000E000f,  1.00000000000000000E000f) - ( 2.00000000000000000E000f*_random.xy)*_random.y;
     _sampleOffset1 = _TMP4*_rad;
-    _coord21 = float2(_sampleOffset1.x*  7.07000017166137695E-01f - _sampleOffset1.y*  7.07000017166137695E-01f, _sampleOffset1.x*  7.07000017166137695E-01f + _sampleOffset1.y*  7.07000017166137695E-01f);
-    _sampleOffset0019 = _sampleOffset1*  2.50000000000000000E-01f;
+    _coord21 = float2(_sampleOffset1.x* 7.07000017166137700E-001f - _sampleOffset1.y* 7.07000017166137700E-001f, _sampleOffset1.x* 7.07000017166137700E-001f + _sampleOffset1.y* 7.07000017166137700E-001f);
+    _sampleOffset0019 = _sampleOffset1* 2.50000000000000000E-001f;
     _samplePositionVS0019 = _TMP50.Sample(_PositionMap, _texCoord1 + _sampleOffset0019);
     _diff0019 = _samplePositionVS0019.xyz - _positionVS1.xyz;
     _TMP11 = dot(_diff0019, _diff0019);
@@ -251,16 +251,16 @@ float4 main( in X1X cin) : SV_Target0
     _v0019 = _TMP12*_diff0019;
     _TMP13 = dot(_diff0019, _diff0019);
     _TMP14 = rsqrt(_TMP13);
-    _TMP22 =   1.00000000000000000E00f/_TMP14;
-    if (_TMP22 <   1.00000001490116119E-01f) { // if begin
+    _TMP22 =  1.00000000000000000E000f/_TMP14;
+    if (_TMP22 <  1.00000001490116120E-001f) { // if begin
         _TMP10 = dot(_TMP1.xyz, _v0019);
-        _occlusion10019 = max(  0.00000000000000000E00f, _TMP10*(  1.00000000000000000E00f + _TMP22));
+        _occlusion10019 = max( 0.00000000000000000E000f, _TMP10*( 1.00000000000000000E000f + _TMP22));
         _TMP18 = _occlusion10019;
     } else {
-        _TMP18 =   0.00000000000000000E00f;
+        _TMP18 =  0.00000000000000000E000f;
     } // end if
     _occlusion = _occlusion + _TMP18;
-    _sampleOffset0027 = _coord21*  5.00000000000000000E-01f;
+    _sampleOffset0027 = _coord21* 5.00000000000000000E-001f;
     _samplePositionVS0027 = _TMP50.Sample(_PositionMap, _texCoord1 + _sampleOffset0027);
     _diff0027 = _samplePositionVS0027.xyz - _positionVS1.xyz;
     _TMP11 = dot(_diff0027, _diff0027);
@@ -268,16 +268,16 @@ float4 main( in X1X cin) : SV_Target0
     _v0027 = _TMP12*_diff0027;
     _TMP13 = dot(_diff0027, _diff0027);
     _TMP14 = rsqrt(_TMP13);
-    _TMP30 =   1.00000000000000000E00f/_TMP14;
-    if (_TMP30 <   1.00000001490116119E-01f) { // if begin
+    _TMP30 =  1.00000000000000000E000f/_TMP14;
+    if (_TMP30 <  1.00000001490116120E-001f) { // if begin
         _TMP10 = dot(_TMP1.xyz, _v0027);
-        _occlusion10027 = max(  0.00000000000000000E00f, _TMP10*(  1.00000000000000000E00f + _TMP30));
+        _occlusion10027 = max( 0.00000000000000000E000f, _TMP10*( 1.00000000000000000E000f + _TMP30));
         _TMP26 = _occlusion10027;
     } else {
-        _TMP26 =   0.00000000000000000E00f;
+        _TMP26 =  0.00000000000000000E000f;
     } // end if
     _occlusion = _occlusion + _TMP26;
-    _sampleOffset0035 = _sampleOffset1*  7.50000000000000000E-01f;
+    _sampleOffset0035 = _sampleOffset1* 7.50000000000000000E-001f;
     _samplePositionVS0035 = _TMP50.Sample(_PositionMap, _texCoord1 + _sampleOffset0035);
     _diff0035 = _samplePositionVS0035.xyz - _positionVS1.xyz;
     _TMP11 = dot(_diff0035, _diff0035);
@@ -285,13 +285,13 @@ float4 main( in X1X cin) : SV_Target0
     _v0035 = _TMP12*_diff0035;
     _TMP13 = dot(_diff0035, _diff0035);
     _TMP14 = rsqrt(_TMP13);
-    _TMP38 =   1.00000000000000000E00f/_TMP14;
-    if (_TMP38 <   1.00000001490116119E-01f) { // if begin
+    _TMP38 =  1.00000000000000000E000f/_TMP14;
+    if (_TMP38 <  1.00000001490116120E-001f) { // if begin
         _TMP10 = dot(_TMP1.xyz, _v0035);
-        _occlusion10035 = max(  0.00000000000000000E00f, _TMP10*(  1.00000000000000000E00f + _TMP38));
+        _occlusion10035 = max( 0.00000000000000000E000f, _TMP10*( 1.00000000000000000E000f + _TMP38));
         _TMP34 = _occlusion10035;
     } else {
-        _TMP34 =   0.00000000000000000E00f;
+        _TMP34 =  0.00000000000000000E000f;
     } // end if
     _occlusion = _occlusion + _TMP34;
     _samplePositionVS0043 = _TMP50.Sample(_PositionMap, _texCoord1 + _coord21);
@@ -301,20 +301,20 @@ float4 main( in X1X cin) : SV_Target0
     _v0043 = _TMP12*_diff0043;
     _TMP13 = dot(_diff0043, _diff0043);
     _TMP14 = rsqrt(_TMP13);
-    _TMP46 =   1.00000000000000000E00f/_TMP14;
-    if (_TMP46 <   1.00000001490116119E-01f) { // if begin
+    _TMP46 =  1.00000000000000000E000f/_TMP14;
+    if (_TMP46 <  1.00000001490116120E-001f) { // if begin
         _TMP10 = dot(_TMP1.xyz, _v0043);
-        _occlusion10043 = max(  0.00000000000000000E00f, _TMP10*(  1.00000000000000000E00f + _TMP46));
+        _occlusion10043 = max( 0.00000000000000000E000f, _TMP10*( 1.00000000000000000E000f + _TMP46));
         _TMP42 = _occlusion10043;
     } else {
-        _TMP42 =   0.00000000000000000E00f;
+        _TMP42 =  0.00000000000000000E000f;
     } // end if
     _occlusion = _occlusion + _TMP42;
-    _TMP9 = dot(_random.xy, float2(   0.00000000000000000E00f,  -1.00000000000000000E00f));
-    _TMP4 = float2(   0.00000000000000000E00f,  -1.00000000000000000E00f) - (  2.00000000000000000E00f*_random.xy)*_TMP9;
+    _TMP9 = dot(_random.xy, float2(  0.00000000000000000E000f, -1.00000000000000000E000f));
+    _TMP4 = float2(  0.00000000000000000E000f, -1.00000000000000000E000f) - ( 2.00000000000000000E000f*_random.xy)*_TMP9;
     _sampleOffset1 = _TMP4*_rad;
-    _coord21 = float2(_sampleOffset1.x*  7.07000017166137695E-01f - _sampleOffset1.y*  7.07000017166137695E-01f, _sampleOffset1.x*  7.07000017166137695E-01f + _sampleOffset1.y*  7.07000017166137695E-01f);
-    _sampleOffset0019 = _sampleOffset1*  2.50000000000000000E-01f;
+    _coord21 = float2(_sampleOffset1.x* 7.07000017166137700E-001f - _sampleOffset1.y* 7.07000017166137700E-001f, _sampleOffset1.x* 7.07000017166137700E-001f + _sampleOffset1.y* 7.07000017166137700E-001f);
+    _sampleOffset0019 = _sampleOffset1* 2.50000000000000000E-001f;
     _samplePositionVS0019 = _TMP50.Sample(_PositionMap, _texCoord1 + _sampleOffset0019);
     _diff0019 = _samplePositionVS0019.xyz - _positionVS1.xyz;
     _TMP11 = dot(_diff0019, _diff0019);
@@ -322,16 +322,16 @@ float4 main( in X1X cin) : SV_Target0
     _v0019 = _TMP12*_diff0019;
     _TMP13 = dot(_diff0019, _diff0019);
     _TMP14 = rsqrt(_TMP13);
-    _TMP22 =   1.00000000000000000E00f/_TMP14;
-    if (_TMP22 <   1.00000001490116119E-01f) { // if begin
+    _TMP22 =  1.00000000000000000E000f/_TMP14;
+    if (_TMP22 <  1.00000001490116120E-001f) { // if begin
         _TMP10 = dot(_TMP1.xyz, _v0019);
-        _occlusion10019 = max(  0.00000000000000000E00f, _TMP10*(  1.00000000000000000E00f + _TMP22));
+        _occlusion10019 = max( 0.00000000000000000E000f, _TMP10*( 1.00000000000000000E000f + _TMP22));
         _TMP18 = _occlusion10019;
     } else {
-        _TMP18 =   0.00000000000000000E00f;
+        _TMP18 =  0.00000000000000000E000f;
     } // end if
     _occlusion = _occlusion + _TMP18;
-    _sampleOffset0027 = _coord21*  5.00000000000000000E-01f;
+    _sampleOffset0027 = _coord21* 5.00000000000000000E-001f;
     _samplePositionVS0027 = _TMP50.Sample(_PositionMap, _texCoord1 + _sampleOffset0027);
     _diff0027 = _samplePositionVS0027.xyz - _positionVS1.xyz;
     _TMP11 = dot(_diff0027, _diff0027);
@@ -339,16 +339,16 @@ float4 main( in X1X cin) : SV_Target0
     _v0027 = _TMP12*_diff0027;
     _TMP13 = dot(_diff0027, _diff0027);
     _TMP14 = rsqrt(_TMP13);
-    _TMP30 =   1.00000000000000000E00f/_TMP14;
-    if (_TMP30 <   1.00000001490116119E-01f) { // if begin
+    _TMP30 =  1.00000000000000000E000f/_TMP14;
+    if (_TMP30 <  1.00000001490116120E-001f) { // if begin
         _TMP10 = dot(_TMP1.xyz, _v0027);
-        _occlusion10027 = max(  0.00000000000000000E00f, _TMP10*(  1.00000000000000000E00f + _TMP30));
+        _occlusion10027 = max( 0.00000000000000000E000f, _TMP10*( 1.00000000000000000E000f + _TMP30));
         _TMP26 = _occlusion10027;
     } else {
-        _TMP26 =   0.00000000000000000E00f;
+        _TMP26 =  0.00000000000000000E000f;
     } // end if
     _occlusion = _occlusion + _TMP26;
-    _sampleOffset0035 = _sampleOffset1*  7.50000000000000000E-01f;
+    _sampleOffset0035 = _sampleOffset1* 7.50000000000000000E-001f;
     _samplePositionVS0035 = _TMP50.Sample(_PositionMap, _texCoord1 + _sampleOffset0035);
     _diff0035 = _samplePositionVS0035.xyz - _positionVS1.xyz;
     _TMP11 = dot(_diff0035, _diff0035);
@@ -356,13 +356,13 @@ float4 main( in X1X cin) : SV_Target0
     _v0035 = _TMP12*_diff0035;
     _TMP13 = dot(_diff0035, _diff0035);
     _TMP14 = rsqrt(_TMP13);
-    _TMP38 =   1.00000000000000000E00f/_TMP14;
-    if (_TMP38 <   1.00000001490116119E-01f) { // if begin
+    _TMP38 =  1.00000000000000000E000f/_TMP14;
+    if (_TMP38 <  1.00000001490116120E-001f) { // if begin
         _TMP10 = dot(_TMP1.xyz, _v0035);
-        _occlusion10035 = max(  0.00000000000000000E00f, _TMP10*(  1.00000000000000000E00f + _TMP38));
+        _occlusion10035 = max( 0.00000000000000000E000f, _TMP10*( 1.00000000000000000E000f + _TMP38));
         _TMP34 = _occlusion10035;
     } else {
-        _TMP34 =   0.00000000000000000E00f;
+        _TMP34 =  0.00000000000000000E000f;
     } // end if
     _occlusion = _occlusion + _TMP34;
     _samplePositionVS0043 = _TMP50.Sample(_PositionMap, _texCoord1 + _coord21);
@@ -372,16 +372,16 @@ float4 main( in X1X cin) : SV_Target0
     _v0043 = _TMP12*_diff0043;
     _TMP13 = dot(_diff0043, _diff0043);
     _TMP14 = rsqrt(_TMP13);
-    _TMP46 =   1.00000000000000000E00f/_TMP14;
-    if (_TMP46 <   1.00000001490116119E-01f) { // if begin
+    _TMP46 =  1.00000000000000000E000f/_TMP14;
+    if (_TMP46 <  1.00000001490116120E-001f) { // if begin
         _TMP10 = dot(_TMP1.xyz, _v0043);
-        _occlusion10043 = max(  0.00000000000000000E00f, _TMP10*(  1.00000000000000000E00f + _TMP46));
+        _occlusion10043 = max( 0.00000000000000000E000f, _TMP10*( 1.00000000000000000E000f + _TMP46));
         _TMP42 = _occlusion10043;
     } else {
-        _TMP42 =   0.00000000000000000E00f;
+        _TMP42 =  0.00000000000000000E000f;
     } // end if
     _occlusion = _occlusion + _TMP42;
-    _occlusion = _occlusion/  1.60000000000000000E01f;
-    _occlusion =   1.00000000000000000E00f - _occlusion;
-    return float4(_occlusion, _occlusion, _occlusion,   1.00000000000000000E00f);
+    _occlusion = _occlusion/ 1.60000000000000000E001f;
+    _occlusion =  1.00000000000000000E000f - _occlusion;
+    return float4(_occlusion, _occlusion, _occlusion,  1.00000000000000000E000f);
 } // main end

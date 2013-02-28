@@ -29,6 +29,20 @@ struct CellGcmRenderTarget {
   unsigned int renderTargetOffset;
 };
 
+#ifndef CELL_GCM_FRAME_BUFFER_H
+#define CELL_GCM_FRAME_BUFFER_H
+
+class CellGcmFrameBuffer {
+
+public:
+
+	std::vector<CellGcmRenderTarget> renderTargets_;
+	CellGcmRenderTarget depthBufferTarget_;
+
+};
+
+#endif
+
 class PS3GCMGraphicsInterface : public IGraphicsInterface {
 
 public:
@@ -131,6 +145,7 @@ private:
   std::vector<unsigned int> vertexBuffers_;
   std::vector<CellGcmTextureContainer> textures_;
   std::vector<CellGcmRenderTarget> renderTargets_;
+	std::vector<CellGcmFrameBuffer> frameBuffers_;
 
 };
 

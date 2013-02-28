@@ -1,4 +1,0 @@
-Checking C:\Users\NK\Development\game\src\engine\renderer\Material.cpp...
-Checking usage of global functions..
-C:\Users\NK\Development\game\src\engine\renderer\Material.cpp(12): style,unusedFunction,The function 'bind' is never used
-<error id="missingInclude" severity="style" msg="Cppcheck cannot find all the include files (use --check-config for details)"/>

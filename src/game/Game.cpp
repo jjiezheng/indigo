@@ -47,17 +47,16 @@ void Game::init(const char* sceneFile) {
  
 void Game::mainLoop() {
   float dt = clock_.delta_time();
+
   camera_.update(dt);
   Pad::update();
   Keyboard::update();
   ui_.update(dt);
-
 	world_.update(dt);
+	editor_.update(dt);
   
 	renderer_.render(&camera_, world_, sceneContext_);
-	
-//	world_.debugRender();
-
+	editor_.render();
   ui_.render();  
 }
 

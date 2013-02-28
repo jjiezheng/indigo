@@ -24,12 +24,9 @@ project "game"
 
 	excludes { }
 
-	--
-	-- PS3
-	--
 	configuration { "ps3" }
 		targetextension(".elf")
-		postbuildcommands { "C://usr//local//cell//host-win32//bin//make_fself $(OutDir)//Game.elf $(OutDir)//game.self" }
+		postbuildcommands { "C://usr//local//cell.420//host-win32//bin//make_fself $(OutDir)//Game.elf $(OutDir)//game.self",  }
 		defines     { "SN_TARGET_PS3", "__SNC__", "__CELL_ASSERT__", "PLATFORM_PS3"}
 		buildoptions "-Xc+=exceptions --diag_suppress=383 --diag_suppress=613 --diag_suppress=1011"
 		linkoptions  "-lsn -lm -lio_stub -lfs_stub -lgcm_cmd -lgcm_sys_stub -lsysmodule_stub -lsysutil_stub -lcgc"
@@ -65,11 +62,7 @@ project "game"
 		defines     "NDEBUG"
 		flags       { "OptimizeSpeed" }
 
-	--
-	-- Windows
-	--
-
-	configuration { "vs2008", "x32" }
+	configuration { "x32" }
 		defines     { "_CRT_SECURE_NO_WARNINGS", "_WIN32", "PLATFORM_WINDOWS" }
 		links {
 			"d3dcompiler",
@@ -96,9 +89,6 @@ project "game"
 			"src/engine/platform/input/win/**.cpp"
 		}
 
-	-- 
-	-- OSX
-	--
 	configuration "macosx"
 		buildoptions "-stdlib=libc++"
 		linkoptions  "-stdlib=libc++"
@@ -129,9 +119,6 @@ project "game"
 			"src/engine/platform/input/mac/**.cpp"
 		}
 
-	-- 
-	-- LINUX
-	--
 	configuration "linux"
 		buildoptions ""
 		linkoptions  ""

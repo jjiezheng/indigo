@@ -8,6 +8,11 @@
 #include "core/Size.h"
 #include "maths/Vector2.h"
 
+typedef unsigned int TextureId;
+typedef unsigned int RenderTarget;
+typedef unsigned int VertexBuffer;
+typedef unsigned int FrameBuffer;
+
 class IEffect;
 class Color4;
 class VertexDef;

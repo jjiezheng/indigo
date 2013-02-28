@@ -10,6 +10,8 @@ public:
   void setup() { };
 
   Point position();
+
+	void setPosition(const Point& position);
   
   bool isLeftButtonDown();
 
@@ -26,6 +28,10 @@ inline bool NullMouse::isLeftButtonDown() {
 }
 
 inline void NullMouse::hideOSMouse(bool isHidden) {
+
+}
+
+void NullMouse::setPosition(const Point& position) {
 
 }
 

@@ -72,22 +72,22 @@ Model* BinaryModelDeserializer::deserialize(const std::string& modelFilePath) {
 
   std::ifstream input;
   input.open(modelFilePath.c_str(), std::ifstream::in | std::ios::binary);
-  input.seekg(0); 
+
+	if (!input.is_open()) {
+		LOG(LOG_CHANNEL_IO, "Failed to open %s", modelFilePath.c_str());
+		return model; 
+	}
+
+	input.seekg(0); 
 
 #ifdef BIG_ENDIAN
-  unsigned int bigEndianOffset;
+  unsigned int bigEndianOffset = 0;
   input.read((char*)&bigEndianOffset, sizeof(unsigned int));
-  bigEndianOffset = binary_uint32(bigEndianOffset);
   input.seekg(0);
   input.seekg(bigEndianOffset);
 #else
   input.seekg(sizeof(unsigned int));
 #endif
-
-  if (!input.is_open()) {
-    LOG(LOG_CHANNEL_IO, "Failed to open %s", modelFilePath.c_str());
-    return model; 
-  }
 
   unsigned int subMeshCount = readUINT(input);
 

@@ -373,92 +373,7 @@ void PS3GCMGraphicsInterface::fillTexture(unsigned int textureId, void* data, un
 
 
 void PS3GCMGraphicsInterface::setRenderTarget(unsigned int* renderTargetIds, unsigned int renderTargetCount, bool useDepthBuffer, const CSize& dimensions, unsigned int depthTextureId) {
-  std::vector<CellGcmRenderTarget> renderTargets;
-
-  for (unsigned int i = 0; i < renderTargetCount; i++) {
-    unsigned int renderTargetId = renderTargetIds[i];
-    assert(renderTargetId < renderTargets_.size());
-
-    CellGcmRenderTarget renderTarget = renderTargets_[renderTargetId];
-    renderTargets.push_back(renderTarget);
-  }
-
-   cellGcmSetDepthTestEnable(useDepthBuffer);
-
-   CellGcmSurface sf;
-   memset(&sf, 0, sizeof(CellGcmSurface));
-
-   sf.colorFormat = CELL_GCM_SURFACE_A8R8G8B8;
-   sf.colorTarget = CELL_GCM_SURFACE_TARGET_0;
-
-   sf.colorLocation[0]= CELL_GCM_LOCATION_LOCAL;
-   sf.colorOffset[0] = renderTargets[0].renderTargetOffset;
-   sf.colorPitch[0] = renderTargets[0].pitch;
-
-   sf.colorLocation[1]	= CELL_GCM_LOCATION_LOCAL;
-   sf.colorOffset[1] = 0;
-   sf.colorPitch[1] = 64; 
-
-   sf.colorLocation[2]	= CELL_GCM_LOCATION_LOCAL;
-   sf.colorOffset[2] = 0;
-   sf.colorPitch[2] = 64; 
-
-   sf.colorLocation[3]	= CELL_GCM_LOCATION_LOCAL;
-   sf.colorOffset[3] = 0;
-   sf.colorPitch[3] = 64;
-
-   unsigned int colorWriteMask = 0;
-
-   if (renderTargetCount > 1) {
-     sf.colorTarget = CELL_GCM_SURFACE_TARGET_MRT1;
-
-     sf.colorLocation[1]	= CELL_GCM_LOCATION_LOCAL;
-     sf.colorOffset[1] = renderTargets[1].renderTargetOffset;
-     sf.colorPitch[1] = renderTargets[1].pitch;
-
-     colorWriteMask |= CELL_GCM_COLOR_MASK_MRT1_A | CELL_GCM_COLOR_MASK_MRT1_R | CELL_GCM_COLOR_MASK_MRT1_G | CELL_GCM_COLOR_MASK_MRT1_B;
-   }
-
-   if (renderTargetCount > 2) {
-     sf.colorTarget = CELL_GCM_SURFACE_TARGET_MRT2;
-
-     sf.colorLocation[2]	= CELL_GCM_LOCATION_LOCAL;
-     sf.colorOffset[2] = renderTargets[2].renderTargetOffset;
-     sf.colorPitch[2] = renderTargets[2].pitch;  
-
-     colorWriteMask |= CELL_GCM_COLOR_MASK_MRT2_A | CELL_GCM_COLOR_MASK_MRT2_R | CELL_GCM_COLOR_MASK_MRT2_G | CELL_GCM_COLOR_MASK_MRT2_B;
-   }
-
-   if (renderTargetCount > 3) {
-     sf.colorTarget = CELL_GCM_SURFACE_TARGET_MRT3;
-     sf.colorLocation[3]	= CELL_GCM_LOCATION_LOCAL;
-     sf.colorOffset[3] = renderTargets[3].renderTargetOffset;
-     sf.colorPitch[3] = renderTargets[3].pitch;  
-
-     colorWriteMask |= CELL_GCM_COLOR_MASK_MRT3_A | CELL_GCM_COLOR_MASK_MRT3_R | CELL_GCM_COLOR_MASK_MRT3_G | CELL_GCM_COLOR_MASK_MRT3_B;
-   }
-
-   if (renderTargetCount > 1) {
-     cellGcmSetColorMaskMrt(colorWriteMask);
-   }
-
-   CellGcmTextureContainer depthTextureContainer = textures_[depthTextureId];
-   CellGcmTexture depthTexture = depthTextureContainer.texture;
- 
-   sf.depthFormat = CELL_GCM_SURFACE_Z24S8;
-   sf.depthLocation = useDepthBuffer ?  CELL_GCM_LOCATION_LOCAL : 0;
-   sf.depthOffset = useDepthBuffer ? depthTexture.offset : 0;
-   sf.depthPitch = useDepthBuffer ? depthTexture.pitch : 64;
-
-   sf.type = CELL_GCM_SURFACE_PITCH;
-   sf.antialias = CELL_GCM_SURFACE_CENTER_1;
-
-   sf.width = dimensions.width;
-   sf.height = dimensions.height;
-   sf.x = 0;
-   sf.y = 0;
-
-   cellGcmSetSurface(&sf);
+  
 }
 
 void PS3GCMGraphicsInterface::resetRenderTarget(bool useDepthBuffer) {
@@ -652,10 +567,106 @@ void PS3GCMGraphicsInterface::setTextureData(unsigned int textureId, const void*
   memcpy((void*)textureContainer.textureAddress, textureData, dataSize);
 }
 
-unsigned int PS3GCMGraphicsInterface::createFrameBuffer(unsigned int* renderTargetId, unsigned int renderTargetCount, bool useDepthBuffer, unsigned int depthBufferTargetId) {
-	return 0;
+unsigned int PS3GCMGraphicsInterface::createFrameBuffer(unsigned int* renderTargetIds, unsigned int renderTargetCount, bool useDepthBuffer, unsigned int depthBufferTargetId) {
+	CellGcmFrameBuffer frameBuffer;
+
+	for (unsigned int i = 0; i < renderTargetCount; i++) {
+		RenderTarget renderTargetId = renderTargetIds[i];
+		CellGcmRenderTarget renderTarget = renderTargets_[renderTargetId];
+		frameBuffer.renderTargets_.push_back(renderTarget);
+	}
+
+	if (useDepthBuffer) {
+		assert(depthBufferTargetId < textures_.size());
+		CellGcmRenderTarget renderTarget = renderTargets_[depthBufferTargetId];
+		frameBuffer.depthBufferTarget_ = renderTarget;
+	}
+
+	unsigned int frameBufferId = frameBuffers_.size();
+	frameBuffers_.push_back(frameBuffer);
+
+	return frameBufferId;
 }
 
 void PS3GCMGraphicsInterface::setFrameBuffer(unsigned int frameBufferId) {
 
+	assert(frameBufferId < frameBuffers_.size());
+	CellGcmFrameBuffer frameBuffer = frameBuffers_[frameBufferId];
+	
+	bool useDepthBuffer = frameBuffer.depthBufferTarget_.renderTargetOffset > 0;
+	cellGcmSetDepthTestEnable(useDepthBuffer);
+
+	CellGcmSurface sf;
+	memset(&sf, 0, sizeof(CellGcmSurface));
+
+	sf.colorFormat = CELL_GCM_SURFACE_A8R8G8B8;
+	sf.colorTarget = CELL_GCM_SURFACE_TARGET_0;
+
+	sf.colorLocation[0]= CELL_GCM_LOCATION_LOCAL;
+	sf.colorOffset[0] = frameBuffer.renderTargets_[0].renderTargetOffset;
+	sf.colorPitch[0] = frameBuffer.renderTargets_[0].pitch;
+
+	sf.colorLocation[1]	= CELL_GCM_LOCATION_LOCAL;
+	sf.colorOffset[1] = 0;
+	sf.colorPitch[1] = 64; 
+
+	sf.colorLocation[2]	= CELL_GCM_LOCATION_LOCAL;
+	sf.colorOffset[2] = 0;
+	sf.colorPitch[2] = 64; 
+
+	sf.colorLocation[3]	= CELL_GCM_LOCATION_LOCAL;
+	sf.colorOffset[3] = 0;
+	sf.colorPitch[3] = 64;
+
+	unsigned int colorWriteMask = 0;
+
+	int renderTargetCount = frameBuffer.renderTargets_.size();
+
+	if (renderTargetCount > 1) {
+		sf.colorTarget = CELL_GCM_SURFACE_TARGET_MRT1;
+
+		sf.colorLocation[1]	= CELL_GCM_LOCATION_LOCAL;
+		sf.colorOffset[1] = frameBuffer.renderTargets_[1].renderTargetOffset;
+		sf.colorPitch[1] = frameBuffer.renderTargets_[1].pitch;
+
+		colorWriteMask |= CELL_GCM_COLOR_MASK_MRT1_A | CELL_GCM_COLOR_MASK_MRT1_R | CELL_GCM_COLOR_MASK_MRT1_G | CELL_GCM_COLOR_MASK_MRT1_B;
+	}
+
+	if (renderTargetCount > 2) {
+		sf.colorTarget = CELL_GCM_SURFACE_TARGET_MRT2;
+
+		sf.colorLocation[2]	= CELL_GCM_LOCATION_LOCAL;
+		sf.colorOffset[2] = frameBuffer.renderTargets_[2].renderTargetOffset;
+		sf.colorPitch[2] = frameBuffer.renderTargets_[2].pitch;  
+
+		colorWriteMask |= CELL_GCM_COLOR_MASK_MRT2_A | CELL_GCM_COLOR_MASK_MRT2_R | CELL_GCM_COLOR_MASK_MRT2_G | CELL_GCM_COLOR_MASK_MRT2_B;
+	}
+
+	if (renderTargetCount > 3) {
+		sf.colorTarget = CELL_GCM_SURFACE_TARGET_MRT3;
+		sf.colorLocation[3]	= CELL_GCM_LOCATION_LOCAL;
+		sf.colorOffset[3] = frameBuffer.renderTargets_[3].renderTargetOffset;
+		sf.colorPitch[3] = frameBuffer.renderTargets_[3].pitch;  
+
+		colorWriteMask |= CELL_GCM_COLOR_MASK_MRT3_A | CELL_GCM_COLOR_MASK_MRT3_R | CELL_GCM_COLOR_MASK_MRT3_G | CELL_GCM_COLOR_MASK_MRT3_B;
+	}
+
+	if (renderTargetCount > 1) {
+		cellGcmSetColorMaskMrt(colorWriteMask);
+	}
+
+	sf.depthFormat = CELL_GCM_SURFACE_Z24S8;
+	sf.depthLocation = useDepthBuffer ?  CELL_GCM_LOCATION_LOCAL : 0;
+	sf.depthOffset = useDepthBuffer ? frameBuffer.depthBufferTarget_.renderTargetOffset : 0;
+	sf.depthPitch = useDepthBuffer ? frameBuffer.depthBufferTarget_.pitch : 64;
+
+	sf.type = CELL_GCM_SURFACE_PITCH;
+	sf.antialias = CELL_GCM_SURFACE_CENTER_1;
+
+	sf.width = backbufferSize_.width;
+	sf.height = backbufferSize_.height;
+	sf.x = 0;
+	sf.y = 0;
+
+	cellGcmSetSurface(&sf);
 }

@@ -1,5 +1,0 @@
-Checking C:\Users\NK\Development\game\libs\gtest\src\gtest-test-part.cc...
-Checking usage of global functions..
-C:\Users\NK\Development\game\libs\gtest\src\gtest-test-part.cc(68): style,unusedFunction,The function 'Append' is never used
-C:\Users\NK\Development\game\libs\gtest\src\gtest-test-part.cc(73): style,unusedFunction,The function 'GetTestPartResult' is never used
-<error id="missingInclude" severity="style" msg="Cppcheck cannot find all the include files (use --check-config for details)"/>

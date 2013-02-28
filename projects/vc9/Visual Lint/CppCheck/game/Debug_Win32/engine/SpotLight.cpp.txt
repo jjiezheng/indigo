@@ -1,6 +1,0 @@
-Checking C:\Users\NK\Development\game\src\engine\renderer\SpotLight.cpp...
-Checking usage of global functions..
-C:\Users\NK\Development\game\src\engine\renderer\SpotLight.cpp(26): style,unusedFunction,The function 'projection' is never used
-C:\Users\NK\Development\game\src\engine\renderer\SpotLight.cpp(11): style,unusedFunction,The function 'transform' is never used
-C:\Users\NK\Development\game\src\engine\renderer\SpotLight.cpp(30): style,unusedFunction,The function 'viewTransform' is never used
-<error id="missingInclude" severity="style" msg="Cppcheck cannot find all the include files (use --check-config for details)"/>
