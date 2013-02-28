@@ -43,7 +43,6 @@ void Game::init(const char* sceneFile) {
   }
 
   Keyboard::setKeydownListener(this);  
-  renderer_.presentRenderTarget(6);
   keyUp(KEY_BACKTICK);
 }
  
