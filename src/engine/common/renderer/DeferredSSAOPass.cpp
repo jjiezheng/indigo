@@ -151,7 +151,7 @@ TextureId DeferredSSAOPass::render(IViewer* viewer, unsigned int inputMap, const
  {
 		GraphicsInterface::beginPerformanceEvent("Combine");
 
-		GraphicsInterface::setRenderTarget(ssaoColorBlurCombinedRenderTarget_, false);
+    GraphicsInterface::setFrameBuffer(ssaoColorBlurCombinedFrameBuffer_);
 
 		combineEffect_->beginDraw();
 
