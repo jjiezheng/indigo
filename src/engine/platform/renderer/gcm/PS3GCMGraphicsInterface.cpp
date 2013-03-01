@@ -604,24 +604,6 @@ void PS3GCMGraphicsInterface::setFrameBuffer(unsigned int frameBufferId) {
 	CellGcmSurface sf;
 	memset(&sf, 0, sizeof(CellGcmSurface));
 
-//   int gcmSurfaceFormat = 0;
-//   int surfaceFormat = frameBuffer.renderTargets_[0].format;                           
-// 
-//   switch (surfaceFormat) 
-//     case CELL_GCM_TEXTURE_A8R8G8B8: {
-//       gcmSurfaceFormat = CELL_GCM_SURFACE_A8R8G8B8;
-//       break;
-//                                        
-//     case CELL_GCM_TEXTURE_W16_Z16_Y16_X16_FLOAT:
-//       gcmSurfaceFormat = CELL_GCM_SURFACE_F_W16Z16Y16X16;
-//       break;
-//                                           
-//     case CELL_GCM_TEXTURE_W32_Z32_Y32_X32_FLOAT: 
-//       gcmSurfaceFormat = CELL_GCM_SURFACE_F_W32Z32Y32X32;
-//       break;
-//                  
-//   }
-
   sf.colorFormat = CELL_GCM_SURFACE_A8R8G8B8;
 	sf.colorTarget = CELL_GCM_SURFACE_TARGET_0;
 

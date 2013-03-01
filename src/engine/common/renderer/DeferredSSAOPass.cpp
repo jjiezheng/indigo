@@ -25,7 +25,6 @@
 
 #include "memory/Allocation.h"
 
-static const int kKernelSize = 16;
 static const int kNoisePixelWidth = 4;
 
 void DeferredSSAOPass::init(const CSize& screenSize) {
@@ -38,7 +37,7 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
   combineEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_ssao_combine.shader");
   quadVbo_ = Geometry::screenPlane();
 
-  ssaoRawTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R32G32B32A32);
+  ssaoRawTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R8G8B8A8);
   ssaoRawRenderTarget_ = GraphicsInterface::createRenderTarget(ssaoRawTexture_);
   ssaoRawFrameBuffer_ = GraphicsInterface::createFrameBuffer(ssaoRawRenderTarget_, false);
 
@@ -61,22 +60,6 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
   }
 
    noiseTexture_ = GraphicsInterface::createTexture(CSize(kNoisePixelWidth, kNoisePixelWidth), IGraphicsInterface::R32G32B32A32, 1, 1, &noise, sizeof(Vector4) * kNoisePixelWidth);  
-
-  for (unsigned i = 0; i < kKernelSize; i++) {
-    float x = Random::random(-1.0f, 1.0f);
-    float y = Random::random(-1.0f, 1.0f);
-    float z = Random::random(0.0f, 1.0f);
-    Vector4 kernelV(x, y, z, 0.0f);
-
-    Vector4 kernelN = kernelV.normalize();
-
-    float randomScale = Random::random(0.0f, 1.0f);
-    Vector4 kernelS = kernelN * randomScale;
-
-    float scale = float(i) / float(kKernelSize);
-    float lerpedScale = lerp(0.1f, 1.0f, scale * scale);
-    kernel[i] = kernelS * lerpedScale;
-  }
 }
 
 TextureId DeferredSSAOPass::render(IViewer* viewer, unsigned int inputMap, const SceneContext& sceneContext, const DeferredInitRenderStage& initStage) {
@@ -128,9 +111,6 @@ TextureId DeferredSSAOPass::render(IViewer* viewer, unsigned int inputMap, const
 		}		
 
     ssaoEffect_->setUniform(radius, "Radius");
-
-    ssaoEffect_->setUniform(kernel, kKernelSize, "Kernel");
-    ssaoEffect_->setUniform(kKernelSize, "KernelSize");
 
     Vector2 noiseScale = Vector2(GraphicsInterface::backBufferWidth() / float(kNoisePixelWidth), GraphicsInterface::backBufferHeight() / float(kNoisePixelWidth));
     ssaoEffect_->setUniform(noiseScale, "NoiseScale");

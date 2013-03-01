@@ -63,8 +63,6 @@ private:
 
   AverageBlur blur_;
 
-  Vector4 kernel[16];
-
 };
 
 inline std::string DeferredSSAOPass::passName() const {
