@@ -31,12 +31,12 @@ struct X1X {
 
 static float _TMP2;
 static float3 _TMP1;
+static float _TMP5;
 static float _TMP4;
-static float _TMP3;
-static float4 _unPackedNormal0007;
-static float4 _normalData0007;
-static float2 _texCoord0007;
-Texture2D<float4> _TMP10 : register(t0);
+static float4 _TMP3;
+static float3 _unPackedNormal0008;
+static float2 _texCoord0008;
+Texture2D<float4> _TMP11 : register(t0);
 SamplerState _NormalMap : TEXUNIT0;
 uniform float4 _LightDirection;
 uniform float3 _LightColor;
@@ -52,14 +52,14 @@ float4 main( in X1X cin) : SV_Target0
     float3 _diffuseContribution;
 
     _texCoord1 = cin._TEXCOORD0;
-    _texCoord0007 = _texCoord1 + _HalfPixel;
-    _normalData0007 = _TMP10.Sample(_NormalMap, _texCoord0007);
-    _unPackedNormal0007 = _normalData0007* 2.00000000000000000E000f -  1.00000000000000000E000f;
-    _TMP3 = dot(_LightDirection.xyz, _LightDirection.xyz);
-    _TMP4 = rsqrt(_TMP3);
-    _TMP1 = _TMP4*_LightDirection.xyz;
+    _texCoord0008 = _texCoord1 + _HalfPixel;
+    _TMP3 = _TMP11.Sample(_NormalMap, _texCoord0008);
+    _unPackedNormal0008 = _TMP3.xyz* 2.00000000000000000E000f -  1.00000000000000000E000f;
+    _TMP4 = dot(_LightDirection.xyz, _LightDirection.xyz);
+    _TMP5 = rsqrt(_TMP4);
+    _TMP1 = _TMP5*_LightDirection.xyz;
     _lightVector = -_TMP1;
-    _TMP2 = dot(_unPackedNormal0007.xyz, _lightVector);
+    _TMP2 = dot(_unPackedNormal0008.xyz, _lightVector);
     _diffuseStrength = max( 0.00000000000000000E000f, _TMP2);
     _diffuseContribution = _LightColor*_diffuseStrength;
     return float4(_diffuseContribution.x, _diffuseContribution.y, _diffuseContribution.z,  1.00000000000000000E000f);

@@ -26,11 +26,11 @@ struct VOutput {
 vec4 _ret_0;
 float _TMP2;
 vec3 _TMP1;
+float _TMP5;
 float _TMP4;
-float _TMP3;
-vec4 _normalData0011;
-vec2 _texCoord0011;
-vec4 _unPackedNormal0011;
+vec4 _TMP3;
+vec2 _texCoord0012;
+vec3 _unPackedNormal0012;
 uniform sampler2D _NormalMap;
 uniform vec4 _LightDirection;
 uniform vec3 _LightColor;
@@ -46,14 +46,14 @@ void main()
     float _diffuseStrength;
     vec3 _diffuseContribution;
 
-    _texCoord0011 = cg_TexCoord0.xy + _HalfPixel;
-    _normalData0011 = texture(_NormalMap, _texCoord0011);
-    _unPackedNormal0011 = _normalData0011*2.00000000E+000 - 1.00000000E+000;
-    _TMP3 = dot(_LightDirection.xyz, _LightDirection.xyz);
-    _TMP4 = inversesqrt(_TMP3);
-    _TMP1 = _TMP4*_LightDirection.xyz;
+    _texCoord0012 = cg_TexCoord0.xy + _HalfPixel;
+    _TMP3 = texture(_NormalMap, _texCoord0012);
+    _unPackedNormal0012 = _TMP3.xyz*2.00000000E+000 - 1.00000000E+000;
+    _TMP4 = dot(_LightDirection.xyz, _LightDirection.xyz);
+    _TMP5 = inversesqrt(_TMP4);
+    _TMP1 = _TMP5*_LightDirection.xyz;
     _lightVector = -_TMP1;
-    _TMP2 = dot(_unPackedNormal0011.xyz, _lightVector);
+    _TMP2 = dot(_unPackedNormal0012.xyz, _lightVector);
     _diffuseStrength = max(0.00000000E+000, _TMP2);
     _diffuseContribution = _LightColor*_diffuseStrength;
     _ret_0 = vec4(_diffuseContribution.x, _diffuseContribution.y, _diffuseContribution.z, 1.00000000E+000);
