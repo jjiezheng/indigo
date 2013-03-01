@@ -2,23 +2,24 @@
 #include "utils.h"
 
 float3 packNormal(float3 unPackedNormal) {
-	return normalize(unPackedNormal) * 0.5f + 0.5f;
+	float3 packedNormal = unPackedNormal * 0.5f + 0.5f;
+	return packedNormal;
 }
 
 float3 unpackNormal(sampler2D normalSampler, float2 texCoord) {
-	float4 normalData = tex2D(normalSampler, texCoord);
-	float4 unPackedNormal = normalData * 2.0f - 1.0f;
-	unpackNormal = normalize(unpackNormal);
+	float3 packedNormal = tex2D(normalSampler, texCoord).xyz;
+	float3 unPackedNormal = packedNormal * 2.0f - 1.0f;
 	return unPackedNormal.xyz;
 }
 
 float4 packPosition(float4 unPackedPosition) {
-	return unPackedPosition * 0.5f + 0.5f;
+	float4 packedPosition = unPackedPosition * 0.5f + 0.5f;
+	return packedPosition;
 }
 
 float4 unpackPosition(sampler2D positionSampler, float2 texCoord) {
-	float4 positionData = tex2D(positionSampler, texCoord);
-	float4 unPackedPosition = positionData * 2.0f - 1.0f;
+	float4 packedPosition = tex2D(positionSampler, texCoord);
+	float4 unPackedPosition = packedPosition * 2.0f - 1.0f;
 	return unPackedPosition;
 }
 

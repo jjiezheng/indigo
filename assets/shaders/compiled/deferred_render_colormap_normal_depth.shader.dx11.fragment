@@ -1,5 +1,5 @@
 // ps_4_0 output by Cg compiler
-// cgc version 3.1.0013, build date Apr 18 2012
+// cgc version 3.1.0013, build date Apr 24 2012
 // command line args: -DDX11=1 -q -unroll all -profile ps_5_0
 // source file: deferred_render_colormap_normal_depth.cg
 //vendor NVIDIA Corporation
@@ -47,7 +47,9 @@ struct X1X {
     float4 _TEXCOORD3 : TEXCOORD3;
 };
 
-Texture2D<float4> _TMP2;
+static float3 _packedNormal0001;
+static float3 _packedNormal0003;
+Texture2D<float4> _TMP4;
 SamplerState _ColorMap;
 
  // main procedure, the original name was ps
@@ -64,9 +66,11 @@ POutput main( in X1X cin)
     _texCoord = cin._TEXCOORD1;
     _viewNormal1 = cin._TEXCOORD2;
     _viewPosition = cin._TEXCOORD3;
-    _OUT._color = _TMP2.Sample(_ColorMap, _texCoord);
+    _OUT._color = _TMP4.Sample(_ColorMap, _texCoord);
     _OUT._depth = _viewPosition;
-    _OUT._normal = _normal1* 5.00000000000000000E-001f +  5.00000000000000000E-001f;
-    _OUT._viewNormal = _viewNormal1;
+    _packedNormal0001 = _normal1*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
+    _OUT._normal = _packedNormal0001;
+    _packedNormal0003 = _viewNormal1*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
+    _OUT._viewNormal = _packedNormal0003;
     return _OUT;
 } // main end

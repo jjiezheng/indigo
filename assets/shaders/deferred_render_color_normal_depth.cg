@@ -44,7 +44,7 @@ POutput ps(	float4 position			: POSITION,
 	
 	OUT.color = DiffuseColor;
 	OUT.normal = packNormal(normal);
-	OUT.viewNormal = viewNormal;
+	OUT.viewNormal = packNormal(viewNormal);
 	OUT.viewPosition = viewPosition;
 	
 	return OUT;

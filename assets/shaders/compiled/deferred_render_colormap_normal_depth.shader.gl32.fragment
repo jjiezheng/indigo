@@ -1,5 +1,5 @@
 // glslf output by Cg compiler
-// cgc version 3.1.0013, build date Apr 18 2012
+// cgc version 3.1.0013, build date Apr 24 2012
 // command line args: -DGL=1 -DGL32=1 -q -profileopts version=130 -profile glslf
 // source file: deferred_render_colormap_normal_depth.cg
 //vendor NVIDIA Corporation
@@ -40,6 +40,8 @@ struct POutput {
     vec3 _viewNormal3;
 };
 
+vec3 _packedNormal0009;
+vec3 _packedNormal0011;
 uniform sampler2D _ColorMap;
 in vec4 cg_TexCoord1;
 in vec4 cg_TexCoord3;
@@ -57,9 +59,10 @@ void main()
     POutput _OUT;
 
     _OUT._color = texture(_ColorMap, cg_TexCoord1.xy);
-    _OUT._normal3 = cg_TexCoord0.xyz*5.00000000E-001 + 5.00000000E-001;
-    cg_FragData3.xyz = cg_TexCoord2.xyz;
-    cg_FragData1.xyz = _OUT._normal3;
+    _packedNormal0009 = cg_TexCoord0.xyz*5.00000000E-01 + 5.00000000E-01;
+    _packedNormal0011 = cg_TexCoord2.xyz*5.00000000E-01 + 5.00000000E-01;
+    cg_FragData3.xyz = _packedNormal0011;
+    cg_FragData1.xyz = _packedNormal0009;
     cg_FragData2 = cg_TexCoord3;
     cg_FragColor = _OUT._color;
     return;

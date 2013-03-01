@@ -51,7 +51,9 @@ float4 ps(float4 position 		: POSITION,
 		  float2 texCoord 		: TEXCOORD0) : COLOR0 {
 
 	float4 positionVS = tex2D(PositionMap, texCoord);
-	float3 normalVS = tex2D(NormalMap, texCoord).rgb;
+
+	//ssao needs to be blurred due to precision loss
+	float3 normalVS = unpackNormal(NormalMap, texCoord);
 	float3 random = tex2D(NoiseMap, texCoord * NoiseScale).rgb * 2.0f - 1.0f;	
 
 	float2 sampleOffsets[4] = { float2(1, 0), float2(-1, 0), float2(0, 1), float2(0, -1) };

@@ -1,5 +1,5 @@
 // ps_4_0 output by Cg compiler
-// cgc version 3.1.0013, build date Apr 18 2012
+// cgc version 3.1.0013, build date Apr 24 2012
 // command line args: -DDX11=1 -q -unroll all -profile ps_5_0
 // source file: deferred_render_color_normal_depth.cg
 //vendor NVIDIA Corporation
@@ -44,9 +44,8 @@ struct X1X {
     float4 _TEXCOORD2 : TEXCOORD2;
 };
 
-static float3 _TMP0;
-static float _TMP2;
-static float _TMP1;
+static float3 _packedNormal0001;
+static float3 _packedNormal0003;
 uniform float4 _DiffuseColor;
 
  // main procedure, the original name was ps
@@ -62,11 +61,10 @@ POutput main( in X1X cin)
     _viewNormal1 = cin._TEXCOORD1;
     _viewPosition1 = cin._TEXCOORD2;
     _OUT._color = _DiffuseColor;
-    _TMP1 = dot(_normal1, _normal1);
-    _TMP2 = rsqrt(_TMP1);
-    _TMP0 = _TMP2*_normal1;
-    _OUT._normal = _TMP0* 5.00000000000000000E-001f +  5.00000000000000000E-001f;
-    _OUT._viewNormal = _viewNormal1;
+    _packedNormal0001 = _normal1*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
+    _OUT._normal = _packedNormal0001;
+    _packedNormal0003 = _viewNormal1*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
+    _OUT._viewNormal = _packedNormal0003;
     _OUT._viewPosition = _viewPosition1;
     return _OUT;
 } // main end

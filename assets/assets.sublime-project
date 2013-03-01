@@ -2,11 +2,11 @@
 	"folders":
 	[
 		{
-			"path": "~/Development/prototype/src",
+			"path": "~/Development/game/src",
 			"file_exclude_patterns": ["*.d", "*.txt", "*.xml", "*.vlstatus", "*.modelbinary"]
 		},
 		{
-			"path": "~/Development/prototype/assets/shaders",
+			"path": "~/Development/game/assets/shaders",
 		}
 	],
 	"build_systems":

@@ -1,5 +1,5 @@
 // glslf output by Cg compiler
-// cgc version 3.1.0013, build date Apr 18 2012
+// cgc version 3.1.0013, build date Apr 24 2012
 // command line args: -DGL=1 -DGL21=1 -q -profile glslf
 // source file: deferred_render_color_normal_depth.cg
 //vendor NVIDIA Corporation
@@ -38,23 +38,19 @@ struct POutput {
     vec3 _viewNormal3;
 };
 
-vec3 _TMP0;
-float _TMP2;
-float _TMP1;
+vec3 _packedNormal0007;
+vec3 _packedNormal0009;
 uniform vec4 _DiffuseColor;
 
  // main procedure, the original name was ps
 void main()
 {
 
-    POutput _OUT;
 
-    _TMP1 = dot(gl_TexCoord[0].xyz, gl_TexCoord[0].xyz);
-    _TMP2 = inversesqrt(_TMP1);
-    _TMP0 = _TMP2*gl_TexCoord[0].xyz;
-    _OUT._normal3 = _TMP0*5.00000000E-001 + 5.00000000E-001;
-    gl_FragData[3].xyz = gl_TexCoord[1].xyz;
-    gl_FragData[1].xyz = _OUT._normal3;
+    _packedNormal0007 = gl_TexCoord[0].xyz*5.00000000E-01 + 5.00000000E-01;
+    _packedNormal0009 = gl_TexCoord[1].xyz*5.00000000E-01 + 5.00000000E-01;
+    gl_FragData[3].xyz = _packedNormal0009;
+    gl_FragData[1].xyz = _packedNormal0007;
     gl_FragData[2] = gl_TexCoord[2];
     gl_FragData[0] = _DiffuseColor;
     return;
