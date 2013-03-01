@@ -1,5 +1,5 @@
 // glslf output by Cg compiler
-// cgc version 3.1.0013, build date Apr 24 2012
+// cgc version 3.1.0013, build date Apr 18 2012
 // command line args: -DGL=1 -DGL32=1 -q -profileopts version=130 -profile glslf
 // source file: basic_view_projection.cg
 //vendor NVIDIA Corporation
@@ -22,6 +22,6 @@ void main()
 {
 
 
-    cg_FragColor = vec4( 3.89999986E-01, 5.79999983E-01, 9.30000007E-01, 1.00000000E+00);
+    cg_FragColor = vec4( 3.89999986E-001, 5.79999983E-001, 9.30000007E-001, 1.00000000E+000);
     return;
 } // main end

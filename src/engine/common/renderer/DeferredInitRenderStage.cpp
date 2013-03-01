@@ -10,7 +10,7 @@
 #include <stdio.h>
 
 void DeferredInitRenderStage::init(const CSize& screenSize) {
-  colorMapTexture_ = GraphicsInterface::createTexture(GraphicsInterface::backBufferSize(), IGraphicsInterface::R8G8B8A8);
+  colorMapTexture_ = GraphicsInterface::createTexture(GraphicsInterface::backBufferSize(), IGraphicsInterface::R32G32B32A32);
   colorRenderTarget_ = GraphicsInterface::createRenderTarget(colorMapTexture_);
 
   normalMapTexture_ = GraphicsInterface::createTexture(GraphicsInterface::backBufferSize(), IGraphicsInterface::R32G32B32A32);

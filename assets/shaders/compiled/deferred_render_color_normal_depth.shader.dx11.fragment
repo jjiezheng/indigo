@@ -1,5 +1,5 @@
 // ps_4_0 output by Cg compiler
-// cgc version 3.1.0013, build date Apr 24 2012
+// cgc version 3.1.0013, build date Apr 18 2012
 // command line args: -DDX11=1 -q -unroll all -profile ps_5_0
 // source file: deferred_render_color_normal_depth.cg
 //vendor NVIDIA Corporation
@@ -19,7 +19,7 @@
 //var float4 ps.color : $vout.COLOR0 : COLOR0 : -1 : 1
 //var float3 ps.normal : $vout.COLOR1 : COLOR1 : -1 : 1
 //var float4 ps.viewPosition : $vout.COLOR2 : COLOR2 : -1 : 1
-//var float4 ps.viewNormal : $vout.COLOR3 : COLOR3 : -1 : 1
+//var float3 ps.viewNormal : $vout.COLOR3 : COLOR3 : -1 : 1
 
 #pragma pack_matrix(row_major)
 
@@ -34,7 +34,7 @@ struct POutput {
     float4 _color : SV_Target0;
     float3 _normal : SV_Target1;
     float4 _viewPosition : SV_Target2;
-    float4 _viewNormal : SV_Target3;
+    float3 _viewNormal : SV_Target3;
 };
 
 struct X1X {
@@ -44,6 +44,9 @@ struct X1X {
     float4 _TEXCOORD2 : TEXCOORD2;
 };
 
+static float3 _TMP0;
+static float _TMP2;
+static float _TMP1;
 uniform float4 _DiffuseColor;
 
  // main procedure, the original name was ps
@@ -59,8 +62,11 @@ POutput main( in X1X cin)
     _viewNormal1 = cin._TEXCOORD1;
     _viewPosition1 = cin._TEXCOORD2;
     _OUT._color = _DiffuseColor;
-    _OUT._normal = _normal1*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
-    _OUT._viewNormal = float4(_viewNormal1.x, _viewNormal1.y, _viewNormal1.z,   1.00000000000000000E00f);
+    _TMP1 = dot(_normal1, _normal1);
+    _TMP2 = rsqrt(_TMP1);
+    _TMP0 = _TMP2*_normal1;
+    _OUT._normal = _TMP0* 5.00000000000000000E-001f +  5.00000000000000000E-001f;
+    _OUT._viewNormal = _viewNormal1;
     _OUT._viewPosition = _viewPosition1;
     return _OUT;
 } // main end

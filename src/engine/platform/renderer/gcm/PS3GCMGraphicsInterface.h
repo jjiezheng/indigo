@@ -17,16 +17,19 @@ struct CellGcmTextureContainer {
 
   CellGcmTexture texture;
   unsigned int textureAddress;
+  unsigned int format;
 
 };
 
 struct CellGcmRenderTarget {
   CellGcmRenderTarget()
     : renderTargetOffset(0)
-    , pitch(0) { }
+    , pitch(0)
+    , format(0) { }
 
   unsigned int pitch;
   unsigned int renderTargetOffset;
+  unsigned int format;
 };
 
 #ifndef CELL_GCM_FRAME_BUFFER_H
