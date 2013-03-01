@@ -36,7 +36,7 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
   presentStage_.init(screenSize);
 
   unsigned int renderTargetsSize = (unsigned int)renderTargets_.size();
-  presentRenderTarget(renderTargetsSize - 1);
+  presentRenderTarget(renderTargetsSize - 2);
 
   GraphicsInterface::swapBuffers();
 }

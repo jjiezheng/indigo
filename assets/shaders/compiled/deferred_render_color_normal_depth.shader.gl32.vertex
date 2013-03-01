@@ -34,7 +34,7 @@ struct VOutput {
 struct POutput {
     vec4 _color;
     vec3 _normal2;
-    vec4 _viewPosition1;
+    vec4 _depth;
     vec3 _viewNormal1;
 };
 

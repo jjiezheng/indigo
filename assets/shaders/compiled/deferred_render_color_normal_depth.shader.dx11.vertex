@@ -34,7 +34,7 @@ struct VOutput {
 struct POutput {
     float4 _color : COLOR0;
     float3 _normal2 : COLOR1;
-    float4 _viewPosition1 : COLOR2;
+    float4 _depth : COLOR2;
     float3 _viewNormal1 : COLOR3;
 };
 

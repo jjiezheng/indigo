@@ -13,6 +13,7 @@
 //semantic Near
 //semantic Far
 //var sampler2D ColorMap :  : _ColorMap : -1 : 1
+//var float Far :  : _Far : -1 : 1
 //var float3 normal : $vin.TEXCOORD0 :  : 1 : 1
 //var float2 texCoord : $vin.TEXCOORD1 :  : 2 : 1
 //var float3 viewNormal : $vin.TEXCOORD2 :  : 3 : 1
@@ -49,8 +50,10 @@ struct X1X {
 
 static float3 _packedNormal0001;
 static float3 _packedNormal0003;
-Texture2D<float4> _TMP4;
+static float4 _enc0007;
+Texture2D<float4> _TMP8;
 SamplerState _ColorMap;
+float _Far;
 
  // main procedure, the original name was ps
 POutput main( in X1X cin)
@@ -61,16 +64,21 @@ POutput main( in X1X cin)
     float3 _viewNormal1;
     float4 _viewPosition;
     POutput _OUT;
+    float _linearDepth;
 
     _normal1 = cin._TEXCOORD0;
     _texCoord = cin._TEXCOORD1;
     _viewNormal1 = cin._TEXCOORD2;
     _viewPosition = cin._TEXCOORD3;
-    _OUT._color = _TMP4.Sample(_ColorMap, _texCoord);
-    _OUT._depth = _viewPosition;
+    _OUT._color = _TMP8.Sample(_ColorMap, _texCoord);
     _packedNormal0001 = _normal1* 5.00000000000000000E-001f +  5.00000000000000000E-001f;
     _OUT._normal = _packedNormal0001;
     _packedNormal0003 = _viewNormal1* 5.00000000000000000E-001f +  5.00000000000000000E-001f;
     _OUT._viewNormal = _packedNormal0003;
+    _linearDepth = -_viewPosition.z/_Far;
+    _enc0007 = float4(  1.00000000000000000E000f,  2.55000000000000000E002f,  6.50250000000000000E004f,  1.60581376000000000E008f)*_linearDepth;
+    _enc0007 = frac(_enc0007);
+    _enc0007 = _enc0007 - _enc0007.yzww*float4(  3.92156885936856270E-003f,  3.92156885936856270E-003f,  3.92156885936856270E-003f,  0.00000000000000000E000f);
+    _OUT._depth = _enc0007;
     return _OUT;
 } // main end

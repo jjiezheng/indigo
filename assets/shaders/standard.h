@@ -23,6 +23,28 @@ float4 unpackPosition(sampler2D positionSampler, float2 texCoord) {
 	return unPackedPosition;
 }
 
+float4 EncodeFloatRGBA(float v) {
+  float4 enc = float4(1.0, 255.0, 65025.0, 160581375.0) * v;
+  enc = frac(enc);
+  enc -= enc.yzww * float4(1.0 / 255.0, 1.0 / 255.0, 1.0 / 255.0, 0.0);
+  return enc;
+}
+
+float DecodeFloatRGBA(float4 rgba) {
+  return dot(rgba, float4(1.0, 1 / 255.0, 1 / 65025.0, 1 / 160581375.0));
+}
+
+float4 packLinearDepth(float unpackedDepth) {
+	float4 packedDepth = EncodeFloatRGBA(unpackedDepth);
+	return packedDepth;
+}
+
+float unpackLinearDepth(sampler2D depthSampler, float2 texCoord) {
+	float4 packedDepth = tex2D(depthSampler, texCoord);
+	float unpackedDepth = DecodeFloatRGBA(packedDepth);
+	return unpackedDepth;
+}
+
 float shadow(sampler2D shadowMap, float2 shadowCoord, float zToCompare) {
 	float shadowBias = 0.0f;
 

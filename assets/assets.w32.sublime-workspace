@@ -303,7 +303,7 @@
 			"file": "assets.sublime-project",
 			"settings":
 			{
-				"buffer_size": 853,
+				"buffer_size": 843,
 				"line_ending": "Windows"
 			}
 		},
@@ -593,15 +593,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 853,
+						"buffer_size": 843,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								213,
-								213
+								0,
+								0
 							]
 						],
 						"settings":
@@ -629,8 +629,8 @@
 						"selection":
 						[
 							[
-								565,
-								565
+								566,
+								566
 							]
 						],
 						"settings":

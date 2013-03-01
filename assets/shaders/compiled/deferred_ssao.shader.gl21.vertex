@@ -12,28 +12,40 @@
 //semantic Kernel
 //semantic Far
 //semantic Near
-//semantic NormalMap : TEXUNIT0
-//semantic PositionMap : TEXUNIT1
+//semantic ProjInv
+//semantic Projection
+//semantic LinearDepthMap : TEXUNIT0
+//semantic NormalMap : TEXUNIT1
 //semantic NoiseMap : TEXUNIT2
+//var float4x4 ProjInv :  : _ProjInv[0], 4 : -1 : 1
 //var float4 position : $vin.POSITION : ATTR0 : 0 : 1
 //var float2 texCoord : $vin.TEXCOORD0 : ATTR8 : 1 : 1
 //var float4 vs.position : $vout.POSITION : HPOS : -1 : 1
 //var float2 vs.texCoord : $vout.TEXCOORD0 : TEX0 : -1 : 1
+//var float4 vs.frustumCorners : $vout.TEXCOORD1 : TEX1 : -1 : 1
 
 #version 110
 
 struct VOutput {
     vec4 _position2;
     vec2 _texCoord2;
+    vec4 _frustumCorners;
 };
 
+vec4 _r0012;
+uniform vec4 _ProjInv[4];
 
  // main procedure, the original name was vs
 void main()
 {
 
 
+    _r0012.x = dot(_ProjInv[0], gl_Vertex);
+    _r0012.y = dot(_ProjInv[1], gl_Vertex);
+    _r0012.z = dot(_ProjInv[2], gl_Vertex);
+    _r0012.w = dot(_ProjInv[3], gl_Vertex);
     gl_TexCoord[0].xy = gl_MultiTexCoord0.xy;
+    gl_TexCoord[1] = _r0012;
     gl_Position = gl_Vertex;
     return;
 } // main end

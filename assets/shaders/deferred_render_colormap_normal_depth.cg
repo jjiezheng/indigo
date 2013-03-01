@@ -47,9 +47,12 @@ POutput ps(	float4 position			: POSITION,
 	POutput OUT;
 	
 	OUT.color = tex2D(ColorMap, texCoord);
-	OUT.depth = viewPosition;
+
 	OUT.normal = packNormal(normal);
 	OUT.viewNormal = packNormal(viewNormal);
+
+	float linearDepth = -viewPosition.z / Far;
+	OUT.depth = packLinearDepth(linearDepth);
 	
 	return OUT;
 }

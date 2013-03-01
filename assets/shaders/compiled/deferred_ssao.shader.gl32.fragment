@@ -12,74 +12,115 @@
 //semantic Kernel
 //semantic Far
 //semantic Near
-//semantic NormalMap : TEXUNIT0
-//semantic PositionMap : TEXUNIT1
+//semantic ProjInv
+//semantic Projection
+//semantic LinearDepthMap : TEXUNIT0
+//semantic NormalMap : TEXUNIT1
 //semantic NoiseMap : TEXUNIT2
 //var float Radius :  : _Radius : -1 : 1
 //var float2 NoiseScale :  : _NoiseScale : -1 : 1
-//var sampler2D NormalMap : TEXUNIT0 : _NormalMap 0 : -1 : 1
-//var sampler2D PositionMap : TEXUNIT1 : _PositionMap 1 : -1 : 1
+//var float Far :  : _Far : -1 : 1
+//var float4x4 ProjInv :  : _ProjInv[0], 4 : -1 : 1
+//var float4x4 Projection :  : _Projection[0], 4 : -1 : 1
+//var sampler2D LinearDepthMap : TEXUNIT0 : _LinearDepthMap 0 : -1 : 1
+//var sampler2D NormalMap : TEXUNIT1 : _NormalMap 1 : -1 : 1
 //var sampler2D NoiseMap : TEXUNIT2 : _NoiseMap 2 : -1 : 1
 //var float2 texCoord : $vin.TEXCOORD0 : TEXCOORD0 : 1 : 1
+//var float4 frustumCorner : $vin.TEXCOORD1 : TEXCOORD1 : 2 : 1
 //var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
 
 #version 130
 
 struct VOutput {
     vec2 _texCoord4;
+    vec4 _frustumCorners;
 };
 
 vec4 _ret_0;
 float _TMP10;
 float _TMP12;
 float _TMP11;
-vec2 _TMP3;
+vec2 _TMP4;
 float _TMP9;
-float _TMP2;
+float _TMP3;
+vec4 _TMP2;
 vec4 _TMP1;
-vec4 _TMP8;
-vec3 _unPackedNormal0026;
-vec2 _c0030;
-float _TMP37;
-vec4 _samplePositionVS0038;
-vec2 _sampleOffset0038;
-vec3 _diff0038;
-vec3 _v0038;
-float _d0038;
-float _occlusion10038;
-vec2 _c0040;
-float _b0052;
-float _TMP53;
-vec4 _samplePositionVS0054;
-vec2 _sampleOffset0054;
-vec3 _diff0054;
-vec3 _v0054;
-float _d0054;
-float _occlusion10054;
-vec2 _c0056;
-float _b0068;
-float _TMP69;
-vec4 _samplePositionVS0070;
-vec2 _sampleOffset0070;
-vec3 _diff0070;
-vec3 _v0070;
-float _d0070;
-float _occlusion10070;
-vec2 _c0072;
-float _b0084;
-float _TMP85;
-vec4 _samplePositionVS0086;
-vec3 _diff0086;
-vec3 _v0086;
-float _d0086;
-float _occlusion10086;
-vec2 _c0088;
-float _b0100;
+vec4 _packedDepth0029;
+float _TMP32;
+vec4 _r0037;
+vec2 _c0049;
+float _TMP56;
+vec2 _sampleTexCoord0057;
+vec2 _sampleOffset0057;
+vec4 _sampleSS0057;
+vec4 _frustumCorner0057;
+vec4 _viewRay0057;
+vec2 _TMP240057;
+vec4 _samplePositionVS0057;
+vec3 _diff0057;
+vec3 _v0057;
+float _d0057;
+float _occlusion10057;
+vec4 _r0059;
+vec4 _packedDepth0069;
+float _TMP72;
+float _b0087;
+float _TMP88;
+vec2 _sampleTexCoord0089;
+vec2 _sampleOffset0089;
+vec4 _sampleSS0089;
+vec4 _frustumCorner0089;
+vec4 _viewRay0089;
+vec2 _TMP240089;
+vec4 _samplePositionVS0089;
+vec3 _diff0089;
+vec3 _v0089;
+float _d0089;
+float _occlusion10089;
+vec4 _r0091;
+vec4 _packedDepth0101;
+float _TMP104;
+float _b0119;
+float _TMP120;
+vec2 _sampleTexCoord0121;
+vec2 _sampleOffset0121;
+vec4 _sampleSS0121;
+vec4 _frustumCorner0121;
+vec4 _viewRay0121;
+vec2 _TMP240121;
+vec4 _samplePositionVS0121;
+vec3 _diff0121;
+vec3 _v0121;
+float _d0121;
+float _occlusion10121;
+vec4 _r0123;
+vec4 _packedDepth0133;
+float _TMP136;
+float _b0151;
+float _TMP152;
+vec2 _sampleTexCoord0153;
+vec4 _sampleSS0153;
+vec4 _frustumCorner0153;
+vec4 _viewRay0153;
+vec2 _TMP240153;
+vec4 _samplePositionVS0153;
+vec3 _diff0153;
+vec3 _v0153;
+float _d0153;
+float _occlusion10153;
+vec4 _r0155;
+vec4 _packedDepth0165;
+float _TMP168;
+float _b0183;
 uniform float _Radius;
 uniform vec2 _NoiseScale;
+uniform float _Far;
+uniform vec4 _ProjInv[4];
+uniform vec4 _Projection[4];
+uniform sampler2D _LinearDepthMap;
 uniform sampler2D _NormalMap;
-uniform sampler2D _PositionMap;
 uniform sampler2D _NoiseMap;
+in vec4 cg_TexCoord1;
 in vec4 cg_TexCoord0;
 out vec4 cg_FragColor;
 
@@ -87,304 +128,509 @@ out vec4 cg_FragColor;
 void main()
 {
 
+    vec4 _viewRay1;
     vec4 _positionVS1;
+    vec4 _positionSS;
     vec3 _random;
     float _rad;
     float _occlusion;
     vec2 _sampleOffset1;
     vec2 _coord21;
+    vec2 _TMP27;
 
-    _positionVS1 = texture(_PositionMap, cg_TexCoord0.xy);
-    _TMP8 = texture(_NormalMap, cg_TexCoord0.xy);
-    _unPackedNormal0026 = _TMP8.xyz*2.00000000E+000 - 1.00000000E+000;
-    _c0030 = cg_TexCoord0.xy*_NoiseScale;
-    _TMP1 = texture(_NoiseMap, _c0030);
-    _random = _TMP1.xyz*2.00000000E+000 - 1.00000000E+000;
-    _TMP2 = abs(_positionVS1.z);
-    _rad = _Radius/_TMP2;
+    _TMP27 = cg_TexCoord1.xy*(-_Far/cg_TexCoord1.z);
+    _viewRay1 = vec4(_TMP27.x, _TMP27.y, -_Far, 1.00000000E+000);
+    _packedDepth0029 = texture(_LinearDepthMap, cg_TexCoord0.xy);
+    _TMP32 = dot(_packedDepth0029, vec4( 1.00000000E+000, 3.92156886E-003, 1.53787005E-005, 6.22737240E-009));
+    _positionVS1 = _viewRay1*_TMP32;
+    _r0037.x = dot(_Projection[0], _positionVS1);
+    _r0037.y = dot(_Projection[1], _positionVS1);
+    _r0037.z = dot(_Projection[2], _positionVS1);
+    _r0037.w = dot(_Projection[3], _positionVS1);
+    _positionSS = _r0037/_r0037.w;
+    _positionSS = _positionSS*5.00000000E-001 + 5.00000000E-001;
+    _positionSS.y = 1.00000000E+000 - _positionSS.y;
+    _TMP1 = texture(_NormalMap, cg_TexCoord0.xy);
+    _c0049 = cg_TexCoord0.xy*_NoiseScale;
+    _TMP2 = texture(_NoiseMap, _c0049);
+    _random = _TMP2.xyz*2.00000000E+000 - 1.00000000E+000;
+    _TMP3 = abs(_positionVS1.z);
+    _rad = _Radius/_TMP3;
     _TMP9 = dot(_random.xy, vec2( 1.00000000E+000, 0.00000000E+000));
-    _TMP3 = vec2( 1.00000000E+000, 0.00000000E+000) - (2.00000000E+000*_random.xy)*_TMP9;
-    _sampleOffset1 = _TMP3*_rad;
+    _TMP4 = vec2( 1.00000000E+000, 0.00000000E+000) - (2.00000000E+000*_random.xy)*_TMP9;
+    _sampleOffset1 = _TMP4*_rad;
     _coord21 = vec2(_sampleOffset1.x*7.07000017E-001 - _sampleOffset1.y*7.07000017E-001, _sampleOffset1.x*7.07000017E-001 + _sampleOffset1.y*7.07000017E-001);
-    _sampleOffset0038 = _sampleOffset1*2.50000000E-001;
-    _c0040 = cg_TexCoord0.xy + _sampleOffset0038;
-    _samplePositionVS0038 = texture(_PositionMap, _c0040);
-    _diff0038 = _samplePositionVS0038.xyz - _positionVS1.xyz;
-    _TMP11 = dot(_diff0038, _diff0038);
+    _sampleOffset0057 = _sampleOffset1*2.50000000E-001;
+    _sampleTexCoord0057 = _positionSS.xy + _sampleOffset0057;
+    _sampleSS0057 = vec4(_sampleTexCoord0057.x, _sampleTexCoord0057.y, 0.00000000E+000, 1.00000000E+000);
+    _sampleSS0057.y = 1.00000000E+000 - _sampleSS0057.y;
+    _sampleSS0057 = _sampleSS0057*2.00000000E+000 - 1.00000000E+000;
+    _r0059.x = dot(_ProjInv[0], _sampleSS0057);
+    _r0059.y = dot(_ProjInv[1], _sampleSS0057);
+    _r0059.z = dot(_ProjInv[2], _sampleSS0057);
+    _r0059.w = dot(_ProjInv[3], _sampleSS0057);
+    _frustumCorner0057 = _r0059/_r0059.w;
+    _TMP240057 = _frustumCorner0057.xy*(-_Far/_frustumCorner0057.z);
+    _viewRay0057 = vec4(_TMP240057.x, _TMP240057.y, -_Far, 1.00000000E+000);
+    _packedDepth0069 = texture(_LinearDepthMap, _sampleTexCoord0057);
+    _TMP72 = dot(_packedDepth0069, vec4( 1.00000000E+000, 3.92156886E-003, 1.53787005E-005, 6.22737240E-009));
+    _samplePositionVS0057 = _viewRay0057*_TMP72;
+    _diff0057 = _samplePositionVS0057.xyz - _positionVS1.xyz;
+    _TMP11 = dot(_diff0057, _diff0057);
     _TMP12 = inversesqrt(_TMP11);
-    _v0038 = _TMP12*_diff0038;
-    _d0038 = length(_diff0038);
-    if (_d0038 < 1.00000001E-001) { // if begin
-        _TMP10 = dot(_unPackedNormal0026.xyz, _v0038);
-        _b0052 = _TMP10*(1.00000000E+000 + _d0038);
-        _occlusion10038 = max(0.00000000E+000, _b0052);
-        _TMP37 = _occlusion10038;
+    _v0057 = _TMP12*_diff0057;
+    _d0057 = length(_diff0057);
+    if (_d0057 < 1.00000001E-001) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0057);
+        _b0087 = _TMP10*(1.00000000E+000 + _d0057);
+        _occlusion10057 = max(0.00000000E+000, _b0087);
+        _TMP56 = _occlusion10057;
     } else {
-        _TMP37 = 0.00000000E+000;
+        _TMP56 = 0.00000000E+000;
     } // end if
-    _sampleOffset0054 = _coord21*5.00000000E-001;
-    _c0056 = cg_TexCoord0.xy + _sampleOffset0054;
-    _samplePositionVS0054 = texture(_PositionMap, _c0056);
-    _diff0054 = _samplePositionVS0054.xyz - _positionVS1.xyz;
-    _TMP11 = dot(_diff0054, _diff0054);
+    _sampleOffset0089 = _coord21*5.00000000E-001;
+    _sampleTexCoord0089 = _positionSS.xy + _sampleOffset0089;
+    _sampleSS0089 = vec4(_sampleTexCoord0089.x, _sampleTexCoord0089.y, 0.00000000E+000, 1.00000000E+000);
+    _sampleSS0089.y = 1.00000000E+000 - _sampleSS0089.y;
+    _sampleSS0089 = _sampleSS0089*2.00000000E+000 - 1.00000000E+000;
+    _r0091.x = dot(_ProjInv[0], _sampleSS0089);
+    _r0091.y = dot(_ProjInv[1], _sampleSS0089);
+    _r0091.z = dot(_ProjInv[2], _sampleSS0089);
+    _r0091.w = dot(_ProjInv[3], _sampleSS0089);
+    _frustumCorner0089 = _r0091/_r0091.w;
+    _TMP240089 = _frustumCorner0089.xy*(-_Far/_frustumCorner0089.z);
+    _viewRay0089 = vec4(_TMP240089.x, _TMP240089.y, -_Far, 1.00000000E+000);
+    _packedDepth0101 = texture(_LinearDepthMap, _sampleTexCoord0089);
+    _TMP104 = dot(_packedDepth0101, vec4( 1.00000000E+000, 3.92156886E-003, 1.53787005E-005, 6.22737240E-009));
+    _samplePositionVS0089 = _viewRay0089*_TMP104;
+    _diff0089 = _samplePositionVS0089.xyz - _positionVS1.xyz;
+    _TMP11 = dot(_diff0089, _diff0089);
     _TMP12 = inversesqrt(_TMP11);
-    _v0054 = _TMP12*_diff0054;
-    _d0054 = length(_diff0054);
-    if (_d0054 < 1.00000001E-001) { // if begin
-        _TMP10 = dot(_unPackedNormal0026.xyz, _v0054);
-        _b0068 = _TMP10*(1.00000000E+000 + _d0054);
-        _occlusion10054 = max(0.00000000E+000, _b0068);
-        _TMP53 = _occlusion10054;
+    _v0089 = _TMP12*_diff0089;
+    _d0089 = length(_diff0089);
+    if (_d0089 < 1.00000001E-001) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0089);
+        _b0119 = _TMP10*(1.00000000E+000 + _d0089);
+        _occlusion10089 = max(0.00000000E+000, _b0119);
+        _TMP88 = _occlusion10089;
     } else {
-        _TMP53 = 0.00000000E+000;
+        _TMP88 = 0.00000000E+000;
     } // end if
-    _occlusion = _TMP37 + _TMP53;
-    _sampleOffset0070 = _sampleOffset1*7.50000000E-001;
-    _c0072 = cg_TexCoord0.xy + _sampleOffset0070;
-    _samplePositionVS0070 = texture(_PositionMap, _c0072);
-    _diff0070 = _samplePositionVS0070.xyz - _positionVS1.xyz;
-    _TMP11 = dot(_diff0070, _diff0070);
+    _occlusion = _TMP56 + _TMP88;
+    _sampleOffset0121 = _sampleOffset1*7.50000000E-001;
+    _sampleTexCoord0121 = _positionSS.xy + _sampleOffset0121;
+    _sampleSS0121 = vec4(_sampleTexCoord0121.x, _sampleTexCoord0121.y, 0.00000000E+000, 1.00000000E+000);
+    _sampleSS0121.y = 1.00000000E+000 - _sampleSS0121.y;
+    _sampleSS0121 = _sampleSS0121*2.00000000E+000 - 1.00000000E+000;
+    _r0123.x = dot(_ProjInv[0], _sampleSS0121);
+    _r0123.y = dot(_ProjInv[1], _sampleSS0121);
+    _r0123.z = dot(_ProjInv[2], _sampleSS0121);
+    _r0123.w = dot(_ProjInv[3], _sampleSS0121);
+    _frustumCorner0121 = _r0123/_r0123.w;
+    _TMP240121 = _frustumCorner0121.xy*(-_Far/_frustumCorner0121.z);
+    _viewRay0121 = vec4(_TMP240121.x, _TMP240121.y, -_Far, 1.00000000E+000);
+    _packedDepth0133 = texture(_LinearDepthMap, _sampleTexCoord0121);
+    _TMP136 = dot(_packedDepth0133, vec4( 1.00000000E+000, 3.92156886E-003, 1.53787005E-005, 6.22737240E-009));
+    _samplePositionVS0121 = _viewRay0121*_TMP136;
+    _diff0121 = _samplePositionVS0121.xyz - _positionVS1.xyz;
+    _TMP11 = dot(_diff0121, _diff0121);
     _TMP12 = inversesqrt(_TMP11);
-    _v0070 = _TMP12*_diff0070;
-    _d0070 = length(_diff0070);
-    if (_d0070 < 1.00000001E-001) { // if begin
-        _TMP10 = dot(_unPackedNormal0026.xyz, _v0070);
-        _b0084 = _TMP10*(1.00000000E+000 + _d0070);
-        _occlusion10070 = max(0.00000000E+000, _b0084);
-        _TMP69 = _occlusion10070;
+    _v0121 = _TMP12*_diff0121;
+    _d0121 = length(_diff0121);
+    if (_d0121 < 1.00000001E-001) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0121);
+        _b0151 = _TMP10*(1.00000000E+000 + _d0121);
+        _occlusion10121 = max(0.00000000E+000, _b0151);
+        _TMP120 = _occlusion10121;
     } else {
-        _TMP69 = 0.00000000E+000;
+        _TMP120 = 0.00000000E+000;
     } // end if
-    _occlusion = _occlusion + _TMP69;
-    _c0088 = cg_TexCoord0.xy + _coord21;
-    _samplePositionVS0086 = texture(_PositionMap, _c0088);
-    _diff0086 = _samplePositionVS0086.xyz - _positionVS1.xyz;
-    _TMP11 = dot(_diff0086, _diff0086);
+    _occlusion = _occlusion + _TMP120;
+    _sampleTexCoord0153 = _positionSS.xy + _coord21;
+    _sampleSS0153 = vec4(_sampleTexCoord0153.x, _sampleTexCoord0153.y, 0.00000000E+000, 1.00000000E+000);
+    _sampleSS0153.y = 1.00000000E+000 - _sampleSS0153.y;
+    _sampleSS0153 = _sampleSS0153*2.00000000E+000 - 1.00000000E+000;
+    _r0155.x = dot(_ProjInv[0], _sampleSS0153);
+    _r0155.y = dot(_ProjInv[1], _sampleSS0153);
+    _r0155.z = dot(_ProjInv[2], _sampleSS0153);
+    _r0155.w = dot(_ProjInv[3], _sampleSS0153);
+    _frustumCorner0153 = _r0155/_r0155.w;
+    _TMP240153 = _frustumCorner0153.xy*(-_Far/_frustumCorner0153.z);
+    _viewRay0153 = vec4(_TMP240153.x, _TMP240153.y, -_Far, 1.00000000E+000);
+    _packedDepth0165 = texture(_LinearDepthMap, _sampleTexCoord0153);
+    _TMP168 = dot(_packedDepth0165, vec4( 1.00000000E+000, 3.92156886E-003, 1.53787005E-005, 6.22737240E-009));
+    _samplePositionVS0153 = _viewRay0153*_TMP168;
+    _diff0153 = _samplePositionVS0153.xyz - _positionVS1.xyz;
+    _TMP11 = dot(_diff0153, _diff0153);
     _TMP12 = inversesqrt(_TMP11);
-    _v0086 = _TMP12*_diff0086;
-    _d0086 = length(_diff0086);
-    if (_d0086 < 1.00000001E-001) { // if begin
-        _TMP10 = dot(_unPackedNormal0026.xyz, _v0086);
-        _b0100 = _TMP10*(1.00000000E+000 + _d0086);
-        _occlusion10086 = max(0.00000000E+000, _b0100);
-        _TMP85 = _occlusion10086;
+    _v0153 = _TMP12*_diff0153;
+    _d0153 = length(_diff0153);
+    if (_d0153 < 1.00000001E-001) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0153);
+        _b0183 = _TMP10*(1.00000000E+000 + _d0153);
+        _occlusion10153 = max(0.00000000E+000, _b0183);
+        _TMP152 = _occlusion10153;
     } else {
-        _TMP85 = 0.00000000E+000;
+        _TMP152 = 0.00000000E+000;
     } // end if
-    _occlusion = _occlusion + _TMP85;
+    _occlusion = _occlusion + _TMP152;
     _TMP9 = dot(_random.xy, vec2( -1.00000000E+000, 0.00000000E+000));
-    _TMP3 = vec2( -1.00000000E+000, 0.00000000E+000) - (2.00000000E+000*_random.xy)*_TMP9;
-    _sampleOffset1 = _TMP3*_rad;
+    _TMP4 = vec2( -1.00000000E+000, 0.00000000E+000) - (2.00000000E+000*_random.xy)*_TMP9;
+    _sampleOffset1 = _TMP4*_rad;
     _coord21 = vec2(_sampleOffset1.x*7.07000017E-001 - _sampleOffset1.y*7.07000017E-001, _sampleOffset1.x*7.07000017E-001 + _sampleOffset1.y*7.07000017E-001);
-    _sampleOffset0038 = _sampleOffset1*2.50000000E-001;
-    _c0040 = cg_TexCoord0.xy + _sampleOffset0038;
-    _samplePositionVS0038 = texture(_PositionMap, _c0040);
-    _diff0038 = _samplePositionVS0038.xyz - _positionVS1.xyz;
-    _TMP11 = dot(_diff0038, _diff0038);
+    _sampleOffset0057 = _sampleOffset1*2.50000000E-001;
+    _sampleTexCoord0057 = _positionSS.xy + _sampleOffset0057;
+    _sampleSS0057 = vec4(_sampleTexCoord0057.x, _sampleTexCoord0057.y, 0.00000000E+000, 1.00000000E+000);
+    _sampleSS0057.y = 1.00000000E+000 - _sampleSS0057.y;
+    _sampleSS0057 = _sampleSS0057*2.00000000E+000 - 1.00000000E+000;
+    _r0059.x = dot(_ProjInv[0], _sampleSS0057);
+    _r0059.y = dot(_ProjInv[1], _sampleSS0057);
+    _r0059.z = dot(_ProjInv[2], _sampleSS0057);
+    _r0059.w = dot(_ProjInv[3], _sampleSS0057);
+    _frustumCorner0057 = _r0059/_r0059.w;
+    _TMP240057 = _frustumCorner0057.xy*(-_Far/_frustumCorner0057.z);
+    _viewRay0057 = vec4(_TMP240057.x, _TMP240057.y, -_Far, 1.00000000E+000);
+    _packedDepth0069 = texture(_LinearDepthMap, _sampleTexCoord0057);
+    _TMP72 = dot(_packedDepth0069, vec4( 1.00000000E+000, 3.92156886E-003, 1.53787005E-005, 6.22737240E-009));
+    _samplePositionVS0057 = _viewRay0057*_TMP72;
+    _diff0057 = _samplePositionVS0057.xyz - _positionVS1.xyz;
+    _TMP11 = dot(_diff0057, _diff0057);
     _TMP12 = inversesqrt(_TMP11);
-    _v0038 = _TMP12*_diff0038;
-    _d0038 = length(_diff0038);
-    if (_d0038 < 1.00000001E-001) { // if begin
-        _TMP10 = dot(_unPackedNormal0026.xyz, _v0038);
-        _b0052 = _TMP10*(1.00000000E+000 + _d0038);
-        _occlusion10038 = max(0.00000000E+000, _b0052);
-        _TMP37 = _occlusion10038;
+    _v0057 = _TMP12*_diff0057;
+    _d0057 = length(_diff0057);
+    if (_d0057 < 1.00000001E-001) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0057);
+        _b0087 = _TMP10*(1.00000000E+000 + _d0057);
+        _occlusion10057 = max(0.00000000E+000, _b0087);
+        _TMP56 = _occlusion10057;
     } else {
-        _TMP37 = 0.00000000E+000;
+        _TMP56 = 0.00000000E+000;
     } // end if
-    _occlusion = _occlusion + _TMP37;
-    _sampleOffset0054 = _coord21*5.00000000E-001;
-    _c0056 = cg_TexCoord0.xy + _sampleOffset0054;
-    _samplePositionVS0054 = texture(_PositionMap, _c0056);
-    _diff0054 = _samplePositionVS0054.xyz - _positionVS1.xyz;
-    _TMP11 = dot(_diff0054, _diff0054);
+    _occlusion = _occlusion + _TMP56;
+    _sampleOffset0089 = _coord21*5.00000000E-001;
+    _sampleTexCoord0089 = _positionSS.xy + _sampleOffset0089;
+    _sampleSS0089 = vec4(_sampleTexCoord0089.x, _sampleTexCoord0089.y, 0.00000000E+000, 1.00000000E+000);
+    _sampleSS0089.y = 1.00000000E+000 - _sampleSS0089.y;
+    _sampleSS0089 = _sampleSS0089*2.00000000E+000 - 1.00000000E+000;
+    _r0091.x = dot(_ProjInv[0], _sampleSS0089);
+    _r0091.y = dot(_ProjInv[1], _sampleSS0089);
+    _r0091.z = dot(_ProjInv[2], _sampleSS0089);
+    _r0091.w = dot(_ProjInv[3], _sampleSS0089);
+    _frustumCorner0089 = _r0091/_r0091.w;
+    _TMP240089 = _frustumCorner0089.xy*(-_Far/_frustumCorner0089.z);
+    _viewRay0089 = vec4(_TMP240089.x, _TMP240089.y, -_Far, 1.00000000E+000);
+    _packedDepth0101 = texture(_LinearDepthMap, _sampleTexCoord0089);
+    _TMP104 = dot(_packedDepth0101, vec4( 1.00000000E+000, 3.92156886E-003, 1.53787005E-005, 6.22737240E-009));
+    _samplePositionVS0089 = _viewRay0089*_TMP104;
+    _diff0089 = _samplePositionVS0089.xyz - _positionVS1.xyz;
+    _TMP11 = dot(_diff0089, _diff0089);
     _TMP12 = inversesqrt(_TMP11);
-    _v0054 = _TMP12*_diff0054;
-    _d0054 = length(_diff0054);
-    if (_d0054 < 1.00000001E-001) { // if begin
-        _TMP10 = dot(_unPackedNormal0026.xyz, _v0054);
-        _b0068 = _TMP10*(1.00000000E+000 + _d0054);
-        _occlusion10054 = max(0.00000000E+000, _b0068);
-        _TMP53 = _occlusion10054;
+    _v0089 = _TMP12*_diff0089;
+    _d0089 = length(_diff0089);
+    if (_d0089 < 1.00000001E-001) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0089);
+        _b0119 = _TMP10*(1.00000000E+000 + _d0089);
+        _occlusion10089 = max(0.00000000E+000, _b0119);
+        _TMP88 = _occlusion10089;
     } else {
-        _TMP53 = 0.00000000E+000;
+        _TMP88 = 0.00000000E+000;
     } // end if
-    _occlusion = _occlusion + _TMP53;
-    _sampleOffset0070 = _sampleOffset1*7.50000000E-001;
-    _c0072 = cg_TexCoord0.xy + _sampleOffset0070;
-    _samplePositionVS0070 = texture(_PositionMap, _c0072);
-    _diff0070 = _samplePositionVS0070.xyz - _positionVS1.xyz;
-    _TMP11 = dot(_diff0070, _diff0070);
+    _occlusion = _occlusion + _TMP88;
+    _sampleOffset0121 = _sampleOffset1*7.50000000E-001;
+    _sampleTexCoord0121 = _positionSS.xy + _sampleOffset0121;
+    _sampleSS0121 = vec4(_sampleTexCoord0121.x, _sampleTexCoord0121.y, 0.00000000E+000, 1.00000000E+000);
+    _sampleSS0121.y = 1.00000000E+000 - _sampleSS0121.y;
+    _sampleSS0121 = _sampleSS0121*2.00000000E+000 - 1.00000000E+000;
+    _r0123.x = dot(_ProjInv[0], _sampleSS0121);
+    _r0123.y = dot(_ProjInv[1], _sampleSS0121);
+    _r0123.z = dot(_ProjInv[2], _sampleSS0121);
+    _r0123.w = dot(_ProjInv[3], _sampleSS0121);
+    _frustumCorner0121 = _r0123/_r0123.w;
+    _TMP240121 = _frustumCorner0121.xy*(-_Far/_frustumCorner0121.z);
+    _viewRay0121 = vec4(_TMP240121.x, _TMP240121.y, -_Far, 1.00000000E+000);
+    _packedDepth0133 = texture(_LinearDepthMap, _sampleTexCoord0121);
+    _TMP136 = dot(_packedDepth0133, vec4( 1.00000000E+000, 3.92156886E-003, 1.53787005E-005, 6.22737240E-009));
+    _samplePositionVS0121 = _viewRay0121*_TMP136;
+    _diff0121 = _samplePositionVS0121.xyz - _positionVS1.xyz;
+    _TMP11 = dot(_diff0121, _diff0121);
     _TMP12 = inversesqrt(_TMP11);
-    _v0070 = _TMP12*_diff0070;
-    _d0070 = length(_diff0070);
-    if (_d0070 < 1.00000001E-001) { // if begin
-        _TMP10 = dot(_unPackedNormal0026.xyz, _v0070);
-        _b0084 = _TMP10*(1.00000000E+000 + _d0070);
-        _occlusion10070 = max(0.00000000E+000, _b0084);
-        _TMP69 = _occlusion10070;
+    _v0121 = _TMP12*_diff0121;
+    _d0121 = length(_diff0121);
+    if (_d0121 < 1.00000001E-001) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0121);
+        _b0151 = _TMP10*(1.00000000E+000 + _d0121);
+        _occlusion10121 = max(0.00000000E+000, _b0151);
+        _TMP120 = _occlusion10121;
     } else {
-        _TMP69 = 0.00000000E+000;
+        _TMP120 = 0.00000000E+000;
     } // end if
-    _occlusion = _occlusion + _TMP69;
-    _c0088 = cg_TexCoord0.xy + _coord21;
-    _samplePositionVS0086 = texture(_PositionMap, _c0088);
-    _diff0086 = _samplePositionVS0086.xyz - _positionVS1.xyz;
-    _TMP11 = dot(_diff0086, _diff0086);
+    _occlusion = _occlusion + _TMP120;
+    _sampleTexCoord0153 = _positionSS.xy + _coord21;
+    _sampleSS0153 = vec4(_sampleTexCoord0153.x, _sampleTexCoord0153.y, 0.00000000E+000, 1.00000000E+000);
+    _sampleSS0153.y = 1.00000000E+000 - _sampleSS0153.y;
+    _sampleSS0153 = _sampleSS0153*2.00000000E+000 - 1.00000000E+000;
+    _r0155.x = dot(_ProjInv[0], _sampleSS0153);
+    _r0155.y = dot(_ProjInv[1], _sampleSS0153);
+    _r0155.z = dot(_ProjInv[2], _sampleSS0153);
+    _r0155.w = dot(_ProjInv[3], _sampleSS0153);
+    _frustumCorner0153 = _r0155/_r0155.w;
+    _TMP240153 = _frustumCorner0153.xy*(-_Far/_frustumCorner0153.z);
+    _viewRay0153 = vec4(_TMP240153.x, _TMP240153.y, -_Far, 1.00000000E+000);
+    _packedDepth0165 = texture(_LinearDepthMap, _sampleTexCoord0153);
+    _TMP168 = dot(_packedDepth0165, vec4( 1.00000000E+000, 3.92156886E-003, 1.53787005E-005, 6.22737240E-009));
+    _samplePositionVS0153 = _viewRay0153*_TMP168;
+    _diff0153 = _samplePositionVS0153.xyz - _positionVS1.xyz;
+    _TMP11 = dot(_diff0153, _diff0153);
     _TMP12 = inversesqrt(_TMP11);
-    _v0086 = _TMP12*_diff0086;
-    _d0086 = length(_diff0086);
-    if (_d0086 < 1.00000001E-001) { // if begin
-        _TMP10 = dot(_unPackedNormal0026.xyz, _v0086);
-        _b0100 = _TMP10*(1.00000000E+000 + _d0086);
-        _occlusion10086 = max(0.00000000E+000, _b0100);
-        _TMP85 = _occlusion10086;
+    _v0153 = _TMP12*_diff0153;
+    _d0153 = length(_diff0153);
+    if (_d0153 < 1.00000001E-001) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0153);
+        _b0183 = _TMP10*(1.00000000E+000 + _d0153);
+        _occlusion10153 = max(0.00000000E+000, _b0183);
+        _TMP152 = _occlusion10153;
     } else {
-        _TMP85 = 0.00000000E+000;
+        _TMP152 = 0.00000000E+000;
     } // end if
-    _occlusion = _occlusion + _TMP85;
+    _occlusion = _occlusion + _TMP152;
     _TMP9 = dot(_random.xy, vec2( 0.00000000E+000, 1.00000000E+000));
-    _TMP3 = vec2( 0.00000000E+000, 1.00000000E+000) - (2.00000000E+000*_random.xy)*_TMP9;
-    _sampleOffset1 = _TMP3*_rad;
+    _TMP4 = vec2( 0.00000000E+000, 1.00000000E+000) - (2.00000000E+000*_random.xy)*_TMP9;
+    _sampleOffset1 = _TMP4*_rad;
     _coord21 = vec2(_sampleOffset1.x*7.07000017E-001 - _sampleOffset1.y*7.07000017E-001, _sampleOffset1.x*7.07000017E-001 + _sampleOffset1.y*7.07000017E-001);
-    _sampleOffset0038 = _sampleOffset1*2.50000000E-001;
-    _c0040 = cg_TexCoord0.xy + _sampleOffset0038;
-    _samplePositionVS0038 = texture(_PositionMap, _c0040);
-    _diff0038 = _samplePositionVS0038.xyz - _positionVS1.xyz;
-    _TMP11 = dot(_diff0038, _diff0038);
+    _sampleOffset0057 = _sampleOffset1*2.50000000E-001;
+    _sampleTexCoord0057 = _positionSS.xy + _sampleOffset0057;
+    _sampleSS0057 = vec4(_sampleTexCoord0057.x, _sampleTexCoord0057.y, 0.00000000E+000, 1.00000000E+000);
+    _sampleSS0057.y = 1.00000000E+000 - _sampleSS0057.y;
+    _sampleSS0057 = _sampleSS0057*2.00000000E+000 - 1.00000000E+000;
+    _r0059.x = dot(_ProjInv[0], _sampleSS0057);
+    _r0059.y = dot(_ProjInv[1], _sampleSS0057);
+    _r0059.z = dot(_ProjInv[2], _sampleSS0057);
+    _r0059.w = dot(_ProjInv[3], _sampleSS0057);
+    _frustumCorner0057 = _r0059/_r0059.w;
+    _TMP240057 = _frustumCorner0057.xy*(-_Far/_frustumCorner0057.z);
+    _viewRay0057 = vec4(_TMP240057.x, _TMP240057.y, -_Far, 1.00000000E+000);
+    _packedDepth0069 = texture(_LinearDepthMap, _sampleTexCoord0057);
+    _TMP72 = dot(_packedDepth0069, vec4( 1.00000000E+000, 3.92156886E-003, 1.53787005E-005, 6.22737240E-009));
+    _samplePositionVS0057 = _viewRay0057*_TMP72;
+    _diff0057 = _samplePositionVS0057.xyz - _positionVS1.xyz;
+    _TMP11 = dot(_diff0057, _diff0057);
     _TMP12 = inversesqrt(_TMP11);
-    _v0038 = _TMP12*_diff0038;
-    _d0038 = length(_diff0038);
-    if (_d0038 < 1.00000001E-001) { // if begin
-        _TMP10 = dot(_unPackedNormal0026.xyz, _v0038);
-        _b0052 = _TMP10*(1.00000000E+000 + _d0038);
-        _occlusion10038 = max(0.00000000E+000, _b0052);
-        _TMP37 = _occlusion10038;
+    _v0057 = _TMP12*_diff0057;
+    _d0057 = length(_diff0057);
+    if (_d0057 < 1.00000001E-001) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0057);
+        _b0087 = _TMP10*(1.00000000E+000 + _d0057);
+        _occlusion10057 = max(0.00000000E+000, _b0087);
+        _TMP56 = _occlusion10057;
     } else {
-        _TMP37 = 0.00000000E+000;
+        _TMP56 = 0.00000000E+000;
     } // end if
-    _occlusion = _occlusion + _TMP37;
-    _sampleOffset0054 = _coord21*5.00000000E-001;
-    _c0056 = cg_TexCoord0.xy + _sampleOffset0054;
-    _samplePositionVS0054 = texture(_PositionMap, _c0056);
-    _diff0054 = _samplePositionVS0054.xyz - _positionVS1.xyz;
-    _TMP11 = dot(_diff0054, _diff0054);
+    _occlusion = _occlusion + _TMP56;
+    _sampleOffset0089 = _coord21*5.00000000E-001;
+    _sampleTexCoord0089 = _positionSS.xy + _sampleOffset0089;
+    _sampleSS0089 = vec4(_sampleTexCoord0089.x, _sampleTexCoord0089.y, 0.00000000E+000, 1.00000000E+000);
+    _sampleSS0089.y = 1.00000000E+000 - _sampleSS0089.y;
+    _sampleSS0089 = _sampleSS0089*2.00000000E+000 - 1.00000000E+000;
+    _r0091.x = dot(_ProjInv[0], _sampleSS0089);
+    _r0091.y = dot(_ProjInv[1], _sampleSS0089);
+    _r0091.z = dot(_ProjInv[2], _sampleSS0089);
+    _r0091.w = dot(_ProjInv[3], _sampleSS0089);
+    _frustumCorner0089 = _r0091/_r0091.w;
+    _TMP240089 = _frustumCorner0089.xy*(-_Far/_frustumCorner0089.z);
+    _viewRay0089 = vec4(_TMP240089.x, _TMP240089.y, -_Far, 1.00000000E+000);
+    _packedDepth0101 = texture(_LinearDepthMap, _sampleTexCoord0089);
+    _TMP104 = dot(_packedDepth0101, vec4( 1.00000000E+000, 3.92156886E-003, 1.53787005E-005, 6.22737240E-009));
+    _samplePositionVS0089 = _viewRay0089*_TMP104;
+    _diff0089 = _samplePositionVS0089.xyz - _positionVS1.xyz;
+    _TMP11 = dot(_diff0089, _diff0089);
     _TMP12 = inversesqrt(_TMP11);
-    _v0054 = _TMP12*_diff0054;
-    _d0054 = length(_diff0054);
-    if (_d0054 < 1.00000001E-001) { // if begin
-        _TMP10 = dot(_unPackedNormal0026.xyz, _v0054);
-        _b0068 = _TMP10*(1.00000000E+000 + _d0054);
-        _occlusion10054 = max(0.00000000E+000, _b0068);
-        _TMP53 = _occlusion10054;
+    _v0089 = _TMP12*_diff0089;
+    _d0089 = length(_diff0089);
+    if (_d0089 < 1.00000001E-001) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0089);
+        _b0119 = _TMP10*(1.00000000E+000 + _d0089);
+        _occlusion10089 = max(0.00000000E+000, _b0119);
+        _TMP88 = _occlusion10089;
     } else {
-        _TMP53 = 0.00000000E+000;
+        _TMP88 = 0.00000000E+000;
     } // end if
-    _occlusion = _occlusion + _TMP53;
-    _sampleOffset0070 = _sampleOffset1*7.50000000E-001;
-    _c0072 = cg_TexCoord0.xy + _sampleOffset0070;
-    _samplePositionVS0070 = texture(_PositionMap, _c0072);
-    _diff0070 = _samplePositionVS0070.xyz - _positionVS1.xyz;
-    _TMP11 = dot(_diff0070, _diff0070);
+    _occlusion = _occlusion + _TMP88;
+    _sampleOffset0121 = _sampleOffset1*7.50000000E-001;
+    _sampleTexCoord0121 = _positionSS.xy + _sampleOffset0121;
+    _sampleSS0121 = vec4(_sampleTexCoord0121.x, _sampleTexCoord0121.y, 0.00000000E+000, 1.00000000E+000);
+    _sampleSS0121.y = 1.00000000E+000 - _sampleSS0121.y;
+    _sampleSS0121 = _sampleSS0121*2.00000000E+000 - 1.00000000E+000;
+    _r0123.x = dot(_ProjInv[0], _sampleSS0121);
+    _r0123.y = dot(_ProjInv[1], _sampleSS0121);
+    _r0123.z = dot(_ProjInv[2], _sampleSS0121);
+    _r0123.w = dot(_ProjInv[3], _sampleSS0121);
+    _frustumCorner0121 = _r0123/_r0123.w;
+    _TMP240121 = _frustumCorner0121.xy*(-_Far/_frustumCorner0121.z);
+    _viewRay0121 = vec4(_TMP240121.x, _TMP240121.y, -_Far, 1.00000000E+000);
+    _packedDepth0133 = texture(_LinearDepthMap, _sampleTexCoord0121);
+    _TMP136 = dot(_packedDepth0133, vec4( 1.00000000E+000, 3.92156886E-003, 1.53787005E-005, 6.22737240E-009));
+    _samplePositionVS0121 = _viewRay0121*_TMP136;
+    _diff0121 = _samplePositionVS0121.xyz - _positionVS1.xyz;
+    _TMP11 = dot(_diff0121, _diff0121);
     _TMP12 = inversesqrt(_TMP11);
-    _v0070 = _TMP12*_diff0070;
-    _d0070 = length(_diff0070);
-    if (_d0070 < 1.00000001E-001) { // if begin
-        _TMP10 = dot(_unPackedNormal0026.xyz, _v0070);
-        _b0084 = _TMP10*(1.00000000E+000 + _d0070);
-        _occlusion10070 = max(0.00000000E+000, _b0084);
-        _TMP69 = _occlusion10070;
+    _v0121 = _TMP12*_diff0121;
+    _d0121 = length(_diff0121);
+    if (_d0121 < 1.00000001E-001) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0121);
+        _b0151 = _TMP10*(1.00000000E+000 + _d0121);
+        _occlusion10121 = max(0.00000000E+000, _b0151);
+        _TMP120 = _occlusion10121;
     } else {
-        _TMP69 = 0.00000000E+000;
+        _TMP120 = 0.00000000E+000;
     } // end if
-    _occlusion = _occlusion + _TMP69;
-    _c0088 = cg_TexCoord0.xy + _coord21;
-    _samplePositionVS0086 = texture(_PositionMap, _c0088);
-    _diff0086 = _samplePositionVS0086.xyz - _positionVS1.xyz;
-    _TMP11 = dot(_diff0086, _diff0086);
+    _occlusion = _occlusion + _TMP120;
+    _sampleTexCoord0153 = _positionSS.xy + _coord21;
+    _sampleSS0153 = vec4(_sampleTexCoord0153.x, _sampleTexCoord0153.y, 0.00000000E+000, 1.00000000E+000);
+    _sampleSS0153.y = 1.00000000E+000 - _sampleSS0153.y;
+    _sampleSS0153 = _sampleSS0153*2.00000000E+000 - 1.00000000E+000;
+    _r0155.x = dot(_ProjInv[0], _sampleSS0153);
+    _r0155.y = dot(_ProjInv[1], _sampleSS0153);
+    _r0155.z = dot(_ProjInv[2], _sampleSS0153);
+    _r0155.w = dot(_ProjInv[3], _sampleSS0153);
+    _frustumCorner0153 = _r0155/_r0155.w;
+    _TMP240153 = _frustumCorner0153.xy*(-_Far/_frustumCorner0153.z);
+    _viewRay0153 = vec4(_TMP240153.x, _TMP240153.y, -_Far, 1.00000000E+000);
+    _packedDepth0165 = texture(_LinearDepthMap, _sampleTexCoord0153);
+    _TMP168 = dot(_packedDepth0165, vec4( 1.00000000E+000, 3.92156886E-003, 1.53787005E-005, 6.22737240E-009));
+    _samplePositionVS0153 = _viewRay0153*_TMP168;
+    _diff0153 = _samplePositionVS0153.xyz - _positionVS1.xyz;
+    _TMP11 = dot(_diff0153, _diff0153);
     _TMP12 = inversesqrt(_TMP11);
-    _v0086 = _TMP12*_diff0086;
-    _d0086 = length(_diff0086);
-    if (_d0086 < 1.00000001E-001) { // if begin
-        _TMP10 = dot(_unPackedNormal0026.xyz, _v0086);
-        _b0100 = _TMP10*(1.00000000E+000 + _d0086);
-        _occlusion10086 = max(0.00000000E+000, _b0100);
-        _TMP85 = _occlusion10086;
+    _v0153 = _TMP12*_diff0153;
+    _d0153 = length(_diff0153);
+    if (_d0153 < 1.00000001E-001) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0153);
+        _b0183 = _TMP10*(1.00000000E+000 + _d0153);
+        _occlusion10153 = max(0.00000000E+000, _b0183);
+        _TMP152 = _occlusion10153;
     } else {
-        _TMP85 = 0.00000000E+000;
+        _TMP152 = 0.00000000E+000;
     } // end if
-    _occlusion = _occlusion + _TMP85;
+    _occlusion = _occlusion + _TMP152;
     _TMP9 = dot(_random.xy, vec2( 0.00000000E+000, -1.00000000E+000));
-    _TMP3 = vec2( 0.00000000E+000, -1.00000000E+000) - (2.00000000E+000*_random.xy)*_TMP9;
-    _sampleOffset1 = _TMP3*_rad;
+    _TMP4 = vec2( 0.00000000E+000, -1.00000000E+000) - (2.00000000E+000*_random.xy)*_TMP9;
+    _sampleOffset1 = _TMP4*_rad;
     _coord21 = vec2(_sampleOffset1.x*7.07000017E-001 - _sampleOffset1.y*7.07000017E-001, _sampleOffset1.x*7.07000017E-001 + _sampleOffset1.y*7.07000017E-001);
-    _sampleOffset0038 = _sampleOffset1*2.50000000E-001;
-    _c0040 = cg_TexCoord0.xy + _sampleOffset0038;
-    _samplePositionVS0038 = texture(_PositionMap, _c0040);
-    _diff0038 = _samplePositionVS0038.xyz - _positionVS1.xyz;
-    _TMP11 = dot(_diff0038, _diff0038);
+    _sampleOffset0057 = _sampleOffset1*2.50000000E-001;
+    _sampleTexCoord0057 = _positionSS.xy + _sampleOffset0057;
+    _sampleSS0057 = vec4(_sampleTexCoord0057.x, _sampleTexCoord0057.y, 0.00000000E+000, 1.00000000E+000);
+    _sampleSS0057.y = 1.00000000E+000 - _sampleSS0057.y;
+    _sampleSS0057 = _sampleSS0057*2.00000000E+000 - 1.00000000E+000;
+    _r0059.x = dot(_ProjInv[0], _sampleSS0057);
+    _r0059.y = dot(_ProjInv[1], _sampleSS0057);
+    _r0059.z = dot(_ProjInv[2], _sampleSS0057);
+    _r0059.w = dot(_ProjInv[3], _sampleSS0057);
+    _frustumCorner0057 = _r0059/_r0059.w;
+    _TMP240057 = _frustumCorner0057.xy*(-_Far/_frustumCorner0057.z);
+    _viewRay0057 = vec4(_TMP240057.x, _TMP240057.y, -_Far, 1.00000000E+000);
+    _packedDepth0069 = texture(_LinearDepthMap, _sampleTexCoord0057);
+    _TMP72 = dot(_packedDepth0069, vec4( 1.00000000E+000, 3.92156886E-003, 1.53787005E-005, 6.22737240E-009));
+    _samplePositionVS0057 = _viewRay0057*_TMP72;
+    _diff0057 = _samplePositionVS0057.xyz - _positionVS1.xyz;
+    _TMP11 = dot(_diff0057, _diff0057);
     _TMP12 = inversesqrt(_TMP11);
-    _v0038 = _TMP12*_diff0038;
-    _d0038 = length(_diff0038);
-    if (_d0038 < 1.00000001E-001) { // if begin
-        _TMP10 = dot(_unPackedNormal0026.xyz, _v0038);
-        _b0052 = _TMP10*(1.00000000E+000 + _d0038);
-        _occlusion10038 = max(0.00000000E+000, _b0052);
-        _TMP37 = _occlusion10038;
+    _v0057 = _TMP12*_diff0057;
+    _d0057 = length(_diff0057);
+    if (_d0057 < 1.00000001E-001) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0057);
+        _b0087 = _TMP10*(1.00000000E+000 + _d0057);
+        _occlusion10057 = max(0.00000000E+000, _b0087);
+        _TMP56 = _occlusion10057;
     } else {
-        _TMP37 = 0.00000000E+000;
+        _TMP56 = 0.00000000E+000;
     } // end if
-    _occlusion = _occlusion + _TMP37;
-    _sampleOffset0054 = _coord21*5.00000000E-001;
-    _c0056 = cg_TexCoord0.xy + _sampleOffset0054;
-    _samplePositionVS0054 = texture(_PositionMap, _c0056);
-    _diff0054 = _samplePositionVS0054.xyz - _positionVS1.xyz;
-    _TMP11 = dot(_diff0054, _diff0054);
+    _occlusion = _occlusion + _TMP56;
+    _sampleOffset0089 = _coord21*5.00000000E-001;
+    _sampleTexCoord0089 = _positionSS.xy + _sampleOffset0089;
+    _sampleSS0089 = vec4(_sampleTexCoord0089.x, _sampleTexCoord0089.y, 0.00000000E+000, 1.00000000E+000);
+    _sampleSS0089.y = 1.00000000E+000 - _sampleSS0089.y;
+    _sampleSS0089 = _sampleSS0089*2.00000000E+000 - 1.00000000E+000;
+    _r0091.x = dot(_ProjInv[0], _sampleSS0089);
+    _r0091.y = dot(_ProjInv[1], _sampleSS0089);
+    _r0091.z = dot(_ProjInv[2], _sampleSS0089);
+    _r0091.w = dot(_ProjInv[3], _sampleSS0089);
+    _frustumCorner0089 = _r0091/_r0091.w;
+    _TMP240089 = _frustumCorner0089.xy*(-_Far/_frustumCorner0089.z);
+    _viewRay0089 = vec4(_TMP240089.x, _TMP240089.y, -_Far, 1.00000000E+000);
+    _packedDepth0101 = texture(_LinearDepthMap, _sampleTexCoord0089);
+    _TMP104 = dot(_packedDepth0101, vec4( 1.00000000E+000, 3.92156886E-003, 1.53787005E-005, 6.22737240E-009));
+    _samplePositionVS0089 = _viewRay0089*_TMP104;
+    _diff0089 = _samplePositionVS0089.xyz - _positionVS1.xyz;
+    _TMP11 = dot(_diff0089, _diff0089);
     _TMP12 = inversesqrt(_TMP11);
-    _v0054 = _TMP12*_diff0054;
-    _d0054 = length(_diff0054);
-    if (_d0054 < 1.00000001E-001) { // if begin
-        _TMP10 = dot(_unPackedNormal0026.xyz, _v0054);
-        _b0068 = _TMP10*(1.00000000E+000 + _d0054);
-        _occlusion10054 = max(0.00000000E+000, _b0068);
-        _TMP53 = _occlusion10054;
+    _v0089 = _TMP12*_diff0089;
+    _d0089 = length(_diff0089);
+    if (_d0089 < 1.00000001E-001) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0089);
+        _b0119 = _TMP10*(1.00000000E+000 + _d0089);
+        _occlusion10089 = max(0.00000000E+000, _b0119);
+        _TMP88 = _occlusion10089;
     } else {
-        _TMP53 = 0.00000000E+000;
+        _TMP88 = 0.00000000E+000;
     } // end if
-    _occlusion = _occlusion + _TMP53;
-    _sampleOffset0070 = _sampleOffset1*7.50000000E-001;
-    _c0072 = cg_TexCoord0.xy + _sampleOffset0070;
-    _samplePositionVS0070 = texture(_PositionMap, _c0072);
-    _diff0070 = _samplePositionVS0070.xyz - _positionVS1.xyz;
-    _TMP11 = dot(_diff0070, _diff0070);
+    _occlusion = _occlusion + _TMP88;
+    _sampleOffset0121 = _sampleOffset1*7.50000000E-001;
+    _sampleTexCoord0121 = _positionSS.xy + _sampleOffset0121;
+    _sampleSS0121 = vec4(_sampleTexCoord0121.x, _sampleTexCoord0121.y, 0.00000000E+000, 1.00000000E+000);
+    _sampleSS0121.y = 1.00000000E+000 - _sampleSS0121.y;
+    _sampleSS0121 = _sampleSS0121*2.00000000E+000 - 1.00000000E+000;
+    _r0123.x = dot(_ProjInv[0], _sampleSS0121);
+    _r0123.y = dot(_ProjInv[1], _sampleSS0121);
+    _r0123.z = dot(_ProjInv[2], _sampleSS0121);
+    _r0123.w = dot(_ProjInv[3], _sampleSS0121);
+    _frustumCorner0121 = _r0123/_r0123.w;
+    _TMP240121 = _frustumCorner0121.xy*(-_Far/_frustumCorner0121.z);
+    _viewRay0121 = vec4(_TMP240121.x, _TMP240121.y, -_Far, 1.00000000E+000);
+    _packedDepth0133 = texture(_LinearDepthMap, _sampleTexCoord0121);
+    _TMP136 = dot(_packedDepth0133, vec4( 1.00000000E+000, 3.92156886E-003, 1.53787005E-005, 6.22737240E-009));
+    _samplePositionVS0121 = _viewRay0121*_TMP136;
+    _diff0121 = _samplePositionVS0121.xyz - _positionVS1.xyz;
+    _TMP11 = dot(_diff0121, _diff0121);
     _TMP12 = inversesqrt(_TMP11);
-    _v0070 = _TMP12*_diff0070;
-    _d0070 = length(_diff0070);
-    if (_d0070 < 1.00000001E-001) { // if begin
-        _TMP10 = dot(_unPackedNormal0026.xyz, _v0070);
-        _b0084 = _TMP10*(1.00000000E+000 + _d0070);
-        _occlusion10070 = max(0.00000000E+000, _b0084);
-        _TMP69 = _occlusion10070;
+    _v0121 = _TMP12*_diff0121;
+    _d0121 = length(_diff0121);
+    if (_d0121 < 1.00000001E-001) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0121);
+        _b0151 = _TMP10*(1.00000000E+000 + _d0121);
+        _occlusion10121 = max(0.00000000E+000, _b0151);
+        _TMP120 = _occlusion10121;
     } else {
-        _TMP69 = 0.00000000E+000;
+        _TMP120 = 0.00000000E+000;
     } // end if
-    _occlusion = _occlusion + _TMP69;
-    _c0088 = cg_TexCoord0.xy + _coord21;
-    _samplePositionVS0086 = texture(_PositionMap, _c0088);
-    _diff0086 = _samplePositionVS0086.xyz - _positionVS1.xyz;
-    _TMP11 = dot(_diff0086, _diff0086);
+    _occlusion = _occlusion + _TMP120;
+    _sampleTexCoord0153 = _positionSS.xy + _coord21;
+    _sampleSS0153 = vec4(_sampleTexCoord0153.x, _sampleTexCoord0153.y, 0.00000000E+000, 1.00000000E+000);
+    _sampleSS0153.y = 1.00000000E+000 - _sampleSS0153.y;
+    _sampleSS0153 = _sampleSS0153*2.00000000E+000 - 1.00000000E+000;
+    _r0155.x = dot(_ProjInv[0], _sampleSS0153);
+    _r0155.y = dot(_ProjInv[1], _sampleSS0153);
+    _r0155.z = dot(_ProjInv[2], _sampleSS0153);
+    _r0155.w = dot(_ProjInv[3], _sampleSS0153);
+    _frustumCorner0153 = _r0155/_r0155.w;
+    _TMP240153 = _frustumCorner0153.xy*(-_Far/_frustumCorner0153.z);
+    _viewRay0153 = vec4(_TMP240153.x, _TMP240153.y, -_Far, 1.00000000E+000);
+    _packedDepth0165 = texture(_LinearDepthMap, _sampleTexCoord0153);
+    _TMP168 = dot(_packedDepth0165, vec4( 1.00000000E+000, 3.92156886E-003, 1.53787005E-005, 6.22737240E-009));
+    _samplePositionVS0153 = _viewRay0153*_TMP168;
+    _diff0153 = _samplePositionVS0153.xyz - _positionVS1.xyz;
+    _TMP11 = dot(_diff0153, _diff0153);
     _TMP12 = inversesqrt(_TMP11);
-    _v0086 = _TMP12*_diff0086;
-    _d0086 = length(_diff0086);
-    if (_d0086 < 1.00000001E-001) { // if begin
-        _TMP10 = dot(_unPackedNormal0026.xyz, _v0086);
-        _b0100 = _TMP10*(1.00000000E+000 + _d0086);
-        _occlusion10086 = max(0.00000000E+000, _b0100);
-        _TMP85 = _occlusion10086;
+    _v0153 = _TMP12*_diff0153;
+    _d0153 = length(_diff0153);
+    if (_d0153 < 1.00000001E-001) { // if begin
+        _TMP10 = dot(_TMP1.xyz, _v0153);
+        _b0183 = _TMP10*(1.00000000E+000 + _d0153);
+        _occlusion10153 = max(0.00000000E+000, _b0183);
+        _TMP152 = _occlusion10153;
     } else {
-        _TMP85 = 0.00000000E+000;
+        _TMP152 = 0.00000000E+000;
     } // end if
-    _occlusion = _occlusion + _TMP85;
+    _occlusion = _occlusion + _TMP152;
     _occlusion = _occlusion/1.60000000E+001;
     _occlusion = 1.00000000E+000 - _occlusion;
     _ret_0 = vec4(_occlusion, _occlusion, _occlusion, 1.00000000E+000);

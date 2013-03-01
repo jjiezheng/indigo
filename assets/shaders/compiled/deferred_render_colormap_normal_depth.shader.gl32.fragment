@@ -13,6 +13,7 @@
 //semantic Near
 //semantic Far
 //var sampler2D ColorMap :  : _ColorMap : -1 : 1
+//var float Far :  : _Far : -1 : 1
 //var float3 normal : $vin.TEXCOORD0 : TEXCOORD0 : 1 : 1
 //var float2 texCoord : $vin.TEXCOORD1 : TEXCOORD1 : 2 : 1
 //var float3 viewNormal : $vin.TEXCOORD2 : TEXCOORD2 : 3 : 1
@@ -42,7 +43,9 @@ struct POutput {
 
 vec3 _packedNormal0009;
 vec3 _packedNormal0011;
+vec4 _enc0015;
 uniform sampler2D _ColorMap;
+uniform float _Far;
 in vec4 cg_TexCoord1;
 in vec4 cg_TexCoord3;
 in vec4 cg_TexCoord0;
@@ -57,13 +60,18 @@ void main()
 {
 
     POutput _OUT;
+    float _linearDepth;
 
     _OUT._color = texture(_ColorMap, cg_TexCoord1.xy);
     _packedNormal0009 = cg_TexCoord0.xyz*5.00000000E-001 + 5.00000000E-001;
     _packedNormal0011 = cg_TexCoord2.xyz*5.00000000E-001 + 5.00000000E-001;
+    _linearDepth = -cg_TexCoord3.z/_Far;
+    _enc0015 = vec4( 1.00000000E+000, 2.55000000E+002, 6.50250000E+004, 1.60581376E+008)*_linearDepth;
+    _enc0015 = fract(_enc0015);
+    _enc0015 = _enc0015 - _enc0015.yzww*vec4( 3.92156886E-003, 3.92156886E-003, 3.92156886E-003, 0.00000000E+000);
     cg_FragData3.xyz = _packedNormal0011;
     cg_FragData1.xyz = _packedNormal0009;
-    cg_FragData2 = cg_TexCoord3;
+    cg_FragData2 = _enc0015;
     cg_FragColor = _OUT._color;
     return;
 } // main end
