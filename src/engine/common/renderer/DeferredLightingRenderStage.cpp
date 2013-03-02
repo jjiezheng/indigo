@@ -11,7 +11,7 @@
 #include "IDeferredRenderTargetContainer.h"
 
 void DeferredLightingRenderStage::init(const CSize& screenSize) {
-    lightMapTexture_ = GraphicsInterface::createTexture(screenSize);
+    lightMapTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R32G32B32A32);
     lightRenderTarget_ = GraphicsInterface::createRenderTarget(lightMapTexture_);
 
     lightFrameBuffer_ = GraphicsInterface::createFrameBuffer(lightRenderTarget_, false);

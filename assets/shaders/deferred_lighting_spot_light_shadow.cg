@@ -128,9 +128,17 @@ float4 ps(float4 position 		: POSITION,
 
 	float2 shadowCoord = ndc2tex(pixelPositionFromLightNDC.xy);
 
-	float shadowFactor = shadowPCF(ShadowMap, shadowCoord, pixelPositionFromLightNDC.z, ShadowMapSize);
+	float4 moments = tex2D(ShadowMap, shadowCoord);
 
-	lightContribution *= shadowFactor;
+	//float shadowFactor = chebyshevUpperBound(moments.xy, pixelPositionFromLightNDC.z);
+
+	return float4(lightContribution.x, moments.xy, pixelPositionFromLightNDC.z);
+
+	//return float4(moments.x + moments.y, moments.y, pixelPositionFromLightNDC.z, normal.z + depth + 1.0f);
+
+	//float shadowFactor = shadowPCF(ShadowMap, shadowCoord, pixelPositionFromLightNDC.z, ShadowMapSize);
+
+	//lightContribution *= 1.0f - shadowFactor;
 
 	return lightContribution;
 } 

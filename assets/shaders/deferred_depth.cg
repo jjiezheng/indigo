@@ -14,5 +14,5 @@ VOutput vs(float4 position : POSITION) {
 
 float4 ps(float4 position		: POSITION,
 		  float depth 			: TEXCOORD0) : COLOR0 {
-	return float4(depth, depth, depth, 1.0f);
+	return float4(depth, depth*depth, depth, 1.0f);
 }

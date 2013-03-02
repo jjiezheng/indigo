@@ -23,7 +23,7 @@ void main()
 {
 
 
-    _ret_0 = vec4(gl_TexCoord[0].x, gl_TexCoord[0].x, gl_TexCoord[0].x, 1.00000000E+000);
+    _ret_0 = vec4(gl_TexCoord[0].x, gl_TexCoord[0].x*gl_TexCoord[0].x, gl_TexCoord[0].x, 1.00000000E+000);
     gl_FragColor = _ret_0;
     return;
 } // main end

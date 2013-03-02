@@ -84,3 +84,13 @@ float shadowPCF(sampler2D shadowMap, float2 shadowCoord, float zToCompare, float
 float linearize(float depth, float near, float far) {
 	return (-depth - near) / (far - near);
 }
+
+float chebyshevUpperBound(float2 moments, float distance) {	
+	float variance = moments.y - (moments.x * moments.x);
+	variance = max(variance, 0.00002);
+
+	float d = distance - moments.x;
+	float p_max = variance / (variance + d * d);
+
+	return p_max;
+}
