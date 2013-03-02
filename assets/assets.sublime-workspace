@@ -4,8 +4,12 @@
 		"selected_items":
 		[
 			[
+				"pack",
+				"packedNormal"
+			],
+			[
 				"R",
-				"R8G8B8A8"
+				"R32G32B32A32"
 			],
 			[
 				"sam",
@@ -174,10 +178,6 @@
 			[
 				"Ker",
 				"Kernel"
-			],
-			[
-				"pack",
-				"packedDepth"
 			],
 			[
 				"tex",
@@ -387,8 +387,48 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "shaders/deferred_render_color_normal_depth.cg",
+			"settings":
+			{
+				"buffer_size": 1063,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "shaders/deferred_render_colormap_normal_depth.cg",
+			"settings":
+			{
+				"buffer_size": 1186,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "shaders/deferred_ssao.cg",
+			"settings":
+			{
+				"buffer_size": 2268,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/home/nk/Development/game/src/engine/common/renderer/DeferredInitRenderStage.cpp",
+			"settings":
+			{
+				"buffer_size": 2182,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "shaders/standard.h",
+			"settings":
+			{
+				"buffer_size": 1718,
+				"line_ending": "Windows"
+			}
+		}
 	],
-	"build_system": "",
+	"build_system": "Game Make",
 	"command_palette":
 	{
 		"height": 33.0,
@@ -689,8 +729,150 @@
 	"groups":
 	[
 		{
+			"selected": 3,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "shaders/deferred_render_color_normal_depth.cg",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1063,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1045,
+								1045
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 646.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "shaders/deferred_render_colormap_normal_depth.cg",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1186,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1091,
+								1091
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 459.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "shaders/deferred_ssao.cg",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2268,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1173,
+								1173
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 557.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/home/nk/Development/game/src/engine/common/renderer/DeferredInitRenderStage.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2182,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1021,
+								1021
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 200.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "shaders/standard.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1718,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								456,
+								456
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -741,16 +923,28 @@
 		"selected_items":
 		[
 			[
-				"color_nor",
-				"shaders/deferred_render_color_normal_depth.cg"
+				"stand",
+				"shaders/standard.h"
+			],
+			[
+				"initre",
+				"src/engine/common/renderer/DeferredInitRenderStage.cpp"
+			],
+			[
+				"ssa",
+				"shaders/deferred_ssao.cg"
 			],
 			[
 				"colormap",
 				"shaders/deferred_render_colormap_normal_depth.cg"
 			],
 			[
-				"stand",
-				"shaders/standard.h"
+				"color_",
+				"shaders/deferred_render_color_normal_depth.cg"
+			],
+			[
+				"color_nor",
+				"shaders/deferred_render_color_normal_depth.cg"
 			],
 			[
 				"ssao",
@@ -1141,10 +1335,6 @@
 				"src/engine/common/renderer/DeferredInitRenderStage.cpp"
 			],
 			[
-				"initre",
-				"build/obj/Debug/DeferredInitRenderStage.d"
-			],
-			[
 				"keyboard",
 				"src/engine/common/input/Keyboard.h"
 			],
@@ -1243,14 +1433,6 @@
 			[
 				"effectc",
 				"src/engine/common/renderer/EffectCache.cpp"
-			],
-			[
-				"effechca",
-				"projects/vc9/Visual Lint/CppCheck/game/Debug_Win32/engine/EffectCache.cpp.vlstatus"
-			],
-			[
-				"patfor",
-				"src/engine/common/platform/PlatformDefs.h"
 			]
 		],
 		"width": 0.0

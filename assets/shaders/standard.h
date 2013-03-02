@@ -1,5 +1,6 @@
 #include "depth.h"
 #include "utils.h"
+#include "shadow.h"
 
 float3 packNormal(float3 unPackedNormal) {
 	float3 packedNormal = unPackedNormal * 0.5f + 0.5f;
@@ -45,52 +46,6 @@ float unpackLinearDepth(sampler2D depthSampler, float2 texCoord) {
 	return unpackedDepth;
 }
 
-float shadow(sampler2D shadowMap, float2 shadowCoord, float zToCompare) {
-	float shadowBias = 0.0f;
-
-#ifdef GCM
-	shadowBias += 0.0001f;
-#endif
-
-	float depthToCompare = zToCompare - shadowBias;
-	float shadowFactor = depthCompare(shadowMap, shadowCoord, depthToCompare);
-	return shadowFactor;
-}
-
-float shadowPCF(sampler2D shadowMap, float2 shadowCoord, float zToCompare, float2 shadowMapSize) {
-	float shadowFactor = 1.0f;
-	float shadowBias = 0.0f;
-#ifdef GCM
-	shadowBias += 0.0001f;
-#endif
-
-	float sum = 0;
-	float x, y;
-
-	float depthToCompare = zToCompare - shadowBias;
-
-	for (y = -1.5; y <= 1.5; y += 1.0) {
-		for (x = -1.5; x <= 1.5; x += 1.0) {
-			float2 shadowCoordOffset = shadowCoord + float2(x * shadowMapSize.x, y * shadowMapSize.y);
-			float shadowFactor = depthCompare(shadowMap, shadowCoordOffset, depthToCompare);
-			sum += shadowFactor;
-		}
-	}
-
-	shadowFactor = sum / 16.0f;
-	return shadowFactor;
-}
-
 float linearize(float depth, float near, float far) {
 	return (-depth - near) / (far - near);
-}
-
-float chebyshevUpperBound(float2 moments, float distance) {	
-	float variance = moments.y - (moments.x * moments.x);
-	variance = max(variance, 0.00002);
-
-	float d = distance - moments.x;
-	float p_max = variance / (variance + d * d);
-
-	return p_max;
 }
