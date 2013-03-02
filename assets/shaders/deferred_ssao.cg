@@ -32,9 +32,9 @@ float ao(float3 normalVS, float3 positionVS, float2 texCoord, float2 sampleOffse
 	float4 frustumCorner = mul(ProjInv, sampleSS);
 	frustumCorner /= frustumCorner.w;
 
-	float4 viewRay = float4(frustumCorner.xy * (-Far / frustumCorner.z), -Far, 1);
+	float4 viewRay = float4(frustumCorner.xy * (Far / frustumCorner.z), Far, 1);
 	float depth = unpackLinearDepth(LinearDepthMap, sampleTexCoord);
-	float4 samplePositionVS = viewRay * depth;
+	float4 samplePositionVS = viewRay * -depth;
 
 	float3 diff = samplePositionVS.xyz - positionVS.xyz;
 	float3 v = normalize(diff);
@@ -67,9 +67,12 @@ float4 ps(float4 position 		: POSITION,
 		  float2 texCoord 		: TEXCOORD0,
 		  float4 frustumCorner	: TEXCOORD1) : COLOR0 {
 
-	float4 viewRay = float4(frustumCorner.xy * (-Far / frustumCorner.z), -Far, 1);
+	float4 viewRay = float4(frustumCorner.xy * (Far / frustumCorner.z), Far, 1);
 	float depth = unpackLinearDepth(LinearDepthMap, texCoord);
-	float4 positionVS = viewRay * depth;
+
+	//return float4(depth, depth, depth, 1);
+	float4 positionVS = viewRay * -depth;
+	positionVS.w = 1.0f;
 
 	float4 positionSS = mul(Projection, positionVS);
 	positionSS /= positionSS.w;

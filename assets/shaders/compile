@@ -13,8 +13,8 @@ function gl32 {
 }
 function gcm {
 	command -v sce-cgc >/dev/null 2>&1 || { return; }
-	sce-cgc --capture --capture-dir compiled --debug --fenable-bx2 --fastmath --fastprecision --nofloatbindings -DGCM=1 -q -p sce_vp_rsx -e vs -o compiled/${f%.*}.shader.gcm.vertex $f
-	sce-cgc --capture --capture-dir compiled --debug --fenable-bx2 --fastmath --fastprecision --nofloatbindings -DGCM=1 -q -p sce_fp_rsx -e ps -o compiled/${f%.*}.shader.gcm.fragment $f
+	sce-cgc --capture --capture-dir compiled --debug -DGCM=1 -q -p sce_vp_rsx -e vs -o compiled/${f%.*}.shader.gcm.vertex $f
+	sce-cgc --capture --capture-dir compiled --debug -DGCM=1 -q -p sce_fp_rsx -e ps -o compiled/${f%.*}.shader.gcm.fragment $f
 }
 function shader {
 	dx11

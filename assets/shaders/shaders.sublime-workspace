@@ -4,28 +4,16 @@
 		"selected_items":
 		[
 			[
-				"tex",
-				"texCoord"
-			],
-			[
-				"view",
-				"viewPosition"
-			],
-			[
-				"nor",
-				"normalVS"
-			],
-			[
-				"ps",
-				"positionVS"
-			],
-			[
 				"pos",
 				"positionVS"
 			],
 			[
 				"SHa",
 				"ShadowMapSize"
+			],
+			[
+				"view",
+				"viewNormal"
 			],
 			[
 				"oc",
@@ -42,6 +30,10 @@
 			[
 				"T",
 				"TEXCOORD2"
+			],
+			[
+				"nor",
+				"normalView"
 			],
 			[
 				"m_p",
@@ -198,6 +190,10 @@
 			[
 				"SetSampl",
 				"SetSamplerTexture"
+			],
+			[
+				"tex",
+				"textureName"
 			],
 			[
 				"Fin",
@@ -514,16 +510,28 @@
 			[
 				"l",
 				"lightPosition"
+			],
+			[
+				"NormalMa",
+				"NormalMatrix"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "/C/Users/NK/Development/game/assets/shaders/deferred_ssao.cg",
+			"file": "deferred_ssao.cg",
 			"settings":
 			{
-				"buffer_size": 3103,
+				"buffer_size": 3146,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/NK/Development/game/src/engine/platform/renderer/gcm/PS3GCMGraphicsInterface.cpp",
+			"settings":
+			{
+				"buffer_size": 22653,
 				"line_ending": "Windows"
 			}
 		},
@@ -536,18 +544,27 @@
 			}
 		},
 		{
-			"file": "deferred_render_colormap_normal_depth.cg",
+			"file": "standard.h",
 			"settings":
 			{
-				"buffer_size": 1248,
+				"buffer_size": 2377,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "standard.h",
+			"contents": "float4 enc = float4(1.0, 255.0, 65025.0, 160581375.0) * 0.5\nenc = float4(0.5, 0.5, 0.5, 0.5)\nenc -= float4(0.5, 0.5, 0.5, 0.5) * float4(1.0/255.0,1.0/255.0,1.0/255.0,0.0)\nenc = \nreturn enc",
 			"settings":
 			{
-				"buffer_size": 2358,
+				"buffer_size": 188,
+				"line_ending": "Windows",
+				"name": "float4 enc = float4(1.0, 255.0, 65025.0, 160581375"
+			}
+		},
+		{
+			"file": "utils.h",
+			"settings":
+			{
+				"buffer_size": 1153,
 				"line_ending": "Windows"
 			}
 		},
@@ -560,26 +577,10 @@
 			}
 		},
 		{
-			"file": "/C/Users/NK/Development/game/assets/shaders/deferred_lighting_spot_light.cg",
-			"settings":
-			{
-				"buffer_size": 3816,
-				"line_ending": "Windows"
-			}
-		},
-		{
 			"file": "depth.h",
 			"settings":
 			{
 				"buffer_size": 836,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/C/Users/NK/Development/game/assets/shaders/standard.h",
-			"settings":
-			{
-				"buffer_size": 2331,
 				"line_ending": "Windows"
 			}
 		}
@@ -762,11 +763,8 @@
 	},
 	"file_history":
 	[
-		"/C/Users/NK/Development/game/assets/shaders/depth.h",
-		"/C/Users/GBKosteNi/Development/game/assets/shaders/utils.h",
-		"/C/Users/GBKosteNi/Development/game/assets/shaders/deferred_ssao.cg",
-		"/C/Users/NK/Development/game/assets/scenes/simple/assorted.scene",
 		"/C/Users/NK/Development/game/assets/shaders/standard.h",
+		"/C/Users/NK/Development/game/assets/shaders/depth.h",
 		"/C/Users/NK/Development/game/assets/shaders/deferred_render_colormap_normal_depth.cg",
 		"/C/Users/NK/Development/game/assets/shaders/deferred_render_color_normal_depth.cg",
 		"/C/Users/NK/Development/game/premake4.lua",
@@ -793,6 +791,7 @@
 		"/C/Users/GBKosteNi/AppData/Roaming/Sublime Text 3/Packages/Shader Languages/GLSL.tmLanguage",
 		"/C/Users/GBKosteNi/AppData/Roaming/Sublime Text 3/Packages/Shader Languages/Cg.tmLanguage",
 		"/C/Users/GBKosteNi/AppData/Roaming/Sublime Text 3/Packages/User/Cg.tmLanguage",
+		"/C/Users/GBKosteNi/Development/game/assets/shaders/utils.h",
 		"/C/Users/GBKosteNi/Development/game/assets/shaders/depth.h",
 		"/C/Users/GBKosteNi/Development/game/assets/assets.sublime-project",
 		"/C/cygwin/home/GBkosteni/Development/game/assets/assets.w32.sublime-project.old",
@@ -889,7 +888,9 @@
 		"/C/Users/GBKosteNi/Downloads/toolchain-src-4.2.0-GCC411/build.sh",
 		"/C/Users/GBKosteNi/Downloads/toolchain-src-4.2.0-GCC411/build-ppu-lv2.sh",
 		"/C/Users/GBKosteNi/AppData/Roaming/Sublime Text 3/Packages/User/Default (Windows).sublime-keymap",
-		"/C/cygwin/home/GBkosteni/Development/Wb/Content/BookOfPotions/WonderBook/Assets/Application/Config/ToolsConfig.xml"
+		"/C/cygwin/home/GBkosteni/Development/Wb/Content/BookOfPotions/WonderBook/Assets/Application/Config/ToolsConfig.xml",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Code/Components/BoP/ScreenSmoke.cpp",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Code/Components/BoP/ScreenSmoke.h"
 	],
 	"find":
 	{
@@ -914,8 +915,6 @@
 		"case_sensitive": false,
 		"find_history":
 		[
-			"unpackdepth",
-			"tex2d",
 			"radius",
 			"keyboard",
 			"key",
@@ -1041,7 +1040,9 @@
 			"GetTexture",
 			"SamplerBinding",
 			"m_uiTimeStamp",
-			"pTexScratch"
+			"pTexScratch",
+			"gctexture",
+			"ctexture"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1142,24 +1143,24 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 4,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/C/Users/NK/Development/game/assets/shaders/deferred_ssao.cg",
+					"file": "deferred_ssao.cg",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3103,
+						"buffer_size": 3146,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1708,
-								1708
+								2084,
+								2084
 							]
 						],
 						"settings":
@@ -1168,13 +1169,42 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 756.0,
+						"translation.y": 720.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
+					"file": "/C/Users/NK/Development/game/src/engine/platform/renderer/gcm/PS3GCMGraphicsInterface.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 22653,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								16001,
+								16001
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 7056.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
 					"file": "deferred_render_color_normal_depth.cg",
 					"semi_transient": false,
 					"settings":
@@ -1186,8 +1216,8 @@
 						"selection":
 						[
 							[
-								729,
-								729
+								1096,
+								1096
 							]
 						],
 						"settings":
@@ -1196,35 +1226,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 378.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "deferred_render_colormap_normal_depth.cg",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1248,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1009,
-								1009
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Shader Languages/Cg.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 270.0,
+						"translation.y": 105.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1235,15 +1237,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2358,
+						"buffer_size": 2377,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								991,
-								991
+								963,
+								963
 							]
 						],
 						"settings":
@@ -1252,82 +1254,53 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 216.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 4,
-					"file": "deferred_lighting_spot_light_shadow.cg",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4358,
+						"buffer_size": 188,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1079,
-								1079
+								188,
+								188
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Shader Languages/Cg.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"auto_name": "float4 enc = float4(1.0, 255.0, 65025.0, 160581375",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 657.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 5,
-					"file": "/C/Users/NK/Development/game/assets/shaders/deferred_lighting_spot_light.cg",
+					"file": "utils.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3816,
+						"buffer_size": 1153,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1407,
-								1418
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Shader Languages/Cg.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 411.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "depth.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 836,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								751,
-								751
+								412,
+								412
 							]
 						],
 						"settings":
@@ -1341,29 +1314,56 @@
 					"type": "text"
 				},
 				{
-					"buffer": 7,
-					"file": "/C/Users/NK/Development/game/assets/shaders/standard.h",
+					"buffer": 6,
+					"file": "deferred_lighting_spot_light_shadow.cg",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2331,
+						"buffer_size": 4358,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1199,
-								1199
+								3313,
+								3313
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.tmLanguage",
+							"syntax": "Packages/Shader Languages/Cg.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 378.0,
+						"translation.y": 990.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "depth.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 836,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								582,
+								582
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1418,18 +1418,6 @@
 		"selected_items":
 		[
 			[
-				"dep",
-				"depth.h"
-			],
-			[
-				"stand",
-				"standard.h"
-			],
-			[
-				"colorm",
-				"/C/Users/GBKosteNi/Development/game/assets/shaders/deferred_render_color_normal_depth.cg"
-			],
-			[
 				"ssao",
 				"deferred_ssao.cg"
 			],
@@ -1448,6 +1436,10 @@
 			[
 				"spot",
 				"deferred_lighting_spot_light_shadow.cg"
+			],
+			[
+				"stand",
+				"standard.h"
 			],
 			[
 				"utils",
@@ -1928,6 +1920,14 @@
 			[
 				"particleeffectinstance",
 				"Code/Framework/Etc/Particle/ParticleEffectInstance.cpp"
+			],
+			[
+				"effectinstance.cpp",
+				"Code/Framework/Etc/Particle/ParticleEffectInstanceLite.cpp"
+			],
+			[
+				"paticleef",
+				"Code/Framework/Etc/Particle/ParticleEffect.cpp"
 			]
 		],
 		"width": 0.0

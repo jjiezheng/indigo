@@ -2,12 +2,67 @@
 
 #include "platform/PlatformDefs.h"
 
-unsigned int binary_uint32(unsigned int val) {
-  unsigned int result = val;
+//! Byte swap unsigned short
+uint16_t swap_uint16(uint16_t val) 
+{
 #ifdef BIG_ENDIAN
-  result = ((val << 8) & 0xFF00FF00 ) | ((val >> 8) & 0xFF00FF );
-  result = (val << 16) | (val >> 16);
+  return (val << 8) | (val >> 8);
+#else
+  return val;
 #endif
-  return result;
+}
+
+//! Byte swap short
+int16_t swap_int16(int16_t val) 
+{
+#ifdef BIG_ENDIAN
+  return (val << 8) | ((val >> 8) & 0xFF);
+#else
+  return val;
+#endif
+}
+
+//! Byte swap unsigned int
+uint32_t swap_uint32(uint32_t val)
+{
+#ifdef BIG_ENDIAN
+  val = ((val << 8) & 0xFF00FF00) | ((val >> 8) & 0xFF00FF); 
+  return (val << 16) | (val >> 16);
+#else
+  return val;
+#endif
+}
+
+//! Byte swap int
+int32_t swap_int32(int32_t val)
+{
+#ifdef BIG_ENDIAN
+  val = ((val << 8) & 0xFF00FF00) | ((val >> 8) & 0xFF00FF); 
+  return (val << 16) | ((val >> 16) & 0xFFFF);
+#else
+  return val;
+#endif
+}
+
+int64_t swap_int64(int64_t val)
+{
+#ifdef BIG_ENDIAN
+  val = ((val << 8) & 0xFF00FF00FF00FF00ULL) | ((val >> 8) & 0x00FF00FF00FF00FFULL);
+  val = ((val << 16) & 0xFFFF0000FFFF0000ULL) | ((val >> 16) & 0x0000FFFF0000FFFFULL);
+  return (val << 32) | ((val >> 32) & 0xFFFFFFFFULL);
+#else
+  return val;
+#endif
+}
+
+uint64_t swap_uint64(uint64_t val)
+{
+#ifdef BIG_ENDIAN
+  val = ((val << 8) & 0xFF00FF00FF00FF00ULL) | ((val >> 8) & 0x00FF00FF00FF00FFULL);
+  val = ((val << 16) & 0xFFFF0000FFFF0000ULL) | ((val >> 16) & 0x0000FFFF0000FFFFULL);
+  return (val << 32) | (val >> 32);
+#else
+  return val;
+#endif
 }
 

@@ -23,15 +23,15 @@ float4 unpackPosition(sampler2D positionSampler, float2 texCoord) {
 	return unPackedPosition;
 }
 
-float4 EncodeFloatRGBA(float v) {
-  float4 enc = float4(1.0, 255.0, 65025.0, 160581375.0) * v;
+float4 EncodeFloatRGBA( float v ) {
+  float4 enc = float4(1.0f, 255.0f, 65025.0f, 160581375.0f) * v;
   enc = frac(enc);
-  enc -= enc.yzww * float4(1.0 / 255.0, 1.0 / 255.0, 1.0 / 255.0, 0.0);
+  enc -= enc.yzww * float4(1.0f/255.0f,1.0f/255.0f,1.0f/255.0f,0.0f);
   return enc;
 }
 
-float DecodeFloatRGBA(float4 rgba) {
-  return dot(rgba, float4(1.0, 1 / 255.0, 1 / 65025.0, 1 / 160581375.0));
+float DecodeFloatRGBA( float4 rgba ) {
+  return dot( rgba, float4(1.0f, 1/255.0f, 1/65025.0f, 1/160581375.0f) );
 }
 
 float4 packLinearDepth(float unpackedDepth) {

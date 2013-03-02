@@ -37,7 +37,7 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
   combineEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_ssao_combine.shader");
   quadVbo_ = Geometry::screenPlane();
 
-  ssaoRawTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R8G8B8A8);
+  ssaoRawTexture_ = GraphicsInterface::createTexture(screenSize);
   ssaoRawRenderTarget_ = GraphicsInterface::createRenderTarget(ssaoRawTexture_);
   ssaoRawFrameBuffer_ = GraphicsInterface::createFrameBuffer(ssaoRawRenderTarget_, false);
 
@@ -98,7 +98,7 @@ TextureId DeferredSSAOPass::render(IViewer* viewer, unsigned int inputMap, const
 
 		ssaoEffect_->setUniform(GraphicsInterface::halfBackBufferPixel(), "HalfPixel");
 
-		static float radius = 0.0015f;
+		static float radius = 0.0125f;
 
 		if (Keyboard::keyState(KEY_G)) {
 			radius -= 0.0001f;

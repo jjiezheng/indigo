@@ -151,6 +151,9 @@ void PS3GCMGraphicsInterface::openWindow(int width, int height, unsigned int mul
   }
 
   setViewport(backbufferSize_);
+
+  cellGcmSetShadeMode(CELL_GCM_FLAT);
+  cellGcmSetBackPolygonMode(CELL_GCM_POLYGON_MODE_POINT);
 }
 
 void PS3GCMGraphicsInterface::setViewport(const CSize& dimensions) {
@@ -162,7 +165,7 @@ void PS3GCMGraphicsInterface::setViewport(const CSize& dimensions) {
   h = dimensions.height;
 
   float scale[4] = {w * 0.5f, h * -0.5f, (max - min), 0.0f};
-  float offset[4] = {x + scale[0] + 0.5f, h - y + scale[1] + 0.5f, min, 0.0f};
+  float offset[4] = {x + scale[0], h - y + scale[1], min, 0.0f};
 
   cellGcmSetViewport(x, y, w, h, min, max, scale, offset); 
   cellGcmSetScissor(x, y, w, h) ;
@@ -281,6 +284,10 @@ unsigned int PS3GCMGraphicsInterface::loadTexture(const std::string& filePath) {
 }
 
 void PS3GCMGraphicsInterface::drawVertexBuffer(int vertexBuffer, int vertexCount, VertexFormat vertexFormat) {
+
+  cellGcmSetDitherEnable(CELL_GCM_FALSE);
+  cellGcmSetPolySmoothEnable(CELL_GCM_FALSE);
+  cellGcmSetShadeMode(CELL_GCM_FLAT);
   unsigned int positionIndex = effect_->vertexPositionIndex();
 
   unsigned int vertexDataOffset = vertexBuffers_[vertexBuffer];
@@ -380,7 +387,6 @@ void PS3GCMGraphicsInterface::setRenderTarget(unsigned int* renderTargetIds, uns
 }
 
 void PS3GCMGraphicsInterface::resetRenderTarget(bool useDepthBuffer) {
-	cellGcmSetDitherEnable(CELL_GCM_FALSE);
   cellGcmSetDepthTestEnable(useDepthBuffer);
 
   CellGcmSurface sf;
@@ -512,7 +518,6 @@ void PS3GCMGraphicsInterface::setBlendState(IGraphicsInterface::BlendState blend
 			cellGcmSetBlendEnable(CELL_GCM_TRUE);
 			cellGcmSetBlendEquation(CELL_GCM_FUNC_ADD, CELL_GCM_FUNC_ADD);
 			cellGcmSetBlendFunc(CELL_GCM_SRC_ALPHA, CELL_GCM_ONE_MINUS_SRC_ALPHA, CELL_GCM_SRC_ALPHA, CELL_GCM_ONE_MINUS_SRC_ALPHA);
-			cellGcmSetPolySmoothEnable(CELL_GCM_TRUE);
 			break;
 
     case IGraphicsInterface::NOBLEND:

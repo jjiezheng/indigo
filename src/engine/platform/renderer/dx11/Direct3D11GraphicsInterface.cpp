@@ -23,6 +23,8 @@
 
 #include <iostream>
 
+#include "maths/Vector4.h"
+
 
 void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, int height, unsigned int multiSamples) {
   multiSamples_ = multiSamples;
@@ -132,6 +134,8 @@ void Direct3D11GraphicsInterface::createGraphicsContext(HWND hWnd, int width, in
   setViewport(CSize(width, height));
 
   D3DEffect::setDevice(device_, context_);
+
+
 }
 
 void Direct3D11GraphicsInterface::createPerformanceMarkerColors() {
@@ -144,7 +148,32 @@ void Direct3D11GraphicsInterface::createPerformanceMarkerColors() {
   performanceMarkerColors_.push_back(D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
 }
 
+float frac(float f) {
+  return  f-(long)f;
+}
+
+Vector4 encodeFloatRGBA(float v) {
+  Vector4 enc = Vector4(1.0f, 255.0f, 65025.0f, 160581375.0f) * v;
+  enc = Vector4(frac(enc.x), frac(enc.y), frac(enc.z), frac(enc.w));
+  enc = enc - Vector4(enc.y, enc.z, enc.w, enc.w) * Vector4(1.0f/255.0f, 1.0f/255.0f, 1.0f/255.0f, 0.0f);
+  return enc;
+}
+
+float decodeFloatRGBA(const Vector4& rgba) {
+  Vector4 encoding(1.0f, 1.0f/255.0f, 1.0f/65025.0f, 1.0f/160581375.0f);
+  float result = rgba.dot(encoding);
+  return result;
+}
+
+void test() {
+
+  Vector4 a = encodeFloatRGBA(0.03f);
+  float b = decodeFloatRGBA(a);
+}
+
 void Direct3D11GraphicsInterface::setViewport(const CSize& dimensions) {
+
+  test();
   D3D11_VIEWPORT viewport;
   ZeroMemory(&viewport, sizeof(D3D11_VIEWPORT));
 

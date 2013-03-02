@@ -110,7 +110,7 @@ void PS3GCMCGEffect::commitBuffers() {
   for (std::map<unsigned int, GCMSamplerState>::iterator i = samplerStates_.begin(); i != samplerStates_.end(); ++i) {
     GCMSamplerState samplerState = (*i).second;
     cellGcmSetTextureAddress((*i).first, samplerState.addressU, samplerState.addressV, samplerState.addressW, CELL_GCM_TEXTURE_UNSIGNED_REMAP_NORMAL, samplerState.comparisonFunc, 0);
-    cellGcmSetTextureFilter((*i).first, 0, samplerState.minFilter, samplerState.magFilter, CELL_GCM_TEXTURE_CONVOLUTION_QUINCUNX);
+    cellGcmSetTextureFilter((*i).first, 0, samplerState.minFilter, samplerState.magFilter, CELL_GCM_TEXTURE_CONVOLUTION_GAUSSIAN);
   }
 }
 
@@ -283,7 +283,7 @@ void PS3GCMCGEffect::setSamplerState(unsigned int samplerSlot, SAMPLER_UV_ADDRES
     case UV_ADDRESS_CLAMP:
       samplerState.addressU = CELL_GCM_TEXTURE_CLAMP;
       samplerState.addressV = CELL_GCM_TEXTURE_CLAMP;
-      samplerState.addressW = CELL_GCM_TEXTURE_CLAMP_TO_EDGE;
+      samplerState.addressW = CELL_GCM_TEXTURE_CLAMP;
       break;
 
     case UV_ADDRESS_CLAMP_TO_BORDER:
@@ -294,7 +294,7 @@ void PS3GCMCGEffect::setSamplerState(unsigned int samplerSlot, SAMPLER_UV_ADDRES
     case UV_ADDRESS_WRAP: 
       samplerState.addressU = CELL_GCM_TEXTURE_WRAP;
       samplerState.addressV = CELL_GCM_TEXTURE_WRAP;
-      samplerState.addressW = CELL_GCM_TEXTURE_CLAMP_TO_EDGE;
+      samplerState.addressW = CELL_GCM_TEXTURE_WRAP;
       break;
   } 
 
