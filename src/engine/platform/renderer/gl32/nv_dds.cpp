@@ -313,7 +313,8 @@ bool CDDSImage::load(string filename, bool flipImage)
 
     // read in file marker, make sure its a DDS file
     char filecode[4];
-    fread(filecode, 1, 4, fp);
+    size_t bytes = fread(filecode, 1, 4, fp);
+    (void)bytes;
     if (strncmp(filecode, "DDS ", 4) != 0) 
     {
         fclose(fp);
@@ -324,8 +325,8 @@ bool CDDSImage::load(string filename, bool flipImage)
 
     // read in DDS header
     DDS_HEADER ddsh;
-    fread(&ddsh, sizeof(DDS_HEADER), 1, fp);
-
+    bytes = fread(&ddsh, sizeof(DDS_HEADER), 1, fp);
+    
     swap_endian(&ddsh.dwSize);
     swap_endian(&ddsh.dwFlags);
     swap_endian(&ddsh.dwHeight);
@@ -423,7 +424,7 @@ bool CDDSImage::load(string filename, bool flipImage)
 
         // load surface
         unsigned char *pixels = new unsigned char[size];
-        fread(pixels, 1, size, fp);
+        bytes = fread(pixels, 1, size, fp);
 
         img.create(width, height, depth, size, pixels);
         
@@ -456,7 +457,7 @@ bool CDDSImage::load(string filename, bool flipImage)
             size = (this->*sizefunc)(w, h)*d;
 
             unsigned char *pixels = new unsigned char[size];
-            fread(pixels, 1, size, fp);
+            bytes = fread(pixels, 1, size, fp);
 
             mipmap.create(w, h, d, size, pixels);
             

@@ -25,9 +25,7 @@ struct VOutput {
 float ao(float3 normalVS, float3 positionVS, float2 texCoord, float2 sampleOffset) {
 	float2 sampleTexCoord = texCoord + sampleOffset;
 
-	float4 sampleSS = float4(sampleTexCoord.xy, 0, 1);
-	sampleSS.y = 1.0f - sampleSS.y;
-	sampleSS = sampleSS * 2 - 1;
+	float4 sampleSS = tex2NDC(sampleTexCoord.xy, 0);
 
 	float4 frustumCorner = mul(ProjInv, sampleSS);
 	frustumCorner /= frustumCorner.w;
@@ -76,10 +74,8 @@ float4 ps(float4 position 		: POSITION,
 
 	float4 positionSS = mul(Projection, positionVS);
 	positionSS /= positionSS.w;
-	positionSS = positionSS * 0.5 + 0.5;
-	positionSS.y = 1.0f - positionSS.y;
 
-	float2 texCoordSS = positionSS.xy;
+	float2 texCoordSS = ndc2tex(positionSS.xy);
 
 	float3 normalVS = tex2D(NormalMap, texCoord).rgb;
 	float3 random = tex2D(NoiseMap, texCoord * NoiseScale).rgb * 2.0f - 1.0f;	
