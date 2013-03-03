@@ -1,14 +1,12 @@
 solution "Game"
 	configurations { "Release", "Debug" }
-
-	local basedir = "build"
-	location(basedir)
+	location("build")
 
 project "game"
-	targetname  "Game"
 	language    "C++"
 	kind        "WindowedApp"
 	flags       { "FatalWarnings" }	
+	targetdir 	"dist"
 	
 	includedirs { 
 		"src/engine/common",
