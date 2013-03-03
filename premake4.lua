@@ -1,6 +1,6 @@
 solution "Game"
 	configurations { "Release", "Debug" }
-	location("build")
+	location "build"
 
 project "game"
 	language    "C++"

@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"li",
+				"lightContribution"
+			],
+			[
 				"nor",
 				"normal"
 			],
@@ -510,10 +514,6 @@
 			[
 				"Root",
 				"RootTransform"
-			],
-			[
-				"l",
-				"lightPosition"
 			]
 		]
 	},
@@ -523,7 +523,7 @@
 			"file": "standard.h",
 			"settings":
 			{
-				"buffer_size": 2887,
+				"buffer_size": 2614,
 				"line_ending": "Windows"
 			}
 		},
@@ -531,8 +531,16 @@
 			"file": "deferred_lighting_spot_light_shadow.cg",
 			"settings":
 			{
-				"buffer_size": 4588,
+				"buffer_size": 4485,
 				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/NK/Development/game/premake4.lua",
+			"settings":
+			{
+				"buffer_size": 3605,
+				"line_ending": "Unix"
 			}
 		},
 		{
@@ -907,6 +915,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"basedir",
 			"radius",
 			"keyboard",
 			"key",
@@ -1033,8 +1042,7 @@
 			"SamplerBinding",
 			"m_uiTimeStamp",
 			"pTexScratch",
-			"gctexture",
-			"ctexture"
+			"gctexture"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1135,7 +1143,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -1144,15 +1152,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2887,
+						"buffer_size": 2614,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2556,
-								2556
+								1650,
+								1650
 							]
 						],
 						"settings":
@@ -1161,7 +1169,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 641.0,
+						"translation.y": 585.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1172,15 +1180,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4588,
+						"buffer_size": 4485,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4415,
-								4415
+								3828,
+								3828
 							]
 						],
 						"settings":
@@ -1189,13 +1197,40 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1170.0,
+						"translation.y": 1305.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
+					"file": "/C/Users/NK/Development/game/premake4.lua",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3605,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								420,
+								420
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Lua/Lua.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
 					"file": "deferred_render_color_normal_depth.cg",
 					"semi_transient": false,
 					"settings":
@@ -1217,13 +1252,13 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 111.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 4,
 					"file": "deferred_ssao.cg",
 					"semi_transient": false,
 					"settings":
@@ -1251,7 +1286,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 5,
 					"file": "/C/Users/NK/Development/game/src/engine/platform/renderer/gcm/PS3GCMGraphicsInterface.cpp",
 					"semi_transient": false,
 					"settings":
@@ -1280,7 +1315,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 6,
 					"semi_transient": false,
 					"settings":
 					{
@@ -1307,7 +1342,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 7,
 					"file": "deferred_depth.cg",
 					"semi_transient": false,
 					"settings":
@@ -1382,6 +1417,10 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"",
+				"deferred_lighting_spot_light_shadow.cg"
+			],
 			[
 				"stand",
 				"standard.h"
@@ -1889,10 +1928,6 @@
 			[
 				"particleeffectinstance",
 				"Code/Framework/Etc/Particle/ParticleEffectInstance.cpp"
-			],
-			[
-				"effectinstance.cpp",
-				"Code/Framework/Etc/Particle/ParticleEffectInstanceLite.cpp"
 			]
 		],
 		"width": 0.0
