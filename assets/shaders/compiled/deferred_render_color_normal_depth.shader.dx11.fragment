@@ -1,5 +1,5 @@
 // ps_4_0 output by Cg compiler
-// cgc version 3.1.0013, build date Apr 18 2012
+// cgc version 3.1.0013, build date Apr 24 2012
 // command line args: -DDX11=1 -q -unroll all -profile ps_5_0
 // source file: deferred_render_color_normal_depth.cg
 //vendor NVIDIA Corporation
@@ -65,14 +65,14 @@ POutput main( in X1X cin)
     _viewNormal1 = cin._TEXCOORD1;
     _viewPosition = cin._TEXCOORD2;
     _OUT._color = _DiffuseColor;
-    _packedNormal0001 = _normal1* 5.00000000000000000E-001f +  5.00000000000000000E-001f;
+    _packedNormal0001 = _normal1*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
     _OUT._normal = _packedNormal0001;
-    _packedNormal0003 = _viewNormal1* 5.00000000000000000E-001f +  5.00000000000000000E-001f;
+    _packedNormal0003 = _viewNormal1*  5.00000000000000000E-01f +   5.00000000000000000E-01f;
     _OUT._viewNormal = _packedNormal0003;
     _linearDepth = -_viewPosition.z/_Far;
-    _enc0007 = float4(  1.00000000000000000E000f,  2.55000000000000000E002f,  6.50250000000000000E004f,  1.60581376000000000E008f)*_linearDepth;
+    _enc0007 = float4(   1.00000000000000000E00f,   2.55000000000000000E02f,   6.50250000000000000E04f,   1.60581376000000000E08f)*_linearDepth;
     _enc0007 = frac(_enc0007);
-    _enc0007 = _enc0007 - _enc0007.yzww*float4(  3.92156885936856270E-003f,  3.92156885936856270E-003f,  3.92156885936856270E-003f,  0.00000000000000000E000f);
+    _enc0007 = _enc0007 - _enc0007.yzww*float4(   3.92156885936856270E-03f,   3.92156885936856270E-03f,   3.92156885936856270E-03f,   0.00000000000000000E00f);
     _OUT._depth = _enc0007;
     return _OUT;
 } // main end

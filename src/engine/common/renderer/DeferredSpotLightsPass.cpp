@@ -25,6 +25,8 @@
 
 #include "memory/Allocation.h"
 
+#include "input/Keyboard.h"
+
 void DeferredSpotLightsPass::init(const CSize& screenSize) {
 	shadowDepthEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_depth.shader");
 
@@ -178,6 +180,22 @@ void DeferredSpotLightsPass::renderLight(SpotLight* light, IEffect* lightEffect,
 		Vector2 shadowMapSize(1.0f/shadowMapResolution.width, 1.0f/shadowMapResolution.height);
 		lightEffect->setUniform(shadowMapSize, "ShadowMapSize");
 		lightEffect->setTexture(light->shadowMapDepthTexture(), "ShadowMap");
+
+		static float shadowBias = 0.00002;
+
+		if (Keyboard::keyState(KEY_G)) {
+			shadowBias -= 0.001f;
+			LOG(LOG_CHANNEL_TEMP, "ShadowMap Bias %f", shadowBias);
+		}
+
+		if (Keyboard::keyState(KEY_H)) {
+			shadowBias += 0.001f;
+			LOG(LOG_CHANNEL_TEMP, "ShadowMap Bias %f", shadowBias);
+		}		
+
+		if (Keyboard::keyState(0)) {
+			lightEffect->setUniform(shadowBias, "ShadowBias");
+		}
 	}
 
 	lightEffect->commitBuffers();

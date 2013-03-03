@@ -14,5 +14,9 @@ VOutput vs(float4 position : POSITION) {
 
 float4 ps(float4 position		: POSITION,
 		  float depth 			: TEXCOORD0) : COLOR0 {
-	return float4(depth, depth*depth, depth, 1.0f);
+	float linearDepth = -depth;
+	float dx = dFdx(linearDepth);
+	float dy = dFdy(linearDepth);
+	float linearDepth2 = pow(linearDepth, 2.0) + 0.25*(dx*dx + dy*dy);
+	return float4(linearDepth, linearDepth2, 0.0f, 1.0f);
 }

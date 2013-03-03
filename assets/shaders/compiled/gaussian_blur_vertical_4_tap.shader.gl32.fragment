@@ -1,5 +1,5 @@
 // glslf output by Cg compiler
-// cgc version 3.1.0013, build date Apr 18 2012
+// cgc version 3.1.0013, build date Apr 24 2012
 // command line args: -DGL=1 -DGL32=1 -q -profileopts version=130 -profile glslf
 // source file: gaussian_blur_vertical_4_tap.cg
 //vendor NVIDIA Corporation
@@ -29,7 +29,7 @@
 //default weights[0] = 0.7978846
 //default weights[1] = 0.1079819
 //default weights[2] = 0.0002676605
-//default weights[3] = 1.22e-008
+//default weights[3] = 1.22e-08
 
 #version 130
 
@@ -59,22 +59,22 @@ void main()
 
     _TMP1 = texture(_SourceMap, cg_TexCoord0.xy);
     _color = _TMP1*_weights[0];
-    _texelSize = 1.00000000E+000/_SceneHeight;
-    _offset1 = vec2( 1.00000000E+000, 0.00000000E+000)*_offsets[1]*_texelSize;
+    _texelSize = 1.00000000E+00/_SceneHeight;
+    _offset1 = vec2( 1.00000000E+00, 0.00000000E+00)*_offsets[1]*_texelSize;
     _rightTap1 = cg_TexCoord0.xy + _offset1;
     _TMP2 = texture(_SourceMap, _rightTap1);
     _color = _color + _TMP2*_weights[1];
     _leftTap1 = cg_TexCoord0.xy - _offset1;
     _TMP3 = texture(_SourceMap, _leftTap1);
     _color = _color + _TMP3*_weights[1];
-    _offset1 = vec2( 1.00000000E+000, 0.00000000E+000)*_offsets[2]*_texelSize;
+    _offset1 = vec2( 1.00000000E+00, 0.00000000E+00)*_offsets[2]*_texelSize;
     _rightTap1 = cg_TexCoord0.xy + _offset1;
     _TMP2 = texture(_SourceMap, _rightTap1);
     _color = _color + _TMP2*_weights[2];
     _leftTap1 = cg_TexCoord0.xy - _offset1;
     _TMP3 = texture(_SourceMap, _leftTap1);
     _color = _color + _TMP3*_weights[2];
-    _offset1 = vec2( 1.00000000E+000, 0.00000000E+000)*_offsets[3]*_texelSize;
+    _offset1 = vec2( 1.00000000E+00, 0.00000000E+00)*_offsets[3]*_texelSize;
     _rightTap1 = cg_TexCoord0.xy + _offset1;
     _TMP2 = texture(_SourceMap, _rightTap1);
     _color = _color + _TMP2*_weights[3];

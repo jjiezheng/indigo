@@ -1,5 +1,5 @@
 // glslf output by Cg compiler
-// cgc version 3.1.0013, build date Apr 18 2012
+// cgc version 3.1.0013, build date Apr 24 2012
 // command line args: -DGL=1 -DGL21=1 -q -profile glslf
 // source file: deferred_lighting_directional_light.cg
 //vendor NVIDIA Corporation
@@ -46,15 +46,15 @@ void main()
 
     _texCoord0012 = gl_TexCoord[0].xy + _HalfPixel;
     _TMP3 = texture2D(_NormalMap, _texCoord0012);
-    _unPackedNormal0012 = _TMP3.xyz*2.00000000E+000 - 1.00000000E+000;
+    _unPackedNormal0012 = _TMP3.xyz*2.00000000E+00 - 1.00000000E+00;
     _TMP4 = dot(_LightDirection.xyz, _LightDirection.xyz);
     _TMP5 = inversesqrt(_TMP4);
     _TMP1 = _TMP5*_LightDirection.xyz;
     _lightVector = -_TMP1;
     _TMP2 = dot(_unPackedNormal0012.xyz, _lightVector);
-    _diffuseStrength = max(0.00000000E+000, _TMP2);
+    _diffuseStrength = max(0.00000000E+00, _TMP2);
     _diffuseContribution = _LightColor*_diffuseStrength;
-    _ret_0 = vec4(_diffuseContribution.x, _diffuseContribution.y, _diffuseContribution.z, 1.00000000E+000);
+    _ret_0 = vec4(_diffuseContribution.x, _diffuseContribution.y, _diffuseContribution.z, 1.00000000E+00);
     gl_FragColor = _ret_0;
     return;
 } // main end

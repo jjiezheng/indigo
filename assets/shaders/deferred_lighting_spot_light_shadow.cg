@@ -11,6 +11,7 @@ uniform float LightDecay;
 uniform float LightDistance;
 
 uniform float2 ShadowMapSize;
+uniform float ShadowBias;
 
 uniform float3 LightDirection;
 uniform float3 LightPosition;
@@ -128,17 +129,11 @@ float4 ps(float4 position 		: POSITION,
 
 	float2 shadowCoord = ndc2tex(pixelPositionFromLightNDC.xy);
 
-	float4 moments = tex2D(ShadowMap, shadowCoord);
+	//float shadowFactor = shadowVSM(ShadowMap, shadowCoord, pixelPositionFromLightNDC.z, ShadowBias);
 
-	//float shadowFactor = chebyshevUpperBound(moments.xy, pixelPositionFromLightNDC.z);
+	float shadowFactor = shadowPCF(ShadowMap, shadowCoord, pixelPositionFromLightNDC.z, ShadowMapSize);
 
-	return float4(lightContribution.x, moments.xy, pixelPositionFromLightNDC.z);
-
-	//return float4(moments.x + moments.y, moments.y, pixelPositionFromLightNDC.z, normal.z + depth + 1.0f);
-
-	//float shadowFactor = shadowPCF(ShadowMap, shadowCoord, pixelPositionFromLightNDC.z, ShadowMapSize);
-
-	//lightContribution *= 1.0f - shadowFactor;
+	lightContribution *= shadowFactor;
 
 	return lightContribution;
 } 
