@@ -153,7 +153,7 @@ void D3DEffect::load(const std::string& filePath) {
         File vertexShaderFile;
         vertexShaderFile.open(fullVertexShaderFilePath);
 
-        HRESULT result = D3DCompile(vertexShaderFile.data(), vertexShaderFile.size(), NULL, NULL, D3D_COMPILE_STANDARD_FILE_INCLUDE, "main", "vs_5_0", 0, 0, &vertexProgram, &errors);
+        HRESULT result = D3DCompile(vertexShaderFile.data(), vertexShaderFile.size(), NULL, NULL, D3D_COMPILE_STANDARD_FILE_INCLUDE, "main", "vs_4_0", 0, 0, &vertexProgram, &errors);
         if (errors) {
           LPVOID errorData = errors->GetBufferPointer();
           char* errorText = (char*)errorData;
@@ -199,7 +199,7 @@ void D3DEffect::load(const std::string& filePath) {
       File fragmentShaderFile;
       fragmentShaderFile.open(fullPixelShaderFilePath);
 
-      HRESULT result = D3DCompile(fragmentShaderFile.data(), fragmentShaderFile.size(), NULL, NULL, D3D_COMPILE_STANDARD_FILE_INCLUDE, "main", "ps_5_0", 0, 0, &pixelProgram, &errors);
+      HRESULT result = D3DCompile(fragmentShaderFile.data(), fragmentShaderFile.size(), NULL, NULL, D3D_COMPILE_STANDARD_FILE_INCLUDE, "main", "ps_4_0", 0, 0, &pixelProgram, &errors);
       if (errors) {
         LPVOID errorData = errors->GetBufferPointer();
         char* errorText = (char*)errorData;
