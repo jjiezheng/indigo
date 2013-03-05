@@ -1,3 +1,15 @@
+newoption {
+   trigger     = "gfxapi",
+   value       = "API",
+   description = "Choose a particular 3D API for rendering",
+   allowed = {
+      { "gl",   "OpenGL Desktop" },
+      { "d3d",  "Direct3D 11 (Windows only)" },
+      { "gcm",  "GCM (PS3 only)" },
+      { "gnm",  "GNM (Orbis/Win64 only)" }
+   }
+}
+
 solution "Game"
 	configurations { "Release", "Debug" }
 	location "build"
@@ -26,6 +38,7 @@ project "game"
 		targetextension(".elf")
 		postbuildcommands { "C://usr//local//cell.420//host-win32//bin//make_fself $(OutDir)//Game.elf $(OutDir)//game.self",  }
 		defines     { "SN_TARGET_PS3", "__SNC__", "__CELL_ASSERT__", "PLATFORM_PS3"}
+		defines     { "RENDERER_GCM" }
 		buildoptions "-Xc+=exceptions --diag_suppress=383 --diag_suppress=613 --diag_suppress=1011"
 		linkoptions  "-lsn -lm -lio_stub -lfs_stub -lgcm_cmd -lgcm_sys_stub -lsysmodule_stub -lsysutil_stub -lcgc"
 
@@ -62,6 +75,21 @@ project "game"
 
 	configuration { "x32" }
 		defines     { "_CRT_SECURE_NO_WARNINGS", "_WIN32", "PLATFORM_WINDOWS" }
+		includedirs { 
+			"src/engine/common/renderer",
+			"src/engine/common/input",
+			"src/engine/platform/input/win",
+			"src/engine/platform/platform/win"
+		}
+		files {
+			"src/engine/platform/platform/win/**.h", 
+			"src/engine/platform/platform/win/**.cpp",
+			"src/engine/platform/input/win/**.h", 
+			"src/engine/platform/input/win/**.cpp"
+		}
+
+	configuration { "d3d" }
+		defines     { "RENDERER_D3D" }
 		links {
 			"d3dcompiler",
 			"dxguid",
@@ -72,25 +100,33 @@ project "game"
 			"d3dx11"
 		}
 		includedirs { 
-			"src/engine/common/renderer",
 			"src/engine/platform/renderer/dx11",
-			"src/engine/common/input",
-			"src/engine/platform/input/win",
-			"src/engine/platform/platform/win"
 		}
 		files {
 			"src/engine/platform/renderer/dx11/**.h", 
 			"src/engine/platform/renderer/dx11/**.cpp",
-			"src/engine/platform/platform/win/**.h", 
-			"src/engine/platform/platform/win/**.cpp",
-			"src/engine/platform/input/win/**.h", 
-			"src/engine/platform/input/win/**.cpp"
+		}
+
+	configuration { "gnm" }
+		defines     { "RENDERER_GNM" }
+		links {
+			
+		}
+		local SCE_ORBIS_SDK_DIR = os.getenv("SCE_ORBIS_SDK_DIR")
+		includedirs { 
+			"src/engine/platform/renderer/gnm",
+			SCE_ORBIS_SDK_DIR .. "/target/include"
+		}
+		files {
+			"src/engine/platform/renderer/gnm/**.h", 
+			"src/engine/platform/renderer/gnm/**.cpp",
 		}
 
 	configuration "macosx"
 		buildoptions "-stdlib=libc++"
 		linkoptions  "-stdlib=libc++"
 		defines     { "PLATFORM_MAC" }
+		defines     { "RENDERER_OPENGL" }
 		links {
 			"AppKit.framework",
 			"Foundation.framework", 
@@ -121,6 +157,7 @@ project "game"
 		buildoptions ""
 		linkoptions  ""
 		defines     { "PLATFORM_LINUX" }
+		defines     { "RENDERER_OPENGL" }
 		links {
 			"GLEW",
 			"glfw",
@@ -138,6 +175,8 @@ project "game"
 			"src/engine/platform/input/linux/**.h", 
 			"src/engine/platform/input/linux/**.cpp"
 		}
+
+
 
 
 --

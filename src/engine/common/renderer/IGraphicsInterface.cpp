@@ -2,28 +2,36 @@
 
 #include "platform/PlatformDefs.h"
 
-#ifdef PLATFORM_WINDOWS
+#ifdef RENDERER_D3D
   #include "Direct3D11GraphicsInterface.h"
 #endif
 
-#if defined(PLATFORM_MAC) || defined(PLATFORM_LINUX)
+#if defined(RENDERER_OPENGL) || defined(RENDERER_OPENGL)
   #include "OpenGL32GraphicsInterface.h"
 #endif
 
-#ifdef PLATFORM_PS3
+#ifdef RENDERER_GCM
   #include "PS3GCMGraphicsInterface.h"
 #endif
 
+#ifdef RENDERER_GNM
+#include "GNMGraphicsInterface.h"
+#endif
+
 IGraphicsInterface* IGraphicsInterface::createInterface() {
-#ifdef PLATFORM_WINDOWS
+#ifdef RENDERER_D3D
     return new Direct3D11GraphicsInterface();
 #endif
 
-#if defined(PLATFORM_MAC) || defined(PLATFORM_LINUX)
+#if defined(RENDERER_OPENGL) || defined(RENDERER_OPENGL)
   return new OpenGL32GraphicsInterface();
 #endif
 
-#ifdef PLATFORM_PS3
+#ifdef RENDERER_GCM
   return new PS3GCMGraphicsInterface();
+#endif
+
+#ifdef RENDERER_GNM
+  return new GNMGraphicsInterface();
 #endif
 }
