@@ -1,12 +1,14 @@
 // vs_4_0 output by Cg compiler
 // cgc version 3.1.0013, build date Apr 18 2012
-// command line args: -DDX11=1 -q -unroll all -profile vs_4_0
+// command line args: -DDX11=1 -q -unroll all -profile vs_5_0
 // source file: deferred_depth.cg
 //vendor NVIDIA Corporation
 //version 3.1.0.13
-//profile vs_4_0
+//profile vs_5_0
 //program vs
+//semantic WorldView
 //semantic WorldViewProj
+//var float4x4 WorldView :  : _WorldView[0], 4 : -1 : 1
 //var float4x4 WorldViewProj :  : _WorldViewProj[0], 4 : -1 : 1
 //var float4 position : $vin.POSITION : POSITION : 0 : 1
 //var float4 vs.position : $vout.POSITION :  : -1 : 1
@@ -25,7 +27,9 @@ struct X1X {
 };
 
 static float4 _r0001;
+static float4 _r0003;
 static X1X cout;
+uniform float4x4 _WorldView;
 uniform float4x4 _WorldViewProj;
 
  // main procedure, the original name was vs
@@ -39,7 +43,8 @@ X1X main(in float4 _position : POSITION)
     _r0001.z = dot(_WorldViewProj._31_32_33_34, _position);
     _r0001.w = dot(_WorldViewProj._41_42_43_44, _position);
     _OUT._position1 = _r0001;
-    _OUT._depth = _r0001.z;
+    _r0003.z = dot(_WorldView._31_32_33_34, _position);
+    _OUT._depth = _r0003.z;
     cout._POSITION = _OUT._position1;
     cout._TEXCOORD0 = _OUT._depth;
     return cout;

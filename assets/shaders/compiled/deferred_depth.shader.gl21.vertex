@@ -6,7 +6,9 @@
 //version 3.1.0.13
 //profile glslv
 //program vs
+//semantic WorldView
 //semantic WorldViewProj
+//var float4x4 WorldView :  : _WorldView[0], 4 : -1 : 1
 //var float4x4 WorldViewProj :  : _WorldViewProj[0], 4 : -1 : 1
 //var float4 position : $vin.POSITION : ATTR0 : 0 : 1
 //var float4 vs.position : $vout.POSITION : HPOS : -1 : 1
@@ -19,7 +21,9 @@ struct VOutput {
     float _depth;
 };
 
-vec4 _r0002;
+vec4 _r0003;
+vec4 _r0013;
+uniform vec4 _WorldView[4];
 uniform vec4 _WorldViewProj[4];
 
  // main procedure, the original name was vs
@@ -27,11 +31,12 @@ void main()
 {
 
 
-    _r0002.x = dot(_WorldViewProj[0], gl_Vertex);
-    _r0002.y = dot(_WorldViewProj[1], gl_Vertex);
-    _r0002.z = dot(_WorldViewProj[2], gl_Vertex);
-    _r0002.w = dot(_WorldViewProj[3], gl_Vertex);
-    gl_TexCoord[0].x = _r0002.z;
-    gl_Position = _r0002;
+    _r0003.x = dot(_WorldViewProj[0], gl_Vertex);
+    _r0003.y = dot(_WorldViewProj[1], gl_Vertex);
+    _r0003.z = dot(_WorldViewProj[2], gl_Vertex);
+    _r0003.w = dot(_WorldViewProj[3], gl_Vertex);
+    _r0013.z = dot(_WorldView[2], gl_Vertex);
+    gl_TexCoord[0].x = _r0013.z;
+    gl_Position = _r0003;
     return;
 } // main end

@@ -37,7 +37,8 @@ void DeferredSpotLightsPass::init(const CSize& screenSize) {
 	lightEffectShadow_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_lighting_spot_light_shadow.shader");
 	lightEffectShadow_->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
 	lightEffectShadow_->setSamplerState(1, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
-	lightEffectShadow_->setSamplerState(2, UV_ADDRESS_CLAMP, FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT, COMPARISON_LESS_SHADOW);
+  lightEffectShadow_->setSamplerState(2, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
+	//lightEffectShadow_->setSamplerState(2, UV_ADDRESS_CLAMP, FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT, COMPARISON_LESS_SHADOW);
 
 	spotLightRenderTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R32G32B32A32);
 	spotLightRenderTarget_ = GraphicsInterface::createRenderTarget(spotLightRenderTexture_);
@@ -193,9 +194,7 @@ void DeferredSpotLightsPass::renderLight(SpotLight* light, IEffect* lightEffect,
 			LOG(LOG_CHANNEL_TEMP, "ShadowMap Bias %f", shadowBias);
 		}		
 
-		if (Keyboard::keyState(0)) {
-			lightEffect->setUniform(shadowBias, "ShadowBias");
-		}
+    lightEffect->setUniform(shadowBias, "ShadowBias");
 	}
 
 	lightEffect->commitBuffers();

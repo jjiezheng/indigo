@@ -31,7 +31,7 @@
 //var float LightInnerAngle :  : _LightInnerAngle : -1 : 1
 //var float LightOuterAngle :  : _LightOuterAngle : -1 : 1
 //var float LightDistance :  : _LightDistance : -1 : 1
-//var float2 ShadowMapSize :  : _ShadowMapSize : -1 : 1
+//var float ShadowBias :  : _ShadowBias : -1 : 1
 //var float3 LightDirection :  : _LightDirection : -1 : 1
 //var float3 LightPosition :  : _LightPosition : -1 : 1
 //var float3 LightColor :  : _LightColor : -1 : 1
@@ -48,6 +48,7 @@ struct VOutput {
     vec3 _screenPosition2;
 };
 
+float _TMP10;
 float _TMP3;
 float _TMP9;
 float _TMP8;
@@ -69,20 +70,22 @@ float _TMP110;
 vec4 _r0117;
 vec4 _v0117;
 vec2 _texCoord0127;
-float _shadowFactor0129;
-float _sum0129;
-float _y0129;
-vec2 _shadowCoordOffset10129;
-float _TMP130;
-vec4 _coord0133;
-vec4 _c0133;
+vec4 _moments0129;
+float _TMP132;
+float _Ex_20133;
+float _variance0133;
+float _m_d0133;
+float _p0133;
+float _a0135;
+float _a0137;
+float _b0139;
 uniform sampler2D _DepthMap;
 uniform sampler2D _NormalMap;
-uniform sampler2DShadow _ShadowMap;
+uniform sampler2D _ShadowMap;
 uniform float _LightInnerAngle;
 uniform float _LightOuterAngle;
 uniform float _LightDistance;
-uniform vec2 _ShadowMapSize;
+uniform float _ShadowBias;
 uniform vec3 _LightDirection;
 uniform vec3 _LightPosition;
 uniform vec3 _LightColor;
@@ -172,40 +175,17 @@ void main()
     _r0117.w = dot(_LightViewProj[3], _v0117);
     _pixelPositionFromLightNDC = _r0117.xyz/_r0117.w;
     _texCoord0127 = _pixelPositionFromLightNDC.xy*5.00000000E-001 + 5.00000000E-001;
-    _sum0129 = 0.00000000E+000;
-    _y0129 = -1.50000000E+000;
-    for (; _y0129 <= 1.50000000E+000; _y0129 = _y0129 + 1.00000000E+000) { // for begin
-        _shadowCoordOffset10129 = _texCoord0127 + vec2(-1.50000000E+000*_ShadowMapSize.x, _y0129*_ShadowMapSize.y);
-        _c0133 = vec4(_shadowCoordOffset10129.x, _shadowCoordOffset10129.y, _pixelPositionFromLightNDC.z*5.00000000E-001 + 5.00000000E-001, 1.00000000E+000);
-        _coord0133.xy = _c0133.xy;
-        _coord0133.z = _c0133.z;
-        _coord0133.w = _c0133.w;
-        _TMP130 = textureProj(_ShadowMap, _coord0133);
-        _sum0129 = _sum0129 + _TMP130;
-        _shadowCoordOffset10129 = _texCoord0127 + vec2(-5.00000000E-001*_ShadowMapSize.x, _y0129*_ShadowMapSize.y);
-        _c0133 = vec4(_shadowCoordOffset10129.x, _shadowCoordOffset10129.y, _pixelPositionFromLightNDC.z*5.00000000E-001 + 5.00000000E-001, 1.00000000E+000);
-        _coord0133.xy = _c0133.xy;
-        _coord0133.z = _c0133.z;
-        _coord0133.w = _c0133.w;
-        _TMP130 = textureProj(_ShadowMap, _coord0133);
-        _sum0129 = _sum0129 + _TMP130;
-        _shadowCoordOffset10129 = _texCoord0127 + vec2(5.00000000E-001*_ShadowMapSize.x, _y0129*_ShadowMapSize.y);
-        _c0133 = vec4(_shadowCoordOffset10129.x, _shadowCoordOffset10129.y, _pixelPositionFromLightNDC.z*5.00000000E-001 + 5.00000000E-001, 1.00000000E+000);
-        _coord0133.xy = _c0133.xy;
-        _coord0133.z = _c0133.z;
-        _coord0133.w = _c0133.w;
-        _TMP130 = textureProj(_ShadowMap, _coord0133);
-        _sum0129 = _sum0129 + _TMP130;
-        _shadowCoordOffset10129 = _texCoord0127 + vec2(1.50000000E+000*_ShadowMapSize.x, _y0129*_ShadowMapSize.y);
-        _c0133 = vec4(_shadowCoordOffset10129.x, _shadowCoordOffset10129.y, _pixelPositionFromLightNDC.z*5.00000000E-001 + 5.00000000E-001, 1.00000000E+000);
-        _coord0133.xy = _c0133.xy;
-        _coord0133.z = _c0133.z;
-        _coord0133.w = _c0133.w;
-        _TMP130 = textureProj(_ShadowMap, _coord0133);
-        _sum0129 = _sum0129 + _TMP130;
-    } // end for
-    _shadowFactor0129 = _sum0129/1.60000000E+001;
-    _lightContribution = _lightContribution*_shadowFactor0129;
+    _moments0129 = texture(_ShadowMap, _texCoord0127);
+    _Ex_20133 = _moments0129.x*_moments0129.x;
+    _a0135 = _moments0129.y - _Ex_20133;
+    _TMP10 = max(_a0135, 0.00000000E+000);
+    _a0137 = _TMP10 + _ShadowBias;
+    _variance0133 = min(_a0137, 1.00000000E+000);
+    _m_d0133 = -_pixelPositionFromLightNDC.z - _moments0129.x;
+    _p0133 = _variance0133/(_variance0133 + _m_d0133*_m_d0133);
+    _b0139 = float((_pixelPositionFromLightNDC.z <= _moments0129.x));
+    _TMP132 = max(_p0133, _b0139);
+    _lightContribution = _lightContribution*_TMP132;
     cg_FragColor = _lightContribution;
     return;
 } // main end

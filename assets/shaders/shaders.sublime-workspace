@@ -520,14 +520,6 @@
 	"buffers":
 	[
 		{
-			"file": "standard.h",
-			"settings":
-			{
-				"buffer_size": 2614,
-				"line_ending": "Windows"
-			}
-		},
-		{
 			"file": "deferred_lighting_spot_light_shadow.cg",
 			"settings":
 			{
@@ -536,52 +528,11 @@
 			}
 		},
 		{
-			"file": "/C/Users/NK/Development/game/premake4.lua",
+			"file": "shadow.h",
 			"settings":
 			{
-				"buffer_size": 3605,
+				"buffer_size": 1479,
 				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "deferred_render_color_normal_depth.cg",
-			"settings":
-			{
-				"buffer_size": 1111,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "deferred_ssao.cg",
-			"settings":
-			{
-				"buffer_size": 3035,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/C/Users/NK/Development/game/src/engine/platform/renderer/gcm/PS3GCMGraphicsInterface.cpp",
-			"settings":
-			{
-				"buffer_size": 22776,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"contents": "float frac(float f) {\n  return  f-(long)f;\n}\n\nVector4 encodeFloatRGBA(float v) {\n  Vector4 enc = Vector4(1.0, 255.0, 65025.0, 160581375.0) * v;\n  enc = Vector4(frac(enc.x), frac(enc.y), frac(enc.z), frac(enc.w));\n  enc = enc - Vector4(enc.y, enc.z, enc.w, enc.w) * Vector4(1.0/255.0, 1.0/255.0, 1.0/255.0, 0.0);\n  return enc;\n}\n\nfloat decodeFloatRGBA(const Vector4& rgba) {\n  Vector4 encoding(1.0, 1/255.0, 1/65025.0, 1/160581375.0);\n  float result = rgba.dot(encoding);\n  return result;\n}\n\nvoid test() {\n\n   Vector4 a = encodeFloatRGBA(0.02999878);\n   float b = decodeFloatRGBA(a);\n}",
-			"settings":
-			{
-				"buffer_size": 584,
-				"line_ending": "Windows",
-				"name": "float frac(float f) {"
-			}
-		},
-		{
-			"file": "deferred_depth.cg",
-			"settings":
-			{
-				"buffer_size": 391,
-				"line_ending": "Windows"
 			}
 		}
 	],
@@ -763,18 +714,24 @@
 	},
 	"file_history":
 	[
-		"/C/Users/NK/Development/game/assets/shaders/utils.h",
 		"/C/Users/NK/Development/game/assets/shaders/compile",
-		"/C/Users/NK/Development/game/src/engine/platform/renderer/gl32/nv_dds.h",
+		"/C/Program Files (x86)/SCE/ORBIS SDKs/0.915/target/samples/sample_code/graphics/api_gnm/basic-sample/basic-sample.cpp",
+		"/C/Program Files (x86)/SCE/ORBIS SDKs/0.915/target/include_common/gnmx/gfxcontext.h",
+		"/C/Program Files (x86)/SCE/ORBIS SDKs/0.915/target/include_common/gnmx.h",
 		"/C/Users/NK/Development/game/premake4.lua",
-		"/C/Users/NK/Development/game/assets/shaders/depth.h",
+		"/C/Users/NK/Documents/Visual Studio 2010/Projects/ORBIS_Project1/ORBIS_Project1/ORBIS_Project1.vcxproj",
+		"/C/Users/NK/Development/game/assets/shaders/deferred_depth.cg",
+		"/C/Users/NK/Development/game/src/engine/platform/renderer/gcm/PS3GCMGraphicsInterface.cpp",
+		"/C/Users/NK/Development/game/assets/shaders/deferred_ssao.cg",
+		"/C/Users/NK/Development/game/assets/shaders/deferred_render_color_normal_depth.cg",
 		"/C/Users/NK/Development/game/assets/shaders/deferred_lighting_spot_light_shadow.cg",
 		"/C/Users/NK/Development/game/assets/shaders/standard.h",
+		"/C/Users/NK/Development/game/assets/shaders/utils.h",
+		"/C/Users/NK/Development/game/src/engine/platform/renderer/gl32/nv_dds.h",
+		"/C/Users/NK/Development/game/assets/shaders/depth.h",
 		"/C/Users/NK/Development/game/assets/shaders/deferred_render_colormap_normal_depth.cg",
-		"/C/Users/NK/Development/game/assets/shaders/deferred_render_color_normal_depth.cg",
 		"/C/Users/NK/Development/game/assets/actors/export_all",
 		"/C/Users/NK/Development/game/assets/scenes/simple/buddha.scene",
-		"/C/Users/NK/Development/game/assets/shaders/deferred_ssao.cg",
 		"/C/Users/NK/Development/game/assets/scenes/testcars/testcars.scene",
 		"/C/Users/NK/Development/game/assets/scenes/cars/cars.scene",
 		"/C/Users/NK/Development/game/assets/scenes/simple/simple.scene",
@@ -884,13 +841,7 @@
 		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfSpells/GlobalScenes/Global_Objects.part",
 		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfSpells/GlobalScenes/Global_Logic.part",
 		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Application/Core/SceneTemplates/AnimatedItem.part",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/Stirring/CauldronStir/CauldronStir_Spread.part",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/Brewing.chapter",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfSpells/Common/BookOfSpellsGlobal_Interface.part",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Application/Config/ToolsConfig.xml",
-		"/C/Users/GBKosteNi/Downloads/toolchain-src-4.2.0-GCC411/build.sh",
-		"/C/Users/GBKosteNi/Downloads/toolchain-src-4.2.0-GCC411/build-ppu-lv2.sh",
-		"/C/Users/GBKosteNi/AppData/Roaming/Sublime Text 3/Packages/User/Default (Windows).sublime-keymap"
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/Stirring/CauldronStir/CauldronStir_Spread.part"
 	],
 	"find":
 	{
@@ -915,6 +866,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"ps_4_0",
 			"basedir",
 			"radius",
 			"keyboard",
@@ -1041,8 +993,7 @@
 			"GetTexture",
 			"SamplerBinding",
 			"m_uiTimeStamp",
-			"pTexScratch",
-			"gctexture"
+			"pTexScratch"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1143,39 +1094,11 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "standard.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2614,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1650,
-								1650
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 585.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
 					"file": "deferred_lighting_spot_light_shadow.cg",
 					"semi_transient": false,
 					"settings":
@@ -1187,8 +1110,8 @@
 						"selection":
 						[
 							[
-								3828,
-								3828
+								4416,
+								4416
 							]
 						],
 						"settings":
@@ -1197,170 +1120,32 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1305.0,
+						"translation.y": 1125.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "/C/Users/NK/Development/game/premake4.lua",
+					"buffer": 1,
+					"file": "shadow.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3605,
+						"buffer_size": 1479,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								420,
-								420
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Lua/Lua.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "deferred_render_color_normal_depth.cg",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1111,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								983,
-								993
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Shader Languages/Cg.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "deferred_ssao.cg",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3035,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1581,
-								1581
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Shader Languages/Cg.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 703.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "/C/Users/NK/Development/game/src/engine/platform/renderer/gcm/PS3GCMGraphicsInterface.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 22776,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								15945,
-								15945
+								1046,
+								1046
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 7056.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 584,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								470,
-								470
-							]
-						],
-						"settings":
-						{
-							"auto_name": "float frac(float f) {",
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "deferred_depth.cg",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 391,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								391,
-								391
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Shader Languages/Cg.tmLanguage"
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1418,6 +1203,18 @@
 		"selected_items":
 		[
 			[
+				"shad",
+				"shadow.h"
+			],
+			[
+				"spot",
+				"deferred_lighting_spot_light_shadow.cg"
+			],
+			[
+				"compile",
+				"compile"
+			],
+			[
 				"",
 				"deferred_lighting_spot_light_shadow.cg"
 			],
@@ -1428,14 +1225,6 @@
 			[
 				"depth",
 				"depth.h"
-			],
-			[
-				"spot",
-				"deferred_lighting_spot_light_shadow.cg"
-			],
-			[
-				"compile",
-				"compile"
 			],
 			[
 				"ssao",
@@ -1924,10 +1713,6 @@
 			[
 				"particleef",
 				"Code/Framework/Etc/Particle/ParticleEffect.cpp"
-			],
-			[
-				"particleeffectinstance",
-				"Code/Framework/Etc/Particle/ParticleEffectInstance.cpp"
 			]
 		],
 		"width": 0.0
