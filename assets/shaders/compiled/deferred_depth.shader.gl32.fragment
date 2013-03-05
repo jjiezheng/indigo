@@ -1,5 +1,5 @@
 // glslf output by Cg compiler
-// cgc version 3.1.0013, build date Apr 24 2012
+// cgc version 3.1.0013, build date Apr 18 2012
 // command line args: -DGL=1 -DGL32=1 -q -profileopts version=130 -profile glslf
 // source file: deferred_depth.cg
 //vendor NVIDIA Corporation
@@ -34,8 +34,8 @@ void main()
     _TMP2 = dFdx(_linearDepth);
     _TMP6 = dFdy(_linearDepth);
     _TMP0 = _linearDepth*_linearDepth;
-    _linearDepth2 = _TMP0 + 2.50000000E-01*(_TMP2*_TMP2 + _TMP6*_TMP6);
-    _ret_0 = vec4(_linearDepth, _linearDepth2, 0.00000000E+00, 1.00000000E+00);
+    _linearDepth2 = _TMP0 + 2.50000000E-001*(_TMP2*_TMP2 + _TMP6*_TMP6);
+    _ret_0 = vec4(_linearDepth, _linearDepth2, 0.00000000E+000, 1.00000000E+000);
     cg_FragColor = _ret_0;
     return;
 } // main end

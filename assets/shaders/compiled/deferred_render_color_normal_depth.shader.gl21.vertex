@@ -1,5 +1,5 @@
 // glslv output by Cg compiler
-// cgc version 3.1.0013, build date Apr 24 2012
+// cgc version 3.1.0013, build date Apr 18 2012
 // command line args: -DGL=1 -DGL21=1 -q -profile glslv
 // source file: deferred_render_color_normal_depth.cg
 //vendor NVIDIA Corporation
@@ -55,7 +55,7 @@ void main()
     _r0009.y = dot(_WorldViewProj[1], gl_Vertex);
     _r0009.z = dot(_WorldViewProj[2], gl_Vertex);
     _r0009.w = dot(_WorldViewProj[3], gl_Vertex);
-    _v0019 = vec4(gl_Normal.x, gl_Normal.y, gl_Normal.z, 0.00000000E+00);
+    _v0019 = vec4(gl_Normal.x, gl_Normal.y, gl_Normal.z, 0.00000000E+000);
     _r0019.x = dot(_NormalMatrix[0], _v0019);
     _r0019.y = dot(_NormalMatrix[1], _v0019);
     _r0019.z = dot(_NormalMatrix[2], _v0019);

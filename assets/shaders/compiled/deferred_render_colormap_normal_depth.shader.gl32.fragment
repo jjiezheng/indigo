@@ -1,5 +1,5 @@
 // glslf output by Cg compiler
-// cgc version 3.1.0013, build date Apr 24 2012
+// cgc version 3.1.0013, build date Apr 18 2012
 // command line args: -DGL=1 -DGL32=1 -q -profileopts version=130 -profile glslf
 // source file: deferred_render_colormap_normal_depth.cg
 //vendor NVIDIA Corporation
@@ -63,12 +63,12 @@ void main()
     float _linearDepth;
 
     _OUT._color = texture(_ColorMap, cg_TexCoord1.xy);
-    _packedNormal0009 = cg_TexCoord0.xyz*5.00000000E-01 + 5.00000000E-01;
-    _packedNormal0011 = cg_TexCoord2.xyz*5.00000000E-01 + 5.00000000E-01;
+    _packedNormal0009 = cg_TexCoord0.xyz*5.00000000E-001 + 5.00000000E-001;
+    _packedNormal0011 = cg_TexCoord2.xyz*5.00000000E-001 + 5.00000000E-001;
     _linearDepth = -cg_TexCoord3.z/_Far;
-    _enc0015 = vec4( 1.00000000E+00, 2.55000000E+02, 6.50250000E+04, 1.60581376E+08)*_linearDepth;
+    _enc0015 = vec4( 1.00000000E+000, 2.55000000E+002, 6.50250000E+004, 1.60581376E+008)*_linearDepth;
     _enc0015 = fract(_enc0015);
-    _enc0015 = _enc0015 - _enc0015.yzww*vec4( 3.92156886E-03, 3.92156886E-03, 3.92156886E-03, 0.00000000E+00);
+    _enc0015 = _enc0015 - _enc0015.yzww*vec4( 3.92156886E-003, 3.92156886E-003, 3.92156886E-003, 0.00000000E+000);
     cg_FragData3.xyz = _packedNormal0011;
     cg_FragData1.xyz = _packedNormal0009;
     cg_FragData2 = _enc0015;

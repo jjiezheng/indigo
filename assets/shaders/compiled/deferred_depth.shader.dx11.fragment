@@ -1,10 +1,10 @@
 // ps_4_0 output by Cg compiler
-// cgc version 3.1.0013, build date Apr 24 2012
-// command line args: -DDX11=1 -q -unroll all -profile ps_5_0
+// cgc version 3.1.0013, build date Apr 18 2012
+// command line args: -DDX11=1 -q -unroll all -profile ps_4_0
 // source file: deferred_depth.cg
 //vendor NVIDIA Corporation
 //version 3.1.0.13
-//profile ps_5_0
+//profile ps_4_0
 //program ps
 //semantic WorldViewProj
 //var float depth : $vin.TEXCOORD0 :  : 1 : 1
@@ -39,6 +39,6 @@ float4 main( in X1X cin) : SV_Target0
     _dx = ddx(_linearDepth);
     _dy = ddy(_linearDepth);
     _TMP0 = _linearDepth*_linearDepth;
-    _linearDepth2 = _TMP0 +   2.50000000000000000E-01f*(_dx*_dx + _dy*_dy);
-    return float4(_linearDepth, _linearDepth2,   0.00000000000000000E00f,   1.00000000000000000E00f);
+    _linearDepth2 = _TMP0 +  2.50000000000000000E-001f*(_dx*_dx + _dy*_dy);
+    return float4(_linearDepth, _linearDepth2,  0.00000000000000000E000f,  1.00000000000000000E000f);
 } // main end

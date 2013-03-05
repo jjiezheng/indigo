@@ -1,7 +1,7 @@
 #!/bin/bash
 function dx11() {
-	cgc -DDX11=1 -q -unroll all -profile vs_5_0 -entry vs -o compiled/${f%.*}.shader.dx11.vertex $f
-	cgc -DDX11=1 -q -unroll all -profile ps_5_0 -entry ps -o compiled/${f%.*}.shader.dx11.fragment $f
+	cgc -DDX11=1 -q -unroll all -profile vs_4_0 -entry vs -o compiled/${f%.*}.shader.dx11.vertex $f
+	cgc -DDX11=1 -q -unroll all -profile ps_4_0 -entry ps -o compiled/${f%.*}.shader.dx11.fragment $f
 }
 function gl21 {
 	cgc -DGL=1 -DGL21=1 -q -profile glslv -entry vs -o compiled/${f%.*}.shader.gl21.vertex $f
