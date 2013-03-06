@@ -1,18 +1,19 @@
 // glslf output by Cg compiler
 // cgc version 3.1.0013, build date Apr 18 2012
 // command line args: -DGL=1 -DGL21=1 -q -profile glslf
-// source file: deferred_depth.cg
+// source file: deferred_vsm_depth.cg
 //vendor NVIDIA Corporation
 //version 3.1.0.13
 //profile glslf
 //program ps
-//semantic WorldViewProj
+//semantic DepthMap : TEXUNIT0
+//var float2 texCoord : $vin.TEXCOORD0 :  : 1 : 0
 //var float4 ps : $vout.COLOR0 : COL : -1 : 1
 
 #version 110
 
 struct VOutput {
-    int dummy;
+    vec2 _texCoord2;
 };
 
 
@@ -21,6 +22,6 @@ void main()
 {
 
 
-    gl_FragColor = vec4( 1.00000000E+000, 0.00000000E+000, 0.00000000E+000, 1.00000000E+000);
+    gl_FragColor = vec4( 1.00000000E+000, 1.00000000E+000, 0.00000000E+000, 1.00000000E+000);
     return;
 } // main end

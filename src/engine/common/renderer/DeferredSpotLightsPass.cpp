@@ -40,6 +40,13 @@ void DeferredSpotLightsPass::init(const CSize& screenSize) {
   lightEffectShadow_->setSamplerState(2, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
 	//lightEffectShadow_->setSamplerState(2, UV_ADDRESS_CLAMP, FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT, COMPARISON_LESS_SHADOW);
 
+  vsmDepthEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_vsm_depth.shader");
+  vsmDepthEffect_->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
+
+  vsmDepthRenderTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R32G32B32A32);
+  vsmDepthRenderTarget_ = GraphicsInterface::createRenderTarget(vsmDepthRenderTexture_);
+  vsmDepthFrameBuffer_ = GraphicsInterface::createFrameBuffer(vsmDepthRenderTarget_, false);
+
 	spotLightRenderTexture_ = GraphicsInterface::createTexture(screenSize, IGraphicsInterface::R32G32B32A32);
 	spotLightRenderTarget_ = GraphicsInterface::createRenderTarget(spotLightRenderTexture_);
 	spotLightFrameBuffer_ = GraphicsInterface::createFrameBuffer(spotLightRenderTarget_, false);
@@ -108,31 +115,47 @@ void DeferredSpotLightsPass::renderShadowMap(SpotLight* light, hash_map<IEffect*
 	GraphicsInterface::clearActiveColorBuffers(Color4::WHITE);
 	GraphicsInterface::clearActiveDepthBuffer();
 
-  GraphicsInterface::beginPerformanceEvent("Depth");
+  // Depth
+  {
+    GraphicsInterface::beginPerformanceEvent("Depth");
 
-	hash_map<IEffect*, std::vector<Mesh*> >::iterator i = meshes.begin();
-	for (; i != meshes.end(); ++i) {
-		std::vector<Mesh*> effectMeshes = (*i).second;
-		for (std::vector<Mesh*>::iterator meshIt = effectMeshes.begin(); meshIt != effectMeshes.end(); ++meshIt) {
-			GraphicsInterface::setRenderState(false);
-			shadowDepthEffect_->beginDraw();
-      shadowDepthEffect_->setUniform(light->far(), "Far");
-			(*meshIt)->material().bind(light->projection(), light->viewTransform(), (*meshIt)->localToWorld(), shadowDepthEffect_);
-			shadowDepthEffect_->commitBuffers();
-			(*meshIt)->render();
-			shadowDepthEffect_->endDraw();
-		}
-	}
+	  hash_map<IEffect*, std::vector<Mesh*> >::iterator i = meshes.begin();
+	  for (; i != meshes.end(); ++i) {
+		  std::vector<Mesh*> effectMeshes = (*i).second;
+		  for (std::vector<Mesh*>::iterator meshIt = effectMeshes.begin(); meshIt != effectMeshes.end(); ++meshIt) {
+			  GraphicsInterface::setRenderState(false);
+			  shadowDepthEffect_->beginDraw();
+			  (*meshIt)->material().bind(light->projection(), light->viewTransform(), (*meshIt)->localToWorld(), shadowDepthEffect_);
+			  shadowDepthEffect_->commitBuffers();
+			  (*meshIt)->render();
+			  shadowDepthEffect_->endDraw();
+		  }
+	  }
 
-  GraphicsInterface::endPerformanceEvent();
+    GraphicsInterface::endPerformanceEvent();
+  }
 
-  GraphicsInterface::beginPerformanceEvent("Gaussian Blur");
+  // Square Depth
+  {
+    GraphicsInterface::beginPerformanceEvent("VSM Depth");
 
-  //depthBlur_.render(light->shadowMapFrameBuffer(), light->shadowMapTexture());
+    GraphicsInterface::setFrameBuffer(vsmDepthFrameBuffer_);
+    GraphicsInterface::setRenderState(false);
+    vsmDepthEffect_->beginDraw();
+    vsmDepthEffect_->setTexture(light->shadowMapDepthTexture(), "DepthMap");
+    vsmDepthEffect_->commitBuffers();
+    GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);
+    vsmDepthEffect_->endDraw();
 
-  
+    GraphicsInterface::endPerformanceEvent();
+  }
 
-  GraphicsInterface::endPerformanceEvent();
+  // Blur
+  {
+    GraphicsInterface::beginPerformanceEvent("Gaussian Blur");
+    depthBlur_.render(light->shadowMapFrameBuffer(), light->shadowMapTexture());
+    GraphicsInterface::endPerformanceEvent();
+  }
 
 	GraphicsInterface::setViewport(GraphicsInterface::backBufferSize());
 	GraphicsInterface::endPerformanceEvent();
@@ -194,9 +217,9 @@ void DeferredSpotLightsPass::renderLight(SpotLight* light, IEffect* lightEffect,
 		CSize shadowMapResolution = light->shadowMapResolution();
 		Vector2 shadowMapSize(1.0f/shadowMapResolution.width, 1.0f/shadowMapResolution.height);
 		lightEffect->setUniform(shadowMapSize, "ShadowMapSize");
-		lightEffect->setTexture(light->shadowMapDepthTexture(), "ShadowMap");
+		lightEffect->setTexture(light->shadowMapTexture(), "ShadowMap");
 
-		static float shadowBias = 0.00002f;
+		static float shadowBias = 0.0000f;
 
 		if (Keyboard::keyState(KEY_G)) {
 			shadowBias -= 0.001f;

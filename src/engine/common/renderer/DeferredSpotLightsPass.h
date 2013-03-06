@@ -49,6 +49,10 @@ private:
   unsigned int spotLightRenderTexture_;
   unsigned int spotLightFrameBuffer_;
 
+  unsigned int vsmDepthRenderTarget_;
+  unsigned int vsmDepthRenderTexture_;
+  unsigned int vsmDepthFrameBuffer_;
+
   unsigned int quadVbo_;
 
   IEffect* lightEffectNoShadow_;
@@ -56,6 +60,8 @@ private:
 
   IEffect* shadowDepthEffect_;
   IEffect* accumulationEffect_;
+
+  IEffect* vsmDepthEffect_;
 
   GaussianBlur depthBlur_;
 
