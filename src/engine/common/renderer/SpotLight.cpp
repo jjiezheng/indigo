@@ -24,7 +24,7 @@ Matrix4x4 SpotLight::rotation() const {
 }
 
 Matrix4x4 SpotLight::projection() const {
-  return Matrix4x4::perspective(10.0f, GraphicsInterface::aspectRatio(), 1.0f, 2.0f);
+  return Matrix4x4::perspective(10.0f, GraphicsInterface::aspectRatio(), 1.0f, far_);
 }
 
 Matrix4x4 SpotLight::viewTransform() const {

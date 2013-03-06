@@ -2,6 +2,7 @@
 #define GAUSSIANBLUR_H
 
 #include "core/Size.h"
+#include "GraphicsInterface.h"
 
 class IEffect;
 
@@ -10,55 +11,32 @@ class GaussianBlur {
 public:
 
   GaussianBlur()
-    : outputRenderTarget_(0)
-    , outputRenderTexture_(0)
-    , gaussianHorizontalRenderTarget_(0)
-    , gaussianHorizontalMapTexture_(0)
+    :horizontalRenderTarget_(0)
+    , horizontalMapTexture_(0)
+    , horizonalFrameBuffer_(0)
     , quadVbo_(0)
-    , gaussianBlurHorizontalEffect_(0)
-    , gaussianBluVerticalEffect_(0) { }
+    , horizontalEffect_(0)
+    , verticalEffect_(0) { }
 
 public:
 
   void init(const CSize& bufferSize, int tapSize);
 
-  void render(unsigned int sourceTexture);
-
-  unsigned int outputTexture() const;
-
-  unsigned int outputTarget() const;
-
-public:
-
-  void setRenderTarget(unsigned int renderTarget);
+  void render(FrameBuffer outputFrameBuffer, TextureId sourceTexture);
 
 private:
 
-  unsigned int outputRenderTarget_;
-  unsigned int outputRenderTexture_;
+  RenderTarget horizontalRenderTarget_;
+  TextureId horizontalMapTexture_;
+  FrameBuffer horizonalFrameBuffer_;
 
-  unsigned int gaussianHorizontalRenderTarget_;
-  unsigned int gaussianHorizontalMapTexture_;
+  VertexBuffer quadVbo_;
 
-  unsigned int quadVbo_;
-
-  IEffect* gaussianBlurHorizontalEffect_;
-  IEffect* gaussianBluVerticalEffect_;
+  IEffect* horizontalEffect_;
+  IEffect* verticalEffect_;
 
   CSize bufferSize_;
 
 };
-
-inline unsigned int GaussianBlur::outputTexture() const {
-  return outputRenderTexture_;
-}
-
-inline unsigned int GaussianBlur::outputTarget() const {
-  return outputRenderTarget_;
-}
-
-inline void GaussianBlur::setRenderTarget(unsigned int renderTarget) {
-  outputRenderTarget_ = renderTarget;
-}
 
 #endif

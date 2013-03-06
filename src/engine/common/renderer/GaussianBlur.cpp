@@ -11,53 +11,54 @@
 void GaussianBlur::init(const CSize& bufferSize, int tapSize) {
   bufferSize_ = bufferSize;
 
-  if (!outputRenderTarget_) {
-    outputRenderTexture_ = GraphicsInterface::createTexture(bufferSize);
-    outputRenderTarget_ = GraphicsInterface::createRenderTarget(outputRenderTexture_);
-  }
-
-  gaussianHorizontalMapTexture_ = GraphicsInterface::createTexture(bufferSize);
-  gaussianHorizontalRenderTarget_ = GraphicsInterface::createRenderTarget(gaussianHorizontalMapTexture_);
+  horizontalMapTexture_ = GraphicsInterface::createTexture(bufferSize, IGraphicsInterface::R32G32B32A32);
+  horizontalRenderTarget_ = GraphicsInterface::createRenderTarget(horizontalMapTexture_);
+  horizonalFrameBuffer_ = GraphicsInterface::createFrameBuffer(horizontalRenderTarget_, false);
 
   quadVbo_ = Geometry::screenPlane();
 
   String horizontalFilename = String::withFormat("shaders/compiled/gaussian_blur_horizontal_%d_tap.shader", tapSize);
-  gaussianBlurHorizontalEffect_ = EffectCache::instance()->loadEffect(horizontalFilename.c_str());
+  horizontalEffect_ = EffectCache::instance()->loadEffect(horizontalFilename.c_str());
 
   String verticalFilename = String::withFormat("shaders/compiled/gaussian_blur_vertical_%d_tap.shader", tapSize);
-  gaussianBluVerticalEffect_ = EffectCache::instance()->loadEffect(verticalFilename.c_str());
+  verticalEffect_ = EffectCache::instance()->loadEffect(verticalFilename.c_str());
 }
 
-void GaussianBlur::render(unsigned int sourceTexture) {
+void GaussianBlur::render(FrameBuffer outputFrameBuffer, TextureId sourceTexture) {
   GraphicsInterface::setRenderState(true);
 
   {
-    GraphicsInterface::setRenderTarget(gaussianHorizontalRenderTarget_, false);
-    GraphicsInterface::clearRenderTarget(gaussianHorizontalRenderTarget_, Color4::WHITE);
+    GraphicsInterface::beginPerformanceEvent("Horizontal");
+
+    GraphicsInterface::setFrameBuffer(horizonalFrameBuffer_);
+    GraphicsInterface::clearActiveColorBuffers(Color4::WHITE);
     
-		gaussianBlurHorizontalEffect_->beginDraw();
-    gaussianBlurHorizontalEffect_->setTexture(sourceTexture, "SourceMap");
+		horizontalEffect_->beginDraw();
+    horizontalEffect_->setTexture(sourceTexture, "SourceMap");
+    horizontalEffect_->setUniform((float)bufferSize_.width, "SceneWidth");
 
-    gaussianBlurHorizontalEffect_->setUniform(bufferSize_.width, "SceneWidth");
-
-    gaussianBlurHorizontalEffect_->commitBuffers();
+    horizontalEffect_->commitBuffers();
     GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);  
-		gaussianBlurHorizontalEffect_->endDraw();
+		horizontalEffect_->endDraw();
+    
+    GraphicsInterface::endPerformanceEvent();
+
   }
 
   {
-    GraphicsInterface::setRenderTarget(outputRenderTarget_, false);
-    GraphicsInterface::clearRenderTarget(outputRenderTarget_, Color4::WHITE);
+    GraphicsInterface::beginPerformanceEvent("Vertical");
 
-		gaussianBluVerticalEffect_->beginDraw();
-    gaussianBluVerticalEffect_->setTexture(gaussianHorizontalMapTexture_, "SourceMap");
+    GraphicsInterface::setFrameBuffer(outputFrameBuffer);
+    //GraphicsInterface::clearActiveColorBuffers(Color4::WHITE);
 
-    gaussianBluVerticalEffect_->setUniform(bufferSize_.height, "SceneHeight");
+		verticalEffect_->beginDraw();
+    verticalEffect_->setTexture(horizontalMapTexture_, "SourceMap");
+    verticalEffect_->setUniform((float)bufferSize_.height, "SceneHeight");
 
-		gaussianBluVerticalEffect_->commitBuffers();
+		verticalEffect_->commitBuffers();
     GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT); 
-		gaussianBluVerticalEffect_->endDraw();
-  }
+		verticalEffect_->endDraw();
 
-  GraphicsInterface::generateMipMaps(outputRenderTarget_);
+    GraphicsInterface::endPerformanceEvent();
+  }
 }

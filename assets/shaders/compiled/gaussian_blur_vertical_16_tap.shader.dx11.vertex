@@ -1,35 +1,17 @@
 // vs_4_0 output by Cg compiler
 // cgc version 3.1.0013, build date Apr 18 2012
-// command line args: -DDX11=1 -q -unroll all -profile vs_4_0
+// command line args: -DDX11=1 -q -unroll all -profile vs_5_0
 // source file: gaussian_blur_vertical_16_tap.cg
 //vendor NVIDIA Corporation
 //version 3.1.0.13
-//profile vs_4_0
+//profile vs_5_0
 //program vs
 //semantic SourceMap : TEXUNIT0
 //semantic SceneHeight
-//semantic offsets
-//semantic weights
 //var float4 position : $vin.POSITION : POSITION : 0 : 1
 //var float2 texCoord : $vin.TEXCOORD0 : TEXCOORD0 : 1 : 1
 //var float4 vs.position : $vout.POSITION :  : -1 : 1
 //var float2 vs.centerTap : $vout.TEXCOORD0 :  : -1 : 1
-//default offsets[0] = 1
-//default offsets[1] = 2
-//default offsets[2] = 3
-//default offsets[3] = 4
-//default offsets[4] = 5
-//default offsets[5] = 6
-//default offsets[6] = 7
-//default offsets[7] = 8
-//default weights[0] = 0.2659615
-//default weights[1] = 0.2129653
-//default weights[2] = 0.10934
-//default weights[3] = 0.03599398
-//default weights[4] = 0.007597324
-//default weights[5] = 0.001028186
-//default weights[6] = 8.92202e-005
-//default weights[7] = 4.964e-006
 
 #pragma pack_matrix(row_major)
 

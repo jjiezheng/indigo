@@ -8,6 +8,7 @@
 //program vs
 //semantic WorldView
 //semantic WorldViewProj
+//semantic Far
 //var float4x4 WorldView :  : _WorldView[0], 4 : -1 : 1
 //var float4x4 WorldViewProj :  : _WorldViewProj[0], 4 : -1 : 1
 //var float4 position : $vin.POSITION : ATTR0 : 0 : 1
@@ -21,8 +22,8 @@ struct VOutput {
     float _depth;
 };
 
-vec4 _r0003;
-vec4 _r0013;
+vec4 _r0004;
+vec4 _r0014;
 uniform vec4 _WorldView[4];
 uniform vec4 _WorldViewProj[4];
 
@@ -31,12 +32,12 @@ void main()
 {
 
 
-    _r0003.x = dot(_WorldViewProj[0], gl_Vertex);
-    _r0003.y = dot(_WorldViewProj[1], gl_Vertex);
-    _r0003.z = dot(_WorldViewProj[2], gl_Vertex);
-    _r0003.w = dot(_WorldViewProj[3], gl_Vertex);
-    _r0013.z = dot(_WorldView[2], gl_Vertex);
-    gl_TexCoord[0].x = _r0013.z;
-    gl_Position = _r0003;
+    _r0004.x = dot(_WorldViewProj[0], gl_Vertex);
+    _r0004.y = dot(_WorldViewProj[1], gl_Vertex);
+    _r0004.z = dot(_WorldViewProj[2], gl_Vertex);
+    _r0004.w = dot(_WorldViewProj[3], gl_Vertex);
+    _r0014.z = dot(_WorldView[2], gl_Vertex);
+    gl_TexCoord[0].x = _r0014.z;
+    gl_Position = _r0004;
     return;
 } // main end

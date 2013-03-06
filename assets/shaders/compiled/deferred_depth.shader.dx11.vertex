@@ -8,6 +8,7 @@
 //program vs
 //semantic WorldView
 //semantic WorldViewProj
+//semantic Far
 //var float4x4 WorldView :  : _WorldView[0], 4 : -1 : 1
 //var float4x4 WorldViewProj :  : _WorldViewProj[0], 4 : -1 : 1
 //var float4 position : $vin.POSITION : POSITION : 0 : 1

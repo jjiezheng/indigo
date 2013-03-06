@@ -18,6 +18,7 @@ public:
     , radius_(0)
     , length_(0)
     , decay_(0)
+    , far_(2.0f)
     , castsShadows_(0)
     , shadowMapFrameBuffer_(0)
     , shadowMapTexture_(0)
@@ -71,6 +72,8 @@ public:
 public:
 
    Matrix4x4 projection() const;
+
+   float far() const;
 
    Matrix4x4 viewTransform() const;
 
@@ -135,6 +138,7 @@ private:
   float radius_;
   float length_;
   float decay_;
+  float far_;
 
   bool castsShadows_;
 
@@ -145,6 +149,10 @@ private:
   unsigned int shadowMapDepthTexture_;
   unsigned int shadowMapDepthRenderTarget_;
 };
+
+inline float SpotLight::far() const {
+  return far_;
+}
 
 inline void SpotLight::setDecay(float decay) {
   decay_ = decay;

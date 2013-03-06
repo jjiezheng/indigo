@@ -46,6 +46,8 @@ void DeferredSpotLightsPass::init(const CSize& screenSize) {
 
 	accumulationEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_light_composition.shader");
 	quadVbo_ = Geometry::screenPlane();
+
+  depthBlur_.init(screenSize, 16);
 }
 
 void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext, unsigned int lightMapFrameBuffer, const DeferredInitRenderStage& initStage) {
@@ -106,12 +108,15 @@ void DeferredSpotLightsPass::renderShadowMap(SpotLight* light, hash_map<IEffect*
 	GraphicsInterface::clearActiveColorBuffers(Color4::WHITE);
 	GraphicsInterface::clearActiveDepthBuffer();
 
+  GraphicsInterface::beginPerformanceEvent("Depth");
+
 	hash_map<IEffect*, std::vector<Mesh*> >::iterator i = meshes.begin();
 	for (; i != meshes.end(); ++i) {
 		std::vector<Mesh*> effectMeshes = (*i).second;
 		for (std::vector<Mesh*>::iterator meshIt = effectMeshes.begin(); meshIt != effectMeshes.end(); ++meshIt) {
 			GraphicsInterface::setRenderState(false);
 			shadowDepthEffect_->beginDraw();
+      shadowDepthEffect_->setUniform(light->far(), "Far");
 			(*meshIt)->material().bind(light->projection(), light->viewTransform(), (*meshIt)->localToWorld(), shadowDepthEffect_);
 			shadowDepthEffect_->commitBuffers();
 			(*meshIt)->render();
@@ -119,8 +124,17 @@ void DeferredSpotLightsPass::renderShadowMap(SpotLight* light, hash_map<IEffect*
 		}
 	}
 
-	GraphicsInterface::setViewport(GraphicsInterface::backBufferSize());
+  GraphicsInterface::endPerformanceEvent();
 
+  GraphicsInterface::beginPerformanceEvent("Gaussian Blur");
+
+  //depthBlur_.render(light->shadowMapFrameBuffer(), light->shadowMapTexture());
+
+  
+
+  GraphicsInterface::endPerformanceEvent();
+
+	GraphicsInterface::setViewport(GraphicsInterface::backBufferSize());
 	GraphicsInterface::endPerformanceEvent();
 }
 

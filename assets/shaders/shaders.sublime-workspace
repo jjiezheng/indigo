@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"line",
+				"linearDepth2"
+			],
+			[
 				"li",
 				"lightContribution"
 			],
@@ -510,10 +514,6 @@
 			[
 				"Light",
 				"LightDirection"
-			],
-			[
-				"Root",
-				"RootTransform"
 			]
 		]
 	},
@@ -532,6 +532,22 @@
 			"settings":
 			{
 				"buffer_size": 1479,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "deferred_depth.cg",
+			"settings":
+			{
+				"buffer_size": 554,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "compile",
+			"settings":
+			{
+				"buffer_size": 1346,
 				"line_ending": "Unix"
 			}
 		}
@@ -1094,7 +1110,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -1138,13 +1154,69 @@
 						"selection":
 						[
 							[
-								1046,
-								1046
+								111,
+								111
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "deferred_depth.cg",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 554,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								496,
+								496
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Shader Languages/Cg.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "compile",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1346,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								387,
+								387
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
@@ -1202,6 +1274,18 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"com",
+				"compile"
+			],
+			[
+				"comp",
+				"compile"
+			],
+			[
+				"deferred",
+				"deferred_depth.cg"
+			],
 			[
 				"shad",
 				"shadow.h"
@@ -1701,18 +1785,6 @@
 			[
 				"spuvel",
 				"Code/Framework/Spu/SpuFluid/SpuFluidVelocity.cpp"
-			],
-			[
-				"fluidvel",
-				"Code/Framework/Spu/SpuFluid/SpuFluidVelocity.cpp"
-			],
-			[
-				"fluidd",
-				"Code/Framework/Spu/SpuFluid/SpuFluidDensity.cpp"
-			],
-			[
-				"particleef",
-				"Code/Framework/Etc/Particle/ParticleEffect.cpp"
 			]
 		],
 		"width": 0.0

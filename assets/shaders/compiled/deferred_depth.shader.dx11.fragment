@@ -8,6 +8,8 @@
 //program ps
 //semantic WorldView
 //semantic WorldViewProj
+//semantic Far
+//var float Far :  : _Far : -1 : 1
 //var float depth : $vin.TEXCOORD0 :  : 1 : 1
 //var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
 
@@ -23,6 +25,7 @@ struct X1X {
     float _TEXCOORD0 : TEXCOORD0;
 };
 
+uniform float _Far;
 
  // main procedure, the original name was ps
 float4 main( in X1X cin) : SV_Target0
@@ -33,7 +36,7 @@ float4 main( in X1X cin) : SV_Target0
     float _linearDepth2;
 
     _depth = cin._TEXCOORD0;
-    _linearDepth = -_depth;
+    _linearDepth = -_depth/_Far;
     _linearDepth2 = _linearDepth*_linearDepth;
     return float4(_linearDepth, _linearDepth2,  0.00000000000000000E000f,  1.00000000000000000E000f);
 } // main end

@@ -5,6 +5,7 @@
 
 #include "IDeferredLightingPass.h"
 #include "core/HashMap.h"
+#include "GaussianBlur.h"
 
 class IEffect;
 class Model;
@@ -53,9 +54,10 @@ private:
   IEffect* lightEffectNoShadow_;
   IEffect* lightEffectShadow_;
 
-
   IEffect* shadowDepthEffect_;
   IEffect* accumulationEffect_;
+
+  GaussianBlur depthBlur_;
 
 };
 

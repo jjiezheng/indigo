@@ -1,5 +1,6 @@
 uniform float4x4 WorldView;
 uniform float4x4 WorldViewProj;
+uniform float Far;
 
 struct VOutput {
 	float4 position		: POSITION;
@@ -18,7 +19,7 @@ VOutput vs(float4 position : POSITION) {
 
 float4 ps(float4 position		: POSITION,
 		  float depth 			: TEXCOORD0) : COLOR0 {
-	float linearDepth = -depth;
+	float linearDepth = -depth / Far;
 	float linearDepth2 = linearDepth * linearDepth;
 	return float4(linearDepth, linearDepth2, 0.0f, 1.0f);
 }
