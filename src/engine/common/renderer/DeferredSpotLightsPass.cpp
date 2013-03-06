@@ -150,11 +150,11 @@ void DeferredSpotLightsPass::renderShadowMap(SpotLight* light, hash_map<IEffect*
     GraphicsInterface::endPerformanceEvent();
   }
 
-	static int passes = 6;
+	static int passes = 1;
 
 	if (Keyboard::keyState(KEY_G)) {
 		passes--;
-		passes = passes < 1 ? 1 :passes;
+		passes = passes < 1 ? 1 : passes;
 		LOG(LOG_CHANNEL_TEMP, "Blur passes %d", passes);
 	}
 

@@ -31,7 +31,6 @@
 //var float LightInnerAngle :  : _LightInnerAngle : -1 : 1
 //var float LightOuterAngle :  : _LightOuterAngle : -1 : 1
 //var float LightDistance :  : _LightDistance : -1 : 1
-//var float ShadowBias :  : _ShadowBias : -1 : 1
 //var float3 LightDirection :  : _LightDirection : -1 : 1
 //var float3 LightPosition :  : _LightPosition : -1 : 1
 //var float3 LightColor :  : _LightColor : -1 : 1
@@ -49,8 +48,8 @@ struct VOutput {
 };
 
 float _TMP10;
-float _TMP3;
 float _TMP9;
+float _TMP3;
 float _TMP8;
 float _TMP7;
 float _TMP2;
@@ -71,21 +70,22 @@ vec4 _r0117;
 vec4 _v0117;
 vec2 _texCoord0127;
 vec4 _moments0129;
-float _TMP132;
 float _Ex_20133;
 float _variance0133;
-float _m_d0133;
+float _mD0133;
+float _mD_20133;
 float _p0133;
-float _a0135;
-float _a0137;
-float _b0139;
+float _p_max0133;
+float _b0135;
+float _TMP138;
+float _x0139;
+float _TMP146;
 uniform sampler2D _DepthMap;
 uniform sampler2D _NormalMap;
 uniform sampler2D _ShadowMap;
 uniform float _LightInnerAngle;
 uniform float _LightOuterAngle;
 uniform float _LightDistance;
-uniform float _ShadowBias;
 uniform vec3 _LightDirection;
 uniform vec3 _LightPosition;
 uniform vec3 _LightColor;
@@ -177,15 +177,19 @@ void main()
     _texCoord0127 = _pixelPositionFromLightNDC.xy*5.00000000E-001 + 5.00000000E-001;
     _moments0129 = texture(_ShadowMap, _texCoord0127);
     _Ex_20133 = _moments0129.x*_moments0129.x;
-    _a0135 = _moments0129.y - _Ex_20133;
-    _TMP10 = max(_a0135, 0.00000000E+000);
-    _a0137 = _TMP10 + _ShadowBias;
-    _variance0133 = min(_a0137, 1.00000000E+000);
-    _m_d0133 = -_pixelPositionFromLightNDC.z - _moments0129.x;
-    _p0133 = _variance0133/(_variance0133 + _m_d0133*_m_d0133);
-    _b0139 = float((_pixelPositionFromLightNDC.z <= _moments0129.x));
-    _TMP132 = max(_p0133, _b0139);
-    _lightContribution = _lightContribution*_TMP132;
+    _variance0133 = _moments0129.y - _Ex_20133;
+    _mD0133 = _moments0129.x - _pixelPositionFromLightNDC.z;
+    _mD_20133 = _mD0133*_mD0133;
+    _p0133 = _variance0133/(_variance0133 + _mD_20133);
+    _b0135 = float((_pixelPositionFromLightNDC.z <= _moments0129.x));
+    _p_max0133 = max(_p0133, _b0135);
+    _x0139 = (_p_max0133 - 1.99999999E-006)/9.99997973E-001;
+    _TMP9 = min(1.00000000E+000, _x0139);
+    _TMP138 = max(0.00000000E+000, _TMP9);
+    _TMP10 = max(_p0133, _TMP138);
+    _TMP9 = min(1.00000000E+000, _TMP10);
+    _TMP146 = max(0.00000000E+000, _TMP9);
+    _lightContribution = _lightContribution*_TMP146;
     cg_FragColor = _lightContribution;
     return;
 } // main end
