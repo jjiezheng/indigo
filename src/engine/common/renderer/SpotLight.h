@@ -115,6 +115,24 @@ public:
 
 public:
 
+  float shadowBias() const;
+
+  void setShadowBias(float shadowBias);
+
+public:
+
+  float lightBias() const;
+
+  void setLightBias(float lightBias);
+
+public:
+
+  float lightBleed() const;
+
+  void setLightBleed(float lightBleed);
+
+public:
+
   void setShadowMapResolution(const CSize& resolution);
 
   CSize shadowMapResolution() const;
@@ -139,6 +157,10 @@ private:
   float length_;
   float decay_;
   float far_;
+
+  float shadowBias_;
+  float lightBias_;
+  float lightBleed_;
 
   bool castsShadows_;
 
@@ -260,6 +282,30 @@ inline void SpotLight::setShadowMapDepthRenderTarget(unsigned int shadowMapDepth
 
 inline unsigned int SpotLight::shadowMapDepthRenderTarget() const {
   return shadowMapDepthRenderTarget_;
+}
+
+inline float SpotLight::shadowBias() const {
+  return shadowBias_;
+}
+
+inline void SpotLight::setShadowBias(float shadowBias) {
+  shadowBias_ = shadowBias;
+}
+
+inline float SpotLight::lightBias() const {
+  return lightBias_;
+}
+
+inline void SpotLight::setLightBias(float lightBias) {
+  lightBias_ = lightBias;
+}
+
+inline float SpotLight::lightBleed() const {
+  return lightBleed_;
+}
+
+inline void SpotLight::setLightBleed(float lightBleed) {
+  lightBleed_ = lightBleed;
 }
 
 #endif

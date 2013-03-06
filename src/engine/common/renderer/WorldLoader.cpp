@@ -296,6 +296,16 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
           
           unsigned int shadowMapFrameBuffer = GraphicsInterface::createFrameBuffer(&shadowMapRenderTarget, 1, true, shadowMapDepthRenderTarget);
           light->setShadowMapFrameBuffer(shadowMapFrameBuffer);
+
+
+          float kLightBias = 0.00001f;
+          light->setLightBias(kLightBias);
+
+          float kLightBleed = 0.98f;
+          light->setLightBleed(kLightBleed);
+
+          float kShadowBias = 0.000371f;
+          light->setShadowBias(kShadowBias);
         }
       }
 

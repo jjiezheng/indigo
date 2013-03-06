@@ -150,23 +150,13 @@ void DeferredSpotLightsPass::renderShadowMap(SpotLight* light, hash_map<IEffect*
     GraphicsInterface::endPerformanceEvent();
   }
 
-	static int passes = 1;
-
-	if (Keyboard::keyState(KEY_G)) {
-		passes--;
-		passes = passes < 1 ? 1 : passes;
-		LOG(LOG_CHANNEL_TEMP, "Blur passes %d", passes);
-	}
-
-	if (Keyboard::keyState(KEY_H)) {
-		passes++;
-		LOG(LOG_CHANNEL_TEMP, "Blur passes %d", passes);
-	}		
+	
 
   // Blur
   {
     GraphicsInterface::beginPerformanceEvent("Gaussian Blur");
-    depthBlur_.render(light->shadowMapFrameBuffer(), light->shadowMapTexture(), vsmDepthRenderTexture_, passes);
+    int kBlurPasses = 4;
+    depthBlur_.render(light->shadowMapFrameBuffer(), light->shadowMapTexture(), vsmDepthRenderTexture_, kBlurPasses);
     GraphicsInterface::endPerformanceEvent();
   }
 
@@ -232,8 +222,9 @@ void DeferredSpotLightsPass::renderLight(SpotLight* light, IEffect* lightEffect,
 		lightEffect->setUniform(shadowMapSize, "ShadowMapSize");
 		lightEffect->setTexture(light->shadowMapTexture(), "ShadowMap");
 
-		float shadowBias = 0.0000f;
-    lightEffect->setUniform(shadowBias, "ShadowBias");
+    lightEffect->setUniform(light->lightBias(), "LightBias");
+    lightEffect->setUniform(light->lightBleed(), "LightBleed");
+    lightEffect->setUniform(light->shadowBias(), "ShadowBias");
 	}
 
 	//GraphicsInterface::setBlendState(IGraphicsInterface::ALPHA);

@@ -13,6 +13,9 @@ uniform float LightDistance;
 uniform float2 ShadowMapSize;
 uniform float ShadowBias;
 
+uniform float LightBias;
+uniform float LightBleed;
+
 uniform float3 LightDirection;
 uniform float3 LightPosition;
 uniform float3 LightColor;
@@ -129,7 +132,7 @@ float4 ps(float4 position 		: POSITION,
 
 	float2 shadowCoord = ndc2tex(pixelPositionFromLightNDC.xy);
 
-	float shadowFactor = shadowVSM(ShadowMap, shadowCoord, pixelPositionFromLightNDC.z, ShadowBias);
+	float shadowFactor = shadowVSM(ShadowMap, shadowCoord, pixelPositionFromLightNDC.z + ShadowBias, LightBias, LightBleed);
 
 	//float shadowFactor = shadowPCF(ShadowMap, shadowCoord, pixelPositionFromLightNDC.z, ShadowMapSize);
 
