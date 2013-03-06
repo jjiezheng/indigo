@@ -100,7 +100,7 @@ public:
 
 private:
 
-  Gnmx::GfxContext context_;
+  sce::Gnmx::GfxContext context_;
 
 };
 

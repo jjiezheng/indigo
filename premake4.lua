@@ -3,7 +3,7 @@ newoption {
    value       = "API",
    description = "Choose a particular 3D API for rendering",
    allowed = {
-      { "gl",   "OpenGL Desktop" },
+      { "gl",   "OpenGL Desktop (OSX/Linux)" },
       { "d3d",  "Direct3D 11 (Windows only)" },
       { "gcm",  "GCM (PS3 only)" },
       { "gnm",  "GNM (Orbis/Win64 only)" }
@@ -73,6 +73,21 @@ project "game"
 		defines     "NDEBUG"
 		flags       { "OptimizeSpeed" }
 
+	configuration { "x64" }
+		defines     { "_CRT_SECURE_NO_WARNINGS", "_WIN32", "PLATFORM_WINDOWS" }
+		includedirs { 
+			"src/engine/common/renderer",
+			"src/engine/common/input",
+			"src/engine/platform/input/win",
+			"src/engine/platform/platform/win"
+		}
+		files {
+			"src/engine/platform/platform/win/**.h", 
+			"src/engine/platform/platform/win/**.cpp",
+			"src/engine/platform/input/win/**.h", 
+			"src/engine/platform/input/win/**.cpp"
+		}
+
 	configuration { "x32" }
 		defines     { "_CRT_SECURE_NO_WARNINGS", "_WIN32", "PLATFORM_WINDOWS" }
 		includedirs { 
@@ -100,7 +115,11 @@ project "game"
 			"d3dx11"
 		}
 		includedirs { 
+			"C:\\Program Files (x86)\\Microsoft DirectX SDK (June 2010)\\Include",
 			"src/engine/platform/renderer/dx11",
+		}
+		libdirs {
+			"C:\\Program Files (x86)\\Microsoft DirectX SDK (June 2010)\\Lib\\x32"
 		}
 		files {
 			"src/engine/platform/renderer/dx11/**.h", 
@@ -110,12 +129,15 @@ project "game"
 	configuration { "gnm" }
 		defines     { "RENDERER_GNM" }
 		links {
-			
+			"libSceGnmx-debug"
 		}
 		local SCE_ORBIS_SDK_DIR = os.getenv("SCE_ORBIS_SDK_DIR")
 		includedirs { 
 			"src/engine/platform/renderer/gnm",
-			SCE_ORBIS_SDK_DIR .. "/target/include"
+			SCE_ORBIS_SDK_DIR .. "/target/include_common"
+		}
+		libdirs {
+			SCE_ORBIS_SDK_DIR .. "/host_tools/lib"
 		}
 		files {
 			"src/engine/platform/renderer/gnm/**.h", 

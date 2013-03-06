@@ -99,7 +99,7 @@ int Clock::averageFPS() {
     totalFps += (*i);
   }
 
-  int avgFps = totalFps / fpsHistory_.size();
+  int avgFps = (int)((float)totalFps / (float)fpsHistory_.size());
 	return avgFps;
 }
 
