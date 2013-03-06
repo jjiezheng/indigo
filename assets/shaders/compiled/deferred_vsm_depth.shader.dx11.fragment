@@ -7,7 +7,8 @@
 //profile ps_5_0
 //program ps
 //semantic DepthMap : TEXUNIT0
-//var float2 texCoord : $vin.TEXCOORD0 :  : 1 : 0
+//var sampler2D DepthMap : TEXUNIT0 : _DepthMap 0 : -1 : 1
+//var float2 texCoord : $vin.TEXCOORD0 :  : 1 : 1
 //var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
 
 #pragma pack_matrix(row_major)
@@ -22,11 +23,19 @@ struct X1X {
     float2 _TEXCOORD0 : TEXCOORD0;
 };
 
+static float4 _TMP0;
+Texture2D<float4> _TMP1 : register(t0);
+uniform SamplerState _DepthMap : TEXUNIT0;
 
  // main procedure, the original name was ps
-float4 main() : SV_Target0
+float4 main( in X1X cin) : SV_Target0
 {
 
+    float2 _texCoord;
+    float _depth2;
 
-    return float4(  1.00000000000000000E000f,  1.00000000000000000E000f,  0.00000000000000000E000f,  1.00000000000000000E000f);
+    _texCoord = cin._TEXCOORD0;
+    _TMP0 = _TMP1.Sample(_DepthMap, _texCoord);
+    _depth2 = _TMP0.x*_TMP0.x;
+    return float4(_TMP0.x, _depth2,  0.00000000000000000E000f,  1.00000000000000000E000f);
 } // main end

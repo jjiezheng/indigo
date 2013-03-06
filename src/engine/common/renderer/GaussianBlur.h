@@ -22,7 +22,7 @@ public:
 
   void init(const CSize& bufferSize, int tapSize);
 
-  void render(FrameBuffer outputFrameBuffer, TextureId sourceTexture);
+  void render(FrameBuffer outputFrameBuffer, TextureId outputTexture, TextureId sourceTexture, unsigned int iterations);
 
 private:
 
@@ -30,10 +30,15 @@ private:
   TextureId horizontalMapTexture_;
   FrameBuffer horizonalFrameBuffer_;
 
+	RenderTarget verticalRenderTarget_;
+	TextureId verticalMapTexture_;
+	FrameBuffer verticalFrameBuffer_;
+
   VertexBuffer quadVbo_;
 
   IEffect* horizontalEffect_;
   IEffect* verticalEffect_;
+	IEffect* outputEffect_;
 
   CSize bufferSize_;
 

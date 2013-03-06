@@ -7,7 +7,8 @@
 //profile glslf
 //program ps
 //semantic DepthMap : TEXUNIT0
-//var float2 texCoord : $vin.TEXCOORD0 :  : 1 : 0
+//var sampler2D DepthMap : TEXUNIT0 : _DepthMap 0 : -1 : 1
+//var float2 texCoord : $vin.TEXCOORD0 : TEXCOORD0 : 1 : 1
 //var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
 
 #version 130
@@ -16,13 +17,21 @@ struct VOutput {
     vec2 _texCoord2;
 };
 
+vec4 _ret_0;
+vec4 _TMP0;
+uniform sampler2D _DepthMap;
+in vec4 cg_TexCoord0;
 out vec4 cg_FragColor;
 
  // main procedure, the original name was ps
 void main()
 {
 
+    float _depth2;
 
-    cg_FragColor = vec4( 1.00000000E+000, 1.00000000E+000, 0.00000000E+000, 1.00000000E+000);
+    _TMP0 = texture(_DepthMap, cg_TexCoord0.xy);
+    _depth2 = _TMP0.x*_TMP0.x;
+    _ret_0 = vec4(_TMP0.x, _depth2, 0.00000000E+000, 1.00000000E+000);
+    cg_FragColor = _ret_0;
     return;
 } // main end

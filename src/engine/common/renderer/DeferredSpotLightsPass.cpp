@@ -37,7 +37,7 @@ void DeferredSpotLightsPass::init(const CSize& screenSize) {
 	lightEffectShadow_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_lighting_spot_light_shadow.shader");
 	lightEffectShadow_->setSamplerState(0, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
 	lightEffectShadow_->setSamplerState(1, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
-  lightEffectShadow_->setSamplerState(2, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_POINT, COMPARISON_NONE);
+  lightEffectShadow_->setSamplerState(2, UV_ADDRESS_CLAMP, FILTER_MIN_MAG_MIP_LINEAR, COMPARISON_NONE);
 	//lightEffectShadow_->setSamplerState(2, UV_ADDRESS_CLAMP, FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT, COMPARISON_LESS_SHADOW);
 
   vsmDepthEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_vsm_depth.shader");
@@ -140,7 +140,7 @@ void DeferredSpotLightsPass::renderShadowMap(SpotLight* light, hash_map<IEffect*
     GraphicsInterface::beginPerformanceEvent("VSM Depth");
 
     GraphicsInterface::setFrameBuffer(vsmDepthFrameBuffer_);
-    GraphicsInterface::setRenderState(false);
+    GraphicsInterface::setRenderState(true);
     vsmDepthEffect_->beginDraw();
     vsmDepthEffect_->setTexture(light->shadowMapDepthTexture(), "DepthMap");
     vsmDepthEffect_->commitBuffers();
@@ -150,10 +150,23 @@ void DeferredSpotLightsPass::renderShadowMap(SpotLight* light, hash_map<IEffect*
     GraphicsInterface::endPerformanceEvent();
   }
 
+	static int passes = 6;
+
+	if (Keyboard::keyState(KEY_G)) {
+		passes--;
+		passes = passes < 1 ? 1 :passes;
+		LOG(LOG_CHANNEL_TEMP, "Blur passes %d", passes);
+	}
+
+	if (Keyboard::keyState(KEY_H)) {
+		passes++;
+		LOG(LOG_CHANNEL_TEMP, "Blur passes %d", passes);
+	}		
+
   // Blur
   {
     GraphicsInterface::beginPerformanceEvent("Gaussian Blur");
-    depthBlur_.render(light->shadowMapFrameBuffer(), light->shadowMapTexture());
+    depthBlur_.render(light->shadowMapFrameBuffer(), light->shadowMapTexture(), vsmDepthRenderTexture_, passes);
     GraphicsInterface::endPerformanceEvent();
   }
 
@@ -219,20 +232,11 @@ void DeferredSpotLightsPass::renderLight(SpotLight* light, IEffect* lightEffect,
 		lightEffect->setUniform(shadowMapSize, "ShadowMapSize");
 		lightEffect->setTexture(light->shadowMapTexture(), "ShadowMap");
 
-		static float shadowBias = 0.0000f;
-
-		if (Keyboard::keyState(KEY_G)) {
-			shadowBias -= 0.001f;
-			LOG(LOG_CHANNEL_TEMP, "ShadowMap Bias %f", shadowBias);
-		}
-
-		if (Keyboard::keyState(KEY_H)) {
-			shadowBias += 0.001f;
-			LOG(LOG_CHANNEL_TEMP, "ShadowMap Bias %f", shadowBias);
-		}		
-
+		float shadowBias = 0.0000f;
     lightEffect->setUniform(shadowBias, "ShadowBias");
 	}
+
+	//GraphicsInterface::setBlendState(IGraphicsInterface::ALPHA);
 
 	lightEffect->commitBuffers();
 	GraphicsInterface::drawVertexBuffer(quadVbo_, Geometry::SCREEN_PLANE_VERTEX_COUNT, Geometry::SCREEN_PLANE_VERTEX_FORMAT);
