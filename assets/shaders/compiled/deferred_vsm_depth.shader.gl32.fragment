@@ -14,7 +14,7 @@
 #version 130
 
 struct VOutput {
-    vec2 _texCoord2;
+    vec2 _texCoord3;
 };
 
 vec4 _ret_0;
@@ -27,11 +27,13 @@ out vec4 cg_FragColor;
 void main()
 {
 
+    float _depth;
     float _depth2;
 
     _TMP0 = texture(_DepthMap, cg_TexCoord0.xy);
-    _depth2 = _TMP0.x*_TMP0.x;
-    _ret_0 = vec4(_TMP0.x, _depth2, 0.00000000E+000, 1.00000000E+000);
+    _depth = _TMP0.x*2.00000000E+000 - 1.00000000E+000;
+    _depth2 = _depth*_depth;
+    _ret_0 = vec4(_depth, _depth2, 0.00000000E+000, 1.00000000E+000);
     cg_FragColor = _ret_0;
     return;
 } // main end

@@ -15,7 +15,7 @@
 
 struct VOutput {
     float4 _position1 : SV_Position;
-    float2 _texCoord1 : TEXCOORD0;
+    float2 _texCoord2 : TEXCOORD0;
 };
 
 struct X1X {
@@ -24,18 +24,18 @@ struct X1X {
 };
 
 static float4 _TMP0;
-Texture2D<float4> _TMP1 : register(t0);
+Texture2D<float4> _TMP3 : register(t0);
 uniform SamplerState _DepthMap : TEXUNIT0;
 
  // main procedure, the original name was ps
 float4 main( in X1X cin) : SV_Target0
 {
 
-    float2 _texCoord;
+    float2 _texCoord1;
     float _depth2;
 
-    _texCoord = cin._TEXCOORD0;
-    _TMP0 = _TMP1.Sample(_DepthMap, _texCoord);
+    _texCoord1 = cin._TEXCOORD0;
+    _TMP0 = _TMP3.Sample(_DepthMap, _texCoord1);
     _depth2 = _TMP0.x*_TMP0.x;
     return float4(_TMP0.x, _depth2,  0.00000000000000000E000f,  1.00000000000000000E000f);
 } // main end

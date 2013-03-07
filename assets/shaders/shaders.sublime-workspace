@@ -528,6 +528,23 @@
 			}
 		},
 		{
+			"file": "/C/Users/NK/Development/game/premake4.lua",
+			"settings":
+			{
+				"buffer_size": 5646,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "C:\\Program Files (x86)\\SCE\\ORBIS SDKs\\0.915\\host_tools\\bin;C:\\Program Files (x86)\\SCE\\ORBIS\\Tools\\Target Manager Server\\bin;C:\\usr\\local\\cell\\host-win32\\spu\\bin;C:\\usr\\local\\cell\\host-win32\\ppu\\bin;C:\\usr\\local\\cell\\host-win32\\sn\\bin;C:\\usr\\local\\cell\\host-win32\\bin;C:\\usr\\local\\cell\\host-win32\\Cg\\bin;C:\\Program Files (x86)\\SCE\\Common\\VSI\\bin;C:\\Program Files (x86)\\SN Systems\\PS3\\bin;C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v4.2\\\\bin;C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v4.2\\libnvvp\\;C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v4.1\\\\bin;C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v4.1\\libnvvp\\;C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v4.0\\bin\\;C:\\Program Files (x86)\\SCE\\PSP2\\Tools\\Target Manager Server\\bin;C:\\Program Files (x86)\\SCE\\PSP2\\Tools\\Publishing Tools\\bin;C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;%SystemRoot%\\system32;%SystemRoot%;%SystemRoot%\\System32\\Wbem;%SYSTEMROOT%\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files (x86)\\Intel\\OpenCL SDK\\2.0\\bin\\x86;C:\\Program Files (x86)\\Intel\\OpenCL SDK\\2.0\\bin\\x64;C:\\Program Files (x86)\\NVIDIA Corporation\\Cg\\bin;C:\\Program Files (x86)\\NVIDIA Corporation\\Cg\\bin.x64;C:\\Program Files (x86)\\Cppcheck\\;C:\\Program Files\\MATLAB\\R2012a\\runtime\\win64;C:\\Program Files\\Autodesk\\Maya2013\\bin;C:\\Program Files\\Common Files\\Autodesk Shared\\;C:\\Program Files (x86)\\Autodesk\\Backburner\\;C:\\Program Files (x86)\\Windows Kits\\8.0\\Windows Performance Toolkit\\;C:\\Program Files\\Microsoft SQL Server\\110\\Tools\\Binn\\;C:\\Cygwin\\bin;C:\\Users\\NK\\Development\\importer\\src\\x64\\Release;C:\\Program Files\\MATLAB\\R2012a\\bin",
+			"settings":
+			{
+				"buffer_size": 1970,
+				"line_ending": "Windows",
+				"name": "C:\\Program Files (x86)\\SCE\\ORBIS SDKs\\0.915\\host_t"
+			}
+		},
+		{
 			"file": "shadow.h",
 			"settings":
 			{
@@ -898,6 +915,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"multipass",
+			"opengl",
 			"ps_4_0",
 			"basedir",
 			"radius",
@@ -1023,9 +1042,7 @@
 			"SPU",
 			"SetFragmentProgramTexture",
 			"GetTexture",
-			"SamplerBinding",
-			"m_uiTimeStamp",
-			"pTexScratch"
+			"SamplerBinding"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1126,7 +1143,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -1159,6 +1176,61 @@
 				},
 				{
 					"buffer": 1,
+					"file": "/C/Users/NK/Development/game/premake4.lua",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5646,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2543,
+								2543
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Lua/Lua.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1073.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1970,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								9,
+								10
+							]
+						],
+						"settings":
+						{
+							"auto_name": "C:\\Program Files (x86)\\SCE\\ORBIS SDKs\\0.915\\host_t",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
 					"file": "shadow.h",
 					"semi_transient": false,
 					"settings":
@@ -1186,7 +1258,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 4,
 					"file": "deferred_depth.cg",
 					"semi_transient": false,
 					"settings":
@@ -1214,7 +1286,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 5,
 					"file": "deferred_vsm_depth.cg",
 					"semi_transient": false,
 					"settings":
@@ -1241,7 +1313,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 6,
 					"file": "gaussian_blur_horizontal_16_tap.cg",
 					"semi_transient": false,
 					"settings":
@@ -1270,7 +1342,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 7,
 					"file": "gaussian_blur_vertical_16_tap.cg",
 					"semi_transient": false,
 					"settings":

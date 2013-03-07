@@ -3,10 +3,10 @@ newoption {
    value       = "API",
    description = "Choose a particular 3D API for rendering",
    allowed = {
-      { "gl",   "OpenGL Desktop (OSX/Linux)" },
-      { "d3d",  "Direct3D 11 (Windows only)" },
-      { "gcm",  "GCM (PS3 only)" },
-      { "gnm",  "GNM (Orbis/Win64 only)" }
+      { "gl",   "OpenGL Desktop (OSX/Linux/Windows)" },
+      { "d3d",  "Direct3D 11 (Windows)" },
+      { "gcm",  "GCM (PS3)" },
+      { "gnm",  "GNM (PS4/Win64)" }
    }
 }
 
