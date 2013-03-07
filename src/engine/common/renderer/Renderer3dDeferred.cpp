@@ -30,8 +30,8 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
   /*skyStage_.init(screenSize);
   skyStage_.collectRenderTargets(this);*/
 
-  //postProcessingStage_.init(screenSize);
-  //postProcessingStage_.collectRenderTargets(this);
+  postProcessingStage_.init(screenSize);
+  postProcessingStage_.collectRenderTargets(this);
 
   presentStage_.init(screenSize);
 

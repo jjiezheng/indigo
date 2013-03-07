@@ -57,7 +57,7 @@ void Game::mainLoop() {
 
 	renderer_.render(&camera_, world_, sceneContext_);
 	editor_.render();
-	//ui_.render();  
+	ui_.render();  
 }
 
 void Game::keyUp(int keyCode) {

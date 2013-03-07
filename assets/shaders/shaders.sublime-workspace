@@ -520,68 +520,44 @@
 	"buffers":
 	[
 		{
-			"file": "deferred_lighting_spot_light_shadow.cg",
-			"settings":
-			{
-				"buffer_size": 4561,
-				"line_ending": "Windows"
-			}
-		},
-		{
 			"file": "/C/Users/NK/Development/game/premake4.lua",
 			"settings":
 			{
-				"buffer_size": 5646,
+				"buffer_size": 5658,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": "C:\\Program Files (x86)\\SCE\\ORBIS SDKs\\0.915\\host_tools\\bin;C:\\Program Files (x86)\\SCE\\ORBIS\\Tools\\Target Manager Server\\bin;C:\\usr\\local\\cell\\host-win32\\spu\\bin;C:\\usr\\local\\cell\\host-win32\\ppu\\bin;C:\\usr\\local\\cell\\host-win32\\sn\\bin;C:\\usr\\local\\cell\\host-win32\\bin;C:\\usr\\local\\cell\\host-win32\\Cg\\bin;C:\\Program Files (x86)\\SCE\\Common\\VSI\\bin;C:\\Program Files (x86)\\SN Systems\\PS3\\bin;C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v4.2\\\\bin;C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v4.2\\libnvvp\\;C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v4.1\\\\bin;C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v4.1\\libnvvp\\;C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v4.0\\bin\\;C:\\Program Files (x86)\\SCE\\PSP2\\Tools\\Target Manager Server\\bin;C:\\Program Files (x86)\\SCE\\PSP2\\Tools\\Publishing Tools\\bin;C:\\Program Files (x86)\\Intel\\iCLS Client\\;C:\\Program Files\\Intel\\iCLS Client\\;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;%SystemRoot%\\system32;%SystemRoot%;%SystemRoot%\\System32\\Wbem;%SYSTEMROOT%\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\DAL;C:\\Program Files (x86)\\Intel\\Intel(R) Management Engine Components\\IPT;C:\\Program Files (x86)\\Intel\\OpenCL SDK\\2.0\\bin\\x86;C:\\Program Files (x86)\\Intel\\OpenCL SDK\\2.0\\bin\\x64;C:\\Program Files (x86)\\NVIDIA Corporation\\Cg\\bin;C:\\Program Files (x86)\\NVIDIA Corporation\\Cg\\bin.x64;C:\\Program Files (x86)\\Cppcheck\\;C:\\Program Files\\MATLAB\\R2012a\\runtime\\win64;C:\\Program Files\\Autodesk\\Maya2013\\bin;C:\\Program Files\\Common Files\\Autodesk Shared\\;C:\\Program Files (x86)\\Autodesk\\Backburner\\;C:\\Program Files (x86)\\Windows Kits\\8.0\\Windows Performance Toolkit\\;C:\\Program Files\\Microsoft SQL Server\\110\\Tools\\Binn\\;C:\\Cygwin\\bin;C:\\Users\\NK\\Development\\importer\\src\\x64\\Release;C:\\Program Files\\MATLAB\\R2012a\\bin",
+			"file": "/C/Users/NK/Development/game/build/game.vcxproj",
 			"settings":
 			{
-				"buffer_size": 1970,
+				"buffer_size": 26882,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/NK/Development/game/assets/scenes/simple/assorted.scene",
+			"settings":
+			{
+				"buffer_size": 2465,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "ESC = 27 = 257",
+			"settings":
+			{
+				"buffer_size": 14,
 				"line_ending": "Windows",
-				"name": "C:\\Program Files (x86)\\SCE\\ORBIS SDKs\\0.915\\host_t"
+				"name": "ESC = 27 = 257"
 			}
 		},
 		{
-			"file": "shadow.h",
+			"file": "/C/Users/NK/Development/game/libs/glfw/include/GL/glfw.h",
 			"settings":
 			{
-				"buffer_size": 1646,
+				"buffer_size": 19986,
 				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "deferred_depth.cg",
-			"settings":
-			{
-				"buffer_size": 284,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "deferred_vsm_depth.cg",
-			"settings":
-			{
-				"buffer_size": 484,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "gaussian_blur_horizontal_16_tap.cg",
-			"settings":
-			{
-				"buffer_size": 968,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "gaussian_blur_vertical_16_tap.cg",
-			"settings":
-			{
-				"buffer_size": 969,
-				"line_ending": "Windows"
 			}
 		}
 	],
@@ -763,17 +739,23 @@
 	},
 	"file_history":
 	[
+		"/C/Users/NK/Documents/Visual Studio 2010/Projects/PS3_PPU_Project1/PS3_PPU_Project1/PS3_PPU_Project1.vcxproj",
+		"/C/Users/NK/Development/game/assets/shaders/deferred_vsm_depth.cg",
+		"/C/Users/NK/Development/game/assets/scenes/simple/floor_and_cube.scene",
+		"/C/Users/NK/Development/game/assets/shaders/gaussian_blur_vertical_16_tap.cg",
+		"/C/Users/NK/Development/game/assets/shaders/gaussian_blur_horizontal_16_tap.cg",
+		"/C/Users/NK/Development/game/assets/shaders/deferred_depth.cg",
+		"/C/Users/NK/Development/game/assets/shaders/shadow.h",
+		"/C/Users/NK/Development/game/premake4.lua",
+		"/C/Users/NK/Development/game/assets/shaders/deferred_lighting_spot_light_shadow.cg",
 		"/C/Users/NK/Development/game/assets/shaders/compile",
 		"/C/Program Files (x86)/SCE/ORBIS SDKs/0.915/target/samples/sample_code/graphics/api_gnm/basic-sample/basic-sample.cpp",
 		"/C/Program Files (x86)/SCE/ORBIS SDKs/0.915/target/include_common/gnmx/gfxcontext.h",
 		"/C/Program Files (x86)/SCE/ORBIS SDKs/0.915/target/include_common/gnmx.h",
-		"/C/Users/NK/Development/game/premake4.lua",
 		"/C/Users/NK/Documents/Visual Studio 2010/Projects/ORBIS_Project1/ORBIS_Project1/ORBIS_Project1.vcxproj",
-		"/C/Users/NK/Development/game/assets/shaders/deferred_depth.cg",
 		"/C/Users/NK/Development/game/src/engine/platform/renderer/gcm/PS3GCMGraphicsInterface.cpp",
 		"/C/Users/NK/Development/game/assets/shaders/deferred_ssao.cg",
 		"/C/Users/NK/Development/game/assets/shaders/deferred_render_color_normal_depth.cg",
-		"/C/Users/NK/Development/game/assets/shaders/deferred_lighting_spot_light_shadow.cg",
 		"/C/Users/NK/Development/game/assets/shaders/standard.h",
 		"/C/Users/NK/Development/game/assets/shaders/utils.h",
 		"/C/Users/NK/Development/game/src/engine/platform/renderer/gl32/nv_dds.h",
@@ -784,7 +766,6 @@
 		"/C/Users/NK/Development/game/assets/scenes/testcars/testcars.scene",
 		"/C/Users/NK/Development/game/assets/scenes/cars/cars.scene",
 		"/C/Users/NK/Development/game/assets/scenes/simple/simple.scene",
-		"/C/Users/NK/Development/game/assets/scenes/simple/floor_and_cube.scene",
 		"/C/Users/NK/Desktop/ssao/src/main.cpp",
 		"/C/Users/NK/Desktop/ssao/src/shaders/ssao.fs",
 		"/C/Users/GBKosteNi/Development/game/assets/shaders/compiled/deferred_render_color_normal_depth.shader.dx11.fragment",
@@ -885,12 +866,7 @@
 		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Data/Books/BookOfPotions/Preparing/Juicing/ShrivelFigJuice/ShirvelFigJuicingCauldronFx.scene",
 		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/BookOfPotions.book",
 		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/Cauldron/CauldronInterface.prefab",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/Heating/BunsenBurner/BunsenBurner_activity.part",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfSpells/GlobalScenes/Global_Scene.part",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfSpells/GlobalScenes/Global_Objects.part",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfSpells/GlobalScenes/Global_Logic.part",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Application/Core/SceneTemplates/AnimatedItem.part",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/Stirring/CauldronStir/CauldronStir_Spread.part"
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/Heating/BunsenBurner/BunsenBurner_activity.part"
 	],
 	"find":
 	{
@@ -915,6 +891,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"link",
+			"platformto",
+			"f;ags",
 			"multipass",
 			"opengl",
 			"ps_4_0",
@@ -1039,10 +1018,7 @@
 			"renderj",
 			"renderjo",
 			"IsValid",
-			"SPU",
-			"SetFragmentProgramTexture",
-			"GetTexture",
-			"SamplerBinding"
+			"SPU"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1148,47 +1124,19 @@
 			[
 				{
 					"buffer": 0,
-					"file": "deferred_lighting_spot_light_shadow.cg",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4561,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2963,
-								2963
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Shader Languages/Cg.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1170.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
 					"file": "/C/Users/NK/Development/game/premake4.lua",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5646,
+						"buffer_size": 5658,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2543,
-								2543
+								11,
+								11
 							]
 						],
 						"settings":
@@ -1197,30 +1145,86 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1073.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 1,
+					"file": "/C/Users/NK/Development/game/build/game.vcxproj",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1970,
+						"buffer_size": 26882,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								9,
-								10
+								1250,
+								1250
 							]
 						],
 						"settings":
 						{
-							"auto_name": "C:\\Program Files (x86)\\SCE\\ORBIS SDKs\\0.915\\host_t",
+							"syntax": "Packages/XML/XML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 270.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/C/Users/NK/Development/game/assets/scenes/simple/assorted.scene",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2465,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1818,
+								2454
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 675.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 14,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								14,
+								14
+							]
+						],
+						"settings":
+						{
+							"auto_name": "ESC = 27 = 257",
 							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
@@ -1230,142 +1234,30 @@
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "shadow.h",
+					"buffer": 4,
+					"file": "/C/Users/NK/Development/game/libs/glfw/include/GL/glfw.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1646,
+						"buffer_size": 19986,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								481,
-								481
+								1577,
+								1577
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "deferred_depth.cg",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 284,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								284,
-								284
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Shader Languages/Cg.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "deferred_vsm_depth.cg",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 484,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								484,
-								484
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Shader Languages/Cg.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "gaussian_blur_horizontal_16_tap.cg",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 968,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								966,
-								966
-							]
-						],
-						"settings":
-						{
-							"spell_check": true,
-							"syntax": "Packages/Shader Languages/Cg.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "gaussian_blur_vertical_16_tap.cg",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 969,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								805,
-								805
-							]
-						],
-						"settings":
-						{
-							"spell_check": true,
-							"syntax": "Packages/Shader Languages/Cg.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 218.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1419,6 +1311,10 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"vsm",
+				"deferred_vsm_depth.cg"
+			],
 			[
 				"sahdow",
 				"shadow.h"
@@ -1925,10 +1821,6 @@
 			],
 			[
 				"spufluidd",
-				"Code/Framework/Spu/SpuFluid/SpuFluidDensity.cpp"
-			],
-			[
-				"fluidden",
 				"Code/Framework/Spu/SpuFluid/SpuFluidDensity.cpp"
 			]
 		],

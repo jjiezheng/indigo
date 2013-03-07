@@ -45,7 +45,7 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
   ssaoColorBlurCombinedRenderTarget_ = GraphicsInterface::createRenderTarget(ssaoColorBlurCombinedTexture_);
 	ssaoColorBlurCombinedFrameBuffer_ = GraphicsInterface::createFrameBuffer(ssaoColorBlurCombinedRenderTarget_, false);
 
-  blur_.init(GraphicsInterface::backBufferSize());
+  blur_.init(GraphicsInterface::backBufferSize(), 16);
 
   // generate noise texture
   
@@ -98,19 +98,8 @@ TextureId DeferredSSAOPass::render(IViewer* viewer, unsigned int inputMap, const
 
 		ssaoEffect_->setUniform(GraphicsInterface::halfBackBufferPixel(), "HalfPixel");
 
-		static float radius = 0.0125f;
-
-		if (Keyboard::keyState(KEY_G)) {
-			radius -= 0.0001f;
-			LOG(LOG_CHANNEL_TEMP, "SSAO radius %f", radius);
-		}
-
-		if (Keyboard::keyState(KEY_H)) {
-			radius += 0.0001f;
-			LOG(LOG_CHANNEL_TEMP, "SSAO radius %f", radius);
-		}		
-
-    ssaoEffect_->setUniform(radius, "Radius");
+		float kSSAORadius = 0.0125f;
+    ssaoEffect_->setUniform(kSSAORadius, "Radius");
 
     Vector2 noiseScale = Vector2(GraphicsInterface::backBufferWidth() / float(kNoisePixelWidth), GraphicsInterface::backBufferHeight() / float(kNoisePixelWidth));
     ssaoEffect_->setUniform(noiseScale, "NoiseScale");
@@ -122,9 +111,9 @@ TextureId DeferredSSAOPass::render(IViewer* viewer, unsigned int inputMap, const
     GraphicsInterface::endPerformanceEvent();
   }
 
-// {
-//   blur_.render(ssaoRawTexture_);
-// }
+ {
+   blur_.render(ssaoRawFrameBuffer_, ssaoRawTexture_, ssaoRawTexture_, 1);
+ }
 
  {
 		GraphicsInterface::beginPerformanceEvent("Combine");
