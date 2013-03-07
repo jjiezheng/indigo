@@ -4,8 +4,16 @@
 		"selected_items":
 		[
 			[
-				"dep",
-				"depth2"
+				"Sh",
+				"ShadowBias"
+			],
+			[
+				"Light",
+				"LightBias"
+			],
+			[
+				"sha",
+				"shadowFactor"
 			],
 			[
 				"line",
@@ -424,8 +432,8 @@
 				"ScreenSizeInv"
 			],
 			[
-				"sha",
-				"shadowMap"
+				"dep",
+				"depthSampler"
 			],
 			[
 				"un",
@@ -506,57 +514,57 @@
 			[
 				"Spe",
 				"SpecularPower"
-			],
-			[
-				"View",
-				"ViewProjInv"
-			],
-			[
-				"Light",
-				"LightDirection"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "/C/Users/NK/Development/game/assets/shaders/deferred_lighting_spot_light_shadow.cg",
+			"file": "deferred_lighting_spot_light_shadow.cg",
 			"settings":
 			{
-				"buffer_size": 4556,
+				"buffer_size": 4561,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/C/Users/GBKosteNi/Downloads/VarianceShadowMapping/Direct3D/Source/VarianceShadowMapping/SeparableBlur.fx",
+			"file": "shadow.h",
 			"settings":
 			{
-				"buffer_size": 2244,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/C/Users/GBKosteNi/Downloads/VarianceShadowMapping/Direct3D/Source/VarianceShadowMapping/GenerateVSM.fx",
-			"settings":
-			{
-				"buffer_size": 2069,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/C/Users/GBKosteNi/Downloads/VarianceShadowMapping/Direct3D/Source/VarianceShadowMapping/DrawScene.fx",
-			"settings":
-			{
-				"buffer_size": 5512,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/C/Users/NK/Development/game/assets/shaders/shadow.h",
-			"settings":
-			{
-				"buffer_size": 1896,
+				"buffer_size": 1646,
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "deferred_depth.cg",
+			"settings":
+			{
+				"buffer_size": 284,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "deferred_vsm_depth.cg",
+			"settings":
+			{
+				"buffer_size": 484,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "gaussian_blur_horizontal_16_tap.cg",
+			"settings":
+			{
+				"buffer_size": 968,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "gaussian_blur_vertical_16_tap.cg",
+			"settings":
+			{
+				"buffer_size": 969,
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -738,12 +746,6 @@
 	},
 	"file_history":
 	[
-		"/C/Users/NK/Development/game/assets/shaders/deferred_fullscreen_texture.cg",
-		"/C/Users/NK/Development/game/assets/shaders/deferred_vsm_depth.cg",
-		"/C/cygwin/home/GBkosteni/Development/game/assets/shaders/shadow.h",
-		"/C/cygwin/home/GBkosteni/Development/game/assets/shaders/deferred_lighting_spot_light_shadow.cg",
-		"/C/cygwin/home/GBkosteni/Development/game/assets/shaders/deferred_depth.cg",
-		"/C/cygwin/home/GBkosteni/Development/game/assets/shaders/compile",
 		"/C/Users/NK/Development/game/assets/shaders/compile",
 		"/C/Program Files (x86)/SCE/ORBIS SDKs/0.915/target/samples/sample_code/graphics/api_gnm/basic-sample/basic-sample.cpp",
 		"/C/Program Files (x86)/SCE/ORBIS SDKs/0.915/target/include_common/gnmx/gfxcontext.h",
@@ -865,7 +867,13 @@
 		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Preparing/Juicing/ShrivelFigJuice/ShirvelFigJuicingCauldronFx.prefab",
 		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Data/Books/BookOfPotions/Preparing/Juicing/ShrivelFigJuice/ShirvelFigJuicingCauldronFx.scene",
 		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/BookOfPotions.book",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/Cauldron/CauldronInterface.prefab"
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/Cauldron/CauldronInterface.prefab",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/Heating/BunsenBurner/BunsenBurner_activity.part",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfSpells/GlobalScenes/Global_Scene.part",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfSpells/GlobalScenes/Global_Objects.part",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfSpells/GlobalScenes/Global_Logic.part",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Application/Core/SceneTemplates/AnimatedItem.part",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/Stirring/CauldronStir/CauldronStir_Spread.part"
 	],
 	"find":
 	{
@@ -1123,19 +1131,19 @@
 			[
 				{
 					"buffer": 0,
-					"file": "/C/Users/NK/Development/game/assets/shaders/deferred_lighting_spot_light_shadow.cg",
+					"file": "deferred_lighting_spot_light_shadow.cg",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4556,
+						"buffer_size": 4561,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3593,
-								3593
+								2963,
+								2963
 							]
 						],
 						"settings":
@@ -1144,113 +1152,26 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1493.0,
+						"translation.y": 1170.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "/C/Users/GBKosteNi/Downloads/VarianceShadowMapping/Direct3D/Source/VarianceShadowMapping/SeparableBlur.fx",
+					"file": "shadow.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2244,
+						"buffer_size": 1646,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1100,
-								1100
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 180.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/C/Users/GBKosteNi/Downloads/VarianceShadowMapping/Direct3D/Source/VarianceShadowMapping/GenerateVSM.fx",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2069,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1114,
-								1114
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 315.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/C/Users/GBKosteNi/Downloads/VarianceShadowMapping/Direct3D/Source/VarianceShadowMapping/DrawScene.fx",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5512,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3243,
-								3243
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1215.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "/C/Users/NK/Development/game/assets/shaders/shadow.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1896,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1646,
-								1646
+								481,
+								481
 							]
 						],
 						"settings":
@@ -1259,7 +1180,120 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 202.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "deferred_depth.cg",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 284,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								284,
+								284
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Shader Languages/Cg.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "deferred_vsm_depth.cg",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 484,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								484,
+								484
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Shader Languages/Cg.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "gaussian_blur_horizontal_16_tap.cg",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 968,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								966,
+								966
+							]
+						],
+						"settings":
+						{
+							"spell_check": true,
+							"syntax": "Packages/Shader Languages/Cg.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "gaussian_blur_vertical_16_tap.cg",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 969,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								805,
+								805
+							]
+						],
+						"settings":
+						{
+							"spell_check": true,
+							"syntax": "Packages/Shader Languages/Cg.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1314,20 +1348,16 @@
 		"selected_items":
 		[
 			[
-				"shad",
+				"sahdow",
 				"shadow.h"
 			],
 			[
-				"spot",
+				"_shadow",
 				"deferred_lighting_spot_light_shadow.cg"
 			],
 			[
-				"full",
-				"deferred_fullscreen_texture.cg"
-			],
-			[
-				"vsm",
-				"deferred_vsm_depth.cg"
+				"vertica",
+				"gaussian_blur_vertical_16_tap.cg"
 			],
 			[
 				"com",
@@ -1340,6 +1370,14 @@
 			[
 				"deferred",
 				"deferred_depth.cg"
+			],
+			[
+				"shad",
+				"shadow.h"
+			],
+			[
+				"spot",
+				"deferred_lighting_spot_light_shadow.cg"
 			],
 			[
 				"compile",
@@ -1820,10 +1858,6 @@
 			[
 				"fluidden",
 				"Code/Framework/Spu/SpuFluid/SpuFluidDensity.cpp"
-			],
-			[
-				"maths",
-				"Code/Etx/Maths/Maths.h"
 			]
 		],
 		"width": 0.0

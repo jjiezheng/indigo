@@ -89,7 +89,7 @@ project "game"
 		}
 
 	configuration { "x32" }
-		defines     { "_CRT_SECURE_NO_WARNINGS", "_WIN32", "PLATFORM_WINDOWS" }
+		defines     { "_CRT_SECURE_NO_WARNINGS", "_WIN32", "WIN32", "PLATFORM_WINDOWS" }
 		includedirs { 
 			"src/engine/common/renderer",
 			"src/engine/common/input",
@@ -101,6 +101,22 @@ project "game"
 			"src/engine/platform/platform/win/**.cpp",
 			"src/engine/platform/input/win/**.h", 
 			"src/engine/platform/input/win/**.cpp"
+		}
+
+	configuration { "x32", "gl" }
+		defines     { "RENDERER_OPENGL" }
+		links {
+		}
+		includedirs { 
+			"libs/glfw/include",
+			"src/engine/platform/renderer/gl32",
+		}
+		libdirs {
+			
+		}
+		files {
+			"src/engine/platform/renderer/gl32/**.h", 
+			"src/engine/platform/renderer/gl32/**.cpp",
 		}
 
 	configuration { "d3d" }
@@ -161,7 +177,6 @@ project "game"
 			"glew"
 		}
 		includedirs { 
-			"src/engine/platform/renderer/gl32",
 			"src/engine/common/input",
 			"src/engine/platform/input/mac"
 		}

@@ -1,6 +1,6 @@
 #include "GRemdeyExtensions.h"
 
-#include <GL/glx.h>
+//#include <GL/glx.h>
 
 #include "platform/PlatformDefs.h"
 

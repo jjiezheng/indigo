@@ -172,6 +172,8 @@ extern "C" {
 #else
  #if defined(GLFW_INCLUDE_GL3)
   #include <GL3/gl3.h>
+ #elif GLFW_INCLUDE_CORE_ARB
+  #include <GL/glcorearb.h>
  #else
   #include <GL/gl.h>
  #endif

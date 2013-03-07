@@ -166,13 +166,15 @@
 #  define GET_EXT_POINTER(name, type)
 #endif
 
+#include "OpenGL.h"
+
 #ifdef MACOS
 #include <OpenGL/gl.h>
 #include <OpenGL/glext.h>
 #define GL_TEXTURE_RECTANGLE_NV GL_TEXTURE_RECTANGLE_EXT
 #else
-#include <GL/gl.h>
-#include <GL/glext.h>
+//#include <GL/gl.h>
+//#include <GL/glext.h>
 #endif
 
 #include <stdio.h>
@@ -187,12 +189,12 @@ using namespace nv_dds;
 ///////////////////////////////////////////////////////////////////////////////
 // static function pointers for uploading 3D textures and compressed 1D, 2D
 // and 3D textures.
-#ifndef MACOS
-PFNGLTEXIMAGE3DEXTPROC CDDSImage::glTexImage3D = NULL;
-PFNGLCOMPRESSEDTEXIMAGE1DARBPROC CDDSImage::glCompressedTexImage1DARB = NULL;
-PFNGLCOMPRESSEDTEXIMAGE2DARBPROC CDDSImage::glCompressedTexImage2DARB = NULL;
-PFNGLCOMPRESSEDTEXIMAGE3DARBPROC CDDSImage::glCompressedTexImage3DARB = NULL;
-#endif
+// #ifndef MACOS
+// PFNGLTEXIMAGE3DEXTPROC CDDSImage::glTexImage3D = NULL;
+// PFNGLCOMPRESSEDTEXIMAGE1DARBPROC CDDSImage::glCompressedTexImage1DARB = NULL;
+// PFNGLCOMPRESSEDTEXIMAGE2DARBPROC CDDSImage::glCompressedTexImage2DARB = NULL;
+// PFNGLCOMPRESSEDTEXIMAGE3DARBPROC CDDSImage::glCompressedTexImage3DARB = NULL;
+// #endif
 
 ///////////////////////////////////////////////////////////////////////////////
 // CDDSImage public functions
@@ -375,22 +377,22 @@ bool CDDSImage::load(string filename, bool flipImage)
     }
     else if (ddsh.ddspf.dwFlags == DDSF_RGBA && ddsh.ddspf.dwRGBBitCount == 32)
     {
-        m_format = GL_BGRA_EXT; 
+        //m_format = GL_BGRA_EXT; 
         m_components = 4;
     }
     else if (ddsh.ddspf.dwFlags == DDSF_RGB  && ddsh.ddspf.dwRGBBitCount == 32)
     {
-        m_format = GL_BGRA_EXT; 
+        //m_format = GL_BGRA_EXT; 
         m_components = 4;
     }
     else if (ddsh.ddspf.dwFlags == DDSF_RGB  && ddsh.ddspf.dwRGBBitCount == 24)
     {
-        m_format = GL_BGR_EXT; 
+        //m_format = GL_BGR_EXT; 
         m_components = 3;
     }
 	else if (ddsh.ddspf.dwRGBBitCount == 8)
 	{
-		m_format = GL_LUMINANCE; 
+		//m_format = GL_LUMINANCE; 
 		m_components = 1;
 	}
     else 
@@ -722,9 +724,10 @@ bool CDDSImage::upload_texture2D(unsigned int imageIndex, GLenum target)
 
     assert(image.get_height() > 0);
     assert(image.get_width() > 0);
-    assert(target == GL_TEXTURE_2D || target == GL_TEXTURE_RECTANGLE_NV ||
+    assert(target == GL_TEXTURE_2D); 
+    /*|| target == GL_TEXTURE_RECTANGLE_NV ||
         (target >= GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB && 
-         target <= GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB));
+         target <= GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB));*/
     
     if (is_compressed())
     {
@@ -821,10 +824,10 @@ bool CDDSImage::upload_texture3D()
     else
     {
         // retrieve function pointer if needed
-        if (glTexImage3D == NULL)
+        /*if (glTexImage3D == NULL)
         {
             GET_EXT_POINTER(glTexImage3D, PFNGLTEXIMAGE3DEXTPROC);
-        }
+        }*/
     
         if (glTexImage3D == NULL)
             return false;
@@ -859,7 +862,7 @@ bool CDDSImage::upload_texture3D()
 
 bool CDDSImage::upload_textureRectangle()
 {
-    return upload_texture2D(0, GL_TEXTURE_RECTANGLE_NV);
+    return false;//upload_texture2D(0, GL_TEXTURE_RECTANGLE_NV);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -871,16 +874,16 @@ bool CDDSImage::upload_textureCubemap()
     assert(m_type == TextureCubemap);
     assert(m_images.size() == 6);
 
-    GLenum target;
+    //GLenum target;
 
     // loop through cubemap faces and load them as 2D textures 
-    for (unsigned int n = 0; n < 6; n++)
+    /*for (unsigned int n = 0; n < 6; n++)
     {
         // specify cubemap face
         target = GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB + n;
         if (!upload_texture2D(n, target))
             return false;
-    }
+    }*/
 
     return true;
 }

@@ -14,20 +14,18 @@
 
 
 #if defined(WIN32)
-#  include <windows.h>
+//# define WIN32_LEAN_AND_MEAN 
+//#  include <windows.h>
+#  include <core/StdInt.h>
 #endif
+
+#include "io/dds.h"
 
 #include <string>
 #include <deque>
 #include <assert.h>
 
-#if defined(MACOS)
-#include <OpenGL/gl.h>
-#include <OpenGL/glext.h>
-#else
-#include <GL/gl.h>
-#include <GL/glext.h>
-#endif
+#include "OpenGL.h"
 
 namespace nv_dds
 {
@@ -64,9 +62,9 @@ namespace nv_dds
     const unsigned long DDSF_VOLUME          = 0x00200000l;
 
     // compressed texture types
-    const unsigned long FOURCC_DXT1 = 0x31545844l; //(MAKEFOURCC('D','X','T','1'))
-    const unsigned long FOURCC_DXT3 = 0x33545844l; //(MAKEFOURCC('D','X','T','3'))
-    const unsigned long FOURCC_DXT5 = 0x35545844l; //(MAKEFOURCC('D','X','T','5'))
+   // const unsigned long FOURCC_DXT1 = 0x31545844l; //(MAKEFOURCC('D','X','T','1'))
+    //const unsigned long FOURCC_DXT3 = 0x33545844l; //(MAKEFOURCC('D','X','T','3'))
+   // const unsigned long FOURCC_DXT5 = 0x35545844l; //(MAKEFOURCC('D','X','T','5'))
 
     struct DXTColBlock
     {
@@ -344,12 +342,12 @@ namespace nv_dds
 
             std::deque<CTexture> m_images;
 
-#ifndef MACOS
+/*#ifndef MACOS
             static PFNGLTEXIMAGE3DEXTPROC glTexImage3D;
             static PFNGLCOMPRESSEDTEXIMAGE1DARBPROC glCompressedTexImage1DARB;
             static PFNGLCOMPRESSEDTEXIMAGE2DARBPROC glCompressedTexImage2DARB;
             static PFNGLCOMPRESSEDTEXIMAGE3DARBPROC glCompressedTexImage3DARB;
-#endif
+#endif*/
     };
 }
 #endif

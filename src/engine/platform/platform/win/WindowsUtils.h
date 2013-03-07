@@ -1,6 +1,7 @@
 #ifndef WINDOWS_UTILS_H
 #define WINDOWS_UTILS_H
 
+#define WIN32_LEAN_AND_MEAN 1
 #include <windows.h>
 
 class IKeyboardListener;
