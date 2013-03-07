@@ -10,6 +10,8 @@
 
 void initGremedyExtension(void);
 
+#ifndef WIN32
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -39,6 +41,8 @@ typedef void (APIENTRYP PFNGLFRAMETERMINATORGREMEDYPROC) (void);
 #endif
 
 #endif /* __GREMDEYEXTENSIONS */
+
+#endif
 
 #ifdef PLATFORM_APPLE
 

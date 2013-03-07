@@ -103,18 +103,25 @@ project "game"
 			"src/engine/platform/input/win/**.cpp"
 		}
 
-	configuration { "x32", "gl" }
-		defines     { "RENDERER_OPENGL" }
+	configuration { "gl" }
+		defines     { "RENDERER_OPENGL", "GLEW_STATIC" }
 		links {
+			"GLFW",
+			"glew32s"
 		}
 		includedirs { 
 			"libs/glfw/include",
+			"libs/glew/include",
 			"src/engine/platform/renderer/gl32",
+			"src/engine/platform/input/glfw"
 		}
 		libdirs {
-			
+			"libs/glfw/lib/win",
+			"libs/glew/lib"
 		}
 		files {
+			"src/engine/platform/input/glfw/**.h", 
+			"src/engine/platform/input/glfw/**.cpp",
 			"src/engine/platform/renderer/gl32/**.h", 
 			"src/engine/platform/renderer/gl32/**.cpp",
 		}

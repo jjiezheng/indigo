@@ -3,7 +3,27 @@
 
 #include "IKeyboardListener.h"
 
-#ifdef PLATFORM_WINDOWS
+enum KeyStates {
+	KEY_UNKNOWN = 0,
+
+	KEY_0 = 48,
+	KEY_1 = 49,
+	KEY_2 = 50,
+	KEY_3 = 51,
+	KEY_4 = 52,
+	KEY_5 = 53,
+	KEY_6 = 54,
+	KEY_7 = 55,
+	KEY_8 = 56,
+	KEY_9 = 57,
+
+	KEY_G = 71,
+	KEY_H = 72,
+	KEY_ESCAPE = 257,
+	KEY_BACKTICK = 96
+};
+
+/*#ifdef PLATFORM_WINDOWS
 enum KeyStates {
 	KEY_UNKNOWN = 0,
 	KEY_ESCAPE = 27,
@@ -64,7 +84,7 @@ enum KeyStates {
 	KEY_ESCAPE = 257,
 	KEY_BACKTICK = 96
 };
-#endif
+#endif*/
 
 class IKeyboard {
   

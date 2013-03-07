@@ -37,22 +37,30 @@ void OpenGL32GraphicsInterface::openWindow(int width, int height, unsigned int m
 
 #ifdef PLATFORM_LINUX
   glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 1);
+	glfwOpenWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
 #ifdef PLATFORM_MAC
   glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 2);
   glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwOpenWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
   
-  glfwOpenWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-  
   result = glfwOpenWindow(width, height, 8, 8, 8, 8, 0, 0, GLFW_WINDOW);
-  
-  if (!result) {
-    LOG(LOG_CHANNEL_RENDERER, "Failed to open window");
-  }
 
-  GLUtilities::checkForError();
+	if (!result) {
+		LOG(LOG_CHANNEL_RENDERER, "Failed to open window");
+	}
+
+	GLUtilities::checkForError();
+
+#ifdef PLATFORM_WINDOWS
+	GLenum err = glewInit();
+
+	if (GLEW_OK != err) {
+		 LOG(LOG_CHANNEL_RENDERER, "Failed to init GLEW %s", glewGetErrorString(err));
+	}
+#endif
   
   initGremedyExtension();
   
@@ -294,8 +302,9 @@ unsigned int OpenGL32GraphicsInterface::createFrameBuffer(unsigned int* renderTa
   GLUtilities::checkForError();
   
   glBindFramebuffer(GL_FRAMEBUFFER, frameBufferId);
-  
-  GLuint drawBuffers[renderTargetCount];
+
+	const int kMaxDrawBuffers = 4;
+	GLuint drawBuffers[kMaxDrawBuffers];
   
   for (unsigned int i = 0; i < renderTargetCount; i++) {
     GLuint renderTargetId = renderTargetIds[i];

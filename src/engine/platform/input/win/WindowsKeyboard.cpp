@@ -1,11 +1,26 @@
 #include "WindowsKeyboard.h"
 
-#include "WindowsUtils.h"
+#ifdef RENDERER_OPENGL
+#include "GLFWKeyboard.h"
+#else
+#include "WindowsInternalKeyboard.h"
+#endif
+
+void WindowsKeyboard::setup() {
+#ifdef RENDERER_OPENGL
+	internalKeyboard_ = new GLFWKeyboard();
+#else
+	internalKeyboard_ = new WindowsInternalKeyboard();
+#endif
+
+	internalKeyboard_->setup();
+}
 
 bool WindowsKeyboard::keyState(int keyCode) {
-  return WindowsUtils::getKeyState(keyCode);
+	bool state = internalKeyboard_->keyState(keyCode);
+	return state;
 }
 
 void WindowsKeyboard::setKeydownListener(IKeyboardListener* keyDownListener) {
-  WindowsUtils::setKeyboardListener(keyDownListener);
+	internalKeyboard_->setKeydownListener(keyDownListener);
 }

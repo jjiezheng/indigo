@@ -1,13 +1,13 @@
-#ifndef WINDOWSKEYBOARD_H
-#define WINDOWSKEYBOARD_H
+#ifndef WINDOWSINTERNALKEYBOARD_H
+#define WINDOWSINTERNALKEYBOARD_H
 
 #include "IKeyboard.h"
 
-class WindowsKeyboard : public IKeyboard {
+class WindowsInternalKeyboard : public IKeyboard {
   
 public:
   
-  void setup();
+	void setup() { }
 
   void update() { };
   

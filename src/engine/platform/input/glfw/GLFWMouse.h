@@ -1,9 +1,9 @@
-#ifndef WINDOWSMOUSE_H
-#define WINDOWSMOUSE_H
+#ifndef GLFWMOUSE_H
+#define GLFWMOUSE_H
 
 #include "IMouse.h"
 
-class WindowsMouse : public IMouse {
+class GLFWMouse : public IMouse {
 
 public:
 
@@ -16,10 +16,6 @@ public:
   bool isLeftButtonDown();
 
   void hideOSMouse(bool isHidden);
-
-public:
-
-	IMouse* internalMouse_;
 
 };
 

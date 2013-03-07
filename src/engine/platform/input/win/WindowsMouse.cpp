@@ -1,24 +1,33 @@
 #include "WindowsMouse.h"
 
-#include "WindowsUtils.h"
+#ifdef RENDERER_OPENGL
+#include "GLFWMouse.h"
+#else
+#include "WindowsInternalMouse.h"
+#endif
 
 void WindowsMouse::setup() {
+#ifdef RENDERER_OPENGL
+	internalMouse_ = new GLFWMouse();
+#else
+	internalMouse_ = new WindowsInternalMouse();
+#endif
 
+	internalMouse_->setup();
 }
 
 Point WindowsMouse::position() {
-  int x, y = 0;
-  WindowsUtils::getMousePosition(&x, &y);
-  return Point(x, y);
+	Point position = internalMouse_->position();
+	return position;
 }
 
 bool WindowsMouse::isLeftButtonDown() {
-	bool isDown = WindowsUtils::getMouseButton(0);
+	bool isDown = internalMouse_->isLeftButtonDown();
 	return isDown;
 }
 
 void WindowsMouse::hideOSMouse(bool isHidden) {
-	WindowsUtils::SetShowCursor(!isHidden);
+	internalMouse_->hideOSMouse(isHidden);
 }
 
 void WindowsMouse::setPosition(const Point& position) {

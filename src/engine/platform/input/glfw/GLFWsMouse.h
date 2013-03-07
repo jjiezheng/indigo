@@ -17,10 +17,6 @@ public:
 
   void hideOSMouse(bool isHidden);
 
-public:
-
-	IMouse* internalMouse_;
-
 };
 
 #endif

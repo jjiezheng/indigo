@@ -1,5 +1,7 @@
 #include "GRemdeyExtensions.h"
 
+#ifndef WIN32
+
 //#include <GL/glx.h>
 
 #include "platform/PlatformDefs.h"
@@ -32,6 +34,8 @@ void* NSGLGetProcAddress(const char *name, const char* libraryPath)
 
 #endif
 
+#endif
+
 void initGremedyExtension(void) {
 #ifdef PLATFORM_APPLE
   glStringMarkerGREMEDY = (PFNGLSTRINGMARKERGREMEDYPROC)NSGLGetProcAddress("glStringMarkerGREMEDY");
@@ -41,3 +45,5 @@ void initGremedyExtension(void) {
   glStringMarkerGREMEDY = (PFNGLSTRINGMARKERGREMEDYPROC)glXGetProcAddress((const GLubyte*)"glStringMarkerGREMEDY");
 #endif
 }
+
+

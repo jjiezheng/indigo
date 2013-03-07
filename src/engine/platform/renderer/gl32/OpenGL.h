@@ -5,18 +5,20 @@
 
 #ifdef PLATFORM_WINDOWS
 
-//#include "gl/glew.h"
+#pragma comment(lib, "glew32s.lib")
+
+#include "gl/glew.h"
 //#include "gl/wglew.h"
 
-//#pragma comment(lib,"opengl32.lib")
+#pragma comment(lib,"opengl32.lib")
 #include "core/StdInt.h"
 
 #define WIN32_LEAN_AND_MEAN 
 //#include <windows.h>
 
-#define GLCOREARB_PROTOTYPES 1
-#define GLFW_INCLUDE_CORE_ARB 1
-#define GLFW_NO_GLU 1
+//#define GLCOREARB_PROTOTYPES 1
+//#define GLFW_INCLUDE_CORE_ARB 1
+//#define GLFW_NO_GLU 1
 #include <GL/glfw.h>
 
 #endif

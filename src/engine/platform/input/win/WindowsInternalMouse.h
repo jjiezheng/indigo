@@ -1,13 +1,13 @@
-#ifndef WINDOWSMOUSE_H
-#define WINDOWSMOUSE_H
+#ifndef WINDOWSINTERNALMOUSE_H
+#define WINDOWSINTERNALMOUSE_H
 
 #include "IMouse.h"
 
-class WindowsMouse : public IMouse {
+class WindowsInternalMouse : public IMouse {
 
 public:
 
-  void setup();
+	void setup() { };
 
   Point position();
 
@@ -16,10 +16,6 @@ public:
   bool isLeftButtonDown();
 
   void hideOSMouse(bool isHidden);
-
-public:
-
-	IMouse* internalMouse_;
 
 };
 
