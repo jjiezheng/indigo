@@ -34,9 +34,9 @@ void OpenGL32GraphicsInterface::openWindow(int width, int height, unsigned int m
   }
   
   glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 3);
+  glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 1);
 
 #ifdef PLATFORM_LINUX
-  glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 1);
 	glfwOpenWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
@@ -47,6 +47,11 @@ void OpenGL32GraphicsInterface::openWindow(int width, int height, unsigned int m
 #endif
   
   result = glfwOpenWindow(width, height, 8, 8, 8, 8, 0, 0, GLFW_WINDOW);
+
+  const GLubyte * glVersionString = glGetString(GL_VERSION);
+  std::string windowTitle("OpenGL ");
+  windowTitle += (const char*)glVersionString;
+  glfwSetWindowTitle(windowTitle.c_str());
 
 	if (!result) {
 		LOG(LOG_CHANNEL_RENDERER, "Failed to open window");
