@@ -103,12 +103,15 @@ project "game"
 			"src/engine/platform/input/win/**.cpp"
 		}
 
-	configuration { "gl" }
-		defines     { "RENDERER_OPENGL", "GLEW_STATIC" }
+	configuration { "x32", "gl" }
+		defines     { "GLEW_STATIC" }
 		links {
 			"GLFW",
 			"glew32s"
 		}
+
+	configuration { "gl" }
+		defines     { "RENDERER_OPENGL" }
 		includedirs { 
 			"libs/glfw/include",
 			"libs/glew/include",
@@ -155,6 +158,8 @@ project "game"
 			"libSceGnmx-debug"
 		}
 		local SCE_ORBIS_SDK_DIR = os.getenv("SCE_ORBIS_SDK_DIR")
+		
+		SCE_ORBIS_SDK_DIR = SCE_ORBIS_SDK_DIR and SCE_ORBIS_SDK_DIR or ''	
 		includedirs { 
 			"src/engine/platform/renderer/gnm",
 			SCE_ORBIS_SDK_DIR .. "/target/include_common"
