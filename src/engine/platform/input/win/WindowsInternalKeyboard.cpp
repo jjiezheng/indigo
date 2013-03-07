@@ -3,9 +3,10 @@
 #include "WindowsUtils.h"
 
 bool WindowsInternalKeyboard::keyState(int keyCode) {
-  return WindowsUtils::getKeyState(keyCode);
+	bool result = WindowsUtils::getKeyState(keyCode);
+	return result;
 }
 
 void WindowsInternalKeyboard::setKeydownListener(IKeyboardListener* keyDownListener) {
-  WindowsUtils::setKeyboardListener(keyDownListener);
+	WindowsUtils::setKeyboardListener(keyDownListener);
 }

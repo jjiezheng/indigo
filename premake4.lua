@@ -17,7 +17,7 @@ solution "Game"
 project "game"
 	language    "C++"
 	kind        "WindowedApp"
-	flags       { "FatalWarnings" }	
+	flags       { "FatalWarnings", "NoIncrementalLink" }	
 	targetdir 	"dist"
 	
 	includedirs { 
