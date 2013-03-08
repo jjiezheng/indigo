@@ -11,7 +11,7 @@ class WindowsUtils {
 
 public:
 
-	static HWND createWindow(int width, int height);
+	static HWND createWindow(int width, int height, const std::string& windowTitle);
 
 	static LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 

@@ -216,7 +216,41 @@ void Direct3D11GraphicsInterface::openWindow(int width, int height, unsigned int
   screenSize_ = CSize(width, height);
   backbufferSize_ = screenSize_;
 
-  HWND hWnd = WindowsUtils::createWindow(width, height);
+  D3D_FEATURE_LEVEL FeatureLevel;
+  HRESULT result = D3D11CreateDevice(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, 0, NULL, 0, D3D11_SDK_VERSION, NULL, &FeatureLevel, NULL );
+
+  if(FAILED(result)) {
+    LOG(LOG_CHANNEL_RENDERER, "Failed to determine DirectX Feature Level");
+    return;
+  }
+
+  std::string directXFeatureLevelString("DirectX ");
+
+  switch (FeatureLevel) {
+      case D3D_FEATURE_LEVEL_9_1:
+        directXFeatureLevelString += "9.1";
+        break;
+      case D3D_FEATURE_LEVEL_9_2:
+         directXFeatureLevelString += "9.2";
+        break;
+      case D3D_FEATURE_LEVEL_9_3:
+         directXFeatureLevelString += "9.3";
+        break;
+      case D3D_FEATURE_LEVEL_10_0:
+         directXFeatureLevelString += "10.0";
+        break;
+      case D3D_FEATURE_LEVEL_10_1:
+         directXFeatureLevelString += "10.1";
+        break;
+      case D3D_FEATURE_LEVEL_11_0:
+         directXFeatureLevelString += "11.0";
+        break;
+      default:
+        directXFeatureLevelString += "Unknown";
+        break;
+  }
+
+  HWND hWnd = WindowsUtils::createWindow(width, height, directXFeatureLevelString);
   createGraphicsContext(hWnd, width, height, multiSamples);
   createBlendStates();
   createPerformanceMarkerColors();

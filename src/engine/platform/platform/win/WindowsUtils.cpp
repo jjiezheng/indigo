@@ -30,7 +30,7 @@ LRESULT CALLBACK WindowsUtils::WindowProc(HWND hWnd, UINT message, WPARAM wParam
 	return DefWindowProc (hWnd, message, wParam, lParam);
 }
 
-HWND WindowsUtils::createWindow(int width, int height) {
+HWND WindowsUtils::createWindow(int width, int height, const std::string& windowTitle) {
 
 	keyMappings_[27] = 257;
 
@@ -58,7 +58,7 @@ HWND WindowsUtils::createWindow(int width, int height) {
 	int windowPositionX = (int)((screenWidth - width) / 2.0f);
 	int windowPositionY = (int)((screenHeight - height) / 2.0f);
 
-	HWND hWnd = CreateWindow("GameWindowClass", "Game", WS_OVERLAPPEDWINDOW,
+	HWND hWnd = CreateWindow("GameWindowClass", windowTitle.c_str(), WS_OVERLAPPEDWINDOW,
 		windowPositionX, windowPositionY, width, height, NULL, NULL, hInstance, NULL);
 
 	STARTUPINFO lpStartupInfo;
