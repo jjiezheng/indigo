@@ -1,0 +1,8 @@
+scripts/premake4.osx --os=macosx --platform=x32 --gfxapi=gl gmake
+scripts/premake4.linux --os=linux --platform=x32 --gfxapi=gl gmake
+
+scripts/premake4.exe --platform=ps3 --gfxapi=gcm vs2008
+scripts/premake4.exe --platform=ps4 --gfxapi=gnm vs2010
+
+scripts/premake4.exe --os=windows --platform=x32 --gfxapi=d3d vs2008
+scripts/premake4.exe --os=windows --platform=x32 --gfxapi=gl vs2008
