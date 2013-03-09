@@ -35,6 +35,7 @@ void OpenGL32GraphicsInterface::openWindow(int width, int height, unsigned int m
   
   glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 3);
   glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 1);
+  glslVersion_ = "140";
 
 #ifdef PLATFORM_LINUX
 	glfwOpenWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
@@ -42,8 +43,9 @@ void OpenGL32GraphicsInterface::openWindow(int width, int height, unsigned int m
 
 #ifdef PLATFORM_MAC
   glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 2);
+  glfwOpenWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
   glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	glfwOpenWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+  glslVersion_ = "150";
 #endif
   
   result = glfwOpenWindow(width, height, 8, 8, 8, 8, 0, 0, GLFW_WINDOW);
@@ -371,8 +373,8 @@ unsigned int OpenGL32GraphicsInterface::createDepthTexture(const CSize& dimensio
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_NONE);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
   
   if (isShadowTexture) {
     GLfloat v_bc[] = {1.0f,1.0f,1.0f,1.0f};

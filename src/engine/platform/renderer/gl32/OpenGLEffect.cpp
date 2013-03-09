@@ -10,6 +10,7 @@
 #include "maths/Vector4.h"
 
 #include "renderer/GraphicsInterface.h"
+#include "OpenGL32GraphicsInterface.h"
 #include "renderer/ShaderSemantics.h"
 #include "renderer/Color3.h"
 
@@ -36,8 +37,11 @@ void printLog(const std::string& filePath, GLuint obj) {
 void OpenGLEffect::load(const std::string& filePath) {
   programId_ = glCreateProgram();
   
+  OpenGL32GraphicsInterface* graphicsInterface = (OpenGL32GraphicsInterface*)GraphicsInterface::rawInterface();
+  std::string glslVersion = graphicsInterface->glslVersion();
+  
   {
-    std::string fullVertexShaderFilePath = filePath + ".gl32.vertex";
+    std::string fullVertexShaderFilePath = filePath + ".glsl." + glslVersion + ".vertex";
     
     File shaderFile;
     shaderFile.open(fullVertexShaderFilePath);
@@ -59,7 +63,7 @@ void OpenGLEffect::load(const std::string& filePath) {
   }
 
   {
-    std::string fullfragmentShaderFilePath = filePath + ".gl32.fragment";
+    std::string fullfragmentShaderFilePath = filePath + ".glsl." + glslVersion + ".fragment";
     
     File shaderFile;
     shaderFile.open(fullfragmentShaderFilePath);

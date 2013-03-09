@@ -1,0 +1,72 @@
+// glslf output by Cg compiler
+// cgc version 3.1.0013, build date Apr 18 2012
+// command line args: -DGL=1 -DGL32=1 -q -profileopts version=140 -profile glslf
+// source file: deferred_render_color_normal_depth.cg
+//vendor NVIDIA Corporation
+//version 3.1.0.13
+//profile glslf
+//program ps
+//semantic WorldView
+//semantic WorldViewProj
+//semantic NormalMatrix
+//semantic DiffuseColor
+//semantic Near
+//semantic Far
+//var float4 DiffuseColor :  : _DiffuseColor : -1 : 1
+//var float Far :  : _Far : -1 : 1
+//var float3 normal : $vin.TEXCOORD0 : TEXCOORD0 : 1 : 1
+//var float3 viewNormal : $vin.TEXCOORD1 : TEXCOORD1 : 2 : 1
+//var float4 viewPosition : $vin.TEXCOORD2 : TEXCOORD2 : 3 : 1
+//var float4 ps.color : $vout.COLOR0 : COLOR0 : -1 : 1
+//var float3 ps.normal : $vout.COLOR1 : COLOR1 : -1 : 1
+//var float4 ps.depth : $vout.COLOR2 : COLOR2 : -1 : 1
+//var float3 ps.viewNormal : $vout.COLOR3 : COLOR3 : -1 : 1
+
+#version 140
+
+#extension GL_ARB_draw_buffers : enable
+
+struct VOutput {
+    vec3 _normal2;
+    vec3 _viewNormal2;
+    vec4 _viewPosition2;
+};
+
+struct POutput {
+    vec4 _color;
+    vec3 _normal3;
+    vec4 _depth;
+    vec3 _viewNormal3;
+};
+
+vec3 _packedNormal0007;
+vec3 _packedNormal0009;
+vec4 _enc0013;
+uniform vec4 _DiffuseColor;
+uniform float _Far;
+in vec4 cg_TexCoord1;
+in vec4 cg_TexCoord0;
+in vec4 cg_TexCoord2;
+out vec4 cg_FragColor;
+out vec4 cg_FragData2;
+out vec4 cg_FragData1;
+out vec4 cg_FragData3;
+
+ // main procedure, the original name was ps
+void main()
+{
+
+    float _linearDepth;
+
+    _packedNormal0007 = cg_TexCoord0.xyz*5.00000000E-01 + 5.00000000E-01;
+    _packedNormal0009 = cg_TexCoord1.xyz*5.00000000E-01 + 5.00000000E-01;
+    _linearDepth = -cg_TexCoord2.z/_Far;
+    _enc0013 = vec4( 1.00000000E+00, 2.55000000E+02, 6.50250000E+04, 1.60581376E+08)*_linearDepth;
+    _enc0013 = fract(_enc0013);
+    _enc0013 = _enc0013 - _enc0013.yzww*vec4( 3.92156886E-03, 3.92156886E-03, 3.92156886E-03, 0.00000000E+00);
+    cg_FragData3.xyz = _packedNormal0009;
+    cg_FragData1.xyz = _packedNormal0007;
+    cg_FragData2 = _enc0013;
+    cg_FragColor = _DiffuseColor;
+    return;
+} // main end

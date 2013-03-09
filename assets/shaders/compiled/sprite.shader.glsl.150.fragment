@@ -1,0 +1,34 @@
+// glslf output by Cg compiler
+// cgc version 3.1.0013, build date Apr 18 2012
+// command line args: -DGL=1 -DGL32=1 -q -profileopts version=150 -profile glslf
+// source file: sprite.cg
+//vendor NVIDIA Corporation
+//version 3.1.0.13
+//profile glslf
+//program ps
+//semantic ModelProjection
+//semantic ColorMap
+//var sampler2D ColorMap :  : _ColorMap : -1 : 1
+//var float2 texCoord : $vin.TEXCOORD0 : TEXCOORD0 : 1 : 1
+//var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
+
+#version 150
+
+struct VOutput {
+    vec2 _texCoord2;
+};
+
+vec4 _ret_0;
+uniform sampler2D _ColorMap;
+in vec4 cg_TexCoord0;
+out vec4 cg_FragColor;
+
+ // main procedure, the original name was ps
+void main()
+{
+
+
+    _ret_0 = texture(_ColorMap, cg_TexCoord0.xy);
+    cg_FragColor = _ret_0;
+    return;
+} // main end

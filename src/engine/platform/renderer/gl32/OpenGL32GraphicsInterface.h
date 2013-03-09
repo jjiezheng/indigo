@@ -119,15 +119,25 @@ public:
   
 	Vector2 halfScreenPixel() const;
   
+public:
+  
+  std::string glslVersion() const;
+  
 private:
   
   std::vector<GLuint> renderTargetTextures_;
   std::stack<std::string> performanceEventStack_;
+  
+  std::string glslVersion_;
   
   unsigned int depthBufferTexture_;
 
   unsigned int depthBufferTarget_;
   
 };
+
+inline std::string OpenGL32GraphicsInterface::glslVersion() const {
+  return glslVersion_;
+}
 
 #endif

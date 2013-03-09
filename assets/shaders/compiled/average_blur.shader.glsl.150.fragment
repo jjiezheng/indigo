@@ -1,0 +1,63 @@
+// glslf output by Cg compiler
+// cgc version 3.1.0013, build date Apr 18 2012
+// command line args: -DGL=1 -DGL32=1 -q -profileopts version=150 -profile glslf
+// source file: average_blur.cg
+//vendor NVIDIA Corporation
+//version 3.1.0.13
+//profile glslf
+//program ps
+//semantic SourceMap : TEXUNIT0
+//semantic TexelSize
+//semantic HalfPixel
+//var sampler2D SourceMap : TEXUNIT0 : _SourceMap 0 : -1 : 1
+//var float2 TexelSize :  : _TexelSize : -1 : 1
+//var float2 HalfPixel :  : _HalfPixel : -1 : 1
+//var float2 texCoord : $vin.TEXCOORD0 : TEXCOORD0 : 1 : 1
+//var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
+
+#version 150
+
+struct VOutput {
+    vec2 _texCoord2;
+};
+
+vec4 _TMP0;
+vec2 _c0005;
+uniform sampler2D _SourceMap;
+uniform vec2 _TexelSize;
+uniform vec2 _HalfPixel;
+in vec4 cg_TexCoord0;
+out vec4 cg_FragColor;
+
+ // main procedure, the original name was ps
+void main()
+{
+
+    vec4 _result;
+    int _i1;
+    vec2 _offset1;
+
+    _result = vec4( 0.00000000E+00, 0.00000000E+00, 0.00000000E+00, 0.00000000E+00);
+    _i1 = 0;
+    for (; _i1 < 4; _i1 = _i1 + 1) { // for begin
+        _offset1 = vec2(0.00000000E+00, _TexelSize.y*float(_i1));
+        _c0005 = cg_TexCoord0.xy + _offset1 + _HalfPixel;
+        _TMP0 = texture(_SourceMap, _c0005);
+        _result = _result + _TMP0.x;
+        _offset1 = vec2(_TexelSize.x, _TexelSize.y*float(_i1));
+        _c0005 = cg_TexCoord0.xy + _offset1 + _HalfPixel;
+        _TMP0 = texture(_SourceMap, _c0005);
+        _result = _result + _TMP0.x;
+        _offset1 = vec2(_TexelSize.x*2.00000000E+00, _TexelSize.y*float(_i1));
+        _c0005 = cg_TexCoord0.xy + _offset1 + _HalfPixel;
+        _TMP0 = texture(_SourceMap, _c0005);
+        _result = _result + _TMP0.x;
+        _offset1 = vec2(_TexelSize.x*3.00000000E+00, _TexelSize.y*float(_i1));
+        _c0005 = cg_TexCoord0.xy + _offset1 + _HalfPixel;
+        _TMP0 = texture(_SourceMap, _c0005);
+        _result = _result + _TMP0.x;
+    } // end for
+    _result = _result*6.25000000E-02;
+    cg_FragColor = _result;
+    return;
+} // main end

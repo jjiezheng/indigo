@@ -7,9 +7,13 @@ function gl21 {
 	cgc -DGL=1 -DGL21=1 -q -profile glslv -entry vs -o compiled/${f%.*}.shader.gl21.vertex $f
 	cgc -DGL=1 -DGL21=1 -q -profile glslf -entry ps -o compiled/${f%.*}.shader.gl21.fragment $f
 }
-function gl32 {
-	cgc -DGL=1 -DGL32=1 -q -profileopts version=130 -profile glslv -entry vs -o compiled/${f%.*}.shader.gl32.vertex $f
-	cgc -DGL=1 -DGL32=1 -q -profileopts version=130 -profile glslf -entry ps -o compiled/${f%.*}.shader.gl32.fragment $f
+function glsl150 {
+	cgc -DGL=1 -DGL32=1 -q -profileopts version=150 -profile glslv -entry vs -o compiled/${f%.*}.shader.glsl.150.vertex $f
+	cgc -DGL=1 -DGL32=1 -q -profileopts version=150 -profile glslf -entry ps -o compiled/${f%.*}.shader.glsl.150.fragment $f
+}
+function glsl140 {
+	cgc -DGL=1 -DGL32=1 -q -profileopts version=140 -profile glslv -entry vs -o compiled/${f%.*}.shader.glsl.130.vertex $f
+	cgc -DGL=1 -DGL32=1 -q -profileopts version=140 -profile glslf -entry ps -o compiled/${f%.*}.shader.glsl.130.fragment $f
 }
 function gcm {
 	command -v sce-cgc >/dev/null 2>&1 || { return; }
@@ -19,7 +23,8 @@ function gcm {
 function shader {
 	dx11
 	gl21
-	gl32
+	glsl140
+	glsl150
 	gcm
 }
 if [ "$1" = "-a" ] ; then

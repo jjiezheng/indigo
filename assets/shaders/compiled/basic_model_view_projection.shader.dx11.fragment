@@ -1,10 +1,10 @@
 // ps_4_0 output by Cg compiler
 // cgc version 3.1.0013, build date Apr 18 2012
-// command line args: -DDX11=1 -q -unroll all -profile ps_4_0
+// command line args: -DDX11=1 -q -unroll all -profile ps_5_0
 // source file: basic_model_view_projection.cg
 //vendor NVIDIA Corporation
 //version 3.1.0.13
-//profile ps_4_0
+//profile ps_5_0
 //program ps
 //semantic WorldViewProj
 //var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
@@ -25,5 +25,5 @@ float4 main() : SV_Target0
 {
 
 
-    return float4(  3.89999985694885250E-001f,  5.79999983310699460E-001f,  9.30000007152557370E-001f,  1.00000000000000000E000f);
+    return float4(   3.89999985694885254E-01f,   5.79999983310699463E-01f,   9.30000007152557373E-01f,   1.00000000000000000E00f);
 } // main end

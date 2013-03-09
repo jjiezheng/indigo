@@ -77,8 +77,8 @@ public:
     GLenum error = glGetError();
 
     if (error != GL_NO_ERROR) {
-      //const GLubyte * errorString = gluErrorString(error);
-      //LOG(LOG_CHANNEL_GL_UTILS, "OpenGL Error: %s", errorString);
+      const GLubyte * errorString = gluErrorString(error);
+      LOG(LOG_CHANNEL_GL_UTILS, "OpenGL Error: %s", errorString);
     }
 
     assert(error == GL_NO_ERROR);

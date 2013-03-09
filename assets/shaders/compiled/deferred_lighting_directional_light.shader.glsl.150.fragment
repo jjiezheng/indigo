@@ -1,0 +1,62 @@
+// glslf output by Cg compiler
+// cgc version 3.1.0013, build date Apr 18 2012
+// command line args: -DGL=1 -DGL32=1 -q -profileopts version=150 -profile glslf
+// source file: deferred_lighting_directional_light.cg
+//vendor NVIDIA Corporation
+//version 3.1.0.13
+//profile glslf
+//program ps
+//semantic NormalMap : TEXUNIT0
+//semantic LightDirection
+//semantic LightColor
+//semantic HalfPixel
+//var sampler2D NormalMap : TEXUNIT0 : _NormalMap 0 : -1 : 1
+//var float4 LightDirection :  : _LightDirection : -1 : 1
+//var float3 LightColor :  : _LightColor : -1 : 1
+//var float2 HalfPixel :  : _HalfPixel : -1 : 1
+//var float2 texCoord : $vin.TEXCOORD0 : TEXCOORD0 : 1 : 1
+//var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
+
+#version 150
+
+struct VOutput {
+    vec2 _texCoord3;
+};
+
+vec4 _ret_0;
+float _TMP2;
+vec3 _TMP1;
+float _TMP5;
+float _TMP4;
+vec4 _TMP3;
+vec2 _texCoord0012;
+vec3 _unPackedNormal0012;
+uniform sampler2D _NormalMap;
+uniform vec4 _LightDirection;
+uniform vec3 _LightColor;
+uniform vec2 _HalfPixel;
+in vec4 cg_TexCoord0;
+out vec4 cg_FragColor;
+
+ // main procedure, the original name was ps
+void main()
+{
+
+    vec3 _lightVector;
+    float _diffuseStrength;
+    vec3 _diffuseContribution;
+
+    _texCoord0012 = cg_TexCoord0.xy + _HalfPixel;
+    _TMP3 = texture(_NormalMap, _texCoord0012);
+    _unPackedNormal0012 = _TMP3.xyz*2.00000000E+00 - 1.00000000E+00;
+    _TMP4 = dot(_LightDirection.xyz, _LightDirection.xyz);
+    _TMP5 = inversesqrt(_TMP4);
+    _TMP1 = _TMP5*_LightDirection.xyz;
+    _lightVector = -_TMP1;
+    _TMP2 = dot(_unPackedNormal0012.xyz, _lightVector);
+    _diffuseStrength = max(0.00000000E+00, _TMP2);
+    _diffuseContribution = _LightColor*_diffuseStrength;
+    _ret_0 = vec4(_diffuseContribution.x, _diffuseContribution.y, _diffuseContribution.z, 1.00000000E+00);
+    cg_FragColor = _ret_0;
+    return;
+} // main end

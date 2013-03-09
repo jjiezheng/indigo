@@ -1,10 +1,10 @@
 // vs_4_0 output by Cg compiler
 // cgc version 3.1.0013, build date Apr 18 2012
-// command line args: -DDX11=1 -q -unroll all -profile vs_4_0
+// command line args: -DDX11=1 -q -unroll all -profile vs_5_0
 // source file: basic_view_projection.cg
 //vendor NVIDIA Corporation
 //version 3.1.0.13
-//profile vs_4_0
+//profile vs_5_0
 //program vs
 //semantic ViewProj
 //var float4x4 ViewProj :  : _ViewProj[0], 4 : -1 : 1

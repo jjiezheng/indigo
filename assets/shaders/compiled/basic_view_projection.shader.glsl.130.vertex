@@ -1,0 +1,35 @@
+// glslv output by Cg compiler
+// cgc version 3.1.0013, build date Apr 18 2012
+// command line args: -DGL=1 -DGL32=1 -q -profileopts version=140 -profile glslv
+// source file: basic_view_projection.cg
+//vendor NVIDIA Corporation
+//version 3.1.0.13
+//profile glslv
+//program vs
+//semantic ViewProj
+//var float4x4 ViewProj :  : _ViewProj[0], 4 : -1 : 1
+//var float4 position : $vin.POSITION : POSITION : 0 : 1
+//var float4 vs.position : $vout.POSITION : HPOS : -1 : 1
+
+#version 140
+
+struct VOutput {
+    vec4 _position2;
+};
+
+vec4 _r0002;
+uniform vec4 _ViewProj[4];
+in vec4 cg_Vertex;
+
+ // main procedure, the original name was vs
+void main()
+{
+
+
+    _r0002.x = dot(_ViewProj[0], cg_Vertex);
+    _r0002.y = dot(_ViewProj[1], cg_Vertex);
+    _r0002.z = dot(_ViewProj[2], cg_Vertex);
+    _r0002.w = dot(_ViewProj[3], cg_Vertex);
+    gl_Position = _r0002;
+    return;
+} // main end
