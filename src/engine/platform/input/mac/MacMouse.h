@@ -6,12 +6,17 @@
 class MacMouse : public IMouse {
 
 public:
-
+  
   void setup();
-
+  
   Point position();
+  
+  void setPosition(const Point& position);
+  
+  bool isLeftButtonDown();
+  
+  void hideOSMouse(bool isHidden);
 
-	bool isLeftButtonDown();
 
 };
 

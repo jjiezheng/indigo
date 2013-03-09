@@ -2,9 +2,11 @@
 
 #ifndef WIN32
 
-#include <GL/glx.h>
-
 #include "platform/PlatformDefs.h"
+
+#ifdef PLATFORM_LINUX
+#include <GL/glx.h>
+#endif
 
 PFNGLSTRINGMARKERGREMEDYPROC glStringMarkerGREMEDY = NULL;
 

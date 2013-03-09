@@ -88,11 +88,12 @@ project "game"
 			"src/engine/platform/input/win/**.cpp"
 		}
 
-	configuration { "x32" }
-		defines     { "_CRT_SECURE_NO_WARNINGS", "_WIN32", "WIN32", "PLATFORM_WINDOWS" }
-		includedirs { 
-			"src/engine/common/renderer",
-			"src/engine/common/input",
+	configuration "windows"
+		defines     { "GLEW_STATIC", "_CRT_SECURE_NO_WARNINGS", "_WIN32", "WIN32", "PLATFORM_WINDOWS" }
+		links {
+			"glew32s"
+		}
+		includedirs {
 			"src/engine/platform/input/win",
 			"src/engine/platform/platform/win"
 		}
@@ -103,15 +104,17 @@ project "game"
 			"src/engine/platform/input/win/**.cpp"
 		}
 
-	configuration { "x32", "gl" }
-		defines     { "GLEW_STATIC" }
-		links {
-			"GLFW",
-			"glew32s"
+	configuration { "x32" }
+		includedirs { 
+			"src/engine/common/renderer",
+			"src/engine/common/input"
 		}
 
 	configuration { "gl" }
 		defines     { "RENDERER_OPENGL" }
+		links {
+			"GLFW"
+		}
 		includedirs { 
 			"libs/glfw/include",
 			"libs/glew/include",

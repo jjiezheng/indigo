@@ -323,8 +323,6 @@ bool CDDSImage::load(string filename, bool flipImage)
         return false;
     }
 
-    int a = sizeof(unsigned long);
-
     // read in DDS header
     DDS_HEADER ddsh;
     bytes = fread(&ddsh, sizeof(DDS_HEADER), 1, fp);

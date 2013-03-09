@@ -17,3 +17,12 @@ bool MacMouse::isLeftButtonDown() {
   return glfwGetMouseButton(GLFW_MOUSE_BUTTON_1);
 }
 
+void MacMouse::setPosition(const Point& position) {
+  
+}
+
+void MacMouse::hideOSMouse(bool isHidden) {
+  
+}
+
+
