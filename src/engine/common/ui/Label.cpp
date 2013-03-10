@@ -54,8 +54,6 @@ void Label::setText(const std::string& text) {
 void Label::render(const Matrix4x4& projection) {
 	GraphicsInterface::beginPerformanceEvent("Label");
 
-  isDirty_ = true;
-  
   if (isDirty_) {
     GraphicsInterface::setFrameBuffer(labelFrameBuffer_);
     GraphicsInterface::clearActiveColorBuffers(Color4::TRANSPAREN);
