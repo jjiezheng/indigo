@@ -65,6 +65,8 @@ private:
   float lastDeltaTime_;
   bool isDirty_;
 
+  std::string text_;
+
   int x_;
   int y_;
 

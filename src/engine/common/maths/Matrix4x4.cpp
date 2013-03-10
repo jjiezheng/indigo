@@ -101,11 +101,18 @@ Matrix4x4 Matrix4x4::orthographic(float left, float right, float bottom, float t
   float n = znear;
   float f = zfar;
 
+//   return Matrix4x4(
+//     2.0f / (r - l),  0,                 0,               -1,
+//     0,               2.0f / (t - b),    0,                -0.99f,
+//     0,               0,                 -2.0f / (n - f),  0,
+//     0,               0,                 0,                1);  
+
+
   return Matrix4x4(
-    2.0f / (r - l),  0,                 0,               -1,
-    0,               2.0f / (t - b),    0,                0.95f,
-    0,               0,                 -2.0f / (n - f),  0,
-    0,               0,                 0,                1);  
+    2.0f / (r - l),  0,                 0,                -((r+l)/(r-l)),
+    0,               2.0f / (t - b) ,   0,                -((t+b)/(t-b)),
+    0,               0,                -2.0f / (n - f),   -((f+n)/(f-n)),
+    0,               0,                 0,                1); 
 }
 
 Matrix4x4 Matrix4x4::orthographic_screen(float left, float right, float bottom, float top, float znear, float zfar) {
