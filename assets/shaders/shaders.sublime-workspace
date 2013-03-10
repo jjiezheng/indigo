@@ -523,7 +523,7 @@
 			"file": "/C/Users/NK/Development/game/premake4.lua",
 			"settings":
 			{
-				"buffer_size": 5658,
+				"buffer_size": 5780,
 				"line_ending": "Unix"
 			}
 		},
@@ -1119,7 +1119,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -1128,15 +1128,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5658,
+						"buffer_size": 5780,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								11,
-								11
+								2958,
+								3025
 							]
 						],
 						"settings":
@@ -1145,7 +1145,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 855.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1192,8 +1192,8 @@
 						"selection":
 						[
 							[
-								1818,
-								2454
+								979,
+								979
 							]
 						],
 						"settings":

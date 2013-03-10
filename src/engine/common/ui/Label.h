@@ -52,6 +52,7 @@ private:
   FrameBuffer labelFrameBuffer_;
   RenderTarget labelRenderTarget_;
   TextureId labelTexture_;
+  VertexBuffer labelVertexBuffer_;
 
 private:
 

@@ -212,7 +212,7 @@ void Direct3D11GraphicsInterface::destroy() {
   device_->Release();
 }
 
-void Direct3D11GraphicsInterface::openWindow(int width, int height, unsigned int multiSamples) {
+void Direct3D11GraphicsInterface::openWindow(int width, int height, unsigned int multiSamples, bool vsyncEnabled, bool isFullScreen) {
   screenSize_ = CSize(width, height);
   backbufferSize_ = screenSize_;
 

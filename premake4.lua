@@ -88,11 +88,13 @@ project "game"
 			"src/engine/platform/input/win/**.cpp"
 		}
 
-	configuration "windows"
-		defines     { "GLEW_STATIC", "_CRT_SECURE_NO_WARNINGS", "_WIN32", "WIN32", "PLATFORM_WINDOWS" }
+	configuration { "windows", "gl" }
 		links {
 			"glew32s"
 		}
+
+	configuration "windows"
+		defines     { "GLEW_STATIC", "_CRT_SECURE_NO_WARNINGS", "_WIN32", "WIN32", "PLATFORM_WINDOWS" }
 		includedirs {
 			"src/engine/platform/input/win",
 			"src/engine/platform/platform/win"
