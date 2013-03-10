@@ -10,6 +10,9 @@ class FPSStats : public Control {
 public:
 
 	~FPSStats();
+  
+  FPSStats()
+    : passedFrames_(0) { }
 
 public:
 
@@ -28,6 +31,8 @@ public:
 private:
 
 	Label* fpsLabel_;
+  
+  unsigned int passedFrames_;
 
 };
 

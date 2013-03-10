@@ -61,6 +61,7 @@ void Game::mainLoop() {
 }
 
 void Game::keyUp(int keyCode) {
+  ui_.keyUp(keyCode);
 	LOG(LOG_CHANNEL_TEMP, "%d", keyCode);
 
 	static int mouseMode = 0;
@@ -87,7 +88,6 @@ void Game::keyUp(int keyCode) {
 		if (mouseMode > 2) {
 			mouseMode = 0;
 		}
-
 	}
 
 	if (keyCode > KEY_0 - 1 && keyCode < KEY_9 + 1) {

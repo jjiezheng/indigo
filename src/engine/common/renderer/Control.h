@@ -30,6 +30,10 @@ public:
 public:
 
 	void setVisible(bool isVisible);
+  
+  bool isVisible() const;
+  
+  void toggleVisible();
 
 protected:
 
@@ -48,6 +52,14 @@ inline unsigned int Control::tag() const {
 
 inline void Control::setVisible(bool isVisible) {
 	isVisible_ = isVisible;
+}
+
+inline bool Control::isVisible() const {
+  return isVisible_;
+}
+
+inline void Control::toggleVisible() {
+  isVisible_ = !isVisible_;
 }
 
 #endif

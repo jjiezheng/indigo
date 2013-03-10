@@ -12,6 +12,10 @@ public:
   void init(IRenderChannelInfoService* renderChannelInfoService);
 
 	void destroy();
+  
+public:
+  
+  void keyUp(int keyCode);
 
 public:
 

@@ -19,7 +19,9 @@ enum KeyStates {
 
 	KEY_G = 71,
 	KEY_H = 72,
+  
 	KEY_ESCAPE = 257,
+  KEY_F1 = 258,
 	KEY_BACKTICK = 96
 };
 

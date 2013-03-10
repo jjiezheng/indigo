@@ -19,7 +19,9 @@ void UI::render() const {
   GraphicsInterface::setBlendState(IGraphicsInterface::ALPHA);
 
   for (std::vector<Control*>::const_iterator i = controls_.begin(); i != controls_.end(); ++i) {
-    (*i)->render(projection_);
+    if ((*i)->isVisible()) {
+      (*i)->render(projection_);
+    }
   }
 	GraphicsInterface::endPerformanceEvent();
 }
@@ -30,7 +32,9 @@ void UI::init(const CSize& backBufferSize) {
 
 void UI::update(float dt) {
   for (std::vector<Control*>::const_iterator i = controls_.begin(); i != controls_.end(); ++i) {
-    (*i)->update(dt);
+    if ((*i)->isVisible()) {
+      (*i)->update(dt);
+    }
   }
 }
 

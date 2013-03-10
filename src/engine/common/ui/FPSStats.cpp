@@ -22,6 +22,7 @@ void FPSStats::init()
 {
 	fpsLabel_ = Label::labelWithFont("fonts/arial.fnt");
 	fpsLabel_->setPosition(0, 20);
+  passedFrames_ = 11;
 }
 
 void FPSStats::render(const Matrix4x4& projection) {
@@ -29,20 +30,25 @@ void FPSStats::render(const Matrix4x4& projection) {
 }
 
 void FPSStats::update(float dt) {
-	std::stringstream data;
+  
+  static int kMaxFrames = 10;
+  if (passedFrames_++ > kMaxFrames) {
+    passedFrames_ = 0;
+    std::stringstream data;
 
-	{
-		data << Clock::averageFPS() << " fps";
-	}
+    {
+      data << Clock::averageFPS() << " fps";
+    }
 
-	data << " - ";
+    data << " - ";
 
-	{
-		float milliseconds = dt * 1000;
-		char millisecondsString[25];
-		sprintf(millisecondsString, "%.1fms", milliseconds);
-		data << millisecondsString;
-	}
+    {
+      float milliseconds = dt * 1000;
+      char millisecondsString[25];
+      sprintf(millisecondsString, "%.1fms", milliseconds);
+      data << millisecondsString;
+    }
 
-	fpsLabel_->setText(data.str());
+    fpsLabel_->setText(data.str());
+  }
 }
