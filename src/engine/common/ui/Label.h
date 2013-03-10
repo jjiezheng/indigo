@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "renderer/Font.h"
+#include "renderer/IGraphicsInterface.h"
 
 class IEffect;
 class Matrix4x4;
@@ -15,7 +16,8 @@ public:
 
   Label()
     : labelEffect_(NULL)
-    , lastDeltaTime_(1.0f/60.0f) { };
+    , lastDeltaTime_(1.0f/60.0f)
+    , isDirty_(false) { };
 
 public:
 
@@ -35,7 +37,7 @@ public:
 
 public:
 
-  void render(const Matrix4x4& projection) const;
+  void render(const Matrix4x4& projection);
 
 private:
 
@@ -44,6 +46,12 @@ private:
 private:
 
   IEffect* labelEffect_;
+  
+private:
+  
+  FrameBuffer labelFrameBuffer_;
+  RenderTarget labelRenderTarget_;
+  TextureId labelTexture_;
 
 private:
 
@@ -51,8 +59,10 @@ private:
 
   std::vector<FontCharacter> characters_;
   std::vector<unsigned int> vertexBuffers_;
-
+  
+  CSize textureSize_;
   float lastDeltaTime_;
+  bool isDirty_;
 
   int x_;
   int y_;

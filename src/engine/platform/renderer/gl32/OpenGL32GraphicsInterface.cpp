@@ -26,7 +26,8 @@ int OpenGL32GraphicsInterface::exitCode() const {
   return 0;
 }
 
-void OpenGL32GraphicsInterface::openWindow(int width, int height, unsigned int multiSamples) {
+void OpenGL32GraphicsInterface::openWindow(int width, int height, unsigned int multiSamples, bool vsyncEnabled, bool isFullScreen) {
+  
   int result = glfwInit();
 
   if (!result) {
@@ -48,7 +49,8 @@ void OpenGL32GraphicsInterface::openWindow(int width, int height, unsigned int m
   glslVersion_ = "150";
 #endif
   
-  result = glfwOpenWindow(width, height, 8, 8, 8, 8, 0, 0, GLFW_WINDOW);
+  int windowMode = isFullScreen ? GLFW_FULLSCREEN : GLFW_WINDOW;
+  result = glfwOpenWindow(width, height, 8, 8, 8, 8, 0, 0, windowMode);
 
   const GLubyte * glVersionString = glGetString(GL_VERSION);
   std::string windowTitle("OpenGL ");
@@ -58,6 +60,9 @@ void OpenGL32GraphicsInterface::openWindow(int width, int height, unsigned int m
 	if (!result) {
 		LOG(LOG_CHANNEL_RENDERER, "Failed to open window");
 	}
+  
+  int swapInterval = vsyncEnabled ? 1 : 0;
+  glfwSwapInterval(swapInterval);
 
 	GLUtilities::checkForError();
 

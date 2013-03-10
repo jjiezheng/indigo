@@ -7,9 +7,9 @@
 
 IGraphicsInterface* GraphicsInterface::graphicsInterface_ = 0;
 
-void GraphicsInterface::init(int width, int height, unsigned int multiSamples) {
+void GraphicsInterface::init(int width, int height, unsigned int multiSamples, bool vsyncEnabled, bool isFullScreen) {
   graphicsInterface_ = IGraphicsInterface::createInterface();
-  graphicsInterface_->openWindow(width, height, multiSamples);
+  graphicsInterface_->openWindow(width, height, multiSamples, vsyncEnabled, isFullScreen);
 }
 
 void GraphicsInterface::destroy() {

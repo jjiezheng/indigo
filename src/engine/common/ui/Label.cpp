@@ -27,38 +27,59 @@ void Label::loadFont(const std::string& fontFilePath) {
 
 void Label::setText(const std::string& text) {
 	characters_.clear();
+  
+  int textureWidth = 0;
+  int textureHeight = 0;
+
 	for (unsigned int i = 0; i < text.size(); i++) {
 		FontCharacter character = font_.getCharacter(text[i]);
+    textureWidth += character.width;
+    if (character.height > textureHeight) {
+      textureHeight = character.height;
+    }
 		characters_.push_back(character);
 	}
-} 
+  
+  if (textureWidth > textureSize_.width || textureHeight > textureSize_.height) {
+    // Need to delete the previous resources
+    textureSize_ = CSize(textureWidth, textureHeight);
+    labelTexture_ = GraphicsInterface::createTexture(textureSize_);
+    labelRenderTarget_ = GraphicsInterface::createRenderTarget(labelTexture_);
+    labelFrameBuffer_ = GraphicsInterface::createFrameBuffer(labelRenderTarget_, false);
+    isDirty_ = true;
+  }
+}
 
-void Label::render(const Matrix4x4& projection) const {
+void Label::render(const Matrix4x4& projection) {
 	GraphicsInterface::beginPerformanceEvent("Label");
+  
+  if (isDirty_) {
+    GraphicsInterface::setFrameBuffer(labelFrameBuffer_);
+    
+    labelEffect_->beginDraw();
+    labelEffect_->setTexture(font_.texture(), "ColorMap");
 
-	unsigned int nextCharacterOffset = 0;
-	for (std::vector<FontCharacter>::const_iterator i = characters_.begin(); i != characters_.end(); ++i) {
-		labelEffect_->beginDraw();
+    unsigned int nextCharacterOffset = 0;
+    for (std::vector<FontCharacter>::const_iterator i = characters_.begin(); i != characters_.end(); ++i) {
+      
+      int x = nextCharacterOffset + (*i).xoffset +  x_;
+      int y = font_.lineHeight() - (*i).height - (*i).yoffset + y_;
+      Matrix4x4 model = Matrix4x4::translation(Vector4((float)x, (float)y, 0.0f, 1.0f));
 
-		int x = nextCharacterOffset + (*i).xoffset +  x_;
-		int y = font_.lineHeight() - (*i).height - (*i).yoffset + y_;
-		Matrix4x4 model = Matrix4x4::translation(Vector4((float)x, (float)y, 0.0f, 1.0f));
+      Matrix4x4 modelProjection = projection * model;
 
-		Matrix4x4 modelProjection = projection * model;
+      labelEffect_->setUniform(modelProjection, "ModelProjection");
+      
+      labelEffect_->commitBuffers();
+      GraphicsInterface::drawVertexBuffer((*i).vertexBuffer, Geometry::FONT_PLANE_VERTEX_COUNT, Geometry::FONT_PLANE_VERTEX_FORMAT);
+      labelEffect_->endDraw();
 
-		labelEffect_->setUniform(modelProjection, "ModelProjection");
-		labelEffect_->setTexture(font_.texture(), "ColorMap");
-
-		GraphicsInterface::resetRenderTarget(false);
-		GraphicsInterface::setBlendState(IGraphicsInterface::ALPHA);
-
-		labelEffect_->commitBuffers();
-		GraphicsInterface::drawVertexBuffer((*i).vertexBuffer, Geometry::FONT_PLANE_VERTEX_COUNT, Geometry::FONT_PLANE_VERTEX_FORMAT);
-		labelEffect_->endDraw();
-
-		nextCharacterOffset += (*i).xadvance;
-	}
-
+      nextCharacterOffset += (*i).xadvance;
+    }
+    
+    isDirty_ = false;
+  }
+  
 	GraphicsInterface::endPerformanceEvent();
 }
 

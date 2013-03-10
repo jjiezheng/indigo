@@ -14,6 +14,10 @@ void UI::destroy() {
 
 void UI::render() const {
 	GraphicsInterface::beginPerformanceEvent("UI");
+
+  GraphicsInterface::resetRenderTarget(false);
+  GraphicsInterface::setBlendState(IGraphicsInterface::ALPHA);
+
   for (std::vector<Control*>::const_iterator i = controls_.begin(); i != controls_.end(); ++i) {
     (*i)->render(projection_);
   }
