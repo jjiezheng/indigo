@@ -8,6 +8,8 @@
 
 #include "Label.h"
 
+unsigned int FPSStats::kMaxFrames = 10;
+
 FPSStats::~FPSStats() {
 	SAFE_DELETE(fpsLabel_);
 }
@@ -30,8 +32,6 @@ void FPSStats::render(const Matrix4x4& projection) {
 }
 
 void FPSStats::update(float dt) {
-  
-  static int kMaxFrames = 10;
   if (passedFrames_++ > kMaxFrames) {
     passedFrames_ = 0;
     std::stringstream data;

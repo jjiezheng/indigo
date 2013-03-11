@@ -34,6 +34,8 @@ private:
   
   unsigned int passedFrames_;
 
+  static unsigned int kMaxFrames;
+
 };
 
 #endif
