@@ -1,61 +1,47 @@
-#ifndef AVERAGEBLUR_H
-#define AVERAGEBLUR_H
+#ifndef AVERAGE_BLUR_H
+#define AVERAGE_BLUR_H
 
 #include "core/Size.h"
+#include "GraphicsInterface.h"
 
 class IEffect;
 
 class AverageBlur {
-
+  
 public:
-
-  ~AverageBlur();
-
-public:
-
+  
   AverageBlur()
-    : outputRenderTarget_(0)
-    , outputRenderTexture_(0)
-    , quadVbo_(0)
-    , effect_(0) { }
-
+  :horizontalRenderTarget_(0)
+  , horizontalMapTexture_(0)
+  , horizonalFrameBuffer_(0)
+  , quadVbo_(0)
+  , horizontalEffect_(0)
+  , verticalEffect_(0) { }
+  
 public:
-
+  
   void init(const CSize& bufferSize);
-
-  void render(unsigned int sourceTexture);
-
-  unsigned int outputTexture() const;
-
-  unsigned int outputTarget() const;
-
-public:
-
-  void setRenderTarget(unsigned int renderTarget);
-
+  
+  void render(FrameBuffer outputFrameBuffer, TextureId outputTexture, TextureId sourceTexture, unsigned int iterations);
+  
 private:
-
-  unsigned int outputRenderTarget_;
-  unsigned int outputRenderTexture_;
-
-  unsigned int quadVbo_;
-
-  IEffect* effect_;
-
+  
+  RenderTarget horizontalRenderTarget_;
+  TextureId horizontalMapTexture_;
+  FrameBuffer horizonalFrameBuffer_;
+  
+	RenderTarget verticalRenderTarget_;
+	TextureId verticalMapTexture_;
+	FrameBuffer verticalFrameBuffer_;
+  
+  VertexBuffer quadVbo_;
+  
+  IEffect* horizontalEffect_;
+  IEffect* verticalEffect_;
+	IEffect* outputEffect_;
+  
   CSize bufferSize_;
-
+  
 };
-
-inline unsigned int AverageBlur::outputTarget() const {
-  return outputRenderTarget_;
-}
-
-inline unsigned int AverageBlur::outputTexture() const {
-  return outputRenderTexture_;
-}
-
-inline void AverageBlur::setRenderTarget(unsigned int renderTarget) {
-  outputRenderTarget_ = renderTarget;
-}
 
 #endif
