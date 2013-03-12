@@ -19,9 +19,9 @@ VOutput vs(float4 position 		: POSITION,
 }
 
 float4 ps(float4 position	: POSITION,
-		  float2 texCoord	: TEXCOORD0) : COLOR0 {
+					float2 texCoord	: TEXCOORD0) : COLOR0 {
 
-	float4 lightPositionScreenSpace = mul(WorldViewProj, )
+	float4 lightPositionScreenSpace = mul(WorldViewProj, position);
 
 	return float4(1, 1, 1, 1);
 };
