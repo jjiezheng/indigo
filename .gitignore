@@ -18,4 +18,3 @@
 build
 assets/shaders/compiled/cgc-capture
 *.app
-Game

@@ -87,7 +87,7 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
 
 			{ // render lighting
 				IEffect* lightEffect = (*light)->castsShadows() ? lightEffectShadow_ : lightEffectNoShadow_;
-				renderLight(spotLight, lightEffect, viewer, initStage.normalMap());
+				renderLight(spotLight, lightEffect, viewer, initStage.normalViewSpaceMap());
 			}
 
 			{ // accumulate into lightmap
@@ -122,7 +122,7 @@ void DeferredSpotLightsPass::renderShadowMap(SpotLight* light, hash_map<IEffect*
 	  for (; i != meshes.end(); ++i) {
 		  std::vector<Mesh*> effectMeshes = (*i).second;
 		  for (std::vector<Mesh*>::iterator meshIt = effectMeshes.begin(); meshIt != effectMeshes.end(); ++meshIt) {
-			  GraphicsInterface::setRenderState(false);
+			  GraphicsInterface::setRenderState(true);
 			  shadowDepthEffect_->beginDraw();
 			  (*meshIt)->material().bind(light->projection(), light->viewTransform(), (*meshIt)->localToWorld(), shadowDepthEffect_);
 			  shadowDepthEffect_->commitBuffers();
@@ -154,7 +154,7 @@ void DeferredSpotLightsPass::renderShadowMap(SpotLight* light, hash_map<IEffect*
   // Blur
   {
     GraphicsInterface::beginPerformanceEvent("Gaussian Blur");
-    int kBlurPasses = 4;
+    int kBlurPasses = 1;
     depthBlur_.render(light->shadowMapFrameBuffer(), light->shadowMapTexture(), vsmDepthRenderTexture_, kBlurPasses);
     GraphicsInterface::endPerformanceEvent();
   }
@@ -220,6 +220,7 @@ void DeferredSpotLightsPass::renderLight(SpotLight* light, IEffect* lightEffect,
 		Vector2 shadowMapSize(1.0f/shadowMapResolution.width, 1.0f/shadowMapResolution.height);
 		lightEffect->setUniform(shadowMapSize, "ShadowMapSize");
 		lightEffect->setTexture(light->shadowMapTexture(), "ShadowMap");
+
 
     lightEffect->setUniform(light->lightBias(), "LightBias");
     lightEffect->setUniform(light->lightBleed(), "LightBleed");

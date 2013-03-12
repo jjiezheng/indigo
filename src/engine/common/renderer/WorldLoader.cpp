@@ -298,13 +298,13 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
           light->setShadowMapFrameBuffer(shadowMapFrameBuffer);
 
 
-          float kLightBias = 0.00001f;
+          float kLightBias = 0.000001f;
           light->setLightBias(kLightBias);
 
-          float kLightBleed = 0.98f;
+          float kLightBleed = 0.96f;
           light->setLightBleed(kLightBleed);
 
-          float kShadowBias = 0.000371f;
+          float kShadowBias = 0.0000371f;
           light->setShadowBias(kShadowBias);
         }
       }

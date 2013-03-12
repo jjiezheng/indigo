@@ -16,6 +16,7 @@
         },
         {
             "model": "actors/cube/cube.modelbinary",
+            "actor": "SpinningCube",
             "position": {
                 "x": 0,
                 "y": 0,
