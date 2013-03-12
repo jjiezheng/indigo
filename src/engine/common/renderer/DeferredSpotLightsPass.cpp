@@ -164,6 +164,8 @@ void DeferredSpotLightsPass::renderShadowMap(SpotLight* light, hash_map<IEffect*
 void DeferredSpotLightsPass::renderLight(SpotLight* light, IEffect* lightEffect, IViewer* viewer, unsigned int normalMap) {
 	GraphicsInterface::beginPerformanceEvent("Lighting");
 
+	light->update();
+
 	GraphicsInterface::setFrameBuffer(spotLightFrameBuffer_);
 	GraphicsInterface::clearActiveColorBuffers(Color4::CORNFLOWERBLUE);
 
@@ -178,9 +180,6 @@ void DeferredSpotLightsPass::renderLight(SpotLight* light, IEffect* lightEffect,
 
 	lightEffect->setUniform(viewer->projection().inverse(), "ProjInv");
 
-	//  Matrix4x4 normalMatrix = viewer->viewTransform().mat3x3().inverseTranspose();
-	//lightEffect_->setUniform(normalMatrix, "NormalMatrix");
-
 	lightEffect->setUniform(viewer->position(), "ViewerPosition");
 
 	Matrix4x4 worldViewProj = viewer->projection() * viewer->viewTransform() * light->transform();
@@ -188,6 +187,9 @@ void DeferredSpotLightsPass::renderLight(SpotLight* light, IEffect* lightEffect,
 
 	Matrix4x4 worldView = viewer->viewTransform() * light->transform();
 	lightEffect->setUniform(worldView, "WorldView");
+
+	Matrix4x4 normalMatrix = viewer->viewTransform().inverse().transpose().mat3x3(); // strips out the translation;
+	lightEffect->setUniform(normalMatrix, "NormalMatrix");
 
 	Matrix4x4 lightViewProj = light->projection() * light->viewTransform();
 	lightEffect->setUniform(lightViewProj, "LightViewProj");

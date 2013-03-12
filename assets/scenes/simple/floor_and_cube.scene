@@ -43,7 +43,7 @@
           "innerangle" : 10,
           "outerangle" : 20,
           "decay" : 0.2,
-          "length" : 30,
+          "length" : 50,
           "intensity" : 1.0,
           "lightbias" : 0.000001,
           "lightbleed" : 0.999,

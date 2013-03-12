@@ -55,45 +55,19 @@
         },
         {
           "type" : "spot",
-          "innerangle" : 10,
-          "outerangle" : 20,
+          "innerangle" : 10.0,
+          "outerangle" : 20.0,
           "decay" : 0.2,
           "length" : 30,
           "intensity" : 1.0,
           "castsshadows" : true,
+          "lightbias" : 0.000001,
+          "lightbleed" : 0.999,
+          "shadowbias" : 0.0000371,
           "position" : {
-            "x" : 10,
-            "y" : 10,
-            "z" : 10
-          },
-          "orientation" : {
-            "x" : 0,
-            "y" : 0,
+            "x" : 20,
+            "y" : 20,
             "z" : 0
-          },
-          "color" : {
-            "r" : 1.0,
-            "g" : 0.0,
-            "b" : 1.0
-          },
-          "direction" : {
-            "x" : -1.0,
-            "y" : -1.0,
-            "z" : -1.0
-          }
-        },
-        {
-          "type" : "spot",
-          "innerangle" : 10,
-          "outerangle" : 20,
-          "decay" : 0.2,
-          "length" : 30,
-          "intensity" : 1.0,
-          "castsshadows" : true,
-          "position" : {
-            "x" : 10,
-            "y" : 10,
-            "z" : -10
           },
           "orientation" : {
             "x" : 0,
@@ -108,7 +82,7 @@
           "direction" : {
             "x" : -1.0,
             "y" : -1.0,
-            "z" : 1.0
+            "z" : -1.0
           }
         }
     ]

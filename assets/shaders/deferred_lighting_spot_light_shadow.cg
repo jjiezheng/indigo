@@ -88,8 +88,7 @@ float4 ps(float4 position 		: POSITION,
 
 	float diffuseStrength = 0.0f;
 
-	float3 lightVector = DirectionToLight;
-  	float3 lightVectorViewSpace = DirectionToLight;//normalize(mul(NormalMatrix, lightVector));
+  	float3 lightVectorViewSpace = normalize(mul(NormalMatrix, -LightDirection));
 
 	float lightOuterCos = cos(LightOuterAngle);
 	float lightInnerCos = cos(LightInnerAngle);	
@@ -115,8 +114,8 @@ float4 ps(float4 position 		: POSITION,
 		float3 viewerDirectionUnNormalized = ViewerPosition - positionWorld;
 		float3 viewDirection = normalize(viewerDirectionUnNormalized);
 
-		float3 floatVectorRaw = lightVector + viewDirection;
-		float3 floatVector = floatVectorRaw;//normalize(mul(NormalMatrix, floatVectorRaw));
+		float3 floatVectorRaw = DirectionToLight + viewDirection;
+		float3 floatVector = normalize(mul(NormalMatrix, floatVectorRaw));
 
 		float incidence = pow(saturate(dot(normal, floatVector)), specularPower);
 
