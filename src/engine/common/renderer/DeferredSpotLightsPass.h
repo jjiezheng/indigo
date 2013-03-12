@@ -5,7 +5,7 @@
 
 #include "IDeferredLightingPass.h"
 #include "core/HashMap.h"
-#include "GaussianBlur.h"
+#include "AverageBlur.h"
 
 class IEffect;
 class Model;
@@ -63,7 +63,7 @@ private:
 
   IEffect* vsmDepthEffect_;
 
-  GaussianBlur depthBlur_;
+  AverageBlur depthBlur_;
 
 };
 

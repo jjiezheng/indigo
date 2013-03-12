@@ -11,11 +11,7 @@ class AverageBlur {
 public:
   
   AverageBlur()
-  :horizontalRenderTarget_(0)
-  , horizontalMapTexture_(0)
-  , horizonalFrameBuffer_(0)
-  , quadVbo_(0)
-  , horizontalEffect_(0)
+  : quadVbo_(0)
   , verticalEffect_(0) { }
   
 public:
@@ -26,19 +22,13 @@ public:
   
 private:
   
-  RenderTarget horizontalRenderTarget_;
-  TextureId horizontalMapTexture_;
-  FrameBuffer horizonalFrameBuffer_;
-  
-	RenderTarget verticalRenderTarget_;
+  RenderTarget verticalRenderTarget_;
 	TextureId verticalMapTexture_;
 	FrameBuffer verticalFrameBuffer_;
   
   VertexBuffer quadVbo_;
   
-  IEffect* horizontalEffect_;
   IEffect* verticalEffect_;
-	IEffect* outputEffect_;
   
   CSize bufferSize_;
   

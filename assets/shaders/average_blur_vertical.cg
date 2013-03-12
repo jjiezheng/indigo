@@ -20,12 +20,58 @@ float4 ps(float4 position   : POSITION,
 
 	float4 result = float4(0);
 
-	for (float i = -1.0f; i < 1.0f; i += 1.0f) {
-		float2 offset = float2(0, i) * TexelSize + texCoord;
-		result += tex2D(SourceMap, offset).r;
+	// top
+
+	{
+		float2 offset = float2(-1, 1) * TexelSize;
+		result += tex2D(SourceMap, texCoord + offset);
 	}
-	
-	result = result * 0.25f;
+
+	{
+		float2 offset = float2(0, 1) * TexelSize;
+		result += tex2D(SourceMap, texCoord + offset);
+	}
+
+	{
+		float2 offset = float2(1, 1) * TexelSize;
+		result += tex2D(SourceMap, texCoord + offset);
+	}
+
+	// middle
+
+	{
+		float2 offset = float2(-1, 0) * TexelSize;
+		result += tex2D(SourceMap, texCoord + offset);
+	}
+
+	{
+		result += tex2D(SourceMap, texCoord);
+	}
+
+	{
+		float2 offset = float2(1, 0) * TexelSize;
+		result += tex2D(SourceMap, texCoord + offset);
+	}
+
+	// bottom
+
+	{
+		float2 offset = float2(-1, -1) * TexelSize;
+		result += tex2D(SourceMap, texCoord + offset);
+	}
+
+	{
+		float2 offset = float2(0, -1) * TexelSize;
+		result += tex2D(SourceMap, texCoord + offset);
+	}
+
+	{
+		float2 offset = float2(1, -1) * TexelSize;
+		result += tex2D(SourceMap, texCoord + offset);
+	}
+
+
+	result /= 9.0f;
 
 	return result;
 }

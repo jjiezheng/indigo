@@ -19,13 +19,15 @@ float4 ps(float4 position   : POSITION,
 		  		float2 texCoord 	: TEXCOORD0) : COLOR0 {
 
 	float4 result = float4(0);
+	float iterations = 0.0f;
 
 	for (float i = -1.0f; i < 1.0f; i += 1.0f) {
-		float2 offset = float2(i, 0) * TexelSize + texCoord;
-		result += tex2D(SourceMap, offset).r;
+		float2 offset = float2(i, 0) * TexelSize;
+		result += tex2D(SourceMap, texCoord + offset);
+		iterations += 1.0f;
 	}
 	
-	result = result * 0.25f;
+	result /= iterations;
 
 	return result;
 }

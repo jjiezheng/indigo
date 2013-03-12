@@ -54,7 +54,7 @@ void DeferredSpotLightsPass::init(const CSize& screenSize) {
 	accumulationEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/deferred_light_composition.shader");
 	quadVbo_ = Geometry::screenPlane();
 
-  depthBlur_.init(screenSize, 16);
+  depthBlur_.init(screenSize);
 }
 
 void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneContext& sceneContext, unsigned int lightMapFrameBuffer, const DeferredInitRenderStage& initStage) {
@@ -148,11 +148,11 @@ void DeferredSpotLightsPass::renderShadowMap(SpotLight* light, hash_map<IEffect*
 
     GraphicsInterface::endPerformanceEvent();
   }
-
+		
   // Blur
   {
-    GraphicsInterface::beginPerformanceEvent("Gaussian Blur");
-    int kBlurPasses = 1;
+    GraphicsInterface::beginPerformanceEvent("Blur");
+    int kBlurPasses = 4;
     depthBlur_.render(light->shadowMapFrameBuffer(), light->shadowMapTexture(), vsmDepthRenderTexture_, kBlurPasses);
     GraphicsInterface::endPerformanceEvent();
   }

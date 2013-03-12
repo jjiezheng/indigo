@@ -10,7 +10,7 @@
 
 PFNGLSTRINGMARKERGREMEDYPROC glStringMarkerGREMEDY = NULL;
 
-#ifdef __APPLE__
+#ifdef PLATFORM_MAC
 
 #include <stdlib.h>
 #include <string.h>
@@ -39,8 +39,8 @@ void* NSGLGetProcAddress(const char *name, const char* libraryPath)
 #endif
 
 void initGremedyExtension(void) {
-#ifdef PLATFORM_APPLE
-  glStringMarkerGREMEDY = (PFNGLSTRINGMARKERGREMEDYPROC)NSGLGetProcAddress("glStringMarkerGREMEDY");
+#ifdef PLATFORM_MAC
+  glStringMarkerGREMEDY = (PFNGLSTRINGMARKERGREMEDYPROC)NSGLGetProcAddress("glStringMarkerGREMEDY", "/System/Library/Frameworks/OpenGL.framework/Versions/Current/OpenGL");
 #endif
 
 #ifdef PLATFORM_LINUX

@@ -128,27 +128,27 @@ void main()
     vec3 _pixelPositionFromLightNDC;
 
     _screenPositionClip = gl_TexCoord[0].xy/gl_TexCoord[0].z;
-    _texCoord0036 = _screenPositionClip*5.00000000E-001 + 5.00000000E-001;
+    _texCoord0036 = _screenPositionClip*5.00000000E-01 + 5.00000000E-01;
     _TMP7 = texture2D(_DepthMap, _texCoord0036);
-    _depth = _TMP7.x*2.00000000E+000 - 1.00000000E+000;
+    _depth = _TMP7.x*2.00000000E+00 - 1.00000000E+00;
     _TMP8 = texture2D(_NormalMap, _texCoord0036);
-    _unPackedNormal0042 = _TMP8.xyz*2.00000000E+000 - 1.00000000E+000;
+    _unPackedNormal0042 = _TMP8.xyz*2.00000000E+00 - 1.00000000E+00;
     _TMP9 = dot(_unPackedNormal0042.xyz, _unPackedNormal0042.xyz);
     _TMP10 = inversesqrt(_TMP9);
     _normal = _TMP10*_unPackedNormal0042.xyz;
-    _positionScreen = vec4(_screenPositionClip.x, _screenPositionClip.y, _depth, 1.00000000E+000);
+    _positionScreen = vec4(_screenPositionClip.x, _screenPositionClip.y, _depth, 1.00000000E+00);
     _r0052.x = dot(_ViewProjInv[0], _positionScreen);
     _r0052.y = dot(_ViewProjInv[1], _positionScreen);
     _r0052.z = dot(_ViewProjInv[2], _positionScreen);
     _r0052.w = dot(_ViewProjInv[3], _positionScreen);
     _positionWorld = _r0052.xyz/_r0052.w;
-    _lightContribution = vec4( 0.00000000E+000, 0.00000000E+000, 0.00000000E+000, 1.00000000E+000);
+    _lightContribution = vec4( 0.00000000E+00, 0.00000000E+00, 0.00000000E+00, 1.00000000E+00);
     _v0062 = _positionWorld - _LightPosition;
     _TMP9 = dot(_v0062, _v0062);
     _TMP10 = inversesqrt(_TMP9);
     _pixelToLight = _TMP10*_v0062;
     _lightDirectionDot = dot(_LightDirection, _pixelToLight);
-    _diffuseStrength = 0.00000000E+000;
+    _diffuseStrength = 0.00000000E+00;
     _v0070 = -_LightDirection;
     _r0070.x = dot(_NormalMatrix[0], _v0070);
     _r0070.y = dot(_NormalMatrix[1], _v0070);
@@ -160,22 +160,22 @@ void main()
     _lightInnerCos = cos(_LightInnerAngle);
     if (_lightDirectionDot > _lightOuterCos) { // if begin
         _TMP1 = dot(_normal, _lightVectorViewSpace);
-        _TMP11 = min(1.00000000E+000, _TMP1);
-        _TMP91 = max(0.00000000E+000, _TMP11);
+        _TMP11 = min(1.00000000E+00, _TMP1);
+        _TMP91 = max(0.00000000E+00, _TMP11);
         _x0100 = (_lightDirectionDot - _lightOuterCos)/(_lightInnerCos - _lightOuterCos);
-        _TMP11 = min(1.00000000E+000, _x0100);
-        _TMP101 = max(0.00000000E+000, _TMP11);
-        _TMP2 = _TMP101*_TMP101*(3.00000000E+000 - 2.00000000E+000*_TMP101);
+        _TMP11 = min(1.00000000E+00, _x0100);
+        _TMP101 = max(0.00000000E+00, _TMP11);
+        _TMP2 = _TMP101*_TMP101*(3.00000000E+00 - 2.00000000E+00*_TMP101);
         _diffuseStrength = _TMP91*_TMP2;
     } // end if
     if (_lightDirectionDot > _lightInnerCos) { // if begin
         _TMP3 = dot(_normal, _lightVectorViewSpace);
-        _TMP11 = min(1.00000000E+000, _TMP3);
-        _TMP111 = max(0.00000000E+000, _TMP11);
+        _TMP11 = min(1.00000000E+00, _TMP3);
+        _TMP111 = max(0.00000000E+00, _TMP11);
         _diffuseStrength = _TMP111;
     } // end if
-    _lightContribution.xyz = _LightColor*_diffuseStrength*2.54999995E+000*_LightDistance;
-    if (_diffuseStrength > 0.00000000E+000) { // if begin
+    _lightContribution.xyz = _LightColor*_diffuseStrength*2.54999995E+00*_LightDistance;
+    if (_diffuseStrength > 0.00000000E+00) { // if begin
         _viewerDirectionUnNormalized1 = _ViewerPosition - _positionWorld;
         _TMP9 = dot(_viewerDirectionUnNormalized1, _viewerDirectionUnNormalized1);
         _TMP10 = inversesqrt(_TMP9);
@@ -188,22 +188,22 @@ void main()
         _TMP10 = inversesqrt(_TMP9);
         _floatVector1 = _TMP10*_r0124;
         _TMP5 = dot(_normal, _floatVector1);
-        _TMP11 = min(1.00000000E+000, _TMP5);
-        _TMP141 = max(0.00000000E+000, _TMP11);
+        _TMP11 = min(1.00000000E+00, _TMP5);
+        _TMP141 = max(0.00000000E+00, _TMP11);
         _lightContribution.w = _TMP141*_LightDistance;
     } // end if
-    _v0148 = vec4(_positionWorld.x, _positionWorld.y, _positionWorld.z, 1.00000000E+000);
+    _v0148 = vec4(_positionWorld.x, _positionWorld.y, _positionWorld.z, 1.00000000E+00);
     _r0148.x = dot(_LightViewProj[0], _v0148);
     _r0148.y = dot(_LightViewProj[1], _v0148);
     _r0148.z = dot(_LightViewProj[2], _v0148);
     _r0148.w = dot(_LightViewProj[3], _v0148);
     _pixelPositionFromLightNDC = _r0148.xyz/_r0148.w;
-    _texCoord0158 = _pixelPositionFromLightNDC.xy*5.00000000E-001 + 5.00000000E-001;
+    _texCoord0158 = _pixelPositionFromLightNDC.xy*5.00000000E-01 + 5.00000000E-01;
     _zToCompare0160 = _pixelPositionFromLightNDC.z + _ShadowBias;
     _moments0160 = texture2D(_ShadowMap, _texCoord0158);
     _TMP165 = true;
     if (_zToCompare0160 <= _moments0160.x) { // if begin
-        _TMP163 = 1.00000000E+000;
+        _TMP163 = 1.00000000E+00;
         _TMP165 = false;
     } // end if
     if (_TMP165) { // if begin
@@ -213,10 +213,10 @@ void main()
         _p_max0164 = _variance0164/(_variance0164 + _d0164*_d0164);
         _TMP163 = _p_max0164;
     } // end if
-    _x0173 = (_TMP163 - _LightBleed)/(1.00000000E+000 - _LightBleed);
-    _TMP11 = min(1.00000000E+000, _x0173);
-    _TMP174 = max(0.00000000E+000, _TMP11);
-    _TMP168 = _TMP174*_TMP174*(3.00000000E+000 - 2.00000000E+000*_TMP174);
+    _x0173 = (_TMP163 - _LightBleed)/(1.00000000E+00 - _LightBleed);
+    _TMP11 = min(1.00000000E+00, _x0173);
+    _TMP174 = max(0.00000000E+00, _TMP11);
+    _TMP168 = _TMP174*_TMP174*(3.00000000E+00 - 2.00000000E+00*_TMP174);
     _lightContribution = _lightContribution*_TMP168;
     gl_FragColor = _lightContribution;
     return;
