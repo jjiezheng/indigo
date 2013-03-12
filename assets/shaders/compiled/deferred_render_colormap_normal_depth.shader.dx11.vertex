@@ -71,7 +71,7 @@ X1X main(in float4 _position : POSITION, in float3 _normal : NORMAL0, in float2 
     _OUT._position1 = _r0003;
     _OUT._normal1 = _normal;
     _OUT._texCoord1 = _texCoord;
-    _v0005 = float4(_normal.x, _normal.y, _normal.z,   0.00000000000000000E00f);
+    _v0005 = float4(_normal.x, _normal.y, _normal.z,  0.00000000000000000E000f);
     _r0005.x = dot(_NormalMatrix._11_12_13_14, _v0005);
     _r0005.y = dot(_NormalMatrix._21_22_23_24, _v0005);
     _r0005.z = dot(_NormalMatrix._31_32_33_34, _v0005);

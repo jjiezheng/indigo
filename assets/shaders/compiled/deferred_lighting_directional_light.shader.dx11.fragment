@@ -54,13 +54,13 @@ float4 main( in X1X cin) : SV_Target0
     _texCoord1 = cin._TEXCOORD0;
     _texCoord0008 = _texCoord1 + _HalfPixel;
     _TMP3 = _TMP11.Sample(_NormalMap, _texCoord0008);
-    _unPackedNormal0008 = _TMP3.xyz*  2.00000000000000000E00f -   1.00000000000000000E00f;
+    _unPackedNormal0008 = _TMP3.xyz* 2.00000000000000000E000f -  1.00000000000000000E000f;
     _TMP4 = dot(_LightDirection.xyz, _LightDirection.xyz);
     _TMP5 = rsqrt(_TMP4);
     _TMP1 = _TMP5*_LightDirection.xyz;
     _lightVector = -_TMP1;
     _TMP2 = dot(_unPackedNormal0008.xyz, _lightVector);
-    _diffuseStrength = max(  0.00000000000000000E00f, _TMP2);
+    _diffuseStrength = max( 0.00000000000000000E000f, _TMP2);
     _diffuseContribution = _LightColor*_diffuseStrength;
-    return float4(_diffuseContribution.x, _diffuseContribution.y, _diffuseContribution.z,   1.00000000000000000E00f);
+    return float4(_diffuseContribution.x, _diffuseContribution.y, _diffuseContribution.z,  1.00000000000000000E000f);
 } // main end

@@ -217,25 +217,25 @@ void main()
 
 
     _pos0107 = gl_TexCoord[0].xy + _HalfPixel;
-    _fxaaQualityRcpFrame0107 = vec2(1.00000000E+00/_ScreenSize.x, 1.00000000E+00/_ScreenSize.y);
+    _fxaaQualityRcpFrame0107 = vec2(1.00000000E+000/_ScreenSize.x, 1.00000000E+000/_ScreenSize.y);
     _TMP108 = true;
     _posM0107.x = _pos0107.x;
     _posM0107.y = _pos0107.y;
-    _c0110 = vec4(_pos0107.x, _pos0107.y, 0.00000000E+00, 0.00000000E+00);
+    _c0110 = vec4(_pos0107.x, _pos0107.y, 0.00000000E+000, 0.00000000E+000);
     _rgbyM0107 = texture2DLod(_FinalMap, vec2(_c0110.x, _c0110.y), _c0110.w);
-    _TMP1040107 = _posM0107 + vec2( 0.00000000E+00, 1.00000000E+00)*_fxaaQualityRcpFrame0107.xy;
-    _c0112 = vec4(_TMP1040107.x, _TMP1040107.y, 0.00000000E+00, 0.00000000E+00);
+    _TMP1040107 = _posM0107 + vec2( 0.00000000E+000, 1.00000000E+000)*_fxaaQualityRcpFrame0107.xy;
+    _c0112 = vec4(_TMP1040107.x, _TMP1040107.y, 0.00000000E+000, 0.00000000E+000);
     _TMP0 = texture2DLod(_FinalMap, vec2(_c0112.x, _c0112.y), _c0112.w);
     _lumaS0107 = _TMP0.w;
-    _TMP1030107 = _posM0107 + vec2( 1.00000000E+00, 0.00000000E+00)*_fxaaQualityRcpFrame0107.xy;
-    _c0116 = vec4(_TMP1030107.x, _TMP1030107.y, 0.00000000E+00, 0.00000000E+00);
+    _TMP1030107 = _posM0107 + vec2( 1.00000000E+000, 0.00000000E+000)*_fxaaQualityRcpFrame0107.xy;
+    _c0116 = vec4(_TMP1030107.x, _TMP1030107.y, 0.00000000E+000, 0.00000000E+000);
     _TMP1 = texture2DLod(_FinalMap, vec2(_c0116.x, _c0116.y), _c0116.w);
-    _TMP1020107 = _posM0107 + vec2( 0.00000000E+00, -1.00000000E+00)*_fxaaQualityRcpFrame0107.xy;
-    _c0120 = vec4(_TMP1020107.x, _TMP1020107.y, 0.00000000E+00, 0.00000000E+00);
+    _TMP1020107 = _posM0107 + vec2( 0.00000000E+000, -1.00000000E+000)*_fxaaQualityRcpFrame0107.xy;
+    _c0120 = vec4(_TMP1020107.x, _TMP1020107.y, 0.00000000E+000, 0.00000000E+000);
     _TMP2 = texture2DLod(_FinalMap, vec2(_c0120.x, _c0120.y), _c0120.w);
     _lumaN0107 = _TMP2.w;
-    _TMP1010107 = _posM0107 + vec2( -1.00000000E+00, 0.00000000E+00)*_fxaaQualityRcpFrame0107.xy;
-    _c0124 = vec4(_TMP1010107.x, _TMP1010107.y, 0.00000000E+00, 0.00000000E+00);
+    _TMP1010107 = _posM0107 + vec2( -1.00000000E+000, 0.00000000E+000)*_fxaaQualityRcpFrame0107.xy;
+    _c0124 = vec4(_TMP1010107.x, _TMP1010107.y, 0.00000000E+000, 0.00000000E+000);
     _TMP3 = texture2DLod(_FinalMap, vec2(_c0124.x, _c0124.y), _c0124.w);
     _maxSM0107 = max(_TMP0.w, _rgbyM0107.w);
     _minSM0107 = min(_TMP0.w, _rgbyM0107.w);
@@ -245,9 +245,9 @@ void main()
     _minWN0107 = min(_TMP2.w, _TMP3.w);
     _rangeMax0107 = max(_maxWN0107, _maxESM0107);
     _rangeMin0107 = min(_minWN0107, _minESM0107);
-    _rangeMaxScaled0107 = _rangeMax0107*1.25000000E-01;
+    _rangeMaxScaled0107 = _rangeMax0107*1.25000000E-001;
     _range0107 = _rangeMax0107 - _rangeMin0107;
-    _rangeMaxClamped0107 = max(6.25000000E-02, _rangeMaxScaled0107);
+    _rangeMaxClamped0107 = max(6.25000000E-002, _rangeMaxScaled0107);
     _earlyExit0107 = _range0107 < _rangeMaxClamped0107;
     if (_earlyExit0107) { // if begin
         _TMP106 = _rgbyM0107;
@@ -255,37 +255,37 @@ void main()
     } // end if
     if (_TMP108) { // if begin
         _TMP1000107 = _posM0107 + -_fxaaQualityRcpFrame0107.xy;
-        _c0146 = vec4(_TMP1000107.x, _TMP1000107.y, 0.00000000E+00, 0.00000000E+00);
+        _c0146 = vec4(_TMP1000107.x, _TMP1000107.y, 0.00000000E+000, 0.00000000E+000);
         _TMP4 = texture2DLod(_FinalMap, vec2(_c0146.x, _c0146.y), _c0146.w);
         _TMP990107 = _posM0107 + _fxaaQualityRcpFrame0107.xy;
-        _c0150 = vec4(_TMP990107.x, _TMP990107.y, 0.00000000E+00, 0.00000000E+00);
+        _c0150 = vec4(_TMP990107.x, _TMP990107.y, 0.00000000E+000, 0.00000000E+000);
         _TMP5 = texture2DLod(_FinalMap, vec2(_c0150.x, _c0150.y), _c0150.w);
-        _TMP980107 = _posM0107 + vec2( 1.00000000E+00, -1.00000000E+00)*_fxaaQualityRcpFrame0107.xy;
-        _c0154 = vec4(_TMP980107.x, _TMP980107.y, 0.00000000E+00, 0.00000000E+00);
+        _TMP980107 = _posM0107 + vec2( 1.00000000E+000, -1.00000000E+000)*_fxaaQualityRcpFrame0107.xy;
+        _c0154 = vec4(_TMP980107.x, _TMP980107.y, 0.00000000E+000, 0.00000000E+000);
         _TMP6 = texture2DLod(_FinalMap, vec2(_c0154.x, _c0154.y), _c0154.w);
-        _TMP970107 = _posM0107 + vec2( -1.00000000E+00, 1.00000000E+00)*_fxaaQualityRcpFrame0107.xy;
-        _c0158 = vec4(_TMP970107.x, _TMP970107.y, 0.00000000E+00, 0.00000000E+00);
+        _TMP970107 = _posM0107 + vec2( -1.00000000E+000, 1.00000000E+000)*_fxaaQualityRcpFrame0107.xy;
+        _c0158 = vec4(_TMP970107.x, _TMP970107.y, 0.00000000E+000, 0.00000000E+000);
         _TMP7 = texture2DLod(_FinalMap, vec2(_c0158.x, _c0158.y), _c0158.w);
         _lumaNS0107 = _TMP2.w + _TMP0.w;
         _lumaWE0107 = _TMP3.w + _TMP1.w;
-        _subpixRcpRange0107 = 1.00000000E+00/_range0107;
+        _subpixRcpRange0107 = 1.00000000E+000/_range0107;
         _subpixNSWE0107 = _lumaNS0107 + _lumaWE0107;
-        _edgeHorz10107 = -2.00000000E+00*_rgbyM0107.w + _lumaNS0107;
-        _edgeVert10107 = -2.00000000E+00*_rgbyM0107.w + _lumaWE0107;
+        _edgeHorz10107 = -2.00000000E+000*_rgbyM0107.w + _lumaNS0107;
+        _edgeVert10107 = -2.00000000E+000*_rgbyM0107.w + _lumaWE0107;
         _lumaNESE0107 = _TMP6.w + _TMP5.w;
         _lumaNWNE0107 = _TMP4.w + _TMP6.w;
-        _edgeHorz20107 = -2.00000000E+00*_TMP1.w + _lumaNESE0107;
-        _edgeVert20107 = -2.00000000E+00*_TMP2.w + _lumaNWNE0107;
+        _edgeHorz20107 = -2.00000000E+000*_TMP1.w + _lumaNESE0107;
+        _edgeVert20107 = -2.00000000E+000*_TMP2.w + _lumaNWNE0107;
         _lumaNWSW0107 = _TMP4.w + _TMP7.w;
         _lumaSWSE0107 = _TMP7.w + _TMP5.w;
         _TMP8 = abs(_edgeHorz10107);
         _TMP9 = abs(_edgeHorz20107);
-        _edgeHorz40107 = _TMP8*2.00000000E+00 + _TMP9;
+        _edgeHorz40107 = _TMP8*2.00000000E+000 + _TMP9;
         _TMP10 = abs(_edgeVert10107);
         _TMP11 = abs(_edgeVert20107);
-        _edgeVert40107 = _TMP10*2.00000000E+00 + _TMP11;
-        _edgeHorz30107 = -2.00000000E+00*_TMP3.w + _lumaNWSW0107;
-        _edgeVert30107 = -2.00000000E+00*_TMP0.w + _lumaSWSE0107;
+        _edgeVert40107 = _TMP10*2.00000000E+000 + _TMP11;
+        _edgeHorz30107 = -2.00000000E+000*_TMP3.w + _lumaNWSW0107;
+        _edgeVert30107 = -2.00000000E+000*_TMP0.w + _lumaSWSE0107;
         _TMP12 = abs(_edgeHorz30107);
         _edgeHorz0107 = _TMP12 + _edgeHorz40107;
         _TMP13 = abs(_edgeVert30107);
@@ -293,7 +293,7 @@ void main()
         _subpixNWSWNESE0107 = _lumaNWSW0107 + _lumaNESE0107;
         _lengthSign0107 = _fxaaQualityRcpFrame0107.x;
         _horzSpan0107 = _edgeHorz0107 >= _edgeVert0107;
-        _subpixA0107 = _subpixNSWE0107*2.00000000E+00 + _subpixNWSWNESE0107;
+        _subpixA0107 = _subpixNSWE0107*2.00000000E+000 + _subpixNWSWNESE0107;
         if (!_horzSpan0107) { // if begin
             _lumaN0107 = _TMP3.w;
         } // end if
@@ -303,7 +303,7 @@ void main()
         if (_horzSpan0107) { // if begin
             _lengthSign0107 = _fxaaQualityRcpFrame0107.y;
         } // end if
-        _subpixB0107 = _subpixA0107*8.33333358E-02 - _rgbyM0107.w;
+        _subpixB0107 = _subpixA0107*8.33333358E-002 - _rgbyM0107.w;
         _gradientN0107 = _lumaN0107 - _rgbyM0107.w;
         _gradientS0107 = _lumaS0107 - _rgbyM0107.w;
         _lumaNN0107 = _lumaN0107 + _rgbyM0107.w;
@@ -319,45 +319,45 @@ void main()
         } // end if
         _TMP18 = abs(_subpixB0107);
         _x0186 = _TMP18*_subpixRcpRange0107;
-        _TMP68 = min(1.00000000E+00, _x0186);
-        _TMP187 = max(0.00000000E+00, _TMP68);
+        _TMP68 = min(1.00000000E+000, _x0186);
+        _TMP187 = max(0.00000000E+000, _TMP68);
         _posB0107.x = _pos0107.x;
         _posB0107.y = _pos0107.y;
         if (!_horzSpan0107) { // if begin
-            _TMP19 = 0.00000000E+00;
+            _TMP19 = 0.00000000E+000;
         } else {
             _TMP19 = _fxaaQualityRcpFrame0107.x;
         } // end if
         if (_horzSpan0107) { // if begin
-            _TMP20 = 0.00000000E+00;
+            _TMP20 = 0.00000000E+000;
         } else {
             _TMP20 = _fxaaQualityRcpFrame0107.y;
         } // end if
         if (!_horzSpan0107) { // if begin
-            _posB0107.x = _pos0107.x + _lengthSign0107*5.00000000E-01;
+            _posB0107.x = _pos0107.x + _lengthSign0107*5.00000000E-001;
         } // end if
         if (_horzSpan0107) { // if begin
-            _posB0107.y = _pos0107.y + _lengthSign0107*5.00000000E-01;
+            _posB0107.y = _pos0107.y + _lengthSign0107*5.00000000E-001;
         } // end if
         _posN0107.x = _posB0107.x - _TMP19;
         _posN0107.y = _posB0107.y - _TMP20;
         _posP0107.x = _posB0107.x + _TMP19;
         _posP0107.y = _posB0107.y + _TMP20;
-        _subpixD0107 = -2.00000000E+00*_TMP187 + 3.00000000E+00;
-        _c0194 = vec4(_posN0107.x, _posN0107.y, 0.00000000E+00, 0.00000000E+00);
+        _subpixD0107 = -2.00000000E+000*_TMP187 + 3.00000000E+000;
+        _c0194 = vec4(_posN0107.x, _posN0107.y, 0.00000000E+000, 0.00000000E+000);
         _TMP21 = texture2DLod(_FinalMap, vec2(_c0194.x, _c0194.y), _c0194.w);
         _subpixE0107 = _TMP187*_TMP187;
-        _c0198 = vec4(_posP0107.x, _posP0107.y, 0.00000000E+00, 0.00000000E+00);
+        _c0198 = vec4(_posP0107.x, _posP0107.y, 0.00000000E+000, 0.00000000E+000);
         _TMP22 = texture2DLod(_FinalMap, vec2(_c0198.x, _c0198.y), _c0198.w);
         if (!_pairN0107) { // if begin
             _lumaNN0107 = _lumaSS0107;
         } // end if
-        _gradientScaled0107 = _gradient0107/4.00000000E+00;
-        _lumaMM0107 = _rgbyM0107.w - _lumaNN0107*5.00000000E-01;
+        _gradientScaled0107 = _gradient0107/4.00000000E+000;
+        _lumaMM0107 = _rgbyM0107.w - _lumaNN0107*5.00000000E-001;
         _subpixF0107 = _subpixD0107*_subpixE0107;
-        _lumaMLTZero0107 = _lumaMM0107 < 0.00000000E+00;
-        _lumaEndN0107 = _TMP21.w - _lumaNN0107*5.00000000E-01;
-        _lumaEndP0107 = _TMP22.w - _lumaNN0107*5.00000000E-01;
+        _lumaMLTZero0107 = _lumaMM0107 < 0.00000000E+000;
+        _lumaEndN0107 = _TMP21.w - _lumaNN0107*5.00000000E-001;
+        _lumaEndP0107 = _TMP22.w - _lumaNN0107*5.00000000E-001;
         _TMP23 = abs(_lumaEndN0107);
         _doneN0107 = _TMP23 >= _gradientScaled0107;
         _TMP24 = abs(_lumaEndP0107);
@@ -377,20 +377,20 @@ void main()
         } // end if
         if (_doneNP0107) { // if begin
             if (!_doneN0107) { // if begin
-                _c0206 = vec4(_posN0107.x, _posN0107.y, 0.00000000E+00, 0.00000000E+00);
+                _c0206 = vec4(_posN0107.x, _posN0107.y, 0.00000000E+000, 0.00000000E+000);
                 _TMP25 = texture2DLod(_FinalMap, vec2(_c0206.x, _c0206.y), _c0206.w);
                 _lumaEndN0107 = _TMP25.w;
             } // end if
             if (!_doneP0107) { // if begin
-                _c0210 = vec4(_posP0107.x, _posP0107.y, 0.00000000E+00, 0.00000000E+00);
+                _c0210 = vec4(_posP0107.x, _posP0107.y, 0.00000000E+000, 0.00000000E+000);
                 _TMP26 = texture2DLod(_FinalMap, vec2(_c0210.x, _c0210.y), _c0210.w);
                 _lumaEndP0107 = _TMP26.w;
             } // end if
             if (!_doneN0107) { // if begin
-                _lumaEndN0107 = _lumaEndN0107 - _lumaNN0107*5.00000000E-01;
+                _lumaEndN0107 = _lumaEndN0107 - _lumaNN0107*5.00000000E-001;
             } // end if
             if (!_doneP0107) { // if begin
-                _lumaEndP0107 = _lumaEndP0107 - _lumaNN0107*5.00000000E-01;
+                _lumaEndP0107 = _lumaEndP0107 - _lumaNN0107*5.00000000E-001;
             } // end if
             _TMP27 = abs(_lumaEndN0107);
             _doneN0107 = _TMP27 >= _gradientScaled0107;
@@ -411,20 +411,20 @@ void main()
             } // end if
             if (_doneNP0107) { // if begin
                 if (!_doneN0107) { // if begin
-                    _c0218 = vec4(_posN0107.x, _posN0107.y, 0.00000000E+00, 0.00000000E+00);
+                    _c0218 = vec4(_posN0107.x, _posN0107.y, 0.00000000E+000, 0.00000000E+000);
                     _TMP29 = texture2DLod(_FinalMap, vec2(_c0218.x, _c0218.y), _c0218.w);
                     _lumaEndN0107 = _TMP29.w;
                 } // end if
                 if (!_doneP0107) { // if begin
-                    _c0222 = vec4(_posP0107.x, _posP0107.y, 0.00000000E+00, 0.00000000E+00);
+                    _c0222 = vec4(_posP0107.x, _posP0107.y, 0.00000000E+000, 0.00000000E+000);
                     _TMP30 = texture2DLod(_FinalMap, vec2(_c0222.x, _c0222.y), _c0222.w);
                     _lumaEndP0107 = _TMP30.w;
                 } // end if
                 if (!_doneN0107) { // if begin
-                    _lumaEndN0107 = _lumaEndN0107 - _lumaNN0107*5.00000000E-01;
+                    _lumaEndN0107 = _lumaEndN0107 - _lumaNN0107*5.00000000E-001;
                 } // end if
                 if (!_doneP0107) { // if begin
-                    _lumaEndP0107 = _lumaEndP0107 - _lumaNN0107*5.00000000E-01;
+                    _lumaEndP0107 = _lumaEndP0107 - _lumaNN0107*5.00000000E-001;
                 } // end if
                 _TMP31 = abs(_lumaEndN0107);
                 _doneN0107 = _TMP31 >= _gradientScaled0107;
@@ -445,20 +445,20 @@ void main()
                 } // end if
                 if (_doneNP0107) { // if begin
                     if (!_doneN0107) { // if begin
-                        _c0230 = vec4(_posN0107.x, _posN0107.y, 0.00000000E+00, 0.00000000E+00);
+                        _c0230 = vec4(_posN0107.x, _posN0107.y, 0.00000000E+000, 0.00000000E+000);
                         _TMP33 = texture2DLod(_FinalMap, vec2(_c0230.x, _c0230.y), _c0230.w);
                         _lumaEndN0107 = _TMP33.w;
                     } // end if
                     if (!_doneP0107) { // if begin
-                        _c0234 = vec4(_posP0107.x, _posP0107.y, 0.00000000E+00, 0.00000000E+00);
+                        _c0234 = vec4(_posP0107.x, _posP0107.y, 0.00000000E+000, 0.00000000E+000);
                         _TMP34 = texture2DLod(_FinalMap, vec2(_c0234.x, _c0234.y), _c0234.w);
                         _lumaEndP0107 = _TMP34.w;
                     } // end if
                     if (!_doneN0107) { // if begin
-                        _lumaEndN0107 = _lumaEndN0107 - _lumaNN0107*5.00000000E-01;
+                        _lumaEndN0107 = _lumaEndN0107 - _lumaNN0107*5.00000000E-001;
                     } // end if
                     if (!_doneP0107) { // if begin
-                        _lumaEndP0107 = _lumaEndP0107 - _lumaNN0107*5.00000000E-01;
+                        _lumaEndP0107 = _lumaEndP0107 - _lumaNN0107*5.00000000E-001;
                     } // end if
                     _TMP35 = abs(_lumaEndN0107);
                     _doneN0107 = _TMP35 >= _gradientScaled0107;
@@ -479,240 +479,240 @@ void main()
                     } // end if
                     if (_doneNP0107) { // if begin
                         if (!_doneN0107) { // if begin
-                            _c0242 = vec4(_posN0107.x, _posN0107.y, 0.00000000E+00, 0.00000000E+00);
+                            _c0242 = vec4(_posN0107.x, _posN0107.y, 0.00000000E+000, 0.00000000E+000);
                             _TMP37 = texture2DLod(_FinalMap, vec2(_c0242.x, _c0242.y), _c0242.w);
                             _lumaEndN0107 = _TMP37.w;
                         } // end if
                         if (!_doneP0107) { // if begin
-                            _c0246 = vec4(_posP0107.x, _posP0107.y, 0.00000000E+00, 0.00000000E+00);
+                            _c0246 = vec4(_posP0107.x, _posP0107.y, 0.00000000E+000, 0.00000000E+000);
                             _TMP38 = texture2DLod(_FinalMap, vec2(_c0246.x, _c0246.y), _c0246.w);
                             _lumaEndP0107 = _TMP38.w;
                         } // end if
                         if (!_doneN0107) { // if begin
-                            _lumaEndN0107 = _lumaEndN0107 - _lumaNN0107*5.00000000E-01;
+                            _lumaEndN0107 = _lumaEndN0107 - _lumaNN0107*5.00000000E-001;
                         } // end if
                         if (!_doneP0107) { // if begin
-                            _lumaEndP0107 = _lumaEndP0107 - _lumaNN0107*5.00000000E-01;
+                            _lumaEndP0107 = _lumaEndP0107 - _lumaNN0107*5.00000000E-001;
                         } // end if
                         _TMP39 = abs(_lumaEndN0107);
                         _doneN0107 = _TMP39 >= _gradientScaled0107;
                         _TMP40 = abs(_lumaEndP0107);
                         _doneP0107 = _TMP40 >= _gradientScaled0107;
                         if (!_doneN0107) { // if begin
-                            _posN0107.x = _posN0107.x - _TMP19*1.50000000E+00;
+                            _posN0107.x = _posN0107.x - _TMP19*1.50000000E+000;
                         } // end if
                         if (!_doneN0107) { // if begin
-                            _posN0107.y = _posN0107.y - _TMP20*1.50000000E+00;
+                            _posN0107.y = _posN0107.y - _TMP20*1.50000000E+000;
                         } // end if
                         _doneNP0107 = !_doneN0107 || !_doneP0107;
                         if (!_doneP0107) { // if begin
-                            _posP0107.x = _posP0107.x + _TMP19*1.50000000E+00;
+                            _posP0107.x = _posP0107.x + _TMP19*1.50000000E+000;
                         } // end if
                         if (!_doneP0107) { // if begin
-                            _posP0107.y = _posP0107.y + _TMP20*1.50000000E+00;
+                            _posP0107.y = _posP0107.y + _TMP20*1.50000000E+000;
                         } // end if
                         if (_doneNP0107) { // if begin
                             if (!_doneN0107) { // if begin
-                                _c0254 = vec4(_posN0107.x, _posN0107.y, 0.00000000E+00, 0.00000000E+00);
+                                _c0254 = vec4(_posN0107.x, _posN0107.y, 0.00000000E+000, 0.00000000E+000);
                                 _TMP41 = texture2DLod(_FinalMap, vec2(_c0254.x, _c0254.y), _c0254.w);
                                 _lumaEndN0107 = _TMP41.w;
                             } // end if
                             if (!_doneP0107) { // if begin
-                                _c0258 = vec4(_posP0107.x, _posP0107.y, 0.00000000E+00, 0.00000000E+00);
+                                _c0258 = vec4(_posP0107.x, _posP0107.y, 0.00000000E+000, 0.00000000E+000);
                                 _TMP42 = texture2DLod(_FinalMap, vec2(_c0258.x, _c0258.y), _c0258.w);
                                 _lumaEndP0107 = _TMP42.w;
                             } // end if
                             if (!_doneN0107) { // if begin
-                                _lumaEndN0107 = _lumaEndN0107 - _lumaNN0107*5.00000000E-01;
+                                _lumaEndN0107 = _lumaEndN0107 - _lumaNN0107*5.00000000E-001;
                             } // end if
                             if (!_doneP0107) { // if begin
-                                _lumaEndP0107 = _lumaEndP0107 - _lumaNN0107*5.00000000E-01;
+                                _lumaEndP0107 = _lumaEndP0107 - _lumaNN0107*5.00000000E-001;
                             } // end if
                             _TMP43 = abs(_lumaEndN0107);
                             _doneN0107 = _TMP43 >= _gradientScaled0107;
                             _TMP44 = abs(_lumaEndP0107);
                             _doneP0107 = _TMP44 >= _gradientScaled0107;
                             if (!_doneN0107) { // if begin
-                                _posN0107.x = _posN0107.x - _TMP19*2.00000000E+00;
+                                _posN0107.x = _posN0107.x - _TMP19*2.00000000E+000;
                             } // end if
                             if (!_doneN0107) { // if begin
-                                _posN0107.y = _posN0107.y - _TMP20*2.00000000E+00;
+                                _posN0107.y = _posN0107.y - _TMP20*2.00000000E+000;
                             } // end if
                             _doneNP0107 = !_doneN0107 || !_doneP0107;
                             if (!_doneP0107) { // if begin
-                                _posP0107.x = _posP0107.x + _TMP19*2.00000000E+00;
+                                _posP0107.x = _posP0107.x + _TMP19*2.00000000E+000;
                             } // end if
                             if (!_doneP0107) { // if begin
-                                _posP0107.y = _posP0107.y + _TMP20*2.00000000E+00;
+                                _posP0107.y = _posP0107.y + _TMP20*2.00000000E+000;
                             } // end if
                             if (_doneNP0107) { // if begin
                                 if (!_doneN0107) { // if begin
-                                    _c0266 = vec4(_posN0107.x, _posN0107.y, 0.00000000E+00, 0.00000000E+00);
+                                    _c0266 = vec4(_posN0107.x, _posN0107.y, 0.00000000E+000, 0.00000000E+000);
                                     _TMP45 = texture2DLod(_FinalMap, vec2(_c0266.x, _c0266.y), _c0266.w);
                                     _lumaEndN0107 = _TMP45.w;
                                 } // end if
                                 if (!_doneP0107) { // if begin
-                                    _c0270 = vec4(_posP0107.x, _posP0107.y, 0.00000000E+00, 0.00000000E+00);
+                                    _c0270 = vec4(_posP0107.x, _posP0107.y, 0.00000000E+000, 0.00000000E+000);
                                     _TMP46 = texture2DLod(_FinalMap, vec2(_c0270.x, _c0270.y), _c0270.w);
                                     _lumaEndP0107 = _TMP46.w;
                                 } // end if
                                 if (!_doneN0107) { // if begin
-                                    _lumaEndN0107 = _lumaEndN0107 - _lumaNN0107*5.00000000E-01;
+                                    _lumaEndN0107 = _lumaEndN0107 - _lumaNN0107*5.00000000E-001;
                                 } // end if
                                 if (!_doneP0107) { // if begin
-                                    _lumaEndP0107 = _lumaEndP0107 - _lumaNN0107*5.00000000E-01;
+                                    _lumaEndP0107 = _lumaEndP0107 - _lumaNN0107*5.00000000E-001;
                                 } // end if
                                 _TMP47 = abs(_lumaEndN0107);
                                 _doneN0107 = _TMP47 >= _gradientScaled0107;
                                 _TMP48 = abs(_lumaEndP0107);
                                 _doneP0107 = _TMP48 >= _gradientScaled0107;
                                 if (!_doneN0107) { // if begin
-                                    _posN0107.x = _posN0107.x - _TMP19*2.00000000E+00;
+                                    _posN0107.x = _posN0107.x - _TMP19*2.00000000E+000;
                                 } // end if
                                 if (!_doneN0107) { // if begin
-                                    _posN0107.y = _posN0107.y - _TMP20*2.00000000E+00;
+                                    _posN0107.y = _posN0107.y - _TMP20*2.00000000E+000;
                                 } // end if
                                 _doneNP0107 = !_doneN0107 || !_doneP0107;
                                 if (!_doneP0107) { // if begin
-                                    _posP0107.x = _posP0107.x + _TMP19*2.00000000E+00;
+                                    _posP0107.x = _posP0107.x + _TMP19*2.00000000E+000;
                                 } // end if
                                 if (!_doneP0107) { // if begin
-                                    _posP0107.y = _posP0107.y + _TMP20*2.00000000E+00;
+                                    _posP0107.y = _posP0107.y + _TMP20*2.00000000E+000;
                                 } // end if
                                 if (_doneNP0107) { // if begin
                                     if (!_doneN0107) { // if begin
-                                        _c0278 = vec4(_posN0107.x, _posN0107.y, 0.00000000E+00, 0.00000000E+00);
+                                        _c0278 = vec4(_posN0107.x, _posN0107.y, 0.00000000E+000, 0.00000000E+000);
                                         _TMP49 = texture2DLod(_FinalMap, vec2(_c0278.x, _c0278.y), _c0278.w);
                                         _lumaEndN0107 = _TMP49.w;
                                     } // end if
                                     if (!_doneP0107) { // if begin
-                                        _c0282 = vec4(_posP0107.x, _posP0107.y, 0.00000000E+00, 0.00000000E+00);
+                                        _c0282 = vec4(_posP0107.x, _posP0107.y, 0.00000000E+000, 0.00000000E+000);
                                         _TMP50 = texture2DLod(_FinalMap, vec2(_c0282.x, _c0282.y), _c0282.w);
                                         _lumaEndP0107 = _TMP50.w;
                                     } // end if
                                     if (!_doneN0107) { // if begin
-                                        _lumaEndN0107 = _lumaEndN0107 - _lumaNN0107*5.00000000E-01;
+                                        _lumaEndN0107 = _lumaEndN0107 - _lumaNN0107*5.00000000E-001;
                                     } // end if
                                     if (!_doneP0107) { // if begin
-                                        _lumaEndP0107 = _lumaEndP0107 - _lumaNN0107*5.00000000E-01;
+                                        _lumaEndP0107 = _lumaEndP0107 - _lumaNN0107*5.00000000E-001;
                                     } // end if
                                     _TMP51 = abs(_lumaEndN0107);
                                     _doneN0107 = _TMP51 >= _gradientScaled0107;
                                     _TMP52 = abs(_lumaEndP0107);
                                     _doneP0107 = _TMP52 >= _gradientScaled0107;
                                     if (!_doneN0107) { // if begin
-                                        _posN0107.x = _posN0107.x - _TMP19*2.00000000E+00;
+                                        _posN0107.x = _posN0107.x - _TMP19*2.00000000E+000;
                                     } // end if
                                     if (!_doneN0107) { // if begin
-                                        _posN0107.y = _posN0107.y - _TMP20*2.00000000E+00;
+                                        _posN0107.y = _posN0107.y - _TMP20*2.00000000E+000;
                                     } // end if
                                     _doneNP0107 = !_doneN0107 || !_doneP0107;
                                     if (!_doneP0107) { // if begin
-                                        _posP0107.x = _posP0107.x + _TMP19*2.00000000E+00;
+                                        _posP0107.x = _posP0107.x + _TMP19*2.00000000E+000;
                                     } // end if
                                     if (!_doneP0107) { // if begin
-                                        _posP0107.y = _posP0107.y + _TMP20*2.00000000E+00;
+                                        _posP0107.y = _posP0107.y + _TMP20*2.00000000E+000;
                                     } // end if
                                     if (_doneNP0107) { // if begin
                                         if (!_doneN0107) { // if begin
-                                            _c0290 = vec4(_posN0107.x, _posN0107.y, 0.00000000E+00, 0.00000000E+00);
+                                            _c0290 = vec4(_posN0107.x, _posN0107.y, 0.00000000E+000, 0.00000000E+000);
                                             _TMP53 = texture2DLod(_FinalMap, vec2(_c0290.x, _c0290.y), _c0290.w);
                                             _lumaEndN0107 = _TMP53.w;
                                         } // end if
                                         if (!_doneP0107) { // if begin
-                                            _c0294 = vec4(_posP0107.x, _posP0107.y, 0.00000000E+00, 0.00000000E+00);
+                                            _c0294 = vec4(_posP0107.x, _posP0107.y, 0.00000000E+000, 0.00000000E+000);
                                             _TMP54 = texture2DLod(_FinalMap, vec2(_c0294.x, _c0294.y), _c0294.w);
                                             _lumaEndP0107 = _TMP54.w;
                                         } // end if
                                         if (!_doneN0107) { // if begin
-                                            _lumaEndN0107 = _lumaEndN0107 - _lumaNN0107*5.00000000E-01;
+                                            _lumaEndN0107 = _lumaEndN0107 - _lumaNN0107*5.00000000E-001;
                                         } // end if
                                         if (!_doneP0107) { // if begin
-                                            _lumaEndP0107 = _lumaEndP0107 - _lumaNN0107*5.00000000E-01;
+                                            _lumaEndP0107 = _lumaEndP0107 - _lumaNN0107*5.00000000E-001;
                                         } // end if
                                         _TMP55 = abs(_lumaEndN0107);
                                         _doneN0107 = _TMP55 >= _gradientScaled0107;
                                         _TMP56 = abs(_lumaEndP0107);
                                         _doneP0107 = _TMP56 >= _gradientScaled0107;
                                         if (!_doneN0107) { // if begin
-                                            _posN0107.x = _posN0107.x - _TMP19*2.00000000E+00;
+                                            _posN0107.x = _posN0107.x - _TMP19*2.00000000E+000;
                                         } // end if
                                         if (!_doneN0107) { // if begin
-                                            _posN0107.y = _posN0107.y - _TMP20*2.00000000E+00;
+                                            _posN0107.y = _posN0107.y - _TMP20*2.00000000E+000;
                                         } // end if
                                         _doneNP0107 = !_doneN0107 || !_doneP0107;
                                         if (!_doneP0107) { // if begin
-                                            _posP0107.x = _posP0107.x + _TMP19*2.00000000E+00;
+                                            _posP0107.x = _posP0107.x + _TMP19*2.00000000E+000;
                                         } // end if
                                         if (!_doneP0107) { // if begin
-                                            _posP0107.y = _posP0107.y + _TMP20*2.00000000E+00;
+                                            _posP0107.y = _posP0107.y + _TMP20*2.00000000E+000;
                                         } // end if
                                         if (_doneNP0107) { // if begin
                                             if (!_doneN0107) { // if begin
-                                                _c0302 = vec4(_posN0107.x, _posN0107.y, 0.00000000E+00, 0.00000000E+00);
+                                                _c0302 = vec4(_posN0107.x, _posN0107.y, 0.00000000E+000, 0.00000000E+000);
                                                 _TMP57 = texture2DLod(_FinalMap, vec2(_c0302.x, _c0302.y), _c0302.w);
                                                 _lumaEndN0107 = _TMP57.w;
                                             } // end if
                                             if (!_doneP0107) { // if begin
-                                                _c0306 = vec4(_posP0107.x, _posP0107.y, 0.00000000E+00, 0.00000000E+00);
+                                                _c0306 = vec4(_posP0107.x, _posP0107.y, 0.00000000E+000, 0.00000000E+000);
                                                 _TMP58 = texture2DLod(_FinalMap, vec2(_c0306.x, _c0306.y), _c0306.w);
                                                 _lumaEndP0107 = _TMP58.w;
                                             } // end if
                                             if (!_doneN0107) { // if begin
-                                                _lumaEndN0107 = _lumaEndN0107 - _lumaNN0107*5.00000000E-01;
+                                                _lumaEndN0107 = _lumaEndN0107 - _lumaNN0107*5.00000000E-001;
                                             } // end if
                                             if (!_doneP0107) { // if begin
-                                                _lumaEndP0107 = _lumaEndP0107 - _lumaNN0107*5.00000000E-01;
+                                                _lumaEndP0107 = _lumaEndP0107 - _lumaNN0107*5.00000000E-001;
                                             } // end if
                                             _TMP59 = abs(_lumaEndN0107);
                                             _doneN0107 = _TMP59 >= _gradientScaled0107;
                                             _TMP60 = abs(_lumaEndP0107);
                                             _doneP0107 = _TMP60 >= _gradientScaled0107;
                                             if (!_doneN0107) { // if begin
-                                                _posN0107.x = _posN0107.x - _TMP19*4.00000000E+00;
+                                                _posN0107.x = _posN0107.x - _TMP19*4.00000000E+000;
                                             } // end if
                                             if (!_doneN0107) { // if begin
-                                                _posN0107.y = _posN0107.y - _TMP20*4.00000000E+00;
+                                                _posN0107.y = _posN0107.y - _TMP20*4.00000000E+000;
                                             } // end if
                                             _doneNP0107 = !_doneN0107 || !_doneP0107;
                                             if (!_doneP0107) { // if begin
-                                                _posP0107.x = _posP0107.x + _TMP19*4.00000000E+00;
+                                                _posP0107.x = _posP0107.x + _TMP19*4.00000000E+000;
                                             } // end if
                                             if (!_doneP0107) { // if begin
-                                                _posP0107.y = _posP0107.y + _TMP20*4.00000000E+00;
+                                                _posP0107.y = _posP0107.y + _TMP20*4.00000000E+000;
                                             } // end if
                                             if (_doneNP0107) { // if begin
                                                 if (!_doneN0107) { // if begin
-                                                    _c0314 = vec4(_posN0107.x, _posN0107.y, 0.00000000E+00, 0.00000000E+00);
+                                                    _c0314 = vec4(_posN0107.x, _posN0107.y, 0.00000000E+000, 0.00000000E+000);
                                                     _TMP61 = texture2DLod(_FinalMap, vec2(_c0314.x, _c0314.y), _c0314.w);
                                                     _lumaEndN0107 = _TMP61.w;
                                                 } // end if
                                                 if (!_doneP0107) { // if begin
-                                                    _c0318 = vec4(_posP0107.x, _posP0107.y, 0.00000000E+00, 0.00000000E+00);
+                                                    _c0318 = vec4(_posP0107.x, _posP0107.y, 0.00000000E+000, 0.00000000E+000);
                                                     _TMP62 = texture2DLod(_FinalMap, vec2(_c0318.x, _c0318.y), _c0318.w);
                                                     _lumaEndP0107 = _TMP62.w;
                                                 } // end if
                                                 if (!_doneN0107) { // if begin
-                                                    _lumaEndN0107 = _lumaEndN0107 - _lumaNN0107*5.00000000E-01;
+                                                    _lumaEndN0107 = _lumaEndN0107 - _lumaNN0107*5.00000000E-001;
                                                 } // end if
                                                 if (!_doneP0107) { // if begin
-                                                    _lumaEndP0107 = _lumaEndP0107 - _lumaNN0107*5.00000000E-01;
+                                                    _lumaEndP0107 = _lumaEndP0107 - _lumaNN0107*5.00000000E-001;
                                                 } // end if
                                                 _TMP63 = abs(_lumaEndN0107);
                                                 _doneN0107 = _TMP63 >= _gradientScaled0107;
                                                 _TMP64 = abs(_lumaEndP0107);
                                                 _doneP0107 = _TMP64 >= _gradientScaled0107;
                                                 if (!_doneN0107) { // if begin
-                                                    _posN0107.x = _posN0107.x - _TMP19*8.00000000E+00;
+                                                    _posN0107.x = _posN0107.x - _TMP19*8.00000000E+000;
                                                 } // end if
                                                 if (!_doneN0107) { // if begin
-                                                    _posN0107.y = _posN0107.y - _TMP20*8.00000000E+00;
+                                                    _posN0107.y = _posN0107.y - _TMP20*8.00000000E+000;
                                                 } // end if
                                                 if (!_doneP0107) { // if begin
-                                                    _posP0107.x = _posP0107.x + _TMP19*8.00000000E+00;
+                                                    _posP0107.x = _posP0107.x + _TMP19*8.00000000E+000;
                                                 } // end if
                                                 if (!_doneP0107) { // if begin
-                                                    _posP0107.y = _posP0107.y + _TMP20*8.00000000E+00;
+                                                    _posP0107.y = _posP0107.y + _TMP20*8.00000000E+000;
                                                 } // end if
                                             } // end if
                                         } // end if
@@ -732,10 +732,10 @@ void main()
         if (!_horzSpan0107) { // if begin
             _dstP0107 = _posP0107.y - _pos0107.y;
         } // end if
-        _goodSpanN0107 = _lumaEndN0107 < 0.00000000E+00 != _lumaMLTZero0107;
+        _goodSpanN0107 = _lumaEndN0107 < 0.00000000E+000 != _lumaMLTZero0107;
         _spanLength0107 = _dstP0107 + _dstN0107;
-        _goodSpanP0107 = _lumaEndP0107 < 0.00000000E+00 != _lumaMLTZero0107;
-        _spanLengthRcp0107 = 1.00000000E+00/_spanLength0107;
+        _goodSpanP0107 = _lumaEndP0107 < 0.00000000E+000 != _lumaMLTZero0107;
+        _spanLengthRcp0107 = 1.00000000E+000/_spanLength0107;
         _directionN0107 = _dstN0107 < _dstP0107;
         _dst0107 = min(_dstN0107, _dstP0107);
         if (_directionN0107) { // if begin
@@ -744,11 +744,11 @@ void main()
             _TMP65 = _goodSpanP0107;
         } // end if
         _subpixG0107 = _subpixF0107*_subpixF0107;
-        _pixelOffset0107 = _dst0107*-_spanLengthRcp0107 + 5.00000000E-01;
+        _pixelOffset0107 = _dst0107*-_spanLengthRcp0107 + 5.00000000E-001;
         if (_TMP65) { // if begin
             _TMP66 = _pixelOffset0107;
         } else {
-            _TMP66 = 0.00000000E+00;
+            _TMP66 = 0.00000000E+000;
         } // end if
         _pixelOffsetSubpix0107 = max(_TMP66, _subpixG0107);
         if (!_horzSpan0107) { // if begin
@@ -757,7 +757,7 @@ void main()
         if (_horzSpan0107) { // if begin
             _posM0107.y = _pos0107.y + _pixelOffsetSubpix0107*_lengthSign0107;
         } // end if
-        _c0330 = vec4(_posM0107.x, _posM0107.y, 0.00000000E+00, 0.00000000E+00);
+        _c0330 = vec4(_posM0107.x, _posM0107.y, 0.00000000E+000, 0.00000000E+000);
         _TMP67 = texture2DLod(_FinalMap, vec2(_c0330.x, _c0330.y), _c0330.w);
         _TMP106 = vec4(_TMP67.x, _TMP67.y, _TMP67.z, _rgbyM0107.w);
     } // end if

@@ -192,21 +192,21 @@ float4 main( in X1X cin) : SV_Target0
 
     _texCoord = cin._TEXCOORD0;
     _pos0102 = _texCoord + _HalfPixel;
-    _fxaaQualityRcpFrame0102 = float2(  1.00000000000000000E00f/_ScreenSize.x,   1.00000000000000000E00f/_ScreenSize.y);
+    _fxaaQualityRcpFrame0102 = float2( 1.00000000000000000E000f/_ScreenSize.x,  1.00000000000000000E000f/_ScreenSize.y);
     _TMP103 = true;
     _posM0102.x = _pos0102.x;
     _posM0102.y = _pos0102.y;
-    _rgbyM0102 = _TMP164.SampleLevel(_FinalMap, float4(_pos0102.x, _pos0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).xy, float4(_pos0102.x, _pos0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).w);
-    _TMP990102 = _posM0102 + float2(   0.00000000000000000E00f,   1.00000000000000000E00f)*_fxaaQualityRcpFrame0102.xy;
-    _TMP0 = _TMP164.SampleLevel(_FinalMap, float4(_TMP990102.x, _TMP990102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).xy, float4(_TMP990102.x, _TMP990102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).w);
+    _rgbyM0102 = _TMP164.SampleLevel(_FinalMap, float4(_pos0102.x, _pos0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_pos0102.x, _pos0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
+    _TMP990102 = _posM0102 + float2(  0.00000000000000000E000f,  1.00000000000000000E000f)*_fxaaQualityRcpFrame0102.xy;
+    _TMP0 = _TMP164.SampleLevel(_FinalMap, float4(_TMP990102.x, _TMP990102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_TMP990102.x, _TMP990102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
     _lumaS0102 = _TMP0.w;
-    _TMP980102 = _posM0102 + float2(   1.00000000000000000E00f,   0.00000000000000000E00f)*_fxaaQualityRcpFrame0102.xy;
-    _TMP1 = _TMP164.SampleLevel(_FinalMap, float4(_TMP980102.x, _TMP980102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).xy, float4(_TMP980102.x, _TMP980102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).w);
-    _TMP970102 = _posM0102 + float2(   0.00000000000000000E00f,  -1.00000000000000000E00f)*_fxaaQualityRcpFrame0102.xy;
-    _TMP2 = _TMP164.SampleLevel(_FinalMap, float4(_TMP970102.x, _TMP970102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).xy, float4(_TMP970102.x, _TMP970102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).w);
+    _TMP980102 = _posM0102 + float2(  1.00000000000000000E000f,  0.00000000000000000E000f)*_fxaaQualityRcpFrame0102.xy;
+    _TMP1 = _TMP164.SampleLevel(_FinalMap, float4(_TMP980102.x, _TMP980102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_TMP980102.x, _TMP980102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
+    _TMP970102 = _posM0102 + float2(  0.00000000000000000E000f, -1.00000000000000000E000f)*_fxaaQualityRcpFrame0102.xy;
+    _TMP2 = _TMP164.SampleLevel(_FinalMap, float4(_TMP970102.x, _TMP970102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_TMP970102.x, _TMP970102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
     _lumaN0102 = _TMP2.w;
-    _TMP960102 = _posM0102 + float2(  -1.00000000000000000E00f,   0.00000000000000000E00f)*_fxaaQualityRcpFrame0102.xy;
-    _TMP3 = _TMP164.SampleLevel(_FinalMap, float4(_TMP960102.x, _TMP960102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).xy, float4(_TMP960102.x, _TMP960102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).w);
+    _TMP960102 = _posM0102 + float2( -1.00000000000000000E000f,  0.00000000000000000E000f)*_fxaaQualityRcpFrame0102.xy;
+    _TMP3 = _TMP164.SampleLevel(_FinalMap, float4(_TMP960102.x, _TMP960102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_TMP960102.x, _TMP960102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
     _maxSM0102 = max(_TMP0.w, _rgbyM0102.w);
     _minSM0102 = min(_TMP0.w, _rgbyM0102.w);
     _maxESM0102 = max(_TMP1.w, _maxSM0102);
@@ -215,9 +215,9 @@ float4 main( in X1X cin) : SV_Target0
     _minWN0102 = min(_TMP2.w, _TMP3.w);
     _rangeMax0102 = max(_maxWN0102, _maxESM0102);
     _rangeMin0102 = min(_minWN0102, _minESM0102);
-    _rangeMaxScaled0102 = _rangeMax0102*  1.25000000000000000E-01f;
+    _rangeMaxScaled0102 = _rangeMax0102* 1.25000000000000000E-001f;
     _range0102 = _rangeMax0102 - _rangeMin0102;
-    _rangeMaxClamped0102 = max(  6.25000000000000000E-02f, _rangeMaxScaled0102);
+    _rangeMaxClamped0102 = max( 6.25000000000000000E-002f, _rangeMaxScaled0102);
     _earlyExit0102 = _range0102 < _rangeMaxClamped0102;
     if (_earlyExit0102) { // if begin
         _TMP101 = _rgbyM0102;
@@ -225,33 +225,33 @@ float4 main( in X1X cin) : SV_Target0
     } // end if
     if (_TMP103) { // if begin
         _TMP950102 = _posM0102 + -_fxaaQualityRcpFrame0102.xy;
-        _TMP4 = _TMP164.SampleLevel(_FinalMap, float4(_TMP950102.x, _TMP950102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).xy, float4(_TMP950102.x, _TMP950102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).w);
+        _TMP4 = _TMP164.SampleLevel(_FinalMap, float4(_TMP950102.x, _TMP950102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_TMP950102.x, _TMP950102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
         _TMP940102 = _posM0102 + _fxaaQualityRcpFrame0102.xy;
-        _TMP5 = _TMP164.SampleLevel(_FinalMap, float4(_TMP940102.x, _TMP940102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).xy, float4(_TMP940102.x, _TMP940102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).w);
-        _TMP930102 = _posM0102 + float2(   1.00000000000000000E00f,  -1.00000000000000000E00f)*_fxaaQualityRcpFrame0102.xy;
-        _TMP6 = _TMP164.SampleLevel(_FinalMap, float4(_TMP930102.x, _TMP930102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).xy, float4(_TMP930102.x, _TMP930102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).w);
-        _TMP920102 = _posM0102 + float2(  -1.00000000000000000E00f,   1.00000000000000000E00f)*_fxaaQualityRcpFrame0102.xy;
-        _TMP7 = _TMP164.SampleLevel(_FinalMap, float4(_TMP920102.x, _TMP920102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).xy, float4(_TMP920102.x, _TMP920102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).w);
+        _TMP5 = _TMP164.SampleLevel(_FinalMap, float4(_TMP940102.x, _TMP940102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_TMP940102.x, _TMP940102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
+        _TMP930102 = _posM0102 + float2(  1.00000000000000000E000f, -1.00000000000000000E000f)*_fxaaQualityRcpFrame0102.xy;
+        _TMP6 = _TMP164.SampleLevel(_FinalMap, float4(_TMP930102.x, _TMP930102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_TMP930102.x, _TMP930102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
+        _TMP920102 = _posM0102 + float2( -1.00000000000000000E000f,  1.00000000000000000E000f)*_fxaaQualityRcpFrame0102.xy;
+        _TMP7 = _TMP164.SampleLevel(_FinalMap, float4(_TMP920102.x, _TMP920102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_TMP920102.x, _TMP920102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
         _lumaNS0102 = _TMP2.w + _TMP0.w;
         _lumaWE0102 = _TMP3.w + _TMP1.w;
-        _subpixRcpRange0102 =   1.00000000000000000E00f/_range0102;
+        _subpixRcpRange0102 =  1.00000000000000000E000f/_range0102;
         _subpixNSWE0102 = _lumaNS0102 + _lumaWE0102;
-        _edgeHorz10102 =  -2.00000000000000000E00f*_rgbyM0102.w + _lumaNS0102;
-        _edgeVert10102 =  -2.00000000000000000E00f*_rgbyM0102.w + _lumaWE0102;
+        _edgeHorz10102 = -2.00000000000000000E000f*_rgbyM0102.w + _lumaNS0102;
+        _edgeVert10102 = -2.00000000000000000E000f*_rgbyM0102.w + _lumaWE0102;
         _lumaNESE0102 = _TMP6.w + _TMP5.w;
         _lumaNWNE0102 = _TMP4.w + _TMP6.w;
-        _edgeHorz20102 =  -2.00000000000000000E00f*_TMP1.w + _lumaNESE0102;
-        _edgeVert20102 =  -2.00000000000000000E00f*_TMP2.w + _lumaNWNE0102;
+        _edgeHorz20102 = -2.00000000000000000E000f*_TMP1.w + _lumaNESE0102;
+        _edgeVert20102 = -2.00000000000000000E000f*_TMP2.w + _lumaNWNE0102;
         _lumaNWSW0102 = _TMP4.w + _TMP7.w;
         _lumaSWSE0102 = _TMP7.w + _TMP5.w;
         _TMP8 = abs(_edgeHorz10102);
         _TMP9 = abs(_edgeHorz20102);
-        _edgeHorz40102 = _TMP8*  2.00000000000000000E00f + _TMP9;
+        _edgeHorz40102 = _TMP8* 2.00000000000000000E000f + _TMP9;
         _TMP10 = abs(_edgeVert10102);
         _TMP11 = abs(_edgeVert20102);
-        _edgeVert40102 = _TMP10*  2.00000000000000000E00f + _TMP11;
-        _edgeHorz30102 =  -2.00000000000000000E00f*_TMP3.w + _lumaNWSW0102;
-        _edgeVert30102 =  -2.00000000000000000E00f*_TMP0.w + _lumaSWSE0102;
+        _edgeVert40102 = _TMP10* 2.00000000000000000E000f + _TMP11;
+        _edgeHorz30102 = -2.00000000000000000E000f*_TMP3.w + _lumaNWSW0102;
+        _edgeVert30102 = -2.00000000000000000E000f*_TMP0.w + _lumaSWSE0102;
         _TMP12 = abs(_edgeHorz30102);
         _edgeHorz0102 = _TMP12 + _edgeHorz40102;
         _TMP13 = abs(_edgeVert30102);
@@ -259,7 +259,7 @@ float4 main( in X1X cin) : SV_Target0
         _subpixNWSWNESE0102 = _lumaNWSW0102 + _lumaNESE0102;
         _lengthSign0102 = _fxaaQualityRcpFrame0102.x;
         _horzSpan0102 = _edgeHorz0102 >= _edgeVert0102;
-        _subpixA0102 = _subpixNSWE0102*  2.00000000000000000E00f + _subpixNWSWNESE0102;
+        _subpixA0102 = _subpixNSWE0102* 2.00000000000000000E000f + _subpixNWSWNESE0102;
         if (!_horzSpan0102) { // if begin
             _lumaN0102 = _TMP3.w;
         } // end if
@@ -269,7 +269,7 @@ float4 main( in X1X cin) : SV_Target0
         if (_horzSpan0102) { // if begin
             _lengthSign0102 = _fxaaQualityRcpFrame0102.y;
         } // end if
-        _subpixB0102 = _subpixA0102*  8.33333358168601990E-02f - _rgbyM0102.w;
+        _subpixB0102 = _subpixA0102* 8.33333358168601990E-002f - _rgbyM0102.w;
         _gradientN0102 = _lumaN0102 - _rgbyM0102.w;
         _gradientS0102 = _lumaS0102 - _rgbyM0102.w;
         _lumaNN0102 = _lumaN0102 + _rgbyM0102.w;
@@ -288,38 +288,38 @@ float4 main( in X1X cin) : SV_Target0
         _posB0102.x = _pos0102.x;
         _posB0102.y = _pos0102.y;
         if (!_horzSpan0102) { // if begin
-            _TMP19 =   0.00000000000000000E00f;
+            _TMP19 =  0.00000000000000000E000f;
         } else {
             _TMP19 = _fxaaQualityRcpFrame0102.x;
         } // end if
         if (_horzSpan0102) { // if begin
-            _TMP20 =   0.00000000000000000E00f;
+            _TMP20 =  0.00000000000000000E000f;
         } else {
             _TMP20 = _fxaaQualityRcpFrame0102.y;
         } // end if
         if (!_horzSpan0102) { // if begin
-            _posB0102.x = _pos0102.x + _lengthSign0102*  5.00000000000000000E-01f;
+            _posB0102.x = _pos0102.x + _lengthSign0102* 5.00000000000000000E-001f;
         } // end if
         if (_horzSpan0102) { // if begin
-            _posB0102.y = _pos0102.y + _lengthSign0102*  5.00000000000000000E-01f;
+            _posB0102.y = _pos0102.y + _lengthSign0102* 5.00000000000000000E-001f;
         } // end if
         _posN0102.x = _posB0102.x - _TMP19;
         _posN0102.y = _posB0102.y - _TMP20;
         _posP0102.x = _posB0102.x + _TMP19;
         _posP0102.y = _posB0102.y + _TMP20;
-        _subpixD0102 =  -2.00000000000000000E00f*_subpixC0102 +   3.00000000000000000E00f;
-        _TMP21 = _TMP164.SampleLevel(_FinalMap, float4(_posN0102.x, _posN0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).xy, float4(_posN0102.x, _posN0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).w);
+        _subpixD0102 = -2.00000000000000000E000f*_subpixC0102 +  3.00000000000000000E000f;
+        _TMP21 = _TMP164.SampleLevel(_FinalMap, float4(_posN0102.x, _posN0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_posN0102.x, _posN0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
         _subpixE0102 = _subpixC0102*_subpixC0102;
-        _TMP22 = _TMP164.SampleLevel(_FinalMap, float4(_posP0102.x, _posP0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).xy, float4(_posP0102.x, _posP0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).w);
+        _TMP22 = _TMP164.SampleLevel(_FinalMap, float4(_posP0102.x, _posP0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_posP0102.x, _posP0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
         if (!_pairN0102) { // if begin
             _lumaNN0102 = _lumaSS0102;
         } // end if
-        _gradientScaled0102 = _gradient0102/  4.00000000000000000E00f;
-        _lumaMM0102 = _rgbyM0102.w - _lumaNN0102*  5.00000000000000000E-01f;
+        _gradientScaled0102 = _gradient0102/ 4.00000000000000000E000f;
+        _lumaMM0102 = _rgbyM0102.w - _lumaNN0102* 5.00000000000000000E-001f;
         _subpixF0102 = _subpixD0102*_subpixE0102;
-        _lumaMLTZero0102 = _lumaMM0102 <   0.00000000000000000E00f;
-        _lumaEndN0102 = _TMP21.w - _lumaNN0102*  5.00000000000000000E-01f;
-        _lumaEndP0102 = _TMP22.w - _lumaNN0102*  5.00000000000000000E-01f;
+        _lumaMLTZero0102 = _lumaMM0102 <  0.00000000000000000E000f;
+        _lumaEndN0102 = _TMP21.w - _lumaNN0102* 5.00000000000000000E-001f;
+        _lumaEndP0102 = _TMP22.w - _lumaNN0102* 5.00000000000000000E-001f;
         _TMP23 = abs(_lumaEndN0102);
         _doneN0102 = _TMP23 >= _gradientScaled0102;
         _TMP24 = abs(_lumaEndP0102);
@@ -339,18 +339,18 @@ float4 main( in X1X cin) : SV_Target0
         } // end if
         if (_doneNP0102) { // if begin
             if (!_doneN0102) { // if begin
-                _TMP25 = _TMP164.SampleLevel(_FinalMap, float4(_posN0102.x, _posN0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).xy, float4(_posN0102.x, _posN0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).w);
+                _TMP25 = _TMP164.SampleLevel(_FinalMap, float4(_posN0102.x, _posN0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_posN0102.x, _posN0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
                 _lumaEndN0102 = _TMP25.w;
             } // end if
             if (!_doneP0102) { // if begin
-                _TMP26 = _TMP164.SampleLevel(_FinalMap, float4(_posP0102.x, _posP0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).xy, float4(_posP0102.x, _posP0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).w);
+                _TMP26 = _TMP164.SampleLevel(_FinalMap, float4(_posP0102.x, _posP0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_posP0102.x, _posP0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
                 _lumaEndP0102 = _TMP26.w;
             } // end if
             if (!_doneN0102) { // if begin
-                _lumaEndN0102 = _lumaEndN0102 - _lumaNN0102*  5.00000000000000000E-01f;
+                _lumaEndN0102 = _lumaEndN0102 - _lumaNN0102* 5.00000000000000000E-001f;
             } // end if
             if (!_doneP0102) { // if begin
-                _lumaEndP0102 = _lumaEndP0102 - _lumaNN0102*  5.00000000000000000E-01f;
+                _lumaEndP0102 = _lumaEndP0102 - _lumaNN0102* 5.00000000000000000E-001f;
             } // end if
             _TMP27 = abs(_lumaEndN0102);
             _doneN0102 = _TMP27 >= _gradientScaled0102;
@@ -371,18 +371,18 @@ float4 main( in X1X cin) : SV_Target0
             } // end if
             if (_doneNP0102) { // if begin
                 if (!_doneN0102) { // if begin
-                    _TMP29 = _TMP164.SampleLevel(_FinalMap, float4(_posN0102.x, _posN0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).xy, float4(_posN0102.x, _posN0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).w);
+                    _TMP29 = _TMP164.SampleLevel(_FinalMap, float4(_posN0102.x, _posN0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_posN0102.x, _posN0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
                     _lumaEndN0102 = _TMP29.w;
                 } // end if
                 if (!_doneP0102) { // if begin
-                    _TMP30 = _TMP164.SampleLevel(_FinalMap, float4(_posP0102.x, _posP0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).xy, float4(_posP0102.x, _posP0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).w);
+                    _TMP30 = _TMP164.SampleLevel(_FinalMap, float4(_posP0102.x, _posP0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_posP0102.x, _posP0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
                     _lumaEndP0102 = _TMP30.w;
                 } // end if
                 if (!_doneN0102) { // if begin
-                    _lumaEndN0102 = _lumaEndN0102 - _lumaNN0102*  5.00000000000000000E-01f;
+                    _lumaEndN0102 = _lumaEndN0102 - _lumaNN0102* 5.00000000000000000E-001f;
                 } // end if
                 if (!_doneP0102) { // if begin
-                    _lumaEndP0102 = _lumaEndP0102 - _lumaNN0102*  5.00000000000000000E-01f;
+                    _lumaEndP0102 = _lumaEndP0102 - _lumaNN0102* 5.00000000000000000E-001f;
                 } // end if
                 _TMP31 = abs(_lumaEndN0102);
                 _doneN0102 = _TMP31 >= _gradientScaled0102;
@@ -403,18 +403,18 @@ float4 main( in X1X cin) : SV_Target0
                 } // end if
                 if (_doneNP0102) { // if begin
                     if (!_doneN0102) { // if begin
-                        _TMP33 = _TMP164.SampleLevel(_FinalMap, float4(_posN0102.x, _posN0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).xy, float4(_posN0102.x, _posN0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).w);
+                        _TMP33 = _TMP164.SampleLevel(_FinalMap, float4(_posN0102.x, _posN0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_posN0102.x, _posN0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
                         _lumaEndN0102 = _TMP33.w;
                     } // end if
                     if (!_doneP0102) { // if begin
-                        _TMP34 = _TMP164.SampleLevel(_FinalMap, float4(_posP0102.x, _posP0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).xy, float4(_posP0102.x, _posP0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).w);
+                        _TMP34 = _TMP164.SampleLevel(_FinalMap, float4(_posP0102.x, _posP0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_posP0102.x, _posP0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
                         _lumaEndP0102 = _TMP34.w;
                     } // end if
                     if (!_doneN0102) { // if begin
-                        _lumaEndN0102 = _lumaEndN0102 - _lumaNN0102*  5.00000000000000000E-01f;
+                        _lumaEndN0102 = _lumaEndN0102 - _lumaNN0102* 5.00000000000000000E-001f;
                     } // end if
                     if (!_doneP0102) { // if begin
-                        _lumaEndP0102 = _lumaEndP0102 - _lumaNN0102*  5.00000000000000000E-01f;
+                        _lumaEndP0102 = _lumaEndP0102 - _lumaNN0102* 5.00000000000000000E-001f;
                     } // end if
                     _TMP35 = abs(_lumaEndN0102);
                     _doneN0102 = _TMP35 >= _gradientScaled0102;
@@ -435,226 +435,226 @@ float4 main( in X1X cin) : SV_Target0
                     } // end if
                     if (_doneNP0102) { // if begin
                         if (!_doneN0102) { // if begin
-                            _TMP37 = _TMP164.SampleLevel(_FinalMap, float4(_posN0102.x, _posN0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).xy, float4(_posN0102.x, _posN0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).w);
+                            _TMP37 = _TMP164.SampleLevel(_FinalMap, float4(_posN0102.x, _posN0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_posN0102.x, _posN0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
                             _lumaEndN0102 = _TMP37.w;
                         } // end if
                         if (!_doneP0102) { // if begin
-                            _TMP38 = _TMP164.SampleLevel(_FinalMap, float4(_posP0102.x, _posP0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).xy, float4(_posP0102.x, _posP0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).w);
+                            _TMP38 = _TMP164.SampleLevel(_FinalMap, float4(_posP0102.x, _posP0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_posP0102.x, _posP0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
                             _lumaEndP0102 = _TMP38.w;
                         } // end if
                         if (!_doneN0102) { // if begin
-                            _lumaEndN0102 = _lumaEndN0102 - _lumaNN0102*  5.00000000000000000E-01f;
+                            _lumaEndN0102 = _lumaEndN0102 - _lumaNN0102* 5.00000000000000000E-001f;
                         } // end if
                         if (!_doneP0102) { // if begin
-                            _lumaEndP0102 = _lumaEndP0102 - _lumaNN0102*  5.00000000000000000E-01f;
+                            _lumaEndP0102 = _lumaEndP0102 - _lumaNN0102* 5.00000000000000000E-001f;
                         } // end if
                         _TMP39 = abs(_lumaEndN0102);
                         _doneN0102 = _TMP39 >= _gradientScaled0102;
                         _TMP40 = abs(_lumaEndP0102);
                         _doneP0102 = _TMP40 >= _gradientScaled0102;
                         if (!_doneN0102) { // if begin
-                            _posN0102.x = _posN0102.x - _TMP19*  1.50000000000000000E00f;
+                            _posN0102.x = _posN0102.x - _TMP19* 1.50000000000000000E000f;
                         } // end if
                         if (!_doneN0102) { // if begin
-                            _posN0102.y = _posN0102.y - _TMP20*  1.50000000000000000E00f;
+                            _posN0102.y = _posN0102.y - _TMP20* 1.50000000000000000E000f;
                         } // end if
                         _doneNP0102 = !_doneN0102 || !_doneP0102;
                         if (!_doneP0102) { // if begin
-                            _posP0102.x = _posP0102.x + _TMP19*  1.50000000000000000E00f;
+                            _posP0102.x = _posP0102.x + _TMP19* 1.50000000000000000E000f;
                         } // end if
                         if (!_doneP0102) { // if begin
-                            _posP0102.y = _posP0102.y + _TMP20*  1.50000000000000000E00f;
+                            _posP0102.y = _posP0102.y + _TMP20* 1.50000000000000000E000f;
                         } // end if
                         if (_doneNP0102) { // if begin
                             if (!_doneN0102) { // if begin
-                                _TMP41 = _TMP164.SampleLevel(_FinalMap, float4(_posN0102.x, _posN0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).xy, float4(_posN0102.x, _posN0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).w);
+                                _TMP41 = _TMP164.SampleLevel(_FinalMap, float4(_posN0102.x, _posN0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_posN0102.x, _posN0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
                                 _lumaEndN0102 = _TMP41.w;
                             } // end if
                             if (!_doneP0102) { // if begin
-                                _TMP42 = _TMP164.SampleLevel(_FinalMap, float4(_posP0102.x, _posP0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).xy, float4(_posP0102.x, _posP0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).w);
+                                _TMP42 = _TMP164.SampleLevel(_FinalMap, float4(_posP0102.x, _posP0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_posP0102.x, _posP0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
                                 _lumaEndP0102 = _TMP42.w;
                             } // end if
                             if (!_doneN0102) { // if begin
-                                _lumaEndN0102 = _lumaEndN0102 - _lumaNN0102*  5.00000000000000000E-01f;
+                                _lumaEndN0102 = _lumaEndN0102 - _lumaNN0102* 5.00000000000000000E-001f;
                             } // end if
                             if (!_doneP0102) { // if begin
-                                _lumaEndP0102 = _lumaEndP0102 - _lumaNN0102*  5.00000000000000000E-01f;
+                                _lumaEndP0102 = _lumaEndP0102 - _lumaNN0102* 5.00000000000000000E-001f;
                             } // end if
                             _TMP43 = abs(_lumaEndN0102);
                             _doneN0102 = _TMP43 >= _gradientScaled0102;
                             _TMP44 = abs(_lumaEndP0102);
                             _doneP0102 = _TMP44 >= _gradientScaled0102;
                             if (!_doneN0102) { // if begin
-                                _posN0102.x = _posN0102.x - _TMP19*  2.00000000000000000E00f;
+                                _posN0102.x = _posN0102.x - _TMP19* 2.00000000000000000E000f;
                             } // end if
                             if (!_doneN0102) { // if begin
-                                _posN0102.y = _posN0102.y - _TMP20*  2.00000000000000000E00f;
+                                _posN0102.y = _posN0102.y - _TMP20* 2.00000000000000000E000f;
                             } // end if
                             _doneNP0102 = !_doneN0102 || !_doneP0102;
                             if (!_doneP0102) { // if begin
-                                _posP0102.x = _posP0102.x + _TMP19*  2.00000000000000000E00f;
+                                _posP0102.x = _posP0102.x + _TMP19* 2.00000000000000000E000f;
                             } // end if
                             if (!_doneP0102) { // if begin
-                                _posP0102.y = _posP0102.y + _TMP20*  2.00000000000000000E00f;
+                                _posP0102.y = _posP0102.y + _TMP20* 2.00000000000000000E000f;
                             } // end if
                             if (_doneNP0102) { // if begin
                                 if (!_doneN0102) { // if begin
-                                    _TMP45 = _TMP164.SampleLevel(_FinalMap, float4(_posN0102.x, _posN0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).xy, float4(_posN0102.x, _posN0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).w);
+                                    _TMP45 = _TMP164.SampleLevel(_FinalMap, float4(_posN0102.x, _posN0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_posN0102.x, _posN0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
                                     _lumaEndN0102 = _TMP45.w;
                                 } // end if
                                 if (!_doneP0102) { // if begin
-                                    _TMP46 = _TMP164.SampleLevel(_FinalMap, float4(_posP0102.x, _posP0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).xy, float4(_posP0102.x, _posP0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).w);
+                                    _TMP46 = _TMP164.SampleLevel(_FinalMap, float4(_posP0102.x, _posP0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_posP0102.x, _posP0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
                                     _lumaEndP0102 = _TMP46.w;
                                 } // end if
                                 if (!_doneN0102) { // if begin
-                                    _lumaEndN0102 = _lumaEndN0102 - _lumaNN0102*  5.00000000000000000E-01f;
+                                    _lumaEndN0102 = _lumaEndN0102 - _lumaNN0102* 5.00000000000000000E-001f;
                                 } // end if
                                 if (!_doneP0102) { // if begin
-                                    _lumaEndP0102 = _lumaEndP0102 - _lumaNN0102*  5.00000000000000000E-01f;
+                                    _lumaEndP0102 = _lumaEndP0102 - _lumaNN0102* 5.00000000000000000E-001f;
                                 } // end if
                                 _TMP47 = abs(_lumaEndN0102);
                                 _doneN0102 = _TMP47 >= _gradientScaled0102;
                                 _TMP48 = abs(_lumaEndP0102);
                                 _doneP0102 = _TMP48 >= _gradientScaled0102;
                                 if (!_doneN0102) { // if begin
-                                    _posN0102.x = _posN0102.x - _TMP19*  2.00000000000000000E00f;
+                                    _posN0102.x = _posN0102.x - _TMP19* 2.00000000000000000E000f;
                                 } // end if
                                 if (!_doneN0102) { // if begin
-                                    _posN0102.y = _posN0102.y - _TMP20*  2.00000000000000000E00f;
+                                    _posN0102.y = _posN0102.y - _TMP20* 2.00000000000000000E000f;
                                 } // end if
                                 _doneNP0102 = !_doneN0102 || !_doneP0102;
                                 if (!_doneP0102) { // if begin
-                                    _posP0102.x = _posP0102.x + _TMP19*  2.00000000000000000E00f;
+                                    _posP0102.x = _posP0102.x + _TMP19* 2.00000000000000000E000f;
                                 } // end if
                                 if (!_doneP0102) { // if begin
-                                    _posP0102.y = _posP0102.y + _TMP20*  2.00000000000000000E00f;
+                                    _posP0102.y = _posP0102.y + _TMP20* 2.00000000000000000E000f;
                                 } // end if
                                 if (_doneNP0102) { // if begin
                                     if (!_doneN0102) { // if begin
-                                        _TMP49 = _TMP164.SampleLevel(_FinalMap, float4(_posN0102.x, _posN0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).xy, float4(_posN0102.x, _posN0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).w);
+                                        _TMP49 = _TMP164.SampleLevel(_FinalMap, float4(_posN0102.x, _posN0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_posN0102.x, _posN0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
                                         _lumaEndN0102 = _TMP49.w;
                                     } // end if
                                     if (!_doneP0102) { // if begin
-                                        _TMP50 = _TMP164.SampleLevel(_FinalMap, float4(_posP0102.x, _posP0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).xy, float4(_posP0102.x, _posP0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).w);
+                                        _TMP50 = _TMP164.SampleLevel(_FinalMap, float4(_posP0102.x, _posP0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_posP0102.x, _posP0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
                                         _lumaEndP0102 = _TMP50.w;
                                     } // end if
                                     if (!_doneN0102) { // if begin
-                                        _lumaEndN0102 = _lumaEndN0102 - _lumaNN0102*  5.00000000000000000E-01f;
+                                        _lumaEndN0102 = _lumaEndN0102 - _lumaNN0102* 5.00000000000000000E-001f;
                                     } // end if
                                     if (!_doneP0102) { // if begin
-                                        _lumaEndP0102 = _lumaEndP0102 - _lumaNN0102*  5.00000000000000000E-01f;
+                                        _lumaEndP0102 = _lumaEndP0102 - _lumaNN0102* 5.00000000000000000E-001f;
                                     } // end if
                                     _TMP51 = abs(_lumaEndN0102);
                                     _doneN0102 = _TMP51 >= _gradientScaled0102;
                                     _TMP52 = abs(_lumaEndP0102);
                                     _doneP0102 = _TMP52 >= _gradientScaled0102;
                                     if (!_doneN0102) { // if begin
-                                        _posN0102.x = _posN0102.x - _TMP19*  2.00000000000000000E00f;
+                                        _posN0102.x = _posN0102.x - _TMP19* 2.00000000000000000E000f;
                                     } // end if
                                     if (!_doneN0102) { // if begin
-                                        _posN0102.y = _posN0102.y - _TMP20*  2.00000000000000000E00f;
+                                        _posN0102.y = _posN0102.y - _TMP20* 2.00000000000000000E000f;
                                     } // end if
                                     _doneNP0102 = !_doneN0102 || !_doneP0102;
                                     if (!_doneP0102) { // if begin
-                                        _posP0102.x = _posP0102.x + _TMP19*  2.00000000000000000E00f;
+                                        _posP0102.x = _posP0102.x + _TMP19* 2.00000000000000000E000f;
                                     } // end if
                                     if (!_doneP0102) { // if begin
-                                        _posP0102.y = _posP0102.y + _TMP20*  2.00000000000000000E00f;
+                                        _posP0102.y = _posP0102.y + _TMP20* 2.00000000000000000E000f;
                                     } // end if
                                     if (_doneNP0102) { // if begin
                                         if (!_doneN0102) { // if begin
-                                            _TMP53 = _TMP164.SampleLevel(_FinalMap, float4(_posN0102.x, _posN0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).xy, float4(_posN0102.x, _posN0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).w);
+                                            _TMP53 = _TMP164.SampleLevel(_FinalMap, float4(_posN0102.x, _posN0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_posN0102.x, _posN0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
                                             _lumaEndN0102 = _TMP53.w;
                                         } // end if
                                         if (!_doneP0102) { // if begin
-                                            _TMP54 = _TMP164.SampleLevel(_FinalMap, float4(_posP0102.x, _posP0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).xy, float4(_posP0102.x, _posP0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).w);
+                                            _TMP54 = _TMP164.SampleLevel(_FinalMap, float4(_posP0102.x, _posP0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_posP0102.x, _posP0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
                                             _lumaEndP0102 = _TMP54.w;
                                         } // end if
                                         if (!_doneN0102) { // if begin
-                                            _lumaEndN0102 = _lumaEndN0102 - _lumaNN0102*  5.00000000000000000E-01f;
+                                            _lumaEndN0102 = _lumaEndN0102 - _lumaNN0102* 5.00000000000000000E-001f;
                                         } // end if
                                         if (!_doneP0102) { // if begin
-                                            _lumaEndP0102 = _lumaEndP0102 - _lumaNN0102*  5.00000000000000000E-01f;
+                                            _lumaEndP0102 = _lumaEndP0102 - _lumaNN0102* 5.00000000000000000E-001f;
                                         } // end if
                                         _TMP55 = abs(_lumaEndN0102);
                                         _doneN0102 = _TMP55 >= _gradientScaled0102;
                                         _TMP56 = abs(_lumaEndP0102);
                                         _doneP0102 = _TMP56 >= _gradientScaled0102;
                                         if (!_doneN0102) { // if begin
-                                            _posN0102.x = _posN0102.x - _TMP19*  2.00000000000000000E00f;
+                                            _posN0102.x = _posN0102.x - _TMP19* 2.00000000000000000E000f;
                                         } // end if
                                         if (!_doneN0102) { // if begin
-                                            _posN0102.y = _posN0102.y - _TMP20*  2.00000000000000000E00f;
+                                            _posN0102.y = _posN0102.y - _TMP20* 2.00000000000000000E000f;
                                         } // end if
                                         _doneNP0102 = !_doneN0102 || !_doneP0102;
                                         if (!_doneP0102) { // if begin
-                                            _posP0102.x = _posP0102.x + _TMP19*  2.00000000000000000E00f;
+                                            _posP0102.x = _posP0102.x + _TMP19* 2.00000000000000000E000f;
                                         } // end if
                                         if (!_doneP0102) { // if begin
-                                            _posP0102.y = _posP0102.y + _TMP20*  2.00000000000000000E00f;
+                                            _posP0102.y = _posP0102.y + _TMP20* 2.00000000000000000E000f;
                                         } // end if
                                         if (_doneNP0102) { // if begin
                                             if (!_doneN0102) { // if begin
-                                                _TMP57 = _TMP164.SampleLevel(_FinalMap, float4(_posN0102.x, _posN0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).xy, float4(_posN0102.x, _posN0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).w);
+                                                _TMP57 = _TMP164.SampleLevel(_FinalMap, float4(_posN0102.x, _posN0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_posN0102.x, _posN0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
                                                 _lumaEndN0102 = _TMP57.w;
                                             } // end if
                                             if (!_doneP0102) { // if begin
-                                                _TMP58 = _TMP164.SampleLevel(_FinalMap, float4(_posP0102.x, _posP0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).xy, float4(_posP0102.x, _posP0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).w);
+                                                _TMP58 = _TMP164.SampleLevel(_FinalMap, float4(_posP0102.x, _posP0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_posP0102.x, _posP0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
                                                 _lumaEndP0102 = _TMP58.w;
                                             } // end if
                                             if (!_doneN0102) { // if begin
-                                                _lumaEndN0102 = _lumaEndN0102 - _lumaNN0102*  5.00000000000000000E-01f;
+                                                _lumaEndN0102 = _lumaEndN0102 - _lumaNN0102* 5.00000000000000000E-001f;
                                             } // end if
                                             if (!_doneP0102) { // if begin
-                                                _lumaEndP0102 = _lumaEndP0102 - _lumaNN0102*  5.00000000000000000E-01f;
+                                                _lumaEndP0102 = _lumaEndP0102 - _lumaNN0102* 5.00000000000000000E-001f;
                                             } // end if
                                             _TMP59 = abs(_lumaEndN0102);
                                             _doneN0102 = _TMP59 >= _gradientScaled0102;
                                             _TMP60 = abs(_lumaEndP0102);
                                             _doneP0102 = _TMP60 >= _gradientScaled0102;
                                             if (!_doneN0102) { // if begin
-                                                _posN0102.x = _posN0102.x - _TMP19*  4.00000000000000000E00f;
+                                                _posN0102.x = _posN0102.x - _TMP19* 4.00000000000000000E000f;
                                             } // end if
                                             if (!_doneN0102) { // if begin
-                                                _posN0102.y = _posN0102.y - _TMP20*  4.00000000000000000E00f;
+                                                _posN0102.y = _posN0102.y - _TMP20* 4.00000000000000000E000f;
                                             } // end if
                                             _doneNP0102 = !_doneN0102 || !_doneP0102;
                                             if (!_doneP0102) { // if begin
-                                                _posP0102.x = _posP0102.x + _TMP19*  4.00000000000000000E00f;
+                                                _posP0102.x = _posP0102.x + _TMP19* 4.00000000000000000E000f;
                                             } // end if
                                             if (!_doneP0102) { // if begin
-                                                _posP0102.y = _posP0102.y + _TMP20*  4.00000000000000000E00f;
+                                                _posP0102.y = _posP0102.y + _TMP20* 4.00000000000000000E000f;
                                             } // end if
                                             if (_doneNP0102) { // if begin
                                                 if (!_doneN0102) { // if begin
-                                                    _TMP61 = _TMP164.SampleLevel(_FinalMap, float4(_posN0102.x, _posN0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).xy, float4(_posN0102.x, _posN0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).w);
+                                                    _TMP61 = _TMP164.SampleLevel(_FinalMap, float4(_posN0102.x, _posN0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_posN0102.x, _posN0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
                                                     _lumaEndN0102 = _TMP61.w;
                                                 } // end if
                                                 if (!_doneP0102) { // if begin
-                                                    _TMP62 = _TMP164.SampleLevel(_FinalMap, float4(_posP0102.x, _posP0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).xy, float4(_posP0102.x, _posP0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).w);
+                                                    _TMP62 = _TMP164.SampleLevel(_FinalMap, float4(_posP0102.x, _posP0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_posP0102.x, _posP0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
                                                     _lumaEndP0102 = _TMP62.w;
                                                 } // end if
                                                 if (!_doneN0102) { // if begin
-                                                    _lumaEndN0102 = _lumaEndN0102 - _lumaNN0102*  5.00000000000000000E-01f;
+                                                    _lumaEndN0102 = _lumaEndN0102 - _lumaNN0102* 5.00000000000000000E-001f;
                                                 } // end if
                                                 if (!_doneP0102) { // if begin
-                                                    _lumaEndP0102 = _lumaEndP0102 - _lumaNN0102*  5.00000000000000000E-01f;
+                                                    _lumaEndP0102 = _lumaEndP0102 - _lumaNN0102* 5.00000000000000000E-001f;
                                                 } // end if
                                                 _TMP63 = abs(_lumaEndN0102);
                                                 _doneN0102 = _TMP63 >= _gradientScaled0102;
                                                 _TMP64 = abs(_lumaEndP0102);
                                                 _doneP0102 = _TMP64 >= _gradientScaled0102;
                                                 if (!_doneN0102) { // if begin
-                                                    _posN0102.x = _posN0102.x - _TMP19*  8.00000000000000000E00f;
+                                                    _posN0102.x = _posN0102.x - _TMP19* 8.00000000000000000E000f;
                                                 } // end if
                                                 if (!_doneN0102) { // if begin
-                                                    _posN0102.y = _posN0102.y - _TMP20*  8.00000000000000000E00f;
+                                                    _posN0102.y = _posN0102.y - _TMP20* 8.00000000000000000E000f;
                                                 } // end if
                                                 if (!_doneP0102) { // if begin
-                                                    _posP0102.x = _posP0102.x + _TMP19*  8.00000000000000000E00f;
+                                                    _posP0102.x = _posP0102.x + _TMP19* 8.00000000000000000E000f;
                                                 } // end if
                                                 if (!_doneP0102) { // if begin
-                                                    _posP0102.y = _posP0102.y + _TMP20*  8.00000000000000000E00f;
+                                                    _posP0102.y = _posP0102.y + _TMP20* 8.00000000000000000E000f;
                                                 } // end if
                                             } // end if
                                         } // end if
@@ -674,10 +674,10 @@ float4 main( in X1X cin) : SV_Target0
         if (!_horzSpan0102) { // if begin
             _dstP0102 = _posP0102.y - _pos0102.y;
         } // end if
-        _goodSpanN0102 = _lumaEndN0102 <   0.00000000000000000E00f != _lumaMLTZero0102;
+        _goodSpanN0102 = _lumaEndN0102 <  0.00000000000000000E000f != _lumaMLTZero0102;
         _spanLength0102 = _dstP0102 + _dstN0102;
-        _goodSpanP0102 = _lumaEndP0102 <   0.00000000000000000E00f != _lumaMLTZero0102;
-        _spanLengthRcp0102 =   1.00000000000000000E00f/_spanLength0102;
+        _goodSpanP0102 = _lumaEndP0102 <  0.00000000000000000E000f != _lumaMLTZero0102;
+        _spanLengthRcp0102 =  1.00000000000000000E000f/_spanLength0102;
         _directionN0102 = _dstN0102 < _dstP0102;
         _dst0102 = min(_dstN0102, _dstP0102);
         if (_directionN0102) { // if begin
@@ -686,11 +686,11 @@ float4 main( in X1X cin) : SV_Target0
             _TMP65 = _goodSpanP0102;
         } // end if
         _subpixG0102 = _subpixF0102*_subpixF0102;
-        _pixelOffset0102 = _dst0102*-_spanLengthRcp0102 +   5.00000000000000000E-01f;
+        _pixelOffset0102 = _dst0102*-_spanLengthRcp0102 +  5.00000000000000000E-001f;
         if (_TMP65) { // if begin
             _TMP66 = _pixelOffset0102;
         } else {
-            _TMP66 =   0.00000000000000000E00f;
+            _TMP66 =  0.00000000000000000E000f;
         } // end if
         _pixelOffsetSubpix0102 = max(_TMP66, _subpixG0102);
         if (!_horzSpan0102) { // if begin
@@ -699,7 +699,7 @@ float4 main( in X1X cin) : SV_Target0
         if (_horzSpan0102) { // if begin
             _posM0102.y = _pos0102.y + _pixelOffsetSubpix0102*_lengthSign0102;
         } // end if
-        _TMP67 = _TMP164.SampleLevel(_FinalMap, float4(_posM0102.x, _posM0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).xy, float4(_posM0102.x, _posM0102.y,   0.00000000000000000E00f,   0.00000000000000000E00f).w);
+        _TMP67 = _TMP164.SampleLevel(_FinalMap, float4(_posM0102.x, _posM0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).xy, float4(_posM0102.x, _posM0102.y,  0.00000000000000000E000f,  0.00000000000000000E000f).w);
         _TMP101 = float4(_TMP67.x, _TMP67.y, _TMP67.z, _rgbyM0102.w);
     } // end if
     return _TMP101;

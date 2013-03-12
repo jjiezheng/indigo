@@ -34,7 +34,7 @@ Matrix4x4 SpotLight::viewTransform() const {
 
 void SpotLight::update() {
 	static float bla = 0.0f;
-	bla += 0.0016f * 20;
+	bla += 0.0016f * 2;
 
 	direction_.z = cosf(bla) / 2.0f;
 
