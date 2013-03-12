@@ -4,16 +4,8 @@
 		"selected_items":
 		[
 			[
-				"Sh",
-				"ShadowBias"
-			],
-			[
-				"Light",
-				"LightBias"
-			],
-			[
-				"sha",
-				"shadowFactor"
+				"dep",
+				"depth2"
 			],
 			[
 				"line",
@@ -432,8 +424,8 @@
 				"ScreenSizeInv"
 			],
 			[
-				"dep",
-				"depthSampler"
+				"sha",
+				"shadowMap"
 			],
 			[
 				"un",
@@ -514,50 +506,73 @@
 			[
 				"Spe",
 				"SpecularPower"
+			],
+			[
+				"View",
+				"ViewProjInv"
+			],
+			[
+				"Light",
+				"LightDirection"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "/C/Users/NK/Development/game/premake4.lua",
+			"file": "/C/Users/NK/Development/game/assets/shaders/deferred_lighting_spot_light_shadow.cg",
 			"settings":
 			{
-				"buffer_size": 5780,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/C/Users/NK/Development/game/build/game.vcxproj",
-			"settings":
-			{
-				"buffer_size": 26882,
+				"buffer_size": 4561,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/C/Users/NK/Development/game/assets/scenes/simple/assorted.scene",
+			"file": "/C/Users/NK/Development/game/premake4.lua",
 			"settings":
 			{
-				"buffer_size": 2465,
+				"buffer_size": 5825,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": "ESC = 27 = 257",
+			"file": "/C/Users/NK/Development/game/src/engine/platform/input/glfw/GLFWKeyboard.cpp",
 			"settings":
 			{
-				"buffer_size": 14,
-				"line_ending": "Windows",
-				"name": "ESC = 27 = 257"
+				"buffer_size": 617,
+				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/C/Users/NK/Development/game/libs/glfw/include/GL/glfw.h",
+			"file": "/C/Users/NK/Development/game/src/engine/platform/input/glfw/GLFWKeyboard.h",
 			"settings":
 			{
-				"buffer_size": 19986,
+				"buffer_size": 422,
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/Users/GBKosteNi/AppData/Local/Temp/p4v/GBWWSLDNWS025_172.16.18.165_1666/topaz/dev-argon/WonderBook/Code/Components/HighlightPass/HighlightPass#1.cpp",
+			"settings":
+			{
+				"buffer_size": 15379,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/GBKosteNi/AppData/Local/Temp/p4v/GBWWSLDNWS025_172.16.18.165_1666/topaz/dev-argon/WonderBook/Code/Components/HighlightPass/HighlightPass#1.h",
+			"settings":
+			{
+				"buffer_size": 2312,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/NK/Development/game/assets/shaders/deferred_vsm_depth.cg",
+			"settings":
+			{
+				"buffer_size": 513,
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -739,23 +754,43 @@
 	},
 	"file_history":
 	[
-		"/C/Users/NK/Documents/Visual Studio 2010/Projects/PS3_PPU_Project1/PS3_PPU_Project1/PS3_PPU_Project1.vcxproj",
-		"/C/Users/NK/Development/game/assets/shaders/deferred_vsm_depth.cg",
-		"/C/Users/NK/Development/game/assets/scenes/simple/floor_and_cube.scene",
-		"/C/Users/NK/Development/game/assets/shaders/gaussian_blur_vertical_16_tap.cg",
-		"/C/Users/NK/Development/game/assets/shaders/gaussian_blur_horizontal_16_tap.cg",
-		"/C/Users/NK/Development/game/assets/shaders/deferred_depth.cg",
+		"/C/Users/GBKosteNi/Downloads/VarianceShadowMapping/Direct3D/Source/VarianceShadowMapping/SeparableBlur.fx",
+		"/C/Users/GBKosteNi/Downloads/VarianceShadowMapping/Direct3D/Source/VarianceShadowMapping/GenerateVSM.fx",
+		"/C/Users/GBKosteNi/Downloads/VarianceShadowMapping/Direct3D/Source/VarianceShadowMapping/DrawScene.fx",
+		"/C/Users/GBKosteNi/AppData/Local/Temp/p4v/GBWWSLDNWS025_172.16.18.165_1666/topaz/dev-argon/WonderBook/Code/Components/HighlightPass/HighlightPass#1.cpp",
+		"/C/Dev/Wb/Content/BookOfPotions/EyeToySDK/Code/Framework/Et/Renderer/RendererConstants.h",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/EyeToySDK/Materials/Shaders/Default/Blt.shader",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/EyeToySDK/Materials/Shaders/cgsdk/cg/ET_Alpha_Tex.fcg",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/EyeToySDK/Materials/Shaders/cgsdk/cg/ET_ConstantColour.fcg",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/EyeToySDK/Materials/Shaders/cgsdk/cg/ET_ConstantColour.vcg",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/EyeToySDK/Materials/Shaders/cgsdk/cg/ET_DepthToMoments.fcg",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/EyeToySDK/Materials/Shaders/cgsdk/cg/ET_Depth_Tex.fcg",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/EyeToySDK/Materials/Shaders/cgsdk/cg/ET_Sprite_2D.vcg",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/EyeToySDK/Materials/Shaders/cgsdk/cg/ET_VarianceBlur.fcg",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/EyeToySDK/Materials/Shaders/Basic/Textured.shader",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/EyeToySDK/Materials/Shaders/cgsdk/cg/ET_ConstantColour_Tex.vcg",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/EyeToySDK/Materials/Shaders/cgsdk/cg/ET_Tex.vcg",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/EyeToySDK/Materials/Shaders/cgsdk/cg/ET_Colour_UnTex.fcg",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/EyeToySDK/Materials/Shaders/cgsdk/cg/ET_Colour_Tex.fcg",
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Data/EyeToySDK/Materials/Shaders/Default/Blt.dict",
 		"/C/Users/NK/Development/game/assets/shaders/shadow.h",
-		"/C/Users/NK/Development/game/premake4.lua",
-		"/C/Users/NK/Development/game/assets/shaders/deferred_lighting_spot_light_shadow.cg",
+		"/C/Users/NK/Development/game/assets/shaders/deferred_fullscreen_texture.cg",
+		"/C/Users/NK/Development/game/assets/shaders/deferred_vsm_depth.cg",
+		"/C/cygwin/home/GBkosteni/Development/game/assets/shaders/shadow.h",
+		"/C/cygwin/home/GBkosteni/Development/game/assets/shaders/deferred_lighting_spot_light_shadow.cg",
+		"/C/cygwin/home/GBkosteni/Development/game/assets/shaders/deferred_depth.cg",
+		"/C/cygwin/home/GBkosteni/Development/game/assets/shaders/compile",
 		"/C/Users/NK/Development/game/assets/shaders/compile",
 		"/C/Program Files (x86)/SCE/ORBIS SDKs/0.915/target/samples/sample_code/graphics/api_gnm/basic-sample/basic-sample.cpp",
 		"/C/Program Files (x86)/SCE/ORBIS SDKs/0.915/target/include_common/gnmx/gfxcontext.h",
 		"/C/Program Files (x86)/SCE/ORBIS SDKs/0.915/target/include_common/gnmx.h",
+		"/C/Users/NK/Development/game/premake4.lua",
 		"/C/Users/NK/Documents/Visual Studio 2010/Projects/ORBIS_Project1/ORBIS_Project1/ORBIS_Project1.vcxproj",
+		"/C/Users/NK/Development/game/assets/shaders/deferred_depth.cg",
 		"/C/Users/NK/Development/game/src/engine/platform/renderer/gcm/PS3GCMGraphicsInterface.cpp",
 		"/C/Users/NK/Development/game/assets/shaders/deferred_ssao.cg",
 		"/C/Users/NK/Development/game/assets/shaders/deferred_render_color_normal_depth.cg",
+		"/C/Users/NK/Development/game/assets/shaders/deferred_lighting_spot_light_shadow.cg",
 		"/C/Users/NK/Development/game/assets/shaders/standard.h",
 		"/C/Users/NK/Development/game/assets/shaders/utils.h",
 		"/C/Users/NK/Development/game/src/engine/platform/renderer/gl32/nv_dds.h",
@@ -766,6 +801,7 @@
 		"/C/Users/NK/Development/game/assets/scenes/testcars/testcars.scene",
 		"/C/Users/NK/Development/game/assets/scenes/cars/cars.scene",
 		"/C/Users/NK/Development/game/assets/scenes/simple/simple.scene",
+		"/C/Users/NK/Development/game/assets/scenes/simple/floor_and_cube.scene",
 		"/C/Users/NK/Desktop/ssao/src/main.cpp",
 		"/C/Users/NK/Desktop/ssao/src/shaders/ssao.fs",
 		"/C/Users/GBKosteNi/Development/game/assets/shaders/compiled/deferred_render_color_normal_depth.shader.dx11.fragment",
@@ -845,28 +881,7 @@
 		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Common/Systems/ToolModules/Pouring/PouringModule.part",
 		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Common/Policies/GameplayActivityPolicies.part",
 		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Data/WBPreview/BrewingSpread.scene",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Data/WBPreview/Brewing.book",
-		"/C/Dev/Wb/Content/Bosamp_Clean/WonderBook/Assets/Books/BookOfSpells/Common/GestureSystem/StateMachine/State_functionality.lua",
-		"/C/Dev/Wb/Content/Bosamp_Clean/WonderBook/Assets/Books/BookOfSpells/Common/GestureSystem/StateMachine/Machine_GestureSystem.stm",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/Stirring/CauldronStir/Statemachine/CauldronStir_machine.stm",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfSpells/GlobalScenes/Global_NewInterface.part",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfSpells/Common/Effects/AnimatedSpread/WrapperFilter.part",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Preparing/Juicing/Juicing_activity.prefab",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/Cauldron/StateMachine/CauldronSurfaceLiquidInterface.part",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Data/Books/BookOfPotions/Brewing/Cauldron/StateMachine/CauldronSurfaceLiquidInterface.scene",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Data/Books/BookOfPotions/Brewing/Cauldron/CauldronSurfaceLiquidInterface.scene",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/Cauldron/CauldronSurfaceLiquidInterface.prefab",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Data/Books/BookOfPotions/common/Policies/GameplayActivityPolicies.scene",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Chapters/ShrinkingSolution/Introduction/PotionRecipeActivity.prefab",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/Cauldron/StateMachine/CauldronSurfaceLiquidInterface.stmproj",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Chapters/ShrinkingSolution/Introduction/IntroActivity.prefab",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/InstructionPanel/InstructionPanel.prefab",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/Stirring/EnchantedSpoon/CauldronStir_activity.part",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Preparing/Juicing/ShrivelFigJuice/ShirvelFigJuicingCauldronFx.prefab",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Data/Books/BookOfPotions/Preparing/Juicing/ShrivelFigJuice/ShirvelFigJuicingCauldronFx.scene",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/BookOfPotions.book",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/Cauldron/CauldronInterface.prefab",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/Heating/BunsenBurner/BunsenBurner_activity.part"
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Data/WBPreview/Brewing.book"
 	],
 	"find":
 	{
@@ -891,11 +906,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
-			"link",
-			"platformto",
-			"f;ags",
-			"multipass",
-			"opengl",
+			"m_hBlurMaterial",
+			"m_hMaskBuffer",
+			"glew32s",
+			"LinuxKeyboard",
 			"ps_4_0",
 			"basedir",
 			"radius",
@@ -1018,7 +1032,8 @@
 			"renderj",
 			"renderjo",
 			"IsValid",
-			"SPU"
+			"SPU",
+			"SetFragmentProgramTexture"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1026,6 +1041,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"GLFWKeyboard",
 			"Cauldron",
 			"BookOfPotions",
 			"vec2u_t",
@@ -1119,24 +1135,52 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 4,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/C/Users/NK/Development/game/premake4.lua",
+					"file": "/C/Users/NK/Development/game/assets/shaders/deferred_lighting_spot_light_shadow.cg",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5780,
+						"buffer_size": 4561,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2958,
-								3025
+								867,
+								867
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Shader Languages/Cg.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 428.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/C/Users/NK/Development/game/premake4.lua",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5825,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1145,109 +1189,26 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 855.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/C/Users/NK/Development/game/build/game.vcxproj",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 26882,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1250,
-								1250
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/XML/XML.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 270.0,
+						"translation.y": 1376.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "/C/Users/NK/Development/game/assets/scenes/simple/assorted.scene",
+					"file": "/C/Users/NK/Development/game/src/engine/platform/input/glfw/GLFWKeyboard.cpp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2465,
+						"buffer_size": 617,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								979,
-								979
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 675.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 14,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								14,
-								14
-							]
-						],
-						"settings":
-						{
-							"auto_name": "ESC = 27 = 257",
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "/C/Users/NK/Development/game/libs/glfw/include/GL/glfw.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 19986,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1577,
-								1577
+								91,
+								91
 							]
 						],
 						"settings":
@@ -1257,7 +1218,118 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 218.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/C/Users/NK/Development/game/src/engine/platform/input/glfw/GLFWKeyboard.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 422,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								23,
+								23
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/C/Users/GBKosteNi/AppData/Local/Temp/p4v/GBWWSLDNWS025_172.16.18.165_1666/topaz/dev-argon/WonderBook/Code/Components/HighlightPass/HighlightPass#1.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 15379,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								14056,
+								14071
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1551.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/C/Users/GBKosteNi/AppData/Local/Temp/p4v/GBWWSLDNWS025_172.16.18.165_1666/topaz/dev-argon/WonderBook/Code/Components/HighlightPass/HighlightPass#1.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2312,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								928,
+								928
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 180.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "/C/Users/NK/Development/game/assets/shaders/deferred_vsm_depth.cg",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 513,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Shader Languages/Cg.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1316,16 +1388,16 @@
 				"deferred_vsm_depth.cg"
 			],
 			[
-				"sahdow",
+				"shad",
 				"shadow.h"
 			],
 			[
-				"_shadow",
+				"spot",
 				"deferred_lighting_spot_light_shadow.cg"
 			],
 			[
-				"vertica",
-				"gaussian_blur_vertical_16_tap.cg"
+				"full",
+				"deferred_fullscreen_texture.cg"
 			],
 			[
 				"com",
@@ -1338,14 +1410,6 @@
 			[
 				"deferred",
 				"deferred_depth.cg"
-			],
-			[
-				"shad",
-				"shadow.h"
-			],
-			[
-				"spot",
-				"deferred_lighting_spot_light_shadow.cg"
 			],
 			[
 				"compile",
@@ -1822,6 +1886,14 @@
 			[
 				"spufluidd",
 				"Code/Framework/Spu/SpuFluid/SpuFluidDensity.cpp"
+			],
+			[
+				"fluidden",
+				"Code/Framework/Spu/SpuFluid/SpuFluidDensity.cpp"
+			],
+			[
+				"maths",
+				"Code/Etx/Maths/Maths.h"
 			]
 		],
 		"width": 0.0

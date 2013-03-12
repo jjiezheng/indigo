@@ -18,7 +18,7 @@ public:
     , radius_(0)
     , length_(0)
     , decay_(0)
-    , far_(2.0f)
+    , far_(5.0f)
     , castsShadows_(0)
     , shadowMapFrameBuffer_(0)
     , shadowMapTexture_(0)

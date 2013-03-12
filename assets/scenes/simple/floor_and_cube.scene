@@ -19,7 +19,7 @@
             "actor": "SpinningCube",
             "position": {
                 "x": 0,
-                "y": 0,
+                "y": 0.5,
                 "z": 0
             }
         }
@@ -45,11 +45,14 @@
           "decay" : 0.2,
           "length" : 30,
           "intensity" : 1.0,
+          "lightbias" : 0.000001,
+          "lightbleed" : 0.999,
+          "shadowbias" : 0.0000371,
           "castsshadows" : true,
           "position" : {
-            "x" : 10,
-            "y" : 10,
-            "z" : 10
+            "x" : 40,
+            "y" : 40,
+            "z" : 40
           },
           "orientation" : {
             "x" : 0,
