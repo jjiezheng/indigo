@@ -1,0 +1,64 @@
+{
+    "backgroundColor": {
+        "r": 1,
+        "g": 1,
+        "b": 1
+    },
+    "terrain": [],
+    "objects": [
+        {
+            "model": "actors/cube/cube.modelbinary",
+            "position": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+            }
+        }
+    ],
+    "lights": [
+         {
+            "type": "directional",
+            "direction": {
+                "x": -1,
+                "y": -1,
+                "z": -1
+            },
+            "color": {
+                "r": 0.3,
+                "g": 0.3,
+                "b": 0.3
+            }
+        },
+        {
+          "type" : "spot",
+          "innerangle" : 10,
+          "outerangle" : 20,
+          "decay" : 0.2,
+          "length" : 30,
+          "intensity" : 1.0,
+          "castsshadows" : true,
+          "position" : {
+            "x" : 5,
+            "y" : 5,
+            "z" : 5
+          },
+          "orientation" : {
+            "x" : 0,
+            "y" : 0,
+            "z" : 0
+          },
+          "color" : {
+            "r" : 1.0,
+            "g" : 1.0,
+            "b" : 1.0
+          },
+          "direction" : {
+            "x" : -1.0,
+            "y" : -1.0,
+            "z" : -1.0
+          }
+        }
+    ]
+}
+
+

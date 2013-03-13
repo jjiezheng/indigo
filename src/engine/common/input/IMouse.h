@@ -3,6 +3,8 @@
 
 #include "maths/Point.h"
 
+class IMouseListener;
+
 class IMouse {
 
 public:
@@ -20,6 +22,8 @@ public:
   virtual bool isLeftButtonDown() = 0;
 
   virtual void hideOSMouse(bool isHidden) = 0;
+
+	virtual void setMouseListener(IMouseListener* mouseListener) = 0;
 
 };
 

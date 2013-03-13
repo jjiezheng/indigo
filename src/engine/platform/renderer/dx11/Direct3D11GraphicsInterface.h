@@ -48,7 +48,7 @@ public:
 
   void clearActiveRenderTargets(const Color4& color);
 
-  void resetGraphicsState(bool cullBack);
+  void resetGraphicsState(bool cullBack, bool drawWireframe);
 
 public:
 

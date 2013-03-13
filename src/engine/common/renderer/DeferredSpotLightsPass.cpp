@@ -152,7 +152,7 @@ void DeferredSpotLightsPass::renderShadowMap(SpotLight* light, hash_map<IEffect*
   // Blur
   {
     GraphicsInterface::beginPerformanceEvent("Blur");
-    int kBlurPasses = 1;
+    int kBlurPasses = 2;
     depthBlur_.render(light->shadowMapFrameBuffer(), light->shadowMapTexture(), vsmDepthRenderTexture_, kBlurPasses);
     GraphicsInterface::endPerformanceEvent();
   }

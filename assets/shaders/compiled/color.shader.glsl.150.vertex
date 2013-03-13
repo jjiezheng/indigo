@@ -1,0 +1,36 @@
+// glslv output by Cg compiler
+// cgc version 3.1.0013, build date Apr 18 2012
+// command line args: -DGL=1 -DGL32=1 -q -profileopts version=150 -profile glslv
+// source file: color.cg
+//vendor NVIDIA Corporation
+//version 3.1.0.13
+//profile glslv
+//program vs
+//semantic ModelViewProj
+//semantic Color
+//var float4x4 ModelViewProj :  : _ModelViewProj[0], 4 : -1 : 1
+//var float4 position : $vin.POSITION : POSITION : 0 : 1
+//var float4 vs.position : $vout.POSITION : HPOS : -1 : 1
+
+#version 150
+
+struct VOutput {
+    vec4 _position2;
+};
+
+vec4 _r0003;
+uniform vec4 _ModelViewProj[4];
+in vec4 cg_Vertex;
+
+ // main procedure, the original name was vs
+void main()
+{
+
+
+    _r0003.x = dot(_ModelViewProj[0], cg_Vertex);
+    _r0003.y = dot(_ModelViewProj[1], cg_Vertex);
+    _r0003.z = dot(_ModelViewProj[2], cg_Vertex);
+    _r0003.w = dot(_ModelViewProj[3], cg_Vertex);
+    gl_Position = _r0003;
+    return;
+} // main end

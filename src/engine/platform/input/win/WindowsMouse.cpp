@@ -33,3 +33,7 @@ void WindowsMouse::hideOSMouse(bool isHidden) {
 void WindowsMouse::setPosition(const Point& position) {
 
 }
+
+void WindowsMouse::setMouseListener(IMouseListener* mouseListener) {
+	internalMouse_->setMouseListener(mouseListener);
+}

@@ -3,10 +3,15 @@
 #include "GraphicsInterface.h"
 #include "Model.h"
 
+#include "VertexDefinition.h"
+#include <algorithm>
+
 void Mesh::init(VertexDef* vertexData, unsigned int numVertices, VertexFormat vertexFormat) {
   numVertices_ = numVertices;
   vertexFormat_ = vertexFormat;
   vertexBuffer_ = GraphicsInterface::createVertexBuffer(vertexData, numVertices);
+
+	computeBoundingBox(vertexData, numVertices);
 }
 
 void Mesh::render() const {
@@ -26,5 +31,17 @@ void Mesh::setMaterialCallback(const std::string& materialName, Material::Materi
 
 	if (name.compare(materialName) == 0) {
 		material_.setCallback(callback, userData);
+	}
+}
+
+void Mesh::computeBoundingBox(VertexDef* vertexData, unsigned int numVertices) {
+	for (unsigned int i = 0; i < numVertices; i++) {
+		VertexDef vertex = vertexData[i];
+		boundingBox_.min.x = std::min(boundingBox_.min.x, vertex.vertex.x);
+		boundingBox_.max.x = std::max(boundingBox_.max.x, vertex.vertex.x);
+		boundingBox_.min.y = std::min(boundingBox_.min.y, vertex.vertex.y);
+		boundingBox_.max.y = std::max(boundingBox_.max.y, vertex.vertex.y);
+		boundingBox_.min.z = std::min(boundingBox_.min.z, vertex.vertex.z);
+		boundingBox_.max.z = std::max(boundingBox_.max.z, vertex.vertex.z);
 	}
 }

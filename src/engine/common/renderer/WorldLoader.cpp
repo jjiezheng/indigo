@@ -357,8 +357,7 @@ void WorldLoader::loadSceneItem(const json::Object& objectItem, World& world, co
 
 void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
   std::string fullFilePath = Path::pathForFile(modelFilePath);
-  //Model* model = BinaryModelDeserializer::deserialize(fullFilePath);
-
+  
   std::string fullAssetFilePath = Path::pathForFile(fullFilePath);
   LOG(LOG_CHANNEL_WORLDLOADER, "Loading model %s", fullAssetFilePath.c_str());
 

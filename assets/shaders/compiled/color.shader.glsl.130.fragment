@@ -1,0 +1,32 @@
+// glslf output by Cg compiler
+// cgc version 3.1.0013, build date Apr 18 2012
+// command line args: -DGL=1 -DGL32=1 -q -profileopts version=140 -profile glslf
+// source file: color.cg
+//vendor NVIDIA Corporation
+//version 3.1.0.13
+//profile glslf
+//program ps
+//semantic ModelViewProj
+//semantic Color
+//var float3 Color :  : _Color : -1 : 1
+//var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
+
+#version 140
+
+struct VOutput {
+    int dummy;
+};
+
+vec4 _ret_0;
+uniform vec3 _Color;
+out vec4 cg_FragColor;
+
+ // main procedure, the original name was ps
+void main()
+{
+
+
+    _ret_0 = vec4(_Color.x, _Color.y, _Color.z, 1.00000000E+000);
+    cg_FragColor = _ret_0;
+    return;
+} // main end

@@ -45,7 +45,7 @@ void DeferredSSAOPass::init(const CSize& screenSize) {
   ssaoColorBlurCombinedRenderTarget_ = GraphicsInterface::createRenderTarget(ssaoColorBlurCombinedTexture_);
 	ssaoColorBlurCombinedFrameBuffer_ = GraphicsInterface::createFrameBuffer(ssaoColorBlurCombinedRenderTarget_, false);
 
-  blur_.init(GraphicsInterface::backBufferSize());
+  blur_.init(GraphicsInterface::backBufferSize(), 16);
 
   // generate noise texture
   
@@ -112,7 +112,7 @@ TextureId DeferredSSAOPass::render(IViewer* viewer, unsigned int inputMap, const
   }
 
  {
-  // blur_.render(ssaoRawFrameBuffer_, ssaoRawTexture_, ssaoRawTexture_, 8);
+   blur_.render(ssaoRawFrameBuffer_, ssaoRawTexture_, ssaoRawTexture_, 1);
  }
 
  {

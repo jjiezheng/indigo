@@ -58,7 +58,7 @@ public:
 
   static void drawVertexBuffer(int vertexBuffer,int vertexCount, VertexFormat vertexFormat);
 
-  static void setRenderState(bool cullBack);
+  static void setRenderState(bool cullBack=true, bool drawWireframe=false);
 
 public:
 

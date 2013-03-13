@@ -11,6 +11,7 @@
 
 #include "core/Standard.h"
 #include "maths/Matrix4x4.h"
+#include "maths/BoundingBox.h"
 
 #include "Color3.h"
 #include "Material.h"
@@ -55,12 +56,18 @@ public:
   Matrix4x4 localToWorld() const;
 
   void setParent(Model* parent);
+
+private:
+
+	void computeBoundingBox(VertexDef* vertexData, unsigned int numVertices);
   
 private:
   
   unsigned int numVertices_;
   unsigned int vertexBuffer_;
   VertexFormat vertexFormat_;
+
+	BoundingBox boundingBox_;
     
   Material material_;
   Model* parent_;

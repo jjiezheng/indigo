@@ -1,0 +1,32 @@
+// ps_4_0 output by Cg compiler
+// cgc version 3.1.0013, build date Apr 18 2012
+// command line args: -DDX11=1 -q -unroll all -profile ps_5_0
+// source file: color.cg
+//vendor NVIDIA Corporation
+//version 3.1.0.13
+//profile ps_5_0
+//program ps
+//semantic ModelViewProj
+//semantic Color
+//var float3 Color :  : _Color : -1 : 1
+//var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
+
+#pragma pack_matrix(row_major)
+
+struct VOutput {
+    float4 _position1 : SV_Position;
+};
+
+struct X1X {
+    float4 _POSITION : SV_Position;
+};
+
+uniform float3 _Color;
+
+ // main procedure, the original name was ps
+float4 main() : SV_Target0
+{
+
+
+    return float4(_Color.x, _Color.y, _Color.z,  1.00000000000000000E000f);
+} // main end

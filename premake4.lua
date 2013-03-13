@@ -90,7 +90,8 @@ project "game"
 
 	configuration { "windows", "gl" }
 		links {
-			"glew32s"
+			"glew32s",
+			"glu32"
 		}
 
 	configuration "windows"

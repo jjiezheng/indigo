@@ -102,7 +102,7 @@ public:
 
   virtual IEffect* createEffect() = 0;
 
-  virtual void resetGraphicsState(bool cullBack) = 0;
+  virtual void resetGraphicsState(bool cullBack, bool drawWireframe) = 0;
 
 public:
 

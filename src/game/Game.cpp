@@ -26,6 +26,7 @@ void Game::init(const char* sceneFile) {
 	Mouse::setPosition(mousePosition);
 	Keyboard::init();
 	clock_.init();
+	editor_.init();
 
 	//camera_.translateZ(2.0f);
 	camera_.translateY(0.8f);
@@ -41,8 +42,8 @@ void Game::init(const char* sceneFile) {
 		loader.loadFromSceneFile(sceneFile, world_, sceneContext_, actorFactory_);
 	}
 
-	Keyboard::setKeydownListener(this);  
-	keyUp(KEY_BACKTICK);
+	Keyboard::setKeydownListener(this);
+	Mouse::setMouseListener(this);
 }
 
 void Game::mainLoop() {
@@ -56,8 +57,12 @@ void Game::mainLoop() {
 	editor_.update(dt);
 
 	renderer_.render(&camera_, world_, sceneContext_);
-	editor_.render();
+	editor_.render(&camera_, world_);
 	ui_.render();
+}
+
+void Game::mouseUp(int mouseButton) {
+
 }
 
 void Game::keyUp(int keyCode) {

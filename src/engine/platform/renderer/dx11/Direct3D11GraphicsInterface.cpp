@@ -394,7 +394,7 @@ void Direct3D11GraphicsInterface::setTexture(unsigned int slotIndex, ID3D11Sampl
   context_->PSSetSamplers(slotIndex, 1, &samplerState);
 }
 
-void Direct3D11GraphicsInterface::resetGraphicsState(bool cullBack) {	
+void Direct3D11GraphicsInterface::resetGraphicsState(bool cullBack, bool drawWireframe) {	
   {
     D3D11_RASTERIZER_DESC rasterDesc;
     ZeroMemory(&rasterDesc, sizeof(D3D11_RASTERIZER_DESC));
@@ -407,7 +407,7 @@ void Direct3D11GraphicsInterface::resetGraphicsState(bool cullBack) {
 		rasterDesc.DepthBias = !cullBack ? dwDepthBias : 0;
     rasterDesc.DepthBiasClamp = !cullBack ? 1000.0f : 0.0f;
     rasterDesc.DepthClipEnable = true;
-    rasterDesc.FillMode = D3D11_FILL_SOLID;
+		rasterDesc.FillMode = drawWireframe ? D3D11_FILL_WIREFRAME : D3D11_FILL_SOLID;
     rasterDesc.FrontCounterClockwise = true;
     rasterDesc.MultisampleEnable = false;
     rasterDesc.ScissorEnable = false;

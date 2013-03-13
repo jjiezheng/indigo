@@ -4,6 +4,7 @@
 #include "maths/Point.h"
 
 class IMouse;
+class IMouseListener;
 class Point;
 
 class Mouse {
@@ -19,6 +20,8 @@ public:
   static bool isLeftButtonDown();
 
   static void hideOSMouse(bool isHidden);
+
+	static void setMouseListener(IMouseListener* mouseListener);
   
 private:
   

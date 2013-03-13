@@ -13,9 +13,11 @@
 #include "editor/EditorLayer.h"
 
 #include "input/IKeyboardListener.h"
+#include "input/IMouseListener.h"
+
 #include "entity/ActorFactory.h"
 
-class Game : public IGame, public IKeyboardListener {
+class Game : public IGame, public IKeyboardListener, public IMouseListener {
   
 public:
   
@@ -28,6 +30,8 @@ public:
 public:
 
   void keyUp(int keyCode);
+
+	void mouseUp(int mouseButton);
   
 private:
   

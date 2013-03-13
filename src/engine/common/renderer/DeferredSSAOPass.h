@@ -3,7 +3,7 @@
 
 #include "IDeferredPostProcessingPass.h"
 #include "GraphicsInterface.h"
-#include "AverageBlur.h"
+#include "GaussianBlur.h"
 
 #include "maths/Vector4.h"
 
@@ -60,7 +60,7 @@ private:
   RenderTarget ssaoColorBlurCombinedRenderTarget_;
 	FrameBuffer ssaoColorBlurCombinedFrameBuffer_;
 
-  AverageBlur blur_;
+  GaussianBlur blur_;
 
 };
 

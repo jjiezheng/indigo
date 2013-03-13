@@ -65,8 +65,8 @@ unsigned int GraphicsInterface::loadTexture(const char* filePath) {
   return graphicsInterface_->loadTexture(filePath);
 }
 
-void GraphicsInterface::setRenderState(bool cullBack) {
-  graphicsInterface_->resetGraphicsState(cullBack);
+void GraphicsInterface::setRenderState(bool cullBack, bool drawWireframe) {
+  graphicsInterface_->resetGraphicsState(cullBack, drawWireframe);
 }
 
 unsigned int GraphicsInterface::createTexture(const CSize& dimensions) {

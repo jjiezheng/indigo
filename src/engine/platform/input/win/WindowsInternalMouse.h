@@ -17,6 +17,8 @@ public:
 
   void hideOSMouse(bool isHidden);
 
+	void setMouseListener(IMouseListener* mouseListener);
+
 };
 
 #endif

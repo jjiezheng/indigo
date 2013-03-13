@@ -6,6 +6,7 @@
 #include <map>
 
 class IKeyboardListener;
+class IMouseListener;
 
 class WindowsUtils {
 
@@ -31,6 +32,8 @@ public:
 
 	static void setKeyboardListener(IKeyboardListener* keyboardListener);
 
+	static void setMouseListener(IMouseListener* mouseListener);
+
 private:
 
 	static bool keyStates_[1024];
@@ -41,6 +44,8 @@ private:
 
 	static IKeyboardListener* keyboardListener_;
 
+	static IMouseListener* mouseListener_;
+
 	static bool isCursorVisible_;
 
 	static std::map<int, int> keyMappings_;
@@ -49,6 +54,11 @@ private:
 
 inline void WindowsUtils::setKeyboardListener(IKeyboardListener* keyboardListener) {
 	keyboardListener_ = keyboardListener;
+}
+
+
+inline void WindowsUtils::setMouseListener(IMouseListener* mouseListener) {
+	mouseListener_ = mouseListener;
 }
 
 #endif

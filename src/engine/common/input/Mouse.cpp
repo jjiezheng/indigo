@@ -42,3 +42,7 @@ bool Mouse::isLeftButtonDown() {
 void Mouse::hideOSMouse(bool isHidden) {
 	mouse_->hideOSMouse(isHidden);
 }
+
+void Mouse::setMouseListener(IMouseListener* mouseListener) {
+	mouse_->setMouseListener(mouseListener);
+}

@@ -4,12 +4,16 @@
 
 #include "Windowsx.h"
 #include "input/IKeyboardListener.h"
+#include "input/IMouseListener.h"
 
 bool WindowsUtils::keyStates_[1024];
 bool WindowsUtils::mouseButtons_[1];
 int WindowsUtils::mouseX_ = 0;
 int WindowsUtils::mouseY_ = 0;
+
 IKeyboardListener* WindowsUtils::keyboardListener_ = 0;
+IMouseListener* WindowsUtils::mouseListener_ = 0;
+
 bool WindowsUtils::isCursorVisible_ = true;
 std::map<int, int> WindowsUtils::keyMappings_;
 
@@ -44,7 +48,7 @@ HWND WindowsUtils::createWindow(int width, int height, const std::string& window
 	wc.style = CS_HREDRAW | CS_VREDRAW;
 	wc.lpfnWndProc = WindowsUtils::WindowProc;
 	wc.hInstance = hInstance;
-	wc.hCursor = NULL;//LoadCursor(NULL, IDC_ARROW);
+	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wc.hbrBackground = (HBRUSH)COLOR_WINDOW;
 	wc.lpszClassName = "GameWindowClass";
 
@@ -105,11 +109,17 @@ bool WindowsUtils::pumpMessages() {
 			}
 
 			keyStates_[mappedKey] = false;
-			if (keyboardListener_) {
+			if (NULL != keyboardListener_) {
 				keyboardListener_->keyUp(mappedKey);
 			}
 		}
 
+		if (msg.message == WM_LBUTTONUP) {
+			if (NULL != mouseListener_) {
+				mouseListener_->mouseUp(0);
+			}
+		}
+ 
 		if (msg.message == WM_INPUT) {
 			RAWINPUT input;
 

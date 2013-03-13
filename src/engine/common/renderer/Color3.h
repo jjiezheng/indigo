@@ -23,6 +23,7 @@ public:
   static Color3 WHITE;
   static Color3 RED;
   static Color3 GREEN;
+	static Color3 ORANGE;
   static Color3 BLUE;
   static Color3 GREY;
   static Color3 MAGENTA;
