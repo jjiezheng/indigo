@@ -7,7 +7,7 @@
 
 #include "renderer/GraphicsInterface.h"
 
-#include "input/IKeyboard.h"
+#include "input/KeyboardState.h"
 
 static const int MOUSE_TAG = 101;
 static const int FPS_LABEL_TAG = 102;

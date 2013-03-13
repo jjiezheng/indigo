@@ -2,6 +2,7 @@
 #define KEYBOARD_H
 
 #include "IKeyboard.h"
+#include "KeyboardState.h"
 
 class IKeyboardListener;
 
@@ -13,7 +14,7 @@ public:
   
 public:
   
-  static bool keyState(int keyCode);
+  static bool keyState(KeyCode keyCode);
 
   static void update();
   

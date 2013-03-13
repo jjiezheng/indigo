@@ -61,11 +61,11 @@ void Game::mainLoop() {
 	ui_.render();
 }
 
-void Game::mouseUp(int mouseButton) {
-
+void Game::mouseUp(MouseButton mouseButton) {
+	editor_.mouseUp(mouseButton);
 }
 
-void Game::keyUp(int keyCode) {
+void Game::keyUp(KeyCode keyCode) {
   ui_.keyUp(keyCode);
 	LOG(LOG_CHANNEL_TEMP, "%d", keyCode);
 

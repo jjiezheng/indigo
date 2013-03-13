@@ -10,6 +10,7 @@ const char* LOG_CHANNEL_GRAPHICS_API = "GRAPHICS API";
 const char* LOG_CHANNEL_TEMP = "TEMP";
 const char* LOG_CHANNEL_RENDERER = "RENDERER";
 const char* LOG_CHANNEL_INPUT = "INPUT";
+const char* LOG_CHANNEL_EDITOR = "EDITOR";
 
 #include <stdio.h>
 #include <stdarg.h>

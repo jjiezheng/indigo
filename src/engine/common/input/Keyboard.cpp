@@ -39,7 +39,7 @@ void Keyboard::init() {
   keyboard_->setup();
 };
 
-bool Keyboard::keyState(int keyCode) {
+bool Keyboard::keyState(KeyCode keyCode) {
   return keyboard_->keyState(keyCode);
 }
 

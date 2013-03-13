@@ -2,7 +2,7 @@
 
 #include "WindowsUtils.h"
 
-bool WindowsInternalKeyboard::keyState(int keyCode) {
+bool WindowsInternalKeyboard::keyState(KeyCode keyCode) {
 	bool result = WindowsUtils::getKeyState(keyCode);
 	return result;
 }

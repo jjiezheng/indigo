@@ -29,9 +29,9 @@ public:
 
 public:
 
-  void keyUp(int keyCode);
+  void keyUp(KeyCode keyCode);
 
-	void mouseUp(int mouseButton);
+	void mouseUp(MouseButton mouseButton);
   
 private:
   

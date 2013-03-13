@@ -1,6 +1,8 @@
 #ifndef IKEYBOARD_LISTENER
 #define IKEYBOARD_LISTENER
 
+#include "KeyboardState.h"
+
 class IKeyboardListener {
 
 public:
@@ -9,7 +11,7 @@ public:
 
 public:
 
-  virtual void keyUp(int keyCode) = 0;
+  virtual void keyUp(KeyCode keyCode) = 0;
 
 };
 

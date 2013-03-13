@@ -5,6 +5,7 @@
 #include "Windowsx.h"
 #include "input/IKeyboardListener.h"
 #include "input/IMouseListener.h"
+#include "IMouse.h"
 
 bool WindowsUtils::keyStates_[1024];
 bool WindowsUtils::mouseButtons_[1];
@@ -70,12 +71,12 @@ HWND WindowsUtils::createWindow(int width, int height, const std::string& window
 
 	ShowWindow(hWnd, SW_SHOW);
 
-	RAWINPUTDEVICE mouse;
-	mouse.usUsagePage = 0x01;
-	mouse.usUsage = 0x02;
-	mouse.dwFlags = RIDEV_NOLEGACY;
-	mouse.hwndTarget = 0;
-	RegisterRawInputDevices(&mouse, 1, sizeof(mouse));
+// 	RAWINPUTDEVICE mouse;
+// 	mouse.usUsagePage = 0x01;
+// 	mouse.usUsage = 0x02;
+// 	mouse.dwFlags = RIDEV_NOLEGACY;
+// 	mouse.hwndTarget = 0;
+// 	RegisterRawInputDevices(&mouse, 1, sizeof(mouse));
 
 	return hWnd;
 }
@@ -110,13 +111,13 @@ bool WindowsUtils::pumpMessages() {
 
 			keyStates_[mappedKey] = false;
 			if (NULL != keyboardListener_) {
-				keyboardListener_->keyUp(mappedKey);
+				keyboardListener_->keyUp((KeyCode)mappedKey);
 			}
 		}
 
-		if (msg.message == WM_LBUTTONUP) {
+		if (msg.message == WM_LBUTTONDOWN) {
 			if (NULL != mouseListener_) {
-				mouseListener_->mouseUp(0);
+				mouseListener_->mouseUp(MOUSE_BUTTON_LEFT);
 			}
 		}
  

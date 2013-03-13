@@ -16,7 +16,7 @@ void WindowsKeyboard::setup() {
 	internalKeyboard_->setup();
 }
 
-bool WindowsKeyboard::keyState(int keyCode) {
+bool WindowsKeyboard::keyState(KeyCode keyCode) {
 	bool state = internalKeyboard_->keyState(keyCode);
 	return state;
 }

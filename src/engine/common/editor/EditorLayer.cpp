@@ -2,6 +2,8 @@
 
 #include "core/HashMap.h"
 
+#include "io/Log.h"
+
 #include "GraphicsInterface.h"
 
 #include "Mesh.h"
@@ -61,4 +63,12 @@ void EditorLayer::render(IViewer* viewer, World& world) {
 
 		GraphicsInterface::endPerformanceEvent();
 	}
+}
+
+void EditorLayer::mouseUp(MouseButton mouseButton) {
+
+	if (MOUSE_BUTTON_LEFT == mouseButton) {
+		LOG(LOG_CHANNEL_EDITOR, "Start Pick Object");
+	}
+
 }

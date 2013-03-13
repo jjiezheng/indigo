@@ -78,27 +78,27 @@ void Camera::update(float dt) {
 
     float keyboardSpeed = 10;
 
-    if (Keyboard::keyState('w') || Keyboard::keyState('W')) {
+    if (Keyboard::keyState((KeyCode)'w') || Keyboard::keyState((KeyCode)'W')) {
       moveForward(speed * keyboardSpeed);
     }
   
-    if (Keyboard::keyState('s') || Keyboard::keyState('S')) {
+    if (Keyboard::keyState((KeyCode)'s') || Keyboard::keyState((KeyCode)'S')) {
       moveForward(-speed * keyboardSpeed);
     }
   
-    if (Keyboard::keyState('a') || Keyboard::keyState('A')) {
+    if (Keyboard::keyState((KeyCode)'a') || Keyboard::keyState((KeyCode)'A')) {
       moveRight(-speed * keyboardSpeed);
     }
   
-    if (Keyboard::keyState('d') || Keyboard::keyState('D')) {
+    if (Keyboard::keyState((KeyCode)'d') || Keyboard::keyState((KeyCode)'D')) {
       moveRight(speed * keyboardSpeed);
     }
   
-    if (Keyboard::keyState('e') || Keyboard::keyState('E')) {
+    if (Keyboard::keyState((KeyCode)'e') || Keyboard::keyState((KeyCode)'E')) {
       moveUp(speed * keyboardSpeed);
     }
 
-    if (Keyboard::keyState('q') || Keyboard::keyState('Q')) {
+    if (Keyboard::keyState((KeyCode)'q') || Keyboard::keyState((KeyCode)'Q')) {
       moveUp(-speed * keyboardSpeed);
     }
   

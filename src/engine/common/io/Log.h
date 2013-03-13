@@ -11,6 +11,7 @@ extern const char* LOG_CHANNEL_GRAPHICS_API;
 extern const char* LOG_CHANNEL_TEMP;
 extern const char* LOG_CHANNEL_RENDERER;
 extern const char* LOG_CHANNEL_INPUT;
+extern const char* LOG_CHANNEL_EDITOR;
 
 void DLOG(const char* channel, const char* fmt, ...);
 void DLOGRAW(const char* fmt, ...);
