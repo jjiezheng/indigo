@@ -684,7 +684,9 @@ unsigned int Direct3D11GraphicsInterface::createDepthTexture(const CSize& dimens
 }
 
 void Direct3D11GraphicsInterface::clearActiveDepthBuffer(unsigned int textureId) {
-  context_->ClearDepthStencilView(activeDepthBuffer_, D3D11_CLEAR_DEPTH, 1.0f, 0);
+  if (NULL != activeDepthBuffer_) {
+    context_->ClearDepthStencilView(activeDepthBuffer_, D3D11_CLEAR_DEPTH, 1.0f, 0);
+  }
 }
 
 void Direct3D11GraphicsInterface::setBlendState(IGraphicsInterface::BlendState blendState) {

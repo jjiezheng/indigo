@@ -1,0 +1,94 @@
+// glslf output by Cg compiler
+// cgc version 3.1.0013, build date Apr 18 2012
+// command line args: -DGL=1 -DGL32=1 -q -profileopts version=150 -profile glslf
+// source file: average_blur_vertical.cg
+//vendor NVIDIA Corporation
+//version 3.1.0.13
+//profile glslf
+//program ps
+//semantic SourceMap : TEXUNIT0
+//semantic TexelSize
+//var sampler2D SourceMap : TEXUNIT0 : _SourceMap 0 : -1 : 1
+//var float TexelSize :  : _TexelSize : -1 : 1
+//var float2 texCoord : $vin.TEXCOORD0 : TEXCOORD0 : 1 : 1
+//var float4 ps : $vout.COLOR0 : COLOR0 : -1 : 1
+
+#version 150
+
+struct VOutput {
+    vec2 _texCoord2;
+};
+
+vec4 _ret_0;
+vec4 _TMP8;
+vec4 _TMP7;
+vec4 _TMP6;
+vec4 _TMP5;
+vec4 _TMP4;
+vec4 _TMP3;
+vec4 _TMP2;
+vec4 _TMP1;
+vec4 _TMP0;
+vec2 _c0013;
+vec2 _c0015;
+vec2 _c0017;
+vec2 _c0019;
+vec2 _c0023;
+vec2 _c0025;
+vec2 _c0027;
+vec2 _c0029;
+uniform sampler2D _SourceMap;
+uniform float _TexelSize;
+in vec4 cg_TexCoord0;
+out vec4 cg_FragColor;
+
+ // main procedure, the original name was ps
+void main()
+{
+
+    vec4 _result;
+    vec2 _offset1;
+    vec2 _offset2;
+    vec2 _offset4;
+    vec2 _offset5;
+    vec2 _offset6;
+    vec2 _offset7;
+    vec2 _offset8;
+
+    _offset1 = vec2( -1.00000000E+000, 1.00000000E+000)*_TexelSize;
+    _c0013 = cg_TexCoord0.xy + _offset1;
+    _TMP0 = texture(_SourceMap, _c0013);
+    _offset2 = vec2( 0.00000000E+000, 1.00000000E+000)*_TexelSize;
+    _c0015 = cg_TexCoord0.xy + _offset2;
+    _TMP1 = texture(_SourceMap, _c0015);
+    _result = _TMP0 + _TMP1;
+    _c0017 = cg_TexCoord0.xy + vec2(_TexelSize, _TexelSize);
+    _TMP2 = texture(_SourceMap, _c0017);
+    _result = _result + _TMP2;
+    _offset4 = vec2( -1.00000000E+000, 0.00000000E+000)*_TexelSize;
+    _c0019 = cg_TexCoord0.xy + _offset4;
+    _TMP3 = texture(_SourceMap, _c0019);
+    _result = _result + _TMP3;
+    _TMP4 = texture(_SourceMap, cg_TexCoord0.xy);
+    _result = _result + _TMP4;
+    _offset5 = vec2( 1.00000000E+000, 0.00000000E+000)*_TexelSize;
+    _c0023 = cg_TexCoord0.xy + _offset5;
+    _TMP5 = texture(_SourceMap, _c0023);
+    _result = _result + _TMP5;
+    _offset6 = vec2(-_TexelSize, -_TexelSize);
+    _c0025 = cg_TexCoord0.xy + _offset6;
+    _TMP6 = texture(_SourceMap, _c0025);
+    _result = _result + _TMP6;
+    _offset7 = vec2( 0.00000000E+000, -1.00000000E+000)*_TexelSize;
+    _c0027 = cg_TexCoord0.xy + _offset7;
+    _TMP7 = texture(_SourceMap, _c0027);
+    _result = _result + _TMP7;
+    _offset8 = vec2( 1.00000000E+000, -1.00000000E+000)*_TexelSize;
+    _c0029 = cg_TexCoord0.xy + _offset8;
+    _TMP8 = texture(_SourceMap, _c0029);
+    _result = _result + _TMP8;
+    _result = _result/9.00000000E+000;
+    _ret_0 = vec4(_result.x, _result.y, _result.z, 1.00000000E+000);
+    cg_FragColor = _ret_0;
+    return;
+} // main end

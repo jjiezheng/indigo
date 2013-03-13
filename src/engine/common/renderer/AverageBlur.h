@@ -18,7 +18,7 @@ public:
   
   void init(const CSize& bufferSize);
   
-  void render(FrameBuffer outputFrameBuffer, TextureId sourceTexture, unsigned int iterations);
+  void render(FrameBuffer outputFrameBuffer, TextureId destTexture, TextureId sourceTexture, unsigned int iterations);
 
   void blur(FrameBuffer outputFrameBuffer, TextureId sourceTexture);
   

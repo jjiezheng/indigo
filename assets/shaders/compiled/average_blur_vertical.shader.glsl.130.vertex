@@ -1,0 +1,35 @@
+// glslv output by Cg compiler
+// cgc version 3.1.0013, build date Apr 18 2012
+// command line args: -DGL=1 -DGL32=1 -q -profileopts version=140 -profile glslv
+// source file: average_blur_vertical.cg
+//vendor NVIDIA Corporation
+//version 3.1.0.13
+//profile glslv
+//program vs
+//semantic SourceMap : TEXUNIT0
+//semantic TexelSize
+//var float4 position : $vin.POSITION : POSITION : 0 : 1
+//var float2 texCoord : $vin.TEXCOORD0 : TEXCOORD0 : 1 : 1
+//var float4 vs.position : $vout.POSITION : HPOS : -1 : 1
+//var float2 vs.texCoord : $vout.TEXCOORD0 : TEXCOORD0 : -1 : 1
+
+#version 140
+
+struct VOutput {
+    vec4 _position2;
+    vec2 _texCoord1;
+};
+
+in vec4 TEXCOORD0;
+in vec4 cg_Vertex;
+out vec4 cg_TexCoord0;
+
+ // main procedure, the original name was vs
+void main()
+{
+
+
+    cg_TexCoord0.xy = TEXCOORD0.xy;
+    gl_Position = cg_Vertex;
+    return;
+} // main end

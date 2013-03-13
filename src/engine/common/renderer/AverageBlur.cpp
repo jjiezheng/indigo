@@ -20,18 +20,22 @@ void AverageBlur::init(const CSize& bufferSize) {
   verticalEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/average_blur_vertical.shader");
 }
 
-void AverageBlur::render(FrameBuffer outputFrameBuffer, TextureId sourceTexture, unsigned int iterations) {
+void AverageBlur::render(FrameBuffer destFrameBuffer, TextureId destTexture, TextureId srcTexture, unsigned int iterations) {
   GraphicsInterface::setRenderState(true);
 
   FrameBuffer frameBufferA = blurFrameBuffer_;
-  FrameBuffer frameBufferB = outputFrameBuffer;
+  FrameBuffer frameBufferB = destFrameBuffer;
 
-  TextureId textureA = sourceTexture;
+  TextureId textureA = srcTexture;
   TextureId textureB = blurMapTexture_;
   
 	for (unsigned int i = 0; i < iterations; i++) {
     blur(frameBufferA, textureA);
-    
+
+    if (textureA == srcTexture) {
+      textureA = destTexture;
+    }
+
     {
       TextureId temp = textureA;
       textureA = textureB;
@@ -46,14 +50,16 @@ void AverageBlur::render(FrameBuffer outputFrameBuffer, TextureId sourceTexture,
   }
 }
 
-void AverageBlur::blur(FrameBuffer outputFrameBuffer, TextureId sourceTexture) {
+void AverageBlur::blur(FrameBuffer destFrameBuffer, TextureId srcTexture) {
   GraphicsInterface::beginPerformanceEvent("Pass");
 
-  GraphicsInterface::setFrameBuffer(outputFrameBuffer);
+  GraphicsInterface::setFrameBuffer(destFrameBuffer);
   GraphicsInterface::clearActiveColorBuffers(Color4::WHITE);
+  GraphicsInterface::clearActiveDepthBuffer();
+  GraphicsInterface::setBlendState(IGraphicsInterface::NOBLEND);
 
   verticalEffect_->beginDraw();
-  verticalEffect_->setTexture(sourceTexture, "SourceMap");
+  verticalEffect_->setTexture(srcTexture, "SourceMap");
   verticalEffect_->setUniform(1.0f / (float)bufferSize_.height, "TexelSize");
 
   verticalEffect_->commitBuffers();
