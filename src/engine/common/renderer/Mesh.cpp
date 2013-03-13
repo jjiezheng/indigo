@@ -10,8 +10,6 @@ void Mesh::init(VertexDef* vertexData, unsigned int numVertices, VertexFormat ve
   numVertices_ = numVertices;
   vertexFormat_ = vertexFormat;
   vertexBuffer_ = GraphicsInterface::createVertexBuffer(vertexData, numVertices);
-
-	computeBoundingBox(vertexData, numVertices);
 }
 
 void Mesh::render() const {

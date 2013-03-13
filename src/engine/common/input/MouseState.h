@@ -3,7 +3,8 @@
 
 enum MouseButton {
 	MOUSE_BUTTON_UNKNOWN = 0,
-	MOUSE_BUTTON_LEFT = 1
+	MOUSE_BUTTON_LEFT = 1,
+  MOUSE_BUTTON_RIGHT = 2
 };
 
 #endif

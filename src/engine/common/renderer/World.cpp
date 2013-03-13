@@ -13,3 +13,16 @@ void World::debugRender() {
 		(*i)->debugRender();
 	}
 }
+
+std::vector<Model*> World::findIntersections(const Ray& ray) const {
+  std::vector<Model*> results;
+
+  for (std::vector<Model*>::const_iterator i = models_.begin(); i != models_.end(); ++i) {
+    bool result = (*i)->testIntersect(ray);
+    if (result) {
+      results.push_back(*i);
+    }
+  }
+
+  return results;
+}

@@ -8,6 +8,7 @@
 #include "memory/Allocation.h"
 
 class Vector3;
+class Ray;
 
 class IActor;
 
@@ -33,12 +34,18 @@ public:
   void addObject(Model* model);
 
 	void addActor(IActor* actor);
+
+public:
   
   void setSkyDome(const SkyDome& skyDome);
 
   bool hasSkyDome() const;
   
   SkyDome skyDome() const;
+
+public:
+
+  std::vector<Model*> findIntersections(const Ray& ray) const;
   
 public:
   

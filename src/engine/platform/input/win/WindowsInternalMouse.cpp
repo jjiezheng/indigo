@@ -23,3 +23,7 @@ void WindowsInternalMouse::setPosition(const Point& position) {
 void WindowsInternalMouse::setMouseListener(IMouseListener* mouseListener) {
 	WindowsUtils::setMouseListener(mouseListener);
 }
+
+bool WindowsInternalMouse::isButtonDown(MouseButton button) {
+  return WindowsUtils::getMouseButton(button - 1);
+}

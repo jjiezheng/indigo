@@ -15,6 +15,8 @@ public:
   Vector4(const Vector2& v);
   
   Vector4(const Vector3& v);
+
+  Vector4(const Vector3& v, float w_);
   
   Vector4(float x_, float y_, float z_, float w_);
   
@@ -48,6 +50,8 @@ public:
 
   Vector4 normalize() const;
 
+  void normalizeIP();
+
 public:
 
   Vector4 cross(const Vector4& other) const;
@@ -73,8 +77,14 @@ public:
   Vector4 operator - (const Vector4& other) const;
 
   Vector4 operator * (const Vector4& other) const;
+
+  Vector4 operator / (const Vector4& other) const;
+
   
   Vector4 operator * (float scalar) const;
+
+  Vector4 operator - (float scalar) const;
+
 
   void operator /= (float scalar);
   

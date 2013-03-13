@@ -2,6 +2,7 @@
 #define IMOUSE_H
 
 #include "maths/Point.h"
+#include "MouseState.h"
 
 class IMouseListener;
 
@@ -20,6 +21,8 @@ public:
   virtual void setPosition(const Point& position) = 0;
 
   virtual bool isLeftButtonDown() = 0;
+
+  virtual bool isButtonDown(MouseButton button) = 0;
 
   virtual void hideOSMouse(bool isHidden) = 0;
 

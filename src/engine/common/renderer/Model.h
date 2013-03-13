@@ -5,12 +5,14 @@
 
 #include "core/HashMap.h"
 #include "maths/Matrix4x4.h"
+#include "maths/BoundingBox.h"
 
 #include "Mesh.h"
 #include "Material.h"
 
 class IViewer;
 class SceneContext;
+class Ray;
 
 class Model {
 
@@ -36,11 +38,18 @@ public:
 
   Mesh mesh(unsigned int meshIndex) const;
 
+public:
+
+  bool testIntersect(const Ray& ray);
+
+  void computeBoundingBox();
+
 private:
   
   std::vector<Mesh> meshes_;
   std::vector<Material> materials_;
   Matrix4x4 localToWorld_;
+  BoundingBox boundingBox_;
     
 };
 

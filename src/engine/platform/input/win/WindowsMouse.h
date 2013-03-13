@@ -15,6 +15,8 @@ public:
 
   bool isLeftButtonDown();
 
+  bool isButtonDown(MouseButton button);
+
   void hideOSMouse(bool isHidden);
 
 	void setMouseListener(IMouseListener* mouseListener);

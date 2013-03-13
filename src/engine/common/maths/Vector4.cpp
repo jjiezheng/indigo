@@ -35,24 +35,45 @@ Vector4::Vector4(const Vector2& v)
 
 }
 
+Vector4::Vector4(const Vector3& v, float w_)
+  : x(v.x), y(v.y), z(v.z), w(w_) {
+
+}
+
+
 Vector4 Vector4::operator + (const Vector4& other) const {
-  return Vector4(other.x + x, other.y + y, other.z + z, other.w + w);
+  Vector4 result(other.x + x, other.y + y, other.z + z, other.w + w);
+  return result;
 }
 
 Vector4 Vector4::operator - (const Vector4& other) const {
-  return Vector4(x - other.x, y - other.y, z - other.z, w - other.w);
+  Vector4 result(x - other.x, y - other.y, z - other.z, w - other.w);
+  return result;
 }
 
 Vector4 Vector4::operator * (const Vector4& other) const {
-  return Vector4(x * other.x, y * other.y, z * other.z, w * other.w);
+  Vector4 result(x * other.x, y * other.y, z * other.z, w * other.w);
+  return result;
+}
+
+Vector4 Vector4::operator / (const Vector4& other) const {
+  Vector4 result(x / other.x, y / other.y, z / other.z, w / other.w);
+  return result;
 }
 
 Vector4 Vector4::operator - () const {
-  return Vector4(-x, -y, -z, -w);
+  Vector4 result(-x, -y, -z, -w);
+  return result;
 }
 
 Vector4 Vector4::operator * (float scalar) const {
-  return Vector4(x*scalar, y*scalar, z*scalar, w*scalar);
+  Vector4 result(x*scalar, y*scalar, z*scalar, w*scalar);
+  return result;
+}
+
+Vector4 Vector4::operator - (float scalar) const {
+  Vector4 result(x-scalar, y-scalar, z-scalar, w-scalar);
+  return result;
 }
 
 bool Vector4::operator == (const Vector4& other) const {
@@ -123,4 +144,13 @@ Vector4 Vector4::normalize() const {
 
 Vector4 Vector4::inverse() const {
   return Vector4(-x, -y, -z, -w);
+}
+
+void Vector4::normalizeIP() {
+  float length = this->length();
+  length = length ? length : 1.0f;
+  x = x / length;
+  y = y / length;
+  z = z / length;
+  w = 1.0f;
 }

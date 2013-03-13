@@ -48,18 +48,24 @@ public:
   void visit(hash_map<IEffect*, std::vector<Mesh*> >& meshes);
 
   void render() const;
+
+public:
   
   Material material() const;
 
   void setMaterial(const Material& material);
 
+public:
+
   Matrix4x4 localToWorld() const;
 
   void setParent(Model* parent);
 
-private:
+public:
 
 	void computeBoundingBox(VertexDef* vertexData, unsigned int numVertices);
+
+  BoundingBox boundingBox() const;
   
 private:
   
@@ -84,6 +90,10 @@ inline Material Mesh::material() const {
 
 inline void Mesh::setParent(Model* parent) {
   parent_ = parent;
+}
+
+inline BoundingBox Mesh::boundingBox() const {
+  return boundingBox_;
 }
 
 #endif

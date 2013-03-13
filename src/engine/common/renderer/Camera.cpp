@@ -40,7 +40,7 @@ void Camera::init() { }
 void Camera::update(float dt) {
   float speed = dt;
 
-  if (isPlayerControlled_) {
+  if (isPlayerControlled_ && Mouse::isButtonDown(MOUSE_BUTTON_RIGHT)) {
 
     float padMoveSpeed = 5.0f * speed;
 
@@ -101,23 +101,25 @@ void Camera::update(float dt) {
     if (Keyboard::keyState((KeyCode)'q') || Keyboard::keyState((KeyCode)'Q')) {
       moveUp(-speed * keyboardSpeed);
     }
-  
-    Point mousePoint = Mouse::position();
-  
-    int xDelta = mousePoint.x - lastMouseX_;
-    int yDelta = mousePoint.y - lastMouseY_;
-  
-    xDelta = abs(xDelta) > 100 ? 0 : xDelta;
-    yDelta = abs(yDelta) > 100 ? 0 : yDelta;
-  
-    float xDegrees = -xDelta * 0.5f;
-    float yDegrees = yDelta * 0.5f;
-  
-    rotateY(toRadians(xDegrees));
-    rotateX(toRadians(yDegrees));
-  
-    lastMouseX_ = mousePoint.x;
-    lastMouseY_ = mousePoint.y;
+
+    if (Keyboard::keyState(KEY_ALT)) {
+      Point mousePoint = Mouse::position();
+
+      int xDelta = mousePoint.x - lastMouseX_;
+      int yDelta = mousePoint.y - lastMouseY_;
+
+      xDelta = abs(xDelta) > 100 ? 0 : xDelta;
+      yDelta = abs(yDelta) > 100 ? 0 : yDelta;
+
+      float xDegrees = -xDelta * 0.5f;
+      float yDegrees = yDelta * 0.5f;
+
+      rotateY(toRadians(xDegrees));
+      rotateX(toRadians(yDegrees));
+
+      lastMouseX_ = mousePoint.x;
+      lastMouseY_ = mousePoint.y;
+    }
   }
 
   if (viewChanged_) {

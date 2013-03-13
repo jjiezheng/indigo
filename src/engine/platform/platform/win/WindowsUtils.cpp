@@ -89,6 +89,8 @@ bool WindowsUtils::pumpMessages() {
 			return true;
 		}
 
+    //GetKeyboardState()
+
 		if (msg.message == WM_KEYDOWN) {
 			char wParam = (char)MapVirtualKey((UINT) msg.wParam, 2) & 0x0000FFFF;
 			int keyStateIndex = (int)wParam;
@@ -116,42 +118,63 @@ bool WindowsUtils::pumpMessages() {
 		}
 
 		if (msg.message == WM_LBUTTONDOWN) {
+      mouseButtons_[0] = true;
 			if (NULL != mouseListener_) {
 				mouseListener_->mouseUp(MOUSE_BUTTON_LEFT);
 			}
 		}
+
+    if (msg.message == WM_LBUTTONUP) {
+      mouseButtons_[0] = false;
+    }
+
+    if (msg.message == WM_RBUTTONDOWN) {
+      mouseButtons_[1] = true;
+      if (NULL != mouseListener_) {
+        mouseListener_->mouseUp(MOUSE_BUTTON_RIGHT);
+      }
+    }
+
+    if (msg.message == WM_RBUTTONUP) {
+      mouseButtons_[1] = false;
+    }
+
+    if (msg.message == WM_MOUSEMOVE) {
+      mouseX_ = GET_X_LPARAM(msg.lParam);
+      mouseY_ = GET_Y_LPARAM(msg.lParam);
+    }
  
-		if (msg.message == WM_INPUT) {
-			RAWINPUT input;
-
-			UINT nSize = sizeof(input);
-			GetRawInputData((HRAWINPUT)msg.lParam,
-				RID_INPUT,
-				&input,
-				&nSize,
-				sizeof(input.header));
-
-			int x = input.data.mouse.lLastX;
-			int y = input.data.mouse.lLastY;
-
-			mouseButtons_[0] = input.data.mouse.ulButtons & RI_MOUSE_LEFT_BUTTON_DOWN;
-
-			mouseX_ += x;
-			mouseY_ += y;
-
-			if (!isCursorVisible_) {
-				RECT rect;
-				if(GetWindowRect(msg.hwnd, &rect)) {
-					int width = rect.right - rect.left;
-					int height = rect.bottom - rect.top;
-
-					int newX = rect.left + (int)(width / 2.0f);
-					int newY = rect.top + (int)(height / 2.0f);
-
-					SetCursorPos(newX, newY);
-				}
-			}
-		}
+// 		if (msg.message == WM_INPUT) {
+// 			RAWINPUT input;
+// 
+// 			UINT nSize = sizeof(input);
+// 			GetRawInputData((HRAWINPUT)msg.lParam,
+// 				RID_INPUT,
+// 				&input,
+// 				&nSize,
+// 				sizeof(input.header));
+// 
+// 			int x = input.data.mouse.lLastX;
+// 			int y = input.data.mouse.lLastY;
+// 
+// 			mouseButtons_[0] = input.data.mouse.ulButtons & RI_MOUSE_LEFT_BUTTON_DOWN;
+// 
+// 			mouseX_ += x;
+// 			mouseY_ += y;
+// 
+// 			if (!isCursorVisible_) {
+// 				RECT rect;
+// 				if(GetWindowRect(msg.hwnd, &rect)) {
+// 					int width = rect.right - rect.left;
+// 					int height = rect.bottom - rect.top;
+// 
+// 					int newX = rect.left + (int)(width / 2.0f);
+// 					int newY = rect.top + (int)(height / 2.0f);
+// 
+// 					SetCursorPos(newX, newY);
+// 				}
+// 			}
+// 		}
 
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);

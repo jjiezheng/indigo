@@ -28,14 +28,12 @@ void Game::init(const char* sceneFile) {
 	clock_.init();
 	editor_.init();
 
-	//camera_.translateZ(2.0f);
-	camera_.translateY(0.8f);
-	//camera_.rotateX(-1.0f);
+	//camera_.translateY(0.8f);
 	camera_.translateZ(4.0f);
-	//camera_.rotateX(toRadians(-90));
-	camera_.setIsPlayerControlled(false);
-
+	camera_.setIsPlayerControlled(true);
 	camera_.setProjection(45.0f, GraphicsInterface::aspectRatio(), 1.0f, 100.0f);
+
+  editor_.setCamera(&camera_);
 
 	if (sceneFile) {
 		WorldLoader loader; 
@@ -47,11 +45,11 @@ void Game::init(const char* sceneFile) {
 }
 
 void Game::mainLoop() {
-	float dt = clock_.delta_time();
+  Pad::update();
+  Keyboard::update();
 
+	float dt = clock_.delta_time();
 	camera_.update(dt);
-	Pad::update();
-	Keyboard::update();
 	ui_.update(dt);
 	world_.update(dt);
 	editor_.update(dt);
@@ -62,7 +60,7 @@ void Game::mainLoop() {
 }
 
 void Game::mouseUp(MouseButton mouseButton) {
-	editor_.mouseUp(mouseButton);
+	editor_.mouseUp(mouseButton, world_);
 }
 
 void Game::keyUp(KeyCode keyCode) {

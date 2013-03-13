@@ -46,3 +46,7 @@ void Mouse::hideOSMouse(bool isHidden) {
 void Mouse::setMouseListener(IMouseListener* mouseListener) {
 	mouse_->setMouseListener(mouseListener);
 }
+
+bool Mouse::isButtonDown(MouseButton button) {
+  return mouse_->isButtonDown(button);
+}

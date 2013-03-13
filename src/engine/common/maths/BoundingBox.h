@@ -3,12 +3,18 @@
 
 #include "Vector3.h"
 
+class Ray;
+
 class BoundingBox {
 
 public:
 
 	Vector3 min;
 	Vector3 max;
+
+public:
+
+  bool testIntersection(const Ray& ray);
 
 };
 

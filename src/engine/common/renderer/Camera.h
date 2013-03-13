@@ -64,6 +64,10 @@ public:
 
 public:
 
+  Matrix4x4 viewProjection() const;
+
+public:
+
   void setIsPlayerControlled(bool isPlayerControlled);
 
 public:
@@ -142,6 +146,10 @@ inline float Camera::aspectRatio() const {
 
 inline void Camera::setIsPlayerControlled(bool isPlayerControlled) {
   isPlayerControlled_ = isPlayerControlled;
+}
+
+inline Matrix4x4 Camera::viewProjection() const {
+  return projection_ * viewTransform();
 }
 
 #endif

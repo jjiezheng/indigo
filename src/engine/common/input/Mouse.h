@@ -2,6 +2,7 @@
 #define MOUSE_H
 
 #include "maths/Point.h"
+#include "MouseState.h"
 
 class IMouse;
 class IMouseListener;
@@ -19,10 +20,12 @@ public:
 
   static bool isLeftButtonDown();
 
+  static bool isButtonDown(MouseButton button);
+
   static void hideOSMouse(bool isHidden);
 
 	static void setMouseListener(IMouseListener* mouseListener);
-  
+ 
 private:
   
   static IMouse* mouse_;
