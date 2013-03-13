@@ -56,7 +56,7 @@
         {
           "type" : "spot",
           "innerangle" : 10.0,
-          "outerangle" : 20.0,
+          "outerangle" : 30.0,
           "decay" : 0.2,
           "length" : 30,
           "intensity" : 1.0,

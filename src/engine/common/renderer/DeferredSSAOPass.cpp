@@ -112,7 +112,7 @@ TextureId DeferredSSAOPass::render(IViewer* viewer, unsigned int inputMap, const
   }
 
  {
-   blur_.render(ssaoRawFrameBuffer_, ssaoRawTexture_, ssaoRawTexture_, 8);
+  // blur_.render(ssaoRawFrameBuffer_, ssaoRawTexture_, ssaoRawTexture_, 8);
  }
 
  {
