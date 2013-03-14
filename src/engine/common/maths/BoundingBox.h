@@ -2,6 +2,7 @@
 #define BOUNDING_BOX_H
 
 #include "Vector3.h"
+#include "IntersectionResult.h"
 
 class Ray;
 
@@ -14,7 +15,7 @@ public:
 
 public:
 
-  bool testIntersection(const Ray& ray);
+  IntersectionResult testIntersection(const Ray& ray);
 
 };
 

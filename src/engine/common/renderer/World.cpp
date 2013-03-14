@@ -1,5 +1,7 @@
 #include "World.h"
 
+#include <algorithm>
+
 #include "entity/IActor.h"
 
 void World::update(float dt) {
@@ -14,15 +16,30 @@ void World::debugRender() {
 	}
 }
 
+bool sortIntersections(IntersectedModel i,IntersectedModel j) { 
+	return i.distance < j.distance; 
+}
+
 std::vector<Model*> World::findIntersections(const Ray& ray) const {
-  std::vector<Model*> results;
+	std::vector<IntersectedModel> intersectedResults;
 
   for (std::vector<Model*>::const_iterator i = models_.begin(); i != models_.end(); ++i) {
-    bool result = (*i)->testIntersect(ray);
-    if (result) {
-      results.push_back(*i);
+    IntersectionResult result = (*i)->testIntersect(ray);
+    if (result.intersected) {
+			IntersectedModel intersected;
+			intersected.model = (*i);
+			intersected.distance = result.distance;
+			intersectedResults.push_back(intersected);
     }
   }
 
-  return results;
+	std::sort(intersectedResults.begin(), intersectedResults.end(), sortIntersections);
+
+	std::vector<Model*> intersectedModels;
+
+	for (std::vector<IntersectedModel>::const_iterator i = intersectedResults.begin(); i != intersectedResults.end(); ++i) {
+		intersectedModels.push_back((*i).model);
+	}
+
+  return intersectedModels;
 }

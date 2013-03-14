@@ -9,7 +9,7 @@
         {
             "model": "actors/cube/cube.modelbinary",
             "position": {
-                "x": 0,
+                "x": -4,
                 "y": 0,
                 "z": 0
             }

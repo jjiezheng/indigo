@@ -3,8 +3,9 @@
 #include "Plane.h"
 #include "Vector4.h"
 #include "Ray.h"
+#include "IntersectionResult.h"
 
-bool BoundingBox::testIntersection(const Ray& ray) {
+IntersectionResult BoundingBox::testIntersection(const Ray& ray) {
   Plane planes[6];
   planes[0] = Plane(0, 1, 0, min.y);
   planes[1] = Plane(0, 1, 0, max.y);
@@ -16,6 +17,8 @@ bool BoundingBox::testIntersection(const Ray& ray) {
   Vector3 b = ray.position + ray.direction * ray.length;
   Vector3 a = ray.position;
   Vector3 ab = b - a;
+
+	IntersectionResult result;
 
   int intersections = 0;
   for (int i = 0; i < 6; i++) {
@@ -33,11 +36,14 @@ bool BoundingBox::testIntersection(const Ray& ray) {
 
       if (isXInside && isYInside && isZInside) {
         intersections++;
+
+				if (intersections > 1) {
+					result.intersected = true;
+					result.distance = q.length();
+				}
       }
     }
   }
 
-  bool intersected = intersections > 1;
-
-  return intersected;
+	return result;
 }

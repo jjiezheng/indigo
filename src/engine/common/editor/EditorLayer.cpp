@@ -13,20 +13,26 @@ void EditorLayer::init() {
 }
 
 void EditorLayer::update(float dt) {
+	if (isVisible_) {
 
+	}
 }
 
 void EditorLayer::render(IViewer* viewer, World& world) {
-  selection_.render(viewer);
-	bounds_.render(viewer, world);
+	if (isVisible_) {
+		selection_.render(viewer);
+		bounds_.render(viewer, world);
+	}
 }
 
 void EditorLayer::mouseUp(MouseButton mouseButton, const World& world) {
-  if (!camera_->underPlayerControl()) {
-    if (MOUSE_BUTTON_LEFT == mouseButton) {
-      pickModel(world);
-    }
-  }
+	if (isVisible_) {
+		if (!camera_->underPlayerControl()) {
+			if (MOUSE_BUTTON_LEFT == mouseButton) {
+				pickModel(world);
+			}
+		}
+	}
 }
 
 void EditorLayer::pickModel(const World& world) {
@@ -34,7 +40,7 @@ void EditorLayer::pickModel(const World& world) {
   Matrix4x4 projInv = camera_->projection().inverse();
 
   Vector4 mouseViewSpace = Transforms::screenSpaceToViewSpace(projInv, mousePosition);
-  mouseViewSpace = camera_->viewTransform().transpose() * mouseViewSpace;
+  mouseViewSpace = camera_->transform().inverse().transpose() * mouseViewSpace;
 
   Ray mouseRay(camera_->position(), mouseViewSpace.vec3().normalize(), camera_->farDistance());
   selection_.selectFromRay(mouseRay, world);

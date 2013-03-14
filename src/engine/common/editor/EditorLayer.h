@@ -16,6 +16,11 @@ class EditorLayer {
 
 public:
 
+	EditorLayer()
+		: isVisible_(false) { }
+
+public:
+
 	void init();
 
 	void update(float dt);
@@ -23,6 +28,10 @@ public:
 	void render(IViewer* viewer, World& world);
 
   void setCamera(Camera* camera);
+
+public:
+
+	void toggleVisible();
 
 public:
 
@@ -37,11 +46,16 @@ private:
 
   Selection selection_;
 	Bounds bounds_;
+	bool isVisible_;
 
 };
 
 inline void EditorLayer::setCamera(Camera* camera) {
   camera_ = camera;
+}
+
+inline void EditorLayer::toggleVisible() {
+	isVisible_ = !isVisible_;
 }
 
 #endif

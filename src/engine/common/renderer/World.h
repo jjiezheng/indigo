@@ -12,6 +12,11 @@ class Ray;
 
 class IActor;
 
+struct IntersectedModel {
+	Model* model;
+	float distance;
+};
+
 class World {
 
 public:

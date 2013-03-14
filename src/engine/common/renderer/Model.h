@@ -6,6 +6,7 @@
 #include "core/HashMap.h"
 #include "maths/Matrix4x4.h"
 #include "maths/BoundingBox.h"
+#include "maths/IntersectionResult.h"
 
 #include "Mesh.h"
 #include "Material.h"
@@ -40,7 +41,7 @@ public:
 
 public:
 
-  bool testIntersect(const Ray& ray);
+  IntersectionResult testIntersect(const Ray& ray);
 
   void computeBoundingBox();
 

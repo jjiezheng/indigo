@@ -67,6 +67,10 @@ void Game::keyUp(KeyCode keyCode) {
   ui_.keyUp(keyCode);
   LOG(LOG_CHANNEL_INPUT, "Key: %d", keyCode);
 
+	if (KEY_BACKTICK == keyCode) {
+		editor_.toggleVisible();
+	}
+
 	if (keyCode > KEY_0 - 1 && keyCode < KEY_9 + 1) {
 		int renderTargetgId = keyCode - KEY_1;
 		renderer_.presentRenderTarget(renderTargetgId);

@@ -31,10 +31,16 @@ void Bounds::render(IViewer* viewer, World& world) const {
 		effect_->beginDraw();
 
 		BoundingBox bounds = (*it)->boundingBox();
-		Matrix4x4 scaleBounds = Matrix4x4::scale(Vector4(bounds.max.x - bounds.min.x, bounds.max.y - bounds.min.y, bounds.max.z - bounds.min.z, 2.0f));
-		scaleBounds /= 2.0f;
 
-		Matrix4x4 modelViewProjection = viewer->projection() * viewer->viewTransform() * (*it)->localToWorld() * scaleBounds * Matrix4x4::translation(Vector4(0.0f, 1.0f, 0.0f, 1.0f)) * Matrix4x4::scale(1.0001f);
+		Vector4 scale(bounds.max.x - bounds.min.x, bounds.max.y - bounds.min.y, bounds.max.z - bounds.min.z, 2.0f);
+		scale /= 2.0f;
+
+		Vector4 translation(bounds.max.x + bounds.min.x, bounds.max.y + bounds.min.y, bounds.max.z + bounds.min.z, 2.0f);
+		translation /= 2.0f;
+
+		Matrix4x4 model = (*it)->localToWorld() * Matrix4x4::translation(translation) * Matrix4x4::scale(scale);
+
+		Matrix4x4 modelViewProjection = viewer->projection() * viewer->viewTransform() * model * Matrix4x4::scale(1.0001f);
 		effect_->setUniform(modelViewProjection, "ModelViewProj");
 		effect_->setUniform(Color3::CORNFLOWERBLUE, "Color");
 
@@ -43,6 +49,5 @@ void Bounds::render(IViewer* viewer, World& world) const {
 		effect_->endDraw();
 	}
 	
-
 	GraphicsInterface::endPerformanceEvent();
 }
