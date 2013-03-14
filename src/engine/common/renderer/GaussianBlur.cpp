@@ -31,7 +31,7 @@ void GaussianBlur::init(const CSize& bufferSize, int tapSize) {
 }
 
 void GaussianBlur::render(FrameBuffer outputFrameBuffer, TextureId outputTexture, TextureId sourceTexture, unsigned int iterations) {
-  GraphicsInterface::setRenderState(true);
+  GraphicsInterface::setRenderState(CULL_MODE_BACK);
 
 	for (unsigned int i = 0; i < iterations; i++) {
 

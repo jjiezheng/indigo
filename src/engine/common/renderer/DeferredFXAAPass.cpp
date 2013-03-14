@@ -35,7 +35,7 @@ unsigned int DeferredFXAAPass::render(IViewer* viewer, unsigned int inputMap, co
   {
     GraphicsInterface::beginPerformanceEvent("Color Luma");
 
-    GraphicsInterface::setRenderState(true);
+    GraphicsInterface::setRenderState(CULL_MODE_BACK);
     GraphicsInterface::setRenderTarget(colorLumaTarget_, false, GraphicsInterface::screenSize());
     GraphicsInterface::clearActiveColorBuffers(Color4::TRANSPAREN);
     
@@ -53,7 +53,7 @@ unsigned int DeferredFXAAPass::render(IViewer* viewer, unsigned int inputMap, co
   {
     GraphicsInterface::beginPerformanceEvent("FXAA");
 
-    GraphicsInterface::setRenderState(true);
+    GraphicsInterface::setRenderState(CULL_MODE_BACK);
     GraphicsInterface::setRenderTarget(fxaaRenderTarget_, false, GraphicsInterface::screenSize());
     GraphicsInterface::setBlendState(IGraphicsInterface::NOBLEND);
     GraphicsInterface::clearActiveColorBuffers(Color4::TRANSPAREN);

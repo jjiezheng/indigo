@@ -23,6 +23,13 @@ struct TextureInfo {
   unsigned int height;
 };
 
+enum CullMode {
+	CULL_MODE_UNKNOWN = 0,
+	CULL_MODE_BACK,
+	CULL_MODE_FRONT,
+	CULL_MODE_NONE
+};
+
 class IGraphicsInterface {
 
 public:
@@ -102,7 +109,7 @@ public:
 
   virtual IEffect* createEffect() = 0;
 
-  virtual void resetGraphicsState(bool cullBack, bool drawWireframe) = 0;
+  virtual void resetGraphicsState(CullMode cullMode, bool drawWireframe) = 0;
 
 public:
 

@@ -34,7 +34,7 @@ void DeferredGeometryPass::render(IViewer* viewer, World& world, const SceneCont
 	GraphicsInterface::clearActiveDepthBuffer();
 
 	GraphicsInterface::enableSmoothing();
-	GraphicsInterface::setRenderState(true);
+	GraphicsInterface::setRenderState(CULL_MODE_BACK);
   
 	hash_map<IEffect*, std::vector<Mesh*> > effects;
 

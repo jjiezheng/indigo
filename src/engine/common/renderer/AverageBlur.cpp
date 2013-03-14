@@ -21,7 +21,7 @@ void AverageBlur::init(const CSize& bufferSize) {
 }
 
 void AverageBlur::render(FrameBuffer destFrameBuffer, TextureId destTexture, TextureId srcTexture, unsigned int iterations) {
-  GraphicsInterface::setRenderState(true);
+  GraphicsInterface::setRenderState(CULL_MODE_BACK);
 
   FrameBuffer frameBufferA = blurFrameBuffer_;
   FrameBuffer frameBufferB = destFrameBuffer;

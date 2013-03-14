@@ -30,7 +30,7 @@ void Selection::render(IViewer* viewer) {
 
     GraphicsInterface::setViewport(GraphicsInterface::backBufferSize());
     GraphicsInterface::setBlendState(IGraphicsInterface::NOBLEND);
-    GraphicsInterface::setRenderState(true, true);
+    GraphicsInterface::setRenderState(CULL_MODE_BACK, true);
 
     selectionEffect_->beginDraw();
 

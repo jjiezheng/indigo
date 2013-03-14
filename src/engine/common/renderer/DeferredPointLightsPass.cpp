@@ -40,10 +40,10 @@ void DeferredPointLightsPass::render(IViewer* viewer, World& world, const SceneC
     pointLightEffect_->setUniform((*light).color(), "LightColor");
 
     float distanceToLightCenter = viewer->position().distance((*light).position());
-    bool cullBackFaces = distanceToLightCenter >= (*light).radius() + viewer->nearDistance();
+		CullMode cullMode = distanceToLightCenter >= (*light).radius() + viewer->nearDistance() ? CULL_MODE_FRONT : CULL_MODE_BACK;
 
 		pointLightEffect_->commitBuffers();
-    GraphicsInterface::setRenderState(cullBackFaces);
+    GraphicsInterface::setRenderState(cullMode);
     pointLightModel_->render();
   }
 }

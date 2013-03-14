@@ -122,7 +122,7 @@ void DeferredSpotLightsPass::renderShadowMap(SpotLight* light, hash_map<IEffect*
 	  for (; i != meshes.end(); ++i) {
 		  std::vector<Mesh*> effectMeshes = (*i).second;
 		  for (std::vector<Mesh*>::iterator meshIt = effectMeshes.begin(); meshIt != effectMeshes.end(); ++meshIt) {
-			  GraphicsInterface::setRenderState(false);
+			  GraphicsInterface::setRenderState(CULL_MODE_FRONT);
 			  shadowDepthEffect_->beginDraw();
 			  (*meshIt)->material().bind(light->projection(), light->viewTransform(), (*meshIt)->localToWorld(), shadowDepthEffect_);
 			  shadowDepthEffect_->commitBuffers();
@@ -139,7 +139,7 @@ void DeferredSpotLightsPass::renderShadowMap(SpotLight* light, hash_map<IEffect*
     GraphicsInterface::beginPerformanceEvent("VSM Depth");
 
     GraphicsInterface::setFrameBuffer(vsmDepthFrameBuffer_);
-    GraphicsInterface::setRenderState(true);
+    GraphicsInterface::setRenderState(CULL_MODE_BACK);
     vsmDepthEffect_->beginDraw();
     vsmDepthEffect_->setTexture(light->shadowMapDepthTexture(), "DepthMap");
     vsmDepthEffect_->commitBuffers();
@@ -171,7 +171,7 @@ void DeferredSpotLightsPass::renderLight(SpotLight* light, IEffect* lightEffect,
 
 	lightEffect->beginDraw();
   
-	GraphicsInterface::setRenderState(true);
+	GraphicsInterface::setRenderState(CULL_MODE_BACK);
 
 	Matrix4x4 viewProjection = viewer->projection() * viewer->viewTransform();
 	lightEffect->setUniform(viewer->viewTransform(), "View");
@@ -241,7 +241,7 @@ void DeferredSpotLightsPass::accumulateLight(SpotLight* light, unsigned int colo
 
 	GraphicsInterface::setFrameBuffer(lightMapFrameBuffer);
 	GraphicsInterface::setBlendState(IGraphicsInterface::ADDITIVE);
-	GraphicsInterface::setRenderState(true);
+	GraphicsInterface::setRenderState(CULL_MODE_BACK);
 
 	accumulationEffect_->beginDraw();
 	accumulationEffect_->setTexture(spotLightRenderTexture_, "LightSourceMap");

@@ -31,7 +31,7 @@ void Line::render(const Matrix4x4& projection) {
 	effect_->setUniform(modelProjection, "ModelViewProjection");
 
 	GraphicsInterface::resetRenderTarget(false);
-	GraphicsInterface::setRenderState(true);
+	GraphicsInterface::setRenderState(CULL_MODE_BACK);
 	GraphicsInterface::setBlendState(IGraphicsInterface::NOBLEND);
 
 	effect_->commitBuffers();

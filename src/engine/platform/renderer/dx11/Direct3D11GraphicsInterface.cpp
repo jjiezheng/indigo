@@ -394,7 +394,7 @@ void Direct3D11GraphicsInterface::setTexture(unsigned int slotIndex, ID3D11Sampl
   context_->PSSetSamplers(slotIndex, 1, &samplerState);
 }
 
-void Direct3D11GraphicsInterface::resetGraphicsState(bool cullBack, bool drawWireframe) {	
+void Direct3D11GraphicsInterface::resetGraphicsState(CullMode cullMode, bool drawWireframe) {	
   {
     D3D11_RASTERIZER_DESC rasterDesc;
     ZeroMemory(&rasterDesc, sizeof(D3D11_RASTERIZER_DESC));
@@ -402,16 +402,29 @@ void Direct3D11GraphicsInterface::resetGraphicsState(bool cullBack, bool drawWir
 		float depthDias = 0;// 4.8e-7f;
 		DWORD dwDepthBias = *(DWORD*)&depthDias;
 
+		D3D11_CULL_MODE d3dCullMode = D3D11_CULL_BACK;
+		switch(cullMode) {
+			case CULL_MODE_BACK:
+				d3dCullMode = D3D11_CULL_BACK;
+				break;
+			case CULL_MODE_FRONT:
+				d3dCullMode = D3D11_CULL_FRONT;
+				break;
+			case CULL_MODE_NONE:
+				d3dCullMode = D3D11_CULL_NONE;
+				break;
+		}
+
     rasterDesc.AntialiasedLineEnable = false;
-    rasterDesc.CullMode = D3D11_CULL_NONE;// cullBack ? D3D11_CULL_BACK : D3D11_CULL_FRONT;
-		rasterDesc.DepthBias = !cullBack ? dwDepthBias : 0;
-    rasterDesc.DepthBiasClamp = !cullBack ? 1000.0f : 0.0f;
+    rasterDesc.CullMode = d3dCullMode;
+		rasterDesc.DepthBias = cullMode != CULL_MODE_BACK ? dwDepthBias : 0;
+    rasterDesc.DepthBiasClamp = cullMode != CULL_MODE_BACK ? 1000.0f : 0.0f;
     rasterDesc.DepthClipEnable = true;
 		rasterDesc.FillMode = drawWireframe ? D3D11_FILL_WIREFRAME : D3D11_FILL_SOLID;
     rasterDesc.FrontCounterClockwise = true;
     rasterDesc.MultisampleEnable = false;
     rasterDesc.ScissorEnable = false;
-		rasterDesc.SlopeScaledDepthBias = !cullBack ? 2.5f : 0.0f;
+		rasterDesc.SlopeScaledDepthBias = cullMode != CULL_MODE_BACK ? 2.5f : 0.0f;
 
     ID3D11RasterizerState* rasterState;
     HRESULT result = device_->CreateRasterizerState(&rasterDesc, &rasterState);

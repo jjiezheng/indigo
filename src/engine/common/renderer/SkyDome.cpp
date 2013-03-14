@@ -15,6 +15,6 @@ void SkyDome::render(const Matrix4x4& projection, const Matrix4x4& view, const M
   skyEffect_->beginDraw();
 	skyEffect_->commitBuffers();
   skyDomeModel_->mesh(0).material().bind(projection, view, model, skyEffect_);
-  GraphicsInterface::setRenderState(true);
+  GraphicsInterface::setRenderState(CULL_MODE_BACK);
   skyDomeModel_->render();
 }

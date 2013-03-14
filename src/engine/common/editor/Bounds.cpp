@@ -24,7 +24,7 @@ void Bounds::render(IViewer* viewer, World& world) const {
 
 	GraphicsInterface::setViewport(GraphicsInterface::backBufferSize());
 	GraphicsInterface::setBlendState(IGraphicsInterface::NOBLEND);
-	GraphicsInterface::setRenderState(true, true);
+	GraphicsInterface::setRenderState(CULL_MODE_NONE, true);
 
 	std::vector<Model*>::iterator it = world.begin();
 	for (; it != world.end(); ++it) {
