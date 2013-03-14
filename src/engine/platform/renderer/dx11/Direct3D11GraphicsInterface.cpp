@@ -403,7 +403,7 @@ void Direct3D11GraphicsInterface::resetGraphicsState(bool cullBack, bool drawWir
 		DWORD dwDepthBias = *(DWORD*)&depthDias;
 
     rasterDesc.AntialiasedLineEnable = false;
-    rasterDesc.CullMode = cullBack ? D3D11_CULL_BACK : D3D11_CULL_FRONT;
+    rasterDesc.CullMode = D3D11_CULL_NONE;// cullBack ? D3D11_CULL_BACK : D3D11_CULL_FRONT;
 		rasterDesc.DepthBias = !cullBack ? dwDepthBias : 0;
     rasterDesc.DepthBiasClamp = !cullBack ? 1000.0f : 0.0f;
     rasterDesc.DepthClipEnable = true;

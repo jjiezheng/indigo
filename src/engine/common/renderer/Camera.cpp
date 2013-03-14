@@ -113,7 +113,7 @@ void Camera::update(float dt) {
     if (Mouse::isButtonDown(MOUSE_BUTTON_LEFT)) {
 
       float xDegrees = -xDelta * 0.25f;
-      float yDegrees = yDelta * 0.25f;
+      float yDegrees = -yDelta * 0.25f;
       rotateY(toRadians(xDegrees));
       rotateX(toRadians(yDegrees));
       Mouse::hideOSMouse(true);
@@ -169,8 +169,8 @@ void Camera::rotateY(float radians) {
 
 void Camera::rotateX(float radians) {
   rotationX_ += radians;
-  forward_ = forward_.rotateY(radians);
-  right_ = right_.rotateY(radians);
+  forward_ = forward_.rotateX(radians);
+  right_ = right_.rotateX(radians);
   viewChanged_ = true;
 }
 

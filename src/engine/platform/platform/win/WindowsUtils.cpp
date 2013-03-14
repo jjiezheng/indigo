@@ -139,6 +139,7 @@ bool WindowsUtils::pumpMessages() {
     }
 
 		if (msg.message == WM_LBUTTONDOWN) {
+			SetCapture(NULL);
       mouseButtons_[0] = true;
 			if (NULL != mouseListener_) {
 				mouseListener_->mouseDown(MOUSE_BUTTON_LEFT);
@@ -146,6 +147,7 @@ bool WindowsUtils::pumpMessages() {
 		}
 
     if (msg.message == WM_LBUTTONUP) {
+			ReleaseCapture();
       mouseButtons_[0] = false;
       if (NULL != mouseListener_) {
         mouseListener_->mouseUp(MOUSE_BUTTON_LEFT);

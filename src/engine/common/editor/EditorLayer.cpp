@@ -9,6 +9,7 @@
 
 void EditorLayer::init() {
 	selection_.init();
+	bounds_.init();
 }
 
 void EditorLayer::update(float dt) {
@@ -17,6 +18,7 @@ void EditorLayer::update(float dt) {
 
 void EditorLayer::render(IViewer* viewer, World& world) {
   selection_.render(viewer);
+	bounds_.render(viewer, world);
 }
 
 void EditorLayer::mouseUp(MouseButton mouseButton, const World& world) {

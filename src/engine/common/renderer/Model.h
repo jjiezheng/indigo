@@ -44,6 +44,8 @@ public:
 
   void computeBoundingBox();
 
+	BoundingBox boundingBox() const;
+
 private:
   
   std::vector<Mesh> meshes_;
@@ -68,6 +70,10 @@ inline void Model::setLocalToWorld(const Matrix4x4& localToWorld) {
 
 inline Matrix4x4 Model::localToWorld() const {
   return localToWorld_;
+}
+
+inline BoundingBox Model::boundingBox() const {
+	return boundingBox_;
 }
 
 #endif

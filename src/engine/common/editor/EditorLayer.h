@@ -5,6 +5,7 @@
 #include "renderer/Camera.h"
 #include "renderer/World.h"
 
+#include "Bounds.h"
 #include "Selection.h"
 
 class IViewer;
@@ -35,6 +36,7 @@ private:
   World* world_;
 
   Selection selection_;
+	Bounds bounds_;
 
 };
 

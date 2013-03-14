@@ -48,7 +48,10 @@ Matrix4x4 Matrix4x4::scale(float scale) {
 }
 
 Matrix4x4 Matrix4x4::scale(const Vector4& v) {
-  return Matrix4x4(Matrix3x3::scale(v.vec3()));
+	return Matrix4x4(v.x,  0.0f, 0.0f, 0.0f,
+									 0.0f,  v.y, 0.0f, 0.0f,
+									 0.0f,  0.0f, v.z, 0.0f,
+									 0.0f,  0.0f, 0.0f, v.w);
 }
 
 // x: -1 to 1, y: -1 to 1, z: 0 to 1

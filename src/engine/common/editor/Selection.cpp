@@ -10,7 +10,6 @@ void Selection::init() {
   selectionEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/color.shader");
 }
 
-
 void Selection::selectFromRay(const Ray& ray, const World& world) {
   std::vector<Model*> intersections = world.findIntersections(ray);
 

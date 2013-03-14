@@ -16,6 +16,8 @@ public:
 
 	static VertexBuffer line();
 
+	static VertexBuffer unitCube();
+
 public:
 
 	static int SCREEN_PLANE_VERTEX_COUNT;
@@ -26,6 +28,9 @@ public:
 
 	static int LINE_VERTEX_COUNT;
 	static VertexFormat LINE_VERTEX_FORMAT;
+
+	static int UNIT_CUBE_VERTEX_COUNT;
+	static VertexFormat UNIT_CUBE_VERTEX_FORMAT;
 
 };
 
