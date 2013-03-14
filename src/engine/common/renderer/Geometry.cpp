@@ -3,21 +3,27 @@
 #include "GraphicsInterface.h"
 #include "VertexDefinition.h"
 #include "VertexFormat.h"
+#include "maths/Angles.h"
 
-int Geometry::SCREEN_PLANE_VERTEX_COUNT = 6;
+const int Geometry::SCREEN_PLANE_VERTEX_COUNT = 6;
 VertexFormat Geometry::SCREEN_PLANE_VERTEX_FORMAT = TRIANGLE_LIST;
 
-int Geometry::FONT_PLANE_VERTEX_COUNT = 6;
+const int Geometry::FONT_PLANE_VERTEX_COUNT = 6;
 VertexFormat Geometry::FONT_PLANE_VERTEX_FORMAT = TRIANGLE_LIST;
 
-int Geometry::LINE_VERTEX_COUNT = 2;
+const int Geometry::LINE_VERTEX_COUNT = 2;
 VertexFormat Geometry::LINE_VERTEX_FORMAT = LINE_LIST;
+VertexBuffer Geometry::LINE_VERTEX_BUFFER = 0;
 
-int Geometry::UNIT_CUBE_VERTEX_COUNT = 36;
+const int Geometry::CONE_VERTEX_COUNT = 16 * 2;
+VertexFormat Geometry::CONE_VERTEX_FORMAT = TRIANGLE_STRIP;
+VertexBuffer Geometry::CONE_VERTEX_BUFFER = 0;
+
+const int Geometry::UNIT_CUBE_VERTEX_COUNT = 36;
 VertexFormat Geometry::UNIT_CUBE_VERTEX_FORMAT = TRIANGLE_LIST;
 
 VertexBuffer Geometry::screenPlane() {
-  VertexDef quadVertices[6];
+  VertexDef quadVertices[SCREEN_PLANE_VERTEX_COUNT];
   quadVertices[0].vertex = Vector3(-1.0f, -1.0f, 0.0f);
   quadVertices[1].vertex = Vector3(1.0f, 1.0f, 0.0f);
   quadVertices[2].vertex = Vector3(-1.0f, 1.0f, 0.0f);
@@ -44,7 +50,7 @@ VertexBuffer Geometry::screenPlane() {
 }
 
 VertexBuffer Geometry::fontCharacter(const CSize& characterSize, const CSize& uvOffset, const CSize& fontTextureSize) {
-  VertexDef quadVertices[6];
+  VertexDef quadVertices[FONT_PLANE_VERTEX_COUNT];
   quadVertices[0].vertex = Vector3(0.0f,                       (float)characterSize.height, 0.0f);
   quadVertices[1].vertex = Vector3(0.0f,                        0.0f,                       0.0f);
   quadVertices[2].vertex = Vector3((float)characterSize.width, (float)characterSize.height, 0.0f);
@@ -80,7 +86,7 @@ VertexBuffer Geometry::fontCharacter(const CSize& characterSize, const CSize& uv
 }
 
 VertexBuffer Geometry::line() {
-	VertexDef lineVertices[2];
+	VertexDef lineVertices[LINE_VERTEX_COUNT];
 
 	lineVertices[0].vertex = Vector3(0.0f, 0.0f,	0.0f);
 	lineVertices[1].vertex = Vector3(0.0f, 0.0f,	1.0f);
@@ -96,8 +102,27 @@ VertexBuffer Geometry::line() {
 	return vbo;
 }
 
+VertexBuffer Geometry::cone() {
+
+  VertexDef coneVertices[CONE_VERTEX_COUNT];
+
+  int index = 0;
+  for (int i = 0; i < CONE_VERTEX_COUNT / 2.0f; i++) {
+    float radians = toDegrees((float)i);
+
+    float x = cos(radians);
+    float y = sin(radians);
+
+    coneVertices[index++].vertex = Vector3(x, y, 0.0f);
+    coneVertices[index++].vertex = Vector3(0.0f, 0.0f, 2.0f);
+  }
+
+  VertexBuffer vbo = GraphicsInterface::createVertexBuffer(coneVertices, CONE_VERTEX_COUNT);
+  return vbo;
+}
+
 VertexBuffer Geometry::unitCube() {
-	VertexDef quadVertices[36];
+	VertexDef quadVertices[UNIT_CUBE_VERTEX_COUNT];
 
 	// front
 	quadVertices[0].vertex = Vector3(-1.0f, -1.0f, 1.0f);
@@ -239,3 +264,9 @@ VertexBuffer Geometry::unitCube() {
 	VertexBuffer vbo = GraphicsInterface::createVertexBuffer(quadVertices, UNIT_CUBE_VERTEX_COUNT);
 	return vbo;
 }
+
+void Geometry::init() {
+  LINE_VERTEX_BUFFER = line();
+  CONE_VERTEX_BUFFER = cone();
+}
+

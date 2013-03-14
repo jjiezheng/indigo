@@ -7,6 +7,7 @@
 
 #include "Bounds.h"
 #include "Selection.h"
+#include "TranslateGizmo.h"
 
 class IViewer;
 class World;
@@ -46,6 +47,7 @@ private:
 
   Selection selection_;
 	Bounds bounds_;
+  TranslateGizmo translate_;
 	bool isVisible_;
 
 };

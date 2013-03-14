@@ -73,6 +73,10 @@ public:
 public:
   
   float const * valuePtr() const;
+
+public:
+
+  Vector3 translation() const;
   
 public:
   

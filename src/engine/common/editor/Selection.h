@@ -22,6 +22,12 @@ public:
 
   void selectFromRay(const Ray& ray, const World& world);
 
+public:
+
+  bool hasSelection() const;
+
+  Model* selection() const;
+
 private:
 
   IEffect* selectionEffect_;
@@ -29,5 +35,13 @@ private:
   Model* selected_;
 
 };
+
+inline bool Selection::hasSelection() const {
+  return selected_ != 0;
+}
+
+inline Model* Selection::selection() const {
+  return selected_;
+}
 
 #endif

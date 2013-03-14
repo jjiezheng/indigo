@@ -164,6 +164,7 @@ void Camera::rotateY(float radians) {
   rotationY_ += radians;
   forward_ = forward_.rotateY(radians);
   right_ = right_.rotateY(radians);
+  up_ = up_.rotateY(radians);
   viewChanged_ = true;
 }
 
@@ -171,6 +172,7 @@ void Camera::rotateX(float radians) {
   rotationX_ += radians;
   forward_ = forward_.rotateX(radians);
   right_ = right_.rotateX(radians);
+  up_ = up_.rotateX(radians);
   viewChanged_ = true;
 }
 

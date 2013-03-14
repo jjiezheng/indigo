@@ -21,6 +21,8 @@ void Renderer3dDeferred::destroy() {
 }
 
 void Renderer3dDeferred::init(const CSize& screenSize) {
+  Geometry::init();
+
   initStage_.init(screenSize);
   initStage_.collectRenderTargets(this);
 
