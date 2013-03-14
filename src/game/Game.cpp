@@ -65,33 +65,7 @@ void Game::mouseUp(MouseButton mouseButton) {
 
 void Game::keyUp(KeyCode keyCode) {
   ui_.keyUp(keyCode);
-	LOG(LOG_CHANNEL_TEMP, "%d", keyCode);
-
-	static int mouseMode = 0;
-	if (keyCode == KEY_BACKTICK) {
-		LOG(LOG_CHANNEL_TEMP, "%d", mouseMode);
-		switch(mouseMode++) {
-		case 0: 
-			Mouse::hideOSMouse(true);
-			camera_.setIsPlayerControlled(true);
-			ui_.showMouse(false);
-			break;
-		case 1:
-			Mouse::hideOSMouse(true);
-			camera_.setIsPlayerControlled(false);
-			ui_.showMouse(true);
-			break;
-		case 2:
-			Mouse::hideOSMouse(false);
-			camera_.setIsPlayerControlled(false);
-			ui_.showMouse(false);
-			break;
-		}
-
-		if (mouseMode > 2) {
-			mouseMode = 0;
-		}
-	}
+  LOG(LOG_CHANNEL_INPUT, "Key: %d", keyCode);
 
 	if (keyCode > KEY_0 - 1 && keyCode < KEY_9 + 1) {
 		int renderTargetgId = keyCode - KEY_1;
@@ -103,4 +77,8 @@ void Game::destroy() {
 	ui_.destroy();
 	renderer_.destroy();
 	world_.destroy();
+}
+
+void Game::mouseScroll(int delta) {
+  camera_.moveForward(0.01f * delta);
 }

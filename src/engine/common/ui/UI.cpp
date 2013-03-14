@@ -15,6 +15,7 @@ void UI::destroy() {
 void UI::render() const {
 	GraphicsInterface::beginPerformanceEvent("UI");
 
+  GraphicsInterface::setRenderState(true);
   GraphicsInterface::resetRenderTarget(false);
   GraphicsInterface::setBlendState(IGraphicsInterface::ALPHA);
 

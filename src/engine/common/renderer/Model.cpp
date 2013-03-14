@@ -35,12 +35,12 @@ void Model::setMaterialCallback(const std::string& materialName, Material::Mater
 }
 
 bool Model::testIntersect(const Ray& ray) {
-  Vector4 localRayPosition = localToWorld_.inverse() * Vector4(ray.position, 1.0f);
-  Vector4 localRayDirection = localToWorld_.inverse() * Vector4(ray.direction, 1.0f);
+  Matrix4x4 localToWorldInv = localToWorld_.inverse();
+  Vector4 localRayPosition = localToWorldInv * Vector4(ray.position, 1.0f);
+  Vector4 localRayDirection = localToWorldInv * Vector4(ray.direction, 1.0f);
   localRayDirection.normalizeIP();
 
   Ray localSpaceRay(localRayPosition.vec3(), localRayDirection.vec3(), ray.length);
-
 
   bool result = boundingBox_.testIntersection(localSpaceRay);
   return result;

@@ -15,9 +15,9 @@ static const int FPS_LABEL_TAG = 102;
 void GameUI::init(IRenderChannelInfoService* renderChannelInfoService) {
 	ui_.init(GraphicsInterface::backBufferSize());
 
-  UIMouse* uiMouse = UIMouse::mouse("ui/aero_arrow.dds");
-  uiMouse->setTag(MOUSE_TAG);
-  ui_.addControl(uiMouse);
+//   UIMouse* uiMouse = UIMouse::mouse("ui/aero_arrow.dds");
+//   uiMouse->setTag(MOUSE_TAG);
+//   ui_.addControl(uiMouse);
 
 	FPSStats* fpsStats = FPSStats::stats();
   fpsStats->setTag(FPS_LABEL_TAG);

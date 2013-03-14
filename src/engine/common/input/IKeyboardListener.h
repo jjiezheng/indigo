@@ -13,6 +13,8 @@ public:
 
   virtual void keyUp(KeyCode keyCode) = 0;
 
+  virtual void keyDown(KeyCode keyCode) = 0;
+
 };
 
 #endif

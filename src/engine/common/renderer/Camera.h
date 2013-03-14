@@ -70,6 +70,8 @@ public:
 
   void setIsPlayerControlled(bool isPlayerControlled);
 
+  bool underPlayerControl() const;
+
 public:
 
   bool insideFrustum(const Vector3& point, float radius);
@@ -80,7 +82,7 @@ public:
 
   float farDistance() const;
     
-private:
+public:
     
   void moveForward(float speed);
   
@@ -115,6 +117,7 @@ private:
 
   bool viewChanged_;
   bool isPlayerControlled_;
+  bool underPlayerControl_;
 
   Frustum frustum_;
 

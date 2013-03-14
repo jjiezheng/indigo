@@ -9,6 +9,10 @@ public:
 
 	virtual void mouseUp(MouseButton mouseCode) = 0;
 
+  virtual void mouseDown(MouseButton mouseCode) = 0;
+
+  virtual void mouseScroll(int delta) = 0;
+
 };
 
 #endif

@@ -13,6 +13,7 @@
 #endif
 
 IMouse* Mouse::mouse_ = 0;
+bool Mouse::isMouseHidden_ = false;
 
 void Mouse::init() {
 #ifdef PLATFORM_WINDOWS
@@ -40,7 +41,10 @@ bool Mouse::isLeftButtonDown() {
 }
 
 void Mouse::hideOSMouse(bool isHidden) {
-	mouse_->hideOSMouse(isHidden);
+  if (isHidden && !isMouseHidden_ || !isHidden && isMouseHidden_) {
+  	mouse_->hideOSMouse(isHidden);
+    isMouseHidden_ = isHidden;
+  } 
 }
 
 void Mouse::setMouseListener(IMouseListener* mouseListener) {

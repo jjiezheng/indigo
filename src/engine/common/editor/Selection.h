@@ -11,6 +11,11 @@ class Selection {
 
 public:
 
+  Selection()
+    : selected_(0) { }
+
+public:
+
   void init();
 
   void render(IViewer* viewer);
@@ -20,6 +25,8 @@ public:
 private:
 
   IEffect* selectionEffect_;
+
+  Model* selected_;
 
 };
 

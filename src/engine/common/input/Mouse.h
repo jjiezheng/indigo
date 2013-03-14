@@ -29,6 +29,8 @@ public:
 private:
   
   static IMouse* mouse_;
+
+  static bool isMouseHidden_;
   
 };
 

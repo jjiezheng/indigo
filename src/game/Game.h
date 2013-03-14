@@ -31,8 +31,16 @@ public:
 
   void keyUp(KeyCode keyCode);
 
+  void keyDown(KeyCode keyCode) { };
+
+public:
+
 	void mouseUp(MouseButton mouseButton);
-  
+
+  void mouseDown(MouseButton mouseButton) { };
+
+  void mouseScroll(int delta);
+ 
 private:
   
   GameUI ui_;

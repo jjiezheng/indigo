@@ -15,6 +15,8 @@ int WindowsUtils::mouseY_ = 0;
 IKeyboardListener* WindowsUtils::keyboardListener_ = 0;
 IMouseListener* WindowsUtils::mouseListener_ = 0;
 
+static const int kKeyALT = 999;
+
 bool WindowsUtils::isCursorVisible_ = true;
 std::map<int, int> WindowsUtils::keyMappings_;
 
@@ -101,6 +103,9 @@ bool WindowsUtils::pumpMessages() {
 			}
 
 			keyStates_[mappedKey] = true;
+      if (NULL != keyboardListener_) {
+        keyboardListener_->keyDown((KeyCode)mappedKey);
+      }
 		}
 
 		if (msg.message == WM_KEYUP) {
@@ -117,31 +122,82 @@ bool WindowsUtils::pumpMessages() {
 			}
 		}
 
+    if (msg.message == WM_SYSKEYDOWN) {
+      keyStates_[kKeyALT] = true;
+
+      if (NULL != keyboardListener_) {
+        keyboardListener_->keyDown(KEY_ALT);
+      }
+    }
+
+    if (msg.message == WM_SYSKEYUP) {
+      keyStates_[kKeyALT] = false;
+
+      if (NULL != keyboardListener_) {
+        keyboardListener_->keyUp(KEY_ALT);
+      }
+    }
+
 		if (msg.message == WM_LBUTTONDOWN) {
       mouseButtons_[0] = true;
 			if (NULL != mouseListener_) {
-				mouseListener_->mouseUp(MOUSE_BUTTON_LEFT);
+				mouseListener_->mouseDown(MOUSE_BUTTON_LEFT);
 			}
 		}
 
     if (msg.message == WM_LBUTTONUP) {
       mouseButtons_[0] = false;
+      if (NULL != mouseListener_) {
+        mouseListener_->mouseUp(MOUSE_BUTTON_LEFT);
+      }
     }
 
     if (msg.message == WM_RBUTTONDOWN) {
       mouseButtons_[1] = true;
       if (NULL != mouseListener_) {
-        mouseListener_->mouseUp(MOUSE_BUTTON_RIGHT);
+        mouseListener_->mouseDown(MOUSE_BUTTON_RIGHT);
       }
     }
 
     if (msg.message == WM_RBUTTONUP) {
       mouseButtons_[1] = false;
+      if (NULL != mouseListener_) {
+        mouseListener_->mouseUp(MOUSE_BUTTON_RIGHT);
+      }
+    }
+
+    if (msg.message == WM_MBUTTONDOWN) {
+      mouseButtons_[2] = true;
+      if (NULL != mouseListener_) {
+        mouseListener_->mouseDown(MOUSE_BUTTON_MIDDLE);
+      }
+    }
+
+    if (msg.message == WM_MBUTTONUP) {
+      mouseButtons_[2] = false;
+      if (NULL != mouseListener_) {
+        mouseListener_->mouseUp(MOUSE_BUTTON_MIDDLE);
+      }
     }
 
     if (msg.message == WM_MOUSEMOVE) {
       mouseX_ = GET_X_LPARAM(msg.lParam);
       mouseY_ = GET_Y_LPARAM(msg.lParam);
+    }
+
+    if (msg.message == WM_MOUSELEAVE) {
+      if (NULL != mouseListener_) {
+        mouseListener_->mouseUp(MOUSE_BUTTON_LEFT);
+        mouseListener_->mouseUp(MOUSE_BUTTON_MIDDLE);
+        mouseListener_->mouseUp(MOUSE_BUTTON_RIGHT);
+      }
+    }
+
+    if (msg.message == WM_MOUSEWHEEL) {
+      int zDelta = GET_WHEEL_DELTA_WPARAM(msg.wParam);
+      if (NULL != mouseListener_) {
+        mouseListener_->mouseScroll(zDelta);
+      }
     }
  
 // 		if (msg.message == WM_INPUT) {
@@ -183,6 +239,9 @@ bool WindowsUtils::pumpMessages() {
 }
 
 bool WindowsUtils::getKeyState(int key) {
+  if (key == KEY_ALT) {
+    key = kKeyALT;
+  }
 	return keyStates_[key];
 }
 
