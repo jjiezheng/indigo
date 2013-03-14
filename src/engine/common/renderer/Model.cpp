@@ -36,9 +36,9 @@ void Model::setMaterialCallback(const std::string& materialName, Material::Mater
 
 IntersectionResult Model::testIntersect(const Ray& ray) {
   Matrix4x4 worldToLocal = localToWorld_.inverse();
+
   Vector4 localRayPosition = worldToLocal * Vector4(ray.position, 1.0f);
- // Vector4 localRayDirection = worldToLocal * Vector4(ray.direction, 1.0f);
-  //localRayDirection.normalizeIP();
+  localRayPosition = worldToLocal.transpose() * localRayPosition;
 
   Ray localSpaceRay(localRayPosition.vec3(), ray.direction, ray.length);
 

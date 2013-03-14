@@ -8,8 +8,9 @@
     "objects": [
         {
             "model": "actors/cube/cube.modelbinary",
+            "actor": "SpinningCube",
             "position": {
-                "x": -4,
+                "x": 0,
                 "y": 0,
                 "z": 0
             }
