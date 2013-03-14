@@ -139,7 +139,7 @@ bool WindowsUtils::pumpMessages() {
     }
 
 		if (msg.message == WM_LBUTTONDOWN) {
-			SetCapture(NULL);
+			SetCapture(msg.hwnd);
       mouseButtons_[0] = true;
 			if (NULL != mouseListener_) {
 				mouseListener_->mouseDown(MOUSE_BUTTON_LEFT);
@@ -155,6 +155,7 @@ bool WindowsUtils::pumpMessages() {
     }
 
     if (msg.message == WM_RBUTTONDOWN) {
+      SetCapture(msg.hwnd);
       mouseButtons_[1] = true;
       if (NULL != mouseListener_) {
         mouseListener_->mouseDown(MOUSE_BUTTON_RIGHT);
@@ -162,6 +163,7 @@ bool WindowsUtils::pumpMessages() {
     }
 
     if (msg.message == WM_RBUTTONUP) {
+      ReleaseCapture();
       mouseButtons_[1] = false;
       if (NULL != mouseListener_) {
         mouseListener_->mouseUp(MOUSE_BUTTON_RIGHT);
@@ -169,6 +171,7 @@ bool WindowsUtils::pumpMessages() {
     }
 
     if (msg.message == WM_MBUTTONDOWN) {
+      SetCapture(msg.hwnd);
       mouseButtons_[2] = true;
       if (NULL != mouseListener_) {
         mouseListener_->mouseDown(MOUSE_BUTTON_MIDDLE);
@@ -176,6 +179,7 @@ bool WindowsUtils::pumpMessages() {
     }
 
     if (msg.message == WM_MBUTTONUP) {
+      ReleaseCapture();
       mouseButtons_[2] = false;
       if (NULL != mouseListener_) {
         mouseListener_->mouseUp(MOUSE_BUTTON_MIDDLE);
