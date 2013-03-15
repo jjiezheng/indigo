@@ -4,6 +4,7 @@
 class Model;
 class IEffect;
 class IViewer;
+class Mesh;
 
 class TranslateGizmo {
 
@@ -26,6 +27,7 @@ private:
 
   Model* selected_;
   IEffect* effect_;
+	Mesh* coneMesh_;
 
 };
 

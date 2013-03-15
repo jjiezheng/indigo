@@ -66,12 +66,6 @@ public:
 
 public:
 
-  Matrix4x4 localToParent() const;
-
-  void setLocalToParent(const Matrix4x4& localToParent);
-
-public:
-
 	void computeBoundingBox(VertexDef* vertexData, unsigned int numVertices);
 
   BoundingBox boundingBox() const;
@@ -112,14 +106,6 @@ inline BoundingBox Mesh::boundingBox() const {
 
 inline VertexBuffer Mesh::vertexBuffer() const {
   return vertexBuffer_;
-}
-
-inline void Mesh::setLocalToParent(const Matrix4x4& localToParent) {
-  localToParent_ = localToParent;
-}
-
-inline Matrix4x4 Mesh::localToParent() const {
-  return localToParent_;
 }
 
 #endif

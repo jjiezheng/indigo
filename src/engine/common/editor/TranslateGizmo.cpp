@@ -13,6 +13,9 @@
 
 void TranslateGizmo::init() {
   effect_ = EffectCache::instance()->loadEffect("shaders/compiled/color.shader");
+
+	coneMesh_.createBuffers(Geometry::CONE_VERTEX_DATA, Geometry::CONE_VERTEX_COUNT, Geometry::CONE_VERTEX_FORMAT);
+	coneMesh_.computeBoundingBox(Geometry::CONE_VERTEX_DATA, Geometry::CONE_VERTEX_COUNT, Geometry::CONE_VERTEX_FORMAT);
 }
 
 void TranslateGizmo::render(IViewer* viewer) {
@@ -40,8 +43,11 @@ void TranslateGizmo::render(IViewer* viewer) {
     // + z
     {
       Model arrowModel;
+			Node arrowNode;
 
       {
+				arrowModel.addMesh(coneMesh_);
+
 
         Mesh coneMesh;
         coneMesh.createBuffers(Geometry::CONE_VERTEX_DATA, Geometry::CONE_VERTEX_COUNT, Geometry::CONE_VERTEX_FORMAT);
@@ -53,7 +59,11 @@ void TranslateGizmo::render(IViewer* viewer) {
 
         arrowModel.addMesh(coneMesh);
 
-        arrowModel.addMesh(Geometry::LINE_MESH);
+				Mesh lineMesh;
+				lineMesh.createBuffers(Geometry::LINE_VERTEX_DATA, Geometry::LINE_VERTEX_COUNT, Geometry::LINE_VERTEX_FORMAT);
+				lineMesh.computeBoundingBox(Geometry::LINE_VERTEX_DATA, Geometry::LINE_VERTEX_COUNT);
+        arrowModel.addMesh(lineMesh);
+
         arrowModel.computeBoundingBox();
       }
    
