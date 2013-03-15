@@ -436,7 +436,7 @@ void WorldLoader::loadModel(Model* model, const std::string& modelFilePath) {
       Material material = loadMaterial(materialJSONObject);
 
       Mesh mesh;
-      mesh.init(defs, vertexCount, TRIANGLE_LIST);
+      mesh.createBuffers(defs, vertexCount, TRIANGLE_LIST);
       mesh.setMaterial(material);
       model->addMesh(mesh);
     }
@@ -531,7 +531,7 @@ void WorldLoader::loadTerrain(const json::Object& objectItem, World& world) {
   Material material = loadMaterial(materialObject);
 
   Mesh mesh;
-  mesh.init(heightMap.vertices, heightMap.vertexCount, heightMap.vertexFormat);
+  mesh.createBuffers(heightMap.vertices, heightMap.vertexCount, heightMap.vertexFormat);
   mesh.setMaterial(material);
 
   Model* model = new Model();

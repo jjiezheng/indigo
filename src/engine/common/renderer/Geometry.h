@@ -2,6 +2,7 @@
 #define GEOMETRY_H
 
 #include "GraphicsInterface.h"
+#include "Mesh.h"
 
 #include "VertexFormat.h"
 #include "core/Size.h"
@@ -35,13 +36,17 @@ public:
 	static const int LINE_VERTEX_COUNT;
 	static VertexFormat LINE_VERTEX_FORMAT;
   static VertexBuffer LINE_VERTEX_BUFFER;
+  static Mesh LINE_MESH;
 
   static const int CONE_VERTEX_COUNT;
   static VertexFormat CONE_VERTEX_FORMAT;
   static VertexBuffer CONE_VERTEX_BUFFER;
+  static VertexDef CONE_VERTEX_DATA[16 * 2];
+  static Mesh CONE_MESH;
 
 	static const int UNIT_CUBE_VERTEX_COUNT;
 	static VertexFormat UNIT_CUBE_VERTEX_FORMAT;
+  static VertexBuffer UNIT_CUBE_VERTEX_BUFFER;
 
 };
 

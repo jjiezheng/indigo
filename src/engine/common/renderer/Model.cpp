@@ -50,11 +50,15 @@ void Model::computeBoundingBox() {
   for (std::vector<Mesh>::iterator i = meshes_.begin(); i != meshes_.end(); ++i) 
   {
     BoundingBox meshBoundingBox = (*i).boundingBox();
-    boundingBox_.min.x = std::min(boundingBox_.min.x, meshBoundingBox.min.x);
-    boundingBox_.max.x = std::max(boundingBox_.max.x, meshBoundingBox.max.x);
-    boundingBox_.min.y = std::min(boundingBox_.min.y, meshBoundingBox.min.y);
-    boundingBox_.max.y = std::max(boundingBox_.max.y, meshBoundingBox.max.y);
-    boundingBox_.min.z = std::min(boundingBox_.min.z, meshBoundingBox.min.z);
-    boundingBox_.max.z = std::max(boundingBox_.max.z, meshBoundingBox.max.z);
+
+    Vector4 min = (*i).localToParent() * meshBoundingBox.min;
+    Vector4 max = (*i).localToParent() * meshBoundingBox.max;
+
+    boundingBox_.min.x = std::min(boundingBox_.min.x, min.x);
+    boundingBox_.max.x = std::max(boundingBox_.max.x, max.x);
+    boundingBox_.min.y = std::min(boundingBox_.min.y, min.y);
+    boundingBox_.max.y = std::max(boundingBox_.max.y, max.y);
+    boundingBox_.min.z = std::min(boundingBox_.min.z, min.z);
+    boundingBox_.max.z = std::max(boundingBox_.max.z, max.z);
   }
 }

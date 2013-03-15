@@ -6,7 +6,7 @@
 #include "VertexDefinition.h"
 #include <algorithm>
 
-void Mesh::init(VertexDef* vertexData, unsigned int numVertices, VertexFormat vertexFormat) {
+void Mesh::createBuffers(VertexDef* vertexData, unsigned int numVertices, VertexFormat vertexFormat) {
   numVertices_ = numVertices;
   vertexFormat_ = vertexFormat;
   vertexBuffer_ = GraphicsInterface::createVertexBuffer(vertexData, numVertices);
@@ -21,7 +21,8 @@ void Mesh::visit(hash_map<IEffect*, std::vector<Mesh*> >& meshes) {
 }
 
 Matrix4x4 Mesh::localToWorld() const {
-  return parent_->localToWorld();
+  Matrix4x4 localToWorld = parent_->localToWorld() * localToParent_;
+  return localToWorld;
 }
 
 void Mesh::setMaterialCallback(const std::string& materialName, Material::MaterialCallback callback, void* userData) {

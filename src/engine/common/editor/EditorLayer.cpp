@@ -11,6 +11,7 @@ void EditorLayer::init() {
 	selection_.init();
 	bounds_.init();
   translate_.init();
+  isVisible_ = true;
 }
 
 void EditorLayer::update(float dt) {
@@ -24,11 +25,11 @@ void EditorLayer::render(IViewer* viewer, World& world) {
 		selection_.render(viewer);
 		bounds_.render(viewer, world);
 
-    if (selection_.hasSelection()) {
-      Model* selection = selection_.selection();
-      translate_.setSelected(selection);
+    //if (selection_.hasSelection()) {
+      //Model* selection = selection_.selection();
+     // translate_.setSelected(selection);
       translate_.render(viewer);
-    }
+    //}
 	}
 }
 

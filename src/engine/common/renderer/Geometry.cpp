@@ -14,13 +14,17 @@ VertexFormat Geometry::FONT_PLANE_VERTEX_FORMAT = TRIANGLE_LIST;
 const int Geometry::LINE_VERTEX_COUNT = 2;
 VertexFormat Geometry::LINE_VERTEX_FORMAT = LINE_LIST;
 VertexBuffer Geometry::LINE_VERTEX_BUFFER = 0;
+Mesh Geometry::LINE_MESH;
 
 const int Geometry::CONE_VERTEX_COUNT = 16 * 2;
 VertexFormat Geometry::CONE_VERTEX_FORMAT = TRIANGLE_STRIP;
 VertexBuffer Geometry::CONE_VERTEX_BUFFER = 0;
+VertexDef Geometry::CONE_VERTEX_DATA[16 * 2];
+Mesh Geometry::CONE_MESH;
 
 const int Geometry::UNIT_CUBE_VERTEX_COUNT = 36;
 VertexFormat Geometry::UNIT_CUBE_VERTEX_FORMAT = TRIANGLE_LIST;
+VertexBuffer Geometry::UNIT_CUBE_VERTEX_BUFFER = 0;
 
 VertexBuffer Geometry::screenPlane() {
   VertexDef quadVertices[SCREEN_PLANE_VERTEX_COUNT];
@@ -97,14 +101,13 @@ VertexBuffer Geometry::line() {
 	lineVertices[0].normal = Vector3(0.0f, 1.0f, 0.0f);
 	lineVertices[1].normal = Vector3(0.0f, 1.0f, 0.0f);
 
-	VertexBuffer vbo = GraphicsInterface::createVertexBuffer(lineVertices, LINE_VERTEX_COUNT);
+  LINE_MESH.createBuffers(lineVertices, LINE_VERTEX_COUNT, LINE_VERTEX_FORMAT);
+  LINE_MESH.computeBoundingBox(lineVertices, LINE_VERTEX_COUNT);
 
-	return vbo;
+  return LINE_MESH.vertexBuffer();
 }
 
 VertexBuffer Geometry::cone() {
-
-  VertexDef coneVertices[CONE_VERTEX_COUNT];
 
   int index = 0;
   for (int i = 0; i < CONE_VERTEX_COUNT / 2.0f; i++) {
@@ -113,12 +116,15 @@ VertexBuffer Geometry::cone() {
     float x = cos(radians);
     float y = sin(radians);
 
-    coneVertices[index++].vertex = Vector3(x, y, 0.0f);
-    coneVertices[index++].vertex = Vector3(0.0f, 0.0f, 2.0f);
+    CONE_VERTEX_DATA[index++].vertex = Vector3(x, y, 0.0f);
+    CONE_VERTEX_DATA[index++].vertex = Vector3(0.0f, 0.0f, 2.0f);
   }
 
-  VertexBuffer vbo = GraphicsInterface::createVertexBuffer(coneVertices, CONE_VERTEX_COUNT);
-  return vbo;
+ 
+  CONE_MESH.createBuffers(CONE_VERTEX_DATA, CONE_VERTEX_COUNT, CONE_VERTEX_FORMAT);
+  CONE_MESH.computeBoundingBox(CONE_VERTEX_DATA, CONE_VERTEX_COUNT);
+
+  return CONE_MESH.vertexBuffer();
 }
 
 VertexBuffer Geometry::unitCube() {
@@ -268,5 +274,6 @@ VertexBuffer Geometry::unitCube() {
 void Geometry::init() {
   LINE_VERTEX_BUFFER = line();
   CONE_VERTEX_BUFFER = cone();
+  UNIT_CUBE_VERTEX_BUFFER = unitCube();
 }
 

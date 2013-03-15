@@ -100,7 +100,7 @@ Model* BinaryModelDeserializer::deserialize(const std::string& modelFilePath) {
     input.read((char*)vertexData, sizeof(VertexDef) * vertexCount);
 
     Mesh mesh;
-    mesh.init(vertexData, vertexCount, TRIANGLE_LIST);
+    mesh.createBuffers(vertexData, vertexCount, TRIANGLE_LIST);
     mesh.computeBoundingBox(vertexData, vertexCount);
     mesh.setMaterial(material);
     model->addMesh(mesh);

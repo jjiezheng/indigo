@@ -16,29 +16,96 @@ void TranslateGizmo::init() {
 }
 
 void TranslateGizmo::render(IViewer* viewer) {
-  if (NULL != selected_) {
-    BoundingBox bounds = selected_->boundingBox();
+  //if (NULL != selected_) {
 
-    Vector4 translation(bounds.max.x + bounds.min.x, bounds.max.y + bounds.min.y, bounds.max.z + bounds.min.z, 2.0f);
-    translation /= 2.0f;
+  //     BoundingBox bounds = selected_->boundingBox();
+  // 
+  //     Vector4 translation(bounds.max.x + bounds.min.x, bounds.max.y + bounds.min.y, bounds.max.z + bounds.min.z, 2.0f);
+  //     translation /= 2.0f;
+  // 
+  //     Matrix4x4 model = selected_->localToWorld() * Matrix4x4::translation(translation);
 
-    Matrix4x4 model = selected_->localToWorld() * Matrix4x4::translation(translation);
+  //     Vector3 selectedPosition = selected_->localToWorld().translation();
+  //     float kDistanceToScaleFactor = 0.1f;
+  //     float distanceToSelection = viewer->position().distance(selectedPosition);
+  //     Matrix4x4 viewScale = Matrix4x4::scale(distanceToSelection * kDistanceToScaleFactor);
 
-    Vector3 selectedPosition = selected_->localToWorld().translation();
-    float kDistanceToScaleFactor = 0.1f;
-    float distanceToSelection = viewer->position().distance(selectedPosition);
-    Matrix4x4 viewScale = Matrix4x4::scale(distanceToSelection * kDistanceToScaleFactor);
 
+    GraphicsInterface::beginPerformanceEvent("Selection");
+    GraphicsInterface::resetRenderTarget(false);
+    GraphicsInterface::setViewport(GraphicsInterface::backBufferSize());
+    GraphicsInterface::setBlendState(IGraphicsInterface::NOBLEND);
+    GraphicsInterface::setRenderState(CULL_MODE_NONE, true);
+    
+    // + z
     {
+      Model arrowModel;
 
-      GraphicsInterface::beginPerformanceEvent("Selection");
-      GraphicsInterface::resetRenderTarget(false);
-      GraphicsInterface::setViewport(GraphicsInterface::backBufferSize());
-      GraphicsInterface::setBlendState(IGraphicsInterface::NOBLEND);
-      GraphicsInterface::setRenderState(CULL_MODE_NONE, false);
+      {
+
+        Mesh coneMesh;
+        coneMesh.createBuffers(Geometry::CONE_VERTEX_DATA, Geometry::CONE_VERTEX_COUNT, Geometry::CONE_VERTEX_FORMAT);
+        coneMesh.computeBoundingBox(Geometry::CONE_VERTEX_DATA, Geometry::CONE_VERTEX_COUNT);
+
+        Matrix4x4 translationAlongLine = Matrix4x4::translation(Vector4(0, 0, 1, 0));
+        Matrix4x4 coneLocalToParent = translationAlongLine * Matrix4x4::scale(0.1f) * Matrix4x4::scale(Vector4(0.5f, 0.5f, 2.0f, 1.0f));
+        coneMesh.setLocalToParent(coneLocalToParent);
+
+        arrowModel.addMesh(coneMesh);
+
+        arrowModel.addMesh(Geometry::LINE_MESH);
+        arrowModel.computeBoundingBox();
+      }
+   
+      {
+        effect_->beginDraw();
+
+        BoundingBox bounds = arrowModel.boundingBox();
+
+        Vector4 scale(bounds.max.x - bounds.min.x, bounds.max.y - bounds.min.y, bounds.max.z - bounds.min.z, 2.0f);
+        scale /= 2.0f;
+
+        Vector4 translation(bounds.max.x + bounds.min.x, bounds.max.y + bounds.min.y, bounds.max.z + bounds.min.z, 2.0f);
+        translation /= 2.0f;
+
+        Matrix4x4 model = arrowModel.localToWorld() * Matrix4x4::translation(translation) * Matrix4x4::scale(scale);
+        Matrix4x4 modelViewProjection = viewer->projection() * viewer->viewTransform() * model * Matrix4x4::scale(1.0001f);
+
+        effect_->setUniform(modelViewProjection, "ModelViewProj");
+        effect_->setUniform(Color3::GREEN, "Color");
+
+        effect_->commitBuffers();
+        GraphicsInterface::drawVertexBuffer(Geometry::UNIT_CUBE_VERTEX_BUFFER, Geometry::UNIT_CUBE_VERTEX_COUNT, Geometry::UNIT_CUBE_VERTEX_FORMAT);
+        effect_->endDraw();
+      }
+
+      hash_map<IEffect*, std::vector<Mesh*> > effects;
+      arrowModel.visit(effects);
+
+      hash_map<IEffect*, std::vector<Mesh*> >::iterator i = effects.begin();
+      for (; i != effects.end(); ++i) {
+        std::vector<Mesh*> effectMeshes = (*i).second;
+        for (std::vector<Mesh*>::iterator meshIt = effectMeshes.begin(); meshIt != effectMeshes.end(); ++meshIt) {
+
+          effect_->beginDraw();
+
+          Matrix4x4 modelViewProjection = viewer->projection() * viewer->viewTransform() * (*meshIt)->localToWorld();
+          effect_->setUniform(modelViewProjection, "ModelViewProj");
+          effect_->setUniform(Color3::GREEN, "Color");
+
+          GraphicsInterface::setRenderState(CULL_MODE_NONE, false);
+
+          effect_->setUniform(Color3::RED, "Color");
+          effect_->commitBuffers();
+          (*meshIt)->render();
+
+          effect_->endDraw();
+        }
+
+      }
 
       // lines
-      {
+      /*{
         // +y line
         {
           effect_->beginDraw();
@@ -125,9 +192,9 @@ void TranslateGizmo::render(IViewer* viewer) {
           GraphicsInterface::drawVertexBuffer(Geometry::CONE_VERTEX_BUFFER, Geometry::CONE_VERTEX_COUNT, Geometry::CONE_VERTEX_FORMAT);
           effect_->endDraw();
         }
-      }
+      }*/
 
       GraphicsInterface::endPerformanceEvent();
     }
-  }
+ // }
 }

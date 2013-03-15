@@ -16,6 +16,7 @@
 #include "Color3.h"
 #include "Material.h"
 #include "VertexFormat.h"
+#include "IGraphicsInterface.h"
 
 class Shader;
 class Material;
@@ -37,7 +38,9 @@ public:
 
 public:
   
-  void init(VertexDef* vertexData, unsigned int numVertices, VertexFormat vertexFormat);
+  void createBuffers(VertexDef* vertexData, unsigned int numVertices, VertexFormat vertexFormat);
+
+  void createBuffers();
   
 public:
 
@@ -63,9 +66,19 @@ public:
 
 public:
 
+  Matrix4x4 localToParent() const;
+
+  void setLocalToParent(const Matrix4x4& localToParent);
+
+public:
+
 	void computeBoundingBox(VertexDef* vertexData, unsigned int numVertices);
 
   BoundingBox boundingBox() const;
+
+public:
+
+  VertexBuffer vertexBuffer() const;
   
 private:
   
@@ -77,6 +90,7 @@ private:
     
   Material material_;
   Model* parent_;
+  Matrix4x4 localToParent_;
   
 };
 
@@ -94,6 +108,18 @@ inline void Mesh::setParent(Model* parent) {
 
 inline BoundingBox Mesh::boundingBox() const {
   return boundingBox_;
+}
+
+inline VertexBuffer Mesh::vertexBuffer() const {
+  return vertexBuffer_;
+}
+
+inline void Mesh::setLocalToParent(const Matrix4x4& localToParent) {
+  localToParent_ = localToParent;
+}
+
+inline Matrix4x4 Mesh::localToParent() const {
+  return localToParent_;
 }
 
 #endif
