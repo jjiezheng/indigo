@@ -199,8 +199,25 @@ unsigned int OpenGL32GraphicsInterface::createVertexBuffer(VertexDef* vertexData
 }
 
 void OpenGL32GraphicsInterface::drawVertexBuffer(int vertexBuffer, int vertexCount, VertexFormat vertexFormat) {
+  GLenum drawMode = GL_TRIANGLES;
+  
+  switch (vertexFormat) {
+    case TRIANGLE_LIST:
+      drawMode = GL_TRIANGLES;
+      break;
+    case TRIANGLE_STRIP:
+      drawMode = GL_TRIANGLE_STRIP;
+      break;
+    case LINE_LIST:
+      drawMode = GL_LINES;
+      break;
+    default:
+      assert(false);
+      break;
+  }
+  
   glBindVertexArray(vertexBuffer);
-  glDrawArrays(GL_TRIANGLES, 0, vertexCount);
+  glDrawArrays(drawMode, 0, vertexCount);
   GLUtilities::checkForError();
 }
 
