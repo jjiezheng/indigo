@@ -118,7 +118,7 @@ void Camera::update(float dt) {
       rotateX(toRadians(yDegrees));
       Mouse::hideOSMouse(true);
 
-    } else if (Mouse::isButtonDown(MOUSE_BUTTON_MIDDLE)) {
+    } else if (Mouse::isButtonDown(MOUSE_BUTTON_MIDDLE) || Mouse::isButtonDown(MOUSE_BUTTON_RIGHT)) {
 
       moveUp(speed * yDelta);
       moveRight(speed * -xDelta);

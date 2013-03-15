@@ -11,7 +11,7 @@ void GLFWKeyboard::glfw_key_callback(int key, int action) {
   
   if (GLFW_RELEASE == action) {
     instance_->keyStates_[key] = false;
-    instance_->onKeyUp(key);
+    instance_->onKeyUp((KeyCode)key);
   }
 }
 

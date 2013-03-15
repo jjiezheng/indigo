@@ -21,7 +21,7 @@
 //default weights[0] = 0.7978846
 //default weights[1] = 0.1079819
 //default weights[2] = 0.0002676605
-//default weights[3] = 1.22e-008
+//default weights[3] = 1.22e-08
 
 #pragma pack_matrix(row_major)
 

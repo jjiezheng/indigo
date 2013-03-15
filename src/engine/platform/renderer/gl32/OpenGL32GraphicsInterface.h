@@ -58,7 +58,7 @@ public:
   
   IEffect* createEffect();
   
-  void resetGraphicsState(bool cullBack);
+  void resetGraphicsState(CullMode cullMode, bool drawWireframe);
   
 public:
   

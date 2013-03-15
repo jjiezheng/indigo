@@ -31,13 +31,13 @@ void main()
     vec4 _result;
     vec2 _offset1;
 
-    _offset1 = vec2( -1.00000000E+000, 0.00000000E+000)*_TexelSize;
+    _offset1 = vec2( -1.00000000E+00, 0.00000000E+00)*_TexelSize;
     _c0004 = gl_TexCoord[0].xy + _offset1;
     _TMP0 = texture2D(_SourceMap, _c0004);
     _result = _TMP0;
     _TMP0 = texture2D(_SourceMap, gl_TexCoord[0].xy);
     _result = _result + _TMP0;
-    _result = _result/2.00000000E+000;
+    _result = _result/2.00000000E+00;
     gl_FragColor = _result;
     return;
 } // main end

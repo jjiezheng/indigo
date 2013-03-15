@@ -55,23 +55,23 @@ void main()
     vec2 _offset7;
     vec2 _offset8;
 
-    _offset1 = vec2( -1.00000000E+000, 1.00000000E+000)*_TexelSize;
+    _offset1 = vec2( -1.00000000E+00, 1.00000000E+00)*_TexelSize;
     _c0013 = cg_TexCoord0.xy + _offset1;
     _TMP0 = texture(_SourceMap, _c0013);
-    _offset2 = vec2( 0.00000000E+000, 1.00000000E+000)*_TexelSize;
+    _offset2 = vec2( 0.00000000E+00, 1.00000000E+00)*_TexelSize;
     _c0015 = cg_TexCoord0.xy + _offset2;
     _TMP1 = texture(_SourceMap, _c0015);
     _result = _TMP0 + _TMP1;
     _c0017 = cg_TexCoord0.xy + vec2(_TexelSize, _TexelSize);
     _TMP2 = texture(_SourceMap, _c0017);
     _result = _result + _TMP2;
-    _offset4 = vec2( -1.00000000E+000, 0.00000000E+000)*_TexelSize;
+    _offset4 = vec2( -1.00000000E+00, 0.00000000E+00)*_TexelSize;
     _c0019 = cg_TexCoord0.xy + _offset4;
     _TMP3 = texture(_SourceMap, _c0019);
     _result = _result + _TMP3;
     _TMP4 = texture(_SourceMap, cg_TexCoord0.xy);
     _result = _result + _TMP4;
-    _offset5 = vec2( 1.00000000E+000, 0.00000000E+000)*_TexelSize;
+    _offset5 = vec2( 1.00000000E+00, 0.00000000E+00)*_TexelSize;
     _c0023 = cg_TexCoord0.xy + _offset5;
     _TMP5 = texture(_SourceMap, _c0023);
     _result = _result + _TMP5;
@@ -79,16 +79,16 @@ void main()
     _c0025 = cg_TexCoord0.xy + _offset6;
     _TMP6 = texture(_SourceMap, _c0025);
     _result = _result + _TMP6;
-    _offset7 = vec2( 0.00000000E+000, -1.00000000E+000)*_TexelSize;
+    _offset7 = vec2( 0.00000000E+00, -1.00000000E+00)*_TexelSize;
     _c0027 = cg_TexCoord0.xy + _offset7;
     _TMP7 = texture(_SourceMap, _c0027);
     _result = _result + _TMP7;
-    _offset8 = vec2( 1.00000000E+000, -1.00000000E+000)*_TexelSize;
+    _offset8 = vec2( 1.00000000E+00, -1.00000000E+00)*_TexelSize;
     _c0029 = cg_TexCoord0.xy + _offset8;
     _TMP8 = texture(_SourceMap, _c0029);
     _result = _result + _TMP8;
-    _result = _result/9.00000000E+000;
-    _ret_0 = vec4(_result.x, _result.y, _result.z, 1.00000000E+000);
+    _result = _result/9.00000000E+00;
+    _ret_0 = vec4(_result.x, _result.y, _result.z, 1.00000000E+00);
     cg_FragColor = _ret_0;
     return;
 } // main end

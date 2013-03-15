@@ -41,7 +41,7 @@ bool Mouse::isLeftButtonDown() {
 }
 
 void Mouse::hideOSMouse(bool isHidden) {
-  if (isHidden && !isMouseHidden_ || !isHidden && isMouseHidden_) {
+  if ((isHidden && !isMouseHidden_) || (!isHidden && isMouseHidden_)) {
   	mouse_->hideOSMouse(isHidden);
     isMouseHidden_ = isHidden;
   } 
