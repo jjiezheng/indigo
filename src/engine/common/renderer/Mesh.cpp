@@ -10,6 +10,8 @@ void Mesh::createBuffers(VertexDef* vertexData, unsigned int numVertices, Vertex
   numVertices_ = numVertices;
   vertexFormat_ = vertexFormat;
   vertexBuffer_ = GraphicsInterface::createVertexBuffer(vertexData, numVertices);
+
+  computeBoundingBox(vertexData, numVertices);
 }
 
 void Mesh::render() const {
@@ -18,11 +20,6 @@ void Mesh::render() const {
 
 void Mesh::visit(hash_map<IEffect*, std::vector<Mesh*> >& meshes) {
   meshes[material().effect()].push_back(this);
-}
-
-Matrix4x4 Mesh::localToWorld() const {
-  Matrix4x4 localToWorld = parent_->localToWorld() * localToParent_;
-  return localToWorld;
 }
 
 void Mesh::setMaterialCallback(const std::string& materialName, Material::MaterialCallback callback, void* userData) {

@@ -28,6 +28,8 @@ public:
 
 	static void SetShowCursor(bool isVisible);
 
+  static void getViewportSize(int* x, int* y);
+
 public:
 
 	static void setKeyboardListener(IKeyboardListener* keyboardListener);
@@ -49,6 +51,8 @@ private:
 	static bool isCursorVisible_;
 
 	static std::map<int, int> keyMappings_;
+
+  static HWND hWnd;
 
 };
 

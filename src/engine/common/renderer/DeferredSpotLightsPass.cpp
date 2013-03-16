@@ -124,7 +124,7 @@ void DeferredSpotLightsPass::renderShadowMap(SpotLight* light, hash_map<IEffect*
 		  for (std::vector<Mesh*>::iterator meshIt = effectMeshes.begin(); meshIt != effectMeshes.end(); ++meshIt) {
 			  GraphicsInterface::setRenderState(CULL_MODE_FRONT);
 			  shadowDepthEffect_->beginDraw();
-			  (*meshIt)->material().bind(light->projection(), light->viewTransform(), (*meshIt)->localToWorld(), shadowDepthEffect_);
+			  (*meshIt)->material().bind(light->projection(), light->viewTransform(), (*meshIt)->parent()->localToWorld(), shadowDepthEffect_);
 			  shadowDepthEffect_->commitBuffers();
 			  (*meshIt)->render();
 			  shadowDepthEffect_->endDraw();

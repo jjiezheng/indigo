@@ -1,9 +1,11 @@
 #ifndef TRANSLATE_GIZMO_H
 #define TRANSLATE_GIZMO_H
 
-class Model;
-class IEffect;
+#include "TranslateGizmoView.h"
+
 class IViewer;
+class Model;
+class Ray;
 
 class TranslateGizmo {
 
@@ -22,10 +24,12 @@ public:
 
   void setSelected(Model* model);
 
+  bool selectFromRay(const Ray& ray);
+
 private:
 
   Model* selected_;
-  IEffect* effect_;
+  TranslateGizmoView view_;
 
 };
 

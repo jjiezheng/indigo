@@ -11,6 +11,7 @@ bool WindowsUtils::keyStates_[1024];
 bool WindowsUtils::mouseButtons_[1];
 int WindowsUtils::mouseX_ = 0;
 int WindowsUtils::mouseY_ = 0;
+HWND WindowsUtils::hWnd = 0;
 
 IKeyboardListener* WindowsUtils::keyboardListener_ = 0;
 IMouseListener* WindowsUtils::mouseListener_ = 0;
@@ -22,8 +23,8 @@ std::map<int, int> WindowsUtils::keyMappings_;
 
 void WindowsUtils::getDesktopResolution(int& horizontal, int& vertical) {
 	RECT desktop;
-	const HWND hDesktop = GetDesktopWindow();
-	GetWindowRect(hDesktop, &desktop);
+	HWND hWnd = GetDesktopWindow();
+	GetWindowRect(hWnd, &desktop);
 	horizontal = desktop.right;
 	vertical = desktop.bottom;
 }
@@ -65,7 +66,7 @@ HWND WindowsUtils::createWindow(int width, int height, const std::string& window
 	int windowPositionX = (int)((screenWidth - width) / 2.0f);
 	int windowPositionY = (int)((screenHeight - height) / 2.0f);
 
-	HWND hWnd = CreateWindow("GameWindowClass", windowTitle.c_str(), WS_OVERLAPPEDWINDOW,
+	hWnd = CreateWindow("GameWindowClass", windowTitle.c_str(), WS_OVERLAPPEDWINDOW,
 		windowPositionX, windowPositionY, width, height, NULL, NULL, hInstance, NULL);
 
 	STARTUPINFO lpStartupInfo;
@@ -263,4 +264,11 @@ bool WindowsUtils::getMouseButton(int buttonId) {
 void WindowsUtils::SetShowCursor(bool isVisible) {
 	ShowCursor(isVisible);
 	isCursorVisible_ = isVisible;
+}
+
+void WindowsUtils::getViewportSize(int* width, int* height) {
+  RECT rect;
+  BOOL res = GetClientRect(hWnd, &rect);
+  *width = rect.right;
+  *height = rect.bottom;
 }

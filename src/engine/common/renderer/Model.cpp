@@ -7,6 +7,7 @@
 
 #include "WorldLoader.h"
 #include "Mesh.h"
+#include "IMeshList.h"
 
 void Model::visit(hash_map<IEffect*, std::vector<Mesh*> >& meshes) {
   std::vector<Mesh>::iterator it = meshes_.begin();
@@ -34,31 +35,28 @@ void Model::setMaterialCallback(const std::string& materialName, Material::Mater
 	}
 }
 
-IntersectionResult Model::testIntersect(const Ray& ray) {
-  Matrix4x4 worldToLocal = localToWorld_.inverse();
+BoundingBox Model::boundingBox() const {
+  BoundingBox boundingBox = Node::boundingBox();
 
-  Vector4 localRayPosition = worldToLocal * Vector4(ray.position, 1.0f);
-  localRayPosition = worldToLocal.transpose() * localRayPosition;
-
-  Ray localSpaceRay(localRayPosition.vec3(), ray.direction, ray.length);
-
-  IntersectionResult result = boundingBox_.testIntersection(localSpaceRay);
-  return result;
-}
-
-void Model::computeBoundingBox() {
-  for (std::vector<Mesh>::iterator i = meshes_.begin(); i != meshes_.end(); ++i) 
-  {
+  for (std::vector<Mesh>::const_iterator i = meshes_.begin(); i != meshes_.end(); ++i) {
     BoundingBox meshBoundingBox = (*i).boundingBox();
 
-    Vector4 min = (*i).localToParent() * meshBoundingBox.min;
-    Vector4 max = (*i).localToParent() * meshBoundingBox.max;
+    Vector4 min = meshBoundingBox.min;
+    Vector4 max = meshBoundingBox.max;
 
-    boundingBox_.min.x = std::min(boundingBox_.min.x, min.x);
-    boundingBox_.max.x = std::max(boundingBox_.max.x, max.x);
-    boundingBox_.min.y = std::min(boundingBox_.min.y, min.y);
-    boundingBox_.max.y = std::max(boundingBox_.max.y, max.y);
-    boundingBox_.min.z = std::min(boundingBox_.min.z, min.z);
-    boundingBox_.max.z = std::max(boundingBox_.max.z, max.z);
+    boundingBox.min.x = std::min(boundingBox.min.x, min.x);
+    boundingBox.max.x = std::max(boundingBox.max.x, max.x);
+    boundingBox.min.y = std::min(boundingBox.min.y, min.y);
+    boundingBox.max.y = std::max(boundingBox.max.y, max.y);
+    boundingBox.min.z = std::min(boundingBox.min.z, min.z);
+    boundingBox.max.z = std::max(boundingBox.max.z, max.z);
+  }
+
+  return boundingBox;
+}
+
+void Model::collectMeshes(IMeshList* meshList) const {
+  for (std::vector<Mesh>::const_iterator i = meshes_.begin(); i != meshes_.end(); ++i) {
+    meshList->collectMesh(&(*i));
   }
 }

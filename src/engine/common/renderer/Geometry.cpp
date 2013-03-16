@@ -5,24 +5,18 @@
 #include "VertexFormat.h"
 #include "maths/Angles.h"
 
-const int Geometry::SCREEN_PLANE_VERTEX_COUNT = 6;
 VertexFormat Geometry::SCREEN_PLANE_VERTEX_FORMAT = TRIANGLE_LIST;
 
-const int Geometry::FONT_PLANE_VERTEX_COUNT = 6;
 VertexFormat Geometry::FONT_PLANE_VERTEX_FORMAT = TRIANGLE_LIST;
 
-const int Geometry::LINE_VERTEX_COUNT = 2;
 VertexFormat Geometry::LINE_VERTEX_FORMAT = LINE_LIST;
 VertexBuffer Geometry::LINE_VERTEX_BUFFER = 0;
-Mesh Geometry::LINE_MESH;
+VertexDef Geometry::LINE_VERTEX_DATA[LINE_VERTEX_COUNT];
 
-const int Geometry::CONE_VERTEX_COUNT = 16 * 2;
 VertexFormat Geometry::CONE_VERTEX_FORMAT = TRIANGLE_STRIP;
 VertexBuffer Geometry::CONE_VERTEX_BUFFER = 0;
-VertexDef Geometry::CONE_VERTEX_DATA[16 * 2];
-Mesh Geometry::CONE_MESH;
+VertexDef Geometry::CONE_VERTEX_DATA[CONE_VERTEX_COUNT];
 
-const int Geometry::UNIT_CUBE_VERTEX_COUNT = 36;
 VertexFormat Geometry::UNIT_CUBE_VERTEX_FORMAT = TRIANGLE_LIST;
 VertexBuffer Geometry::UNIT_CUBE_VERTEX_BUFFER = 0;
 
@@ -90,21 +84,17 @@ VertexBuffer Geometry::fontCharacter(const CSize& characterSize, const CSize& uv
 }
 
 VertexBuffer Geometry::line() {
-	VertexDef lineVertices[LINE_VERTEX_COUNT];
+	LINE_VERTEX_DATA[0].vertex = Vector3(0.0f, 0.0f,	0.0f);
+	LINE_VERTEX_DATA[1].vertex = Vector3(0.0f, 0.0f,	1.0f);
 
-	lineVertices[0].vertex = Vector3(0.0f, 0.0f,	0.0f);
-	lineVertices[1].vertex = Vector3(0.0f, 0.0f,	1.0f);
+	LINE_VERTEX_DATA[0].uv = Vector2(0.0f, 0.0f);
+	LINE_VERTEX_DATA[1].uv = Vector2(0.0f, 0.0f);
 
-	lineVertices[0].uv = Vector2(0.0f, 0.0f);
-	lineVertices[1].uv = Vector2(0.0f, 0.0f);
+	LINE_VERTEX_DATA[0].normal = Vector3(0.0f, 1.0f, 0.0f);
+	LINE_VERTEX_DATA[1].normal = Vector3(0.0f, 1.0f, 0.0f);
 
-	lineVertices[0].normal = Vector3(0.0f, 1.0f, 0.0f);
-	lineVertices[1].normal = Vector3(0.0f, 1.0f, 0.0f);
-
-  LINE_MESH.createBuffers(lineVertices, LINE_VERTEX_COUNT, LINE_VERTEX_FORMAT);
-  LINE_MESH.computeBoundingBox(lineVertices, LINE_VERTEX_COUNT);
-
-  return LINE_MESH.vertexBuffer();
+  VertexBuffer vbo = GraphicsInterface::createVertexBuffer(LINE_VERTEX_DATA, LINE_VERTEX_COUNT);
+  return vbo;
 }
 
 VertexBuffer Geometry::cone() {
@@ -120,11 +110,8 @@ VertexBuffer Geometry::cone() {
     CONE_VERTEX_DATA[index++].vertex = Vector3(0.0f, 0.0f, 2.0f);
   }
 
- 
-  CONE_MESH.createBuffers(CONE_VERTEX_DATA, CONE_VERTEX_COUNT, CONE_VERTEX_FORMAT);
-  CONE_MESH.computeBoundingBox(CONE_VERTEX_DATA, CONE_VERTEX_COUNT);
-
-  return CONE_MESH.vertexBuffer();
+  VertexBuffer vbo = GraphicsInterface::createVertexBuffer(CONE_VERTEX_DATA, UNIT_CUBE_VERTEX_COUNT);
+  return vbo;
 }
 
 VertexBuffer Geometry::unitCube() {

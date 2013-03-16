@@ -60,25 +60,21 @@ public:
 
 public:
 
-  Matrix4x4 localToWorld() const;
-
   void setParent(Model* parent);
 
-public:
-
-  Matrix4x4 localToParent() const;
-
-  void setLocalToParent(const Matrix4x4& localToParent);
+  Model* parent() const;
 
 public:
-
-	void computeBoundingBox(VertexDef* vertexData, unsigned int numVertices);
 
   BoundingBox boundingBox() const;
 
 public:
 
   VertexBuffer vertexBuffer() const;
+
+private:
+
+  void computeBoundingBox(VertexDef* vertexData, unsigned int numVertices);
   
 private:
   
@@ -102,6 +98,10 @@ inline Material Mesh::material() const {
   return material_;
 }
 
+inline Model* Mesh::parent() const {
+  return parent_;
+}
+
 inline void Mesh::setParent(Model* parent) {
   parent_ = parent;
 }
@@ -112,14 +112,6 @@ inline BoundingBox Mesh::boundingBox() const {
 
 inline VertexBuffer Mesh::vertexBuffer() const {
   return vertexBuffer_;
-}
-
-inline void Mesh::setLocalToParent(const Matrix4x4& localToParent) {
-  localToParent_ = localToParent;
-}
-
-inline Matrix4x4 Mesh::localToParent() const {
-  return localToParent_;
 }
 
 #endif

@@ -52,7 +52,7 @@ void DeferredGeometryPass::render(IViewer* viewer, World& world, const SceneCont
 		for (std::vector<Mesh*>::iterator meshIt = effectMeshes.begin(); meshIt != effectMeshes.end(); ++meshIt) {
 			Matrix4x4 projection = viewer->projection();
 			Matrix4x4 viewTransform = viewer->viewTransform();
-			Matrix4x4 localToWorld = (*meshIt)->localToWorld();
+			Matrix4x4 localToWorld = (*meshIt)->parent()->localToWorld();
 			Material material = (*meshIt)->material();
 			effect->beginDraw();
 			effect->setUniform(viewer->nearDistance(), "Near");

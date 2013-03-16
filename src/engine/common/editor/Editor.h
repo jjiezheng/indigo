@@ -5,19 +5,20 @@
 #include "renderer/Camera.h"
 #include "renderer/World.h"
 
+#include "gizmos/translation/TranslateGizmo.h"
+
 #include "Bounds.h"
 #include "Selection.h"
-#include "TranslateGizmo.h"
 
 class IViewer;
 class World;
 class IEffect;
 
-class EditorLayer {
+class Editor {
 
 public:
 
-	EditorLayer()
+	Editor()
 		: isVisible_(false) { }
 
 public:
@@ -52,11 +53,11 @@ private:
 
 };
 
-inline void EditorLayer::setCamera(Camera* camera) {
+inline void Editor::setCamera(Camera* camera) {
   camera_ = camera;
 }
 
-inline void EditorLayer::toggleVisible() {
+inline void Editor::toggleVisible() {
 	isVisible_ = !isVisible_;
 }
 

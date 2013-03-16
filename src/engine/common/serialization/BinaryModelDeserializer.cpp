@@ -101,12 +101,9 @@ Model* BinaryModelDeserializer::deserialize(const std::string& modelFilePath) {
 
     Mesh mesh;
     mesh.createBuffers(vertexData, vertexCount, TRIANGLE_LIST);
-    mesh.computeBoundingBox(vertexData, vertexCount);
     mesh.setMaterial(material);
     model->addMesh(mesh);
   }
-
-  model->computeBoundingBox();
 
   return model;
 }

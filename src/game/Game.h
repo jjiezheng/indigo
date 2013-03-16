@@ -10,7 +10,7 @@
 #include "renderer/Renderer3dDeferred.h"
 #include "renderer/Camera.h"
 #include "ui/GameUI.h"
-#include "editor/EditorLayer.h"
+#include "editor/Editor.h"
 
 #include "input/IKeyboardListener.h"
 #include "input/IMouseListener.h"
@@ -49,7 +49,7 @@ private:
   Clock clock_;
   World world_;
   SceneContext sceneContext_;
-	EditorLayer editor_;
+	Editor editor_;
 	ActorFactory actorFactory_;
 
 };

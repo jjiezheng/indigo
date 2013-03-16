@@ -213,9 +213,6 @@ void Direct3D11GraphicsInterface::destroy() {
 }
 
 void Direct3D11GraphicsInterface::openWindow(int width, int height, unsigned int multiSamples, bool vsyncEnabled, bool isFullScreen) {
-  screenSize_ = CSize(width, height);
-  backbufferSize_ = screenSize_;
-
   D3D_FEATURE_LEVEL FeatureLevel;
   HRESULT result = D3D11CreateDevice(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, 0, NULL, 0, D3D11_SDK_VERSION, NULL, &FeatureLevel, NULL );
 
@@ -251,7 +248,14 @@ void Direct3D11GraphicsInterface::openWindow(int width, int height, unsigned int
   }
 
   HWND hWnd = WindowsUtils::createWindow(width, height, directXFeatureLevelString);
-  createGraphicsContext(hWnd, width, height, multiSamples);
+
+  int actualWidth, actualHeight;
+  WindowsUtils::getViewportSize(&actualWidth, &actualHeight);
+
+  screenSize_ = CSize(actualWidth, actualHeight);
+  backbufferSize_ = screenSize_;
+
+  createGraphicsContext(hWnd, backbufferSize_.width, backbufferSize_.height, multiSamples);
   createBlendStates();
   createPerformanceMarkerColors();
 }
