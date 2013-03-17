@@ -182,7 +182,7 @@ void DeferredSpotLightsPass::renderLight(SpotLight* light, IEffect* lightEffect,
 	Matrix4x4 worldView = viewer->viewTransform() * light->transform();
 	lightEffect->setUniform(worldView, "WorldView");
 
-	Matrix4x4 normalMatrix = viewer->viewTransform().inverse().transpose().mat3x3(); // strips out the translation;
+	Matrix3x3 normalMatrix = viewer->viewTransform().inverse().transpose().mat3x3(); // strips out the translation;
 	lightEffect->setUniform(normalMatrix, "NormalMatrix");
 
 	Matrix4x4 lightViewProj = light->projection() * light->viewTransform();

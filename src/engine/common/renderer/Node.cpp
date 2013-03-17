@@ -28,7 +28,6 @@ IntersectionResult Node::testIntersect(const Ray& ray) {
   Matrix4x4 worldToLocal = localToWorld().inverse();
 
   Vector4 localRayPosition = worldToLocal * Vector4(ray.position, 1.0f);
-  //localRayPosition = worldToLocal.transpose() * localRayPosition;
 
   Vector4 localRayDirection = worldToLocal.inverse().transpose() * Vector4(ray.direction, 1.0f);
   localRayDirection.normalizeIP();
@@ -36,9 +35,6 @@ IntersectionResult Node::testIntersect(const Ray& ray) {
   Ray localSpaceRay(localRayPosition.vec3(), localRayDirection.vec3(), ray.length);
 
   BoundingBox box = boundingBox();
-
-  Vector4 min = localToWorld_ * box.min;
-  Vector4 max = localToWorld_ * box.max;
 
   IntersectionResult result = box.testIntersection(localSpaceRay);
   return result;

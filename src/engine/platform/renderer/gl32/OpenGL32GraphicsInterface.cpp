@@ -26,7 +26,7 @@ int OpenGL32GraphicsInterface::exitCode() const {
   return 0;
 }
 
-void OpenGL32GraphicsInterface::openWindow(int width, int height, unsigned int multiSamples, bool vsyncEnabled, bool isFullScreen) {
+void OpenGL32GraphicsInterface::openWindow(const char* windowTitle, int width, int height, unsigned int multiSamples, bool vsyncEnabled, bool isFullScreen) {
   
   int result = glfwInit();
 
@@ -53,9 +53,11 @@ void OpenGL32GraphicsInterface::openWindow(int width, int height, unsigned int m
   result = glfwOpenWindow(width, height, 8, 8, 8, 8, 0, 0, windowMode);
 
   const GLubyte * glVersionString = glGetString(GL_VERSION);
-  std::string windowTitle("OpenGL ");
-  windowTitle += (const char*)glVersionString;
-  glfwSetWindowTitle(windowTitle.c_str());
+  std::string fullWindowTitle;
+  fullWindowTitle += windowTitle;
+  fullWindowTitle += (" - OpenGL ");
+  fullWindowTitle += (const char*)glVersionString;
+  glfwSetWindowTitle(fullWindowTitle.c_str());
 
 	if (!result) {
 		LOG(LOG_CHANNEL_RENDERER, "Failed to open window");
@@ -76,11 +78,15 @@ void OpenGL32GraphicsInterface::openWindow(int width, int height, unsigned int m
   
   initGremedyExtension();
   
-  backbufferSize_.width = width;
-  backbufferSize_.height = height;
+  int actualWindowWidth, actualWindowHeight;
   
-  screenSize_.width = width;
-  screenSize_.height = height;
+  glfwGetWindowSize(&actualWindowWidth, &actualWindowHeight);
+  
+  backbufferSize_.width = actualWindowWidth;
+  backbufferSize_.height = actualWindowHeight;
+  
+  screenSize_.width = actualWindowWidth;
+  screenSize_.height = actualWindowHeight;
   
   depthBufferTexture_ = createDepthTexture(screenSize_, false);
   depthBufferTarget_ = createRenderTarget(depthBufferTexture_);

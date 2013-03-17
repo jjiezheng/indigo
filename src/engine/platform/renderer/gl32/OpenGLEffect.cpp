@@ -131,6 +131,7 @@ void OpenGLEffect::setUniform(const Matrix3x3& uniformData, const char* uniformN
 }
 
 void OpenGLEffect::setUniform(const Matrix4x4& uniformData, const char* uniformName) const {
+  GLUtilities::checkForError();
   std::string internalUnformName = getInternalUniformName(uniformName);
   GLint uniformLocation = glGetUniformLocation(programId_, internalUnformName.c_str());
   if (uniformLocation > -1) {
