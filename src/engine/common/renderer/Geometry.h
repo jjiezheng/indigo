@@ -46,6 +46,7 @@ public:
 	static const int UNIT_CUBE_VERTEX_COUNT = 36;
 	static VertexFormat UNIT_CUBE_VERTEX_FORMAT;
   static VertexBuffer UNIT_CUBE_VERTEX_BUFFER;
+  static VertexDef UNIT_CUBE_VERTEX_DATA[UNIT_CUBE_VERTEX_COUNT];
 
 };
 

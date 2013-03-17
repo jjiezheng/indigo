@@ -19,6 +19,7 @@ VertexDef Geometry::CONE_VERTEX_DATA[CONE_VERTEX_COUNT];
 
 VertexFormat Geometry::UNIT_CUBE_VERTEX_FORMAT = TRIANGLE_LIST;
 VertexBuffer Geometry::UNIT_CUBE_VERTEX_BUFFER = 0;
+VertexDef Geometry::UNIT_CUBE_VERTEX_DATA[UNIT_CUBE_VERTEX_COUNT];
 
 VertexBuffer Geometry::screenPlane() {
   VertexDef quadVertices[SCREEN_PLANE_VERTEX_COUNT];
@@ -115,146 +116,144 @@ VertexBuffer Geometry::cone() {
 }
 
 VertexBuffer Geometry::unitCube() {
-	VertexDef quadVertices[UNIT_CUBE_VERTEX_COUNT];
-
 	// front
-	quadVertices[0].vertex = Vector3(-1.0f, -1.0f, 1.0f);
-	quadVertices[1].vertex = Vector3(1.0f, 1.0f, 1.0f);
-	quadVertices[2].vertex = Vector3(-1.0f, 1.0f, 1.0f);
-	quadVertices[3].vertex = Vector3(-1.0f, -1.0f, 1.0f);
-	quadVertices[4].vertex = Vector3(1.0f, -1.0f, 1.0f);
-	quadVertices[5].vertex = Vector3(1.0f, 1.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[0].vertex = Vector3(-1.0f, -1.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[1].vertex = Vector3(1.0f, 1.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[2].vertex = Vector3(-1.0f, 1.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[3].vertex = Vector3(-1.0f, -1.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[4].vertex = Vector3(1.0f, -1.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[5].vertex = Vector3(1.0f, 1.0f, 1.0f);
 
-	quadVertices[0].normal = Vector3(0.0f, 0.0f, 1.0f);
-	quadVertices[1].normal = Vector3(0.0f, 0.0f, 1.0f);
-	quadVertices[2].normal = Vector3(0.0f, 0.0f, 1.0f);
-	quadVertices[3].normal = Vector3(0.0f, 0.0f, 1.0f);
-	quadVertices[4].normal = Vector3(0.0f, 0.0f, 1.0f);
-	quadVertices[5].normal = Vector3(0.0f, 0.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[0].normal = Vector3(0.0f, 0.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[1].normal = Vector3(0.0f, 0.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[2].normal = Vector3(0.0f, 0.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[3].normal = Vector3(0.0f, 0.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[4].normal = Vector3(0.0f, 0.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[5].normal = Vector3(0.0f, 0.0f, 1.0f);
 
-	quadVertices[0].uv = Vector2(0.0f, 1.0f);
-	quadVertices[1].uv = Vector2(1.0f, 0.0f);
-	quadVertices[2].uv = Vector2(0.0f, 0.0f);
-	quadVertices[3].uv = Vector2(0.0f, 1.0f);
-	quadVertices[4].uv = Vector2(1.0f, 1.0f);
-	quadVertices[5].uv = Vector2(1.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[0].uv = Vector2(0.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[1].uv = Vector2(1.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[2].uv = Vector2(0.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[3].uv = Vector2(0.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[4].uv = Vector2(1.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[5].uv = Vector2(1.0f, 0.0f);
 
 	// back
 
-	quadVertices[6].vertex = Vector3(1.0f, -1.0f, -1.0f);
-	quadVertices[7].vertex = Vector3(-1.0f, 1.0f, -1.0f);
-	quadVertices[8].vertex = Vector3(1.0f, 1.0f, -1.0f);
-	quadVertices[9].vertex = Vector3(1.0f, -1.0f, -1.0f);
-	quadVertices[10].vertex = Vector3(-1.0f, -1.0f, -1.0f);
-	quadVertices[11].vertex = Vector3(-1.0f, 1.0f, -1.0f);
+	UNIT_CUBE_VERTEX_DATA[6].vertex = Vector3(1.0f, -1.0f, -1.0f);
+	UNIT_CUBE_VERTEX_DATA[7].vertex = Vector3(-1.0f, 1.0f, -1.0f);
+	UNIT_CUBE_VERTEX_DATA[8].vertex = Vector3(1.0f, 1.0f, -1.0f);
+	UNIT_CUBE_VERTEX_DATA[9].vertex = Vector3(1.0f, -1.0f, -1.0f);
+	UNIT_CUBE_VERTEX_DATA[10].vertex = Vector3(-1.0f, -1.0f, -1.0f);
+	UNIT_CUBE_VERTEX_DATA[11].vertex = Vector3(-1.0f, 1.0f, -1.0f);
 
-	quadVertices[6].normal = Vector3(0.0f, 0.0f, -1.0f);
-	quadVertices[7].normal = Vector3(0.0f, 0.0f, -1.0f);
-	quadVertices[8].normal = Vector3(0.0f, 0.0f, -1.0f);
-	quadVertices[9].normal = Vector3(0.0f, 0.0f, -1.0f);
-	quadVertices[10].normal = Vector3(0.0f, 0.0f, -1.0f);
-	quadVertices[11].normal = Vector3(0.0f, 0.0f, -1.0f);
+	UNIT_CUBE_VERTEX_DATA[6].normal = Vector3(0.0f, 0.0f, -1.0f);
+	UNIT_CUBE_VERTEX_DATA[7].normal = Vector3(0.0f, 0.0f, -1.0f);
+	UNIT_CUBE_VERTEX_DATA[8].normal = Vector3(0.0f, 0.0f, -1.0f);
+	UNIT_CUBE_VERTEX_DATA[9].normal = Vector3(0.0f, 0.0f, -1.0f);
+	UNIT_CUBE_VERTEX_DATA[10].normal = Vector3(0.0f, 0.0f, -1.0f);
+	UNIT_CUBE_VERTEX_DATA[11].normal = Vector3(0.0f, 0.0f, -1.0f);
 
-	quadVertices[6].uv = Vector2(0.0f, 1.0f);
-	quadVertices[7].uv = Vector2(1.0f, 0.0f);
-	quadVertices[8].uv = Vector2(0.0f, 0.0f);
-	quadVertices[9].uv = Vector2(0.0f, 1.0f);
-	quadVertices[10].uv = Vector2(1.0f, 1.0f);
-	quadVertices[11].uv = Vector2(1.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[6].uv = Vector2(0.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[7].uv = Vector2(1.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[8].uv = Vector2(0.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[9].uv = Vector2(0.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[10].uv = Vector2(1.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[11].uv = Vector2(1.0f, 0.0f);
 
 	// right
 
-	quadVertices[12].vertex = Vector3(1.0f, -1.0f, 1.0f);
-	quadVertices[13].vertex = Vector3(1.0f, 1.0f,  -1.0f);
-	quadVertices[14].vertex = Vector3(1.0f, 1.0f, 1.0f);
-	quadVertices[15].vertex = Vector3(1.0f, -1.0f, 1.0f);
-	quadVertices[16].vertex = Vector3(1.0f, -1.0f, -1.0f);
-	quadVertices[17].vertex = Vector3(1.0f, 1.0f, -1.0f);
+	UNIT_CUBE_VERTEX_DATA[12].vertex = Vector3(1.0f, -1.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[13].vertex = Vector3(1.0f, 1.0f,  -1.0f);
+	UNIT_CUBE_VERTEX_DATA[14].vertex = Vector3(1.0f, 1.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[15].vertex = Vector3(1.0f, -1.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[16].vertex = Vector3(1.0f, -1.0f, -1.0f);
+	UNIT_CUBE_VERTEX_DATA[17].vertex = Vector3(1.0f, 1.0f, -1.0f);
 
-	quadVertices[12].normal = Vector3(1.0f, 0.0f, 0.0f);
-	quadVertices[13].normal = Vector3(1.0f, 0.0f, 0.0f);
-	quadVertices[14].normal = Vector3(1.0f, 0.0f, 0.0f);
-	quadVertices[15].normal = Vector3(1.0f, 0.0f, 0.0f);
-	quadVertices[16].normal = Vector3(1.0f, 0.0f, 0.0f);
-	quadVertices[17].normal = Vector3(1.0f, 0.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[12].normal = Vector3(1.0f, 0.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[13].normal = Vector3(1.0f, 0.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[14].normal = Vector3(1.0f, 0.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[15].normal = Vector3(1.0f, 0.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[16].normal = Vector3(1.0f, 0.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[17].normal = Vector3(1.0f, 0.0f, 0.0f);
 
-	quadVertices[12].uv = Vector2(0.0f, 1.0f);
-	quadVertices[13].uv = Vector2(1.0f, 0.0f);
-	quadVertices[14].uv = Vector2(0.0f, 0.0f);
-	quadVertices[15].uv = Vector2(0.0f, 1.0f);
-	quadVertices[16].uv = Vector2(1.0f, 1.0f);
-	quadVertices[17].uv = Vector2(1.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[12].uv = Vector2(0.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[13].uv = Vector2(1.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[14].uv = Vector2(0.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[15].uv = Vector2(0.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[16].uv = Vector2(1.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[17].uv = Vector2(1.0f, 0.0f);
 
 	// left
 
-	quadVertices[18].vertex = Vector3(-1.0f, -1.0f, -1.0f);
-	quadVertices[19].vertex = Vector3(-1.0f, 1.0f,  1.0f);
-	quadVertices[20].vertex = Vector3(-1.0f, 1.0f, -1.0f);
-	quadVertices[21].vertex = Vector3(-1.0f, -1.0f, -1.0f);
-	quadVertices[22].vertex = Vector3(-1.0f, -1.0f, 1.0f);
-	quadVertices[23].vertex = Vector3(-1.0f, 1.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[18].vertex = Vector3(-1.0f, -1.0f, -1.0f);
+	UNIT_CUBE_VERTEX_DATA[19].vertex = Vector3(-1.0f, 1.0f,  1.0f);
+	UNIT_CUBE_VERTEX_DATA[20].vertex = Vector3(-1.0f, 1.0f, -1.0f);
+	UNIT_CUBE_VERTEX_DATA[21].vertex = Vector3(-1.0f, -1.0f, -1.0f);
+	UNIT_CUBE_VERTEX_DATA[22].vertex = Vector3(-1.0f, -1.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[23].vertex = Vector3(-1.0f, 1.0f, 1.0f);
 
-	quadVertices[18].normal = Vector3(-1.0f, 0.0f, 0.0f);
-	quadVertices[19].normal = Vector3(-1.0f, 0.0f, 0.0f);
-	quadVertices[20].normal = Vector3(-1.0f, 0.0f, 0.0f);
-	quadVertices[21].normal = Vector3(-1.0f, 0.0f, 0.0f);
-	quadVertices[22].normal = Vector3(-1.0f, 0.0f, 0.0f);
-	quadVertices[23].normal = Vector3(-1.0f, 0.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[18].normal = Vector3(-1.0f, 0.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[19].normal = Vector3(-1.0f, 0.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[20].normal = Vector3(-1.0f, 0.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[21].normal = Vector3(-1.0f, 0.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[22].normal = Vector3(-1.0f, 0.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[23].normal = Vector3(-1.0f, 0.0f, 0.0f);
 
-	quadVertices[18].uv = Vector2(0.0f, 1.0f);
-	quadVertices[19].uv = Vector2(1.0f, 0.0f);
-	quadVertices[20].uv = Vector2(0.0f, 0.0f);
-	quadVertices[21].uv = Vector2(0.0f, 1.0f);
-	quadVertices[22].uv = Vector2(1.0f, 1.0f);
-	quadVertices[23].uv = Vector2(1.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[18].uv = Vector2(0.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[19].uv = Vector2(1.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[20].uv = Vector2(0.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[21].uv = Vector2(0.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[22].uv = Vector2(1.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[23].uv = Vector2(1.0f, 0.0f);
 
 	// top
 
-	quadVertices[24].vertex = Vector3(-1.0f, 1.0f, 1.0f);
-	quadVertices[25].vertex = Vector3(1.0f, 1.0f,  -1.0f);
-	quadVertices[26].vertex = Vector3(-1.0f, 1.0f, -1.0f);
-	quadVertices[27].vertex = Vector3(-1.0f, 1.0f, 1.0f);
-	quadVertices[28].vertex = Vector3(1.0f, 1.0f, 1.0f);
-	quadVertices[29].vertex = Vector3(1.0f, 1.0f, -1.0f);
+	UNIT_CUBE_VERTEX_DATA[24].vertex = Vector3(-1.0f, 1.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[25].vertex = Vector3(1.0f, 1.0f,  -1.0f);
+	UNIT_CUBE_VERTEX_DATA[26].vertex = Vector3(-1.0f, 1.0f, -1.0f);
+	UNIT_CUBE_VERTEX_DATA[27].vertex = Vector3(-1.0f, 1.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[28].vertex = Vector3(1.0f, 1.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[29].vertex = Vector3(1.0f, 1.0f, -1.0f);
 
-	quadVertices[24].normal = Vector3(0.0f, 1.0f, 0.0f);
-	quadVertices[25].normal = Vector3(0.0f, 1.0f, 0.0f);
-	quadVertices[26].normal = Vector3(0.0f, 1.0f, 0.0f);
-	quadVertices[27].normal = Vector3(0.0f, 1.0f, 0.0f);
-	quadVertices[28].normal = Vector3(0.0f, 1.0f, 0.0f);
-	quadVertices[29].normal = Vector3(0.0f, 1.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[24].normal = Vector3(0.0f, 1.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[25].normal = Vector3(0.0f, 1.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[26].normal = Vector3(0.0f, 1.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[27].normal = Vector3(0.0f, 1.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[28].normal = Vector3(0.0f, 1.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[29].normal = Vector3(0.0f, 1.0f, 0.0f);
 
-	quadVertices[24].uv = Vector2(0.0f, 1.0f);
-	quadVertices[25].uv = Vector2(1.0f, 0.0f);
-	quadVertices[26].uv = Vector2(0.0f, 0.0f);
-	quadVertices[27].uv = Vector2(0.0f, 1.0f);
-	quadVertices[28].uv = Vector2(1.0f, 1.0f);
-	quadVertices[29].uv = Vector2(1.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[24].uv = Vector2(0.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[25].uv = Vector2(1.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[26].uv = Vector2(0.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[27].uv = Vector2(0.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[28].uv = Vector2(1.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[29].uv = Vector2(1.0f, 0.0f);
 
 	// bottom
 
-	quadVertices[30].vertex = Vector3(1.0f, -1.0f, 1.0f);
-	quadVertices[31].vertex = Vector3(-1.0f, -1.0f, -1.0f);
-	quadVertices[32].vertex = Vector3(1.0f, -1.0f, -1.0f);
-	quadVertices[33].vertex = Vector3(1.0f, -1.0f, 1.0f);
-	quadVertices[34].vertex = Vector3(-1.0f, -1.0f, 1.0f);
-	quadVertices[35].vertex = Vector3(-1.0f, -1.0f, -1.0f);
+	UNIT_CUBE_VERTEX_DATA[30].vertex = Vector3(1.0f, -1.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[31].vertex = Vector3(-1.0f, -1.0f, -1.0f);
+	UNIT_CUBE_VERTEX_DATA[32].vertex = Vector3(1.0f, -1.0f, -1.0f);
+	UNIT_CUBE_VERTEX_DATA[33].vertex = Vector3(1.0f, -1.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[34].vertex = Vector3(-1.0f, -1.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[35].vertex = Vector3(-1.0f, -1.0f, -1.0f);
 
-	quadVertices[30].normal = Vector3(0.0f, -1.0f, 0.0f);
-	quadVertices[31].normal = Vector3(0.0f, -1.0f, 0.0f);
-	quadVertices[32].normal = Vector3(0.0f, -1.0f, 0.0f);
-	quadVertices[33].normal = Vector3(0.0f, -1.0f, 0.0f);
-	quadVertices[34].normal = Vector3(0.0f, -1.0f, 0.0f);
-	quadVertices[35].normal = Vector3(0.0f, -1.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[30].normal = Vector3(0.0f, -1.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[31].normal = Vector3(0.0f, -1.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[32].normal = Vector3(0.0f, -1.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[33].normal = Vector3(0.0f, -1.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[34].normal = Vector3(0.0f, -1.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[35].normal = Vector3(0.0f, -1.0f, 0.0f);
 
-	quadVertices[30].uv = Vector2(0.0f, 1.0f);
-	quadVertices[21].uv = Vector2(1.0f, 0.0f);
-	quadVertices[32].uv = Vector2(0.0f, 0.0f);
-	quadVertices[33].uv = Vector2(0.0f, 1.0f);
-	quadVertices[34].uv = Vector2(1.0f, 1.0f);
-	quadVertices[35].uv = Vector2(1.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[30].uv = Vector2(0.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[21].uv = Vector2(1.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[32].uv = Vector2(0.0f, 0.0f);
+	UNIT_CUBE_VERTEX_DATA[33].uv = Vector2(0.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[34].uv = Vector2(1.0f, 1.0f);
+	UNIT_CUBE_VERTEX_DATA[35].uv = Vector2(1.0f, 0.0f);
 
-	VertexBuffer vbo = GraphicsInterface::createVertexBuffer(quadVertices, UNIT_CUBE_VERTEX_COUNT);
+	VertexBuffer vbo = GraphicsInterface::createVertexBuffer(UNIT_CUBE_VERTEX_DATA, UNIT_CUBE_VERTEX_COUNT);
 	return vbo;
 }
 

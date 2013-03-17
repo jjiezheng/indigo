@@ -12,11 +12,13 @@
 
 #include "CancelTool.h"
 #include "gizmos/translation/TranslateGizmo.h"
+#include "gizmos/scale/ScaleGizmo.h"
 
 
 void Editor::init() {
   tools_[KEY_ESCAPE] = new CancelTool();
   tools_[KEY_W] = new TranslateGizmo();
+  tools_[KEY_E] = new ScaleGizmo();
   overlays_.push_back(new Bounds());
 
   for (std::map<KeyCode, IEditorTool*>::iterator i = tools_.begin(); i != tools_.end(); ++i) {
