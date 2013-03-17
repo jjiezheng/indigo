@@ -67,3 +67,15 @@ void TranslateGizmoView::highlightFromRay(const Ray& ray) {
   IntersectionResult xResult = xArrow_.testIntersect(ray);
   xArrow_.setHighlight(xResult.intersected);
 }
+
+void TranslateGizmoView::highlightX() {
+  xArrow_.setHighlight(true);
+}
+
+void TranslateGizmoView::highlightY() {
+  yArrow_.setHighlight(true);
+}
+
+void TranslateGizmoView::highlightZ() {
+  zArrow_.setHighlight(true);
+}

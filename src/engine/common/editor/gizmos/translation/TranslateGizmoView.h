@@ -48,6 +48,14 @@ public:
 
 public:
 
+  void highlightX();
+
+  void highlightY();
+
+  void highlightZ();
+
+public:
+
   TranslateGizmoSelectionResult selectFromRay(const Ray& ray);
 
   void highlightFromRay(const Ray& ray);

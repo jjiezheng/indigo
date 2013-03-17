@@ -15,7 +15,7 @@ Vector4 Transforms::screenSpaceToWorldSpace(const Matrix4x4& viewProjInv, const 
   Vector4 ndcSpace = screenSpace / screenSize;
   ndcSpace.y = 1.0f - ndcSpace.y;
   ndcSpace = ndcSpace * 2.0f - 1.0f;
-  ndcSpace.z = z;
+  ndcSpace.z = screenPoint.z;
   ndcSpace.w = 1;
 
   Vector4 worldSpace = viewProjInv * ndcSpace;

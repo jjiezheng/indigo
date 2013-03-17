@@ -7,6 +7,7 @@
 #include "maths/Vector4.h"
 #include "maths/Ray.h"
 #include "maths/Point.h"
+#include "maths/Plane.h"
 #include "renderer/Transforms.h"
 
 void TranslateGizmo::init() {
@@ -37,36 +38,31 @@ void TranslateGizmo::update(float dt, const Selection& selection, const Point& m
   Matrix4x4 viewLocalToWorld = viewTranslation * viewScale * Matrix4x4::scale(0.1f);
   view_.setLocalToWorld(viewLocalToWorld);
 
-  Vector4 selectedWorldPosition = selection.selection()->localToWorld().translation();
-  Point selectedScreenSpace = Transforms::worldSpaceToScreenSpace(viewer->viewProjection(), selectedWorldPosition);
+  Vector3 planePosition(0, 0, 0);
 
-  Point mouseOffset = mousePosition - startPosition_;
-  Point selectedOffsetScreenSpace = selectedScreenSpace + mouseOffset;
+  Point planeScreenSpace = Transforms::worldSpaceToScreenSpace(viewer->viewProjection(), planePosition);
+  planeScreenSpace.x += mousePosition.x - startPosition_.x;
+  planeScreenSpace.y += mousePosition.y - startPosition_.y;
 
-  Vector4 selectedOffsetWorldSpace = Transforms::screenSpaceToWorldSpace(viewer->viewProjection().inverse(), selectedOffsetScreenSpace, selectedScreenSpace.z);
-  Matrix4x4 selectedOffsetLocalToWorldSpace = Matrix4x4::translation(selectedOffsetWorldSpace);
+  Vector4 newPlanePosition = Transforms::screenSpaceToWorldSpace(viewer->viewProjection().inverse(), planeScreenSpace, planeScreenSpace.z);
 
-  switch(translateMode_) {
-    case TRANSLATE_GIZMO_MODE_X:
-      selectedOffsetLocalToWorldSpace.m24 = 0;
-      selectedOffsetLocalToWorldSpace.m34 = 0;
-      selection.selection()->setLocalToWorld(selectedOffsetLocalToWorldSpace);
-      break;
-
-    case TRANSLATE_GIZMO_MODE_Y:
-      selectedOffsetLocalToWorldSpace.m14 = 0;
-      selectedOffsetLocalToWorldSpace.m34 = 0;
-      selection.selection()->setLocalToWorld(selectedOffsetLocalToWorldSpace);
-      break;
-
-    case TRANSLATE_GIZMO_MODE_Z:
-      selectedOffsetLocalToWorldSpace.m14 = 0;
-      selectedOffsetLocalToWorldSpace.m24 = 0;
-      selection.selection()->setLocalToWorld(selectedOffsetLocalToWorldSpace);
-      break;
+  if (translateMode_ == TRANSLATE_GIZMO_MODE_X) {
+    selectedLocalToWorld.m14 = newPlanePosition.x;
+    view_.highlightX();
   }
 
-  startPosition_ = mousePosition;
+  if (translateMode_ == TRANSLATE_GIZMO_MODE_Y) {
+    selectedLocalToWorld.m24 = newPlanePosition.y;
+    view_.highlightY();
+  }
+
+  if (translateMode_ == TRANSLATE_GIZMO_MODE_Z) {
+    selectedLocalToWorld.m34 = newPlanePosition.z;  
+    view_.highlightZ();
+  }
+
+  selection.selection()->setLocalToWorld(selectedLocalToWorld);
+
 }
 
 bool TranslateGizmo::mouseDown(const Point& mousePosition, const Ray& mouseRay) {
