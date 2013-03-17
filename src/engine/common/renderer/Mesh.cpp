@@ -18,10 +18,6 @@ void Mesh::render() const {
   GraphicsInterface::drawVertexBuffer(vertexBuffer_, numVertices_, vertexFormat_);
 }
 
-void Mesh::visit(hash_map<IEffect*, std::vector<Mesh*> >& meshes) {
-  meshes[material().effect()].push_back(this);
-}
-
 void Mesh::setMaterialCallback(const std::string& materialName, Material::MaterialCallback callback, void* userData) {
 	std::string name = material_.name();
 

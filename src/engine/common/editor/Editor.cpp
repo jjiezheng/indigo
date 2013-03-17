@@ -50,13 +50,10 @@ void Editor::pickModel(const World& world) {
   Point mousePosition = Mouse::position();
   Matrix4x4 projInv = camera_->projection().inverse();
 
-  LOG(LOG_CHANNEL_EDITOR, "%d %d", mousePosition.x, mousePosition.y);
-
   Vector4 mouseViewSpace = Transforms::screenSpaceToViewSpace(projInv, mousePosition);
   mouseViewSpace = camera_->transform().inverse().transpose() * mouseViewSpace;
 
   Ray mouseRay(camera_->position(), mouseViewSpace.vec3().normalize(), camera_->farDistance());
-
 
   bool translationHit = translate_.selectFromRay(mouseRay);
 

@@ -4,7 +4,6 @@
 #include <vector>
 
 #include "IDeferredLightingPass.h"
-#include "core/HashMap.h"
 #include "AverageBlur.h"
 
 class IEffect;
@@ -41,7 +40,7 @@ private:
 
   void accumulateLight(SpotLight* light, unsigned int colorMap, unsigned int lightMapFrameBuffer);
 
-  void renderShadowMap(SpotLight* light, hash_map<IEffect*, std::vector<Mesh*> >& meshes);
+  void renderShadowMap(SpotLight* light, World& world);
 
 private:
 

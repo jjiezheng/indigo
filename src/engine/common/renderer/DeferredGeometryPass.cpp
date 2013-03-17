@@ -1,7 +1,5 @@
 #include "DeferredGeometryPass.h"
 
-#include "core/HashMap.h"
-
 #include "GraphicsInterface.h"
 
 #include "Mesh.h"
@@ -14,6 +12,7 @@
 
 #include "Color4.h"
 #include "SceneContext.h"
+#include "EffectMeshList.h"
 
 void DeferredGeometryPass::init() {
 	const int kRenderTargetCount = 4;
@@ -35,21 +34,16 @@ void DeferredGeometryPass::render(IViewer* viewer, World& world, const SceneCont
 
 	GraphicsInterface::enableSmoothing();
 	GraphicsInterface::setRenderState(CULL_MODE_BACK);
-  
-	hash_map<IEffect*, std::vector<Mesh*> > effects;
 
-	std::vector<Model*>::iterator it = world.begin();
-	for (; it != world.end(); ++it) {
-		(*it)->visit(effects);
-	}
+  EffectMeshList meshList;
+  world.collectMeshes(&meshList);
 
-	hash_map<IEffect*, std::vector<Mesh*> >::iterator i = effects.begin();
-	for (; i != effects.end(); ++i) {
+	for (hash_map<IEffect*, std::vector<const Mesh*> >::const_iterator i = meshList.begin(); i != meshList.end(); ++i) {
 		IEffect* effect = (*i).first;
 		GraphicsInterface::enableSmoothing();
 
-		std::vector<Mesh*> effectMeshes = (*i).second;
-		for (std::vector<Mesh*>::iterator meshIt = effectMeshes.begin(); meshIt != effectMeshes.end(); ++meshIt) {
+		std::vector<const Mesh*> effectMeshes = (*i).second;
+		for (std::vector<const Mesh*>::iterator meshIt = effectMeshes.begin(); meshIt != effectMeshes.end(); ++meshIt) {
 			Matrix4x4 projection = viewer->projection();
 			Matrix4x4 viewTransform = viewer->viewTransform();
 			Matrix4x4 localToWorld = (*meshIt)->parent()->localToWorld();

@@ -9,7 +9,7 @@
 
 class Vector3;
 class Ray;
-
+class IMeshList;
 class IActor;
 
 struct IntersectedModel {
@@ -51,6 +51,10 @@ public:
 public:
 
   std::vector<Model*> findIntersections(const Ray& ray) const;
+
+public:
+
+  void collectMeshes(IMeshList* meshList);
   
 public:
   

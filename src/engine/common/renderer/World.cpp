@@ -3,6 +3,7 @@
 #include <algorithm>
 
 #include "entity/IActor.h"
+#include "renderer/IMeshList.h"
 
 void World::update(float dt) {
 	for (std::vector<IActor*>::iterator i = actors_.begin(); i != actors_.end(); ++i) {
@@ -42,4 +43,10 @@ std::vector<Model*> World::findIntersections(const Ray& ray) const {
 	}
 
   return intersectedModels;
+}
+
+void World::collectMeshes(IMeshList* meshList) {
+  for (std::vector<Model*>::const_iterator i = models_.begin(); i != models_.end(); ++i) {
+    (*i)->collectMeshes(meshList);
+  }
 }

@@ -48,8 +48,6 @@ public:
 
 public:
 
-  void visit(hash_map<IEffect*, std::vector<Mesh*> >& meshes);
-
   void render() const;
 
 public:

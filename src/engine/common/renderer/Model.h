@@ -3,7 +3,6 @@
 
 #include <string>
 
-#include "core/HashMap.h"
 #include "maths/Matrix4x4.h"
 #include "maths/BoundingBox.h"
 #include "maths/IntersectionResult.h"
@@ -25,8 +24,6 @@ public:
 public:
 
   void render() const;
-
-  void visit(hash_map<IEffect*, std::vector<Mesh*> >& meshes);
 
 	void setMaterialCallback(const std::string& materialName, Material::MaterialCallback callback, void* userData);
 

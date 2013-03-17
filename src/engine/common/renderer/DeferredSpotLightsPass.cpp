@@ -11,6 +11,7 @@
 #include "WorldLoader.h"
 #include "Geometry.h"
 #include "World.h"
+#include "FlatMeshList.h"
 
 #include "maths/Trigonometry.h"
 #include "maths/Matrix3x3.h"
@@ -61,18 +62,12 @@ void DeferredSpotLightsPass::render(IViewer* viewer, World& world, const SceneCo
 	GraphicsInterface::beginPerformanceEvent("Spot");
 
 	{ // Shadow Map
-		hash_map<IEffect*, std::vector<Mesh*> > meshes;
-		std::vector<Model*>::iterator it = world.begin();
-		for (; it != world.end(); ++it) {
-			(*it)->visit(meshes);
-		}
-
 		std::vector<SpotLight*> spotLights = sceneContext.spotLights();
 
 		for (std::vector<SpotLight*>::iterator light = spotLights.begin(); light != spotLights.end(); ++light) {
 			if ((*light)->castsShadows()) {
 				SpotLight* spotLight = (*light);
-				renderShadowMap(spotLight, meshes);
+				renderShadowMap(spotLight, world);
 			}
 		}
 	}
@@ -105,7 +100,7 @@ void DeferredSpotLightsPass::collectRenderTargets(IDeferredRenderTargetContainer
 	renderTargetContainer->addRenderTarget("Spot Light", spotLightRenderTexture_);
 }
 
-void DeferredSpotLightsPass::renderShadowMap(SpotLight* light, hash_map<IEffect*, std::vector<Mesh*> >& meshes) {
+void DeferredSpotLightsPass::renderShadowMap(SpotLight* light, World& world) {
 	GraphicsInterface::beginPerformanceEvent("Shadow Map");
 
 	GraphicsInterface::setFrameBuffer(light->shadowMapFrameBuffer());
@@ -118,17 +113,16 @@ void DeferredSpotLightsPass::renderShadowMap(SpotLight* light, hash_map<IEffect*
   {
     GraphicsInterface::beginPerformanceEvent("Depth");
 
-	  hash_map<IEffect*, std::vector<Mesh*> >::iterator i = meshes.begin();
-	  for (; i != meshes.end(); ++i) {
-		  std::vector<Mesh*> effectMeshes = (*i).second;
-		  for (std::vector<Mesh*>::iterator meshIt = effectMeshes.begin(); meshIt != effectMeshes.end(); ++meshIt) {
-			  GraphicsInterface::setRenderState(CULL_MODE_FRONT);
-			  shadowDepthEffect_->beginDraw();
-			  (*meshIt)->material().bind(light->projection(), light->viewTransform(), (*meshIt)->parent()->localToWorld(), shadowDepthEffect_);
-			  shadowDepthEffect_->commitBuffers();
-			  (*meshIt)->render();
-			  shadowDepthEffect_->endDraw();
-		  }
+    FlatMeshList meshList;
+    world.collectMeshes(&meshList);
+
+    for (std::vector<const Mesh*>::const_iterator i = meshList.begin(); i != meshList.end(); ++i) {
+		  GraphicsInterface::setRenderState(CULL_MODE_FRONT);
+		  shadowDepthEffect_->beginDraw();
+		  (*i)->material().bind(light->projection(), light->viewTransform(), (*i)->parent()->localToWorld(), shadowDepthEffect_);
+		  shadowDepthEffect_->commitBuffers();
+		  (*i)->render();
+		  shadowDepthEffect_->endDraw();
 	  }
 
     GraphicsInterface::endPerformanceEvent();
