@@ -88,3 +88,7 @@ void Game::destroy() {
 void Game::mouseScroll(int delta) {
   camera_.moveForward(0.01f * delta);
 }
+
+void Game::mouseDown(MouseButton mouseButton) {
+  editor_.mouseDown(mouseButton, world_);
+}

@@ -22,13 +22,15 @@ public:
 
   void render(IViewer* viewer) const;
 
-  void update(float dt, const Selection& selection);
+  void update(float dt, const Selection& selection, const Ray& mouseRay, const IViewer* viewer);
 
 public:
 
   void setSelected(Model* model);
 
   bool mousePick(const Ray& ray);
+
+  void mouseUp();
 
   bool selectFromRay(const Ray& ray);
 

@@ -37,7 +37,7 @@ public:
 
 	void mouseUp(MouseButton mouseButton);
 
-  void mouseDown(MouseButton mouseButton) { };
+  void mouseDown(MouseButton mouseButton);
 
   void mouseScroll(int delta);
  

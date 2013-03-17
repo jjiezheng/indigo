@@ -33,10 +33,16 @@ void Editor::init() {
 
 void Editor::update(float dt) {
 	if (isVisible_) {
+    Point mousePosition = Mouse::position();
+    Matrix4x4 projInv = camera_->projection().inverse();
+    Vector4 mouseViewSpace = Transforms::screenSpaceToViewSpace(projInv, mousePosition);
+    mouseViewSpace = camera_->transform().inverse().transpose() * mouseViewSpace;
+    Ray mouseRay(camera_->position(), mouseViewSpace.vec3().normalize(), camera_->farDistance());
+
     for (std::map<KeyCode, IEditorTool*>::iterator i = tools_.begin(); i != tools_.end(); ++i) {
       bool isActive = (*i).second->isActive();
       if (isActive) {
-        (*i).second->update(dt, selection_);
+        (*i).second->update(dt, selection_, mouseRay, camera_);
       }
     }
   }
@@ -63,10 +69,10 @@ void Editor::render(IViewer* viewer, World& world) {
 	}
 }
 
-void Editor::mouseUp(MouseButton mouseButton, const World& world) {
-	if (isVisible_) {
-		if (!camera_->underPlayerControl()) {
-			if (MOUSE_BUTTON_LEFT == mouseButton) {
+void Editor::mouseDown(MouseButton mouseButton, const World& world) {
+  if (isVisible_) {
+    if (!camera_->underPlayerControl()) {
+      if (MOUSE_BUTTON_LEFT == mouseButton) {
 
         Point mousePosition = Mouse::position();
         Matrix4x4 projInv = camera_->projection().inverse();
@@ -85,7 +91,22 @@ void Editor::mouseUp(MouseButton mouseButton, const World& world) {
         }
 
         if (!toolPicked) {
-				  selection_.select(mouseRay, world);
+          selection_.select(mouseRay, world);
+        }
+      }
+    }
+  }
+}
+
+void Editor::mouseUp(MouseButton mouseButton, const World& world) {
+	if (isVisible_) {
+		if (!camera_->underPlayerControl()) {
+			if (MOUSE_BUTTON_LEFT == mouseButton) {
+        for (std::map<KeyCode, IEditorTool*>::iterator i = tools_.begin(); i != tools_.end(); ++i) {
+          bool isActive = (*i).second->isActive();
+          if (isActive) {
+            (*i).second->mouseUp();
+          }
         }
 			}
 		}
@@ -106,4 +127,6 @@ void Editor::keyUp(KeyCode keyCode) {
     (*tool).second->setActive(true);
   }
 }
+
+
 

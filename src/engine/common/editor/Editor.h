@@ -39,6 +39,8 @@ public:
 
 public:
 
+  void mouseDown(MouseButton mouseButton, const World& world);
+
 	void mouseUp(MouseButton mouseButton, const World& world);
 
   void keyUp(KeyCode keyCode);

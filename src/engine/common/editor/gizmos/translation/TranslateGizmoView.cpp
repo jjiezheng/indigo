@@ -40,8 +40,6 @@ bool TranslateGizmoView::selectFromRay(const Ray& ray) {
     return true;
   }
 
-
-  // find which arrow is closest
   IntersectionResult xResult = xArrow_.testIntersect(ray);
 
   if (xResult.intersected) {
@@ -57,4 +55,15 @@ bool TranslateGizmoView::selectFromRay(const Ray& ray) {
   }
 
   return false;
+}
+
+void TranslateGizmoView::highlightFromRay(const Ray& ray) {
+  IntersectionResult zResult = zArrow_.testIntersect(ray);
+  zArrow_.setHighlight(zResult.intersected);
+
+  IntersectionResult yResult = yArrow_.testIntersect(ray);
+  yArrow_.setHighlight(yResult.intersected);
+
+  IntersectionResult xResult = xArrow_.testIntersect(ray);
+  xArrow_.setHighlight(xResult.intersected);
 }

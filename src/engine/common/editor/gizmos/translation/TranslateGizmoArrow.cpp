@@ -43,7 +43,7 @@ void TranslateGizmoArrow::render(IViewer* viewer) const {
   GraphicsInterface::setBlendState(IGraphicsInterface::NOBLEND);
   GraphicsInterface::setRenderState(CULL_MODE_NONE, true);
 
-  // bounds
+  if (drawBounds_)
   {
     effect_->beginDraw();
 
@@ -76,7 +76,14 @@ void TranslateGizmoArrow::render(IViewer* viewer) const {
 
       Matrix4x4 modelViewProjection = viewer->projection() * viewer->viewTransform() * (*i)->parent()->localToWorld();
       effect_->setUniform(modelViewProjection, "ModelViewProj");
-      effect_->setUniform(arrowColor_, "Color");
+
+      Color3 color = arrowColor_;
+
+      if (isHighlighted_) {
+        color = Color3::YELLOW;
+      }
+
+      effect_->setUniform(color, "Color");
 
       GraphicsInterface::setRenderState(CULL_MODE_NONE, false);
 

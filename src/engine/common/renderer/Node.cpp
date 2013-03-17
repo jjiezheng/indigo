@@ -25,7 +25,7 @@ BoundingBox Node::boundingBox() const {
 }
 
 IntersectionResult Node::testIntersect(const Ray& ray) {
-  Matrix4x4 worldToLocal = localToWorld_.inverse();
+  Matrix4x4 worldToLocal = localToWorld().inverse();
 
   Vector4 localRayPosition = worldToLocal * Vector4(ray.position, 1.0f);
   //localRayPosition = worldToLocal.transpose() * localRayPosition;

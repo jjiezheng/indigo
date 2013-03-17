@@ -22,11 +22,13 @@ public:
 
   virtual void render(IViewer* viewer) const = 0;
 
-  virtual void update(float dt, const Selection& selection) = 0;
+  virtual void update(float dt, const Selection& selection, const Ray& mouseRay, const IViewer* viewer) = 0;
 
 public:
 
   virtual bool mousePick(const Ray& ray) = 0;
+
+  virtual void mouseUp() = 0;
 
 public:
 

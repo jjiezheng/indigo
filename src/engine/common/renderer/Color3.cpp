@@ -9,6 +9,8 @@ Color3 Color3::BLUE             =  Color3(0, 0, 1);
 Color3 Color3::GREY             =  Color3(0.6f, 0.6f, 0.6f);
 Color3 Color3::MAGENTA          =  Color3(1.0f, 0, 1.0f);
 Color3 Color3::CORNFLOWERBLUE   =  Color3(0.39f, 0.58f, 0.93f);
+Color3 Color3::YELLOW           =  Color3(1.0f, 1.0f, 0.0f);
+
 
 Color3::Color3(float r_, float g_, float b_) 
 	: r(r_), g(g_), b(b_) {

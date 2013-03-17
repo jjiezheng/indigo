@@ -28,6 +28,8 @@ public:
 
   bool selectFromRay(const Ray& ray);
 
+  void highlightFromRay(const Ray& ray);
+
 private:
 
   TranslateGizmoArrow xArrow_;
