@@ -15,6 +15,10 @@ public:
 
 public:
 
+  Vector3 mid() const;
+
+public:
+
   IntersectionResult testIntersection(const Ray& ray);
 
 };

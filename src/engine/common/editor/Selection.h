@@ -1,6 +1,8 @@
 #ifndef SELECTION_H
 #define SELECTION_H
 
+#include "maths/Vector3.h"
+
 class Ray;
 class World;
 class IEffect;

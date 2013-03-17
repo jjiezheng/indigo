@@ -13,7 +13,7 @@ public:
 
   void update(float dt, const Selection& selection, const Ray& mouseRay, const IViewer* viewer) { };
 
-  bool mousePick(const Ray& ray) { return false; };
+  bool mouseDown(const Ray& ray, const Selection& selection) { return false; };
 
   void mouseUp() { };
 

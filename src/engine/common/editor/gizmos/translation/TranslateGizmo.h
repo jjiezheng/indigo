@@ -13,11 +13,6 @@ class TranslateGizmo : public IEditorTool {
 
 public:
 
-  TranslateGizmo()
-    : selected_(0) { }
-
-public:
-
   void init();
 
   void render(IViewer* viewer) const;
@@ -26,23 +21,14 @@ public:
 
 public:
 
-  void setSelected(Model* model);
-
-  bool mousePick(const Ray& ray);
+  bool mouseDown(const Ray& ray, const Selection& selection);
 
   void mouseUp();
 
-  bool selectFromRay(const Ray& ray);
-
 private:
 
-  Model* selected_;
   TranslateGizmoView view_;
 
 };
-
-inline void TranslateGizmo::setSelected(Model* selected) {
-  selected_ = selected;
-}
 
 #endif

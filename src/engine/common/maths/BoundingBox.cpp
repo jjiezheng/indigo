@@ -47,3 +47,8 @@ IntersectionResult BoundingBox::testIntersection(const Ray& ray) {
 
 	return result;
 }
+
+Vector3 BoundingBox::mid() const {
+  Vector3 midPoint = (min + max) / 2.0f;
+  return midPoint;
+}

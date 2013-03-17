@@ -27,7 +27,11 @@ Vector3 Vector3::operator - (const Vector3& other) const {
 }
 
 Vector3 Vector3::operator * (float scalar) const {
-  return Vector3(x*scalar, y*scalar, z*scalar);
+  return Vector3(x * scalar, y * scalar, z * scalar);
+}
+
+Vector3 Vector3::operator / (float scalar) const {
+  return Vector3(x / scalar, y / scalar, z / scalar);
 }
 
 Vector3 Vector3::operator - () const {
