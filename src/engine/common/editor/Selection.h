@@ -20,7 +20,7 @@ public:
 
   void render(IViewer* viewer);
 
-  void selectFromRay(const Ray& ray, const World& world);
+  void select(const Ray& mouseRay, const World& world);
 
 public:
 

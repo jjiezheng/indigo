@@ -20,7 +20,7 @@ class GraphicsInterface {
   
 public:
 
-  static void init(int width, int height, unsigned int multiSamples, bool vsyncEnabled, bool isFullScreen);
+  static void init(const char* windowTitle, int width, int height, unsigned int multiSamples, bool vsyncEnabled, bool isFullScreen);
 
   static void destroy();
 

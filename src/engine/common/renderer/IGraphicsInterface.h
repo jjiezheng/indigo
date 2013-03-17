@@ -79,7 +79,7 @@ public:
 
 public:
 
-  virtual void openWindow(int width, int height, unsigned int multiSamples, bool vsyncEnabled, bool isFullScreen) = 0;
+  virtual void openWindow(const char* windowTitle, int width, int height, unsigned int multiSamples, bool vsyncEnabled, bool isFullScreen) = 0;
 
   virtual void setViewport(const CSize& dimensions) = 0;
 

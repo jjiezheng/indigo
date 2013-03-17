@@ -5,21 +5,14 @@
 #include "renderer/World.h"
 #include "renderer/IEffect.h"
 #include "renderer/IViewer.h"
+#include "renderer/Transforms.h"
+
+#include "maths/Ray.h"
+
+#include "input/Mouse.h"
 
 void Selection::init() {
   selectionEffect_ = EffectCache::instance()->loadEffect("shaders/compiled/color.shader");
-}
-
-void Selection::selectFromRay(const Ray& ray, const World& world) {
-  std::vector<Model*> intersections = world.findIntersections(ray);
-
-  LOG(LOG_CHANNEL_EDITOR, "Found %d Intersections", intersections.size());
-
-  if (intersections.size() > 0) {
-    selected_ = intersections[0];
-  } else {
-    selected_ = NULL;
-  }
 }
 
 void Selection::render(IViewer* viewer) {
@@ -43,5 +36,18 @@ void Selection::render(IViewer* viewer) {
     selectionEffect_->endDraw();
 
     GraphicsInterface::endPerformanceEvent();
+  }
+}
+
+
+void Selection::select(const Ray& mouseRay, const World& world) {
+  std::vector<Model*> intersections = world.findIntersections(mouseRay);
+
+  LOG(LOG_CHANNEL_EDITOR, "Found %d Intersections", intersections.size());
+
+  if (intersections.size() > 0) {
+    selected_ = intersections[0];
+  } else {
+    selected_ = NULL;
   }
 }

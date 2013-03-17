@@ -76,7 +76,7 @@ public:
 
 public:
 
-  Vector3 translation() const;
+  Vector4 translation() const;
   
 public:
   

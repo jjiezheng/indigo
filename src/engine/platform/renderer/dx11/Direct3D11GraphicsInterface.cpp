@@ -212,7 +212,7 @@ void Direct3D11GraphicsInterface::destroy() {
   device_->Release();
 }
 
-void Direct3D11GraphicsInterface::openWindow(int width, int height, unsigned int multiSamples, bool vsyncEnabled, bool isFullScreen) {
+void Direct3D11GraphicsInterface::openWindow(const char* windowTitle, int width, int height, unsigned int multiSamples, bool vsyncEnabled, bool isFullScreen) {
   D3D_FEATURE_LEVEL FeatureLevel;
   HRESULT result = D3D11CreateDevice(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, 0, NULL, 0, D3D11_SDK_VERSION, NULL, &FeatureLevel, NULL );
 
@@ -220,6 +220,8 @@ void Direct3D11GraphicsInterface::openWindow(int width, int height, unsigned int
     LOG(LOG_CHANNEL_RENDERER, "Failed to determine DirectX Feature Level");
     return;
   }
+
+  std::string fullWindowTitle(windowTitle);
 
   std::string directXFeatureLevelString("DirectX ");
 
@@ -247,7 +249,10 @@ void Direct3D11GraphicsInterface::openWindow(int width, int height, unsigned int
         break;
   }
 
-  HWND hWnd = WindowsUtils::createWindow(width, height, directXFeatureLevelString);
+  fullWindowTitle += " - ";
+  fullWindowTitle += directXFeatureLevelString;
+
+  HWND hWnd = WindowsUtils::createWindow(width, height, fullWindowTitle);
 
   int actualWidth, actualHeight;
   WindowsUtils::getViewportSize(&actualWidth, &actualHeight);

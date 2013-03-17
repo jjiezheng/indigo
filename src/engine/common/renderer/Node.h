@@ -13,6 +13,11 @@ class Node {
 
 public:
 
+  Node()
+    : parent_(0) { }
+
+public:
+
   virtual ~Node() { };
 
 public:
@@ -23,7 +28,7 @@ public:
 
 public:
 
-  void addChild(const Node* node);
+  void addChild(Node* node);
 
 public:
 
@@ -39,6 +44,8 @@ public:
 
 private:
 
+  Node* parent_;
+
   Matrix4x4 localToWorld_;
 
   std::vector<const Node*> children_;
@@ -49,11 +56,8 @@ inline void Node::setLocalToWorld(const Matrix4x4& localToWorld) {
   localToWorld_ = localToWorld;
 }
 
-inline Matrix4x4 Node::localToWorld() const {
-  return localToWorld_;
-}
-
-inline void Node::addChild(const Node* node) {
+inline void Node::addChild(Node* node) {
+  node->parent_ = this;
   children_.push_back(node);
 }
 

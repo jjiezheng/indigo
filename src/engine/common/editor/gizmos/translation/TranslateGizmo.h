@@ -1,13 +1,15 @@
 #ifndef TRANSLATE_GIZMO_H
 #define TRANSLATE_GIZMO_H
 
+#include "../../IEditorTool.h"
+
 #include "TranslateGizmoView.h"
 
 class IViewer;
 class Model;
 class Ray;
 
-class TranslateGizmo {
+class TranslateGizmo : public IEditorTool {
 
 public:
 
@@ -18,11 +20,15 @@ public:
 
   void init();
 
-  void render(IViewer* viewer);
+  void render(IViewer* viewer) const;
+
+  void update(float dt, const Selection& selection);
 
 public:
 
   void setSelected(Model* model);
+
+  bool mousePick(const Ray& ray);
 
   bool selectFromRay(const Ray& ray);
 

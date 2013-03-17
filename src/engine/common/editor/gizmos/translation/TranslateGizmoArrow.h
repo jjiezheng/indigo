@@ -18,7 +18,7 @@ public:
 
   void init();
 
-  void render(IViewer* viewer);
+  void render(IViewer* viewer) const;
 
 private:
 

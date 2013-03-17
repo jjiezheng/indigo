@@ -17,7 +17,7 @@ void Bounds::init() {
 	cube_ = Geometry::unitCube();
 }
 
-void Bounds::render(IViewer* viewer, World& world) const {
+void Bounds::render(IViewer* viewer, const World& world) const {
 	GraphicsInterface::beginPerformanceEvent("Bounds");
 
 	GraphicsInterface::resetRenderTarget(true);
@@ -26,8 +26,7 @@ void Bounds::render(IViewer* viewer, World& world) const {
 	GraphicsInterface::setBlendState(IGraphicsInterface::NOBLEND);
 	GraphicsInterface::setRenderState(CULL_MODE_NONE, true);
 
-	std::vector<Model*>::iterator it = world.begin();
-	for (; it != world.end(); ++it) {
+	for (std::vector<Model*>::const_iterator it = world.begin(); it != world.end(); ++it) {
 		effect_->beginDraw();
 
 		BoundingBox bounds = (*it)->boundingBox();

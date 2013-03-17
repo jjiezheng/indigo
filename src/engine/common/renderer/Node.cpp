@@ -10,8 +10,8 @@ BoundingBox Node::boundingBox() const {
   {
     BoundingBox box = (*i)->boundingBox();
 
-    Vector4 min = (*i)->localToWorld() * box.min;
-    Vector4 max = (*i)->localToWorld() * box.max;
+    Vector4 min = (*i)->localToWorld_ * box.min;
+    Vector4 max = (*i)->localToWorld_ * box.max;
 
     boundingBox.min.x = std::min(boundingBox.min.x, min.x);
     boundingBox.max.x = std::max(boundingBox.max.x, max.x);
@@ -30,7 +30,8 @@ IntersectionResult Node::testIntersect(const Ray& ray) {
   Vector4 localRayPosition = worldToLocal * Vector4(ray.position, 1.0f);
   //localRayPosition = worldToLocal.transpose() * localRayPosition;
 
-  Vector4 localRayDirection = worldToLocal * Vector4(ray.direction, 1.0f);
+  Vector4 localRayDirection = worldToLocal.inverse().transpose() * Vector4(ray.direction, 1.0f);
+  localRayDirection.normalizeIP();
 
   Ray localSpaceRay(localRayPosition.vec3(), localRayDirection.vec3(), ray.length);
 
@@ -47,4 +48,14 @@ void Node::collectMeshes(IMeshList* meshList) const {
   for (std::vector<const Node*>::const_iterator i = children_.begin(); i != children_.end(); ++i) {
     (*i)->collectMeshes(meshList);
   }
+}
+
+Matrix4x4 Node::localToWorld() const {
+  Matrix4x4 localToWorld = localToWorld_;
+
+  if (NULL != parent_) {
+    localToWorld = parent_->localToWorld() * localToWorld_;
+  }
+
+  return localToWorld;
 }

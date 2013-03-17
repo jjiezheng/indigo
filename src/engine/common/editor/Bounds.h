@@ -1,19 +1,20 @@
 #ifndef BOUNDS_H
 #define BOUNDS_H
 
+#include "IEditorOverlay.h"
 #include "renderer/IGraphicsInterface.h"
 
 class World;
 class IViewer;
 class IEffect;
 
-class Bounds {
+class Bounds : public IEditorOverlay {
 
 public:
 
 	void init();
 
-	void render(IViewer* viewer, World& world) const;
+	void render(IViewer* viewer, const World& world) const;
 
 private:
 

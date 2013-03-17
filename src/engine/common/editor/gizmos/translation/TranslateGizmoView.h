@@ -8,7 +8,7 @@
 class IViewer;
 class Ray;
 
-class TranslateGizmoView {
+class TranslateGizmoView : public Node {
 
 public:
 
@@ -22,7 +22,7 @@ public:
 
   void init();
 
-  void render(IViewer* viewer);
+  void render(IViewer* viewer) const;
 
 public:
 

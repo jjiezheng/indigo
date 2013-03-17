@@ -67,6 +67,8 @@ void Game::keyUp(KeyCode keyCode) {
   ui_.keyUp(keyCode);
   LOG(LOG_CHANNEL_INPUT, "Key: %d", keyCode);
 
+  editor_.keyUp(keyCode);
+
 	if (KEY_BACKTICK == keyCode) {
 		editor_.toggleVisible();
 	}

@@ -58,8 +58,8 @@ public:
   
 public:
   
-  std::vector<Model*>::iterator begin();
-  std::vector<Model*>::iterator end();
+  std::vector<Model*>::const_iterator begin() const;
+  std::vector<Model*>::const_iterator end() const;
   
 private:
   
@@ -83,11 +83,11 @@ inline void World::addObject(Model* model) {
   models_.push_back(model);
 }
 
-inline std::vector<Model*>::iterator World::begin() {
+inline std::vector<Model*>::const_iterator World::begin() const {
   return models_.begin();
 }
 
-inline std::vector<Model*>::iterator World::end() {
+inline std::vector<Model*>::const_iterator World::end() const {
   return models_.end();
 }
 

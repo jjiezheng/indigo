@@ -35,7 +35,7 @@ void TranslateGizmoArrow::init() {
   addChild(&lineModel_);
 }
 
-void TranslateGizmoArrow::render(IViewer* viewer) {
+void TranslateGizmoArrow::render(IViewer* viewer) const {
   GraphicsInterface::beginPerformanceEvent("Arrow");
 
   GraphicsInterface::resetRenderTarget(false);
@@ -74,7 +74,7 @@ void TranslateGizmoArrow::render(IViewer* viewer) {
     for (std::vector<const Mesh*>::const_iterator i = meshList.begin(); i != meshList.end(); ++i) {
       effect_->beginDraw();
 
-      Matrix4x4 modelViewProjection = viewer->projection() * viewer->viewTransform() * localToWorld() * (*i)->parent()->localToWorld();
+      Matrix4x4 modelViewProjection = viewer->projection() * viewer->viewTransform() * (*i)->parent()->localToWorld();
       effect_->setUniform(modelViewProjection, "ModelViewProj");
       effect_->setUniform(arrowColor_, "Color");
 

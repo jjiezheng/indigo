@@ -5,14 +5,16 @@
 #include "renderer/Camera.h"
 #include "renderer/World.h"
 
-#include "gizmos/translation/TranslateGizmo.h"
-
 #include "Bounds.h"
 #include "Selection.h"
+
+#include "input/KeyboardState.h"
 
 class IViewer;
 class World;
 class IEffect;
+class IEditorTool;
+class IEditorOverlay;
 
 class Editor {
 
@@ -39,16 +41,17 @@ public:
 
 	void mouseUp(MouseButton mouseButton, const World& world);
 
-  void pickModel(const World& world);
+  void keyUp(KeyCode keyCode);
 
 private:
 
   Camera* camera_;
   World* world_;
 
+  std::map<KeyCode, IEditorTool*> tools_;
+  std::vector<IEditorOverlay*> overlays_;
+
   Selection selection_;
-	Bounds bounds_;
-  TranslateGizmo translate_;
 	bool isVisible_;
 
 };
