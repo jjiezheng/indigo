@@ -40,6 +40,6 @@ float4 main( in X1X cin) : SV_Target0
 
     _texCoord = cin._TEXCOORD0;
     _TMP0 = _TMP2.Sample(_InputMap, _texCoord + _HalfPixel);
-    _luma = dot(_TMP0.xyz, float3(  2.98999994993209840E-001f,  5.87000012397766110E-001f,  1.14000000059604640E-001f));
+    _luma = dot(_TMP0.xyz, float3(   2.98999994993209839E-01f,   5.87000012397766113E-01f,   1.14000000059604645E-01f));
     return float4(_TMP0.x, _TMP0.y, _TMP0.z, _luma);
 } // main end

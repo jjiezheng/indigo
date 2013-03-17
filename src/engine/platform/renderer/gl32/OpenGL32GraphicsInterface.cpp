@@ -199,8 +199,25 @@ unsigned int OpenGL32GraphicsInterface::createVertexBuffer(VertexDef* vertexData
 }
 
 void OpenGL32GraphicsInterface::drawVertexBuffer(int vertexBuffer, int vertexCount, VertexFormat vertexFormat) {
+  GLenum drawMode = GL_TRIANGLES;
+  
+  switch (vertexFormat) {
+    case TRIANGLE_LIST:
+      drawMode = GL_TRIANGLES;
+      break;
+    case TRIANGLE_STRIP:
+      drawMode = GL_TRIANGLE_STRIP;
+      break;
+    case LINE_LIST:
+      drawMode = GL_LINES;
+      break;
+    default:
+      assert(false);
+      break;
+  }
+  
   glBindVertexArray(vertexBuffer);
-  glDrawArrays(GL_TRIANGLES, 0, vertexCount);
+  glDrawArrays(drawMode, 0, vertexCount);
   GLUtilities::checkForError();
 }
 
@@ -213,11 +230,36 @@ IEffect* OpenGL32GraphicsInterface::createEffect() {
   return new OpenGLEffect();
 }
 
-void OpenGL32GraphicsInterface::resetGraphicsState(bool cullBack) {
+void OpenGL32GraphicsInterface::resetGraphicsState(CullMode cullMode, bool drawWireframe) {
   glEnable(GL_CULL_FACE);
   
-  int faceToCull = cullBack ? GL_BACK : GL_FRONT;
+  int faceToCull = GL_BACK;
+  
+  switch (cullMode) {
+    case CULL_MODE_BACK:
+      faceToCull = GL_BACK;
+      break;
+    case CULL_MODE_FRONT:
+      faceToCull = GL_FRONT;
+      break;
+    case CULL_MODE_NONE:
+      glDisable(GL_CULL_FACE);
+      break;
+    case CULL_MODE_UNKNOWN:
+      assert(false);
+      break;
+  }
+  
   glCullFace(faceToCull);
+  GLUtilities::checkForError();
+  
+  GLenum polygonMode = GL_FILL;
+  
+  if (drawWireframe) {
+    polygonMode = GL_LINE;
+  }
+  
+  glPolygonMode(GL_FRONT_AND_BACK, polygonMode);
   GLUtilities::checkForError();
 
   //  glEnable(GL_POLYGON_OFFSET_FILL);

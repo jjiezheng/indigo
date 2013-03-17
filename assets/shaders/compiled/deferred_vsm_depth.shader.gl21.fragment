@@ -29,9 +29,9 @@ void main()
     float _depth2;
 
     _TMP0 = texture2D(_DepthMap, gl_TexCoord[0].xy);
-    _depth = _TMP0.x*2.00000000E+000 - 1.00000000E+000;
+    _depth = _TMP0.x*2.00000000E+00 - 1.00000000E+00;
     _depth2 = _depth*_depth;
-    _ret_0 = vec4(_depth, _depth2, 0.00000000E+000, 1.00000000E+000);
+    _ret_0 = vec4(_depth, _depth2, 0.00000000E+00, 1.00000000E+00);
     gl_FragColor = _ret_0;
     return;
 } // main end
