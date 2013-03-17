@@ -39,11 +39,11 @@ float4 main( in X1X cin) : SV_Target0
     float2 _offset1;
 
     _texCoord = cin._TEXCOORD0;
-    _offset1 = float2(  -1.00000000000000000E00f,   0.00000000000000000E00f)*_TexelSize;
+    _offset1 = float2( -1.00000000000000000E000f,  0.00000000000000000E000f)*_TexelSize;
     _TMP0 = _TMP1.Sample(_SourceMap, _texCoord + _offset1);
     _result = _TMP0;
     _TMP0 = _TMP1.Sample(_SourceMap, _texCoord);
     _result = _result + _TMP0;
-    _result = _result/  2.00000000000000000E00f;
+    _result = _result/ 2.00000000000000000E000f;
     return _result;
 } // main end

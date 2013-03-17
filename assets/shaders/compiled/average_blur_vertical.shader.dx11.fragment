@@ -53,30 +53,30 @@ float4 main( in X1X cin) : SV_Target0
     float2 _offset8;
 
     _texCoord = cin._TEXCOORD0;
-    _offset1 = float2(  -1.00000000000000000E00f,   1.00000000000000000E00f)*_TexelSize;
+    _offset1 = float2( -1.00000000000000000E000f,  1.00000000000000000E000f)*_TexelSize;
     _TMP0 = _TMP10.Sample(_SourceMap, _texCoord + _offset1);
-    _offset2 = float2(   0.00000000000000000E00f,   1.00000000000000000E00f)*_TexelSize;
+    _offset2 = float2(  0.00000000000000000E000f,  1.00000000000000000E000f)*_TexelSize;
     _TMP1 = _TMP10.Sample(_SourceMap, _texCoord + _offset2);
     _result = _TMP0 + _TMP1;
     _TMP2 = _TMP10.Sample(_SourceMap, _texCoord + _TexelSize.xx);
     _result = _result + _TMP2;
-    _offset4 = float2(  -1.00000000000000000E00f,   0.00000000000000000E00f)*_TexelSize;
+    _offset4 = float2( -1.00000000000000000E000f,  0.00000000000000000E000f)*_TexelSize;
     _TMP3 = _TMP10.Sample(_SourceMap, _texCoord + _offset4);
     _result = _result + _TMP3;
     _TMP4 = _TMP10.Sample(_SourceMap, _texCoord);
     _result = _result + _TMP4;
-    _offset5 = float2(   1.00000000000000000E00f,   0.00000000000000000E00f)*_TexelSize;
+    _offset5 = float2(  1.00000000000000000E000f,  0.00000000000000000E000f)*_TexelSize;
     _TMP5 = _TMP10.Sample(_SourceMap, _texCoord + _offset5);
     _result = _result + _TMP5;
     _offset6 = (-_TexelSize).xx;
     _TMP6 = _TMP10.Sample(_SourceMap, _texCoord + _offset6);
     _result = _result + _TMP6;
-    _offset7 = float2(   0.00000000000000000E00f,  -1.00000000000000000E00f)*_TexelSize;
+    _offset7 = float2(  0.00000000000000000E000f, -1.00000000000000000E000f)*_TexelSize;
     _TMP7 = _TMP10.Sample(_SourceMap, _texCoord + _offset7);
     _result = _result + _TMP7;
-    _offset8 = float2(   1.00000000000000000E00f,  -1.00000000000000000E00f)*_TexelSize;
+    _offset8 = float2(  1.00000000000000000E000f, -1.00000000000000000E000f)*_TexelSize;
     _TMP8 = _TMP10.Sample(_SourceMap, _texCoord + _offset8);
     _result = _result + _TMP8;
-    _result = _result/  9.00000000000000000E00f;
-    return float4(_result.x, _result.y, _result.z,   1.00000000000000000E00f);
+    _result = _result/ 9.00000000000000000E000f;
+    return float4(_result.x, _result.y, _result.z,  1.00000000000000000E000f);
 } // main end

@@ -60,7 +60,7 @@ void main()
     _r0009.y = dot(_WorldViewProj[1], cg_Vertex);
     _r0009.z = dot(_WorldViewProj[2], cg_Vertex);
     _r0009.w = dot(_WorldViewProj[3], cg_Vertex);
-    _v0019 = vec4(NORMAL.x, NORMAL.y, NORMAL.z, 0.00000000E+00);
+    _v0019 = vec4(NORMAL.x, NORMAL.y, NORMAL.z, 0.00000000E+000);
     _r0019.x = dot(_NormalMatrix[0], _v0019);
     _r0019.y = dot(_NormalMatrix[1], _v0019);
     _r0019.z = dot(_NormalMatrix[2], _v0019);
