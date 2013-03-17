@@ -38,11 +38,11 @@ void TranslateGizmo::update(float dt, const Selection& selection, const Point& m
   Matrix4x4 viewLocalToWorld = viewTranslation * viewScale * Matrix4x4::scale(0.1f);
   view_.setLocalToWorld(viewLocalToWorld);
 
-  Vector3 planePosition(0, 0, 0);
+  Vector3 planePosition = startSelectionPosition_;
 
   Point planeScreenSpace = Transforms::worldSpaceToScreenSpace(viewer->viewProjection(), planePosition);
-  planeScreenSpace.x += mousePosition.x - startPosition_.x;
-  planeScreenSpace.y += mousePosition.y - startPosition_.y;
+  planeScreenSpace.x += mousePosition.x - startMousePosition_.x;
+  planeScreenSpace.y += mousePosition.y - startMousePosition_.y;
 
   Vector4 newPlanePosition = Transforms::screenSpaceToWorldSpace(viewer->viewProjection().inverse(), planeScreenSpace, planeScreenSpace.z);
 
@@ -65,8 +65,9 @@ void TranslateGizmo::update(float dt, const Selection& selection, const Point& m
 
 }
 
-bool TranslateGizmo::mouseDown(const Point& mousePosition, const Ray& mouseRay) {
-  startPosition_ = mousePosition;
+bool TranslateGizmo::mouseDown(const Point& mousePosition, const Selection& selection, const Ray& mouseRay) {
+  startMousePosition_ = mousePosition;
+  startSelectionPosition_ = selection.selection()->localToWorld().translation().vec3();
   TranslateGizmoSelectionResult result = view_.selectFromRay(mouseRay);
   translateMode_ = result.mode;
   return result.selected;

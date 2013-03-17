@@ -27,7 +27,7 @@ public:
 
 public:
 
-  virtual bool mouseDown(const Point& mousePosition, const Ray& mouseRayn) = 0;
+  virtual bool mouseDown(const Point& mousePosition, const Selection& selection, const Ray& mouseRayn) = 0;
 
   virtual void mouseUp() = 0;
 

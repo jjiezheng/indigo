@@ -23,7 +23,7 @@ public:
 
 public:
 
-  bool mouseDown(const Point& mousePosition, const Ray& mouseRay);
+  bool mouseDown(const Point& mousePosition, const Selection& selection, const Ray& mouseRay);
 
   void mouseUp();
 
@@ -31,7 +31,8 @@ private:
 
   TranslateGizmoView view_;
   TranslateGizmoMode translateMode_;
-  Point startPosition_;
+  Point startMousePosition_;
+  Vector3 startSelectionPosition_;
 
 };
 

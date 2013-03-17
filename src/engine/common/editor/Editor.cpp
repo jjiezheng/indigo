@@ -86,7 +86,7 @@ void Editor::mouseDown(MouseButton mouseButton, const World& world) {
         for (std::map<KeyCode, IEditorTool*>::iterator i = tools_.begin(); i != tools_.end(); ++i) {
           bool isActive = (*i).second->isActive();
           if (isActive) {
-            toolPicked = (*i).second->mouseDown(mousePosition, mouseRay);
+            toolPicked = (*i).second->mouseDown(mousePosition, selection_, mouseRay);
           }
         }
 
