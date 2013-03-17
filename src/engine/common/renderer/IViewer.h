@@ -15,6 +15,8 @@ public:
   virtual Matrix4x4 viewTransform() const = 0;
   
   virtual Matrix4x4 projection() const = 0;
+
+  virtual Matrix4x4 viewProjection() const = 0;
   
   virtual Matrix4x4 transform() const = 0;
   

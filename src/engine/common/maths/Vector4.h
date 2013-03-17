@@ -83,7 +83,11 @@ public:
   
   Vector4 operator * (float scalar) const;
 
+  Vector4 operator / (float scalar) const;
+
   Vector4 operator - (float scalar) const;
+
+  Vector4 operator + (float scalar) const;
 
 
   void operator /= (float scalar);

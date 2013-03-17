@@ -8,6 +8,28 @@
 class IViewer;
 class Ray;
 
+enum TranslateGizmoMode {
+  TRANSLATE_GIZMO_MODE_UNKNOWN,
+  TRANSLATE_GIZMO_MODE_X,
+  TRANSLATE_GIZMO_MODE_Y,
+  TRANSLATE_GIZMO_MODE_Z
+};
+
+class TranslateGizmoSelectionResult {
+
+public:
+
+  TranslateGizmoSelectionResult()
+    : selected(false)
+    , mode(TRANSLATE_GIZMO_MODE_UNKNOWN) { }
+
+public:
+
+  bool selected;
+  TranslateGizmoMode mode;
+
+};
+
 class TranslateGizmoView : public Node {
 
 public:
@@ -26,7 +48,7 @@ public:
 
 public:
 
-  bool selectFromRay(const Ray& ray);
+  TranslateGizmoSelectionResult selectFromRay(const Ray& ray);
 
   void highlightFromRay(const Ray& ray);
 

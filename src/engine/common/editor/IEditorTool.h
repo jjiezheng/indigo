@@ -4,6 +4,7 @@
 class IViewer;
 class Selection;
 class Ray;
+class Point;
 
 class IEditorTool {
 
@@ -22,11 +23,11 @@ public:
 
   virtual void render(IViewer* viewer) const = 0;
 
-  virtual void update(float dt, const Selection& selection, const Ray& mouseRay, const IViewer* viewer) = 0;
+  virtual void update(float dt, const Selection& selection, const Point& mousePosition, const Ray& mouseRay, const IViewer* viewer) = 0;
 
 public:
 
-  virtual bool mouseDown(const Ray& ray, const Selection& selection) = 0;
+  virtual bool mouseDown(const Point& mousePosition, const Ray& mouseRayn) = 0;
 
   virtual void mouseUp() = 0;
 

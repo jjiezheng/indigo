@@ -42,7 +42,7 @@ void Editor::update(float dt) {
     for (std::map<KeyCode, IEditorTool*>::iterator i = tools_.begin(); i != tools_.end(); ++i) {
       bool isActive = (*i).second->isActive();
       if (isActive) {
-        (*i).second->update(dt, selection_, mouseRay, camera_);
+        (*i).second->update(dt, selection_, mousePosition, mouseRay, camera_);
       }
     }
   }
@@ -86,7 +86,7 @@ void Editor::mouseDown(MouseButton mouseButton, const World& world) {
         for (std::map<KeyCode, IEditorTool*>::iterator i = tools_.begin(); i != tools_.end(); ++i) {
           bool isActive = (*i).second->isActive();
           if (isActive) {
-            toolPicked = (*i).second->mouseDown(mouseRay, selection_);
+            toolPicked = (*i).second->mouseDown(mousePosition, mouseRay);
           }
         }
 

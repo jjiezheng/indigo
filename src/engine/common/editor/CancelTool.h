@@ -11,9 +11,9 @@ public:
 
   void render(IViewer* viewer) const { };
 
-  void update(float dt, const Selection& selection, const Ray& mouseRay, const IViewer* viewer) { };
+  void update(float dt, const Selection& selection, const Point& mousePosition, const Ray& mouseRay, const IViewer* viewer) { };
 
-  bool mouseDown(const Ray& ray, const Selection& selection) { return false; };
+  bool mouseDown(const Point& mousePosition, const Ray& mouseRay) { return false; };
 
   void mouseUp() { };
 

@@ -30,31 +30,31 @@ void TranslateGizmoView::render(IViewer* viewer) const {
   GraphicsInterface::endPerformanceEvent();
 }
 
-bool TranslateGizmoView::selectFromRay(const Ray& ray) {
+TranslateGizmoSelectionResult TranslateGizmoView::selectFromRay(const Ray& ray) {
+  TranslateGizmoSelectionResult result;
+
   IntersectionResult zResult = zArrow_.testIntersect(ray);
 
-  bool result = false;
-
   if (zResult.intersected) {
-    LOG(LOG_CHANNEL_EDITOR, "Z Intersected");
-    return true;
-  }
-
-  IntersectionResult xResult = xArrow_.testIntersect(ray);
-
-  if (xResult.intersected) {
-    LOG(LOG_CHANNEL_EDITOR, "X Intersected");
-    return true;
+    result.mode = TRANSLATE_GIZMO_MODE_Z;
+    result.selected = true;
   }
 
   IntersectionResult yResult = yArrow_.testIntersect(ray);
 
   if (yResult.intersected) {
-    LOG(LOG_CHANNEL_EDITOR, "Y Intersected");
-    return true;
+    result.mode = TRANSLATE_GIZMO_MODE_Y;
+    result.selected = true;
   }
 
-  return false;
+  IntersectionResult xResult = xArrow_.testIntersect(ray);
+
+  if (xResult.intersected) {
+    result.mode = TRANSLATE_GIZMO_MODE_X;
+    result.selected = true;
+  }
+
+  return result;
 }
 
 void TranslateGizmoView::highlightFromRay(const Ray& ray) {

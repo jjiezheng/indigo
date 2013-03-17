@@ -71,8 +71,18 @@ Vector4 Vector4::operator * (float scalar) const {
   return result;
 }
 
+Vector4 Vector4::operator / (float scalar) const {
+  Vector4 result(x / scalar, y / scalar, z / scalar, w / scalar);
+  return result;
+}
+
 Vector4 Vector4::operator - (float scalar) const {
   Vector4 result(x-scalar, y-scalar, z-scalar, w-scalar);
+  return result;
+}
+
+Vector4 Vector4::operator + (float scalar) const {
+  Vector4 result(x + scalar, y + scalar, z + scalar, w + scalar);
   return result;
 }
 
