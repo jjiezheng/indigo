@@ -11,10 +11,11 @@ class ScaleGizmoBox : public Node {
 
 public:
 
-  ScaleGizmoBox(const Color3& boxColor)
+  ScaleGizmoBox(const Color3& boxColor, bool hasLeg)
     : boxColor_(boxColor)
     , isHighlighted_(false)
-    , drawBounds_(false) { }
+    , drawBounds_(false)
+    , hasLeg_(hasLeg) { }
 
 public:
 
@@ -37,6 +38,7 @@ private:
   Color3 boxColor_;
   bool isHighlighted_;
   bool drawBounds_;
+  bool hasLeg_;
 
 };
 

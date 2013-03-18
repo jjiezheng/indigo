@@ -21,18 +21,24 @@ void ScaleGizmoBox::init() {
   Mesh boxMesh;
   boxMesh.createBuffers(Geometry::UNIT_CUBE_VERTEX_DATA, Geometry::UNIT_CUBE_VERTEX_COUNT, Geometry::UNIT_CUBE_VERTEX_FORMAT);
 
-  Matrix4x4 translationAlongLine = Matrix4x4::translation(Vector4(0, 0, 1, 0));
+  Matrix4x4 translationAlongLine = Matrix4x4::IDENTITY;
+
+  if (hasLeg_) {
+    translationAlongLine = Matrix4x4::translation(Vector4(0, 0, 1, 0));
+  }
+  
   Matrix4x4 coneLocalToWorld = translationAlongLine * Matrix4x4::scale(0.1f) * Matrix4x4::scale(1.0f);
 
   boxModel_.addMesh(boxMesh);
   boxModel_.setLocalToWorld(coneLocalToWorld);
-
-  Mesh lineMesh;
-  lineMesh.createBuffers(Geometry::LINE_VERTEX_DATA, Geometry::LINE_VERTEX_COUNT, Geometry::LINE_VERTEX_FORMAT);
-  lineModel_.addMesh(lineMesh);
-
   addChild(&boxModel_);
-  addChild(&lineModel_);
+
+  if (hasLeg_) {
+    Mesh lineMesh;
+    lineMesh.createBuffers(Geometry::LINE_VERTEX_DATA, Geometry::LINE_VERTEX_COUNT, Geometry::LINE_VERTEX_FORMAT);
+    lineModel_.addMesh(lineMesh);
+    addChild(&lineModel_);
+  }    
 }
 
 void ScaleGizmoBox::render(IViewer* viewer) const {

@@ -8,24 +8,28 @@
 #include "io/Log.h"
 
 void ScaleGizmoView::init() {
-  xArrow_.init();
-  xArrow_.setLocalToWorld(Matrix4x4::rotationY(toRadians(90)));
-  addChild(&xArrow_);
+  xBox_.init();
+  xBox_.setLocalToWorld(Matrix4x4::rotationY(toRadians(90)));
+  addChild(&xBox_);
 
-  yArrow_.init();
-  yArrow_.setLocalToWorld(Matrix4x4::rotationX(toRadians(-90)));
-  addChild(&yArrow_);
+  yBox_.init();
+  yBox_.setLocalToWorld(Matrix4x4::rotationX(toRadians(-90)));
+  addChild(&yBox_);
 
-  zArrow_.init();
-  addChild(&zArrow_);
+  zBox_.init();
+  addChild(&zBox_);
+
+  allBox_.init();
+  addChild(&allBox_);
 }
 
 void ScaleGizmoView::render(IViewer* viewer) const {
-  GraphicsInterface::beginPerformanceEvent("Translate Gizmo");
+  GraphicsInterface::beginPerformanceEvent("Scale Gizmo");
 
-  xArrow_.render(viewer);
-  yArrow_.render(viewer);
-  zArrow_.render(viewer);
+  xBox_.render(viewer);
+  yBox_.render(viewer);
+  zBox_.render(viewer);
+  allBox_.render(viewer);
 
   GraphicsInterface::endPerformanceEvent();
 }
@@ -33,21 +37,29 @@ void ScaleGizmoView::render(IViewer* viewer) const {
 ScaleGizmoSelectionResult ScaleGizmoView::selectFromRay(const Ray& ray) {
   ScaleGizmoSelectionResult result;
 
-  IntersectionResult zResult = zArrow_.testIntersect(ray);
+  IntersectionResult allResult = allBox_.testIntersect(ray);
+
+  if (allResult.intersected) {
+    result.mode = SCALE_GIZMO_MODE_ALL;
+    result.selected = true;
+    return result;
+  }
+
+  IntersectionResult zResult = zBox_.testIntersect(ray);
 
   if (zResult.intersected) {
     result.mode = SCALE_GIZMO_MODE_Z;
     result.selected = true;
   }
 
-  IntersectionResult yResult = yArrow_.testIntersect(ray);
+  IntersectionResult yResult = yBox_.testIntersect(ray);
 
   if (yResult.intersected) {
     result.mode = SCALE_GIZMO_MODE_Y;
     result.selected = true;
   }
 
-  IntersectionResult xResult = xArrow_.testIntersect(ray);
+  IntersectionResult xResult = xBox_.testIntersect(ray);
 
   if (xResult.intersected) {
     result.mode = SCALE_GIZMO_MODE_X;
@@ -58,24 +70,35 @@ ScaleGizmoSelectionResult ScaleGizmoView::selectFromRay(const Ray& ray) {
 }
 
 void ScaleGizmoView::highlightFromRay(const Ray& ray) {
-  IntersectionResult zResult = zArrow_.testIntersect(ray);
-  zArrow_.setHighlight(zResult.intersected);
+  IntersectionResult allResult = allBox_.testIntersect(ray);
+  allBox_.setHighlight(allResult.intersected);
 
-  IntersectionResult yResult = yArrow_.testIntersect(ray);
-  yArrow_.setHighlight(yResult.intersected);
+  if (allResult.intersected) {
+    return;
+  }
 
-  IntersectionResult xResult = xArrow_.testIntersect(ray);
-  xArrow_.setHighlight(xResult.intersected);
+  IntersectionResult zResult = zBox_.testIntersect(ray);
+  zBox_.setHighlight(zResult.intersected);
+
+  IntersectionResult yResult = yBox_.testIntersect(ray);
+  yBox_.setHighlight(yResult.intersected);
+
+  IntersectionResult xResult = xBox_.testIntersect(ray);
+  xBox_.setHighlight(xResult.intersected);
 }
 
 void ScaleGizmoView::highlightX() {
-  xArrow_.setHighlight(true);
+  xBox_.setHighlight(true);
 }
 
 void ScaleGizmoView::highlightY() {
-  yArrow_.setHighlight(true);
+  yBox_.setHighlight(true);
 }
 
 void ScaleGizmoView::highlightZ() {
-  zArrow_.setHighlight(true);
+  zBox_.setHighlight(true);
+}
+
+void ScaleGizmoView::highlightAll() {
+  allBox_.setHighlight(true);
 }

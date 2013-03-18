@@ -12,7 +12,8 @@ enum ScaleGizmoMode {
   SCALE_GIZMO_MODE_UNKNOWN,
   SCALE_GIZMO_MODE_X,
   SCALE_GIZMO_MODE_Y,
-  SCALE_GIZMO_MODE_Z
+  SCALE_GIZMO_MODE_Z,
+  SCALE_GIZMO_MODE_ALL
 };
 
 class ScaleGizmoSelectionResult {
@@ -35,9 +36,10 @@ class ScaleGizmoView : public Node {
 public:
 
   ScaleGizmoView()
-    : xArrow_(Color3::BLUE)
-    , yArrow_(Color3::GREEN)
-    , zArrow_(Color3::RED)
+    : xBox_(Color3::BLUE, true)
+    , yBox_(Color3::GREEN, true)
+    , zBox_(Color3::RED, true)
+    , allBox_(Color3::GREY, false)
   { }
 
 public:
@@ -54,6 +56,8 @@ public:
 
   void highlightZ();
 
+  void highlightAll();
+
 public:
 
   ScaleGizmoSelectionResult selectFromRay(const Ray& ray);
@@ -62,9 +66,10 @@ public:
 
 private:
 
-  ScaleGizmoBox xArrow_;
-  ScaleGizmoBox yArrow_;
-  ScaleGizmoBox zArrow_;
+  ScaleGizmoBox xBox_;
+  ScaleGizmoBox yBox_;
+  ScaleGizmoBox zBox_;
+  ScaleGizmoBox allBox_;
 
 };
 
