@@ -28,8 +28,8 @@ void ScaleGizmo::update(float dt, const Selection& selection, const Point& mouse
 
   Matrix4x4 selectedLocalToWorld = selection.selection()->localToWorld();
   Vector4 selectedTranslation = selectedLocalToWorld.translation();
-  Vector4 selectedMidPoint = selection.selection()->boundingBox().mid();
-  Matrix4x4 viewTranslation = Matrix4x4::translation(selectedTranslation) * Matrix4x4::translation(selectedMidPoint);
+  Vector4 selectedMidPoint = selection.selection()->localToWorld() * selection.selection()->boundingBox().mid();
+  Matrix4x4 viewTranslation = Matrix4x4::translation(selectedMidPoint);
 
   Vector3 viewerToGizmo = viewer->position() - view_.localToWorld().translation().vec3();
   float distanceToViewer = viewerToGizmo.length();
@@ -37,6 +37,10 @@ void ScaleGizmo::update(float dt, const Selection& selection, const Point& mouse
 
   Matrix4x4 viewLocalToWorld = viewTranslation * viewScale * Matrix4x4::scale(0.1f);
   view_.setLocalToWorld(viewLocalToWorld);
+
+  if (startMousePosition_.x == 0 || startMousePosition_.y == 0) {
+    return;
+  }
 
   Vector3 planePosition = startSelectionPosition_;
 
@@ -48,39 +52,46 @@ void ScaleGizmo::update(float dt, const Selection& selection, const Point& mouse
   Vector4 newPlanePosition = Transforms::screenSpaceToWorldSpace(viewer->viewProjection().inverse(), planeScreenSpace, planeScreenSpace.z);
   Vector3 planeDelta = newPlanePosition.vec3() - lastSelectionPosition_;
 
-  if (planeDelta.length() > 0.01f) {
-    float planePositionDeltaLength = 0.1f;
-    if (newPlanePosition.x < lastSelectionPosition_.x) {
-      planePositionDeltaLength += -planePositionDeltaLength;
-    }
+  float kMinimumDragLength = 0.001f;
+  if (planeDelta.length() > kMinimumDragLength) {
 
-
-    if (newPlanePosition.length() < planePosition.length()) {
-      planePositionDeltaLength = -planePositionDeltaLength;
-    }
+    float planePositionDeltaLength = planeDelta.length() * 0.5f;
 
     if (translateMode_ == SCALE_GIZMO_MODE_X) {
-      selectedLocalToWorld.m11 += planePositionDeltaLength;
+
+      if (newPlanePosition.x < lastSelectionPosition_.x) {
+        selectedLocalToWorld.m11 -= planePositionDeltaLength;
+      } else {
+        selectedLocalToWorld.m11 += planePositionDeltaLength;
+      }
+      
       view_.highlightX();
     }
 
     if (translateMode_ == SCALE_GIZMO_MODE_Y) {
-      //selectedLocalToWorld.m22 = newPlaneScale.y;
+
+      if (newPlanePosition.y < lastSelectionPosition_.y) {
+        selectedLocalToWorld.m22 -= planePositionDeltaLength;
+      } else {
+        selectedLocalToWorld.m22 += planePositionDeltaLength;
+      }
+
       view_.highlightY();
     }
 
     if (translateMode_ == SCALE_GIZMO_MODE_Z) {
-      //selectedLocalToWorld.m33 = newPlaneScale.z;  
+      
+      if (newPlanePosition.z < lastSelectionPosition_.z) {
+        selectedLocalToWorld.m33 -= planePositionDeltaLength;
+      } else {
+        selectedLocalToWorld.m33 += planePositionDeltaLength;
+      }
+
       view_.highlightZ();
     }
   }
 
- 
-
-  lastMousePosition_ = mousePosition;
   lastSelectionPosition_ = newPlanePosition.vec3();
-
-
   selection.selection()->setLocalToWorld(selectedLocalToWorld);
 
 }
@@ -88,6 +99,7 @@ void ScaleGizmo::update(float dt, const Selection& selection, const Point& mouse
 bool ScaleGizmo::mouseDown(const Point& mousePosition, const Selection& selection, const Ray& mouseRay) {
   startMousePosition_ = mousePosition;
   startSelectionPosition_ = selection.selection()->localToWorld().translation().vec3();
+  lastSelectionPosition_ = startSelectionPosition_;
   ScaleGizmoSelectionResult result = view_.selectFromRay(mouseRay);
   translateMode_ = result.mode;
   return result.selected;

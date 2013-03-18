@@ -21,20 +21,15 @@ const char* LOG_CHANNEL_EDITOR = "EDITOR";
 #include <windows.h>
 #include "String.h"
 
-
-void DLOG(const char* channel, const char* format, ...) {
+void DLOG(const char* channel, const char* format, va_list args) {
   OutputDebugStringA(channel);
   OutputDebugStringA(": ");
-
-  va_list args;
-  va_start(args, format);
 
   int length = _vscprintf(format, args) + 1; // _vscprintf doesn't count terminating '\0'
 
   unsigned int bufferSize = (length * sizeof(char)) + 1;
   char* buffer = (char*)malloc(bufferSize);
   vsprintf_s(buffer, length, format, args);
-  va_end(args);
 
   buffer[bufferSize - 2] = '\n';
   buffer[bufferSize - 1] = '\0';
@@ -42,6 +37,23 @@ void DLOG(const char* channel, const char* format, ...) {
   std::clog << buffer;
 
   OutputDebugStringA(buffer);
+}
+
+void DLOG(const char* channel, const char* format, ...) {
+  va_list args;
+  va_start(args, format);
+
+  DLOG(channel, format, args);
+
+  va_end(args);
+}
+
+
+void DLOG(const char* format, ...) {
+  va_list args;
+  va_start(args, format);
+  DLOG(LOG_CHANNEL_TEMP, format, args);
+  va_end(args);
 }
 
 void DLOGRAW(const char* format, ...) {
@@ -78,6 +90,8 @@ void DLOGRAW(const char* fmt, ...) {
   va_end(args);
 };
 #endif
+
+void RLOG(const char* format, ...) { } 
 
 void RLOG(const char* channel, const char* fmt, ...) { }
 

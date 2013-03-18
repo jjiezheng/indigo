@@ -28,7 +28,6 @@ public:
 
 private:
 
-  Point lastMousePosition_;
 
   ScaleGizmoView view_;
   ScaleGizmoMode translateMode_;

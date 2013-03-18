@@ -28,8 +28,8 @@ void TranslateGizmo::update(float dt, const Selection& selection, const Point& m
 
   Matrix4x4 selectedLocalToWorld = selection.selection()->localToWorld();
   Vector4 selectedTranslation = selectedLocalToWorld.translation();
-  Vector4 selectedMidPoint = selection.selection()->boundingBox().mid();
-  Matrix4x4 viewTranslation = Matrix4x4::translation(selectedTranslation) * Matrix4x4::translation(selectedMidPoint);
+  Vector4 selectedMidPoint = selection.selection()->localToWorld() * selection.selection()->boundingBox().mid();
+  Matrix4x4 viewTranslation = Matrix4x4::translation(selectedMidPoint);
 
   Vector3 viewerToGizmo = viewer->position() - view_.localToWorld().translation().vec3();
   float distanceToViewer = viewerToGizmo.length();
@@ -37,6 +37,8 @@ void TranslateGizmo::update(float dt, const Selection& selection, const Point& m
 
   Matrix4x4 viewLocalToWorld = viewTranslation * viewScale * Matrix4x4::scale(0.1f);
   view_.setLocalToWorld(viewLocalToWorld);
+
+  //
 
   Vector3 planePosition = startSelectionPosition_;
 
@@ -62,7 +64,6 @@ void TranslateGizmo::update(float dt, const Selection& selection, const Point& m
   }
 
   selection.selection()->setLocalToWorld(selectedLocalToWorld);
-
 }
 
 bool TranslateGizmo::mouseDown(const Point& mousePosition, const Selection& selection, const Ray& mouseRay) {

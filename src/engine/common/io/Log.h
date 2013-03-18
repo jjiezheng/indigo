@@ -13,9 +13,11 @@ extern const char* LOG_CHANNEL_RENDERER;
 extern const char* LOG_CHANNEL_INPUT;
 extern const char* LOG_CHANNEL_EDITOR;
 
+void DLOG(const char* fmt, ...);
 void DLOG(const char* channel, const char* fmt, ...);
 void DLOGRAW(const char* fmt, ...);
 
+void RLOG(const char* fmt, ...);
 void RLOG(const char* channel, const char* fmt, ...);
 void RLOGRAW(const char* fmt, ...);
 
