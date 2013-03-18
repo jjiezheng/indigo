@@ -38,6 +38,8 @@ void ScaleGizmo::update(float dt, const Selection& selection, const Point& mouse
   Matrix4x4 viewLocalToWorld = viewTranslation * viewScale * Matrix4x4::scale(0.1f);
   view_.setLocalToWorld(viewLocalToWorld);
 
+  //
+
   if (startMousePosition_.x == 0 || startMousePosition_.y == 0) {
     return;
   }
@@ -55,7 +57,8 @@ void ScaleGizmo::update(float dt, const Selection& selection, const Point& mouse
   float kMinimumDragLength = 0.001f;
   if (planeDelta.length() > kMinimumDragLength) {
 
-    float planePositionDeltaLength = planeDelta.length() * 0.5f;
+    float kScaleAmountScaler = 0.5f;
+    float planePositionDeltaLength = planeDelta.length() * kScaleAmountScaler;
 
     if (scaleMode_ == SCALE_GIZMO_MODE_X) {
       if (newPlanePosition.x < lastSelectionPosition_.x) {
