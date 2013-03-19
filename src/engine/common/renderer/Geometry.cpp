@@ -21,6 +21,10 @@ VertexFormat Geometry::UNIT_CUBE_VERTEX_FORMAT = TRIANGLE_LIST;
 VertexBuffer Geometry::UNIT_CUBE_VERTEX_BUFFER = 0;
 VertexDef Geometry::UNIT_CUBE_VERTEX_DATA[UNIT_CUBE_VERTEX_COUNT];
 
+VertexFormat Geometry::UNIT_CIRCLE_VERTEX_FORMAT = LINE_STRIP;
+VertexBuffer Geometry::UNIT_CIRCLE_VERTEX_BUFFER = 0;
+VertexDef Geometry::UNIT_CIRCLE_VERTEX_DATA[UNIT_CIRCLE_VERTEX_COUNT];
+
 VertexBuffer Geometry::screenPlane() {
   VertexDef quadVertices[SCREEN_PLANE_VERTEX_COUNT];
   quadVertices[0].vertex = Vector3(-1.0f, -1.0f, 0.0f);
@@ -112,6 +116,21 @@ VertexBuffer Geometry::cone() {
   }
 
   VertexBuffer vbo = GraphicsInterface::createVertexBuffer(CONE_VERTEX_DATA, UNIT_CUBE_VERTEX_COUNT);
+  return vbo;
+}
+
+VertexBuffer Geometry::unitCircle() {
+  int index = 0;
+  for (int i = 0; i < UNIT_CIRCLE_VERTEX_COUNT; i++) {
+    float radians = toRadians((float)i);
+
+    float x = cos(radians);
+    float y = sin(radians);
+
+    UNIT_CIRCLE_VERTEX_DATA[index++].vertex = Vector3(x, y, 0.0f);
+  }
+
+  VertexBuffer vbo = GraphicsInterface::createVertexBuffer(UNIT_CIRCLE_VERTEX_DATA, UNIT_CIRCLE_VERTEX_COUNT);
   return vbo;
 }
 
@@ -261,5 +280,5 @@ void Geometry::init() {
   LINE_VERTEX_BUFFER = line();
   CONE_VERTEX_BUFFER = cone();
   UNIT_CUBE_VERTEX_BUFFER = unitCube();
+  UNIT_CIRCLE_VERTEX_BUFFER = unitCircle();
 }
-

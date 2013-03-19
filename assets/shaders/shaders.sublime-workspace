@@ -520,75 +520,58 @@
 	"buffers":
 	[
 		{
-			"file": "/C/Users/NK/Development/game/premake4.lua",
-			"settings":
-			{
-				"buffer_size": 5837,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/C/Users/NK/Development/game/assets/scenes/simple/floor_and_cube.scene",
-			"settings":
-			{
-				"buffer_size": 1585,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/C/Users/NK/Development/game/assets/scenes/simple/sphere.scene",
-			"settings":
-			{
-				"buffer_size": 1253,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/C/Users/NK/Development/game/build/game.vcxproj",
-			"settings":
-			{
-				"buffer_size": 26882,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/C/Users/NK/Development/game/assets/scenes/simple/assorted.scene",
-			"settings":
-			{
-				"buffer_size": 1933,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "average_blur_vertical.cg",
-			"settings":
-			{
-				"buffer_size": 1365,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"contents": "ESC = 27 = 257",
-			"settings":
-			{
-				"buffer_size": 14,
-				"line_ending": "Windows",
-				"name": "ESC = 27 = 257"
-			}
-		},
-		{
-			"file": "/C/Users/NK/Development/game/libs/glfw/include/GL/glfw.h",
-			"settings":
-			{
-				"buffer_size": 19986,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "deferred_lighting_spot_light_shadow.cg",
 			"settings":
 			{
 				"buffer_size": 4494,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "compiled/deferred_lighting_spot_light_shadow.shader.dx11.fragment",
+			"settings":
+			{
+				"buffer_size": 8779,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "standard.h",
+			"settings":
+			{
+				"buffer_size": 1473,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "depth.h",
+			"settings":
+			{
+				"buffer_size": 836,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "shadow.h",
+			"settings":
+			{
+				"buffer_size": 1646,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "deferred_light_composition.cg",
+			"settings":
+			{
+				"buffer_size": 654,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "deferred_ssao.cg",
+			"settings":
+			{
+				"buffer_size": 3035,
 				"line_ending": "Windows"
 			}
 		}
@@ -771,14 +754,20 @@
 	},
 	"file_history":
 	[
+		"/C/Users/NK/Development/game/assets/shaders/compiled/deferred_light_composition.shader.dx11.fragment",
+		"/C/Users/NK/Development/game/premake4.lua",
+		"/C/Users/NK/Development/game/assets/scenes/simple/floor_and_cube.scene",
+		"/C/Users/NK/Development/game/assets/scenes/simple/sphere.scene",
+		"/C/Users/NK/Development/game/build/game.vcxproj",
+		"/C/Users/NK/Development/game/assets/scenes/simple/assorted.scene",
+		"/C/Users/NK/Development/game/assets/shaders/average_blur_vertical.cg",
+		"/C/Users/NK/Development/game/libs/glfw/include/GL/glfw.h",
 		"/C/Users/NK/Documents/Visual Studio 2010/Projects/PS3_PPU_Project1/PS3_PPU_Project1/PS3_PPU_Project1.vcxproj",
 		"/C/Users/NK/Development/game/assets/shaders/deferred_vsm_depth.cg",
-		"/C/Users/NK/Development/game/assets/scenes/simple/floor_and_cube.scene",
 		"/C/Users/NK/Development/game/assets/shaders/gaussian_blur_vertical_16_tap.cg",
 		"/C/Users/NK/Development/game/assets/shaders/gaussian_blur_horizontal_16_tap.cg",
 		"/C/Users/NK/Development/game/assets/shaders/deferred_depth.cg",
 		"/C/Users/NK/Development/game/assets/shaders/shadow.h",
-		"/C/Users/NK/Development/game/premake4.lua",
 		"/C/Users/NK/Development/game/assets/shaders/deferred_lighting_spot_light_shadow.cg",
 		"/C/Users/NK/Development/game/assets/shaders/compile",
 		"/C/Program Files (x86)/SCE/ORBIS SDKs/0.915/target/samples/sample_code/graphics/api_gnm/basic-sample/basic-sample.cpp",
@@ -892,13 +881,7 @@
 		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Chapters/ShrinkingSolution/Introduction/PotionRecipeActivity.prefab",
 		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/Cauldron/StateMachine/CauldronSurfaceLiquidInterface.stmproj",
 		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Chapters/ShrinkingSolution/Introduction/IntroActivity.prefab",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/InstructionPanel/InstructionPanel.prefab",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/Stirring/EnchantedSpoon/CauldronStir_activity.part",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Preparing/Juicing/ShrivelFigJuice/ShirvelFigJuicingCauldronFx.prefab",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Data/Books/BookOfPotions/Preparing/Juicing/ShrivelFigJuice/ShirvelFigJuicingCauldronFx.scene",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/BookOfPotions.book",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/Cauldron/CauldronInterface.prefab",
-		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/Heating/BunsenBurner/BunsenBurner_activity.part"
+		"/C/Dev/Wb/Content/BookOfPotions/WonderBook/Assets/Books/BookOfPotions/Brewing/InstructionPanel/InstructionPanel.prefab"
 	],
 	"find":
 	{
@@ -923,6 +906,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			");//",
 			"glew32",
 			"link",
 			"platformto",
@@ -1049,8 +1033,7 @@
 			"print",
 			"printf",
 			"renderj",
-			"renderjo",
-			"IsValid"
+			"renderjo"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1151,16 +1134,44 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 6,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/C/Users/NK/Development/game/premake4.lua",
+					"file": "deferred_lighting_spot_light_shadow.cg",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5837,
+						"buffer_size": 4494,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								226,
+								226
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Shader Languages/Cg.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "compiled/deferred_lighting_spot_light_shadow.shader.dx11.fragment",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8779,
 						"regions":
 						{
 						},
@@ -1173,66 +1184,36 @@
 						],
 						"settings":
 						{
-							"syntax": "Packages/Lua/Lua.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 668.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/C/Users/NK/Development/game/assets/scenes/simple/floor_and_cube.scene",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1585,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								534,
-								534
-							]
-						],
-						"settings":
-						{
 							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_size": 2,
+							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 45.0,
+						"translation.y": 2430.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "/C/Users/NK/Development/game/assets/scenes/simple/sphere.scene",
+					"file": "standard.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1253,
+						"buffer_size": 1473,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								252,
-								252
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/C++/C++.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1242,81 +1223,81 @@
 				},
 				{
 					"buffer": 3,
-					"file": "/C/Users/NK/Development/game/build/game.vcxproj",
+					"file": "depth.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 26882,
+						"buffer_size": 836,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1250,
-								1250
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/XML/XML.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/C++/C++.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 270.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 4,
-					"file": "/C/Users/NK/Development/game/assets/scenes/simple/assorted.scene",
+					"file": "shadow.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1933,
+						"buffer_size": 1646,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								583,
-								583
+								1028,
+								1028
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 300.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 5,
-					"file": "average_blur_vertical.cg",
+					"file": "deferred_light_composition.cg",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1365,
+						"buffer_size": 654,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								182,
-								182
+								654,
+								654
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/Shader Languages/Cg.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1326,75 +1307,19 @@
 				},
 				{
 					"buffer": 6,
+					"file": "deferred_ssao.cg",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 14,
+						"buffer_size": 3035,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								14,
-								14
-							]
-						],
-						"settings":
-						{
-							"auto_name": "ESC = 27 = 257",
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "/C/Users/NK/Development/game/libs/glfw/include/GL/glfw.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 19986,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1577,
-								1577
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 218.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "deferred_lighting_spot_light_shadow.cg",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4494,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3335,
-								3335
+								1036,
+								1036
 							]
 						],
 						"settings":
@@ -1403,7 +1328,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 900.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1458,6 +1383,30 @@
 		"selected_items":
 		[
 			[
+				"ssao",
+				"deferred_ssao.cg"
+			],
+			[
+				"light_com",
+				"deferred_light_composition.cg"
+			],
+			[
+				"shad",
+				"shadow.h"
+			],
+			[
+				"depth",
+				"depth.h"
+			],
+			[
+				"standa",
+				"standard.h"
+			],
+			[
+				"spotli",
+				"deferred_lighting_spot_light_shadow.cg"
+			],
+			[
 				"spot",
 				"deferred_lighting_spot_light_shadow.cg"
 			],
@@ -1490,10 +1439,6 @@
 				"deferred_depth.cg"
 			],
 			[
-				"shad",
-				"shadow.h"
-			],
-			[
 				"compile",
 				"compile"
 			],
@@ -1504,14 +1449,6 @@
 			[
 				"stand",
 				"standard.h"
-			],
-			[
-				"depth",
-				"depth.h"
-			],
-			[
-				"ssao",
-				"deferred_ssao.cg"
 			],
 			[
 				"stan",
@@ -1956,18 +1893,6 @@
 			[
 				"navierstoken",
 				"Code/Components/BoP/NavierStokesSimulation.cpp"
-			],
-			[
-				"fluidjob.",
-				"Code/Framework/Et/Renderer/Fluid/FluidJob.cpp"
-			],
-			[
-				"simulation",
-				"Code/Components/BoP/NavierStokesSimulation.h"
-			],
-			[
-				"spufluidd",
-				"Code/Framework/Spu/SpuFluid/SpuFluidDensity.cpp"
 			]
 		],
 		"width": 0.0

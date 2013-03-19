@@ -48,6 +48,10 @@ public:
 
 public:
 
+  static Vector2 UP;
+
+public:
+
   std::string toString() const;
   
 public:

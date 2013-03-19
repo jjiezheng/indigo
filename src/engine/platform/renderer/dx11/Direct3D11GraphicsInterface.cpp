@@ -311,6 +311,9 @@ void Direct3D11GraphicsInterface::drawVertexBuffer(int vertexBuffer, int vertexC
 		triangleTopology = D3D11_PRIMITIVE_TOPOLOGY_LINELIST;
 	}
 
+  if (vertexFormat == LINE_STRIP) {
+    triangleTopology = D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP;
+  }
 
   context_->IASetVertexBuffers(0, 1, &buffer, &stride, &offset);
   context_->IASetPrimitiveTopology(triangleTopology);

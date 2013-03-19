@@ -25,6 +25,8 @@ public:
 
 	static VertexBuffer unitCube();
 
+  static VertexBuffer unitCircle();
+
 public:
 
 	static const int SCREEN_PLANE_VERTEX_COUNT = 6;
@@ -47,6 +49,11 @@ public:
 	static VertexFormat UNIT_CUBE_VERTEX_FORMAT;
   static VertexBuffer UNIT_CUBE_VERTEX_BUFFER;
   static VertexDef UNIT_CUBE_VERTEX_DATA[UNIT_CUBE_VERTEX_COUNT];
+
+  static const int UNIT_CIRCLE_VERTEX_COUNT = 361;
+  static VertexFormat UNIT_CIRCLE_VERTEX_FORMAT;
+  static VertexBuffer UNIT_CIRCLE_VERTEX_BUFFER;
+  static VertexDef UNIT_CIRCLE_VERTEX_DATA[UNIT_CIRCLE_VERTEX_COUNT];
 
 };
 

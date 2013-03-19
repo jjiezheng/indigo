@@ -1,16 +1,16 @@
-#ifndef SCALE_GIZMO_H
-#define SCALE_GIZMO_H
+#ifndef ROTATE_GIZMO_H
+#define ROTATE_GIZMO_H
 
 #include "../../IEditorTool.h"
 #include "maths/Point.h"
 
-#include "ScaleGizmoView.h"
+#include "RotateGizmoView.h"
 
 class IViewer;
 class Model;
 class Ray;
 
-class ScaleGizmo : public IEditorTool {
+class RotateGizmo : public IEditorTool {
 
 public:
 
@@ -28,11 +28,7 @@ public:
 
 private:
 
-  ScaleGizmoView view_;
-  ScaleGizmoMode scaleMode_;
-  Point startMousePosition_;
-  Vector3 startSelectionPosition_;
-  Vector3 lastSelectionPosition_;
+  RotateGizmoView view_;
 
 };
 

@@ -5,6 +5,7 @@
 #include "Point.h"
 
 Vector2 Vector2::IDENTITY = Vector2(0, 0);
+Vector2 Vector2::UP = Vector2(0, 1);
 
 Vector2::Vector2() 
   : x(0), y(0) { }

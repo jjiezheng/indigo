@@ -20,6 +20,7 @@ enum KeyCode {
 
   KEY_W = 87,
   KEY_E = 69,
+  KEY_R = 82,
 
   KEY_ALT = 256,
 	KEY_ESCAPE = 257,

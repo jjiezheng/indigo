@@ -4,7 +4,8 @@
 enum VertexFormat {
   TRIANGLE_LIST,
   TRIANGLE_STRIP,
-	LINE_LIST
+	LINE_LIST,
+  LINE_STRIP
 };
 
 #endif
