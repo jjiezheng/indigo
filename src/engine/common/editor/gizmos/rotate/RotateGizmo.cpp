@@ -28,7 +28,6 @@ void RotateGizmo::update(float dt, const Selection& selection, const Point& mous
   }
 
   Matrix4x4 selectedLocalToWorld = selection.selection()->localToWorld();
-  Vector4 selectedTranslation = selectedLocalToWorld.translation();
   Matrix4x4 viewTranslation = selection.selection()->localToWorld();
 
   Vector3 viewerToGizmo = viewer->position() - view_.localToWorld().translation().vec3();

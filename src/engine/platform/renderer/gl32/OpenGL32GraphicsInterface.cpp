@@ -217,6 +217,9 @@ void OpenGL32GraphicsInterface::drawVertexBuffer(int vertexBuffer, int vertexCou
     case LINE_LIST:
       drawMode = GL_LINES;
       break;
+    case LINE_STRIP:
+      drawMode = GL_LINE_STRIP;
+      break;
     default:
       assert(false);
       break;
