@@ -28,8 +28,7 @@ void TranslateGizmo::update(float dt, const Selection& selection, const Point& m
 
   Matrix4x4 selectedLocalToWorld = selection.selection()->localToWorld();
   Vector4 selectedTranslation = selectedLocalToWorld.translation();
-  Vector4 selectedMidPoint = selection.selection()->localToWorld() * selection.selection()->boundingBox().mid();
-  Matrix4x4 viewTranslation = Matrix4x4::translation(selectedMidPoint);
+  Matrix4x4 viewTranslation = selection.selection()->localToWorld();
 
   Vector3 viewerToGizmo = viewer->position() - view_.localToWorld().translation().vec3();
   float distanceToViewer = viewerToGizmo.length();
