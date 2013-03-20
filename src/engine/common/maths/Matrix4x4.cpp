@@ -328,3 +328,4 @@ void Matrix4x4::operator /= (float scalar) {
 Vector4 Matrix4x4::translation() const {
   return Vector4(m14, m24, m34, m44);
 }
+

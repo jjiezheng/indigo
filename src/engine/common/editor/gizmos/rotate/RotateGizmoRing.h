@@ -28,6 +28,8 @@ public:
 
   void setHighlight(bool isHighlighted);
 
+  BoundingBox boundingBox() const;
+
 private:
 
   VertexBuffer lineBuffer_;

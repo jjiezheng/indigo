@@ -574,6 +574,21 @@
 				"buffer_size": 3035,
 				"line_ending": "Windows"
 			}
+		},
+		{
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "line.cg",
+			"settings":
+			{
+				"buffer_size": 293,
+				"line_ending": "Windows"
+			}
 		}
 	],
 	"build_system": "",
@@ -1134,7 +1149,7 @@
 	"groups":
 	[
 		{
-			"selected": 6,
+			"selected": 8,
 			"sheets":
 			[
 				{
@@ -1318,14 +1333,68 @@
 						"selection":
 						[
 							[
-								1036,
-								1036
+								466,
+								466
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/Shader Languages/Cg.tmLanguage",
 							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"default_dir": "C:\\Users\\NK\\Development\\game\\assets\\shaders",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "line.cg",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 293,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								36,
+								36
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Shader Languages/Cg.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1371,7 +1440,7 @@
 	{
 		"height": 374.0
 	},
-	"project": "/C/Users/NK/Development/game/assets/shaders/shaders.sublime-project",
+	"project": "shaders.sublime-project",
 	"replace":
 	{
 		"height": 64.0

@@ -30,6 +30,7 @@ private:
 
   ScaleGizmoView view_;
   ScaleGizmoMode scaleMode_;
+
   Point startMousePosition_;
   Vector3 startSelectionPosition_;
   Vector3 lastSelectionPosition_;

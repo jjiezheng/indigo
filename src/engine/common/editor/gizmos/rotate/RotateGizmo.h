@@ -29,6 +29,13 @@ public:
 private:
 
   RotateGizmoView view_;
+  RotateGizmoMode rotateMode_;
+
+  Point startMousePosition_;
+  Vector3 startSelectionPosition_;
+  Vector3 lastSelectionPosition_;
+
+  Matrix4x4 viewOrientation_;
 
 };
 

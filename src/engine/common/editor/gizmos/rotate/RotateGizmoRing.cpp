@@ -73,3 +73,9 @@ void RotateGizmoRing::render(IViewer* viewer) const {
 
   GraphicsInterface::endPerformanceEvent();
 }
+
+BoundingBox RotateGizmoRing::boundingBox() const {
+  float kScaleAmount = 0.05f;
+  BoundingBox boundingBox = Node::boundingBox() + BoundingBox(Vector3(0, 0, -kScaleAmount), Vector3(0, 0, kScaleAmount));
+  return boundingBox;
+}

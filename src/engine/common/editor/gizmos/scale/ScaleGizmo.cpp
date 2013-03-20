@@ -115,7 +115,6 @@ void ScaleGizmo::update(float dt, const Selection& selection, const Point& mouse
 
   lastSelectionPosition_ = newPlanePosition.vec3();
   selection.selection()->setLocalToWorld(selectedLocalToWorld);
-
 }
 
 bool ScaleGizmo::mouseDown(const Point& mousePosition, const Selection& selection, const Ray& mouseRay) {
