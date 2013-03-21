@@ -9,11 +9,11 @@
 
 void TranslateGizmoView::init() {
   xArrow_.init();
-  xArrow_.setLocalToWorld(Matrix4x4::rotationY(toRadians(90)));
+  xArrow_.setOrientation(Matrix4x4::rotationY(toRadians(90)));
   addChild(&xArrow_);
   
   yArrow_.init();
-  yArrow_.setLocalToWorld(Matrix4x4::rotationX(toRadians(-90)));
+  yArrow_.setOrientation(Matrix4x4::rotationX(toRadians(-90)));
   addChild(&yArrow_);
 
   zArrow_.init();

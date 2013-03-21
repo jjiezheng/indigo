@@ -10,8 +10,8 @@ BoundingBox Node::boundingBox() const {
   {
     BoundingBox box = (*i)->boundingBox();
 
-    Vector4 min = (*i)->localToWorld_ * box.min;
-    Vector4 max = (*i)->localToWorld_ * box.max;
+    Vector4 min = (*i)->localToWorld(false) * box.min;
+    Vector4 max = (*i)->localToWorld(false) * box.max;
 
     boundingBox.min.x = std::min(boundingBox.min.x, min.x);
     boundingBox.max.x = std::max(boundingBox.max.x, max.x);
@@ -46,11 +46,12 @@ void Node::collectMeshes(IMeshList* meshList) const {
   }
 }
 
-Matrix4x4 Node::localToWorld() const {
-  Matrix4x4 localToWorld = localToWorld_;
-
-  if (NULL != parent_) {
-    localToWorld = parent_->localToWorld() * localToWorld_;
+Matrix4x4 Node::localToWorld(bool includeParent) const {
+  
+  Matrix4x4 localToWorld = Matrix4x4::translation(translation_) * orientation_ * scale_;
+  
+  if (NULL != parent_ && includeParent) {
+    localToWorld = parent_->localToWorld() * localToWorld;
   }
 
   return localToWorld;

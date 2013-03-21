@@ -12,112 +12,100 @@
 
 void RotateGizmo::init() {
   isActive_ = false;
-  view_.init();
+  view_ = &rotateView_;
+  rotateView_.init();
 }
 
 void RotateGizmo::render(IViewer* viewer) const {
-  view_.render(viewer);
+  rotateView_.render(viewer);
 }
 
 void RotateGizmo::update(float dt, const Selection& selection, const Point& mousePosition, const Ray& mouseRay, const IViewer* viewer) {
-  view_.highlightFromRay(mouseRay);
+  Gizmo::update(dt, selection, mousePosition, mouseRay, viewer);
+  rotateView_.highlightFromRay(mouseRay);
 
   if (!selection.hasSelection()) {
     isActive_ = false;
     return;
   }
-
-  Matrix4x4 selectedLocalToWorld = selection.selection()->localToWorld();
-  Matrix4x4 viewTranslation = selection.selection()->localToWorld();
-
-  Vector3 viewerToGizmo = viewer->position() - view_.localToWorld().translation().vec3();
-  float distanceToViewer = viewerToGizmo.length();
-  Matrix4x4 viewScale = Matrix4x4::scale(distanceToViewer);
-
-  Matrix4x4 viewLocalToWorld = viewScale * Matrix4x4::scale(0.1f);
-
-  //
-
-  if (startMousePosition_.x != 0 || startMousePosition_.y != 0) {
-
-    Vector3 planePosition = startSelectionPosition_;
-
-    Point mouseDelta = mousePosition - startMousePosition_;
-
-    Point planeScreenSpace = Transforms::worldSpaceToScreenSpace(viewer->viewProjection(), planePosition);
-    planeScreenSpace = planeScreenSpace + mouseDelta;
-
-    Vector4 newPlanePosition = Transforms::screenSpaceToWorldSpace(viewer->viewProjection().inverse(), planeScreenSpace, planeScreenSpace.z);
-    Vector3 planeDelta = newPlanePosition.vec3() - lastSelectionPosition_;
-
-    float kMinimumDragLength = 0.001f;
-    if (planeDelta.length() > kMinimumDragLength) {
-
-      float kScaleAmountScaler = 0.5f;
-      float planePositionDeltaLength = planeDelta.length() * kScaleAmountScaler;
-
-      if (rotateMode_ == ROTATE_GIZMO_MODE_X) {
-        if (newPlanePosition.y < lastSelectionPosition_.y) {
-          viewOrientation_ = viewOrientation_ * Matrix4x4::rotationX(planePositionDeltaLength);
-          selectedLocalToWorld = selectedLocalToWorld * Matrix4x4::rotationX(planePositionDeltaLength);
-        } else {
-          viewOrientation_ = viewOrientation_ * Matrix4x4::rotationX(-planePositionDeltaLength);
-          selectedLocalToWorld = selectedLocalToWorld * Matrix4x4::rotationX(-planePositionDeltaLength);
-        }
-      }
-
-      if (rotateMode_ == ROTATE_GIZMO_MODE_Y) {
-        if (newPlanePosition.x < lastSelectionPosition_.x) {
-          viewOrientation_ = viewOrientation_ * Matrix4x4::rotationY(-planePositionDeltaLength);
-          selectedLocalToWorld = selectedLocalToWorld * Matrix4x4::rotationY(-planePositionDeltaLength);
-        } else {
-          viewOrientation_ = viewOrientation_ * Matrix4x4::rotationY(planePositionDeltaLength);
-          selectedLocalToWorld = selectedLocalToWorld * Matrix4x4::rotationY(planePositionDeltaLength);
-        }
-      }
-
-      if (rotateMode_ == ROTATE_GIZMO_MODE_Z) {
-        if (newPlanePosition.y < lastSelectionPosition_.y) {
-          viewOrientation_ = viewOrientation_ * Matrix4x4::rotationZ(-planePositionDeltaLength);
-          selectedLocalToWorld = selectedLocalToWorld * Matrix4x4::rotationZ(-planePositionDeltaLength);
-        } else {
-          viewOrientation_ = viewOrientation_ * Matrix4x4::rotationZ(planePositionDeltaLength);
-          selectedLocalToWorld = selectedLocalToWorld * Matrix4x4::rotationZ(planePositionDeltaLength);
-        }
-      }
-    }
-
-    lastSelectionPosition_ = newPlanePosition.vec3();
-    selection.selection()->setLocalToWorld(selectedLocalToWorld);
+  
+  if (!selected_) {
+    return;
   }
-
-   viewLocalToWorld = viewTranslation * viewOrientation_ * viewLocalToWorld;
-   view_.setLocalToWorld(viewLocalToWorld);
-   
-
-  if (rotateMode_ == ROTATE_GIZMO_MODE_X) {
-    view_.highlightX();
+  
+  Node* selectedNode = selection.selection();
+  
+  Vector4 mouseScreenSpace = Transforms::screenSpaceToNDCSpace(mousePosition);
+  Vector4 startMouseScreenSpace = Transforms::screenSpaceToNDCSpace(startMousePosition_);
+  
+  Vector4 selectedWorldPosition = selection.selection()->localToWorld().translation();
+  Vector4 selectedScreenSpace = Transforms::worldSpaceToNDCSpace(viewer->viewProjection(), selectedWorldPosition);
+  
+  Vector4 selectedToStartMouse = startMouseScreenSpace - selectedScreenSpace;
+  selectedToStartMouse.z = 0;
+  selectedToStartMouse.w = 0;
+  selectedToStartMouse.normalizeIP();
+  
+  Vector4 selectedToMouse = mouseScreenSpace - selectedScreenSpace;
+  selectedToMouse.z = 0;
+  selectedToMouse.w = 0;
+  selectedToMouse.normalizeIP();
+  
+  LOG("%f %f %f - %f %f %f",
+      selectedToStartMouse.x, selectedToStartMouse.y, selectedToStartMouse.z,
+      selectedToMouse.x, selectedToMouse.y, selectedToMouse.z);
+  
+  float angle = selectedToMouse.angle(selectedToStartMouse);
+  Vector4 cross = selectedToMouse.cross(selectedToStartMouse);
+  
+  if (cross.z > 0.0f) {
+    angle = -angle;
   }
-
-  if (rotateMode_ == ROTATE_GIZMO_MODE_Y) {
-    view_.highlightY();
+  
+  float angleDelta = angle - lastAngle_;
+  
+  Matrix4x4 existingOrientation = selectedNode->orientation();
+  Matrix4x4 orientationIncrement = Matrix4x4::IDENTITY;
+  
+  switch (rotateMode_) {
+    case ROTATE_GIZMO_MODE_X:
+      orientationIncrement = Matrix4x4::rotationX(angleDelta);
+      break;
+      
+    case ROTATE_GIZMO_MODE_Y:
+      orientationIncrement = Matrix4x4::rotationY(angleDelta);
+      break;
+      
+    case ROTATE_GIZMO_MODE_Z:
+      orientationIncrement = Matrix4x4::rotationZ(angleDelta);
+      break;
+      
+    case ROTATE_GIZMO_MODE_UNKNOWN:
+      break;
   }
-
-  if (rotateMode_ == ROTATE_GIZMO_MODE_Z) {
-    view_.highlightZ();
-  }
+  
+  Matrix4x4 newOrientation = existingOrientation * orientationIncrement;
+  
+  selectedNode->setOrientation(newOrientation);
+  rotateView_.setOrientation(newOrientation);
+  
+  lastAngle_ = angle;
 }
 
 bool RotateGizmo::mouseDown(const Point& mousePosition, const Selection& selection, const Ray& mouseRay) {
   startMousePosition_ = mousePosition;
   startSelectionPosition_ = selection.selection()->localToWorld().translation().vec3();
   lastSelectionPosition_ = startSelectionPosition_;
+  lastAngle_ = 0.0f;
+  
+  selected_ = true;
 
-  RotateGizmoSelectionResult result = view_.selectFromRay(mouseRay);
+  RotateGizmoSelectionResult result = rotateView_.selectFromRay(mouseRay);
   rotateMode_ = result.mode;
   return result.selected;
 }
 
 void RotateGizmo::mouseUp() {
   rotateMode_ = ROTATE_GIZMO_MODE_UNKNOWN;
+  selected_ = false;
 }

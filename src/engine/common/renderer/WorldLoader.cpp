@@ -335,8 +335,7 @@ void WorldLoader::loadSceneItem(const json::Object& objectItem, World& world, co
   float z = zNumber.Value();
   
   Vector3 position(x, y, z);
-  Matrix4x4 localToWorld = Matrix4x4::translation(position);
-  model->setLocalToWorld(localToWorld);
+  model->setTranslation(position);
 
 	json::Object::const_iterator actorIt = objectItem.Find("actor");
 

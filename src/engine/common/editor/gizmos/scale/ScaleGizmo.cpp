@@ -11,30 +11,27 @@
 #include "renderer/Transforms.h"
 
 void ScaleGizmo::init() {
-  view_.init();
+  view_ = &scaleView_;
+  scaleView_.init();
 }
 
 void ScaleGizmo::render(IViewer* viewer) const {
-  view_.render(viewer);
+  scaleView_.render(viewer);
 }
 
 void ScaleGizmo::update(float dt, const Selection& selection, const Point& mousePosition, const Ray& mouseRay, const IViewer* const viewer) {
-  view_.highlightFromRay(mouseRay);
+  Gizmo::update(dt, selection, mousePosition, mouseRay, viewer);
+  
+  scaleView_.highlightFromRay(mouseRay);
 
   if (!selection.hasSelection()) {
     isActive_ = false;
     return;
   }
 
-  Matrix4x4 selectedLocalToWorld = selection.selection()->localToWorld();
-  Matrix4x4 viewTranslation = selection.selection()->localToWorld();
-
-  Vector3 viewerToGizmo = viewer->position() - view_.localToWorld().translation().vec3();
-  float distanceToViewer = viewerToGizmo.length();
-  Matrix4x4 viewScale = Matrix4x4::scale(distanceToViewer);
-
-  Matrix4x4 viewLocalToWorld = viewTranslation * viewScale * Matrix4x4::scale(0.1f);
-  view_.setLocalToWorld(viewLocalToWorld);
+  Node* selectedNode = selection.selection();
+  Matrix4x4 selectedOrientation = selectedNode->orientation();
+  scaleView_.setOrientation(selectedOrientation);
 
   //
 
@@ -51,6 +48,8 @@ void ScaleGizmo::update(float dt, const Selection& selection, const Point& mouse
 
   Vector4 newPlanePosition = Transforms::screenSpaceToWorldSpace(viewer->viewProjection().inverse(), planeScreenSpace, planeScreenSpace.z);
   Vector3 planeDelta = newPlanePosition.vec3() - lastSelectionPosition_;
+  
+  Vector3 selectedScale(1, 1, 1);
 
   float kMinimumDragLength = 0.001f;
   if (planeDelta.length() > kMinimumDragLength) {
@@ -60,66 +59,69 @@ void ScaleGizmo::update(float dt, const Selection& selection, const Point& mouse
 
     if (scaleMode_ == SCALE_GIZMO_MODE_X) {
       if (newPlanePosition.x < lastSelectionPosition_.x) {
-        selectedLocalToWorld.m11 -= planePositionDeltaLength;
+        selectedScale.x -= planePositionDeltaLength;
       } else {
-        selectedLocalToWorld.m11 += planePositionDeltaLength;
+        selectedScale.x += planePositionDeltaLength;
       }
     }
 
     if (scaleMode_ == SCALE_GIZMO_MODE_Y) {
       if (newPlanePosition.y < lastSelectionPosition_.y) {
-        selectedLocalToWorld.m22 -= planePositionDeltaLength;
+        selectedScale.y -= planePositionDeltaLength;
       } else {
-        selectedLocalToWorld.m22 += planePositionDeltaLength;
+        selectedScale.y += planePositionDeltaLength;
       }
     }
 
     if (scaleMode_ == SCALE_GIZMO_MODE_Z) {
       if (newPlanePosition.z < lastSelectionPosition_.z) {
-        selectedLocalToWorld.m33 -= planePositionDeltaLength;
+        selectedScale.z -= planePositionDeltaLength;
       } else {
-        selectedLocalToWorld.m33 += planePositionDeltaLength;
+        selectedScale.z += planePositionDeltaLength;
       }
     }
 
     if (scaleMode_ == SCALE_GIZMO_MODE_ALL) {
       if (newPlanePosition.x < lastSelectionPosition_.x) {
-        selectedLocalToWorld.m11 -= planePositionDeltaLength;
-        selectedLocalToWorld.m22 -= planePositionDeltaLength;
-        selectedLocalToWorld.m33 -= planePositionDeltaLength;
+        selectedScale.x -= planePositionDeltaLength;
+        selectedScale.y -= planePositionDeltaLength;
+        selectedScale.z -= planePositionDeltaLength;
       } else {
-        selectedLocalToWorld.m11 += planePositionDeltaLength;
-        selectedLocalToWorld.m22 += planePositionDeltaLength;
-        selectedLocalToWorld.m33 += planePositionDeltaLength;
+        selectedScale.x += planePositionDeltaLength;
+        selectedScale.y += planePositionDeltaLength;
+        selectedScale.z += planePositionDeltaLength;
       }
     }
   }
 
   if (scaleMode_ == SCALE_GIZMO_MODE_X) {
-    view_.highlightX();
+    scaleView_.highlightX();
   }
 
   if (scaleMode_ == SCALE_GIZMO_MODE_Y) {
-    view_.highlightY();
+    scaleView_.highlightY();
   }
 
   if (scaleMode_ == SCALE_GIZMO_MODE_Z) {
-    view_.highlightZ();
+    scaleView_.highlightZ();
   }
 
   if (scaleMode_ == SCALE_GIZMO_MODE_ALL) {
-    view_.highlightAll();
+    scaleView_.highlightAll();
   }
 
   lastSelectionPosition_ = newPlanePosition.vec3();
-  selection.selection()->setLocalToWorld(selectedLocalToWorld);
+  
+  Matrix4x4 selectedScaleDelta = Matrix4x4::scale(selectedScale);
+  Matrix4x4 selectedNewScale = selectedNode->scale() * selectedScaleDelta;
+  selectedNode->setScale(selectedNewScale);
 }
 
 bool ScaleGizmo::mouseDown(const Point& mousePosition, const Selection& selection, const Ray& mouseRay) {
   startMousePosition_ = mousePosition;
   startSelectionPosition_ = selection.selection()->localToWorld().translation().vec3();
   lastSelectionPosition_ = startSelectionPosition_;
-  ScaleGizmoSelectionResult result = view_.selectFromRay(mouseRay);
+  ScaleGizmoSelectionResult result = scaleView_.selectFromRay(mouseRay);
   scaleMode_ = result.mode;
   return result.selected;
 }

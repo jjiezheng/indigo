@@ -4,6 +4,7 @@
 
 #include "maths/Matrix4x4.h"
 #include "maths/Vector4.h"
+#include "maths/Vector3.h"
 #include "maths/Point.h"
 #include "core/Size.h"
 
@@ -57,4 +58,28 @@ Point Transforms::worldSpaceToScreenSpace(const Matrix4x4& viewProj, const Vecto
   screenSpace.y = (int)(ndcSpace.y * screenDimensions.height);
   
   return screenSpace;
+}
+
+Vector4 Transforms::worldSpaceToNDCSpace(const Matrix4x4& viewProj, const Vector4& worldPosition) {
+  Vector3 screenSpace;
+  
+  Vector4 clipSpace = viewProj * worldPosition;
+  Vector4 ndcSpace = clipSpace / clipSpace.w;
+  
+  return ndcSpace;
+}
+
+Vector4 Transforms::screenSpaceToNDCSpace(const Point& screenPoint) {
+  CSize screenDimensions = GraphicsInterface::screenSize();
+  Vector4 screenSize = Vector4((float)screenDimensions.width, (float)screenDimensions.height, 0, 0);
+  
+  Vector4 screenSpace((float)screenPoint.x, (float)screenPoint.y, 0, 1);
+  Vector4 ndcSpace = screenSpace / screenSize;
+  ndcSpace.y = 1.0f - ndcSpace.y;
+  ndcSpace = ndcSpace * 2.0f - 1.0f;
+  ndcSpace.z = screenPoint.z;
+  ndcSpace.w = 1;
+  
+  return ndcSpace;
+ 
 }

@@ -32,8 +32,8 @@ void Renderer3dDeferred::init(const CSize& screenSize) {
   /*skyStage_.init(screenSize);
   skyStage_.collectRenderTargets(this);*/
 
-  postProcessingStage_.init(screenSize);
-  postProcessingStage_.collectRenderTargets(this);
+//  postProcessingStage_.init(screenSize);
+//  postProcessingStage_.collectRenderTargets(this);
 
   presentStage_.init(screenSize);
 
@@ -47,7 +47,7 @@ void Renderer3dDeferred::render(IViewer* viewer, World& world, const SceneContex
   initStage_.render(viewer, world, sceneContext);
   lightingStage_.render(viewer, world, sceneContext, initStage_);
 //  /*skyStage_.render(viewer, world, lightingStage_);*/
-  postProcessingStage_.render(viewer, lightingStage_.lightMap(), sceneContext, initStage_);
+//  postProcessingStage_.render(viewer, lightingStage_.lightMap(), sceneContext, initStage_);
 
   DeferredRenderTarget renderTargetToPresent = renderTargets_[activeRenderTargetIndex_];
   presentStage_.render(renderTargetToPresent.renderTargetId, GraphicsInterface::depthBufferTexture());

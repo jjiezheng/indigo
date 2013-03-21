@@ -1,7 +1,7 @@
 #ifndef SCALE_GIZMO_H
 #define SCALE_GIZMO_H
 
-#include "../../IEditorTool.h"
+#include "../../Gizmo.h"
 #include "maths/Point.h"
 
 #include "ScaleGizmoView.h"
@@ -10,7 +10,7 @@ class IViewer;
 class Model;
 class Ray;
 
-class ScaleGizmo : public IEditorTool {
+class ScaleGizmo : public Gizmo {
 
 public:
 
@@ -28,7 +28,7 @@ public:
 
 private:
 
-  ScaleGizmoView view_;
+  ScaleGizmoView scaleView_;
   ScaleGizmoMode scaleMode_;
 
   Point startMousePosition_;

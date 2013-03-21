@@ -39,23 +39,6 @@ void DLOG(const char* channel, const char* format, va_list args) {
   OutputDebugStringA(buffer);
 }
 
-void DLOG(const char* channel, const char* format, ...) {
-  va_list args;
-  va_start(args, format);
-
-  DLOG(channel, format, args);
-
-  va_end(args);
-}
-
-
-void DLOG(const char* format, ...) {
-  va_list args;
-  va_start(args, format);
-  DLOG(LOG_CHANNEL_TEMP, format, args);
-  va_end(args);
-}
-
 void DLOGRAW(const char* format, ...) {
   va_list args;
   va_start(args, format);
@@ -73,13 +56,10 @@ void DLOGRAW(const char* format, ...) {
 };
 
 #else
-void DLOG(const char* channel, const char* fmt, ...) {
+void DLOG(const char* channel, const char* fmt, va_list args) {
   printf("%s: ", channel);
 
-  va_list args;
-  va_start(args, fmt);
   vfprintf(stdout, fmt, args);
-  va_end(args);
   printf("\n");
 };
 
@@ -90,6 +70,24 @@ void DLOGRAW(const char* fmt, ...) {
   va_end(args);
 };
 #endif
+
+void DLOG(const char* channel, const char* format, ...) {
+  va_list args;
+  va_start(args, format);
+  
+  DLOG(channel, format, args);
+  
+  va_end(args);
+}
+
+
+void DLOG(const char* format, ...) {
+  va_list args;
+  va_start(args, format);
+  DLOG(LOG_CHANNEL_TEMP, format, args);
+  va_end(args);
+}
+
 
 void RLOG(const char* format, ...) { } 
 

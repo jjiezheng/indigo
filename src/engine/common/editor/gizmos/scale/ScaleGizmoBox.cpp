@@ -27,10 +27,11 @@ void ScaleGizmoBox::init() {
     translationAlongLine = Matrix4x4::translation(Vector4(0, 0, 1, 0));
   }
   
-  Matrix4x4 coneLocalToWorld = translationAlongLine * Matrix4x4::scale(0.1f) * Matrix4x4::scale(1.0f);
-
+  Matrix4x4 coneScale = Matrix4x4::scale(0.1f) * Matrix4x4::scale(1.0f);
+  
   boxModel_.addMesh(boxMesh);
-  boxModel_.setLocalToWorld(coneLocalToWorld);
+  boxModel_.setScale(coneScale);
+  boxModel_.setTranslation(translationAlongLine.translation().vec3());
   addChild(&boxModel_);
 
   if (hasLeg_) {

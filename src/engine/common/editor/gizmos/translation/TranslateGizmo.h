@@ -1,7 +1,7 @@
 #ifndef TRANSLATE_GIZMO_H
 #define TRANSLATE_GIZMO_H
 
-#include "../../IEditorTool.h"
+#include "../../Gizmo.h"
 
 #include "TranslateGizmoView.h"
 
@@ -11,7 +11,7 @@ class IViewer;
 class Model;
 class Ray;
 
-class TranslateGizmo : public IEditorTool {
+class TranslateGizmo : public Gizmo {
 
 public:
 
@@ -29,7 +29,7 @@ public:
 
 private:
 
-  TranslateGizmoView view_;
+  TranslateGizmoView translateView_;
   TranslateGizmoMode translateMode_;
   Point startMousePosition_;
   Vector3 startSelectionPosition_;

@@ -22,9 +22,25 @@ public:
 
 public:
 
-  void setLocalToWorld(const Matrix4x4& localToWorld);
-
-  Matrix4x4 localToWorld() const;
+  Matrix4x4 localToWorld(bool includeParent = true) const;
+  
+public:
+  
+  void setOrientation(const Matrix4x4& orientation);
+  
+  Matrix4x4 orientation();
+  
+public:
+  
+  void setTranslation(const Vector3& translation);
+  
+  Vector3 translation() const;
+  
+public:
+  
+  void setScale(const Matrix4x4& scale);
+  
+  Matrix4x4 scale() const;
 
 public:
 
@@ -46,19 +62,42 @@ private:
 
   Node* parent_;
 
-  Matrix4x4 localToWorld_;
-
   std::vector<const Node*> children_;
+  
+  Matrix4x4 orientation_;
+  Matrix4x4 scale_;
+  Vector3 translation_;
 
 };
-
-inline void Node::setLocalToWorld(const Matrix4x4& localToWorld) {
-  localToWorld_ = localToWorld;
-}
 
 inline void Node::addChild(Node* node) {
   node->parent_ = this;
   children_.push_back(node);
 }
+
+inline void Node::setOrientation(const Matrix4x4& orientation) {
+  orientation_ = orientation;
+}
+
+inline Matrix4x4 Node::orientation() {
+  return orientation_;
+}
+
+inline void Node::setTranslation(const Vector3& translation) {
+  translation_ = translation;
+}
+
+inline Vector3 Node::translation() const {
+  return translation_;
+}
+
+inline void Node::setScale(const Matrix4x4& scale) {
+  scale_ = scale;
+}
+
+inline Matrix4x4 Node::scale() const {
+  return scale_;
+}
+
 
 #endif

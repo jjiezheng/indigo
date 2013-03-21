@@ -9,11 +9,11 @@
 
 void ScaleGizmoView::init() {
   xBox_.init();
-  xBox_.setLocalToWorld(Matrix4x4::rotationY(toRadians(90)));
+  xBox_.setOrientation(Matrix4x4::rotationY(toRadians(90)));
   addChild(&xBox_);
 
   yBox_.init();
-  yBox_.setLocalToWorld(Matrix4x4::rotationX(toRadians(-90)));
+  yBox_.setOrientation(Matrix4x4::rotationX(toRadians(-90)));
   addChild(&yBox_);
 
   zBox_.init();

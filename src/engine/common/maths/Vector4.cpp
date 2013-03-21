@@ -148,7 +148,7 @@ Vector3 Vector4::vec3() const {
 
 Vector4 Vector4::normalize() const {
   float length = this->length();
-  length = length ? length : 1.0f;
+  length = length > 0 ? length : 1.0;
   return Vector4(x / length, y / length, z / length, 1.0f);
 }
 

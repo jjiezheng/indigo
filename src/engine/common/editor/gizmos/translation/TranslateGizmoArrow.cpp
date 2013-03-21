@@ -22,10 +22,11 @@ void TranslateGizmoArrow::init() {
   coneMesh.createBuffers(Geometry::CONE_VERTEX_DATA, Geometry::CONE_VERTEX_COUNT, Geometry::CONE_VERTEX_FORMAT);
 
   Matrix4x4 translationAlongLine = Matrix4x4::translation(Vector4(0, 0, 1, 0));
-  Matrix4x4 coneLocalToWorld = translationAlongLine * Matrix4x4::scale(0.1f) * Matrix4x4::scale(Vector4(0.5f, 0.5f, 2.0f, 1.0f));
+  Matrix4x4 coneScale = Matrix4x4::scale(0.1f) * Matrix4x4::scale(Vector4(0.5f, 0.5f, 2.0f, 1.0f));
 
   coneModel_.addMesh(coneMesh);
-  coneModel_.setLocalToWorld(coneLocalToWorld);
+  coneModel_.setScale(coneScale);
+  coneModel_.setTranslation(translationAlongLine.translation().vec3());
 
   Mesh lineMesh;
   lineMesh.createBuffers(Geometry::LINE_VERTEX_DATA, Geometry::LINE_VERTEX_COUNT, Geometry::LINE_VERTEX_FORMAT);

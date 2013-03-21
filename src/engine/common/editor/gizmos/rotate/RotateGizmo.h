@@ -1,7 +1,7 @@
 #ifndef ROTATE_GIZMO_H
 #define ROTATE_GIZMO_H
 
-#include "../../IEditorTool.h"
+#include "../../Gizmo.h"
 #include "maths/Point.h"
 
 #include "RotateGizmoView.h"
@@ -10,7 +10,13 @@ class IViewer;
 class Model;
 class Ray;
 
-class RotateGizmo : public IEditorTool {
+class RotateGizmo : public Gizmo {
+  
+public:
+  
+  RotateGizmo()
+    : selected_(false)
+    , lastAngle_(0.0f) { }
 
 public:
 
@@ -28,7 +34,7 @@ public:
 
 private:
 
-  RotateGizmoView view_;
+  RotateGizmoView rotateView_;
   RotateGizmoMode rotateMode_;
 
   Point startMousePosition_;
@@ -36,6 +42,10 @@ private:
   Vector3 lastSelectionPosition_;
 
   Matrix4x4 viewOrientation_;
+  
+  float lastAngle_;
+  
+  bool selected_;
 
 };
 

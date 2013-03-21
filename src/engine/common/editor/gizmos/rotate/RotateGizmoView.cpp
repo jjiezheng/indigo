@@ -6,11 +6,11 @@
 
 void RotateGizmoView::init() {
   xRing_.init();
-  xRing_.setLocalToWorld(Matrix4x4::rotationY(toRadians(90)));
+  xRing_.setOrientation(Matrix4x4::rotationY(toRadians(90)));
   addChild(&xRing_);
 
   yRing_.init();
-  yRing_.setLocalToWorld(Matrix4x4::rotationX(toRadians(-90)));
+  yRing_.setOrientation(Matrix4x4::rotationX(toRadians(-90)));
   addChild(&yRing_);
 
   zRing_.init();
