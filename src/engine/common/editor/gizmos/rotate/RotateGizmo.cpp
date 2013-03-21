@@ -38,22 +38,28 @@ void RotateGizmo::update(float dt, const Selection& selection, const Point& mous
   Vector4 mouseScreenSpace = Transforms::screenSpaceToNDCSpace(mousePosition);
   Vector4 startMouseScreenSpace = Transforms::screenSpaceToNDCSpace(startMousePosition_);
   
-  Vector4 selectedWorldPosition = selection.selection()->localToWorld().translation();
+  Vector4 selectedWorldPosition = selectedNode->translation();
   Vector4 selectedScreenSpace = Transforms::worldSpaceToNDCSpace(viewer->viewProjection(), selectedWorldPosition);
   
   Vector4 selectedToStartMouse = startMouseScreenSpace - selectedScreenSpace;
   selectedToStartMouse.z = 0;
   selectedToStartMouse.w = 0;
-  selectedToStartMouse.normalizeIP();
   
   Vector4 selectedToMouse = mouseScreenSpace - selectedScreenSpace;
   selectedToMouse.z = 0;
   selectedToMouse.w = 0;
-  selectedToMouse.normalizeIP();
   
-  LOG("%f %f %f - %f %f %f",
-      selectedToStartMouse.x, selectedToStartMouse.y, selectedToStartMouse.z,
-      selectedToMouse.x, selectedToMouse.y, selectedToMouse.z);
+  LOG("%f %f %f %f",
+      selectedScreenSpace.x, selectedScreenSpace.y, selectedScreenSpace.z, selectedScreenSpace.w);
+  
+  if (selectedScreenSpace.x != selectedScreenSpace.x) {
+    int a = 1;
+    (void)a;
+  }
+
+
+  selectedToMouse.normalizeIP();
+  selectedToStartMouse.normalizeIP();
   
   float angle = selectedToMouse.angle(selectedToStartMouse);
   Vector4 cross = selectedToMouse.cross(selectedToStartMouse);
@@ -90,6 +96,18 @@ void RotateGizmo::update(float dt, const Selection& selection, const Point& mous
   rotateView_.setOrientation(newOrientation);
   
   lastAngle_ = angle;
+  
+  if (rotateMode_ == ROTATE_GIZMO_MODE_X) {
+    rotateView_.highlightX();
+  }
+  
+  if (rotateMode_ == ROTATE_GIZMO_MODE_Y) {
+    rotateView_.highlightY();
+  }
+  
+  if (rotateMode_ == ROTATE_GIZMO_MODE_Z) {
+    rotateView_.highlightZ();
+  }
 }
 
 bool RotateGizmo::mouseDown(const Point& mousePosition, const Selection& selection, const Ray& mouseRay) {

@@ -3,6 +3,8 @@
 #include <math.h>
 #include <stdlib.h>
 
+#include "platform/PlatformDefs.h"
+
 #include "maths/Angles.h"
 #include "io/Log.h"
 
@@ -109,7 +111,8 @@ void Camera::update(float dt) {
     }
   }
 
-  if (isPlayerControlled_ && Keyboard::keyState(KEY_ALT)) {
+  KeyCode cameraKey = (KeyCode)cameraControlKey();
+  if (isPlayerControlled_ && Keyboard::keyState(cameraKey)) {
     if (Mouse::isButtonDown(MOUSE_BUTTON_LEFT)) {
 
       float xDegrees = -xDelta * 0.25f;
@@ -235,4 +238,11 @@ bool Camera::insideFrustum(const Vector3& point, float radius) {
 
 bool Camera::underPlayerControl() const {
   return underPlayerControl_;
+}
+
+int Camera::cameraControlKey() const {
+#ifdef PLATFORM_MAC
+  return KEY_CMD;
+#endif
+  return KEY_ALT;
 }

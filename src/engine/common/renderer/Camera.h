@@ -93,6 +93,8 @@ public:
 private:
 
   void rebuildFrustum();
+  
+  int cameraControlKey() const;
 
 private:
   

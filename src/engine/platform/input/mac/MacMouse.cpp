@@ -69,7 +69,7 @@ void MacMouse::onMouseDown(int mouseButton) {
 
 void MacMouse::onMouseScroll(int position) {
   if (NULL != mouseListener_) {
-    mouseListener_->mouseScroll(position);
+    mouseListener_->mouseScroll(-position);
   }
 }
 
