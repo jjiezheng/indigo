@@ -51,12 +51,12 @@ void main()
 
     float _linearDepth;
 
-    _packedNormal0007 = gl_TexCoord[0].xyz*5.00000000E-001 + 5.00000000E-001;
-    _packedNormal0009 = gl_TexCoord[1].xyz*5.00000000E-001 + 5.00000000E-001;
+    _packedNormal0007 = gl_TexCoord[0].xyz*5.00000000E-01 + 5.00000000E-01;
+    _packedNormal0009 = gl_TexCoord[1].xyz*5.00000000E-01 + 5.00000000E-01;
     _linearDepth = -gl_TexCoord[2].z/_Far;
-    _enc0013 = vec4( 1.00000000E+000, 2.55000000E+002, 6.50250000E+004, 1.60581376E+008)*_linearDepth;
+    _enc0013 = vec4( 1.00000000E+00, 2.55000000E+02, 6.50250000E+04, 1.60581376E+08)*_linearDepth;
     _enc0013 = fract(_enc0013);
-    _enc0013 = _enc0013 - _enc0013.yzww*vec4( 3.92156886E-003, 3.92156886E-003, 3.92156886E-003, 0.00000000E+000);
+    _enc0013 = _enc0013 - _enc0013.yzww*vec4( 3.92156886E-03, 3.92156886E-03, 3.92156886E-03, 0.00000000E+00);
     gl_FragData[3].xyz = _packedNormal0009;
     gl_FragData[1].xyz = _packedNormal0007;
     gl_FragData[2] = _enc0013;

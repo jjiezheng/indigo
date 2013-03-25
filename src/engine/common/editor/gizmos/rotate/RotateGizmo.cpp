@@ -8,6 +8,7 @@
 #include "maths/Ray.h"
 #include "maths/Point.h"
 #include "maths/Plane.h"
+#include "maths/Angles.h"
 #include "renderer/Transforms.h"
 
 void RotateGizmo::init() {
@@ -32,81 +33,66 @@ void RotateGizmo::update(float dt, const Selection& selection, const Point& mous
   if (!selected_) {
     return;
   }
-  
+    
   Node* selectedNode = selection.selection();
-  
-  Vector4 mouseScreenSpace = Transforms::screenSpaceToNDCSpace(mousePosition);
-  Vector4 startMouseScreenSpace = Transforms::screenSpaceToNDCSpace(startMousePosition_);
-  
+
   Vector4 selectedWorldPosition = selectedNode->translation();
-  Vector4 selectedScreenSpace = Transforms::worldSpaceToNDCSpace(viewer->viewProjection(), selectedWorldPosition);
+  Point selectedScreenSpace = Transforms::worldSpaceToScreenSpace(viewer->viewProjection(), selectedWorldPosition);
   
-  Vector4 selectedToStartMouse = startMouseScreenSpace - selectedScreenSpace;
-  selectedToStartMouse.z = 0;
-  selectedToStartMouse.w = 0;
+  Vector4 mouseWorldSpace = Transforms::screenSpaceToWorldSpace(viewer->viewProjection().inverse(), mousePosition, selectedScreenSpace.z);
   
-  Vector4 selectedToMouse = mouseScreenSpace - selectedScreenSpace;
-  selectedToMouse.z = 0;
-  selectedToMouse.w = 0;
+  float circleAngle = mouseWorldSpace.y * M_PI_2;
+  Vector4 circlePoint;
+  circlePoint.y = sin(circleAngle);
+  circlePoint.z = cos(circleAngle);
   
-  LOG("%f %f %f %f",
-      selectedScreenSpace.x, selectedScreenSpace.y, selectedScreenSpace.z, selectedScreenSpace.w);
-  
-  if (selectedScreenSpace.x != selectedScreenSpace.x) {
-    int a = 1;
-    (void)a;
-  }
-
-
-  selectedToMouse.normalizeIP();
-  selectedToStartMouse.normalizeIP();
-  
-  float angle = selectedToMouse.angle(selectedToStartMouse);
-  Vector4 cross = selectedToMouse.cross(selectedToStartMouse);
-  
+  float angle = (-Vector4::FORWARD).angle(circlePoint);
+  Vector4 cross = Vector4::RIGHT.cross(circlePoint);
+    
   if (cross.z > 0.0f) {
     angle = -angle;
   }
   
-  float angleDelta = angle - lastAngle_;
-  
-  Matrix4x4 existingOrientation = selectedNode->orientation();
-  Matrix4x4 orientationIncrement = Matrix4x4::IDENTITY;
-  
-  switch (rotateMode_) {
-    case ROTATE_GIZMO_MODE_X:
-      orientationIncrement = Matrix4x4::rotationX(angleDelta);
-      break;
-      
-    case ROTATE_GIZMO_MODE_Y:
-      orientationIncrement = Matrix4x4::rotationY(angleDelta);
-      break;
-      
-    case ROTATE_GIZMO_MODE_Z:
-      orientationIncrement = Matrix4x4::rotationZ(angleDelta);
-      break;
-      
-    case ROTATE_GIZMO_MODE_UNKNOWN:
-      break;
+  if (angle != angle) {
+    int a = 1;
+    (void)a;
   }
   
-  Matrix4x4 newOrientation = existingOrientation * orientationIncrement;
-  
-  selectedNode->setOrientation(newOrientation);
-  rotateView_.setOrientation(newOrientation);
-  
-  lastAngle_ = angle;
-  
-  if (rotateMode_ == ROTATE_GIZMO_MODE_X) {
-    rotateView_.highlightX();
-  }
-  
-  if (rotateMode_ == ROTATE_GIZMO_MODE_Y) {
-    rotateView_.highlightY();
-  }
-  
-  if (rotateMode_ == ROTATE_GIZMO_MODE_Z) {
-    rotateView_.highlightZ();
+  if (angle < M_PI_2 && angle > -M_PI_2) {
+    
+    if (lastAngle_ == 0.0f) {
+      lastAngle_ = angle;
+    }
+
+    
+    float angleDelta = angle - lastAngle_;
+
+    Matrix4x4 existingOrientation = selectedNode->orientation();
+    Matrix4x4 orientationIncrement = Matrix4x4::IDENTITY;
+
+    switch (rotateMode_) {
+      case ROTATE_GIZMO_MODE_X:
+        orientationIncrement = Matrix4x4::rotationX(angleDelta);
+        break;
+
+      case ROTATE_GIZMO_MODE_Y:
+  //      orientationIncrement = Matrix4x4::rotationY(angleDelta);
+        break;
+
+      case ROTATE_GIZMO_MODE_Z:
+  //      orientationIncrement = Matrix4x4::rotationZ(angleDelta);
+        break;
+
+      case ROTATE_GIZMO_MODE_UNKNOWN:
+        break;
+    }
+
+    Matrix4x4 newOrientation = existingOrientation * orientationIncrement;
+
+    selectedNode->setOrientation(newOrientation);
+    rotateView_.setOrientation(newOrientation);
+    
+    lastAngle_ = angle;
   }
 }
 
@@ -126,4 +112,5 @@ bool RotateGizmo::mouseDown(const Point& mousePosition, const Selection& selecti
 void RotateGizmo::mouseUp() {
   rotateMode_ = ROTATE_GIZMO_MODE_UNKNOWN;
   selected_ = false;
+  lastAngle_ = 0.0f;
 }

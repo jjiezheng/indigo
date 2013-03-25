@@ -1,0 +1,53 @@
+// glslv output by Cg compiler
+// cgc version 3.1.0013, build date Apr 18 2012
+// command line args: -DGL=1 -DGL32=1 -q -profileopts version=140 -profile glslv
+// source file: color_threshold.cg
+//vendor NVIDIA Corporation
+//version 3.1.0.13
+//profile glslv
+//program vs
+//semantic Model
+//semantic ModelViewProj
+//semantic Color
+//var float4x4 Model :  : _Model[0], 4 : -1 : 1
+//var float4x4 ModelViewProj :  : _ModelViewProj[0], 4 : -1 : 1
+//var float3 Color :  : _Color : -1 : 1
+//var float4 position : $vin.POSITION : POSITION : 0 : 1
+//var float4 vs.position : $vout.POSITION : HPOS : -1 : 1
+//var float4 vs.color : $vout.TEXCOORD0 : TEXCOORD0 : -1 : 1
+
+#version 140
+
+struct VOutput {
+    vec4 _position2;
+    vec4 _color;
+};
+
+vec4 _r0005;
+vec4 _r0015;
+uniform vec4 _Model[4];
+uniform vec4 _ModelViewProj[4];
+uniform vec3 _Color;
+in vec4 cg_Vertex;
+out vec4 cg_TexCoord0;
+
+ // main procedure, the original name was vs
+void main()
+{
+
+    VOutput _OUT;
+
+    _r0005.x = dot(_ModelViewProj[0], cg_Vertex);
+    _r0005.y = dot(_ModelViewProj[1], cg_Vertex);
+    _r0005.z = dot(_ModelViewProj[2], cg_Vertex);
+    _r0005.w = dot(_ModelViewProj[3], cg_Vertex);
+    _r0015.z = dot(_Model[2], cg_Vertex);
+    if (_r0015.z < 0.00000000E+00) { // if begin
+        _OUT._color = vec4( 6.89999998E-01, 6.89999998E-01, 6.89999998E-01, 1.00000000E+00);
+    } else {
+        _OUT._color = vec4(_Color.x, _Color.y, _Color.z, 1.00000000E+00);
+    } // end if
+    cg_TexCoord0 = _OUT._color;
+    gl_Position = _r0005;
+    return;
+} // main end

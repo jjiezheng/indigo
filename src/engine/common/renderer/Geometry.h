@@ -26,6 +26,8 @@ public:
 	static VertexBuffer unitCube();
 
   static VertexBuffer unitCircle();
+  
+  static VertexBuffer unitSemiCircle();
 
 public:
 
@@ -54,6 +56,12 @@ public:
   static VertexFormat UNIT_CIRCLE_VERTEX_FORMAT;
   static VertexBuffer UNIT_CIRCLE_VERTEX_BUFFER;
   static VertexDef UNIT_CIRCLE_VERTEX_DATA[UNIT_CIRCLE_VERTEX_COUNT];
+  
+  static const int UNIT_SEMI_CIRCLE_VERTEX_COUNT = 181;
+  static VertexFormat UNIT_SEMI_CIRCLE_VERTEX_FORMAT;
+  static VertexBuffer UNIT_SEMI_CIRCLE_VERTEX_BUFFER;
+  static VertexDef UNIT_SEMI_CIRCLE_VERTEX_DATA[UNIT_SEMI_CIRCLE_VERTEX_COUNT];
+
 
 };
 

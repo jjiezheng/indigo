@@ -18,10 +18,10 @@ void Gizmo::update(float dt, const Selection& selection, const Point& mousePosit
     Vector3 viewTranslation = selectedNode->localToWorld().translation().vec3();
     view_->setTranslation(viewTranslation);
     
-    Vector3 viewerToGizmo = viewer->position() - view_->localToWorld().translation().vec3();
-    float distanceToViewer = viewerToGizmo.length();
+//    Vector3 viewerToGizmo = viewer->position() - view_->localToWorld().translation().vec3();
+//    float distanceToViewer = viewerToGizmo.length();
     
-    Matrix4x4 viewScale = Matrix4x4::scale(distanceToViewer) * Matrix4x4::scale(0.1f);
-    view_->setScale(viewScale);
+    //Matrix4x4 viewScale = Matrix4x4::scale(distanceToViewer) * Matrix4x4::scale(0.1f);
+    //view_->setScale(viewScale);
   }
 }

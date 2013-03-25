@@ -15,7 +15,7 @@ public:
     : effect_(0)
     , ringColor_(ringColor) 
     , isHighlighted_(false)
-    , drawBounds_(false)
+    , drawBounds_(true)
   { }
 
 public:

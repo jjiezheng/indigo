@@ -5,5 +5,5 @@
 
 void PCApp::mainLoop() {
 	App::mainLoop();
-	wantsToQuit_ = GraphicsInterface::windowClosed();
+	wantsToQuit_ = GraphicsInterface::windowClosed() || Keyboard::keyState(KEY_ESCAPE);
 }

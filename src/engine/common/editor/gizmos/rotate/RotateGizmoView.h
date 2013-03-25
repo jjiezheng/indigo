@@ -35,9 +35,9 @@ class RotateGizmoView : public Node {
 public:
 
   RotateGizmoView() 
-    : xRing_(Color3::BLUE)
+    : xRing_(Color3::RED)
     , yRing_(Color3::GREEN)
-    , zRing_(Color3::RED)
+    , zRing_(Color3::BLUE)
   {
 
   }

@@ -1,0 +1,27 @@
+uniform float4x4 Model;
+uniform float4x4 ModelViewProj;
+uniform float3 Color;
+
+struct VOutput {
+	float4 position		: POSITION;
+	float4 color			: TEXCOORD0;
+};
+
+VOutput vs(float4 position : POSITION) {
+	VOutput OUT;
+	OUT.position = mul(ModelViewProj, position);
+	float4 modelPosition = mul(Model, position);
+
+	if (modelPosition.z < 0.0f) {
+		OUT.color = float4(0.69f, 0.69f, 0.69f, 1.0f);
+	} else {
+		OUT.color = float4(Color, 1.0f);
+	}
+	
+	return OUT;
+}
+
+float4 ps(float4 position : POSITION,
+					float4 color 		: TEXCOORD0) : COLOR0 {
+	return color;
+}

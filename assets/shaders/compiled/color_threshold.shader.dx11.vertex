@@ -1,0 +1,58 @@
+// vs_4_0 output by Cg compiler
+// cgc version 3.1.0013, build date Apr 18 2012
+// command line args: -DDX11=1 -q -unroll all -profile vs_5_0
+// source file: color_threshold.cg
+//vendor NVIDIA Corporation
+//version 3.1.0.13
+//profile vs_5_0
+//program vs
+//semantic Model
+//semantic ModelViewProj
+//semantic Color
+//var float4x4 Model :  : _Model[0], 4 : -1 : 1
+//var float4x4 ModelViewProj :  : _ModelViewProj[0], 4 : -1 : 1
+//var float3 Color :  : _Color : -1 : 1
+//var float4 position : $vin.POSITION : POSITION : 0 : 1
+//var float4 vs.position : $vout.POSITION :  : -1 : 1
+//var float4 vs.color : $vout.TEXCOORD0 :  : -1 : 1
+
+#pragma pack_matrix(row_major)
+
+struct VOutput {
+    float4 _position1 : POSITION;
+    float4 _color : TEXCOORD0;
+};
+
+struct X1X {
+    float4 _POSITION : SV_Position;
+    float4 _TEXCOORD0 : TEXCOORD0;
+};
+
+static float4 _r0002;
+static float4 _r0004;
+static X1X cout;
+uniform float4x4 _Model;
+uniform float4x4 _ModelViewProj;
+uniform float3 _Color;
+
+ // main procedure, the original name was vs
+X1X main(in float4 _position : POSITION)
+{
+
+    VOutput _OUT;
+
+    _r0002.x = dot(_ModelViewProj._11_12_13_14, _position);
+    _r0002.y = dot(_ModelViewProj._21_22_23_24, _position);
+    _r0002.z = dot(_ModelViewProj._31_32_33_34, _position);
+    _r0002.w = dot(_ModelViewProj._41_42_43_44, _position);
+    _OUT._position1 = _r0002;
+    _r0004.z = dot(_Model._31_32_33_34, _position);
+    if (_r0004.z <   0.00000000000000000E00f) { // if begin
+        _OUT._color = float4(   6.89999997615814209E-01f,   6.89999997615814209E-01f,   6.89999997615814209E-01f,   1.00000000000000000E00f);
+    } else {
+        _OUT._color = float4(_Color.x, _Color.y, _Color.z,   1.00000000000000000E00f);
+    } // end if
+    cout._POSITION = _OUT._position1;
+    cout._TEXCOORD0 = _OUT._color;
+    return cout;
+} // main end

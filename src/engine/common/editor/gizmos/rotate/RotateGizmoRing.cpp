@@ -17,13 +17,13 @@ void RotateGizmoRing::init() {
   addChild(&circleModel_);
 
   lineBuffer_ = GraphicsInterface::createVertexBuffer(Geometry::LINE_VERTEX_DATA, Geometry::LINE_VERTEX_COUNT);
-  effect_ = EffectCache::instance()->loadEffect("shaders/compiled/color.shader");
+  effect_ = EffectCache::instance()->loadEffect("shaders/compiled/color_threshold.shader");
 }
 
 void RotateGizmoRing::render(IViewer* viewer) const {
   GraphicsInterface::beginPerformanceEvent("Ring");
 
-  GraphicsInterface::resetRenderTarget(false);
+  GraphicsInterface::resetRenderTarget(true);
   GraphicsInterface::setViewport(GraphicsInterface::backBufferSize());
   GraphicsInterface::setBlendState(IGraphicsInterface::NOBLEND);
   GraphicsInterface::setRenderState(CULL_MODE_NONE, true);
@@ -65,6 +65,9 @@ void RotateGizmoRing::render(IViewer* viewer) const {
 
     Matrix4x4 modelViewProjection = viewer->projection() * viewer->viewTransform() * localToWorld();
     effect_->setUniform(modelViewProjection, "ModelViewProj");
+    
+    Matrix4x4 model = localToWorld();
+    effect_->setUniform(model, "Model");
 
     effect_->commitBuffers();
     GraphicsInterface::drawVertexBuffer(Geometry::UNIT_CIRCLE_VERTEX_BUFFER, Geometry::UNIT_CIRCLE_VERTEX_COUNT, Geometry::UNIT_CIRCLE_VERTEX_FORMAT);

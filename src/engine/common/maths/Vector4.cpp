@@ -138,8 +138,9 @@ float Vector4::dot( const Vector4& other ) const {
 }
 
 float Vector4::angle(const Vector4& other) const {
-  float dotResult = this->dot(other);
-  return acos(dotResult);
+  float dot = this->dot(other);
+  float angle = acos(dot);
+  return angle;
 }
 
 Vector3 Vector4::vec3() const {
