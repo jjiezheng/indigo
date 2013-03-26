@@ -90,6 +90,8 @@ public:
   Vector4 operator + (float scalar) const;
 
 
+  void operator += (const Vector4& other);
+  
   void operator /= (float scalar);
   
   bool operator == (const Vector4& other) const;

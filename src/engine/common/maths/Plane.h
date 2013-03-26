@@ -3,6 +3,25 @@
 
 #include "Vector3.h"
 
+class Ray;
+
+class PlaneIntersectionResult {
+  
+public:
+  
+  PlaneIntersectionResult() { };
+  
+  PlaneIntersectionResult(const Vector3& position_, bool intersected_)
+    : position(position_)
+    , intersected(intersected_) { }
+  
+public:
+  
+  Vector3 position;
+  bool intersected;
+  
+};
+
 class Plane {
 
 public:
@@ -18,6 +37,10 @@ public:
   void normalize();
 
   Vector3 normal() const;
+  
+public:
+  
+  PlaneIntersectionResult testIntersection(const Ray& ray);
 
 public:
 

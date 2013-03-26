@@ -9,6 +9,8 @@
 #include "maths/Point.h"
 #include "maths/Plane.h"
 #include "maths/Angles.h"
+#include "maths/Matrix4x4.h"
+#include "maths/Matrix3x3.h"
 #include "renderer/Transforms.h"
 
 void RotateGizmo::init() {
@@ -35,37 +37,65 @@ void RotateGizmo::update(float dt, const Selection& selection, const Point& mous
   }
     
   Node* selectedNode = selection.selection();
+  
+  Vector4 planeNormal = Vector4::IDENTITY;
+  
+  Vector3 testDirection = startSelectedOrientation_.mat3x3() * Vector3::RIGHT;
+  
+  switch (rotateMode_) {
+    case ROTATE_GIZMO_MODE_X:
+      planeNormal = startSelectedOrientation_ * Vector4::RIGHT;
+      testDirection = startSelectedOrientation_.mat3x3() * Vector3::FORWARD;
+      break;
+      
+    case ROTATE_GIZMO_MODE_Y:
+      planeNormal = startSelectedOrientation_ * Vector4::UP;
+      testDirection = startSelectedOrientation_.mat3x3() * Vector3::RIGHT;
+      break;
+      
+    case ROTATE_GIZMO_MODE_Z:
+      planeNormal = startSelectedOrientation_ * -Vector4::FORWARD;
+      testDirection = startSelectedOrientation_.mat3x3() * Vector3::RIGHT;
+      break;
+      
+    case ROTATE_GIZMO_MODE_UNKNOWN:
+      break;
+  }
 
-  Vector4 selectedWorldPosition = selectedNode->translation();
-  Point selectedScreenSpace = Transforms::worldSpaceToScreenSpace(viewer->viewProjection(), selectedWorldPosition);
-  
-  Vector4 mouseWorldSpace = Transforms::screenSpaceToWorldSpace(viewer->viewProjection().inverse(), mousePosition, selectedScreenSpace.z);
-  
-  float circleAngle = mouseWorldSpace.y * M_PI_2;
-  Vector4 circlePoint;
-  circlePoint.y = sin(circleAngle);
-  circlePoint.z = cos(circleAngle);
-  
-  float angle = (-Vector4::FORWARD).angle(circlePoint);
-  Vector4 cross = Vector4::RIGHT.cross(circlePoint);
+  Plane plane(planeNormal.x, planeNormal.y, planeNormal.z, 0.0f);
+  PlaneIntersectionResult intersection = plane.testIntersection(mouseRay);
+
+  if (intersection.intersected) {
     
-  if (cross.z > 0.0f) {
-    angle = -angle;
-  }
-  
-  if (angle != angle) {
-    int a = 1;
-    (void)a;
-  }
-  
-  if (angle < M_PI_2 && angle > -M_PI_2) {
+    Vector3 localIntersection = intersection.position - selectedNode->translation();
+    Vector3 localIntersectionDirection = localIntersection.normalize();
+    
+    float rotationAngle = localIntersectionDirection.angleBetween(testDirection);
+    
+    Vector3 testCrossLocalIntersection = testDirection.cross(localIntersectionDirection);
+    
+    switch (rotateMode_) {
+      case ROTATE_GIZMO_MODE_X:
+        rotationAngle = testCrossLocalIntersection.x >= 0 ? rotationAngle : -rotationAngle;
+        break;
+        
+      case ROTATE_GIZMO_MODE_Y:
+        rotationAngle = testCrossLocalIntersection.y >= 0 ? -rotationAngle : rotationAngle;
+        break;
+        
+      case ROTATE_GIZMO_MODE_Z:
+        rotationAngle = testCrossLocalIntersection.z >= 0 ? -rotationAngle : rotationAngle;
+        break;
+        
+      case ROTATE_GIZMO_MODE_UNKNOWN:
+        break;
+    }
     
     if (lastAngle_ == 0.0f) {
-      lastAngle_ = angle;
+      lastAngle_ = rotationAngle;
     }
-
     
-    float angleDelta = angle - lastAngle_;
+    float angleDelta = rotationAngle - lastAngle_;
 
     Matrix4x4 existingOrientation = selectedNode->orientation();
     Matrix4x4 orientationIncrement = Matrix4x4::IDENTITY;
@@ -76,11 +106,11 @@ void RotateGizmo::update(float dt, const Selection& selection, const Point& mous
         break;
 
       case ROTATE_GIZMO_MODE_Y:
-  //      orientationIncrement = Matrix4x4::rotationY(angleDelta);
+        orientationIncrement = Matrix4x4::rotationY(-angleDelta);
         break;
 
       case ROTATE_GIZMO_MODE_Z:
-  //      orientationIncrement = Matrix4x4::rotationZ(angleDelta);
+        orientationIncrement = Matrix4x4::rotationZ(-angleDelta);
         break;
 
       case ROTATE_GIZMO_MODE_UNKNOWN:
@@ -92,7 +122,7 @@ void RotateGizmo::update(float dt, const Selection& selection, const Point& mous
     selectedNode->setOrientation(newOrientation);
     rotateView_.setOrientation(newOrientation);
     
-    lastAngle_ = angle;
+    lastAngle_ = rotationAngle;
   }
 }
 
@@ -101,6 +131,8 @@ bool RotateGizmo::mouseDown(const Point& mousePosition, const Selection& selecti
   startSelectionPosition_ = selection.selection()->localToWorld().translation().vec3();
   lastSelectionPosition_ = startSelectionPosition_;
   lastAngle_ = 0.0f;
+  
+  startSelectedOrientation_ = selection.selection()->localToWorld().inverse().transpose();
   
   selected_ = true;
 

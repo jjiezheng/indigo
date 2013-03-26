@@ -86,6 +86,13 @@ Vector4 Vector4::operator + (float scalar) const {
   return result;
 }
 
+void Vector4::operator += (const Vector4& other) {
+  x += other.x;
+  y += other.y;
+  z += other.z;
+  w += other.w;
+}
+
 bool Vector4::operator == (const Vector4& other) const {
   return other.x == x && other.y == y && other.z == z && other.w == w;
 }

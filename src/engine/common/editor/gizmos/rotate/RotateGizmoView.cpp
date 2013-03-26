@@ -11,21 +11,18 @@ void RotateGizmoView::init() {
   addChild(&xRing_);
 
   yRing_.init();
-//  Matrix4x4 yRotation = Matrix4x4::rotationX(toRadians(90));
-//  xRing_.setOrientation(yRotation);
-
- // addChild(&yRing_);
+  Matrix4x4 yRotation = Matrix4x4::rotationX(toRadians(90));
+  yRing_.setOrientation(yRotation);
+  addChild(&yRing_);
 
   zRing_.init();
-  Matrix4x4 zRotation = Matrix4x4::rotationX(toRadians(90)) * Matrix4x4::rotationY(toRadians(90));
-  zRing_.setOrientation(zRotation);
-//  addChild(&zRing_);
+  addChild(&zRing_);
 }
 
 void RotateGizmoView::render(IViewer* viewer) const {
   xRing_.render(viewer);
-//  yRing_.render(viewer);
-//  zRing_.render(viewer);
+  yRing_.render(viewer);
+  zRing_.render(viewer);
 }
 
 bool sortHighlightResults(std::pair<RotateGizmoRing*, IntersectionResult*> a, std::pair<RotateGizmoRing*, IntersectionResult*> b) {

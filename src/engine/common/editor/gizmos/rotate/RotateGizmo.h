@@ -42,6 +42,7 @@ private:
   Vector3 lastSelectionPosition_;
 
   Matrix4x4 viewOrientation_;
+  Matrix4x4 startSelectedOrientation_;
   
   float lastAngle_;
   
