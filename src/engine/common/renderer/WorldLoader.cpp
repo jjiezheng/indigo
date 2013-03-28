@@ -50,7 +50,7 @@ void WorldLoader::loadFromSceneFile(const std::string& filePath, World& world, S
   std::ifstream levelFile(fullFilePath.c_str(), std::ifstream::in);
   
   if (!levelFile.is_open()) {
-    LOG(LOG_CHANNEL_WORLDLOADER, "Unabled to load scene file %s", filePath.c_str());
+    LOG(LOG_CHANNEL_WORLDLOADER, "Unabled to load scene file %s", fullFilePath.c_str());
     return;
   }
   
