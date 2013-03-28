@@ -23,4 +23,9 @@
 #define hash_map std::hash_map
 #endif
 
+#ifdef PLATFORM_PS4
+#include <hash_map>
+#define hash_map std::hash_map
+#endif
+
 #endif

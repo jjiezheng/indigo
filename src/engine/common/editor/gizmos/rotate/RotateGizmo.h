@@ -15,8 +15,8 @@ class RotateGizmo : public Gizmo {
 public:
   
   RotateGizmo()
-    : selected_(false)
-    , lastAngle_(0.0f) { }
+    : lastAngle_(0.0f)
+	, selected_(false) { }
 
 public:
 

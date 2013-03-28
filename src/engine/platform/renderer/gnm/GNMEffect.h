@@ -1,7 +1,7 @@
 #ifndef GNMEFFECT_H
 #define GNMEFFECT_H
 
-#include "IEffect.h"
+#include "renderer/IEffect.h"
 
 #include <map>
 

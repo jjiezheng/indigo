@@ -16,7 +16,7 @@ class GNMGraphicsInterface : public IGraphicsInterface {
 
 public:
 
-  void openWindow(int width, int height, unsigned int multiSamples);
+  void openWindow(const char* windowTitle, int width, int height, unsigned int multiSamples, bool vsyncEnabled, bool isFullScreen);
 
   void setViewport(const CSize& dimensions);
 
@@ -38,7 +38,7 @@ public:
 
   IEffect* createEffect();
 
-  void resetGraphicsState(bool cullBack);
+  void resetGraphicsState(CullMode cullMode, bool drawWireframe);
 
   unsigned int loadTexture(const std::string& filePath);
 

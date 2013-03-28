@@ -1,7 +1,7 @@
 #include "GNMGraphicsInterface.h"
 
-#include "Color4.h"
-#include "VertexDefinition.h"
+#include "renderer/Color4.h"
+#include "renderer/VertexDefinition.h"
 
 #include "io/Log.h"
 #include "io/Path.h"
@@ -34,7 +34,7 @@ void* GNMGraphicsInterface::localAllocate(unsigned int alignment, unsigned int s
 void GNMGraphicsInterface::destroy() {
 }
 
-void GNMGraphicsInterface::openWindow(int width, int height, unsigned int multiSamples) {
+void GNMGraphicsInterface::openWindow(const char* windowTitle, int width, int height, unsigned int multiSamples, bool vsyncEnabled, bool isFullScreen) {
  
 }
 
@@ -50,10 +50,6 @@ void GNMGraphicsInterface::endPerformanceEvent() {
  
 }
 
-static void waitFlip(void)
-{
-}
-
 void GNMGraphicsInterface::swapBuffers() {  
  
 }
@@ -66,7 +62,7 @@ void GNMGraphicsInterface::clearActiveRenderTargets(const Color4& color) {
   
 }
 
-void GNMGraphicsInterface::resetGraphicsState(bool cullBack) {
+void GNMGraphicsInterface::resetGraphicsState(CullMode cullMode, bool drawWireframe) {
   
 }
 

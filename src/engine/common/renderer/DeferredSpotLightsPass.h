@@ -18,11 +18,11 @@ public:
   DeferredSpotLightsPass()
     : spotLightRenderTarget_(0)
     , spotLightRenderTexture_(0)
-    , quadVbo_(0)
-    , lightEffectNoShadow_(0)
-    , shadowDepthEffect_(0)
-    , accumulationEffect_(0)
-    , spotLightFrameBuffer_(0) { }
+    , spotLightFrameBuffer_(0)
+		, quadVbo_(0)
+		, lightEffectNoShadow_(0)
+		, shadowDepthEffect_(0)
+		, accumulationEffect_(0) { }
 
 public:
 

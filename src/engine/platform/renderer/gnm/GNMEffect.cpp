@@ -7,11 +7,11 @@
 #include "io/Path.h"
 #include "io/File.h"
 
-#include "IGraphicsInterface.h"
-#include "GraphicsInterface.h"
-#include "GNMGraphicsInterface.h"
+#include "renderer/IGraphicsInterface.h"
+#include "renderer/GraphicsInterface.h"
+#include "renderer/Color3.h"
 
-#include "Color3.h"
+#include "GNMGraphicsInterface.h"
 
 #define BASED_ALIGN	128	
 

@@ -28,6 +28,16 @@ float Clock::delta_time() {
 }
 #endif
 
+#ifdef PLATFORM_PS4
+
+void Clock::init() {
+}
+
+float Clock::delta_time() {
+ return 0.016f;
+}
+#endif
+
 #ifdef PLATFORM_WINDOWS
 
 #include <windows.h>

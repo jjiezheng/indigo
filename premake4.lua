@@ -158,20 +158,25 @@ project "game"
 			"src/engine/platform/renderer/dx11/**.cpp",
 		}
 
+	configuration { "ps4" }
+		targetextension(".elf")
+		defines     { "PLATFORM_PS4", "PLATFORM_POSIX" }
+		buildoptions "-fexceptions"
+		linkoptions "-lSceGnm -lSceGnmx -lSceGpuAddress -lSceGnmDriver_stub_weak"
+
 	configuration { "gnm" }
 		defines     { "RENDERER_GNM" }
-		links {
-			"libSceGnmx-debug"
-		}
+		
 		local SCE_ORBIS_SDK_DIR = os.getenv("SCE_ORBIS_SDK_DIR")
 		
 		SCE_ORBIS_SDK_DIR = SCE_ORBIS_SDK_DIR and SCE_ORBIS_SDK_DIR or ''	
 		includedirs { 
 			"src/engine/platform/renderer/gnm",
-			SCE_ORBIS_SDK_DIR .. "/target/include_common"
+			SCE_ORBIS_SDK_DIR .. "/target/include_common",
+			SCE_ORBIS_SDK_DIR .. "/target/include"
 		}
 		libdirs {
-			SCE_ORBIS_SDK_DIR .. "/host_tools/lib"
+			SCE_ORBIS_SDK_DIR .. "/target/lib"
 		}
 		files {
 			"src/engine/platform/renderer/gnm/**.h", 

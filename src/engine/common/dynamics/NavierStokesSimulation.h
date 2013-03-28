@@ -26,9 +26,9 @@ public:
     , velocitySourceDataX_(0)
 		, velocityY_(0)
 		, lastVelocityY_(0)
-		, userVelocityY_(0)
-    , velocitySourceDataY_(0)
 		, intermediaryVelocityY_(0)
+		, userVelocityY_(0)
+		, velocitySourceDataY_(0)
 	{ }
 
 public:
