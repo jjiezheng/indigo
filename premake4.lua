@@ -162,7 +162,7 @@ project "game"
 		targetextension(".elf")
 		defines     { "PLATFORM_PS4", "PLATFORM_POSIX" }
 		buildoptions "-fexceptions"
-		linkoptions "-lSceGnm -lSceGnmx -lSceGpuAddress -lSceGnmDriver_stub_weak"
+		linkoptions "-lSceGnm -lSceGnmx -lSceGpuAddress -lSceGnmDriver_stub_weak -lSceVideoOut_stub_weak"
 
 	configuration { "gnm" }
 		defines     { "RENDERER_GNM" }

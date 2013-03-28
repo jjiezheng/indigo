@@ -12,7 +12,11 @@
 #include <stddef.h>
 #include <stdlib.h>
 
+#include <video_out.h>
+
 #include "GNMEffect.h"
+
+using namespace sce;
 
 #define BASED_ALIGN	128
 
@@ -34,8 +38,60 @@ void* GNMGraphicsInterface::localAllocate(unsigned int alignment, unsigned int s
 void GNMGraphicsInterface::destroy() {
 }
 
+struct VideoInfo{
+		int32_t handle;
+		uint64_t* label;
+		uint32_t label_num;
+		uint32_t flip_index;
+		uint32_t buffer_num;
+		SceKernelEqueue eq;
+	};
+
+static VideoInfo s_videoInfo;
+
 void GNMGraphicsInterface::openWindow(const char* windowTitle, int width, int height, unsigned int multiSamples, bool vsyncEnabled, bool isFullScreen) {
- 
+	const uint32_t kNumRingEntries = 16;
+	const uint32_t cueCpRamShadowSize = Gnmx::ConstantUpdateEngine::computeCpRamShadowSize();
+	const uint32_t cueHeapSize = Gnmx::ConstantUpdateEngine::computeHeapSize(kNumRingEntries);
+	context_.init(malloc(cueCpRamShadowSize),
+							  localAllocate(Gnm::kMinimumBufferAlignmentInBytes, cueHeapSize), kNumRingEntries,
+							  localAllocate(Gnm::kMinimumBufferAlignmentInBytes, Gnm::kIndirectBufferMaximumSizeInBytes), Gnm::kIndirectBufferMaximumSizeInBytes,
+							  localAllocate(Gnm::kMinimumBufferAlignmentInBytes, Gnm::kIndirectBufferMaximumSizeInBytes), Gnm::kIndirectBufferMaximumSizeInBytes);
+
+
+	
+	Gnm::RenderTarget backBuffer;
+
+	Gnm::DataFormat format = Gnm::kDataFormatB8G8R8A8Unorm;
+	Gnm::TileMode tileMode;
+	GpuAddress::computeSurfaceTileMode(&tileMode, GpuAddress::kSurfaceTypeColorTargetDisplayable, format, 1);
+
+	void* buffer_address[8];
+	const Gnm::SizeAlign sizeAlign = backBuffer.init(width, height, 1, format, tileMode, Gnm::kNumSamples1, Gnm::kNumFragments1, NULL, NULL);
+	void* renderTargetAddress = localAllocate(sizeAlign.m_align, sizeAlign.m_size);
+	backBuffer.setAddresses(renderTargetAddress, 0, 0);
+	buffer_address[0] = renderTargetAddress;
+
+	SceVideoOutBufferAttribute attribute;
+	sceVideoOutSetBufferAttribute(&attribute,
+		SCE_VIDEO_OUT_PIXEL_FORMAT_B8_G8_R8_A8_SRGB,
+		SCE_VIDEO_OUT_TILING_MODE_TILE,
+		SCE_VIDEO_OUT_ASPECT_RATIO_16_9,
+		width, height, width);
+	
+	sceVideoOutRegisterBuffers(s_videoInfo.handle, 0, buffer_address, 1, &attribute); 
+	int32_t ret = sceVideoOutRegisterBuffers(s_videoInfo.handle, 0, buffer_address, 1, &attribute );
+
+	if (0 != ret) {
+
+	}
+
+	context_.reset();
+	context_.initializeDefaultHardwareState();
+
+	
+
+	context_.setupScreenViewport(0, 0, backBuffer.getWidth(), backBuffer.getHeight(), 0.5f, 0.5f);
 }
 
 void GNMGraphicsInterface::setViewport(const CSize& dimensions) {
