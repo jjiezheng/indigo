@@ -13,27 +13,12 @@
 #include <stdlib.h>
 
 #include <video_out.h>
+#include <sys/dmem.h>
+#include <kernel.h>
 
 #include "GNMEffect.h"
 
 using namespace sce;
-
-#define BASED_ALIGN	128
-
-static uint32_t local_mem_heap = 0;
-
-static void *localMemoryAlloc(const uint32_t size)  {
-  uint32_t allocated_size = (size + 1023) & (~1023);
-  uint32_t base = local_mem_heap;
-  local_mem_heap += allocated_size;
-  return (void*)base;
-}
-
-void* GNMGraphicsInterface::localAllocate(unsigned int alignment, unsigned int size) {
-  local_mem_heap = (local_mem_heap + alignment - 1) & (~(alignment-1));
-  void* memory = (void*)localMemoryAlloc(size);
-  return memory;
-}
 
 void GNMGraphicsInterface::destroy() {
 }
@@ -49,16 +34,51 @@ struct VideoInfo{
 
 static VideoInfo s_videoInfo;
 
+void GNMAllocator::init(SceKernelMemoryType type, uint32_t size) {
+	m_allocations = 0;
+	int m_type = type;
+	m_size = size;
+	m_alignment = 2 * 1024 * 1024;
+	m_base = 0;
+	off_t m_offset;
+	int retSys = sceKernelAllocateDirectMemory(SCE_KERNEL_MAIN_DMEM_OFFSET,
+		(SCE_KERNEL_MAIN_DMEM_OFFSET +
+		SCE_KERNEL_MAIN_DMEM_SIZE),
+		m_size,
+		m_alignment, // alignment
+		m_type,
+		&m_offset);
+	SCE_GNM_ASSERT(retSys == 0);
+	retSys = sceKernelMapDirectMemory(&reinterpret_cast<void*&>(m_base),
+		m_size,
+		SCE_KERNEL_PROT_CPU_READ|SCE_KERNEL_PROT_CPU_WRITE|SCE_KERNEL_PROT_GPU_ALL,
+		0,						//flags
+		m_offset,
+		m_alignment);
+}
+
+void* GNMAllocator::allocate(int32_t size, int32_t alignment) {
+	//SCE_GNM_ASSERT(type == m_type);
+	SCE_GNM_ASSERT(m_allocations < kMaximumAllocations);
+	const uint32_t mask = alignment - 1;
+	m_top = (m_top + mask) & ~mask;
+	void* result = m_allocation[m_allocations++] = m_base + m_top;
+	m_top += size;
+	SCE_GNM_ASSERT(m_top <= m_size);
+	return result;
+}
+
 void GNMGraphicsInterface::openWindow(const char* windowTitle, int width, int height, unsigned int multiSamples, bool vsyncEnabled, bool isFullScreen) {
-	const uint32_t kNumRingEntries = 16;
-	const uint32_t cueCpRamShadowSize = Gnmx::ConstantUpdateEngine::computeCpRamShadowSize();
-	const uint32_t cueHeapSize = Gnmx::ConstantUpdateEngine::computeHeapSize(kNumRingEntries);
-	context_.init(malloc(cueCpRamShadowSize),
-							  localAllocate(Gnm::kMinimumBufferAlignmentInBytes, cueHeapSize), kNumRingEntries,
-							  localAllocate(Gnm::kMinimumBufferAlignmentInBytes, Gnm::kIndirectBufferMaximumSizeInBytes), Gnm::kIndirectBufferMaximumSizeInBytes,
-							  localAllocate(Gnm::kMinimumBufferAlignmentInBytes, Gnm::kIndirectBufferMaximumSizeInBytes), Gnm::kIndirectBufferMaximumSizeInBytes);
+	
+	GNMAllocator allocator;
+	allocator.init(SCE_KERNEL_UC_GARLIC_NONVOLATILE, 1024 * 1024 * 256);
 
+	int32_t ret = Gnm::initialize();
 
+	if (ret != SCE_GNM_OK) {
+		SCE_GNM_ERROR("Gnm::initialize() failed!\n");
+		assert(false);
+	}
 	
 	Gnm::RenderTarget backBuffer;
 
@@ -68,9 +88,22 @@ void GNMGraphicsInterface::openWindow(const char* windowTitle, int width, int he
 
 	void* buffer_address[8];
 	const Gnm::SizeAlign sizeAlign = backBuffer.init(width, height, 1, format, tileMode, Gnm::kNumSamples1, Gnm::kNumFragments1, NULL, NULL);
-	void* renderTargetAddress = localAllocate(sizeAlign.m_align, sizeAlign.m_size);
+	void* renderTargetAddress = allocator.allocate(sizeAlign.m_size, sizeAlign.m_align);
 	backBuffer.setAddresses(renderTargetAddress, 0, 0);
 	buffer_address[0] = renderTargetAddress;
+
+	const uint32_t kPlayerId = 0;
+	s_videoInfo.handle = sceVideoOutOpen(kPlayerId, SCE_VIDEO_OUT_BUS_MAIN, 0, NULL);
+	SCE_GNM_ASSERT(s_videoInfo.handle >= 0);
+
+	ret = sceKernelCreateEqueue(&s_videoInfo.eq, __FUNCTION__);
+	SCE_GNM_ASSERT(ret >= 0);
+		
+	ret = sceVideoOutAddFlipEvent(s_videoInfo.eq, s_videoInfo.handle, NULL);
+	SCE_GNM_ASSERT(ret >= 0);
+		
+	s_videoInfo.flip_index = 0;
+	s_videoInfo.buffer_num = 0;
 
 	SceVideoOutBufferAttribute attribute;
 	sceVideoOutSetBufferAttribute(&attribute,
@@ -78,20 +111,23 @@ void GNMGraphicsInterface::openWindow(const char* windowTitle, int width, int he
 		SCE_VIDEO_OUT_TILING_MODE_TILE,
 		SCE_VIDEO_OUT_ASPECT_RATIO_16_9,
 		width, height, width);
-	
-	sceVideoOutRegisterBuffers(s_videoInfo.handle, 0, buffer_address, 1, &attribute); 
-	int32_t ret = sceVideoOutRegisterBuffers(s_videoInfo.handle, 0, buffer_address, 1, &attribute );
 
-	if (0 != ret) {
+	ret = sceVideoOutRegisterBuffers(s_videoInfo.handle, 0, buffer_address, 1, &attribute );
+	SCE_GNM_ASSERT(ret >= 0);
 
-	}
+	const uint32_t kNumRingEntries = 16;
+	const uint32_t cueCpRamShadowSize = Gnmx::ConstantUpdateEngine::computeCpRamShadowSize();
+	const uint32_t cueHeapSize = Gnmx::ConstantUpdateEngine::computeHeapSize(kNumRingEntries);
+	context_.init(malloc(cueCpRamShadowSize),
+							  allocator.allocate(cueHeapSize, Gnm::kMinimumBufferAlignmentInBytes), kNumRingEntries,
+							  allocator.allocate(Gnm::kIndirectBufferMaximumSizeInBytes, Gnm::kMinimumBufferAlignmentInBytes), Gnm::kIndirectBufferMaximumSizeInBytes,
+							  allocator.allocate(Gnm::kIndirectBufferMaximumSizeInBytes, Gnm::kMinimumBufferAlignmentInBytes), Gnm::kIndirectBufferMaximumSizeInBytes);
 
 	context_.reset();
 	context_.initializeDefaultHardwareState();
-
-	
-
 	context_.setupScreenViewport(0, 0, backBuffer.getWidth(), backBuffer.getHeight(), 0.5f, 0.5f);
+
+
 }
 
 void GNMGraphicsInterface::setViewport(const CSize& dimensions) {
@@ -210,3 +246,5 @@ unsigned int GNMGraphicsInterface::createFrameBuffer(unsigned int* renderTargetI
 void GNMGraphicsInterface::setFrameBuffer(unsigned int frameBufferId) {
 
 }
+
+
