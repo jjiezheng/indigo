@@ -6,12 +6,12 @@
 
 void RotateGizmoView::init() {
   xRing_.init();
-  Matrix4x4 xRotation = Matrix4x4::rotationX(toRadians(90)) * Matrix4x4::rotationY(toRadians(90));
+  Quaternion xRotation = Quaternion::fromAxisAngle(Vector3::RIGHT, toRadians(90)) * Quaternion::fromAxisAngle(Vector3::UP, toRadians(90));
   xRing_.setOrientation(xRotation);
   addChild(&xRing_);
 
   yRing_.init();
-  Matrix4x4 yRotation = Matrix4x4::rotationX(toRadians(90));
+  Quaternion yRotation = Quaternion::fromAxisAngle(Vector3::RIGHT, toRadians(90));
   yRing_.setOrientation(yRotation);
   addChild(&yRing_);
 

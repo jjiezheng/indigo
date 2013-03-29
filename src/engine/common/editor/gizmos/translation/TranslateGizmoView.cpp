@@ -9,11 +9,13 @@
 
 void TranslateGizmoView::init() {
   xArrow_.init();
-  xArrow_.setOrientation(Matrix4x4::rotationY(toRadians(90)));
+  Quaternion xOrientation = Quaternion::fromAxisAngle(Vector3::UP, toRadians(90));
+  xArrow_.setOrientation(xOrientation);
   addChild(&xArrow_);
   
   yArrow_.init();
-  yArrow_.setOrientation(Matrix4x4::rotationX(toRadians(-90)));
+  Quaternion yOrientation = Quaternion::fromAxisAngle(Vector3::RIGHT, toRadians(-90));
+  yArrow_.setOrientation(yOrientation);
   addChild(&yArrow_);
 
   zArrow_.init();

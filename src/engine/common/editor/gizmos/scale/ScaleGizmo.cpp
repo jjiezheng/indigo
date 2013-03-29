@@ -30,7 +30,7 @@ void ScaleGizmo::update(float dt, const Selection& selection, const Point& mouse
   }
 
   Node* selectedNode = selection.selection();
-  Matrix4x4 selectedOrientation = selectedNode->orientation();
+  Quaternion selectedOrientation = selectedNode->orientation();
   scaleView_.setOrientation(selectedOrientation);
 
   //

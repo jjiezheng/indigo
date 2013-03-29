@@ -9,11 +9,13 @@
 
 void ScaleGizmoView::init() {
   xBox_.init();
-  xBox_.setOrientation(Matrix4x4::rotationY(toRadians(90)));
+  Quaternion xOrientation = Quaternion::fromAxisAngle(Vector3::UP, toRadians(90));
+  xBox_.setOrientation(xOrientation);
   addChild(&xBox_);
 
   yBox_.init();
-  yBox_.setOrientation(Matrix4x4::rotationX(toRadians(-90)));
+  Quaternion yOrientation = Quaternion::fromAxisAngle(Vector3::RIGHT, toRadians(-90));
+  yBox_.setOrientation(yOrientation);
   addChild(&yBox_);
 
   zBox_.init();

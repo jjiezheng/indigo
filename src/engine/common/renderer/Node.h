@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "maths/Matrix4x4.h"
+#include "maths/Quaternion.h"
 #include "maths/BoundingBox.h"
 
 class Ray;
@@ -26,9 +27,9 @@ public:
   
 public:
   
-  void setOrientation(const Matrix4x4& orientation);
+  void setOrientation(const Quaternion& orientation);
   
-  Matrix4x4 orientation();
+  Quaternion orientation();
   
 public:
   
@@ -64,7 +65,7 @@ private:
 
   std::vector<const Node*> children_;
   
-  Matrix4x4 orientation_;
+  Quaternion orientation_;
   Matrix4x4 scale_;
   Vector3 translation_;
 
@@ -75,11 +76,11 @@ inline void Node::addChild(Node* node) {
   children_.push_back(node);
 }
 
-inline void Node::setOrientation(const Matrix4x4& orientation) {
+inline void Node::setOrientation(const Quaternion& orientation) {
   orientation_ = orientation;
 }
 
-inline Matrix4x4 Node::orientation() {
+inline Quaternion Node::orientation() {
   return orientation_;
 }
 

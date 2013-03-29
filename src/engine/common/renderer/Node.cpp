@@ -48,7 +48,8 @@ void Node::collectMeshes(IMeshList* meshList) const {
 
 Matrix4x4 Node::localToWorld(bool includeParent) const {
   
-  Matrix4x4 localToWorld = Matrix4x4::translation(translation_) * orientation_ * scale_;
+  Matrix4x4 orientation = orientation_.matrix4x4();
+  Matrix4x4 localToWorld = Matrix4x4::translation(translation_) * orientation * scale_;
   
   if (NULL != parent_ && includeParent) {
     localToWorld = parent_->localToWorld() * localToWorld;
